@@ -1,0 +1,25 @@
+.quiz_QstImg {
+    width: 30%;
+    margin: 0 auto;
+}
+.quiz_ques_img {
+    img {
+        width: 4rem;
+    }
+}
+.success_img {
+    img {
+        width: 20rem;
+    }
+}
+.responce_true {
+    font-weight: bold;
+    // color: rgb(112, 236, 112);
+    color: green;
+}
+
+.responce_false {
+    font-weight: bold;
+    // color: rgb(238, 114, 114);
+    color: red;
+}
