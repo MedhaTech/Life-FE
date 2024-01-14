@@ -1,3 +1,4 @@
+
 #!/bin/bash
 echo 'Stopping apache server...'
-sudo /bin/systemctl stop apache2.service
+sudo -u ec2-user systemctl stop apache2.service
