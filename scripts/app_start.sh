@@ -11,6 +11,6 @@ then
 else
   npm run start:dev
 fi
-sudo systemctl restart httpd.service
+sudo systemctl restart apache.service
 echo 'Apache service started'
 echo 'Site is UP'
