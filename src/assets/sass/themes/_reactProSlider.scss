@@ -432,7 +432,7 @@ header {
     color: var(--color-black-2) !important;
   }
   .pro-icon {
-    color: var(--color-yellow);
+    color: var(--color-red);
   }
   .pro-inner-item::before {
     content: "";
@@ -440,7 +440,7 @@ header {
     left: -1rem;
     width: 0.5rem;
     height: 100%;
-    background-color: var(--color-yellow);
+    background-color: var(--color-red);
   }
 }
 

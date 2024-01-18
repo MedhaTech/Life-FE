@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import UsersIcon1 from '../assets/media/UsersIcon1.png';
@@ -329,7 +330,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                             </span>
                         </NavLink>
                     </MenuItem>
-                    <MenuItem
+                    {/* <MenuItem
                         icon={
                             <img src={BadgesIcon} style={{ width: '20px' }} />
                         }
@@ -350,7 +351,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                                 Badges
                             </span>
                         </NavLink>
-                    </MenuItem>
+                    </MenuItem> */}
 
                     <MenuItem
                         icon={
@@ -381,7 +382,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                         </NavLink>
                     </MenuItem>
 
-                    <MenuItem
+                    {/* <MenuItem
                         icon={
                             <img
                                 src={SupportIcon}
@@ -407,7 +408,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                                 Support
                             </span>
                         </NavLink>
-                    </MenuItem>
+                    </MenuItem> */}
 
                     <MenuItem
                         icon={
