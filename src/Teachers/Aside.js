@@ -228,7 +228,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                             {t('teacher.faq')}
                         </NavLink>
                     </MenuItem>
-                    <MenuItem
+                    {/* <MenuItem
                         icon={<FaCaretSquareRight />}
                         className={
                             (location.pathname === '/teacher/support-journey' ||
@@ -247,10 +247,10 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                             {' '}
                             {t('teacher.support')}
                         </NavLink>
-                    </MenuItem>
+                    </MenuItem> */}
                     {/* post */}
 
-                    <MenuItem
+                    {/* <MenuItem
                         icon={<RiSurveyFill />}
                         className={
                             location.pathname === '/teacher/post-survey' &&
@@ -264,8 +264,8 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                         >
                             {t('teacher.post_survey')}
                         </NavLink>
-                    </MenuItem>
-                    <MenuItem
+                    </MenuItem> */}
+                    {/* <MenuItem
                         icon={<FaCertificate />}
                         className={
                             location.pathname === '/teacher/my-certificate' &&
@@ -279,6 +279,18 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                         >
                             {t('teacher.certificate')}
                         </NavLink>
+                    </MenuItem> */}
+
+                    <MenuItem
+                        icon={<RiLockPasswordFill />}
+                        className={
+                            location.pathname === '/teacher/change-password' &&
+                            'sidebar-active'
+                        }
+                    >
+                        <NavLink exact={true} to={'/teacher/change-password'}>
+                            {t('teacher.password')}
+                        </NavLink>
                     </MenuItem>
                     <MenuItem
                         icon={<FaHouseUser />}
@@ -289,17 +301,6 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                     >
                         <NavLink exact={true} to={'/teacher/my-profile'}>
                             {t('teacher.profile')}
-                        </NavLink>
-                    </MenuItem>
-                    <MenuItem
-                        icon={<RiLockPasswordFill />}
-                        className={
-                            location.pathname === '/teacher/change-password' &&
-                            'sidebar-active'
-                        }
-                    >
-                        <NavLink exact={true} to={'/teacher/change-password'}>
-                            {t('teacher.password')}
                         </NavLink>
                     </MenuItem>
                     <MenuItem
