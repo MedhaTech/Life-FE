@@ -253,14 +253,14 @@ function RegisterNew() {
                             setDiceBtn(false);
                             setSchoolBtn(true);
                         } else {
-                            setError('Oops..! UDISE Code seems incorrect');
+                            setError('Oops..! Institution Unique Code seems incorrect');
                         }
                     }
                 }
             })
             .catch(function (error) {
                 if (error?.response?.data?.status === 404) {
-                    setError('Entered Wrong UDISE Code');
+                    setError('Entered Wrong Institution Unique Code');
                 }
             });
 
@@ -479,7 +479,7 @@ function RegisterNew() {
                                                 maxLength={11}
                                                 minLength={11}
                                                 name="organization_code"
-                                                placeholder="Enter UDISE Code"
+                                                placeholder="Enter Institution Unique Code"
                                                 className="w-100 mb-3 mb-md-0"
                                                 style={{
                                                     borderRadius: '0px',

@@ -89,7 +89,7 @@ const TeacherDetailed = () => {
     ];
     const teacherDetailsHeaders = [
         {
-            label: 'UDISE CODE',
+            label: 'Institution Unique Code',
             key: 'UDISE code'
         },
         {

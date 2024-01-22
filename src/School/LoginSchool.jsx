@@ -45,7 +45,7 @@ function LoginSchool(props) {
 
     const inputUserId = {
         type: 'text',
-        placeholder: 'Enter UDISCE Code  '
+        placeholder: 'Enter Institution Unique Code Code  '
     };
 
     const inputPassword = {
@@ -223,7 +223,8 @@ function LoginSchool(props) {
                                                 className="mb-2"
                                                 htmlFor="discecode"
                                             >
-                                                Enter UDISCE Code
+                                                Enter Institution Unique Code
+                                                Code
                                             </Label>
                                             <InputBox
                                                 {...inputUserId}

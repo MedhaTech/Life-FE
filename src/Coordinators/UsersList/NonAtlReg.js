@@ -135,7 +135,7 @@ function RegisterNew() {
         if (index) {
             setError('Only numeric are allowed');
         } else if (diesCode.length < 11) {
-            setError('Udise Code must be 11 digits');
+            setError('Institution Unique Code must be 11 digits');
         } else {
             const body = JSON.stringify({
                 unique_code: diesCode
@@ -147,7 +147,7 @@ function RegisterNew() {
                     '/organizations/checkUniqueCode',
                 headers: {
                     'Content-Type': 'application/json',
-                    Authorization : 'O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870'
+                    Authorization: 'O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870'
                 },
                 data: body
             };
@@ -308,7 +308,7 @@ function RegisterNew() {
             url: process.env.REACT_APP_API_BASE_URL + '/mentors/register',
             headers: {
                 'Content-Type': 'application/json',
-                Authorization : 'O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870'
+                Authorization: 'O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870'
             },
 
             data: JSON.stringify(body)
@@ -369,7 +369,7 @@ function RegisterNew() {
                 `/organizations/createOrg?Data=${nonReg}`,
             headers: {
                 'Content-Type': 'application/json',
-                Authorization : 'O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870'
+                Authorization: 'O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870'
             },
             data: body
         };
@@ -419,7 +419,7 @@ function RegisterNew() {
             url: process.env.REACT_APP_API_BASE_URL + '/mentors/mobileOtp',
             headers: {
                 'Content-Type': 'application/json',
-                Authorization : 'O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870'
+                Authorization: 'O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870'
             },
             data: body
         };
@@ -587,7 +587,7 @@ function RegisterNew() {
                                     htmlFor="organization_code"
                                 >
                                     {/* {t('teacehr_red.UDISE')} */}
-                                    UDISE Code
+                                    Institution Unique Code
                                 </Label>
                                 <Input
                                     {...inputField}
@@ -597,7 +597,7 @@ function RegisterNew() {
                                     maxLength={11}
                                     minLength={11}
                                     name="organization_code"
-                                    placeholder="Enter UDISE Code"
+                                    placeholder="Enter Institution Unique Code"
                                     className="w-100 mb-3 mb-md-0"
                                     style={{
                                         borderRadius: '0px',
