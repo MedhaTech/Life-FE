@@ -88,7 +88,7 @@ const ViewMore = () => {
     //     axios(config)
     //         .then(function (response) {
     //             if (response.status === 200) {
-    //                 
+    //
     //                 setData(response?.data?.data[0]);
     //                 setButton(response.data.data[0].moc_name);
     //                 // if (response.data.data[0].moc_name !== null) {
@@ -139,7 +139,7 @@ const ViewMore = () => {
                                 </CardText>
                                 <CardText>
                                     <span className="mx-3">
-                                        <b>UDISE Code :</b>
+                                        <b>Institution Unique Code :</b>
                                     </span>
                                     <b>{orgDaTa.unique_code}</b>
                                 </CardText>

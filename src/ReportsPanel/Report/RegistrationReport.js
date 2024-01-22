@@ -74,7 +74,7 @@ const RegistrationReport = () => {
     ];
     const RegHeaders = [
         {
-            label: 'UDISE CODE',
+            label: 'Institution Unique Code',
             key: 'organization.organization_code'
         },
         {
@@ -124,7 +124,7 @@ const RegistrationReport = () => {
             key: 'organization_id'
         },
         {
-            label: 'UDISE CODE',
+            label: 'Institution Unique Code',
             key: 'organization_code'
         },
         {

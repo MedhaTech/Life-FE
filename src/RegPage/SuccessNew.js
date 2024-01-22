@@ -201,7 +201,7 @@ const SuccessNew = () => {
                                         marginBottom: '1rem'
                                     }}
                                 >
-                                    UDISE Code: {UniqueCode ? UniqueCode : '-'}
+                                    Institution Unique Code: {UniqueCode ? UniqueCode : '-'}
                                 </p>
                                 <p
                                     style={{

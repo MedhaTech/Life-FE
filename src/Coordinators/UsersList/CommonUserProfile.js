@@ -117,7 +117,6 @@ const CommonUserProfile = (props) => {
         axios(config)
             .then(function (response) {
                 if (response.status === 200) {
-
                     setData(response?.data?.data[0]);
                     setButton(response.data.data[0].moc_name);
                     // if (response.data.data[0].moc_name !== null) {
@@ -360,7 +359,7 @@ const CommonUserProfile = (props) => {
 
                             <CardText>
                                 <span className="mx-3">
-                                    <b>UDISCE Code :</b>
+                                    <b>Institution Unique Code :</b>
                                 </span>
 
                                 <b>

@@ -325,7 +325,7 @@ const MyProfile = () => {
                                                             xl={5}
                                                             className="my-auto profile-detail"
                                                         >
-                                                            <b>UDISE Code</b>
+                                                            <b>Institution Unique Code</b>
                                                         </Col>
                                                         <Col
                                                             //  md={1}

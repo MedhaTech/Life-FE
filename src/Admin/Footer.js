@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import React from 'react';
 import { Container, Row, Col } from 'reactstrap';
 import './Header.scss';
@@ -9,7 +10,8 @@ const Footer = () => {
                 <Row className="py-4">
                     <Col md={12}>
                         <p className="p-0 my-auto text-center">
-                            &copy; UNISOLVE, UNICEF {new Date().getFullYear()}{' '}
+                            &copy; EDI's Hackathon 2023-24
+                            {/* {new Date().getFullYear()}{' '} */}
                             <span className="my-auto">&reg;</span> All Rights
                             Reserved.
                         </p>

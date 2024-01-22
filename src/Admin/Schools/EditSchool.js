@@ -100,13 +100,13 @@ const EditSchool = (props) => {
                     'Please enter only alphanumeric characters'
                 )
                 .trim()
-                .required('UDISE  Code is Required'),
+                .required('Institution Unique Code is Required'),
             organization_name: Yup.string()
                 .required('Organization  Name is Required')
                 .matches(/^[a-zA-Z\s]+$/, 'Only Alpha characters are allowed'),
             unique_code: Yup.string()
                 .matches(/^[0-9]*$/, 'Please enter Numeric values')
-                .required('UDISE Code is Required'),
+                .required('Institution Unique Code is Required'),
             address: Yup.string().required('Address is required'),
             pin_code: Yup.string()
                 .matches(/^[0-9]*$/, 'Please enter Numeric values')
@@ -247,7 +247,7 @@ const EditSchool = (props) => {
                                                     htmlFor="unique_code"
                                                     // style={{ fontSize: 15 }}
                                                 >
-                                                    UDISE Code
+                                                    Institution Unique Code
                                                     <span required>*</span>
                                                 </Label>
                                                 <InputBox

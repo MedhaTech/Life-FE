@@ -175,7 +175,7 @@ const StudentDetailedReport = () => {
 
     const studentDetailsHeaders = [
         {
-            label: 'UDISE CODE',
+            label: 'Institution Unique Code',
             key: 'UDISE code'
         },
         {

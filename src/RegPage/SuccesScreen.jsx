@@ -201,7 +201,7 @@ const SuccessPage = () => {
                                         marginBottom: '1rem'
                                     }}
                                 >
-                                    UDISE Code:{' '}
+                                    Institution Unique Code:{' '}
                                     {orgDaTa.unique_code
                                         ? orgDaTa.unique_code
                                         : '-'}

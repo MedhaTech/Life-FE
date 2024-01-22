@@ -473,7 +473,7 @@ const TicketsPage = (props) => {
                 width: '9rem'
             },
             {
-                name: 'UDISE',
+                name: 'Institution Unique Code',
                 selector: (row) => row.organization_code,
                 cellExport: (row) => row.organization_code,
                 width: '13rem'
@@ -555,7 +555,7 @@ const TicketsPage = (props) => {
                 width: '9rem'
             },
             {
-                name: 'UDISE',
+                name: 'Institution Unique Code',
                 selector: (row) => row.team.mentor.organization.organization_code,
                 cellExport: (row) =>
                     row.team.mentor.organization.organization_code,
