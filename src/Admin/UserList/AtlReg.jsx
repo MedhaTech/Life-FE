@@ -179,7 +179,7 @@ function AtlPage() {
                 url: process.env.REACT_APP_API_BASE_URL + '/mentors/register',
                 headers: {
                     'Content-Type': 'application/json',
-                    Authorization : 'O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870'
+                    Authorization: 'O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870'
                 },
 
                 data: body
@@ -230,7 +230,7 @@ function AtlPage() {
             url: process.env.REACT_APP_API_BASE_URL + '/organizations/checkOrg',
             headers: {
                 'Content-Type': 'application/json',
-                Authorization : 'O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870'
+                Authorization: 'O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870'
             },
             data: body
         };
@@ -255,7 +255,9 @@ function AtlPage() {
                             setDiceBtn(false);
                             setSchoolBtn(true);
                         } else {
-                            setError('Oops..! UDISE Code seems incorrect');
+                            setError(
+                                'Oops..! Institution Unique Code seems incorrect'
+                            );
                         }
                     }
                 }
@@ -297,15 +299,16 @@ function AtlPage() {
             url: process.env.REACT_APP_API_BASE_URL + '/mentors/mobileOtp',
             headers: {
                 'Content-Type': 'application/json',
-                Authorization : 'O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870'
-
+                Authorization: 'O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870'
             },
             data: body
         };
         axios(config)
             .then(function (response) {
                 if (response.status === 202) {
-                    const UNhashedPassword = decryptGlobal(response?.data?.data);
+                    const UNhashedPassword = decryptGlobal(
+                        response?.data?.data
+                    );
                     setOtpRes(JSON.parse(UNhashedPassword));
                     openNotificationWithIcon('success', 'Otp send to Email Id');
                     setBtnOtp(true);

@@ -260,7 +260,7 @@ function AtlPage() {
                             setDiceBtn(false);
                             setSchoolBtn(true);
                         } else {
-                            setError('Oops..! UDISE Code seems incorrect');
+                            setError('Oops..! Institution Unique Code seems incorrect');
                         }
                     }
                 }

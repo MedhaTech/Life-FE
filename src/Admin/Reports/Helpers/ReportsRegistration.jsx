@@ -108,7 +108,7 @@ const ReportsRegistration = () => {
             key: 'organization.organization_code'
         },
         {
-            label: 'UDISE CODE',
+            label: 'Institution Unique Code',
             key: 'organization.unique_code'
         },
         {
@@ -174,7 +174,7 @@ const ReportsRegistration = () => {
             key: 'organization_code'
         },
         {
-            label: 'UDISE CODE',
+            label: 'Institution Unique Code',
             key: 'unique_code'
         },
         {

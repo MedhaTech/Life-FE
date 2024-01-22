@@ -132,7 +132,7 @@ function RegisterNew() {
         if (index) {
             setError('Only numeric are allowed');
         } else if (diesCode.length < 11) {
-            setError('Udise Code must be 11 digits');
+            setError('Institution Unique Code must be 11 digits');
         } else {
             const body = JSON.stringify({
                 unique_code: diesCode
@@ -602,7 +602,7 @@ function RegisterNew() {
                                     htmlFor="organization_code"
                                 >
                                     {/* {t('teacehr_red.UDISE')} */}
-                                    UDISE Code
+                                    Institution Unique Code
                                 </Label>
                                 <Input
                                     {...inputField}
@@ -612,7 +612,7 @@ function RegisterNew() {
                                     maxLength={11}
                                     minLength={11}
                                     name="organization_code"
-                                    placeholder="Enter UDISE Code"
+                                    placeholder="Enter Institution Unique Code"
                                     className="w-100 mb-3 mb-md-0"
                                     style={{
                                         borderRadius: '0px',

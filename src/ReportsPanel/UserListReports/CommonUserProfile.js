@@ -309,7 +309,7 @@ const CommonUserProfile = (props) => {
 
                             <CardText>
                                 <span className="mx-3">
-                                    <b>UDISCE Code :</b>
+                                    <b>Institution Unique Code :</b>
                                 </span>
 
                                 <b>

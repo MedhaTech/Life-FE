@@ -83,9 +83,12 @@ const AddNewSchool = (props) => {
                 .matches(/^[a-zA-Z\s]+$/, 'Please enter only alpha characters'),
             unique_code: Yup.string()
                 .matches(/^[0-9]*$/, 'Please enter Numeric values')
-                .max(11, 'Please enter only 11 digit valid Udise code')
-                .min(11, 'Udise code is less than 11 digits')
-                .required('UDISE Code is Required'),
+                .max(
+                    11,
+                    'Please enter only 11 digit valid Institution Unique Code'
+                )
+                .min(11, 'Institution Unique Code is less than 11 digits')
+                .required('Institution Unique Code is Required'),
             address: Yup.string()
                 .required('Address is required')
                 .matches(/^[a-zA-Z0-9\s\-/_]+$/),
@@ -199,7 +202,7 @@ const AddNewSchool = (props) => {
                                                     htmlFor="unique_code"
                                                     // style={{ fontSize: 15 }}
                                                 >
-                                                    UDISE Code
+                                                    Institution Unique Code
                                                     <span required>*</span>
                                                 </Label>
                                                 <InputBox
@@ -207,7 +210,7 @@ const AddNewSchool = (props) => {
                                                     id="unique_code"
                                                     name="unique_code"
                                                     maxLength={11}
-                                                    placeholder="Please enter Unique Code"
+                                                    placeholder="Please enter Institution Unique Code"
                                                     onChange={
                                                         formik.handleChange
                                                     }

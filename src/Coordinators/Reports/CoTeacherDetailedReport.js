@@ -108,7 +108,7 @@ const CoTeacherDetailedReport = () => {
             key: 'ATL code'
         },
         {
-            label: 'UDISE CODE',
+            label: 'Institution Unique Code',
             key: 'UDISE code'
         },
         {

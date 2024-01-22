@@ -100,7 +100,7 @@ const Dashboard = () => {
             })
             .catch(function (error) {
                 if (error?.response?.data?.status === 404) {
-                    setError('Entered Invalid UDISE Code');
+                    setError('Entered Invalid Institution Unique Code');
                 }
                 setOrgData({});
             });

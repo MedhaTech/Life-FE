@@ -57,7 +57,7 @@ const SuccessPage = () => {
                 '/mentors/triggerWelcomeEmail',
             headers: {
                 'Content-Type': 'application/json',
-                Authorization : 'O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870'
+                Authorization: 'O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870'
             },
             data: body
         };
@@ -204,7 +204,7 @@ const SuccessPage = () => {
                                         marginBottom: '1rem'
                                     }}
                                 >
-                                    UDISE Code:{' '}
+                                    Institution Unique Code:{' '}
                                     {orgDaTa.unique_code
                                         ? orgDaTa.unique_code
                                         : '-'}

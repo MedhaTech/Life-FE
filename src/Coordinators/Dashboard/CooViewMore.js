@@ -116,7 +116,7 @@ const ViewMore = () => {
                                 </CardText>
                                 <CardText>
                                     <span className="mx-3">
-                                        <b>UDISE Code :</b>
+                                        <b>Institution Unique Code :</b>
                                     </span>
                                     <b>{orgDaTa.unique_code}</b>
                                 </CardText>

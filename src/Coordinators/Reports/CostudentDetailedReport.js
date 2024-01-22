@@ -189,7 +189,7 @@ const CostudentDetailedReport = () => {
             key: 'ATL code'
         },
         {
-            label: 'UDISE CODE',
+            label: 'Institution Unique Code',
             key: 'UDISE code'
         },
         {

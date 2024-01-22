@@ -67,7 +67,7 @@ const EditSchool = (props) => {
                     'Please enter only alphanumeric characters'
                 )
                 .trim()
-                .required('UDISE  Code is Required'),
+                .required('Institution Unique Code is Required'),
             organization_name: Yup.string().required(
                 'Organization  Name is Required'
             ),
@@ -146,7 +146,7 @@ const EditSchool = (props) => {
                                                     className="mb-2"
                                                     htmlFor="organization_code"
                                                 >
-                                                    Unique Code
+                                                   Institution Unique Code
                                                     {/* <span required>*</span> */}
                                                 </Label>
                                                 <InputBox
@@ -154,7 +154,7 @@ const EditSchool = (props) => {
                                                     id="organization_code"
                                                     isDisabled={true}
                                                     name="organization_code"
-                                                    placeholder="Please enter Unique Code"
+                                                    placeholder="Please enter Institution Unique Code"
                                                     onChange={
                                                         formik.handleChange
                                                     }

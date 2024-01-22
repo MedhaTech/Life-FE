@@ -200,7 +200,7 @@ const TicketsPage = () => {
             },
 
             {
-                name: 'UDISE Code',
+                name: 'Institution Unique Code',
                 selector: (row) => row.organization_code,
                 cellExport: (row) => row.organization_code,
                 sortable: true,
