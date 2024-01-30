@@ -56,7 +56,7 @@ function AtlPage() {
     const [timer, setTimer] = useState(0);
     const [or, setOr] = useState('');
     const [instId, setInstId] = useState('');
-    console.log(instId, '222');
+    // console.log(instId, '222');
     const handleOnChange = (e) => {
         setDiesCode(e.target.value.trim());
         setOrgData();
@@ -198,7 +198,7 @@ function AtlPage() {
                 // values.password = encrypted;
                 const body = JSON.stringify({
                     mentor_name: values.mentor_name.trim(),
-                    institution_id: values.instId.trim(),
+                    institution_id: values.instId,
                     mentor_name_vernacular:
                         values.mentor_name_vernacular.trim(),
 
