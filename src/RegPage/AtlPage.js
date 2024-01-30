@@ -55,6 +55,8 @@ function AtlPage() {
     const [disable, setDisable] = useState(false);
     const [timer, setTimer] = useState(0);
     const [or, setOr] = useState('');
+    const [instId, setInstId] = useState('');
+    // console.log(instId, '222');
     const handleOnChange = (e) => {
         setDiesCode(e.target.value.trim());
         setOrgData();
@@ -81,43 +83,65 @@ function AtlPage() {
         placeholder: `${t('teacehr_red.faculty_ph')}`,
         className: 'defaultInput'
     };
+    const inputPassword = {
+        placeholder: 'Enter Password',
+        className: 'defaultInput'
+    };
+    const inputMentorTn = {
+        type: 'text',
+        placeholder: 'Enter Mentor Name',
+        className: 'defaultInput'
+    };
     const inputMobile = {
         type: 'text',
         placeholder: `${t('teacehr_red.faculty_mobile')}`,
         className: 'defaultInput'
     };
-    const inputEmail = {
+    const inputmentor_Email = {
         type: 'text',
         placeholder: 'Enter Email Id',
+        className: 'defaultInput'
+    };
+    const inputDate = {
+        type: 'date',
+        placeholder: 'DD/MM/YYYY',
         className: 'defaultInput'
     };
 
     const formik = useFormik({
         initialValues: {
-            full_name: '',
-            organization_code: diesCode,
-            // username: '',
-            mobile: '',
-            whatapp_mobile: '',
+            mentor_name: '',
+            institution_code: diesCode,
+            username: '',
+            mentor_mobile: '',
+            institution_id: '',
+            mentor_whatapp_mobile: '',
             role: 'MENTOR',
             qualification: '-',
             reg_status: false,
             otp: '',
             password: '',
             gender: '',
-            title: '',
-            email: '',
+            mentor_title: '',
+            mentor_email: '',
             click: false,
-            checkbox: false
+            checkbox: false,
+            mentor_name_vernacular: '',
+            date_of_birth: ''
         },
 
         validationSchema: Yup.object({
-            full_name: Yup.string()
+            mentor_name: Yup.string()
                 .trim()
                 .min(2, 'Enter Name')
                 .matches(/^[aA-zZ\s]+$/, 'Special Characters are not allowed')
                 .required('Required'),
-            mobile: Yup.string()
+            mentor_name_vernacular: Yup.string()
+                .trim()
+                .min(2, 'Enter Mentor Name')
+                .matches(/^[aA-zZ\s]+$/, 'Special Characters are not allowed')
+                .required('Required'),
+            mentor_mobile: Yup.string()
                 .required('required')
                 .trim()
                 .matches(
@@ -126,8 +150,16 @@ function AtlPage() {
                 )
                 .max(10, 'Please enter only 10 digit valid number')
                 .min(10, 'Number is less than 10 digits'),
-            email: Yup.string().email('Must be a valid email').max(255),
-            whatapp_mobile: Yup.string()
+            password: Yup.string()
+                .required('required')
+                .trim()
+                .matches(/^\d+$/, 'Enter only digits')
+                .max(8, 'Password is more than 8 digits')
+                .min(8, 'password is less than 8 digits'),
+            mentor_email: Yup.string()
+                .email('Must be a valid mentor_email')
+                .max(255),
+            mentor_whatapp_mobile: Yup.string()
                 .required('required')
                 .trim()
                 .matches(
@@ -137,7 +169,11 @@ function AtlPage() {
                 .max(10, 'Please enter only 10 digit valid number')
                 .min(10, 'Number is less than 10 digit'),
             gender: Yup.string().required('Please select valid gender'),
-            title: Yup.string().required('Please select Title')
+            date_of_birth: Yup.string()
+                .required('Please select DOB')
+                // .date_of_birth('Please Enter DOB')
+                .trim(),
+            mentor_title: Yup.string().required('Please select Title')
         }),
 
         onSubmit: async (values) => {
@@ -146,30 +182,36 @@ function AtlPage() {
                 setErrorMsg(true);
             } else {
                 const axiosConfig = getNormalHeaders(KEY.User_API_Key);
-                var pass = values.email.trim();
-                var myArray = pass.split('@');
-                let word = myArray[0];
+                var pass = values.password.trim();
+                // var myArray = pass.split('@');
+                // let word = myArray[0];
                 const key = CryptoJS.enc.Hex.parse(
                     '253D3FB468A0E24677C28A624BE0F939'
                 );
                 const iv = CryptoJS.enc.Hex.parse(
                     '00000000000000000000000000000000'
                 );
-                const encrypted = CryptoJS.AES.encrypt(word, key, {
+                const encrypted = CryptoJS.AES.encrypt(pass, key, {
                     iv: iv,
                     padding: CryptoJS.pad.NoPadding
                 }).toString();
                 // values.password = encrypted;
                 const body = JSON.stringify({
-                    full_name: values.full_name.trim(),
-                    organization_code: values.organization_code.trim(),
-                    mobile: values.mobile.trim(),
-                    whatapp_mobile: values.whatapp_mobile.trim(),
-                    username: values.email.trim(),
-                    qualification: values.qualification.trim(),
+                    mentor_name: values.mentor_name.trim(),
+                    institution_id: JSON.stringify(instId),
+                    mentor_name_vernacular:
+                        values.mentor_name_vernacular.trim(),
+
+                    institution_code: values.institution_code.trim(),
+                    mentor_mobile: values.mentor_mobile.trim(),
+                    mentor_email: values.mentor_email.trim(),
+
+                    mentor_whatapp_mobile: values.mentor_whatapp_mobile.trim(),
+                    username: values.mentor_mobile.trim(),
                     role: values.role.trim(),
                     gender: values.gender,
-                    title: values.title,
+                    mentor_title: values.mentor_title,
+                    date_of_birth: values.date_of_birth,
                     reg_status: values.reg_status,
                     password: encrypted
                 });
@@ -189,21 +231,31 @@ function AtlPage() {
                 await axios(config)
                     .then((mentorRegRes) => {
                         if (mentorRegRes?.data?.status == 201) {
+                            console.log(mentorRegRes, 'mentorRegRes');
                             setMentorData(mentorRegRes?.data?.data[0]);
                             const successData = {
-                                full_name:
-                                    mentorRegRes?.data?.data[0].full_name,
-                                district: orgData?.district,
-                                school: orgData?.organization_name,
-                                organization_code:
+                                password: mentorRegRes?.data?.data[0].password,
+
+                                mentor_name:
+                                    mentorRegRes?.data?.data[0].mentor_name,
+                                mentor_name_vernacular:
                                     mentorRegRes?.data?.data[0]
-                                        .organization_code,
+                                        .mentor_name_vernacular,
+                                // district: orgData?.district,
+                                // school: orgData?.organization_name,
+                                institution_code:
+                                    mentorRegRes?.data?.data[0]
+                                        .institution_code,
                                 gender: mentorRegRes?.data?.data[0].gender,
-                                title: mentorRegRes?.data?.data[0].title,
-                                mobile: mentorRegRes?.data?.data[0].mobile,
-                                username: mentorRegRes?.data?.data[0].email,
-                                whatapp_mobile:
-                                    mentorRegRes?.data?.data[0].whatapp_mobile
+                                mentor_title:
+                                    mentorRegRes?.data?.data[0].mentor_title,
+                                mentor_mobile:
+                                    mentorRegRes?.data?.data[0].mentor_mobile,
+                                username:
+                                    mentorRegRes?.data?.data[0].mentor_mobile,
+                                mentor_whatapp_mobile:
+                                    mentorRegRes?.data?.data[0]
+                                        .mentor_whatapp_mobile
                             };
                             // setBtn(true);
                             history.push({
@@ -228,11 +280,11 @@ function AtlPage() {
     });
     const handleRegister = (e) => {
         const body = JSON.stringify({
-            organization_code: diesCode
+            institution_code: diesCode
         });
         var config = {
             method: 'post',
-            url: process.env.REACT_APP_API_BASE_URL + '/organizations/checkOrg',
+            url: process.env.REACT_APP_API_BASE_URL + '/institutions/checkOrg',
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: 'O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870'
@@ -242,32 +294,36 @@ function AtlPage() {
         axios(config)
             .then(function (response) {
                 if (response?.status == 200) {
+                    console.log(response, '333');
                     if (
                         response?.data?.data[0].mentor != null &&
                         process.env.REACT_APP_USEDICECODE == 1
                     ) {
                         setError(
-                            'Another Teacher is already registered in given School'
+                            'Another Teacher is already registered in given Institution'
                         );
                     } else {
                         if (Object.keys(response?.data?.data[0]).length) {
                             setOrgData(response?.data?.data[0]);
+                            setInstId(response?.data?.data[0]?.institution_id);
                             formik.setFieldValue(
-                                'organization_code',
-                                response?.data?.data[0].organization_code
+                                'institution_code',
+                                response?.data?.data[0].institution_code
                             );
 
                             setDiceBtn(false);
                             setSchoolBtn(true);
                         } else {
-                            setError('Oops..! Institution Unique Code seems incorrect');
+                            setError(
+                                'Oops..! Institution Unique Code seems incorrect'
+                            );
                         }
                     }
                 }
             })
             .catch(function (error) {
                 if (error?.response?.data?.status === 404) {
-                    setError('Entered Wrong ATL Code');
+                    setError('Entered Wrong Institution Unique Code');
                 }
             });
 
@@ -277,7 +333,7 @@ function AtlPage() {
     const handleSendOtp = async (e) => {
         setHoldKey(true);
         setDisable(false);
-        formik.setFieldValue('mobile', formik.values.mobile);
+        formik.setFieldValue('mentor_mobile', formik.values.mentor_mobile);
         setTimer(timer + 1);
         setSec(59);
         setCounter(59);
@@ -295,7 +351,7 @@ function AtlPage() {
         //     setTimer(0);
         // }, 60000);
         const body = JSON.stringify({
-            username: formik.values.email
+            mobile: formik.values.mentor_mobile
         });
         var config = {
             method: 'post',
@@ -312,9 +368,12 @@ function AtlPage() {
                     const UNhashedPassword = decryptGlobal(
                         response?.data?.data
                     );
-
+                    console.log(UNhashedPassword);
                     setOtpRes(JSON.parse(UNhashedPassword));
-                    openNotificationWithIcon('success', 'Otp send to Email Id');
+                    openNotificationWithIcon(
+                        'success',
+                        'Otp send to Mobile Number'
+                    );
                     setBtnOtp(true);
                     setTimeout(() => {
                         setChange('Resend OTP');
@@ -328,7 +387,7 @@ function AtlPage() {
                 if (error?.response?.data?.status === 406) {
                     openNotificationWithIcon(
                         'error',
-                        'Email ID already exists'
+                        'Mobile Number already exists'
                     );
                     setTimeout(() => {
                         // setChange('Resend OTP');
@@ -348,25 +407,30 @@ function AtlPage() {
 
     useEffect(() => {
         if (
-            formik.values.title.length > 0 &&
-            formik.values.full_name.length > 0 &&
+            formik.values.mentor_title.length > 0 &&
+            formik.values.mentor_name.length > 0 &&
             formik.values.gender.length > 0 &&
-            formik.values.mobile.length > 0 &&
-            formik.values.email.length > 0 &&
-            formik.values.whatapp_mobile.length > 0
+            formik.values.mentor_mobile.length > 0 &&
+            formik.values.mentor_email.length > 0 &&
+            formik.values.mentor_whatapp_mobile.length > 0 &&
+            formik.values.password.length === 8 &&
+            formik.values.date_of_birth.length > 0 &&
+            formik.values.mentor_name_vernacular.length > 0
         ) {
             setDisable(true);
         } else {
             setDisable(false);
         }
     }, [
-        formik.values.title,
-        formik.values.full_name,
+        formik.values.mentor_title,
+        formik.values.mentor_name,
         formik.values.gender,
         formik.values.username,
-        formik.values.email,
-
-        formik.values.whatapp_mobile
+        formik.values.mentor_email,
+        formik.values.mentor_name_vernacular,
+        formik.values.date_of_birth,
+        formik.values.password,
+        formik.values.mentor_whatapp_mobile
     ]);
 
     const handleOtpChange = (e) => {
@@ -377,23 +441,26 @@ function AtlPage() {
     const handleCheckbox = (e, click) => {
         if (click) {
             setCheckBox(click);
-            formik.setFieldValue('whatapp_mobile', formik.values.mobile);
-            setWtsNum(formik.values.mobile);
+            formik.setFieldValue(
+                'mentor_whatapp_mobile',
+                formik.values.mentor_mobile
+            );
+            setWtsNum(formik.values.mentor_mobile);
         } else {
             setCheckBox(click);
-            formik.setFieldValue('whatapp_mobile', '');
+            formik.setFieldValue('mentor_whatapp_mobile', '');
         }
     };
 
     useEffect(() => {
         setCheckBox(false);
-        formik.setFieldValue('whatapp_mobile', '');
-    }, [formik.values.mobile.length == 0]);
-
+        formik.setFieldValue('mentor_whatapp_mobile', '');
+    }, [formik.values.mentor_mobile.length == 0]);
+    const dateRegex = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/;
     return (
         <div className="container-fluid  SignUp Login">
             <Row className="row-flex  ">
-                <div className="col-md-6 aside mobile-header">
+                <div className="col-md-6 aside mentor_mobile-header">
                     <Carousel>
                         <Carousel.Item>
                             <div className="mobile_tab-hide">
@@ -450,7 +517,7 @@ function AtlPage() {
                     <Row className="article-header mb-4 mt-4 text-center">
                         <h4 className="mb-4">
                             <span className="color-black">
-                                ATL School Registration
+                                Teacher Registration
                             </span>
                         </h4>
                     </Row>
@@ -469,22 +536,22 @@ function AtlPage() {
                                         >
                                             <Label
                                                 className="mb-2"
-                                                htmlFor="organization_code"
+                                                htmlFor="institution_code"
                                             >
                                                 {/* {t('teacehr_red.UDISE')} */}
-                                                ATL Code
+                                                Institution Unique Code
                                             </Label>
                                             <Input
                                                 {...inputField}
-                                                id="organization_code"
+                                                id="institution_code"
                                                 onChange={(e) =>
                                                     handleOnChange(e)
                                                 }
                                                 value={diesCode}
                                                 maxLength={11}
                                                 minLength={11}
-                                                name="organization_code"
-                                                placeholder="Enter ATL Code"
+                                                name="institution_code"
+                                                placeholder="Enter Institution Unique Code"
                                                 className="w-100 mb-3 mb-md-0"
                                                 style={{
                                                     borderRadius: '0px',
@@ -555,41 +622,57 @@ function AtlPage() {
                                                         color="primary"
                                                         toggle={false}
                                                     >
-                                                        {t(
+                                                        {/* {t(
                                                             'teacehr_red.school'
-                                                        )}
-                                                        :{' '}
+                                                        )} */}
+                                                        Institution Name :{' '}
                                                         {
-                                                            orgData?.organization_name
+                                                            orgData?.institution_name
                                                         }{' '}
                                                         <br />
-                                                        {t(
-                                                            'teacehr_red.city'
-                                                        )}:{' '}
-                                                        {orgData?.city
-                                                            ? orgData?.city
+                                                        Institution Type:{' '}
+                                                        {orgData
+                                                            ?.institution_type
+                                                            ?.institution_type
+                                                            ? orgData
+                                                                  ?.institution_type
+                                                                  ?.institution_type
                                                             : ' N/A'}{' '}
                                                         <br />
-                                                        {t(
-                                                            'teacehr_red.district'
-                                                        )}
-                                                        :{' '}
-                                                        {orgData?.district
-                                                            ? orgData?.district
+                                                        Place :{' '}
+                                                        {orgData?.place
+                                                            ?.place_name
+                                                            ? orgData?.place
+                                                                  ?.place_name
                                                             : ' N/A'}
                                                         <br />
-                                                        {t('teacehr_red.state')}
-                                                        :{' '}
-                                                        {orgData?.state
-                                                            ? orgData?.state
+                                                        District :{' '}
+                                                        {orgData?.place?.block
+                                                            ?.taluk?.district
+                                                            ?.district_name
+                                                            ? orgData?.place
+                                                                  ?.block?.taluk
+                                                                  ?.district
+                                                                  ?.district_name
                                                             : ' N/A'}{' '}
                                                         <br />
-                                                        {t(
-                                                            'teacehr_red.pincode'
-                                                        )}
-                                                        :{' '}
-                                                        {orgData?.pin_code
-                                                            ? orgData?.pin_code
+                                                        Taluk :{' '}
+                                                        {orgData?.place?.block
+                                                            ?.taluk?.taluk_name
+                                                            ? orgData?.place
+                                                                  ?.block?.taluk
+                                                                  ?.taluk_name
+                                                            : ' N/A'}{' '}
+                                                        <br />
+                                                        State :{' '}
+                                                        {orgData?.place?.block
+                                                            ?.taluk?.district
+                                                            ?.state?.state_name
+                                                            ? orgData?.place
+                                                                  ?.block?.taluk
+                                                                  ?.district
+                                                                  ?.state
+                                                                  ?.state_name
                                                             : ' N/A'}{' '}
                                                         <br />
                                                     </UncontrolledAlert>
@@ -611,7 +694,7 @@ function AtlPage() {
                                                 >
                                                     <Label
                                                         className="mb-2"
-                                                        htmlFor="title"
+                                                        htmlFor="mentor_title"
                                                     >
                                                         {t('teacehr_red.title')}
                                                     </Label>
@@ -621,14 +704,15 @@ function AtlPage() {
                                                                 ? true
                                                                 : false
                                                         }
-                                                        name="title"
+                                                        name="mentor_title"
                                                         // id="gender"
                                                         className=" col-8 selectDropdown"
                                                         style={{
                                                             borderRadius: '0'
                                                         }}
                                                         value={
-                                                            formik.values.title
+                                                            formik.values
+                                                                .mentor_title
                                                         }
                                                         onBlur={
                                                             formik.handleBlur
@@ -663,12 +747,13 @@ function AtlPage() {
                                                             )}
                                                         </option>
                                                     </select>
-                                                    {formik.touched.title &&
+                                                    {formik.touched
+                                                        .mentor_title &&
                                                     formik.errors.title ? (
                                                         <small className="error-cls">
                                                             {
                                                                 formik.errors
-                                                                    .title
+                                                                    .mentor_title
                                                             }
                                                         </small>
                                                     ) : null}
@@ -688,13 +773,13 @@ function AtlPage() {
                                                     </Label>
                                                     <InputBox
                                                         {...inputName}
-                                                        id="full_name"
+                                                        id="mentor_name"
                                                         isDisabled={
                                                             holdKey
                                                                 ? true
                                                                 : false
                                                         }
-                                                        name="full_name"
+                                                        name="mentor_name"
                                                         onChange={
                                                             formik.handleChange
                                                         }
@@ -703,16 +788,18 @@ function AtlPage() {
                                                         }
                                                         value={
                                                             formik.values
-                                                                .full_name
+                                                                .mentor_name
                                                         }
                                                     />
 
-                                                    {formik.touched.full_name &&
-                                                    formik.errors.full_name ? (
+                                                    {formik.touched
+                                                        .mentor_name &&
+                                                    formik.errors
+                                                        .mentor_name ? (
                                                         <small className="error-cls">
                                                             {
                                                                 formik.errors
-                                                                    .full_name
+                                                                    .mentor_name
                                                             }
                                                         </small>
                                                     ) : null}
@@ -735,19 +822,19 @@ function AtlPage() {
                                                 >
                                                     <Label
                                                         className="mb-2"
-                                                        htmlFor="email"
+                                                        htmlFor="mentor_email"
                                                     >
                                                         Email Address
                                                     </Label>
                                                     <InputBox
-                                                        {...inputEmail}
-                                                        id="email"
+                                                        {...inputmentor_Email}
+                                                        id="mentor_email"
                                                         isDisabled={
                                                             holdKey
                                                                 ? true
                                                                 : false
                                                         }
-                                                        name="email"
+                                                        name="mentor_email"
                                                         onChange={
                                                             formik.handleChange
                                                         }
@@ -755,16 +842,19 @@ function AtlPage() {
                                                             formik.handleBlur
                                                         }
                                                         value={
-                                                            formik.values.email
+                                                            formik.values
+                                                                .mentor_email
                                                         }
                                                     />
 
-                                                    {formik.touched.email &&
-                                                    formik.errors.email ? (
+                                                    {formik.touched
+                                                        .mentor_email &&
+                                                    formik.errors
+                                                        .mentor_email ? (
                                                         <small className="error-cls">
                                                             {
                                                                 formik.errors
-                                                                    .email
+                                                                    .mentor_email
                                                             }
                                                         </small>
                                                     ) : null}
@@ -775,7 +865,7 @@ function AtlPage() {
                                                     xs={12}
                                                     sm={12}
                                                     md={12}
-                                                    xl={6}
+                                                    xl={3}
                                                 >
                                                     <Label
                                                         className="mb-2"
@@ -830,6 +920,55 @@ function AtlPage() {
                                                         </small>
                                                     ) : null}
                                                 </Col>
+                                                <Col
+                                                    className="form-group"
+                                                    xs={12}
+                                                    sm={12}
+                                                    md={12}
+                                                    xl={3}
+                                                >
+                                                    <Label
+                                                        className="mb-2"
+                                                        htmlFor="date_of_birth"
+                                                    >
+                                                        DOB
+                                                    </Label>
+                                                    <InputBox
+                                                        {...inputDate}
+                                                        id="date_of_birth"
+                                                        isDisabled={
+                                                            holdKey
+                                                                ? true
+                                                                : false
+                                                        }
+                                                        pattern={
+                                                            dateRegex.source
+                                                        }
+                                                        name="date_of_birth"
+                                                        onChange={
+                                                            formik.handleChange
+                                                        }
+                                                        onBlur={
+                                                            formik.handleBlur
+                                                        }
+                                                        value={
+                                                            formik.values
+                                                                .date_of_birth
+                                                        }
+                                                    />
+
+                                                    {formik.touched
+                                                        .date_of_birth &&
+                                                    formik.errors
+                                                        .date_of_birth ? (
+                                                        <small className="error-cls">
+                                                            {
+                                                                formik.errors
+                                                                    .date_of_birth
+                                                            }
+                                                        </small>
+                                                    ) : null}
+                                                </Col>
                                             </Row>
                                             <Row
                                                 className="form-group"
@@ -847,19 +986,19 @@ function AtlPage() {
                                                 >
                                                     <Label
                                                         className="mb-2 mt-3"
-                                                        htmlFor="mobile"
+                                                        htmlFor="mentor_mobile"
                                                     >
                                                         Mobile Number
                                                     </Label>
                                                     <InputBox
                                                         {...inputUsername}
-                                                        id="mobile"
+                                                        id="mentor_mobile"
                                                         isDisabled={
                                                             holdKey
                                                                 ? true
                                                                 : false
                                                         }
-                                                        name="mobile"
+                                                        name="mentor_mobile"
                                                         onChange={
                                                             formik.handleChange
                                                         }
@@ -867,16 +1006,19 @@ function AtlPage() {
                                                             formik.handleBlur
                                                         }
                                                         value={
-                                                            formik.values.mobile
+                                                            formik.values
+                                                                .mentor_mobile
                                                         }
                                                     />
 
-                                                    {formik.touched.mobile &&
-                                                    formik.errors.mobile ? (
+                                                    {formik.touched
+                                                        .mentor_mobile &&
+                                                    formik.errors
+                                                        .mentor_mobile ? (
                                                         <small className="error-cls">
                                                             {
                                                                 formik.errors
-                                                                    .mobile
+                                                                    .mentor_mobile
                                                             }
                                                         </small>
                                                     ) : null}
@@ -922,7 +1064,7 @@ function AtlPage() {
                                                                 disabled={
                                                                     (formik
                                                                         .values
-                                                                        .mobile
+                                                                        .mentor_mobile
                                                                         .length >
                                                                     0
                                                                         ? false
@@ -946,11 +1088,11 @@ function AtlPage() {
                                                     </div>
                                                     <InputBox
                                                         {...inputMobile}
-                                                        id="whatapp_mobile"
+                                                        id="mentor_whatapp_mobile"
                                                         isDisabled={
                                                             (formik.values
-                                                                .mobile.length >
-                                                            0
+                                                                .mentor_mobile
+                                                                .length > 0
                                                                 ? false
                                                                 : true) ||
                                                             (holdKey
@@ -958,7 +1100,7 @@ function AtlPage() {
                                                                 : false) ||
                                                             checkBox
                                                         }
-                                                        name="whatapp_mobile"
+                                                        name="mentor_whatapp_mobile"
                                                         onChange={
                                                             formik.handleChange
                                                         }
@@ -967,23 +1109,24 @@ function AtlPage() {
                                                         }
                                                         value={
                                                             formik.values
-                                                                .whatapp_mobile
+                                                                .mentor_whatapp_mobile
                                                         }
                                                     />
 
                                                     {formik.touched
-                                                        .whatapp_mobile &&
+                                                        .mentor_whatapp_mobile &&
                                                     formik.errors
-                                                        .whatapp_mobile ? (
+                                                        .mentor_whatapp_mobile ? (
                                                         <small className="error-cls">
                                                             {
                                                                 formik.errors
-                                                                    .whatapp_mobile
+                                                                    .mentor_whatapp_mobile
                                                             }
                                                         </small>
                                                     ) : null}
                                                 </Col>
-                                                <div className="mt-3">
+
+                                                {/* <div className="mt-3">
                                                     <span
                                                         required
                                                         className="p-1 "
@@ -996,7 +1139,105 @@ function AtlPage() {
                                                         abcd.98@gmail.com ,
                                                         Password : “abcd.98”
                                                     </span>
-                                                </div>
+                                                </div> */}
+                                            </Row>
+                                            <Row
+                                                className="form-group"
+                                                xs={12}
+                                                sm={12}
+                                                md={12}
+                                                xl={12}
+                                            >
+                                                <Col
+                                                    className="form-group"
+                                                    xs={12}
+                                                    sm={12}
+                                                    md={12}
+                                                    xl={6}
+                                                >
+                                                    <Label
+                                                        className="mb-2 mt-3"
+                                                        htmlFor="password"
+                                                    >
+                                                        Mentor Name
+                                                    </Label>
+                                                    <InputBox
+                                                        {...inputMentorTn}
+                                                        id="mentor_name_vernacular"
+                                                        isDisabled={
+                                                            holdKey
+                                                                ? true
+                                                                : false
+                                                        }
+                                                        name="mentor_name_vernacular"
+                                                        onChange={
+                                                            formik.handleChange
+                                                        }
+                                                        onBlur={
+                                                            formik.handleBlur
+                                                        }
+                                                        value={
+                                                            formik.values
+                                                                .mentor_name_vernacular
+                                                        }
+                                                    />
+
+                                                    {formik.touched
+                                                        .mentor_name_vernacular &&
+                                                    formik.errors
+                                                        .mentor_name_vernacular ? (
+                                                        <small className="error-cls">
+                                                            {
+                                                                formik.errors
+                                                                    .mentor_name_vernacular
+                                                            }
+                                                        </small>
+                                                    ) : null}
+                                                </Col>
+                                                <Col
+                                                    className="form-group"
+                                                    xs={12}
+                                                    sm={12}
+                                                    md={12}
+                                                    xl={6}
+                                                >
+                                                    <Label
+                                                        className="mb-2 mt-3"
+                                                        htmlFor="password"
+                                                    >
+                                                        Password
+                                                    </Label>
+                                                    <InputBox
+                                                        {...inputPassword}
+                                                        id="password"
+                                                        isDisabled={
+                                                            holdKey
+                                                                ? true
+                                                                : false
+                                                        }
+                                                        name="password"
+                                                        onChange={
+                                                            formik.handleChange
+                                                        }
+                                                        onBlur={
+                                                            formik.handleBlur
+                                                        }
+                                                        value={
+                                                            formik.values
+                                                                .password
+                                                        }
+                                                    />
+
+                                                    {formik.touched.password &&
+                                                    formik.errors.password ? (
+                                                        <small className="error-cls">
+                                                            {
+                                                                formik.errors
+                                                                    .password
+                                                            }
+                                                        </small>
+                                                    ) : null}
+                                                </Col>
                                             </Row>
                                             <div className="mt-5 d-flex align-items-center">
                                                 <Button

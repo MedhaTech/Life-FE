@@ -213,7 +213,7 @@ const Routers = () => {
                     <Route
                         exact={true}
                         path="/registration"
-                        render={() => <FirstPage />}
+                        render={() => <AtlPage />}
                     />
                     <Route
                         exact={true}

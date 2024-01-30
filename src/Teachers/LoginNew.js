@@ -67,7 +67,12 @@ const LoginNew = (props) => {
             //     .max(10, 'Please enter only 10 digit valid number')
             //     .min(10, 'Number is less than 10 digits'),
             phone: Yup.string()
-                .email('Must be a valid email')
+                .matches(
+                    /^\d+$/,
+                    'Mobile number is not valid (Enter only digits)'
+                )
+                .max(10, 'Please enter only 10 digit valid number')
+                .min(10, 'Number is less than 10 digits')
                 .required('required')
                 .max(255)
                 .trim(),
@@ -111,8 +116,9 @@ const LoginNew = (props) => {
     });
 
     const inputUserId = {
-        type: 'mobile',
-        placeholder: 'Enter your Email Address'
+        type: 'text',
+        
+        placeholder: 'Enter your Mobile Number'
     };
 
     const inputPassword = {
@@ -233,7 +239,7 @@ const LoginNew = (props) => {
                                                 className="mb-2"
                                                 htmlFor="phone"
                                             >
-                                                Email Address
+                                                Mobile Number
                                             </Label>
                                             <InputBox
                                                 {...inputUserId}
@@ -274,7 +280,6 @@ const LoginNew = (props) => {
                                             </Label>
                                             <InputBox
                                                 {...inputPassword}
-                                                type="password"
                                                 id="password"
                                                 name="password"
                                                 onChange={formik.handleChange}
