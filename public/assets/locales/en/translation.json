@@ -319,11 +319,11 @@
     },
     "teacehr_red": {
         "heading": "REGISTER",
-        "UDISE": "Unique Code",
+        "UDISE": "Institution Unique Code",
         "req": "Required",
         "continue": "CONTINUE",
         "clear": "CLEAR",
-        "error_vali": "<p>Entered Unique Code is Invalid. <u>Click here</u> to request to Add School Information.</p>",
+        "error_vali": "<p>Entered Institution Unique Code is Invalid. <u>Click here</u> to request to Add School Information.</p>",
         "school": "School",
         "city": "City",
         "district": "District",
@@ -354,7 +354,7 @@
         "enter_pass": "Enter Password",
         "enter_c_pass": "Confirm Password",
         "success": "Successfully Registered",
-        "dice_place": "Please enter your Unique Code to continue",
+        "dice_place": "Please enter your Institution Unique Code to continue",
         "hand_book": "UNISOLVE HandBook",
         "please_download": "Please Download Handbook..."
     },

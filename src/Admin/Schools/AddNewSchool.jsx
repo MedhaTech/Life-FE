@@ -300,7 +300,7 @@ const AddNewSchool = (props) => {
                                                     {...inputDICE}
                                                     id="organization_name"
                                                     name="organization_name"
-                                                    placeholder="Please enter Institute/School name"
+                                                    placeholder="Please enter Institute name"
                                                     onChange={
                                                         formik.handleChange
                                                     }

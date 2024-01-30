@@ -102,7 +102,7 @@ const EditSchool = (props) => {
                 .trim()
                 .required('Institution Unique Code is Required'),
             organization_name: Yup.string()
-                .required('Organization  Name is Required')
+                .required('Institution Name is Required')
                 .matches(/^[a-zA-Z\s]+$/, 'Only Alpha characters are allowed'),
             unique_code: Yup.string()
                 .matches(/^[0-9]*$/, 'Please enter Numeric values')

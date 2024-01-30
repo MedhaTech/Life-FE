@@ -139,7 +139,7 @@ const Dashboard = () => {
             })
             .catch(function (error) {
                 if (error?.response?.data?.status === 404) {
-                    setError('Entered Invalid Unique Code');
+                    setError('Entered Invalid Institution Unique Code');
                 }
                 setOrgData({});
             });
@@ -857,7 +857,7 @@ const Dashboard = () => {
                                 {!diesCode && (
                                     <div className="d-flex  mt-3 p-4 justify-content-center align-items-center">
                                         <span className="text-primary fs-highlight">
-                                            Enter Unique Code
+                                            Enter Institution Unique Code
                                         </span>
                                     </div>
                                 )}
