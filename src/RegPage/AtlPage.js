@@ -203,9 +203,10 @@ function AtlPage() {
 
                     institution_code: values.institution_code.trim(),
                     mentor_mobile: values.mentor_mobile.trim(),
+                    mentor_email: values.mentor_email.trim(),
+
                     mentor_whatapp_mobile: values.mentor_whatapp_mobile.trim(),
                     username: values.mentor_mobile.trim(),
-                    qualification: values.qualification.trim(),
                     role: values.role.trim(),
                     gender: values.gender,
                     mentor_title: values.mentor_title,
