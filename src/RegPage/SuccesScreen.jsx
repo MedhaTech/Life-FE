@@ -25,6 +25,8 @@ const SuccessPage = () => {
     const { t } = useTranslation();
     const mentorDaTa = JSON.parse(localStorage.getItem('mentorData'));
     const orgDaTa = JSON.parse(localStorage.getItem('orgData'));
+    console.log(orgDaTa, '1');
+    console.log(mentorDaTa, '2');
     const user = mentorDaTa.username;
     const myArray = user.split('@');
     const word = myArray[0];
@@ -54,7 +56,7 @@ const SuccessPage = () => {
                 '/mentors/triggerWelcomeEmail',
             headers: {
                 'Content-Type': 'application/json',
-                Authorization : 'O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870'
+                Authorization: 'O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870'
             },
             data: body
         };
@@ -184,7 +186,7 @@ const SuccessPage = () => {
                                     You have successfully registered.
                                 </p>
 
-                                <p
+                                {/* <p
                                     style={{
                                         color: 'gray',
                                         marginBottom: '1rem'
@@ -193,8 +195,8 @@ const SuccessPage = () => {
                                     ATL Code:{' '}
                                     {/* {successData &&
                                         successData.organization_code} */}
-                                    {mentorDaTa.organization_code}
-                                </p>
+                                {/* {mentorDaTa.organization_code} */}
+                                {/* </p>  */}
                                 <p
                                     style={{
                                         color: 'gray',
@@ -202,8 +204,8 @@ const SuccessPage = () => {
                                     }}
                                 >
                                     Institution Unique Code:{' '}
-                                    {orgDaTa.unique_code
-                                        ? orgDaTa.unique_code
+                                    {orgDaTa.institution_code
+                                        ? orgDaTa.institution_code
                                         : '-'}
                                 </p>
                                 <p
@@ -212,7 +214,7 @@ const SuccessPage = () => {
                                         marginBottom: '1rem'
                                     }}
                                 >
-                                    School Name: {orgDaTa.organization_name}
+                                    School Name: {orgDaTa.institution_name}
                                     {/* {mentorDaTa.organization_code} */}
                                 </p>
                                 <p
@@ -221,7 +223,11 @@ const SuccessPage = () => {
                                         marginBottom: '1rem'
                                     }}
                                 >
-                                    District: {orgDaTa.district}
+                                    District:{' '}
+                                    {
+                                        orgDaTa?.place?.block?.taluk?.district
+                                            ?.district_name
+                                    }
                                     {/* {mentorDaTa.organization_code} */}
                                 </p>
                                 <p
@@ -230,10 +236,14 @@ const SuccessPage = () => {
                                         marginBottom: '1rem'
                                     }}
                                 >
-                                    State: {orgDaTa.state}
+                                    State:{' '}
+                                    {
+                                        orgDaTa?.place?.block?.taluk?.district
+                                            ?.state?.state_name
+                                    }
                                     {/* {mentorDaTa.organization_code} */}
                                 </p>
-                                <p
+                                {/* <p
                                     style={{
                                         color: 'gray',
                                         marginBottom: '1rem'
@@ -241,15 +251,15 @@ const SuccessPage = () => {
                                 >
                                     Pin Code: {orgDaTa.pin_code}.{' '}
                                     {mentorDaTa.pin_code}
-                                </p>
+                                </p> */}
                                 <p
                                     style={{
                                         color: 'gray',
                                         marginBottom: '1rem'
                                     }}
                                 >
-                                    Faculty Name: {mentorDaTa.title}.{' '}
-                                    {mentorDaTa.full_name}
+                                    Faculty Name: {mentorDaTa.mentor_title}.{' '}
+                                    {mentorDaTa.mentor_name}
                                 </p>
 
                                 <p
@@ -260,13 +270,21 @@ const SuccessPage = () => {
                                 >
                                     Login ID: {mentorDaTa.username}
                                 </p>
+                                {/* <p
+                                    style={{
+                                        color: 'gray',
+                                        marginBottom: '1rem'
+                                    }}
+                                >
+                                    Password: {mentorDaTa.username}
+                                </p> */}
                                 <p
                                     style={{
                                         color: 'gray',
                                         marginBottom: '1rem'
                                     }}
                                 >
-                                    Password: {word}
+                                    Mobile Number: {mentorDaTa.mentor_mobile}
                                 </p>
                                 <p
                                     style={{
@@ -274,15 +292,8 @@ const SuccessPage = () => {
                                         marginBottom: '1rem'
                                     }}
                                 >
-                                    Mobile Number: {mentorDaTa.mobile}
-                                </p>
-                                <p
-                                    style={{
-                                        color: 'gray',
-                                        marginBottom: '1rem'
-                                    }}
-                                >
-                                    Whatsapp Number: {mentorDaTa.whatapp_mobile}
+                                    Whatsapp Number:{' '}
+                                    {mentorDaTa.mentor_whatapp_mobile}
                                 </p>
 
                                 <p
@@ -294,7 +305,7 @@ const SuccessPage = () => {
                                     Gender: {mentorDaTa.gender}
                                 </p>
                                 <>
-                                    <Button
+                                    {/* <Button
                                         label="Send Login Details to mail"
                                         btnClass="primary tex-center my-0 py-0 mx-3 px-3"
                                         style={{
@@ -304,7 +315,7 @@ const SuccessPage = () => {
                                         }}
                                         size="small"
                                         onClick={handleButton}
-                                    />
+                                    /> */}
                                 </>
                                 <p
                                     style={{

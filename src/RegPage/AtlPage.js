@@ -99,7 +99,7 @@ function AtlPage() {
     };
     const inputmentor_Email = {
         type: 'text',
-        placeholder: 'Enter mentor_Email Id',
+        placeholder: 'Enter Email Id',
         className: 'defaultInput'
     };
     const inputDate = {
@@ -231,8 +231,11 @@ function AtlPage() {
                 await axios(config)
                     .then((mentorRegRes) => {
                         if (mentorRegRes?.data?.status == 201) {
+                            console.log(mentorRegRes, 'mentorRegRes');
                             setMentorData(mentorRegRes?.data?.data[0]);
                             const successData = {
+                                password: mentorRegRes?.data?.data[0].password,
+
                                 mentor_name:
                                     mentorRegRes?.data?.data[0].mentor_name,
                                 mentor_name_vernacular:
@@ -632,15 +635,15 @@ function AtlPage() {
                                                             ?.institution_type
                                                             ?.institution_type
                                                             ? orgData
-                                                                ?.institution_type
-                                                                ?.institution_type
+                                                                  ?.institution_type
+                                                                  ?.institution_type
                                                             : ' N/A'}{' '}
                                                         <br />
                                                         Place :{' '}
                                                         {orgData?.place
                                                             ?.place_name
                                                             ? orgData?.place
-                                                                ?.place_name
+                                                                  ?.place_name
                                                             : ' N/A'}
                                                         <br />
                                                         District :{' '}
@@ -648,17 +651,17 @@ function AtlPage() {
                                                             ?.taluk?.district
                                                             ?.district_name
                                                             ? orgData?.place
-                                                                ?.block?.taluk
-                                                                ?.district
-                                                                ?.district_name
+                                                                  ?.block?.taluk
+                                                                  ?.district
+                                                                  ?.district_name
                                                             : ' N/A'}{' '}
                                                         <br />
                                                         Taluk :{' '}
                                                         {orgData?.place?.block
                                                             ?.taluk?.taluk_name
                                                             ? orgData?.place
-                                                                ?.block?.taluk
-                                                                ?.taluk_name
+                                                                  ?.block?.taluk
+                                                                  ?.taluk_name
                                                             : ' N/A'}{' '}
                                                         <br />
                                                         State :{' '}
@@ -666,10 +669,10 @@ function AtlPage() {
                                                             ?.taluk?.district
                                                             ?.state?.state_name
                                                             ? orgData?.place
-                                                                ?.block?.taluk
-                                                                ?.district
-                                                                ?.state
-                                                                ?.state_name
+                                                                  ?.block?.taluk
+                                                                  ?.district
+                                                                  ?.state
+                                                                  ?.state_name
                                                             : ' N/A'}{' '}
                                                         <br />
                                                     </UncontrolledAlert>
@@ -746,7 +749,7 @@ function AtlPage() {
                                                     </select>
                                                     {formik.touched
                                                         .mentor_title &&
-                                                        formik.errors.title ? (
+                                                    formik.errors.title ? (
                                                         <small className="error-cls">
                                                             {
                                                                 formik.errors
@@ -791,8 +794,8 @@ function AtlPage() {
 
                                                     {formik.touched
                                                         .mentor_name &&
-                                                        formik.errors
-                                                            .mentor_name ? (
+                                                    formik.errors
+                                                        .mentor_name ? (
                                                         <small className="error-cls">
                                                             {
                                                                 formik.errors
@@ -846,8 +849,8 @@ function AtlPage() {
 
                                                     {formik.touched
                                                         .mentor_email &&
-                                                        formik.errors
-                                                            .mentor_email ? (
+                                                    formik.errors
+                                                        .mentor_email ? (
                                                         <small className="error-cls">
                                                             {
                                                                 formik.errors
@@ -908,7 +911,7 @@ function AtlPage() {
                                                         </option>
                                                     </select>
                                                     {formik.touched.gender &&
-                                                        formik.errors.gender ? (
+                                                    formik.errors.gender ? (
                                                         <small className="error-cls">
                                                             {
                                                                 formik.errors
@@ -956,8 +959,8 @@ function AtlPage() {
 
                                                     {formik.touched
                                                         .date_of_birth &&
-                                                        formik.errors
-                                                            .date_of_birth ? (
+                                                    formik.errors
+                                                        .date_of_birth ? (
                                                         <small className="error-cls">
                                                             {
                                                                 formik.errors
@@ -1010,8 +1013,8 @@ function AtlPage() {
 
                                                     {formik.touched
                                                         .mentor_mobile &&
-                                                        formik.errors
-                                                            .mentor_mobile ? (
+                                                    formik.errors
+                                                        .mentor_mobile ? (
                                                         <small className="error-cls">
                                                             {
                                                                 formik.errors
@@ -1063,7 +1066,7 @@ function AtlPage() {
                                                                         .values
                                                                         .mentor_mobile
                                                                         .length >
-                                                                        0
+                                                                    0
                                                                         ? false
                                                                         : true) ||
                                                                     (holdKey
@@ -1112,8 +1115,8 @@ function AtlPage() {
 
                                                     {formik.touched
                                                         .mentor_whatapp_mobile &&
-                                                        formik.errors
-                                                            .mentor_whatapp_mobile ? (
+                                                    formik.errors
+                                                        .mentor_whatapp_mobile ? (
                                                         <small className="error-cls">
                                                             {
                                                                 formik.errors
@@ -1181,8 +1184,8 @@ function AtlPage() {
 
                                                     {formik.touched
                                                         .mentor_name_vernacular &&
-                                                        formik.errors
-                                                            .mentor_name_vernacular ? (
+                                                    formik.errors
+                                                        .mentor_name_vernacular ? (
                                                         <small className="error-cls">
                                                             {
                                                                 formik.errors
@@ -1226,7 +1229,7 @@ function AtlPage() {
                                                     />
 
                                                     {formik.touched.password &&
-                                                        formik.errors.password ? (
+                                                    formik.errors.password ? (
                                                         <small className="error-cls">
                                                             {
                                                                 formik.errors
@@ -1266,7 +1269,7 @@ function AtlPage() {
 
                                                     <div
                                                         className="w-100 d-block text-left"
-                                                    // className="form-row row mb-5 col-md-3 text-centered"
+                                                        // className="form-row row mb-5 col-md-3 text-centered"
                                                     >
                                                         <Label
                                                             className="mb-2 mt-4  text-left"
@@ -1333,7 +1336,7 @@ function AtlPage() {
                                                 otpRes != formik.values.otp && (
                                                     <div
                                                         className="form-row row mb-5 text-center"
-                                                    // className=" w-50 d-flex justify-content-center"
+                                                        // className=" w-50 d-flex justify-content-center"
                                                     >
                                                         <span
                                                             className=" w-100 mt-3 d-flex justify-content-center"
@@ -1354,7 +1357,7 @@ function AtlPage() {
                                                         btnClass={
                                                             formik.values.otp
                                                                 .length > 5 &&
-                                                                otpRes ==
+                                                            otpRes ==
                                                                 formik.values
                                                                     .otp
                                                                 ? 'primary rounded-0'
@@ -1367,11 +1370,11 @@ function AtlPage() {
                                                                 formik.values
                                                                     .otp
                                                                     .length >
-                                                                5 &&
+                                                                    5 &&
                                                                 otpRes ==
-                                                                formik
-                                                                    .values
-                                                                    .otp
+                                                                    formik
+                                                                        .values
+                                                                        .otp
                                                             )
                                                         }
                                                     />
