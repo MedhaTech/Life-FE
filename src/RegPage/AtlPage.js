@@ -56,6 +56,7 @@ function AtlPage() {
     const [timer, setTimer] = useState(0);
     const [or, setOr] = useState('');
     const [instId, setInstId] = useState('');
+    console.log(instId, '222');
     const handleOnChange = (e) => {
         setDiesCode(e.target.value.trim());
         setOrgData();
@@ -290,6 +291,7 @@ function AtlPage() {
         axios(config)
             .then(function (response) {
                 if (response?.status == 200) {
+                    console.log(response, '333');
                     if (
                         response?.data?.data[0].mentor != null &&
                         process.env.REACT_APP_USEDICECODE == 1
