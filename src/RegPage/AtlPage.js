@@ -114,7 +114,7 @@ function AtlPage() {
             institution_code: diesCode,
             username: '',
             mentor_mobile: '',
-            institution_id: instId,
+            institution_id: '',
             mentor_whatapp_mobile: '',
             role: 'MENTOR',
             qualification: '-',
@@ -198,7 +198,7 @@ function AtlPage() {
                 // values.password = encrypted;
                 const body = JSON.stringify({
                     mentor_name: values.mentor_name.trim(),
-                    institution_id: values.institution_id.trim(),
+                    institution_id: values.instId.trim(),
                     mentor_name_vernacular:
                         values.mentor_name_vernacular.trim(),
 
