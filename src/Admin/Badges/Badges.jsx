@@ -46,7 +46,7 @@ const BadgesComp = () => {
                 <Container className=" mt-2 ">
                     <Row>
                         <Col md={12} className="w-100 d-block">
-                            <h2 className="title mb-4">Available Badges</h2>
+                            <h2 className="title mb-4">Available Badges.</h2>
                         </Col>
                     </Row>
 
