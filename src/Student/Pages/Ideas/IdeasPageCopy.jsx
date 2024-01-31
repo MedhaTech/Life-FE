@@ -518,7 +518,7 @@ const IdeasPageNew = () => {
         const locale = getLanguage(language);
         const subId = encryptGlobal(
             JSON.stringify({
-                challenge_id :'1',
+                challenge_id: '1',
                 team_id: currentUser?.data[0]?.team_id,
                 locale
             })
@@ -588,7 +588,7 @@ const IdeasPageNew = () => {
             }
             const axiosConfig = getNormalHeaders(KEY.User_API_Key);
             const subId = encryptGlobal(
-                JSON.stringify({team_id:currentUser?.data[0]?.team_id})
+                JSON.stringify({ team_id: currentUser?.data[0]?.team_id })
             );
             const result = await axios
                 .post(`${URL.uploadFile}?Data=${subId}`, formData, axiosConfig)
@@ -1094,6 +1094,166 @@ const IdeasPageNew = () => {
                                                             </div>
                                                         )}
                                                     </Row>
+                                                    <Row className="card mb-4 my-3 comment-card px-0 px-5 py-3 card">
+                                                        <div className="question quiz mb-0">
+                                                            <b
+                                                                style={{
+                                                                    fontSize:
+                                                                        '1.6rem'
+                                                                }}
+                                                            >
+                                                                {sdg ===
+                                                                'OTHERS'
+                                                                    ? `4. `
+                                                                    : `3. `}
+                                                                Description of
+                                                                the Problem
+                                                                Statement
+                                                            </b>
+                                                        </div>
+                                                        {sdg === 'OTHERS' ? (
+                                                            <div className=" answers row flex-column">
+                                                                <TextArea
+                                                                    disabled={
+                                                                        isDisabled
+                                                                    }
+                                                                    placeholder="Enter problem statement description"
+                                                                    value={
+                                                                        subCategory
+                                                                    }
+                                                                    maxLength={
+                                                                        100
+                                                                    }
+                                                                    onChange={(
+                                                                        e
+                                                                    ) =>
+                                                                        setSubCategory(
+                                                                            e
+                                                                                .target
+                                                                                .value
+                                                                        )
+                                                                    }
+                                                                />
+                                                                <div className="text-end">
+                                                                    {t(
+                                                                        'student_course.chars'
+                                                                    )}{' '}
+                                                                    :
+                                                                    {100 -
+                                                                        (subCategory
+                                                                            ? subCategory.length
+                                                                            : 0)}
+                                                                </div>
+                                                            </div>
+                                                        ) : (
+                                                            <div className=" answers row flex-column p-4">
+                                                                <div>
+                                                                    {subCategoryMenu.map(
+                                                                        (
+                                                                            item,
+                                                                            i
+                                                                        ) => (
+                                                                            <label
+                                                                                key={
+                                                                                    i
+                                                                                }
+                                                                                style={{
+                                                                                    margin: '1rem',
+                                                                                    fontSize:
+                                                                                        '1.6rem'
+                                                                                }}
+                                                                            >
+                                                                                <input
+                                                                                    disabled={
+                                                                                        isDisabled
+                                                                                    }
+                                                                                    type="radio"
+                                                                                    value={
+                                                                                        item
+                                                                                    }
+                                                                                    checked={
+                                                                                        item ===
+                                                                                        subCategory
+                                                                                    }
+                                                                                    onChange={(
+                                                                                        e
+                                                                                    ) =>
+                                                                                        setSubCategory(
+                                                                                            e
+                                                                                                .target
+                                                                                                .value
+                                                                                        )
+                                                                                    }
+                                                                                />{' '}
+                                                                                {
+                                                                                    item
+                                                                                }
+                                                                            </label>
+                                                                        )
+                                                                    )}
+                                                                </div>
+                                                                {/* <select
+                                                                    disabled={
+                                                                        isDisabled
+                                                                    }
+                                                                    onChange={(
+                                                                        e
+                                                                    ) =>
+                                                                        setSubCategory(
+                                                                            e
+                                                                                .target
+                                                                                .value
+                                                                        )
+                                                                    }
+                                                                    name="teams"
+                                                                    id="teams"
+                                                                >
+                                                                    <option
+                                                                        disabled
+                                                                        // className="dropdown-item"
+                                                                        selected={
+                                                                            subCategory ===
+                                                                            ''
+                                                                        }
+                                                                    >
+                                                                        Select
+                                                                        Sub
+                                                                        Category
+                                                                    </option>
+                                                                    {subCategoryMenu.map(
+                                                                        (
+                                                                            item,
+                                                                            i
+                                                                        ) => (
+                                                                            <option
+                                                                                key={
+                                                                                    i
+                                                                                }
+                                                                                value={
+                                                                                    item
+                                                                                }
+                                                                                selected={
+                                                                                    item ===
+                                                                                    subCategory
+                                                                                }
+                                                                            >
+                                                                                <div
+                                                                                    style={{
+                                                                                        whiteSpace:
+                                                                                            'pre-wrap',
+                                                                                        wordWrap:
+                                                                                            'break-word'
+                                                                                    }}
+                                                                                > */}
+                                                                {/* {item} */}
+                                                                {/* </div> */}
+                                                                {/* </option> */}
+                                                                {/* ) */}
+                                                                {/* )} */}
+                                                                {/* </select> */}{' '}
+                                                            </div>
+                                                        )}
+                                                    </Row>
                                                 </>
                                             )}
 
@@ -1116,10 +1276,10 @@ const IdeasPageNew = () => {
                                                                             1 &&
                                                                         sdg ===
                                                                             'OTHERS'
-                                                                            ? 4
+                                                                            ? 5
                                                                             : screenCount ===
                                                                               1
-                                                                            ? 3
+                                                                            ? 4
                                                                             : 1)}
                                                                     .{' '}
                                                                     {
