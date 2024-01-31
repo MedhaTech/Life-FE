@@ -20,7 +20,7 @@ import { encryptGlobal } from '../../constants/encryptDecrypt';
 const studentBody = {
     full_name: '',
     Age: '',
-    // Grade: '',
+    course: '',
     mobile: '',
     year_of_study: '',
     date_of_birth: '',
@@ -28,14 +28,16 @@ const studentBody = {
     // disability: '',
     username: ''
 };
-const grades = [6, 7, 8, 9, 10, 11, 12];
+// const grades = [6, 7, 8, 9, 10, 11, 12];
 const allowedAge = [10, 11, 12, 13, 14, 15, 16, 17, 18];
-
+const allowedYear = [1, 2, 3, 4, 5];
+const allowCourse = ['CSE', 'ECE', 'EEE'];
 const CreateMultipleMembers = ({ id }) => {
     const tempStudentData = {
         team_id: id,
         role: 'STUDENT',
         full_name: '',
+        course: '',
         Age: '',
         mobile: '',
         year_of_study: '',
@@ -55,6 +57,7 @@ const CreateMultipleMembers = ({ id }) => {
             team_id: id,
             role: 'STUDENT',
             full_name: '',
+            course: '',
             Age: '',
             mobile: '',
             year_of_study: '',
@@ -68,6 +71,7 @@ const CreateMultipleMembers = ({ id }) => {
             team_id: id,
             role: 'STUDENT',
             full_name: '',
+            course: '',
             Age: '',
             mobile: '',
             year_of_study: '',
@@ -151,9 +155,13 @@ const CreateMultipleMembers = ({ id }) => {
             // }
 
             if (!item.Age) err['Age'] = 'Age is Required';
+            if (!item.course) err['course'] = 'Course is Required';
 
-            // if (!item.disability) err['disability'] = ' Status is Required';
-            // if (!item.Grade) err['Grade'] = 'Class is Required';
+            if (!item.mobile) err['mobile'] = 'Mobile number is Required';
+            if (!item.date_of_birth) err['date_of_birth'] = 'DOB is Required';
+            if (!item.year_of_study)
+                err['year_of_study'] = 'Year Of Study is Required';
+
             if (!item.Gender) err['Gender'] = 'Gender is Required';
             if (Object.values(err).length === 0) {
                 return { ...studentBody, i };
@@ -258,6 +266,74 @@ const CreateMultipleMembers = ({ id }) => {
                                 <Col md={4} className="mb-xl-0">
                                     <Label
                                         className="name-req-create-member"
+                                        htmlFor="course"
+                                    >
+                                        Course
+                                        <span required className="p-1">
+                                            *
+                                        </span>
+                                    </Label>
+                                    <div className="dropdown CalendarDropdownComp ">
+                                        <select
+                                            name="course"
+                                            className="form-control custom-dropdown"
+                                            value={item.course}
+                                            onChange={(e) => handleChange(e, i)}
+                                        >
+                                            <option value={''}>
+                                                Select The Course
+                                            </option>
+                                            {allowCourse.map((item) => (
+                                                <option key={item} value={item}>
+                                                    {item}
+                                                </option>
+                                            ))}
+                                        </select>
+                                    </div>
+                                    {foundErrObject?.course ? (
+                                        <small className="error-cls">
+                                            {foundErrObject.course}
+                                        </small>
+                                    ) : null}
+                                </Col>
+                                <Col md={4} className="mb-xl-0">
+                                    <Label
+                                        className="name-req-create-member"
+                                        htmlFor="year_of_study"
+                                    >
+                                        Year Of Study
+                                        <span required className="p-1">
+                                            *
+                                        </span>
+                                    </Label>
+                                    <div className="dropdown CalendarDropdownComp ">
+                                        <select
+                                            name="year_of_study"
+                                            className="form-control custom-dropdown"
+                                            value={item.year_of_study}
+                                            onChange={(e) => handleChange(e, i)}
+                                        >
+                                            <option value={''}>
+                                                Select The Year
+                                            </option>
+                                            {allowedYear.map((item) => (
+                                                <option key={item} value={item}>
+                                                    {item}
+                                                </option>
+                                            ))}
+                                        </select>
+                                    </div>
+                                    {foundErrObject?.year_of_study ? (
+                                        <small className="error-cls">
+                                            {foundErrObject.year_of_study}
+                                        </small>
+                                    ) : null}
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col md={6} className="mb-xl-0">
+                                    <Label
+                                        className="name-req-create-member"
                                         htmlFor="username"
                                     >
                                         {/* {t('teacher_teams.age')} */}
@@ -293,7 +369,7 @@ const CreateMultipleMembers = ({ id }) => {
                                         </small>
                                     ) : null}
                                 </Col>
-                                <Col md={4} className="mb-xl-0">
+                                <Col md={6} className="mb-xl-0">
                                     <Label
                                         className="name-req-create-member"
                                         htmlFor="mobile"
@@ -324,37 +400,108 @@ const CreateMultipleMembers = ({ id }) => {
                                     ) : null}
                                 </Col>
                             </Row>
-                            <Col md={3} className="mb-xl-0">
-                                <Label
-                                    className="name-req-create-member"
-                                    htmlFor="age"
-                                >
-                                    {t('teacher_teams.age')}
-                                    <span required className="p-1">
-                                        *
-                                    </span>
-                                </Label>
-                                <div className="dropdown CalendarDropdownComp ">
+                            <Row>
+                                <Col md={4} className="mb-xl-0">
+                                    <Label
+                                        className="name-req-create-member"
+                                        htmlFor="age"
+                                    >
+                                        {t('teacher_teams.age')}
+                                        <span required className="p-1">
+                                            *
+                                        </span>
+                                    </Label>
+                                    <div className="dropdown CalendarDropdownComp ">
+                                        <select
+                                            name="Age"
+                                            className="form-control custom-dropdown"
+                                            value={item.Age}
+                                            onChange={(e) => handleChange(e, i)}
+                                        >
+                                            <option value={''}>
+                                                Select Age
+                                            </option>
+                                            {allowedAge.map((item) => (
+                                                <option key={item} value={item}>
+                                                    {item}
+                                                </option>
+                                            ))}
+                                        </select>
+                                    </div>
+                                    {foundErrObject?.Age ? (
+                                        <small className="error-cls">
+                                            {foundErrObject.Age}
+                                        </small>
+                                    ) : null}
+                                </Col>
+                                <Col md={4} className="mb-5 mb-xl-0">
+                                    <Label
+                                        className="name-req-create-member"
+                                        htmlFor="gender"
+                                    >
+                                        {t('teacher_teams.gender')}
+                                        <span required className="p-1">
+                                            *
+                                        </span>
+                                    </Label>
+
                                     <select
-                                        name="Age"
+                                        name="Gender"
                                         className="form-control custom-dropdown"
-                                        value={item.Age}
+                                        value={item.Gender}
                                         onChange={(e) => handleChange(e, i)}
                                     >
-                                        <option value={''}>Select Age</option>
-                                        {allowedAge.map((item) => (
-                                            <option key={item} value={item}>
-                                                {item}
-                                            </option>
-                                        ))}
+                                        <option value="">
+                                            {t('teacher_teams.student_gender')}
+                                        </option>
+                                        <option value="Male">
+                                            {t(
+                                                'teacher_teams.student_gender_male'
+                                            )}
+                                        </option>
+                                        <option value="Female">
+                                            {t(
+                                                'teacher_teams.student_gender_female'
+                                            )}
+                                        </option>
+                                        <option value="OTHERS">
+                                            Prefer not to mention
+                                        </option>
                                     </select>
-                                </div>
-                                {foundErrObject?.Age ? (
-                                    <small className="error-cls">
-                                        {foundErrObject.Age}
-                                    </small>
-                                ) : null}
-                            </Col>
+                                    {foundErrObject?.Gender ? (
+                                        <small className="error-cls">
+                                            {foundErrObject?.Gender}
+                                        </small>
+                                    ) : null}
+                                </Col>
+                                <Col md={4}>
+                                    <Label
+                                        className="name-req-create-member"
+                                        htmlFor="date_of_birth"
+                                    >
+                                        DOB
+                                        <span required className="p-1">
+                                            *
+                                        </span>
+                                    </Label>
+                                    <InputBox
+                                        className={'defaultInput'}
+                                        placeholder="DD/MM/YYYY"
+                                        id="date_of_birth"
+                                        type="date"
+                                        name="date_of_birth"
+                                        onChange={(e) => {
+                                            handleChange(e, i);
+                                        }}
+                                        value={item.date_of_birth}
+                                    />
+                                    {foundErrObject?.date_of_birth ? (
+                                        <small className="error-cls">
+                                            {foundErrObject.date_of_birth}
+                                        </small>
+                                    ) : null}
+                                </Col>
+                            </Row>
                             {/* <Col md={3} className="mb-xl-0">
                                 <Label
                                     className="name-req-create-member"
@@ -435,44 +582,6 @@ const CreateMultipleMembers = ({ id }) => {
                                     </small>
                                 ) : null}
                             </Col> */}
-                            <Col md={3} className="mb-5 mb-xl-0">
-                                <Label
-                                    className="name-req-create-member"
-                                    htmlFor="gender"
-                                >
-                                    {t('teacher_teams.gender')}
-                                    <span required className="p-1">
-                                        *
-                                    </span>
-                                </Label>
-
-                                <select
-                                    name="Gender"
-                                    className="form-control custom-dropdown"
-                                    value={item.Gender}
-                                    onChange={(e) => handleChange(e, i)}
-                                >
-                                    <option value="">
-                                        {t('teacher_teams.student_gender')}
-                                    </option>
-                                    <option value="Male">
-                                        {t('teacher_teams.student_gender_male')}
-                                    </option>
-                                    <option value="Female">
-                                        {t(
-                                            'teacher_teams.student_gender_female'
-                                        )}
-                                    </option>
-                                    <option value="OTHERS">
-                                        Prefer not to mention
-                                    </option>
-                                </select>
-                                {foundErrObject?.Gender ? (
-                                    <small className="error-cls">
-                                        {foundErrObject?.Gender}
-                                    </small>
-                                ) : null}
-                            </Col>
                         </Row>
                     </div>
                 );
@@ -586,9 +695,11 @@ const CreateTeamMember = (props) => {
         initialValues: {
             fullName: '',
             age: '',
-            grade: '',
+            course: '',
             gender: '',
-            disability: '',
+            year_of_study: '',
+            date_of_birth: '',
+            mobile: '',
             username: ''
         },
 
@@ -609,11 +720,19 @@ const CreateTeamMember = (props) => {
                 .required('required'),
             gender: Yup.string().required('Please select valid gender'),
             username: Yup.string().email('Must be a valid email').max(255),
-            disability: Yup.string().required('Please select disability'),
-            grade: Yup.string()
-                .matches('', 'Please enter valid class')
-                .max(40)
-                .required('Please enter valid class')
+            course: Yup.string().required('Please select course'),
+            year_of_study: Yup.string().required('Please select Year'),
+
+            mobile: Yup.string()
+                .required('required')
+                .trim()
+                .matches(
+                    /^\d+$/,
+                    'Mobile number is not valid (Enter only digits)'
+                )
+                .min(10, 'Please enter valid number')
+                .max(10, 'Please enter valid number'),
+            date_of_birth: Yup.string().required('Please select DOB')
         }),
 
         onSubmit: (values) => {
@@ -633,10 +752,12 @@ const CreateTeamMember = (props) => {
                     full_name: values.fullName,
                     qualification: '',
                     Age: values.age,
-                    Grade: values.grade,
+                    course: values.course,
                     Gender: values.gender,
-                    disability: values.disability,
+                    year_of_study: values.year_of_study,
+                    mobile: values.mobile,
                     username: values.username,
+                    dataKeys: values.date_of_birth,
                     country: values.country
                 };
                 var config = {
@@ -699,61 +820,31 @@ const CreateTeamMember = (props) => {
                                 >
                                     <div className="create-ticket register-blockt">
                                         <Row>
-                                            <Col md={6}>
-                                                <Label
-                                                    className="name-req-create-member"
-                                                    htmlFor="fullName"
-                                                >
-                                                    {t(
-                                                        'teacher_teams.student_name'
-                                                    )}
-                                                    <span
-                                                        required
-                                                        className="p-1"
+                                            <Row>
+                                                <Col md={4}>
+                                                    <Label
+                                                        className="name-req-create-member"
+                                                        htmlFor="fullName"
                                                     >
-                                                        *
-                                                    </span>
-                                                </Label>
-                                                <InputBox
-                                                    className={'defaultInput'}
-                                                    placeholder={t(
-                                                        'teacher_teams.student_name_pl'
-                                                    )}
-                                                    id="fullName"
-                                                    name="fullName"
-                                                    onChange={
-                                                        formik.handleChange
-                                                    }
-                                                    onBlur={formik.handleBlur}
-                                                    value={
-                                                        formik.values.fullName
-                                                    }
-                                                />
-                                                {formik.touched.fullName &&
-                                                formik.errors.fullName ? (
-                                                    <small className="error-cls">
-                                                        {formik.errors.fullName}
-                                                    </small>
-                                                ) : null}
-                                            </Col>
-                                            <Col md={3} className="mb-0">
-                                                <Label
-                                                    className="name-req-create-member"
-                                                    htmlFor="age"
-                                                >
-                                                    {t('teacher_teams.age')}
-                                                    <span
-                                                        required
-                                                        className="p-1"
-                                                    >
-                                                        *
-                                                    </span>
-                                                </Label>
-                                                <div className="dropdown CalendarDropdownComp ">
-                                                    <select
-                                                        className="form-control custom-dropdown"
-                                                        id="age"
-                                                        name="age"
+                                                        {t(
+                                                            'teacher_teams.student_name'
+                                                        )}
+                                                        <span
+                                                            required
+                                                            className="p-1"
+                                                        >
+                                                            *
+                                                        </span>
+                                                    </Label>
+                                                    <InputBox
+                                                        className={
+                                                            'defaultInput'
+                                                        }
+                                                        placeholder={t(
+                                                            'teacher_teams.student_name_pl'
+                                                        )}
+                                                        id="fullName"
+                                                        name="fullName"
                                                         onChange={
                                                             formik.handleChange
                                                         }
@@ -761,84 +852,139 @@ const CreateTeamMember = (props) => {
                                                             formik.handleBlur
                                                         }
                                                         value={
-                                                            formik.values.age
+                                                            formik.values
+                                                                .fullName
                                                         }
+                                                    />
+                                                    {formik.touched.fullName &&
+                                                    formik.errors.fullName ? (
+                                                        <small className="error-cls">
+                                                            {
+                                                                formik.errors
+                                                                    .fullName
+                                                            }
+                                                        </small>
+                                                    ) : null}
+                                                </Col>
+                                                <Col md={4} className="mb-0">
+                                                    <Label
+                                                        className="name-req-create-member"
+                                                        htmlFor="course"
                                                     >
-                                                        <option value={''}>
-                                                            Select Age
-                                                        </option>
-                                                        {allowedAge.map(
-                                                            (item) => (
-                                                                <option
-                                                                    key={item}
-                                                                    value={item}
-                                                                >
-                                                                    {item}
-                                                                </option>
-                                                            )
-                                                        )}
-                                                    </select>
-                                                </div>
-                                                {formik.touched.age &&
-                                                formik.errors.age ? (
-                                                    <small className="error-cls">
-                                                        {formik.errors.age}
-                                                    </small>
-                                                ) : null}
-                                            </Col>
-
-                                            <Col
-                                                md={3}
-                                                className="mb-5 mb-xl-0"
-                                            >
-                                                <Label
-                                                    className="name-req-create-member"
-                                                    htmlFor="gender"
-                                                >
-                                                    {t('teacher_teams.gender')}
-                                                    <span
-                                                        required
-                                                        className="p-1"
+                                                        Course
+                                                        <span
+                                                            required
+                                                            className="p-1"
+                                                        >
+                                                            *
+                                                        </span>
+                                                    </Label>
+                                                    <div className="dropdown CalendarDropdownComp ">
+                                                        <select
+                                                            className="form-control custom-dropdown"
+                                                            id="course"
+                                                            name="course"
+                                                            onChange={
+                                                                formik.handleChange
+                                                            }
+                                                            onBlur={
+                                                                formik.handleBlur
+                                                            }
+                                                            value={
+                                                                formik.values
+                                                                    .course
+                                                            }
+                                                        >
+                                                            <option value={''}>
+                                                                Select Course
+                                                            </option>
+                                                            {allowCourse.map(
+                                                                (item) => (
+                                                                    <option
+                                                                        key={
+                                                                            item
+                                                                        }
+                                                                        value={
+                                                                            item
+                                                                        }
+                                                                    >
+                                                                        {item}
+                                                                    </option>
+                                                                )
+                                                            )}
+                                                        </select>
+                                                    </div>
+                                                    {formik.touched.course &&
+                                                    formik.errors.course ? (
+                                                        <small className="error-cls">
+                                                            {
+                                                                formik.errors
+                                                                    .course
+                                                            }
+                                                        </small>
+                                                    ) : null}
+                                                </Col>
+                                                <Col md={4} className="mb-0">
+                                                    <Label
+                                                        className="name-req-create-member"
+                                                        htmlFor="course"
                                                     >
-                                                        *
-                                                    </span>
-                                                </Label>
-
-                                                <select
-                                                    name="gender"
-                                                    className="form-control custom-dropdown"
-                                                    value={formik.values.gender}
-                                                    onChange={
-                                                        formik.handleChange
-                                                    }
-                                                >
-                                                    <option value="">
-                                                        {t(
-                                                            'teacher_teams.student_gender'
-                                                        )}
-                                                    </option>
-                                                    <option value="Male">
-                                                        {t(
-                                                            'teacher_teams.student_gender_male'
-                                                        )}
-                                                    </option>
-                                                    <option value="Female">
-                                                        {t(
-                                                            'teacher_teams.student_gender_female'
-                                                        )}
-                                                    </option>
-                                                    <option value="OTHERS">
-                                                        Prefer not to mention
-                                                    </option>
-                                                </select>
-
-                                                {formik.touched.gender &&
-                                                formik.errors.gender ? (
-                                                    <small className="error-cls">
-                                                        {formik.errors.gender}
-                                                    </small>
-                                                ) : null}
-                                            </Col>
+                                                        Year Of Study
+                                                        <span
+                                                            required
+                                                            className="p-1"
+                                                        >
+                                                            *
+                                                        </span>
+                                                    </Label>
+                                                    <div className="dropdown CalendarDropdownComp ">
+                                                        <select
+                                                            className="form-control custom-dropdown"
+                                                            id="year_of_study"
+                                                            name="year_of_study"
+                                                            onChange={
+                                                                formik.handleChange
+                                                            }
+                                                            onBlur={
+                                                                formik.handleBlur
+                                                            }
+                                                            value={
+                                                                formik.values
+                                                                    .year_of_study
+                                                            }
+                                                        >
+                                                            <option value={''}>
+                                                                Select Year
+                                                            </option>
+                                                            {allowedYear.map(
+                                                                (item) => (
+                                                                    <option
+                                                                        key={
+                                                                            item
+                                                                        }
+                                                                        value={
+                                                                            item
+                                                                        }
+                                                                    >
+                                                                        {item}
+                                                                    </option>
+                                                                )
+                                                            )}
+                                                        </select>
+                                                    </div>
+                                                    {formik.touched
+                                                        .year_of_study &&
+                                                    formik.errors
+                                                        .year_of_study ? (
+                                                        <small className="error-cls">
+                                                            {
+                                                                formik.errors
+                                                                    .year_of_study
+                                                            }
+                                                        </small>
+                                                    ) : null}
+                                                </Col>
+                                            </Row>
                                             <Row>
                                                 <Col
                                                     md={6}
@@ -900,86 +1046,71 @@ const CreateTeamMember = (props) => {
                                                     ) : null}
                                                 </Col>
                                                 <Col
-                                                    md={3}
+                                                    md={6}
                                                     className="mb-5 mb-xl-0"
                                                 >
                                                     <Label
                                                         className="name-req-create-member"
-                                                        htmlFor="disability"
+                                                        htmlFor="mobile"
                                                     >
-                                                        Disability
-                                                        {/* {t('teacher_teams.gender')} */}
+                                                        Mobile Number
                                                         <span
                                                             required
                                                             className="p-1"
                                                         >
                                                             *
                                                         </span>
+                                                        {/* {t(
+                                                        'teacher_teams.student_name'
+                                                    )} */}
+                                                        {/* <span
+                                                            required
+                                                            className="p-1 "
+                                                            style={{
+                                                                color: 'red'
+                                                            }}
+                                                        >
+                                                            * Note : Gmail /
+                                                            Yahoo / Outlook
+                                                            mails are accepted.
+                                                        </span> */}
                                                     </Label>
-
-                                                    <select
-                                                        name="disability"
-                                                        className="form-control custom-dropdown"
-                                                        value={
-                                                            formik.values
-                                                                .disability
+                                                    <InputBox
+                                                        className={
+                                                            'defaultInput'
                                                         }
+                                                        placeholder="Enter Mobile Number"
+                                                        id="mobile"
+                                                        name="mobile"
                                                         onChange={
                                                             formik.handleChange
                                                         }
-                                                    >
-                                                        <option value="">
-                                                            Select Status
-                                                        </option>
-                                                        <option value="No">
-                                                            No
-                                                        </option>
-                                                        <option value="Physically Challenged">
-                                                            Physically
-                                                            Challenged
-                                                        </option>
-                                                        <option value="Visually Challenged">
-                                                            Visually Challenged
-                                                        </option>
-                                                        <option value="Locomotor Disability">
-                                                            Locomotor Disability
-                                                        </option>
-                                                        <option value="Intellectual Disability">
-                                                            Intellectual
-                                                            Disability
-                                                        </option>
-                                                        <option value="Learning Disability">
-                                                            Learning Disability
-                                                        </option>
-                                                        <option value="Hearing Impaired">
-                                                            Hearing Impaired
-                                                        </option>
-                                                        <option value="Autism/Cerebral Palsy/Other">
-                                                            Autism/Cerebral
-                                                            Palsy/Other
-                                                        </option>
-                                                        <option value="Others">
-                                                            Others
-                                                        </option>
-                                                    </select>
+                                                        onBlur={
+                                                            formik.handleBlur
+                                                        }
+                                                        value={
+                                                            formik.values.mobile
+                                                        }
+                                                    />
 
-                                                    {formik.touched
-                                                        .disability &&
-                                                    formik.errors.disability ? (
+                                                    {formik.touched.mobile &&
+                                                    formik.errors.mobile ? (
                                                         <small className="error-cls">
                                                             {
                                                                 formik.errors
-                                                                    .disability
+                                                                    .mobile
                                                             }
                                                         </small>
                                                     ) : null}
                                                 </Col>
-                                                <Col md={3}>
+                                            </Row>
+                                            <Row>
+                                                <Col md={4} className="mb-0">
                                                     <Label
                                                         className="name-req-create-member"
-                                                        htmlFor="grade"
+                                                        htmlFor="age"
                                                     >
-                                                        Class
+                                                        {t('teacher_teams.age')}
                                                         <span
                                                             required
                                                             className="p-1"
@@ -989,48 +1120,165 @@ const CreateTeamMember = (props) => {
                                                     </Label>
                                                     <div className="dropdown CalendarDropdownComp ">
                                                         <select
-                                                            name="grade"
                                                             className="form-control custom-dropdown"
-                                                            value={
-                                                                formik.values
-                                                                    .grade
-                                                            }
+                                                            id="age"
+                                                            name="age"
                                                             onChange={
                                                                 formik.handleChange
                                                             }
+                                                            onBlur={
+                                                                formik.handleBlur
+                                                            }
+                                                            value={
+                                                                formik.values
+                                                                    .age
+                                                            }
                                                         >
-                                                            <option value="">
-                                                                Select Class..
+                                                            <option value={''}>
+                                                                Select Age
                                                             </option>
-                                                            <option value="6">
-                                                                Class 6
-                                                            </option>
-                                                            <option value="7">
-                                                                Class 7
-                                                            </option>
-                                                            <option value="8">
-                                                                Class 8
-                                                            </option>
-                                                            <option value="9">
-                                                                Class 9
-                                                            </option>
-                                                            <option value="10">
-                                                                Class 10
-                                                            </option>
-                                                            <option value="11">
-                                                                Class 11
-                                                            </option>
-                                                            <option value="12">
-                                                                Class 12
-                                                            </option>
+                                                            {allowedAge.map(
+                                                                (item) => (
+                                                                    <option
+                                                                        key={
+                                                                            item
+                                                                        }
+                                                                        value={
+                                                                            item
+                                                                        }
+                                                                    >
+                                                                        {item}
+                                                                    </option>
+                                                                )
+                                                            )}
                                                         </select>
                                                     </div>
-                                                    {formik.touched.grade &&
-                                                    formik.errors.grade ? (
+                                                    {formik.touched.age &&
+                                                    formik.errors.age ? (
+                                                        <small className="error-cls">
+                                                            {formik.errors.age}
+                                                        </small>
+                                                    ) : null}
+                                                </Col>
+
+                                                <Col
+                                                    md={4}
+                                                    className="mb-5 mb-xl-0"
+                                                >
+                                                    <Label
+                                                        className="name-req-create-member"
+                                                        htmlFor="gender"
+                                                    >
+                                                        {t(
+                                                            'teacher_teams.gender'
+                                                        )}
+                                                        <span
+                                                            required
+                                                            className="p-1"
+                                                        >
+                                                            *
+                                                        </span>
+                                                    </Label>
+
+                                                    <select
+                                                        name="gender"
+                                                        className="form-control custom-dropdown"
+                                                        value={
+                                                            formik.values.gender
+                                                        }
+                                                        onChange={
+                                                            formik.handleChange
+                                                        }
+                                                    >
+                                                        <option value="">
+                                                            {t(
+                                                                'teacher_teams.student_gender'
+                                                            )}
+                                                        </option>
+                                                        <option value="Male">
+                                                            {t(
+                                                                'teacher_teams.student_gender_male'
+                                                            )}
+                                                        </option>
+                                                        <option value="Female">
+                                                            {t(
+                                                                'teacher_teams.student_gender_female'
+                                                            )}
+                                                        </option>
+                                                        <option value="OTHERS">
+                                                            Prefer not to
+                                                            mention
+                                                        </option>
+                                                    </select>
+
+                                                    {formik.touched.gender &&
+                                                    formik.errors.gender ? (
                                                         <small className="error-cls">
                                                             {
                                                                 formik.errors
-                                                                    .grade
+                                                                    .gender
+                                                            }
+                                                        </small>
+                                                    ) : null}
+                                                </Col>
+                                                <Col
+                                                    md={6}
+                                                    className="mb-5 mb-xl-0"
+                                                >
+                                                    <Label
+                                                        className="name-req-create-member"
+                                                        htmlFor="date_of_birth"
+                                                    >
+                                                        DOB
+                                                        <span
+                                                            required
+                                                            className="p-1"
+                                                        >
+                                                            *
+                                                        </span>
+                                                        {/* {t(
+                                                        'teacher_teams.student_name'
+                                                    )} */}
+                                                        {/* <span
+                                                            required
+                                                            className="p-1 "
+                                                            style={{
+                                                                color: 'red'
+                                                            }}
+                                                        >
+                                                            * Note : Gmail /
+                                                            Yahoo / Outlook
+                                                            mails are accepted.
+                                                        </span> */}
+                                                    </Label>
+                                                    <InputBox
+                                                        className={
+                                                            'defaultInput'
+                                                        }
+                                                        placeholder="DD/MM/YYYY"
+                                                        id="date_of_birth"
+                                                        name="date_of_birth"
+                                                        type="date"
+                                                        onChange={
+                                                            formik.handleChange
+                                                        }
+                                                        onBlur={
+                                                            formik.handleBlur
+                                                        }
+                                                        value={
+                                                            formik.values
+                                                                .date_of_birth
+                                                        }
+                                                    />
+
+                                                    {formik.touched
+                                                        .date_of_birth &&
+                                                    formik.errors
+                                                        .date_of_birth ? (
+                                                        <small className="error-cls">
+                                                            {
+                                                                formik.errors
+                                                                    .date_of_birth
                                                             }
                                                         </small>
                                                     ) : null}
