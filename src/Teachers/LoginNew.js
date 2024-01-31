@@ -117,7 +117,7 @@ const LoginNew = (props) => {
 
     const inputUserId = {
         type: 'text',
-        
+
         placeholder: 'Enter your Mobile Number'
     };
 
@@ -282,6 +282,7 @@ const LoginNew = (props) => {
                                                 {...inputPassword}
                                                 id="password"
                                                 name="password"
+                                                type="password"
                                                 onChange={formik.handleChange}
                                                 onBlur={formik.handleBlur}
                                                 value={formik.values.password}
