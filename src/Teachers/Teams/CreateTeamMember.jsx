@@ -20,9 +20,12 @@ import { encryptGlobal } from '../../constants/encryptDecrypt';
 const studentBody = {
     full_name: '',
     Age: '',
-    Grade: '',
+    // Grade: '',
+    mobile: '',
+    year_of_study: '',
+    date_of_birth: '',
     Gender: '',
-    disability: '',
+    // disability: '',
     username: ''
 };
 const grades = [6, 7, 8, 9, 10, 11, 12];
@@ -34,9 +37,12 @@ const CreateMultipleMembers = ({ id }) => {
         role: 'STUDENT',
         full_name: '',
         Age: '',
-        Grade: '',
+        mobile: '',
+        year_of_study: '',
+        date_of_birth: '',
+        // Grade: '',
         Gender: '',
-        disability: '',
+        // disability: '',
         username: ''
     };
     const { t } = useTranslation();
@@ -50,20 +56,26 @@ const CreateMultipleMembers = ({ id }) => {
             role: 'STUDENT',
             full_name: '',
             Age: '',
-            Grade: '',
+            mobile: '',
+            year_of_study: '',
+            date_of_birth: '',
+            // Grade: '',
             Gender: '',
-            username: '',
-            disability: ''
+            username: ''
+            // disability: ''
         },
         {
             team_id: id,
             role: 'STUDENT',
             full_name: '',
             Age: '',
+            mobile: '',
+            year_of_study: '',
+            date_of_birth: '',
             Grade: '',
-            Gender: '',
-            username: '',
-            disability: ''
+            // Gender: '',
+            username: ''
+            // disability: ''
         }
     ]);
     let pattern = /[A-Za-z0-9\s]*$/;
@@ -140,8 +152,8 @@ const CreateMultipleMembers = ({ id }) => {
 
             if (!item.Age) err['Age'] = 'Age is Required';
 
-            if (!item.disability) err['disability'] = ' Status is Required';
-            if (!item.Grade) err['Grade'] = 'Class is Required';
+            // if (!item.disability) err['disability'] = ' Status is Required';
+            // if (!item.Grade) err['Grade'] = 'Class is Required';
             if (!item.Gender) err['Gender'] = 'Gender is Required';
             if (Object.values(err).length === 0) {
                 return { ...studentBody, i };
@@ -215,7 +227,7 @@ const CreateMultipleMembers = ({ id }) => {
                         <hr />
                         <Row className="mb-3">
                             <Row>
-                                <Col md={6}>
+                                <Col md={4}>
                                     <Label
                                         className="name-req-create-member"
                                         htmlFor="fullName"
@@ -243,7 +255,7 @@ const CreateMultipleMembers = ({ id }) => {
                                         </small>
                                     ) : null}
                                 </Col>
-                                <Col md={6} className="mb-xl-0">
+                                <Col md={4} className="mb-xl-0">
                                     <Label
                                         className="name-req-create-member"
                                         htmlFor="username"
@@ -281,6 +293,36 @@ const CreateMultipleMembers = ({ id }) => {
                                         </small>
                                     ) : null}
                                 </Col>
+                                <Col md={4} className="mb-xl-0">
+                                    <Label
+                                        className="name-req-create-member"
+                                        htmlFor="mobile"
+                                    >
+                                        {/* {t('teacher_teams.age')} */}
+                                        Mobile Number
+                                        <span required className="p-1">
+                                            *
+                                        </span>
+                                    </Label>
+                                    <InputBox
+                                        className={'defaultInput'}
+                                        placeholder="Enter Mobile Number"
+                                        // {t(
+                                        //     'teacher_teams.student_name_pl'
+                                        // )}
+                                        id="mobile"
+                                        name="mobile"
+                                        onChange={(e) => {
+                                            handleChange(e, i);
+                                        }}
+                                        value={item.mobile}
+                                    />
+                                    {foundErrObject?.mobile ? (
+                                        <small className="error-cls">
+                                            {foundErrObject.mobile}
+                                        </small>
+                                    ) : null}
+                                </Col>
                             </Row>
                             <Col md={3} className="mb-xl-0">
                                 <Label
@@ -313,13 +355,13 @@ const CreateMultipleMembers = ({ id }) => {
                                     </small>
                                 ) : null}
                             </Col>
-                            <Col md={3} className="mb-xl-0">
+                            {/* <Col md={3} className="mb-xl-0">
                                 <Label
                                     className="name-req-create-member"
                                     htmlFor="disability"
                                 >
                                     {/* {t('teacher_teams.age')} */}
-                                    Disability
+                            {/* Disability
                                     <span required className="p-1">
                                         *
                                     </span>
@@ -359,10 +401,10 @@ const CreateMultipleMembers = ({ id }) => {
                                     <small className="error-cls">
                                         {foundErrObject.disability}
                                     </small>
-                                ) : null}
-                            </Col>
+                                ) : null} */}
+                            {/* </Col>  */}
 
-                            <Col md={3}>
+                            {/* <Col md={3}>
                                 <Label
                                     className="name-req-create-member"
                                     htmlFor="grade"
@@ -392,7 +434,7 @@ const CreateMultipleMembers = ({ id }) => {
                                         {foundErrObject?.Grade}
                                     </small>
                                 ) : null}
-                            </Col>
+                            </Col> */}
                             <Col md={3} className="mb-5 mb-xl-0">
                                 <Label
                                     className="name-req-create-member"
@@ -524,7 +566,7 @@ const CreateTeamMember = (props) => {
 
         var config = {
             method: 'get',
-            url:`${process.env.REACT_APP_API_BASE_URL}/teams/${creaParam}?Data=${param}`,
+            url: `${process.env.REACT_APP_API_BASE_URL}/teams/${creaParam}?Data=${param}`,
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${currentUser?.data[0]?.token}`

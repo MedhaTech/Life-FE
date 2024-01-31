@@ -25,11 +25,10 @@ const EditTeacherProfileDetails = (props) => {
     const mentorData =
         // where  mentorData = mentor details //
         (history && history.location && history.location.item) || {};
-
     const getValidationSchema = () => {
         // where data = mentorData //
         const adminValidation = Yup.object({
-            whatapp_mobile: Yup.string()
+            mentor_whatapp_mobile: Yup.string()
                 .required('required')
                 .trim()
                 .matches(
@@ -39,34 +38,33 @@ const EditTeacherProfileDetails = (props) => {
                 .min(10, 'Please enter valid number')
                 .max(10, 'Please enter valid number'),
             gender: Yup.string().required('Please select valid gender'),
-            title: Yup.string().required('Please select Title'),
-            name: Yup.string()
-                // .matches(/^[A-Za-z]*$/, 'Invalid name ')
-                // .min(2, 'Enter a valid name')
-                // .required('Name is Required'),
+            mentor_title: Yup.string().required('Please select Title'),
+            date_of_birth: Yup.string().required('Please Select DOb'),
+            mentor_name: Yup.string()
+
                 .trim()
                 .min(2, 'Enter Name')
                 .matches(/^[aA-zZ\s]+$/, 'Special Characters are not allowed')
                 .required('Required'),
-            phone: Yup.string()
+            mentor_name_vernacular: Yup.string()
+
                 .trim()
-                .matches(
-                    /^\d+$/,
-                    'Mobile number is not valid (Enter only digits)'
-                )
-                .min(10, 'Enter a valid mobile number')
-                .max(10, 'Mobile number must be 10 Digit')
-                .required('Mobile Number is Required')
+                .min(2, 'Enter Name')
+                .matches(/^[aA-zZ\s]+$/, 'Special Characters are not allowed')
+                .required('Required')
         });
         return adminValidation;
     };
     const getInitialValues = (mentorData) => {
         const commonInitialValues = {
-            name: mentorData?.full_name,
-            phone: mentorData.mobile,
-            title: mentorData.title,
-            whatapp_mobile: mentorData.whatapp_mobile,
-            gender: mentorData.gender
+            mentor_name: mentorData?.mentor_name,
+            mentor_title: mentorData.mentor_title,
+            mentor_whatapp_mobile: mentorData.mentor_whatapp_mobile,
+            gender: mentorData.gender,
+            date_of_birth: mentorData?.date_of_birth,
+            mentor_name_vernacular: mentorData?.mentor_name_vernacular,
+            mentor_email: mentorData?.mentor_email,
+            username: mentorData?.username
         };
         return commonInitialValues;
     };
@@ -74,19 +72,14 @@ const EditTeacherProfileDetails = (props) => {
         initialValues: getInitialValues(mentorData),
         validationSchema: getValidationSchema(),
         onSubmit: (values) => {
-            const full_name = values.name;
-            // const mobile = values.phone;
-            const title = values.title;
-            const whatapp_mobile = values.whatapp_mobile;
-            const gender = values.gender;
-            const mobile = values.phone;
             const body = JSON.stringify({
-                full_name: full_name,
-                // mobile: mobile,
-                title: title,
-                whatapp_mobile: whatapp_mobile,
-                gender: gender,
-                mobile: mobile,
+                mentor_name: values.mentor_name,
+                mentor_email: values.mentor_email,
+                mentor_title: values.mentor_title,
+                mentor_whatapp_mobile: values.mentor_whatapp_mobile,
+                gender: values.gender,
+                date_of_birth: values.date_of_birth,
+                mentor_name_vernacular: values.mentor_name_vernacular,
                 username: mentorData.username
             });
             const ment = encryptGlobal(JSON.stringify(mentorData.mentor_id));
@@ -107,7 +100,7 @@ const EditTeacherProfileDetails = (props) => {
                             'success',
                             'Updated Successfully'
                         );
-                        currentUser.data[0].full_name = values.name;
+                        currentUser.data[0].mentor_name = values.mentor_name;
                         setCurrentUser(currentUser);
                         setTimeout(() => {
                             props.history.push('/teacher/my-profile');
@@ -138,15 +131,18 @@ const EditTeacherProfileDetails = (props) => {
                                         <Col md={3}>
                                             <Label
                                                 className="name-req"
-                                                htmlFor="title"
+                                                htmlFor="mentor_title"
                                             >
-                                                {t('teacehr_red.title')}
+                                                Title
+                                                {/* {t('teacehr_red.mentor_title')} */}
                                             </Label>
                                             <select
-                                                name="title"
+                                                name="mentor_title"
                                                 // id="gender"
                                                 className=" col-8 form-control custom-registerdropdown "
-                                                value={formik.values.title}
+                                                value={
+                                                    formik.values.mentor_title
+                                                }
                                                 onBlur={formik.handleBlur}
                                                 onChange={formik.handleChange}
                                             >
@@ -176,10 +172,10 @@ const EditTeacherProfileDetails = (props) => {
                                                     )}
                                                 </option>
                                             </select>
-                                            {formik.touched.title &&
-                                            formik.errors.title ? (
+                                            {formik.touched.mentor_title &&
+                                            formik.errors.mentor_title ? (
                                                 <small className="error-cls">
-                                                    {formik.errors.title}
+                                                    {formik.errors.mentor_title}
                                                 </small>
                                             ) : null}
                                         </Col>
@@ -224,23 +220,25 @@ const EditTeacherProfileDetails = (props) => {
                                         <Col md={6}>
                                             <Label
                                                 className="name-req"
-                                                htmlFor="name"
+                                                htmlFor="mentor_name"
                                             >
                                                 Full Name
                                             </Label>
                                             <InputBox
                                                 className={'defaultInput'}
-                                                id="name"
-                                                name="name"
+                                                id="mentor_name"
+                                                name="mentor_name"
                                                 onChange={formik.handleChange}
                                                 onBlur={formik.handleBlur}
-                                                value={formik.values.name}
+                                                value={
+                                                    formik.values.mentor_name
+                                                }
                                             />
 
-                                            {formik.touched.name &&
-                                            formik.errors.name ? (
+                                            {formik.touched.mentor_name &&
+                                            formik.errors.mentor_name ? (
                                                 <small className="error-cls">
-                                                    {formik.errors.name}
+                                                    {formik.errors.mentor_name}
                                                 </small>
                                             ) : null}
                                         </Col>
@@ -248,30 +246,36 @@ const EditTeacherProfileDetails = (props) => {
                                         <Col md={6}>
                                             <Label
                                                 className="name-req"
-                                                htmlFor="phone"
+                                                htmlFor="date_of_birth"
                                             >
-                                                Mobile
+                                                DOB
                                             </Label>
                                             <InputBox
                                                 className={'defaultInput'}
-                                                id="phone"
-                                                name="phone"
+                                                id="date_of_birth"
+                                                name="date_of_birth"
+                                                type="date"
                                                 onChange={formik.handleChange}
                                                 onBlur={formik.handleBlur}
-                                                value={formik.values.phone}
+                                                value={
+                                                    formik.values.date_of_birth
+                                                }
                                             />
 
-                                            {formik.touched.phone &&
-                                            formik.errors.phone ? (
+                                            {formik.touched.date_of_birth &&
+                                            formik.errors.date_of_birth ? (
                                                 <small className="error-cls">
-                                                    {formik.errors.phone}
+                                                    {
+                                                        formik.errors
+                                                            .date_of_birth
+                                                    }
                                                 </small>
                                             ) : null}
                                         </Col>
                                         <Col md={6}>
                                             <Label
                                                 className=" name-req"
-                                                htmlFor="whatapp_mobile"
+                                                htmlFor="mentor_whatapp_mobile"
                                             >
                                                 {t(
                                                     'teacehr_red.faculty_mobile'
@@ -279,21 +283,56 @@ const EditTeacherProfileDetails = (props) => {
                                             </Label>
                                             <InputBox
                                                 className={'defaultInput'}
-                                                id="whatapp_mobile"
-                                                name="whatapp_mobile"
+                                                id="mentor_whatapp_mobile"
+                                                name="mentor_whatapp_mobile"
                                                 onChange={formik.handleChange}
                                                 onBlur={formik.handleBlur}
                                                 value={
-                                                    formik.values.whatapp_mobile
+                                                    formik.values
+                                                        .mentor_whatapp_mobile
                                                 }
                                             />
 
-                                            {formik.touched.whatapp_mobile &&
-                                            formik.errors.whatapp_mobile ? (
+                                            {formik.touched
+                                                .mentor_whatapp_mobile &&
+                                            formik.errors
+                                                .mentor_whatapp_mobile ? (
                                                 <small className="error-cls">
                                                     {
                                                         formik.errors
-                                                            .whatapp_mobile
+                                                            .mentor_whatapp_mobile
+                                                    }
+                                                </small>
+                                            ) : null}
+                                        </Col>
+                                        <Col md={6}>
+                                            <Label
+                                                className="name-req"
+                                                htmlFor="name"
+                                            >
+                                                Mentor Name
+                                            </Label>
+                                            <InputBox
+                                                className={'defaultInput'}
+                                                type="text"
+                                                id="mentor_name_vernacular"
+                                                name="mentor_name_vernacular"
+                                                onChange={formik.handleChange}
+                                                onBlur={formik.handleBlur}
+                                                value={
+                                                    formik.values
+                                                        .mentor_name_vernacular
+                                                }
+                                            />
+
+                                            {formik.touched
+                                                .mentor_name_vernacular &&
+                                            formik.errors
+                                                .mentor_name_vernacular ? (
+                                                <small className="error-cls">
+                                                    {
+                                                        formik.errors
+                                                            .mentor_name_vernacular
                                                     }
                                                 </small>
                                             ) : null}
