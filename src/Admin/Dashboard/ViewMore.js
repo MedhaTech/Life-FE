@@ -243,7 +243,7 @@ const ViewMore = () => {
 
                                 <CardText>
                                     <span className="mx-3">
-                                        <b>Teacher Name :</b>
+                                        <b>Mentor Name :</b>
                                     </span>
                                     <b>{orgDaTa.mentor.full_name}</b>
                                 </CardText>

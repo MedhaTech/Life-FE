@@ -18,31 +18,31 @@ import { useDispatch } from 'react-redux';
 import { teacherCreateMultipleStudent } from '../store/teacher/actions';
 import { encryptGlobal } from '../../constants/encryptDecrypt';
 const studentBody = {
-    full_name: '',
+    student_full_name: '',
     Age: '',
-    course: '',
+    course_id: '',
     mobile: '',
     year_of_study: '',
     date_of_birth: '',
     Gender: '',
-    // disability: '',
+    email: '',
     username: ''
 };
 // const grades = [6, 7, 8, 9, 10, 11, 12];
 const allowedAge = [10, 11, 12, 13, 14, 15, 16, 17, 18];
 const allowedYear = [1, 2, 3, 4, 5];
-const allowCourse = ['CSE', 'ECE', 'EEE'];
+const allowCourse = [1, 2, 3];
 const CreateMultipleMembers = ({ id }) => {
     const tempStudentData = {
         team_id: id,
         role: 'STUDENT',
-        full_name: '',
-        course: '',
+        student_full_name: '',
+        course_id: '',
         Age: '',
         mobile: '',
         year_of_study: '',
         date_of_birth: '',
-        // Grade: '',
+        email: '',
         Gender: '',
         // disability: '',
         username: ''
@@ -56,44 +56,48 @@ const CreateMultipleMembers = ({ id }) => {
         {
             team_id: id,
             role: 'STUDENT',
-            full_name: '',
-            course: '',
+            student_full_name: '',
+            course_id: '',
             Age: '',
             mobile: '',
             year_of_study: '',
             date_of_birth: '',
             // Grade: '',
             Gender: '',
-            username: ''
-            // disability: ''
+            username: '',
+            email: ''
         },
         {
             team_id: id,
             role: 'STUDENT',
-            full_name: '',
-            course: '',
+            student_full_name: '',
+            course_id: '',
             Age: '',
             mobile: '',
             year_of_study: '',
             date_of_birth: '',
-            Grade: '',
+            // Grade: '',
             // Gender: '',
-            username: ''
+            username: '',
+            email: ''
             // disability: ''
         }
     ]);
     let pattern = /[A-Za-z0-9\s]*$/;
     // const emailRegex = /[A-Za-z-@+.-]*$/;
     const emailRegex = /^[\w.]+@([\w-]+\.)+[\w-]{2,4}$/;
+    const isValidNumber = /^[0-9]$/;
+
     const handleChange = (e, i) => {
         let newItem = [...studentData];
+
         const dataKeys = Object.keys(studentBody);
         if (e.target) {
             dataKeys.some((item) => {
                 if (e.target.name === item) {
                     newItem[i][e.target.name] = e.target.value;
                     let errCopy = [...itemDataErrors];
-                    if (item === 'full_name') {
+                    if (item === 'student_full_name') {
                         let check = e.target.value;
                         if (check && check.match(pattern)) {
                             const { index } = check.match(pattern);
@@ -107,13 +111,14 @@ const CreateMultipleMembers = ({ id }) => {
                             }
                         }
                     }
-                    if (item === 'username') {
+                    if (item === 'mobile') {
                         let check = e.target.value;
-                        if (check && check.match(emailRegex)) {
-                            const { index } = check.match(emailRegex);
+                        if (check && check.match(isValidNumber)) {
+                            const { index } = check.match(isValidNumber);
                             if (index) {
                                 const foo = { ...errCopy[i] };
-                                foo[e.target.name] = 'Enter Valid Mail Id';
+                                foo[e.target.name] =
+                                    'Enter Valid Mobile Number';
                                 errCopy[i] = { ...foo };
                                 setItemDataErrors(errCopy);
                                 return;
@@ -134,16 +139,20 @@ const CreateMultipleMembers = ({ id }) => {
     const validateItemData = () => {
         const errors = studentData.map((item, i) => {
             let err = {};
-            if (!item.full_name.trim())
-                err['full_name'] = 'Full name is Required';
-            if (item.full_name && item.full_name.match(pattern)) {
-                const { index } = item.full_name.match(pattern);
+            if (!item.student_full_name.trim())
+                err['student_full_name'] = 'Full name is Required';
+            if (
+                item.student_full_name &&
+                item.student_full_name.match(pattern)
+            ) {
+                const { index } = item.student_full_name.match(pattern);
                 if (index) {
-                    err['full_name'] = 'Only alphanumeric are allowed';
+                    err['student_full_name'] = 'Only alphanumeric are allowed';
                 }
             }
 
-            if (!item.username.trim()) err['username'] = 'Email is Required';
+            // if (!item.username.trim())
+            //     err['username'] = 'Mobile Number is Required';
             // if (item.username) {
             //     const start = item.username.indexOf('@');
             //     const main = item.username.substring(start);
@@ -155,7 +164,9 @@ const CreateMultipleMembers = ({ id }) => {
             // }
 
             if (!item.Age) err['Age'] = 'Age is Required';
-            if (!item.course) err['course'] = 'Course is Required';
+            if (!item.email) err['email'] = 'Email Id is Required';
+
+            if (!item.course_id) err['course_id'] = 'Course is Required';
 
             if (!item.mobile) err['mobile'] = 'Mobile number is Required';
             if (!item.date_of_birth) err['date_of_birth'] = 'DOB is Required';
@@ -204,15 +215,25 @@ const CreateMultipleMembers = ({ id }) => {
         if (!validateItemData()) return;
         setIsClicked(true);
         const checkDuplicateName = containsDuplicates(
-            studentData.map((item) => item.full_name)
+            studentData.map((item) => item.student_full_name)
         );
         if (checkDuplicateName) {
             openNotificationWithIcon('error', 'Student already exists');
             setIsClicked(false);
             return;
         }
+        var finalStudentArray = [];
+        finalStudentArray = studentData.map((item, i) => ({
+            ...item,
+            username: item.mobile
+        }));
+
         dispatch(
-            teacherCreateMultipleStudent(studentData, history, setIsClicked)
+            teacherCreateMultipleStudent(
+                finalStudentArray,
+                history,
+                setIsClicked
+            )
         );
     };
     return (
@@ -250,23 +271,23 @@ const CreateMultipleMembers = ({ id }) => {
                                         placeholder={t(
                                             'teacher_teams.student_name_pl'
                                         )}
-                                        id="full_name"
-                                        name="full_name"
+                                        id="student_full_name"
+                                        name="student_full_name"
                                         onChange={(e) => {
                                             handleChange(e, i);
                                         }}
-                                        value={item.full_name}
+                                        value={item.student_full_name}
                                     />
-                                    {foundErrObject?.full_name ? (
+                                    {foundErrObject?.student_full_name ? (
                                         <small className="error-cls">
-                                            {foundErrObject.full_name}
+                                            {foundErrObject.student_full_name}
                                         </small>
                                     ) : null}
                                 </Col>
                                 <Col md={4} className="mb-xl-0">
                                     <Label
                                         className="name-req-create-member"
-                                        htmlFor="course"
+                                        htmlFor="course_id"
                                     >
                                         Course
                                         <span required className="p-1">
@@ -275,9 +296,9 @@ const CreateMultipleMembers = ({ id }) => {
                                     </Label>
                                     <div className="dropdown CalendarDropdownComp ">
                                         <select
-                                            name="course"
+                                            name="course_id"
                                             className="form-control custom-dropdown"
-                                            value={item.course}
+                                            value={item.course_id}
                                             onChange={(e) => handleChange(e, i)}
                                         >
                                             <option value={''}>
@@ -290,9 +311,9 @@ const CreateMultipleMembers = ({ id }) => {
                                             ))}
                                         </select>
                                     </div>
-                                    {foundErrObject?.course ? (
+                                    {foundErrObject?.course_id ? (
                                         <small className="error-cls">
-                                            {foundErrObject.course}
+                                            {foundErrObject.course_id}
                                         </small>
                                     ) : null}
                                 </Col>
@@ -334,7 +355,7 @@ const CreateMultipleMembers = ({ id }) => {
                                 <Col md={6} className="mb-xl-0">
                                     <Label
                                         className="name-req-create-member"
-                                        htmlFor="username"
+                                        htmlFor="email"
                                     >
                                         {/* {t('teacher_teams.age')} */}
                                         Email Address
@@ -356,16 +377,16 @@ const CreateMultipleMembers = ({ id }) => {
                                         // {t(
                                         //     'teacher_teams.student_name_pl'
                                         // )}
-                                        id="username"
-                                        name="username"
+                                        id="email"
+                                        name="email"
                                         onChange={(e) => {
                                             handleChange(e, i);
                                         }}
-                                        value={item.username}
+                                        value={item.email}
                                     />
-                                    {foundErrObject?.username ? (
+                                    {foundErrObject?.email ? (
                                         <small className="error-cls">
-                                            {foundErrObject.username}
+                                            {foundErrObject.email}
                                         </small>
                                     ) : null}
                                 </Col>
@@ -695,12 +716,13 @@ const CreateTeamMember = (props) => {
         initialValues: {
             fullName: '',
             age: '',
-            course: '',
+            course_id: '',
             gender: '',
             year_of_study: '',
             date_of_birth: '',
             mobile: '',
-            username: ''
+            username: '',
+            email: ''
         },
 
         validationSchema: Yup.object({
@@ -719,8 +741,12 @@ const CreateTeamMember = (props) => {
                 .max(18, 'Max age is 18')
                 .required('required'),
             gender: Yup.string().required('Please select valid gender'),
-            username: Yup.string().email('Must be a valid email').max(255),
-            course: Yup.string().required('Please select course'),
+            email: Yup.string()
+                .required('required')
+                .trim()
+                .email('Enter Valid Email Id'),
+
+            course_id: Yup.string().required('Please select Course'),
             year_of_study: Yup.string().required('Please select Year'),
 
             mobile: Yup.string()
@@ -752,11 +778,12 @@ const CreateTeamMember = (props) => {
                     full_name: values.fullName,
                     qualification: '',
                     Age: values.age,
-                    course: values.course,
+                    course_id: values.course_id,
                     Gender: values.gender,
                     year_of_study: values.year_of_study,
                     mobile: values.mobile,
-                    username: values.username,
+                    email: values.email,
+                    username: values.mobile,
                     dataKeys: values.date_of_birth,
                     country: values.country
                 };
@@ -869,7 +896,7 @@ const CreateTeamMember = (props) => {
                                                 <Col md={4} className="mb-0">
                                                     <Label
                                                         className="name-req-create-member"
-                                                        htmlFor="course"
+                                                        htmlFor="course_id"
                                                     >
                                                         Course
                                                         <span
@@ -882,8 +909,8 @@ const CreateTeamMember = (props) => {
                                                     <div className="dropdown CalendarDropdownComp ">
                                                         <select
                                                             className="form-control custom-dropdown"
-                                                            id="course"
-                                                            name="course"
+                                                            id="course_id"
+                                                            name="course_id"
                                                             onChange={
                                                                 formik.handleChange
                                                             }
@@ -892,7 +919,7 @@ const CreateTeamMember = (props) => {
                                                             }
                                                             value={
                                                                 formik.values
-                                                                    .course
+                                                                    .course_id
                                                             }
                                                         >
                                                             <option value={''}>
@@ -914,12 +941,12 @@ const CreateTeamMember = (props) => {
                                                             )}
                                                         </select>
                                                     </div>
-                                                    {formik.touched.course &&
-                                                    formik.errors.course ? (
+                                                    {formik.touched.course_id &&
+                                                    formik.errors.course_id ? (
                                                         <small className="error-cls">
                                                             {
                                                                 formik.errors
-                                                                    .course
+                                                                    .course_id
                                                             }
                                                         </small>
                                                     ) : null}
@@ -927,7 +954,7 @@ const CreateTeamMember = (props) => {
                                                 <Col md={4} className="mb-0">
                                                     <Label
                                                         className="name-req-create-member"
-                                                        htmlFor="course"
+                                                        htmlFor="year_of_study"
                                                     >
                                                         Year Of Study
                                                         <span
@@ -992,7 +1019,7 @@ const CreateTeamMember = (props) => {
                                                 >
                                                     <Label
                                                         className="name-req-create-member"
-                                                        htmlFor="username"
+                                                        htmlFor="email"
                                                     >
                                                         Email Address
                                                         <span
@@ -1021,8 +1048,8 @@ const CreateTeamMember = (props) => {
                                                             'defaultInput'
                                                         }
                                                         placeholder="Enter Email Address"
-                                                        id="username"
-                                                        name="username"
+                                                        id="email"
+                                                        name="email"
                                                         onChange={
                                                             formik.handleChange
                                                         }
@@ -1030,17 +1057,16 @@ const CreateTeamMember = (props) => {
                                                             formik.handleBlur
                                                         }
                                                         value={
-                                                            formik.values
-                                                                .username
+                                                            formik.values.email
                                                         }
                                                     />
 
-                                                    {formik.touched.username &&
-                                                    formik.errors.username ? (
+                                                    {formik.touched.email &&
+                                                    formik.errors.email ? (
                                                         <small className="error-cls">
                                                             {
                                                                 formik.errors
-                                                                    .username
+                                                                    .email
                                                             }
                                                         </small>
                                                     ) : null}

@@ -31,7 +31,7 @@ class detailToDownload extends React.Component {
                                     className=" col-4 text-success"
                                     style={{ fontFamily: 'courier' }}
                                 >
-                                    Teacher Name
+                                    Mentor Name
                                 </div>
                                 <div
                                     className="col-8 text-capitalize fs-4"

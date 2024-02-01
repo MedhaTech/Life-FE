@@ -45,13 +45,13 @@ const EditTeacherProfileDetails = (props) => {
                 .trim()
                 .min(2, 'Enter Name')
                 .matches(/^[aA-zZ\s]+$/, 'Special Characters are not allowed')
-                .required('Required'),
-            mentor_name_vernacular: Yup.string()
-
-                .trim()
-                .min(2, 'Enter Name')
-                .matches(/^[aA-zZ\s]+$/, 'Special Characters are not allowed')
                 .required('Required')
+            // mentor_name_vernacular: Yup.string()
+
+            //     .trim()
+            //     .min(2, 'Enter Name')
+            //     .matches(/^[aA-zZ\s]+$/, 'Special Characters are not allowed')
+            //     .required('Required')
         });
         return adminValidation;
     };
@@ -62,7 +62,7 @@ const EditTeacherProfileDetails = (props) => {
             mentor_whatapp_mobile: mentorData.mentor_whatapp_mobile,
             gender: mentorData.gender,
             date_of_birth: mentorData?.date_of_birth,
-            mentor_name_vernacular: mentorData?.mentor_name_vernacular,
+            // mentor_name_vernacular: mentorData?.mentor_name_vernacular,
             mentor_email: mentorData?.mentor_email,
             username: mentorData?.username
         };
@@ -79,7 +79,7 @@ const EditTeacherProfileDetails = (props) => {
                 mentor_whatapp_mobile: values.mentor_whatapp_mobile,
                 gender: values.gender,
                 date_of_birth: values.date_of_birth,
-                mentor_name_vernacular: values.mentor_name_vernacular,
+                // mentor_name_vernacular: values.mentor_name_vernacular,
                 username: mentorData.username
             });
             const ment = encryptGlobal(JSON.stringify(mentorData.mentor_id));
@@ -305,7 +305,7 @@ const EditTeacherProfileDetails = (props) => {
                                                 </small>
                                             ) : null}
                                         </Col>
-                                        <Col md={6}>
+                                        {/* <Col md={6}>
                                             <Label
                                                 className="name-req"
                                                 htmlFor="name"
@@ -336,7 +336,7 @@ const EditTeacherProfileDetails = (props) => {
                                                     }
                                                 </small>
                                             ) : null}
-                                        </Col>
+                                        </Col> */}
                                     </Row>
                                 </div>
                                 <hr className="mt-4 mb-4"></hr>

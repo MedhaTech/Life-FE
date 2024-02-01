@@ -14,7 +14,7 @@ const TableDetailPdf = (props) => {
             <div className="personal-detail p-5 bg-white shadow rounded border h-100">
                 <p className='fs-2 fw-bold text-primary'>PERSONAL&nbsp;DETAILS</p>
                 <div className="row my-2">
-                    <div className="col-4 fw-bold fs-4">Teacher Name</div>
+                    <div className="col-4 fw-bold fs-4">Mentor Name</div>
                     <div className="col-8 text-capitalize fs-4">: {props?.ideaDetails?.mentor_name}</div>
                 </div>
                 <div className="row my-2">

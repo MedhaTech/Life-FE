@@ -716,7 +716,7 @@ const Dashboard = () => {
                                                             xl={5}
                                                             className="my-auto profile-detail"
                                                         >
-                                                            <p>Teacher Name</p>
+                                                            <p>Mentor Name</p>
                                                         </Col>
                                                         <Col
                                                             xs={1}

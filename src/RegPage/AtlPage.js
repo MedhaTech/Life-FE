@@ -74,13 +74,13 @@ function AtlPage() {
     };
     const inputName = {
         type: 'text',
-        placeholder: `${t('teacehr_red.faculty_name_pl')}`,
+        placeholder: 'Enter Full Name',
         className: 'defaultInput'
     };
 
     const inputUsername = {
         type: 'text',
-        placeholder: `${t('teacehr_red.faculty_ph')}`,
+        placeholder: 'Enter Mobile Number',
         className: 'defaultInput'
     };
     const inputPassword = {
@@ -94,7 +94,7 @@ function AtlPage() {
     };
     const inputMobile = {
         type: 'text',
-        placeholder: `${t('teacehr_red.faculty_mobile')}`,
+        placeholder: 'Enter WhatsApp Number',
         className: 'defaultInput'
     };
     const inputmentor_Email = {
@@ -126,7 +126,7 @@ function AtlPage() {
             mentor_email: '',
             click: false,
             checkbox: false,
-            mentor_name_vernacular: '',
+            // mentor_name_vernacular: '',
             date_of_birth: ''
         },
 
@@ -136,11 +136,11 @@ function AtlPage() {
                 .min(2, 'Enter Name')
                 .matches(/^[aA-zZ\s]+$/, 'Special Characters are not allowed')
                 .required('Required'),
-            mentor_name_vernacular: Yup.string()
-                .trim()
-                .min(2, 'Enter Mentor Name')
-                .matches(/^[aA-zZ\s]+$/, 'Special Characters are not allowed')
-                .required('Required'),
+            // mentor_name_vernacular: Yup.string()
+            //     .trim()
+            //     .min(2, 'Enter Mentor Name')
+            //     .matches(/^[aA-zZ\s]+$/, 'Special Characters are not allowed')
+            //     .required('Required'),
             mentor_mobile: Yup.string()
                 .required('required')
                 .trim()
@@ -157,7 +157,7 @@ function AtlPage() {
                 .max(8, 'Password is more than 8 digits')
                 .min(8, 'password is less than 8 digits'),
             mentor_email: Yup.string()
-                .email('Must be a valid mentor_email')
+                .email('Must be a valid Email Id')
                 .max(255),
             mentor_whatapp_mobile: Yup.string()
                 .required('required')
@@ -199,8 +199,8 @@ function AtlPage() {
                 const body = JSON.stringify({
                     mentor_name: values.mentor_name.trim(),
                     institution_id: JSON.stringify(instId),
-                    mentor_name_vernacular:
-                        values.mentor_name_vernacular.trim(),
+                    // mentor_name_vernacular:
+                    //     values.mentor_name_vernacular.trim(),
 
                     institution_code: values.institution_code.trim(),
                     mentor_mobile: values.mentor_mobile.trim(),
@@ -238,9 +238,9 @@ function AtlPage() {
 
                                 mentor_name:
                                     mentorRegRes?.data?.data[0].mentor_name,
-                                mentor_name_vernacular:
-                                    mentorRegRes?.data?.data[0]
-                                        .mentor_name_vernacular,
+                                // mentor_name_vernacular:
+                                //     mentorRegRes?.data?.data[0]
+                                //         .mentor_name_vernacular,
                                 // district: orgData?.district,
                                 // school: orgData?.organization_name,
                                 institution_code:
@@ -294,13 +294,13 @@ function AtlPage() {
         axios(config)
             .then(function (response) {
                 if (response?.status == 200) {
-                    console.log(response, '333');
+                    // console.log(response, '333');
                     if (
                         response?.data?.data[0].mentor != null &&
                         process.env.REACT_APP_USEDICECODE == 1
                     ) {
                         setError(
-                            'Another Teacher is already registered in given Institution'
+                            'Another Mentor is already registered in given Institution'
                         );
                     } else {
                         if (Object.keys(response?.data?.data[0]).length) {
@@ -414,8 +414,8 @@ function AtlPage() {
             formik.values.mentor_email.length > 0 &&
             formik.values.mentor_whatapp_mobile.length > 0 &&
             formik.values.password.length === 8 &&
-            formik.values.date_of_birth.length > 0 &&
-            formik.values.mentor_name_vernacular.length > 0
+            formik.values.date_of_birth.length > 0
+            // formik.values.mentor_name_vernacular.length > 0
         ) {
             setDisable(true);
         } else {
@@ -427,7 +427,7 @@ function AtlPage() {
         formik.values.gender,
         formik.values.username,
         formik.values.mentor_email,
-        formik.values.mentor_name_vernacular,
+        // formik.values.mentor_name_vernacular,
         formik.values.date_of_birth,
         formik.values.password,
         formik.values.mentor_whatapp_mobile
@@ -517,7 +517,7 @@ function AtlPage() {
                     <Row className="article-header mb-4 mt-4 text-center">
                         <h4 className="mb-4">
                             <span className="color-black">
-                                Teacher Registration
+                                Mentor Registration
                             </span>
                         </h4>
                     </Row>
@@ -769,7 +769,7 @@ function AtlPage() {
                                                         className="mb-2"
                                                         htmlFor="name"
                                                     >
-                                                        Teacher Name
+                                                        Mentor Name
                                                     </Label>
                                                     <InputBox
                                                         {...inputName}
@@ -1141,7 +1141,7 @@ function AtlPage() {
                                                     </span>
                                                 </div> */}
                                             </Row>
-                                            <Row
+                                            {/* <Row
                                                 className="form-group"
                                                 xs={12}
                                                 sm={12}
@@ -1238,7 +1238,7 @@ function AtlPage() {
                                                         </small>
                                                     ) : null}
                                                 </Col>
-                                            </Row>
+                                            </Row> */}
                                             <div className="mt-5 d-flex align-items-center">
                                                 <Button
                                                     label={change}

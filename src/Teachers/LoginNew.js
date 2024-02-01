@@ -204,7 +204,7 @@ const LoginNew = (props) => {
                                             alt="login icon"
                                             className="img-fluid"
                                         />{' '}
-                                        Teacher Login
+                                        Mentor Login
                                     </button>
                                 </Link>
                                 <Link

@@ -148,7 +148,7 @@ const ReportsRegistration = () => {
             key: 'organization.principal_mobile'
         },
         {
-            label: 'Teacher Name',
+            label: 'Mentor Name',
             key: 'full_name'
         },
         {
@@ -330,7 +330,10 @@ const ReportsRegistration = () => {
             JSON.stringify({
                 state: RegTeachersState,
                 status: 'ACTIVE',
-                district: RegTeachersdistrict === '' ? 'All Districts' : RegTeachersdistrict,
+                district:
+                    RegTeachersdistrict === ''
+                        ? 'All Districts'
+                        : RegTeachersdistrict,
                 category: category
             })
         );
@@ -338,7 +341,10 @@ const ReportsRegistration = () => {
         const params = encryptGlobal(
             JSON.stringify({
                 state: RegTeachersState,
-                district: RegTeachersdistrict === '' ? 'All Districts' : RegTeachersdistrict,
+                district:
+                    RegTeachersdistrict === ''
+                        ? 'All Districts'
+                        : RegTeachersdistrict,
                 category: category
             })
         );

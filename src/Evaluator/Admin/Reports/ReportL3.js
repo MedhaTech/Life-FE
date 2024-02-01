@@ -175,7 +175,7 @@ const ReportL3 = () => {
         },
 
         {
-            label: 'Teacher Name',
+            label: 'Mentor Name',
             key: 'full_name'
         },
         {

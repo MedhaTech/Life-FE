@@ -49,8 +49,14 @@ const LoginNew = (props) => {
 
         validationSchema: Yup.object({
             email: Yup.string()
-                .email('Must be a valid email')
-                .required('Required user id'),
+                .required('required')
+                .trim()
+                .matches(
+                    /^\d+$/,
+                    'Mobile number is not valid (Enter only digits)'
+                )
+                .max(10, 'Please enter only 10 digit valid number')
+                .min(10, 'Number is less than 10 digits'),
             password: Yup.string().required('Required Password')
         }),
         // STIDENT ROLE
@@ -219,9 +225,7 @@ const LoginNew = (props) => {
                                                     className="mb-2"
                                                     htmlFor="email"
                                                 >
-                                                    {t(
-                                                        'loginPage.User_ID_Email'
-                                                    )}
+                                                    Mobile Number
                                                 </Label>
                                                 <InputBox
                                                     {...inputUserId}

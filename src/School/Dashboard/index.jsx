@@ -299,7 +299,7 @@ const DashboardSchool = (props) => {
                                     }}
                                 >
                                     <span className="mx-3">
-                                        <b>Teacher Name :</b>
+                                        <b>Mentor Name :</b>
                                     </span>
                                     <b>{mentorData.full_name}</b>
                                     <br />

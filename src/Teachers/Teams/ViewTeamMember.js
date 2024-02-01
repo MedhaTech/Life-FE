@@ -29,6 +29,7 @@ import { encryptGlobal } from '../../constants/encryptDecrypt';
 // const { TabPane } = Tabs;
 
 const ViewTeamMember = (props) => {
+    console.log(props.teamsMembersList, 'props');
     // console.log(props, 'props');
     const { t } = useTranslation();
     const currentUser = getCurrentUser('current_user');
@@ -365,7 +366,7 @@ const ViewTeamMember = (props) => {
             },
             {
                 name: 'Password',
-                selector: (row) => row.UUID,
+                selector: (row) => row.mobile,
                 // width: '15rem'
                 cell: (row) => (
                     <div
@@ -374,13 +375,13 @@ const ViewTeamMember = (props) => {
                             wordWrap: 'break-word'
                         }}
                     >
-                        {row.UUID}
+                        {row.mobile}
                     </div>
                 )
             },
             {
                 name: t('teacher_teams.student_name'),
-                selector: (row) => row.full_name,
+                selector: (row) => row.student_full_name,
                 cell: (row) => (
                     <div
                         style={{
@@ -388,25 +389,51 @@ const ViewTeamMember = (props) => {
                             wordWrap: 'break-word'
                         }}
                     >
-                        {row.full_name}
+                        {row.student_full_name}
                     </div>
                 )
                 // width: '16rem'
             },
-            // {
-            //     name: 'Email Id',
-            //     selector: 'user.username',
-            //     width: '10rem'
-            // },
+
             {
-                name: 'Disability',
-                selector: (row) => row.disability,
+                name: 'Course',
+                selector: (row) => row.course_id,
+                width: '12rem'
+            },
+            {
+                name: 'Year Of Study',
+                selector: (row) => row.year_of_study,
                 width: '15rem'
             },
             {
-                name: 'Class',
-                selector: (row) => row.Grade,
-                width: '7rem'
+                name: 'Email Id',
+                selector: (row) => row.email,
+                cell: (row) => (
+                    <div
+                        style={{
+                            whiteSpace: 'pre-wrap',
+                            wordWrap: 'break-word'
+                        }}
+                    >
+                        {row.email}
+                    </div>
+                ),
+                width: '15rem'
+                // selector: (row) => row.email,
+            },
+            {
+                name: 'Mobile',
+                selector: (row) => row.mobile,
+                cell: (row) => (
+                    <div
+                        style={{
+                            whiteSpace: 'pre-wrap',
+                            wordWrap: 'break-word'
+                        }}
+                    >
+                        {row.mobile}
+                    </div>
+                )
             },
             {
                 name: t('teacher_teams.age'),
@@ -579,22 +606,22 @@ const ViewTeamMember = (props) => {
         <Layout>
             <Container className="ticket-page mt-5 mb-50 userlist">
                 <Row className="pt-5">
-                    <Row className="mb-2 mb-sm-5 mb-md-5 mb-lg-0">
-                        <Col className="col-auto">
-                            <h3>
-                                {' '}
-                                <span
-                                    required
-                                    className="p-1"
-                                    style={{ color: 'blue' }}
-                                >
-                                    {data?.team_name ? data?.team_name : '-'}{' '}
-                                </span>
-                                Team Members Details
-                            </h3>
-                        </Col>
+                    {/* <Row className="mb-2 mb-sm-5 mb-md-5 mb-lg-0"> */}
+                    <Col className="col-auto">
+                        <h3>
+                            {' '}
+                            <span
+                                required
+                                className="p-1"
+                                style={{ color: 'blue' }}
+                            >
+                                {data?.team_name ? data?.team_name : '-'}{' '}
+                            </span>
+                            Team Members Details
+                        </h3>
+                    </Col>
 
-                        <Col className="ticket-btn col ml-auto ">
+                    {/* <Col className="ticket-btn col ml-auto ">
                             {button !== null ? (
                                 <div className="d-flex justify-content-end">
                                     <Button
@@ -622,27 +649,27 @@ const ViewTeamMember = (props) => {
                                     />
                                 </div>
                             )}
-                        </Col>
-                        <Col className="ticket-btn col ml-auto ">
-                            <div className="d-flex justify-content-end">
-                                <Button
-                                    label={t('teacher_teams.back')}
-                                    btnClass="primary ml-2 m-5"
-                                    size="small"
-                                    shape="btn-square"
-                                    Icon={BsPlusLg}
-                                    onClick={() =>
-                                        history.push('/teacher/teamlist')
-                                    }
-                                />
-                                {/* </div> */}
-                                {/* <div className="d-flex justify-content-end"> */}
-                            </div>
-                        </Col>
-                        {showMentorCard && (
+                        </Col> */}
+                    <Col className="ticket-btn col ml-auto ">
+                        <div className="d-flex justify-content-end">
+                            <Button
+                                label={t('teacher_teams.back')}
+                                btnClass="primary ml-2 m-5"
+                                size="small"
+                                shape="btn-square"
+                                Icon={BsPlusLg}
+                                onClick={() =>
+                                    history.push('/teacher/teamlist')
+                                }
+                            />
+                            {/* </div> */}
+                            {/* <div className="d-flex justify-content-end"> */}
+                        </div>
+                    </Col>
+                    {/* {showMentorCard && (
                             <Col md={12}>
                                 {/* {button( */}
-                                <Card className="w-100  mb-5 p-4">
+                    {/* <Card className="w-100  mb-5 p-4">
                                     <CardBody>
                                         <Row>
                                             <Col
@@ -799,11 +826,11 @@ const ViewTeamMember = (props) => {
                                             </Col>
                                         </Row>
                                     </CardBody>
-                                </Card>
-                                {/* )} */}
-                            </Col>
-                        )}
-                    </Row>
+                                </Card> */}
+                    {/* )} */}
+                    {/* </Col> */}
+                    {/* )} */}
+                    {/* </Row> */}
                     <div
                         className="ticket-data"
                         style={{ whiteSpace: 'pre-wrap' }}
