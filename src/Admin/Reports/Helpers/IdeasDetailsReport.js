@@ -178,7 +178,7 @@ const ReportsRegistration = () => {
         //     key: 'HM Contact'
         // },
         {
-            label: 'Teacher Name',
+            label: 'Mentor Name',
             key: 'full_name'
         },
         {

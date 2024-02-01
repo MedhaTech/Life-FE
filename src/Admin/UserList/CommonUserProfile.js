@@ -335,7 +335,7 @@ const CommonUserProfile = (props) => {
 
                             <CardText>
                                 <span className="mx-3">
-                                    <b>Teacher Name :</b>
+                                    <b>Mentor Name :</b>
                                 </span>
                                 <b>{StudentsDaTa.team?.mentor.full_name}</b>
                             </CardText>

@@ -15,7 +15,7 @@ const detailToDownload = (props) => {
                         </p>
                         <div className="row my-2">
                             <div className="col-4 fw-bold fs-4">
-                                Teacher Name
+                                Mentor Name
                             </div>
                             <div className="col-8 text-capitalize fs-4">
                                 : {props?.ideaDetails?.mentor_name}

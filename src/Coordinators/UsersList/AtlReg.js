@@ -676,7 +676,7 @@ function AtlPage() {
                                                         className="mb-2"
                                                         htmlFor="name"
                                                     >
-                                                        Teacher Name
+                                                        Mentor Name
                                                     </Label>
                                                     <InputBox
                                                         {...inputName}

@@ -235,7 +235,7 @@ const ReportsRegistration = () => {
             key: 'HM Contact'
         },
         {
-            label: 'Teacher Name',
+            label: 'Mentor Name',
             key: 'Teacher Name'
         },
         {
@@ -361,7 +361,10 @@ const ReportsRegistration = () => {
         const param = encryptGlobal(
             JSON.stringify({
                 state: RegTeachersState,
-                district: RegTeachersdistrict === '' ? 'All Districts' : RegTeachersdistrict,
+                district:
+                    RegTeachersdistrict === ''
+                        ? 'All Districts'
+                        : RegTeachersdistrict,
                 category: category
             })
         );
