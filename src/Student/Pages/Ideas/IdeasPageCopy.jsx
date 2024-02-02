@@ -645,7 +645,7 @@ const IdeasPageNew = () => {
     //     'Accepting only png,jpg,jpeg,pdf,mp4,doc,docx Only, file size should be below 10MB';
 
     return (
-        <Layout>
+        <Layout title="Idea Submission">
             {showPage ? (
                 <CommonPage text={comingSoonText} />
             ) : (

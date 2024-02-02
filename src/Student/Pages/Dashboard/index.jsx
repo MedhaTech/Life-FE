@@ -429,7 +429,7 @@ const Dashboard = () => {
     // };
     //export default Dashboard;
     return (
-        <Layout>
+        <Layout title="Dashboard">
             <GreetingModal
                 handleClose={handleClose}
                 show={showPopup}

@@ -855,7 +855,7 @@ const PlayVideoCourses = (props) => {
     const pdfFileURL =
         'https://s3.ap-south-1.amazonaws.com/aim1.0-bkt-cba6e2a/resources/stage/Final_Themes_AIM.pdf';
     return (
-        <Layout>
+        <Layout title="Course">
             {!showPage ? (
                 <CommonPage text={comingSoonText} />
             ) : (

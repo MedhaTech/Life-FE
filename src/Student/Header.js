@@ -50,10 +50,10 @@ const Header = (props) => {
                         <Navbar>
                             <Row className="justify-content-between w-100">
                                 <Col md={12} className="d-flex profile-section">
-                                    <h3 className="d-flex align-items-left">
-                                        {' '}
-                                        {currentUser?.data[0].institution_name}
-                                    </h3>
+                                <p className="m-0"><b>Menu :</b>{' '}{props.title}</p>
+                                    <p className="m-0">
+                                        <b>Institution : </b>{' '}{currentUser?.data[0].institution_name}
+                                    </p>
                                     <div className="d-flex align-items-center profile">
                                         <img src={AvatarImg} />
                                         <span className="header-name-size">

@@ -603,7 +603,7 @@ const ViewTeamMember = (props) => {
         });
     };
     return (
-        <Layout>
+        <Layout title="Teams">
             <Container className="ticket-page mt-5 mb-50 userlist">
                 <Row className="pt-5">
                     {/* <Row className="mb-2 mb-sm-5 mb-md-5 mb-lg-0"> */}

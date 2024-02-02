@@ -81,7 +81,7 @@ const IdeaSubmission = () => {
         setView(true);
     };
     return showCompleted ? (
-        <Layout>
+        <Layout title="Idea Submission">
             <CommonPage
                 text={commonPageText}
                 showButton={true}
@@ -93,7 +93,7 @@ const IdeaSubmission = () => {
     ) : isideadisable ? (
         <SDG setShowChallenges={setShowChallenges} />
     ) : (
-        <Layout>
+        <Layout title="Idea Submission">
             <CommonPage
                 text={t('student_course.idea_submission_date_com_desc')}
                 ideaSubmissionComButton={true}

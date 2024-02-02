@@ -43,7 +43,7 @@ const MyProfile = () => {
     };
 
     return (
-        <Layout>
+        <Layout title="My Profile">
             <Container className="MyProfile pt-3 pt-xl-5 mb-50">
                 <Row>
                     <Col className="col-xl-10 offset-xl-1 offset-md-0">
