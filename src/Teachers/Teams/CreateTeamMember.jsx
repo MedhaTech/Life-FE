@@ -719,7 +719,7 @@ const CreateTeamMember = (props) => {
     const formik = useFormik({
         initialValues: {
             student_full_name: '',
-            age: '',
+            age: 0,
             course_id: '',
             gender: '',
             year_of_study: '',
@@ -728,45 +728,6 @@ const CreateTeamMember = (props) => {
             username: '',
             email: ''
         },
-        // validate: (values) => {
-        //     const errors = {};
-
-        //     // Validate date_of_birth
-        //     if (!values.date_of_birth) {
-        //         // errors.date_of_birth = 'Date of birth is required';
-        //     } else {
-        //         const selectedDate = new Date(values.date_of_birth);
-        //         const currentDate = new Date();
-
-        //         // Calculate age
-        //         const age =
-        //             currentDate.getFullYear() - selectedDate.getFullYear();
-        //         const monthDiff =
-        //             currentDate.getMonth() - selectedDate.getMonth();
-        //         // ageFunction(age);
-
-        //         if (
-        //             monthDiff < 0 ||
-        //             (monthDiff === 0 &&
-        //                 currentDate.getDate() < selectedDate.getDate())
-        //         ) {
-        //             values.age = age - 1;
-        //         } else {
-        //             values.age = age;
-        //         }
-        //         // console.log(age, 'age');
-        //         // formik.setFieldValue('age', age);
-        //         // Validate age between 14 and 25
-        //         if (values.age < 14 || values.age > 25) {
-        //             errors.age = 'Age must be between 14 and 25';
-        //         } else {
-        //             errors.age = '';
-        //         }
-        //         // setAge(age);
-        //         formik.setFieldValue('age', age);
-        //     }
-        //     return errors;
-        // },
         validationSchema: Yup.object({
             student_full_name: Yup.string()
                 .required('Please Enter valid Full Name')
@@ -777,24 +738,30 @@ const CreateTeamMember = (props) => {
                     'Please enter only alphanumeric characters'
                 )
                 .trim(),
-            // age: Yup.number()
-            //     .integer()
-            //     .min(10, 'Min age is 14')
-            //     .max(18, 'Max age is 25')
-            //     .required('required'),
-            age: Yup.number().test(
-                'Min age is 14(Age Must be 14 to 25)',
-                'Max  age is 25(Age Must be 14 to 25)',
-                function (value) {
-                    const currentDate = new Date();
-                    const selectedDate = new Date(formik.values.date_of_birth);
-                    const age =
-                        currentDate.getFullYear() - selectedDate.getFullYear();
+            age: Yup.number()
+                .test(
+                    'age-validation',
+                    'Age must be between 14 and 25',
+                    function (value) {
+                        const currentDate = new Date();
+                        const selectedDate = new Date(
+                            this.parent.date_of_birth
+                        );
 
-                    // Adjust the logic based on your specific age validation criteria
-                    return age >= 14 && age <= 25;
-                }
-            ),
+                        if (isNaN(selectedDate.getTime())) {
+                            return false;
+                        }
+                        const age =
+                            currentDate.getFullYear() -
+                            selectedDate.getFullYear();
+                        if (isNaN(age) || age < 0) {
+                            return false;
+                        }
+                        return age >= 14 && age <= 25;
+                    }
+                )
+                .default(0),
+
             gender: Yup.string().required('Please select valid gender'),
             email: Yup.string()
                 .required('required')
@@ -885,6 +852,19 @@ const CreateTeamMember = (props) => {
             }
         }
     });
+    useEffect(() => {
+        // Update age whenever date_of_birth changes
+        const currentDate = new Date();
+        const selectedDate = new Date(formik.values.date_of_birth);
+
+        // Check if date_of_birth is a valid date
+        if (!isNaN(selectedDate.getTime())) {
+            const age = currentDate.getFullYear() - selectedDate.getFullYear();
+            formik.setFieldValue('age', age);
+        } else {
+            formik.setFieldValue('age', 0); // Set age to a default value or handle it as needed
+        }
+    }, [formik.values.date_of_birth]);
 
     const selectProgress = {
         label: 'Select Course',
@@ -896,9 +876,19 @@ const CreateTeamMember = (props) => {
         ],
         className: 'defaultDropdown'
     };
-    // console.log(formik.errors.age);
+    const selectCategory = {
+        label: 'Select Course',
+        options: [
+            { label: 'CSE', value: '1' },
+            { label: 'EEE', value: '2' },
+            { label: 'ECE', value: '3' },
+            { label: 'CIVIL', value: '4' }
+        ],
+        className: 'defaultDropdown'
+    };
+    console.log('formik.values.age', formik.values.age);
     return (
-        <Layout title="Teams">
+        <Layout title="teams">
             <div className="EditPersonalDetails new-member-page">
                 <Row>
                     <Col className="col-xl-10 offset-xl-1 offset-md-0">
@@ -974,6 +964,28 @@ const CreateTeamMember = (props) => {
                                                             *
                                                         </span>
                                                     </Label>
+                                                    {/* <DropDownWithSearch
+                                                        {...selectCategory}
+                                                        onBlur={
+                                                            formik.handleBlur
+                                                        }
+                                                        value={
+                                                            formik.values
+                                                                .course_id
+                                                        }
+                                                        defaultValue={
+                                                            'Select Course'
+                                                        }
+                                                        onChange={(option) => {
+                                                            formik.setFieldValue(
+                                                                'course_id',
+                                                                option[0].value
+                                                            );
+                                                        }}
+                                                        name="course_id"
+                                                        id="course_id"
+                                                    /> */}
+
                                                     <div className="dropdown CalendarDropdownComp ">
                                                         <select
                                                             className="form-control custom-dropdown"
@@ -1016,12 +1028,12 @@ const CreateTeamMember = (props) => {
                                                         }
                                                         onChange={(option) => {
                                                             formik.setFieldValue(
-                                                                'selectStatus',
+                                                                'Select Course',
                                                                 option[0].value
                                                             );
                                                         }}
-                                                        name="selectStatus"
-                                                        id="selectStatus"
+                                                        name="Select Course"
+                                                        id="Select Course"
                                                     /> */}
                                                     {formik.touched.course_id &&
                                                     formik.errors.course_id ? (
@@ -1361,11 +1373,11 @@ const CreateTeamMember = (props) => {
                                                             placeholder="Age"
                                                             id="age"
                                                             name="age"
-                                                            type="number"
-                                                            value={
+                                                            type="text"
+                                                            value={String(
                                                                 formik.values
                                                                     .age
-                                                            }
+                                                            )}
                                                         />
                                                         {/* <select
                                                             className="form-control custom-dropdown"
