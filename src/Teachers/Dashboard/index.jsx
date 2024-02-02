@@ -211,7 +211,7 @@ const Dashboard = () => {
     };
     const hi = false;
     return (
-        <Layout>
+        <Layout title="Dashboard">
             <GreetingModal
                 handleClose={handleClose}
                 show={showsPopup}

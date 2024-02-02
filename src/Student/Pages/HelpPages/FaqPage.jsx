@@ -42,7 +42,7 @@ const FaqPage = () => {
         await getFaqByCategory(catId);
     }, [language]);
     return (
-        <Layout>
+        <Layout title="FAQ">
             <div className="faq-page">
                 {queryId ? (
                     <div className="idea-section text-center container">

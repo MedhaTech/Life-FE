@@ -119,7 +119,7 @@ const EditTeacherProfileDetails = (props) => {
     };
 
     return (
-        <Layout>
+        <Layout title="My Profile">
             <div className="EditPersonalDetails new-member-page">
                 <Row>
                     <Col className="col-xl-10 offset-xl-1 offset-md-0">

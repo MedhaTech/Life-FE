@@ -141,6 +141,23 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                         </NavLink>
                     </MenuItem>
                     <MenuItem
+                        icon={<FaLightbulb />}
+                        className={
+                            (location.pathname === '/challenges' ||
+                                location.pathname === '/challenge-initiation' ||
+                                location.pathname === '/instructions') &&
+                            'sidebar-active'
+                        }
+                    >
+                        <NavLink
+                            exact={true}
+                            // onClick={handleClick}
+                            to={'/instructions'}
+                        >
+                            {t('home.idea_submission')}
+                        </NavLink>
+                    </MenuItem>
+                    <MenuItem
                         icon={<FaTh />}
                         className={
                             location.pathname === `/playCourse/${1}` &&
@@ -186,23 +203,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                             {t('home.badges')}
                         </NavLink>
                     </MenuItem> */}
-                    <MenuItem
-                        icon={<FaLightbulb />}
-                        className={
-                            (location.pathname === '/challenges' ||
-                                location.pathname === '/challenge-initiation' ||
-                                location.pathname === '/instructions') &&
-                            'sidebar-active'
-                        }
-                    >
-                        <NavLink
-                            exact={true}
-                            // onClick={handleClick}
-                            to={'/instructions'}
-                        >
-                            {t('home.idea_submission')}
-                        </NavLink>
-                    </MenuItem>
+
                     <MenuItem
                         icon={
                             <img

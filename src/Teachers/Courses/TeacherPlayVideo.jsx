@@ -582,7 +582,7 @@ const TeacherPlayVideo = (props) => {
         });
     };
     return (
-        <Layout>
+        <Layout title="Course">
             <div className="courses-page" ref={scrollRef}>
                 <div
                     className="pb-5 my-5 px-5 container-fluid"

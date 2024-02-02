@@ -103,7 +103,7 @@ const TeacherResources = () => {
     };
 
     return (
-        <Layout>
+        <Layout title="Resources">
             <Container className="ticket-page mt-5 mb-50">
                 <Row className="pt-3">
                     <Row className="mb-2 mb-sm-5 mb-md-5 mb-lg-0">

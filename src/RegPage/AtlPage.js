@@ -690,7 +690,7 @@ function AtlPage() {
                                                     xs={12}
                                                     sm={12}
                                                     md={12}
-                                                    xl={6}
+                                                    xl={3}
                                                 >
                                                     <Label
                                                         className="mb-2"
@@ -763,7 +763,7 @@ function AtlPage() {
                                                     xs={12}
                                                     sm={12}
                                                     md={12}
-                                                    xl={6}
+                                                    xl={9}
                                                 >
                                                     <Label
                                                         className="mb-2"
@@ -931,7 +931,7 @@ function AtlPage() {
                                                         className="mb-2"
                                                         htmlFor="date_of_birth"
                                                     >
-                                                        DOB
+                                                        Date Of Birth
                                                     </Label>
                                                     <InputBox
                                                         {...inputDate}
@@ -988,7 +988,7 @@ function AtlPage() {
                                                         className="mb-2 mt-3"
                                                         htmlFor="mentor_mobile"
                                                     >
-                                                        Mobile Number
+                                                        Your Mobile Number
                                                     </Label>
                                                     <InputBox
                                                         {...inputUsername}
@@ -1035,9 +1035,7 @@ function AtlPage() {
                                                             className="mb-2 mt-3"
                                                             htmlFor="phone"
                                                         >
-                                                            {t(
-                                                                'teacehr_red.faculty_mobile'
-                                                            )}
+                                                            Your WhatsApp Number
                                                         </Label>
                                                         <div
                                                             className="my-10 checkbox-right"
