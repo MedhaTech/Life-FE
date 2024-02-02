@@ -4,14 +4,14 @@ import { FaBars } from 'react-icons/fa';
 import { Row, Col, Navbar } from 'reactstrap';
 import AvatarImg from '../assets/media/img/Avatar.png';
 //import LanguageSelectorComp from '../components/LanguageSelectorComp';
-import {getCurrentUser} from "../helpers/Utils"; 
+import { getCurrentUser } from '../helpers/Utils';
 //import { useDispatch} from 'react-redux';
 //import i18next from 'i18next';
 //import {getStudentGlobalLanguage } from '../redux/studentRegistration/actions';
 
 const Header = (props) => {
     //const dispatch= useDispatch();
-    const currentUser = getCurrentUser("current_user");
+    const currentUser = getCurrentUser('current_user');
     // const presuveyStatusGl = useSelector(
     //     (state) =>
     //         state?.studentRegistration?.presuveyStatusGl
@@ -23,7 +23,7 @@ const Header = (props) => {
     //     if(!presuveyStatusGl && currentUser)
     //         dispatch(getPresurveyData(language));
     // }, [presuveyStatusGl,language,dispatch]);
-    
+
     // const localLang = JSON.parse(localStorage.getItem("s_language"));
     // useEffect(() => {
     //     if(localLang){
@@ -31,11 +31,11 @@ const Header = (props) => {
     //         dispatch(getStudentGlobalLanguage(localLang));
     //     }
     // }, []);
-    
+
     window.onunload = function () {
         localStorage.setItem('headerOption', JSON.stringify('Home'));
     };
-    
+
     return (
         <header>
             <div className="header-comp sticky-top py-4">
@@ -50,12 +50,17 @@ const Header = (props) => {
                         <Navbar>
                             <Row className="justify-content-between w-100">
                                 <Col md={12} className="d-flex profile-section">
+                                    <h3 className="d-flex align-items-left">
+                                        {' '}
+                                        {currentUser?.data[0].institution_name}
+                                    </h3>
                                     <div className="d-flex align-items-center profile">
                                         <img src={AvatarImg} />
-                                        <span className='header-name-size'>
+                                        <span className="header-name-size">
+                                            Welcome Student{' '}
                                             {currentUser?.data[0].full_name}
-                                        </span> 
-                                        
+                                        </span>
+
                                         {/* {window.location.pathname === '/student/pre-survey' && presuveyStatusGl && presuveyStatusGl !=="COMPLETED" && <span className="common-language-selc">
                                             <LanguageSelectorComp module="student" />
                                         </span>} */}

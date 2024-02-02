@@ -4,9 +4,7 @@ import { Row, Col, Navbar } from 'reactstrap';
 // import AvatarImg from '../assets/media/img/teacher.png';
 import AvatarImg from '../assets/media/img/Avatar.png';
 
-import {
-    getAdminNotificationsList
-} from '../redux/actions';
+import { getAdminNotificationsList } from '../redux/actions';
 import { connect } from 'react-redux';
 import { getCurrentUser } from '../helpers/Utils';
 
@@ -46,9 +44,15 @@ const Header = (props) => {
                                     md={12}
                                     className="d-flex profile-section text-right"
                                 >
+                                    <h3 className="d-flex align-items-left">
+                                        {' '}
+                                        {currentUser?.data[0].institution_name}
+                                    </h3>
+
                                     <div className="d-flex align-items-center profile">
                                         <img src={AvatarImg} />
                                         <span className="header-name-size">
+                                            Welcome Mentor{' '}
                                             {currentUser?.data[0].full_name}
                                         </span>
 
