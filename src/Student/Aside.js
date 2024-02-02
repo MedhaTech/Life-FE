@@ -157,7 +157,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                             {t('home.idea_submission')}
                         </NavLink>
                     </MenuItem>
-                    <MenuItem
+                    {/* <MenuItem
                         icon={<FaTh />}
                         className={
                             location.pathname === `/playCourse/${1}` &&
@@ -169,11 +169,10 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                             // onClick={handleClick}
                             to={`/playCourse/${1}`}
                         >
-                            {/* Courses */}
                             {t('home.courses')}
                         </NavLink>
-                    </MenuItem>
-                    <MenuItem
+                    </MenuItem> */}
+                    {/* <MenuItem
                         icon={<FaLandmark />}
                         className={
                             location.pathname === '/Student/Resources/index' &&
@@ -188,7 +187,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                         >
                             {t('home.resources')}
                         </NavLink>
-                    </MenuItem>
+                    </MenuItem> */}
                     {/* <MenuItem
                         icon={<FaShieldVirus />}
                         className={
@@ -204,7 +203,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                         </NavLink>
                     </MenuItem> */}
 
-                    <MenuItem
+                    {/* <MenuItem
                         icon={
                             <img
                                 src={FaqIcon}
@@ -221,10 +220,10 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                             //  onClick={handleClick}
                             to={'/faq'}
                         >
-                            {/* FAQ */}
+                           
                             {t('home.faq')}
                         </NavLink>
-                    </MenuItem>
+                    </MenuItem> */}
                     {/* <MenuItem
                         icon={
                             <img

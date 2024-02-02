@@ -223,7 +223,7 @@ export default function DoughnutChart({ user }) {
     const columns = [
         {
             title: 'Name',
-            dataIndex: 'full_name',
+            dataIndex: 'student_full_name',
             width: '15rem'
         },
         // {

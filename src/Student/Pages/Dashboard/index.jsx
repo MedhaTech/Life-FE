@@ -188,13 +188,13 @@ const Dashboard = () => {
     const columns = [
         {
             title: 'Name',
-            dataIndex: 'full_name',
+            dataIndex: 'student_full_name',
             width: '20%',
             render: (_, record) =>
-                record.full_name === currentUser?.data[0]?.full_name ? (
-                    <div className="self-decor">{record.full_name}*</div>
+                record.student_full_name === currentUser?.data[0]?.student_full_name ? (
+                    <div className="self-decor">{record.student_full_name}*</div>
                 ) : (
-                    record.full_name
+                    record.student_full_name
                 )
         },
         // {
