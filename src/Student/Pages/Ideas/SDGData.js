@@ -90,30 +90,37 @@ export const cardData = [
 export const subCategoryData = {
     'Agritech & Food Technology': [
         'Develop a prototype of an automated device or machine that assists small-scale farmers in tasks such as planting, watering, or harvesting crops.',
-        'Design and construct a device or instrument capable of identifying and measuring the levels of pesticides or other chemical residues present in soil and food products, thereby verifying their organic status.'
+        'Design and construct a device or instrument capable of identifying and measuring the levels of pesticides or other chemical residues present in soil and food products, thereby verifying their organic status.',
+        'OTHERS'
     ],
     'Clean & Green Technology': [
         'Develop a tool that helps students to manage their emotional and mental health.',
-        'Devise a fun, gamified way for students to build skills like problem solving, spatial thinking, negotiation, and pattern recognition.'
+        'Devise a fun, gamified way for students to build skills like problem solving, spatial thinking, negotiation, and pattern recognition.',
+        'OTHERS'
     ],
     'Disaster Management': [
         'Develop a small-scale, community alert system prototype that uses local resources to warn residents of impending natural disasters like floods, earthquakes, etc.',
-        'Design Solutions  that can solve some of the pressing challenges of India such as handling medical emergencies, search and rescue operations, etc.'
+        'Design Solutions  that can solve some of the pressing challenges of India such as handling medical emergencies, search and rescue operations, etc.',
+        'OTHERS'
     ],
     Mobility: [
         'Accessibility and Inclusive Design- Creating innovative transportation and infrastructure solutions that are inclusive and accessible for people with disabilities, ensuring equal access to mobility options and enhancing the overall urban experience for everyone.',
-        'Devise an integrated solution that employs technology to reduce traffic congestion, while simultaneously incorporating features aimed at preventing road accidents and reducing the incidence of fatalities.'
+        'Devise an integrated solution that employs technology to reduce traffic congestion, while simultaneously incorporating features aimed at preventing road accidents and reducing the incidence of fatalities.',
+        'OTHERS'
     ],
     Health: [
         'Develop products to ensure the availability of quality healthcare on an equitable, affordable and accessible basis with a special focus on underserved populations.',
-        'Create a tool that promotes healthy living among Indian youth, focusing on areas like nutrition, physical activity, and mental well-being.'
+        'Create a tool that promotes healthy living among Indian youth, focusing on areas like nutrition, physical activity, and mental well-being.',
+        'OTHERS'
     ],
     'Education And Skill Development': [
         'Design a low-cost ATL Model/toolkit encompassing all the key segments of Tinkering.',
-        'Toys/Games for Education : Design Toys and Games that will help children (2 - 12 years) learn better in an interactive and fun way.'
+        'Toys/Games for Education : Design Toys and Games that will help children (2 - 12 years) learn better in an interactive and fun way.',
+        'OTHERS'
     ],
     Space: [
         'Design a Payload for a Satellite that can be launched into Space.',
-        'Build an All Terrain Rover that will explore the surface of other planets, and analyse its environment.'
+        'Build an All Terrain Rover that will explore the surface of other planets, and analyse its environment.',
+        'OTHERS'
     ]
 };
