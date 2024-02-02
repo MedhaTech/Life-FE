@@ -60,7 +60,7 @@ const InstructionsPage = (props) => {
 
                                         <div className="text-right">
                                             {/* <div className="m-5"> */}
-                                            <a
+                                            {/* <a
                                                 href={pdfFileURL}
                                                 target="_blank"
                                                 rel="noreferrer"
@@ -74,7 +74,7 @@ const InstructionsPage = (props) => {
                                                     btnClass="primary mt-4 mx-4 "
                                                     size="small"
                                                 />
-                                            </a>
+                                            </a> */}
                                             {/* </div> */}
                                             {/* <div className="mx-5"> */}
                                             <Button

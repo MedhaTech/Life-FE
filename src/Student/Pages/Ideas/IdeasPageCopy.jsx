@@ -1149,7 +1149,7 @@ const IdeasPageNew = () => {
                                                     </>
                                                 )}
 
-                                            {screenQst.map(
+                                            {challengeQuestions.map(
                                                 (eachQuestion, i) => (
                                                     <>
                                                         <Row

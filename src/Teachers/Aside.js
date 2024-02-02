@@ -178,7 +178,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                             {t('teacher.team')}
                         </NavLink>
                     </MenuItem>
-                    <MenuItem
+                    {/* <MenuItem
                         icon={<FaTh />}
                         className={
                             location.pathname === `/teacher/playvideo/${1}` &&
@@ -192,9 +192,9 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                         >
                             {t('teacher.course')}
                         </NavLink>
-                    </MenuItem>
+                    </MenuItem> */}
 
-                    <MenuItem
+                    {/* <MenuItem
                         icon={<FaLandmark />}
                         className={
                             location.pathname === '/teacher/Resources' &&
@@ -209,9 +209,9 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                         >
                             {t('Resources')}
                         </NavLink>
-                    </MenuItem>
+                    </MenuItem> */}
 
-                    <MenuItem
+                    {/* <MenuItem
                         icon={<FaQuestionCircle />}
                         className={
                             location.pathname === '/teacher/faq' &&
@@ -226,7 +226,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                             {' '}
                             {t('teacher.faq')}
                         </NavLink>
-                    </MenuItem>
+                    </MenuItem> */}
                     {/* <MenuItem
                         icon={<FaCaretSquareRight />}
                         className={
