@@ -714,7 +714,7 @@ const CreateTeamMember = (props) => {
     }
     const formik = useFormik({
         initialValues: {
-            fullName: '',
+            student_full_name: '',
             age: '',
             course_id: '',
             gender: '',
@@ -726,7 +726,7 @@ const CreateTeamMember = (props) => {
         },
 
         validationSchema: Yup.object({
-            fullName: Yup.string()
+            student_full_name: Yup.string()
                 .required('Please Enter valid Full Name')
                 .max(40)
                 .required()
@@ -775,8 +775,7 @@ const CreateTeamMember = (props) => {
                 const body = {
                     team_id: id,
                     role: 'STUDENT',
-                    full_name: values.fullName,
-                    qualification: '',
+                    student_full_name: values.student_full_name,
                     Age: values.age,
                     course_id: values.course_id,
                     Gender: values.gender,
@@ -784,7 +783,7 @@ const CreateTeamMember = (props) => {
                     mobile: values.mobile,
                     email: values.email,
                     username: values.mobile,
-                    dataKeys: values.date_of_birth,
+                    data_of_birth: values.date_of_birth,
                     country: values.country
                 };
                 var config = {
@@ -851,7 +850,7 @@ const CreateTeamMember = (props) => {
                                                 <Col md={4}>
                                                     <Label
                                                         className="name-req-create-member"
-                                                        htmlFor="fullName"
+                                                        htmlFor="student_full_name"
                                                     >
                                                         {t(
                                                             'teacher_teams.student_name'
@@ -870,8 +869,8 @@ const CreateTeamMember = (props) => {
                                                         placeholder={t(
                                                             'teacher_teams.student_name_pl'
                                                         )}
-                                                        id="fullName"
-                                                        name="fullName"
+                                                        id="student_full_name"
+                                                        name="student_full_name"
                                                         onChange={
                                                             formik.handleChange
                                                         }
@@ -880,15 +879,17 @@ const CreateTeamMember = (props) => {
                                                         }
                                                         value={
                                                             formik.values
-                                                                .fullName
+                                                                .student_full_name
                                                         }
                                                     />
-                                                    {formik.touched.fullName &&
-                                                    formik.errors.fullName ? (
+                                                    {formik.touched
+                                                        .student_full_name &&
+                                                    formik.errors
+                                                        .student_full_name ? (
                                                         <small className="error-cls">
                                                             {
                                                                 formik.errors
-                                                                    .fullName
+                                                                    .student_full_name
                                                             }
                                                         </small>
                                                     ) : null}
@@ -1248,7 +1249,7 @@ const CreateTeamMember = (props) => {
                                                     ) : null}
                                                 </Col>
                                                 <Col
-                                                    md={6}
+                                                    md={4}
                                                     className="mb-5 mb-xl-0"
                                                 >
                                                     <Label

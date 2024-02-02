@@ -259,7 +259,7 @@ const ViewTeamMember = (props) => {
     const handleChangeStudent = (name) => {
         const body = {
             team_id: teamchangeobj[name].toString(),
-            full_name: selectedstudent.full_name
+            student_full_name: selectedstudent.student_full_name
         };
         const stuparamId = encryptGlobal(
             JSON.stringify(selectedstudent.student_id)
