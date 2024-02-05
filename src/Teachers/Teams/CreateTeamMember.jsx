@@ -128,6 +128,39 @@ const CreateMultipleMembers = ({ id }) => {
                             }
                         }
                     }
+                    if (item === 'date_of_birth') {
+                        let check = e.target.value;
+                        const currentDate = new Date();
+                        const selectedDate = new Date(check);
+                        const age =
+                            currentDate.getFullYear() -
+                            selectedDate.getFullYear();
+                        newItem[i]['age'] = age;
+                        if (age < 14 || age > 25) {
+                            // const { index } = newItem[i]['age'];
+                            // if (index) {
+                            const foo = { ...errCopy[i] };
+
+                            foo['age'] = 'Age must be between 14 and 25';
+                            errCopy[i] = { ...foo };
+                            setItemDataErrors(errCopy);
+                            return;
+                            // }
+                        }
+                        console.log(age, '11');
+                        // if (check && check.match(isValidNumber)) {
+                        //     const { index } = check.match(isValidNumber);
+                        //     if (index) {
+                        //         const foo = { ...errCopy[i] };
+                        //         foo[e.target.name] =
+                        //             'Enter Valid Mobile Number';
+                        //         errCopy[i] = { ...foo };
+                        //         setItemDataErrors(errCopy);
+                        //         return;
+                        //     }
+                        // }
+                    }
+
                     const foo = { ...errCopy[i] };
                     foo[e.target.name] = '';
                     errCopy[i] = { ...foo };
@@ -153,6 +186,23 @@ const CreateMultipleMembers = ({ id }) => {
                     err['student_full_name'] = 'Only alphanumeric are allowed';
                 }
             }
+            if (!item.date_of_birth) {
+                err['date_of_birth'] = 'Date of Birth is Required';
+            } else {
+                const currentDate = new Date();
+                const selectedDate = new Date(item.date_of_birth);
+                const age =
+                    currentDate.getFullYear() - selectedDate.getFullYear();
+
+                // Validate age
+                if (age < 14 || age > 25) {
+                    err['age'] = 'Age must be between 14 and 25';
+                    openNotificationWithIcon(
+                        'error',
+                        'Age must be between 14 and 25'
+                    );
+                }
+            }
 
             // if (!item.username.trim())
             //     err['username'] = 'Mobile Number is Required';
@@ -166,13 +216,13 @@ const CreateMultipleMembers = ({ id }) => {
             //     }
             // }
 
-            if (!item.Age) err['Age'] = 'Age is Required';
+            // if (!item.Age) err['Age'] = 'Age is Required';
             if (!item.email) err['email'] = 'Email Id is Required';
 
             if (!item.course_id) err['course_id'] = 'Course is Required';
 
             if (!item.mobile) err['mobile'] = 'Mobile number is Required';
-            if (!item.date_of_birth) err['date_of_birth'] = 'DOB is Required';
+            // if (!item.date_of_birth) err['date_of_birth'] = 'DOB is Required';
             if (!item.year_of_study)
                 err['year_of_study'] = 'Year Of Study is Required';
 
@@ -228,7 +278,8 @@ const CreateMultipleMembers = ({ id }) => {
         var finalStudentArray = [];
         finalStudentArray = studentData.map((item, i) => ({
             ...item,
-            username: item.mobile
+            username: item.mobile,
+            age: item.age
         }));
 
         dispatch(
@@ -238,6 +289,16 @@ const CreateMultipleMembers = ({ id }) => {
                 setIsClicked
             )
         );
+    };
+    const selectCategory = {
+        label: 'Select Course',
+        options: [
+            { label: 'CSE', value: '1' },
+            { label: 'ECE', value: '2' },
+            { label: 'EEE', value: '3' },
+            { label: 'CIVIL', value: '4' }
+        ],
+        className: 'defaultDropdown'
     };
     return (
         <div className="create-ticket register-blockt">
@@ -297,6 +358,7 @@ const CreateMultipleMembers = ({ id }) => {
                                             *
                                         </span>
                                     </Label>
+
                                     <div className="dropdown CalendarDropdownComp ">
                                         <select
                                             name="course_id"
@@ -425,39 +487,34 @@ const CreateMultipleMembers = ({ id }) => {
                                 </Col>
                             </Row>
                             <Row>
-                                <Col md={4} className="mb-xl-0">
+                                <Col md={4}>
                                     <Label
                                         className="name-req-create-member"
-                                        htmlFor="age"
+                                        htmlFor="date_of_birth"
                                     >
-                                        {t('teacher_teams.age')}
+                                        Date Of Birth
                                         <span required className="p-1">
                                             *
                                         </span>
                                     </Label>
-                                    <div className="dropdown CalendarDropdownComp ">
-                                        <select
-                                            name="Age"
-                                            className="form-control custom-dropdown"
-                                            value={item.Age}
-                                            onChange={(e) => handleChange(e, i)}
-                                        >
-                                            <option value={''}>
-                                                Select Age
-                                            </option>
-                                            {allowedAge.map((item) => (
-                                                <option key={item} value={item}>
-                                                    {item}
-                                                </option>
-                                            ))}
-                                        </select>
-                                    </div>
-                                    {foundErrObject?.Age ? (
+                                    <InputBox
+                                        className={'defaultInput'}
+                                        placeholder="DD/MM/YYYY"
+                                        id="date_of_birth"
+                                        type="date"
+                                        name="date_of_birth"
+                                        onChange={(e) => {
+                                            handleChange(e, i);
+                                        }}
+                                        value={item.date_of_birth}
+                                    />
+                                    {foundErrObject?.date_of_birth ? (
                                         <small className="error-cls">
-                                            {foundErrObject.Age}
+                                            {foundErrObject.date_of_birth}
                                         </small>
                                     ) : null}
                                 </Col>
+
                                 <Col md={4} className="mb-5 mb-xl-0">
                                     <Label
                                         className="name-req-create-member"
@@ -498,30 +555,48 @@ const CreateMultipleMembers = ({ id }) => {
                                         </small>
                                     ) : null}
                                 </Col>
-                                <Col md={4}>
+                                <Col md={4} className="mb-xl-0">
                                     <Label
                                         className="name-req-create-member"
-                                        htmlFor="date_of_birth"
+                                        htmlFor="age"
                                     >
-                                        Date Of Birth
+                                        {t('teacher_teams.age')}
                                         <span required className="p-1">
                                             *
                                         </span>
                                     </Label>
+                                    {/* <div className="dropdown CalendarDropdownComp ">
+                                        <select
+                                            name="Age"
+                                            className="form-control custom-dropdown"
+                                            value={item.Age}
+                                            onChange={(e) => handleChange(e, i)}
+                                        >
+                                            <option value={''}>
+                                                Select Age
+                                            </option>
+                                            {allowedAge.map((item) => (
+                                                <option key={item} value={item}>
+                                                    {item}
+                                                </option>
+                                            ))}
+                                        </select>
+                                    </div> */}
                                     <InputBox
                                         className={'defaultInput'}
-                                        placeholder="DD/MM/YYYY"
-                                        id="date_of_birth"
-                                        type="date"
-                                        name="date_of_birth"
+                                        isDisabled={true}
+                                        placeholder="Age"
+                                        id="age"
+                                        type="age"
+                                        name="age"
                                         onChange={(e) => {
                                             handleChange(e, i);
                                         }}
-                                        value={item.date_of_birth}
+                                        value={item.age?.toString()}
                                     />
-                                    {foundErrObject?.date_of_birth ? (
+                                    {foundErrObject?.Age ? (
                                         <small className="error-cls">
-                                            {foundErrObject.date_of_birth}
+                                            {foundErrObject.Age}
                                         </small>
                                     ) : null}
                                 </Col>
@@ -639,19 +714,19 @@ const CreateMultipleMembers = ({ id }) => {
                             disabled={true}
                         />
                     )}
-                    {studentData.length < 4 && (
+                    {studentData.length < 6 && (
                         <div className="">
                             <Button
                                 label={'Add More'}
                                 onClick={addItem}
                                 btnClass={
                                     // 'primary d-flex justify-content-center mt-2'
-                                    studentData.length != 3
+                                    studentData.length != 5
                                         ? 'primary'
                                         : 'default'
                                 }
                                 size="small"
-                                disabled={studentData.length === 3}
+                                disabled={studentData.length === 5}
                             />
                         </div>
                     )}
@@ -853,40 +928,28 @@ const CreateTeamMember = (props) => {
         }
     });
     useEffect(() => {
-        // Update age whenever date_of_birth changes
         const currentDate = new Date();
         const selectedDate = new Date(formik.values.date_of_birth);
 
-        // Check if date_of_birth is a valid date
         if (!isNaN(selectedDate.getTime())) {
             const age = currentDate.getFullYear() - selectedDate.getFullYear();
             formik.setFieldValue('age', age);
         } else {
-            formik.setFieldValue('age', 0); // Set age to a default value or handle it as needed
+            formik.setFieldValue('age', 0);
         }
     }, [formik.values.date_of_birth]);
 
-    const selectProgress = {
-        label: 'Select Course',
-        options: [
-            { label: 'CSE', value: '1' },
-            { label: 'EEE', value: '2' },
-            { label: 'ECE', value: '3' },
-            { label: 'CIVIL', value: '4' }
-        ],
-        className: 'defaultDropdown'
-    };
     const selectCategory = {
         label: 'Select Course',
         options: [
             { label: 'CSE', value: '1' },
-            { label: 'EEE', value: '2' },
-            { label: 'ECE', value: '3' },
+            { label: 'ECE', value: '2' },
+            { label: 'EEE', value: '3' },
             { label: 'CIVIL', value: '4' }
         ],
         className: 'defaultDropdown'
     };
-    console.log('formik.values.age', formik.values.age);
+    // console.log('formik.values.age', formik.values.age);
     return (
         <Layout title="teams">
             <div className="EditPersonalDetails new-member-page">
@@ -973,20 +1036,34 @@ const CreateTeamMember = (props) => {
                                                             formik.values
                                                                 .course_id
                                                         }
-                                                        defaultValue={
-                                                            'Select Course'
-                                                        }
-                                                        onChange={(option) => {
-                                                            formik.setFieldValue(
-                                                                'course_id',
-                                                                option[0].value
-                                                            );
+                                                        onChange={(
+                                                            selectedOptions
+                                                        ) => {
+                                                            // Assuming the dropdown allows multiple selections, so it returns an array of selected options
+                                                            if (
+                                                                selectedOptions.length >
+                                                                0
+                                                            ) {
+                                                                formik.setFieldValue(
+                                                                    'course_id',
+                                                                    selectedOptions[0]
+                                                                        .value
+                                                                );
+                                                            } else {
+                                                                // Handle the case where no option is selected if needed
+                                                            }
                                                         }}
+                                                        // onChange={(option) => {
+                                                        //     formik.setFieldValue(
+                                                        //         'course_id',
+                                                        //         option[0].value
+                                                        //     ); // Use option.value directly
+                                                        // }}
                                                         name="course_id"
                                                         id="course_id"
                                                     /> */}
 
-                                                    <div className="dropdown CalendarDropdownComp ">
+                                                    {/* <div className="dropdown CalendarDropdownComp ">
                                                         <select
                                                             className="form-control custom-dropdown"
                                                             id="course_id"
@@ -1020,21 +1097,21 @@ const CreateTeamMember = (props) => {
                                                                 )
                                                             )}
                                                         </select>
-                                                    </div>
-                                                    {/* <DropDownWithSearch
-                                                        {...selectProgress}
+                                                    </div> */}
+                                                    <DropDownWithSearch
+                                                        {...selectCategory}
                                                         onBlur={
                                                             formik.handleBlur
                                                         }
                                                         onChange={(option) => {
                                                             formik.setFieldValue(
-                                                                'Select Course',
+                                                                'course_id',
                                                                 option[0].value
                                                             );
                                                         }}
                                                         name="Select Course"
                                                         id="Select Course"
-                                                    /> */}
+                                                    />
                                                     {formik.touched.course_id &&
                                                     formik.errors.course_id ? (
                                                         <small className="error-cls">
