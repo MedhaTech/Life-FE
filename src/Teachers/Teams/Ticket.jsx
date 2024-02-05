@@ -30,7 +30,7 @@ const TicketsPage = () => {
     const [limit, setLimit] = useState(false);
     const [btn, setBtn] = useState('');
     const [stuList, setStuList] = useState([]);
-    const [totalCount, setTotalCount] = useState([]);
+    const [totalCount, setTotalCount] = useState({});
     useEffect(() => {
         if (currentUser?.data[0]?.mentor_id) {
             teamListbymentorid(currentUser?.data[0]?.mentor_id);
@@ -57,7 +57,6 @@ const TicketsPage = () => {
         axios(config)
             .then(function (response) {
                 const stuList = response?.data?.data || [];
-                // console.log(stuList, 'res');
                 const total = stuList.reduce(
                     (acc, item) => {
                         acc.StudentCount += item.StudentCount;
@@ -68,16 +67,11 @@ const TicketsPage = () => {
                         StudentCount: 0
                     }
                 );
-                // console.log(total, '44');
                 setTotalCount(total);
                 if (response.status === 200) {
-                    // console.log(response, '1');
                     setTeamsList(response.data.data);
                 }
-                // if (response.status === 200) {
-                //     setBtn(response.data.count === 10);
-                //     setLimit(true);
-                // }
+                
             })
             .catch(function (error) {
                 console.log(error);
@@ -141,12 +135,13 @@ const TicketsPage = () => {
                     return [
                         <div key={params} onClick={() => handleCreate(params)}>
                             {process.env.REACT_APP_TEAM_LENGTH >
-                                params.StudentCount && (
-                                <div className="btn btn-success  mr-5 mx-2">
-                                    Add Team Members
-                                    {/* {t('teacher_teams.create')} */}
-                                </div>
-                            )}
+                                params.StudentCount &&
+                                totalCount?.StudentCount < 50 && (
+                                    <div className="btn btn-success  mr-5 mx-2">
+                                        Add Team Members
+                                        {/* {t('teacher_teams.create')} */}
+                                    </div>
+                                )}
                         </div>,
                         <div key={params} onClick={() => handleView(params)}>
                             {!params.StudentCount < 4 && (
