@@ -29,6 +29,8 @@ const TicketsPage = () => {
     const [teamsList, setTeamsList] = useState([]);
     const [limit, setLimit] = useState(false);
     const [btn, setBtn] = useState('');
+    const [stuList, setStuList] = useState([]);
+    const [totalCount, setTotalCount] = useState([]);
     useEffect(() => {
         if (currentUser?.data[0]?.mentor_id) {
             teamListbymentorid(currentUser?.data[0]?.mentor_id);
@@ -54,15 +56,28 @@ const TicketsPage = () => {
         };
         axios(config)
             .then(function (response) {
-                console.log(response, 'res');
+                const stuList = response?.data?.data || [];
+                // console.log(stuList, 'res');
+                const total = stuList.reduce(
+                    (acc, item) => {
+                        acc.StudentCount += item.StudentCount;
+
+                        return acc;
+                    },
+                    {
+                        StudentCount: 0
+                    }
+                );
+                // console.log(total, '44');
+                setTotalCount(total);
                 if (response.status === 200) {
                     // console.log(response, '1');
                     setTeamsList(response.data.data);
                 }
-                if (response.status === 200) {
-                    setBtn(response.data.count === 10);
-                    setLimit(true);
-                }
+                // if (response.status === 200) {
+                //     setBtn(response.data.count === 10);
+                //     setLimit(true);
+                // }
             })
             .catch(function (error) {
                 console.log(error);
@@ -194,7 +209,7 @@ const TicketsPage = () => {
 
                         <Col className="ticket-btn col ml-auto ">
                             <div className="d-flex justify-content-end">
-                                {btn === false ? (
+                                {totalCount?.StudentCount < 47 && (
                                     <Button
                                         label={t('teacher_teams.create_team')}
                                         btnClass="primary ml-2"
@@ -205,8 +220,6 @@ const TicketsPage = () => {
                                             history.push('/teacher/create-team')
                                         }
                                     />
-                                ) : (
-                                    ''
                                 )}
                             </div>
                         </Col>
