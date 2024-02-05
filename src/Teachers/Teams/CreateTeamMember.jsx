@@ -128,38 +128,38 @@ const CreateMultipleMembers = ({ id }) => {
                             }
                         }
                     }
-                    if (item === 'date_of_birth') {
-                        let check = e.target.value;
-                        const currentDate = new Date();
-                        const selectedDate = new Date(check);
-                        const age =
-                            currentDate.getFullYear() -
-                            selectedDate.getFullYear();
-                        newItem[i]['age'] = age;
-                        if (age < 14 || age > 25) {
-                            // const { index } = newItem[i]['age'];
-                            // if (index) {
-                            const foo = { ...errCopy[i] };
+                    // if (item === 'date_of_birth') {
+                    //     let check = e.target.value;
+                    //     const currentDate = new Date();
+                    //     const selectedDate = new Date(check);
+                    //     const age =
+                    //         currentDate.getFullYear() -
+                    //         selectedDate.getFullYear();
+                    //     newItem[i]['age'] = age;
+                    //     if (age < 14 || age > 25) {
+                    //         // const { index } = newItem[i]['age'];
+                    //         // if (index) {
+                    //         const foo = { ...errCopy[i] };
 
-                            foo['age'] = 'Age must be between 14 and 25';
-                            errCopy[i] = { ...foo };
-                            setItemDataErrors(errCopy);
-                            return;
-                            // }
-                        }
-                        console.log(age, '11');
-                        // if (check && check.match(isValidNumber)) {
-                        //     const { index } = check.match(isValidNumber);
-                        //     if (index) {
-                        //         const foo = { ...errCopy[i] };
-                        //         foo[e.target.name] =
-                        //             'Enter Valid Mobile Number';
-                        //         errCopy[i] = { ...foo };
-                        //         setItemDataErrors(errCopy);
-                        //         return;
-                        //     }
-                        // }
-                    }
+                    //         foo['age'] = 'Age must be between 14 and 25';
+                    //         errCopy[i] = { ...foo };
+                    //         setItemDataErrors(errCopy);
+                    //         return;
+                    //         // }
+                    //     }
+                    //     console.log(age, '11');
+                    //     // if (check && check.match(isValidNumber)) {
+                    //     //     const { index } = check.match(isValidNumber);
+                    //     //     if (index) {
+                    //     //         const foo = { ...errCopy[i] };
+                    //     //         foo[e.target.name] =
+                    //     //             'Enter Valid Mobile Number';
+                    //     //         errCopy[i] = { ...foo };
+                    //     //         setItemDataErrors(errCopy);
+                    //     //         return;
+                    //     //     }
+                    //     // }
+                    // }
 
                     const foo = { ...errCopy[i] };
                     foo[e.target.name] = '';
@@ -186,23 +186,23 @@ const CreateMultipleMembers = ({ id }) => {
                     err['student_full_name'] = 'Only alphanumeric are allowed';
                 }
             }
-            if (!item.date_of_birth) {
-                err['date_of_birth'] = 'Date of Birth is Required';
-            } else {
-                const currentDate = new Date();
-                const selectedDate = new Date(item.date_of_birth);
-                const age =
-                    currentDate.getFullYear() - selectedDate.getFullYear();
+            // if (!item.date_of_birth) {
+            //     err['date_of_birth'] = 'Date of Birth is Required';
+            // } else {
+            //     const currentDate = new Date();
+            //     const selectedDate = new Date(item.date_of_birth);
+            //     const age =
+            //         currentDate.getFullYear() - selectedDate.getFullYear();
 
-                // Validate age
-                if (age < 14 || age > 25) {
-                    err['age'] = 'Age must be between 14 and 25';
-                    openNotificationWithIcon(
-                        'error',
-                        'Age must be between 14 and 25'
-                    );
-                }
-            }
+            //     // Validate age
+            //     if (age < 14 || age > 25) {
+            //         err['age'] = 'Age must be between 14 and 25';
+            //         openNotificationWithIcon(
+            //             'error',
+            //             'Age must be between 14 and 25'
+            //         );
+            //     }
+            // }
 
             // if (!item.username.trim())
             //     err['username'] = 'Mobile Number is Required';
@@ -216,13 +216,13 @@ const CreateMultipleMembers = ({ id }) => {
             //     }
             // }
 
-            // if (!item.Age) err['Age'] = 'Age is Required';
+            if (!item.Age) err['Age'] = 'Age is Required';
             if (!item.email) err['email'] = 'Email Id is Required';
 
             if (!item.course_id) err['course_id'] = 'Course is Required';
 
             if (!item.mobile) err['mobile'] = 'Mobile number is Required';
-            // if (!item.date_of_birth) err['date_of_birth'] = 'DOB is Required';
+            if (!item.date_of_birth) err['date_of_birth'] = 'DOB is Required';
             if (!item.year_of_study)
                 err['year_of_study'] = 'Year Of Study is Required';
 
@@ -565,7 +565,7 @@ const CreateMultipleMembers = ({ id }) => {
                                             *
                                         </span>
                                     </Label>
-                                    {/* <div className="dropdown CalendarDropdownComp ">
+                                    <div className="dropdown CalendarDropdownComp ">
                                         <select
                                             name="Age"
                                             className="form-control custom-dropdown"
@@ -581,8 +581,8 @@ const CreateMultipleMembers = ({ id }) => {
                                                 </option>
                                             ))}
                                         </select>
-                                    </div> */}
-                                    <InputBox
+                                    </div>
+                                    {/* <InputBox
                                         className={'defaultInput'}
                                         isDisabled={true}
                                         placeholder="Age"
@@ -593,7 +593,7 @@ const CreateMultipleMembers = ({ id }) => {
                                             handleChange(e, i);
                                         }}
                                         value={item.age?.toString()}
-                                    />
+                                    /> */}
                                     {foundErrObject?.Age ? (
                                         <small className="error-cls">
                                             {foundErrObject.Age}
