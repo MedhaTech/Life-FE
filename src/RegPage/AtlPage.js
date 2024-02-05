@@ -295,14 +295,18 @@ function AtlPage() {
             .then(function (response) {
                 if (response?.status == 200) {
                     // console.log(response, '333');
+                    if (response?.data.count === 0) {
+                        setError('Enter Valid Institution Unique Code ');
+                    }
                     if (
-                        response?.data?.data[0].mentor != null &&
+                        response?.data?.data[0] &&
                         process.env.REACT_APP_USEDICECODE == 1
                     ) {
-                        setError(
-                            'Another Mentor is already registered in given Institution'
-                        );
-                    } else {
+                        // {
+                        //     setError(
+                        //         'Another Mentor is already registered in given Institution'
+                        //     );
+                        // } else
                         if (Object.keys(response?.data?.data[0]).length) {
                             setOrgData(response?.data?.data[0]);
                             setInstId(response?.data?.data[0]?.institution_id);
@@ -982,7 +986,7 @@ function AtlPage() {
                                                     xs={12}
                                                     sm={12}
                                                     md={12}
-                                                    xl={6}
+                                                    xl={4}
                                                 >
                                                     <Label
                                                         className="mb-2 mt-3"
@@ -1028,7 +1032,7 @@ function AtlPage() {
                                                     xs={12}
                                                     sm={12}
                                                     md={12}
-                                                    xl={6}
+                                                    xl={5}
                                                 >
                                                     <div className="d-flex align-items-center justify-content-between">
                                                         <Label
@@ -1123,6 +1127,50 @@ function AtlPage() {
                                                         </small>
                                                     ) : null}
                                                 </Col>
+                                                <Col
+                                                    className="form-group"
+                                                    xs={12}
+                                                    sm={12}
+                                                    md={12}
+                                                    xl={3}
+                                                >
+                                                    <Label
+                                                        className="mb-2 mt-3"
+                                                        htmlFor="password"
+                                                    >
+                                                        Password
+                                                    </Label>
+                                                    <InputBox
+                                                        {...inputPassword}
+                                                        id="password"
+                                                        isDisabled={
+                                                            holdKey
+                                                                ? true
+                                                                : false
+                                                        }
+                                                        name="password"
+                                                        onChange={
+                                                            formik.handleChange
+                                                        }
+                                                        onBlur={
+                                                            formik.handleBlur
+                                                        }
+                                                        value={
+                                                            formik.values
+                                                                .password
+                                                        }
+                                                    />
+
+                                                    {formik.touched.password &&
+                                                    formik.errors.password ? (
+                                                        <small className="error-cls">
+                                                            {
+                                                                formik.errors
+                                                                    .password
+                                                            }
+                                                        </small>
+                                                    ) : null}
+                                                </Col>
 
                                                 {/* <div className="mt-3">
                                                     <span
@@ -1188,50 +1236,6 @@ function AtlPage() {
                                                             {
                                                                 formik.errors
                                                                     .mentor_name_vernacular
-                                                            }
-                                                        </small>
-                                                    ) : null}
-                                                </Col>
-                                                <Col
-                                                    className="form-group"
-                                                    xs={12}
-                                                    sm={12}
-                                                    md={12}
-                                                    xl={6}
-                                                >
-                                                    <Label
-                                                        className="mb-2 mt-3"
-                                                        htmlFor="password"
-                                                    >
-                                                        Password
-                                                    </Label>
-                                                    <InputBox
-                                                        {...inputPassword}
-                                                        id="password"
-                                                        isDisabled={
-                                                            holdKey
-                                                                ? true
-                                                                : false
-                                                        }
-                                                        name="password"
-                                                        onChange={
-                                                            formik.handleChange
-                                                        }
-                                                        onBlur={
-                                                            formik.handleBlur
-                                                        }
-                                                        value={
-                                                            formik.values
-                                                                .password
-                                                        }
-                                                    />
-
-                                                    {formik.touched.password &&
-                                                    formik.errors.password ? (
-                                                        <small className="error-cls">
-                                                            {
-                                                                formik.errors
-                                                                    .password
                                                             }
                                                         </small>
                                                     ) : null}
