@@ -30,7 +30,8 @@ const TicketsPage = () => {
     const [limit, setLimit] = useState(false);
     const [btn, setBtn] = useState('');
     const [stuList, setStuList] = useState([]);
-    const [totalCount, setTotalCount] = useState([]);
+    const [totalCount, setTotalCount] = useState({});
+    console.log(totalCount, 'nb');
     useEffect(() => {
         if (currentUser?.data[0]?.mentor_id) {
             teamListbymentorid(currentUser?.data[0]?.mentor_id);
@@ -71,7 +72,6 @@ const TicketsPage = () => {
                 // console.log(total, '44');
                 setTotalCount(total);
                 if (response.status === 200) {
-                    // console.log(response, '1');
                     setTeamsList(response.data.data);
                 }
                 // if (response.status === 200) {
@@ -141,12 +141,13 @@ const TicketsPage = () => {
                     return [
                         <div key={params} onClick={() => handleCreate(params)}>
                             {process.env.REACT_APP_TEAM_LENGTH >
-                                params.StudentCount && (
-                                <div className="btn btn-success  mr-5 mx-2">
-                                    Add Team Members
-                                    {/* {t('teacher_teams.create')} */}
-                                </div>
-                            )}
+                                params.StudentCount &&
+                                totalCount?.StudentCount < 50 && (
+                                    <div className="btn btn-success  mr-5 mx-2">
+                                        Add Team Members
+                                        {/* {t('teacher_teams.create')} */}
+                                    </div>
+                                )}
                         </div>,
                         <div key={params} onClick={() => handleView(params)}>
                             {!params.StudentCount < 4 && (
