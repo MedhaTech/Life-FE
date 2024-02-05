@@ -31,7 +31,6 @@ const TicketsPage = () => {
     const [btn, setBtn] = useState('');
     const [stuList, setStuList] = useState([]);
     const [totalCount, setTotalCount] = useState({});
-    console.log(totalCount, 'nb');
     useEffect(() => {
         if (currentUser?.data[0]?.mentor_id) {
             teamListbymentorid(currentUser?.data[0]?.mentor_id);
@@ -58,7 +57,6 @@ const TicketsPage = () => {
         axios(config)
             .then(function (response) {
                 const stuList = response?.data?.data || [];
-                // console.log(stuList, 'res');
                 const total = stuList.reduce(
                     (acc, item) => {
                         acc.StudentCount += item.StudentCount;
@@ -69,15 +67,11 @@ const TicketsPage = () => {
                         StudentCount: 0
                     }
                 );
-                // console.log(total, '44');
                 setTotalCount(total);
                 if (response.status === 200) {
                     setTeamsList(response.data.data);
                 }
-                // if (response.status === 200) {
-                //     setBtn(response.data.count === 10);
-                //     setLimit(true);
-                // }
+                
             })
             .catch(function (error) {
                 console.log(error);
