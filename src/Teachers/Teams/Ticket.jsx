@@ -27,6 +27,8 @@ const TicketsPage = () => {
     const currentUser = getCurrentUser('current_user');
     const [loading, setLoading] = React.useState(false);
     const [teamsList, setTeamsList] = useState([]);
+    const [limit, setLimit] = useState(false);
+    const [btn, setBtn] = useState('');
     useEffect(() => {
         if (currentUser?.data[0]?.mentor_id) {
             teamListbymentorid(currentUser?.data[0]?.mentor_id);
@@ -52,9 +54,14 @@ const TicketsPage = () => {
         };
         axios(config)
             .then(function (response) {
+                console.log(response, 'res');
                 if (response.status === 200) {
                     // console.log(response, '1');
                     setTeamsList(response.data.data);
+                }
+                if (response.status === 200) {
+                    setBtn(response.data.count === 10);
+                    setLimit(true);
                 }
             })
             .catch(function (error) {
@@ -187,16 +194,20 @@ const TicketsPage = () => {
 
                         <Col className="ticket-btn col ml-auto ">
                             <div className="d-flex justify-content-end">
-                                <Button
-                                    label={t('teacher_teams.create_team')}
-                                    btnClass="primary ml-2"
-                                    size="small"
-                                    shape="btn-square"
-                                    Icon={BsPlusLg}
-                                    onClick={() =>
-                                        history.push('/teacher/create-team')
-                                    }
-                                />
+                                {btn === false ? (
+                                    <Button
+                                        label={t('teacher_teams.create_team')}
+                                        btnClass="primary ml-2"
+                                        size="small"
+                                        shape="btn-square"
+                                        Icon={BsPlusLg}
+                                        onClick={() =>
+                                            history.push('/teacher/create-team')
+                                        }
+                                    />
+                                ) : (
+                                    ''
+                                )}
                             </div>
                         </Col>
                     </Row>
