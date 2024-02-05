@@ -296,7 +296,7 @@ function AtlPage() {
                 if (response?.status == 200) {
                     // console.log(response, '333');
                     if (response?.data.count === 0) {
-                        setError('Enter Valid UDISE code ');
+                        setError('Enter Valid Institution Unique Code ');
                     }
                     if (
                         response?.data?.data[0] &&
