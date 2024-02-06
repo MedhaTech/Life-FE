@@ -59,19 +59,18 @@ const TicketsPage = () => {
                 const stuList = response?.data?.data || [];
                 const total = stuList.reduce(
                     (acc, item) => {
-                        acc.StudentCount += item.StudentCount;
+                        acc.StudentsCount += item.StudentCount;
 
                         return acc;
                     },
                     {
-                        StudentCount: 0
+                        StudentsCount: 0
                     }
                 );
                 setTotalCount(total);
                 if (response.status === 200) {
                     setTeamsList(response.data.data);
                 }
-                
             })
             .catch(function (error) {
                 console.log(error);
@@ -136,7 +135,7 @@ const TicketsPage = () => {
                         <div key={params} onClick={() => handleCreate(params)}>
                             {process.env.REACT_APP_TEAM_LENGTH >
                                 params.StudentCount &&
-                                totalCount?.StudentCount < 50 && (
+                                totalCount?.StudentsCount < 50 && (
                                     <div className="btn btn-success  mr-5 mx-2">
                                         Add Team Members
                                         {/* {t('teacher_teams.create')} */}
@@ -182,6 +181,7 @@ const TicketsPage = () => {
         history.push({
             pathname: '/teacher/view-team-member',
             item: item,
+            // date_of_birth: item.date_of_birth,
             mentorid: currentUser?.data[0]?.mentor_id
         });
         localStorage.setItem('teamId', JSON.stringify(item));
@@ -204,7 +204,7 @@ const TicketsPage = () => {
 
                         <Col className="ticket-btn col ml-auto ">
                             <div className="d-flex justify-content-end">
-                                {totalCount?.StudentCount < 47 && (
+                                {totalCount?.StudentsCount < 47 && (
                                     <Button
                                         label={t('teacher_teams.create_team')}
                                         btnClass="primary ml-2"

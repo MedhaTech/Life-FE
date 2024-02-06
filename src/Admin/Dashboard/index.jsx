@@ -1111,37 +1111,6 @@ const Dashboard = () => {
                                     >
                                         <Card.Body>
                                             <label htmlFor="teams" className="">
-                                                Teachers Course Completed
-                                            </label>
-                                            <Card.Text
-                                                style={{
-                                                    fontSize: '30px',
-                                                    fontWeight: 'bold',
-                                                    marginTop: '10px',
-                                                    marginBottom: '20px'
-                                                }}
-                                            >
-                                                {mentorCoursesCompletedCount}
-                                            </Card.Text>
-                                        </Card.Body>
-                                    </Card>
-                                </Row>
-                            </Col>
-                            <Col
-                                style={{
-                                    paddingRight: '20px',
-                                    paddingTop: '1rem'
-                                }}
-                            >
-                                <Row>
-                                    <Card
-                                        bg="light"
-                                        text="dark"
-                                        className="mb-4"
-                                        style={{ height: '150px' }}
-                                    >
-                                        <Card.Body>
-                                            <label htmlFor="teams" className="">
                                                 Total Teams
                                             </label>
                                             <Card.Text
@@ -1157,6 +1126,37 @@ const Dashboard = () => {
                                         </Card.Body>
                                     </Card>
                                 </Row>
+                                {/* <Row>
+                                    <Card
+                                        bg="light"
+                                        text="dark"
+                                        className="mb-4"
+                                        style={{ height: '150px' }}
+                                    >
+                                        <Card.Body>
+                                            <label htmlFor="teams" className="">
+                                                Teachers Course Completed
+                                            </label>
+                                            <Card.Text
+                                                style={{
+                                                    fontSize: '30px',
+                                                    fontWeight: 'bold',
+                                                    marginTop: '10px',
+                                                    marginBottom: '20px'
+                                                }}
+                                            >
+                                                {mentorCoursesCompletedCount}
+                                            </Card.Text>
+                                        </Card.Body>
+                                    </Card>
+                                </Row> */}
+                            </Col>
+                            <Col
+                                style={{
+                                    paddingRight: '20px',
+                                    paddingTop: '1rem'
+                                }}
+                            >
                                 <Row>
                                     <Card
                                         bg="light"
@@ -1243,13 +1243,6 @@ const Dashboard = () => {
                                         </Card.Body>
                                     </Card>
                                 </Row>
-                            </Col>
-                            <Col
-                                style={{
-                                    paddingRight: '20px',
-                                    paddingTop: '1rem'
-                                }}
-                            >
                                 <Row>
                                     <Card
                                         bg="light"
@@ -1274,7 +1267,15 @@ const Dashboard = () => {
                                         </Card.Body>
                                     </Card>
                                 </Row>
-                                <Row>
+                            </Col>
+                            {/* <Col
+                                style={{
+                                    paddingRight: '20px',
+                                    paddingTop: '1rem'
+                                }}
+                            > */}
+
+                            {/* <Row>
                                     <Card
                                         bg="light"
                                         text="dark"
@@ -1301,8 +1302,8 @@ const Dashboard = () => {
                                             </Card.Text>
                                         </Card.Body>
                                     </Card>
-                                </Row>
-                                <Row>
+                                </Row> */}
+                            {/* <Row>
                                     <Card
                                         bg="light"
                                         text="dark"
@@ -1330,8 +1331,8 @@ const Dashboard = () => {
                                             </Card.Text>
                                         </Card.Body>
                                     </Card>
-                                </Row>
-                                <Row>
+                                </Row> */}
+                            {/* <Row>
                                     <Card
                                         bg="light"
                                         text="dark"
@@ -1359,8 +1360,8 @@ const Dashboard = () => {
                                             </Card.Text>
                                         </Card.Body>
                                     </Card>
-                                </Row>
-                            </Col>
+                                </Row> */}
+                            {/* </Col> */}
                             <Col
                                 style={{
                                     paddingRight: '20px',
@@ -1486,7 +1487,7 @@ const Dashboard = () => {
                             </Col>
                             <Row>
                                 <Row>
-                                    <Col>
+                                    {/* <Col>
                                         <Card
                                             bg="light"
                                             text="dark"
@@ -1514,13 +1515,13 @@ const Dashboard = () => {
                                                 >
                                                     {nonAtl}
                                                     {/* {totalMentorMaleCount} */}
-                                                </Card.Text>
-                                            </Card.Body>
-                                        </Card>
-                                    </Col>
+                                    {/* </Card.Text> */}
+                                    {/* </Card.Body> */}
+                                    {/* </Card> */}
+                                    {/* </Col> */}
                                     {/* </Row> */}
                                     {/* <Row> */}
-                                    <Col>
+                                    {/* <Col>
                                         <Card
                                             bg="light"
                                             text="dark"
@@ -1548,10 +1549,10 @@ const Dashboard = () => {
                                                 >
                                                     {atl}
                                                     {/* {totalMentorMaleCount} */}
-                                                </Card.Text>
-                                            </Card.Body>
-                                        </Card>
-                                    </Col>
+                                    {/* </Card.Text> */}
+                                    {/* </Card.Body> */}
+                                    {/* </Card> */}
+                                    {/* </Col> */}
                                 </Row>
                             </Row>
                             {/* <div>

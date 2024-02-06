@@ -229,7 +229,7 @@ const Dashboard = () => {
                                 bg="light"
                                 text="dark"
                                 className="mb-4"
-                                style={{ width: '350px' }}
+                                style={{ width: '350px', height: '230px' }}
                             >
                                 <Card.Body>
                                     <label htmlFor="teams" className="">
@@ -249,7 +249,7 @@ const Dashboard = () => {
                                 </Card.Body>
                             </Card>
                         </Row>
-                        <Row>
+                        {/* <Row>
                             <Card
                                 bg="light"
                                 text="dark"
@@ -273,7 +273,7 @@ const Dashboard = () => {
                                     </Card.Text>
                                 </Card.Body>
                             </Card>
-                        </Row>
+                        </Row> */}
                     </Col>
                     <Col>
                         <Row>

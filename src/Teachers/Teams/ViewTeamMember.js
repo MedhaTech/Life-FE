@@ -29,11 +29,11 @@ import { encryptGlobal } from '../../constants/encryptDecrypt';
 // const { TabPane } = Tabs;
 
 const ViewTeamMember = (props) => {
-    console.log(props.teamsMembersList, 'props');
-    // console.log(props, 'props');
+    // console.log(props.teamsMembersList, 'props');
     const { t } = useTranslation();
     const currentUser = getCurrentUser('current_user');
     const teamID = JSON.parse(localStorage.getItem('teamId'));
+
     const dispatch = useDispatch();
     const history = useHistory();
     const [button, setButton] = useState('');
@@ -432,6 +432,21 @@ const ViewTeamMember = (props) => {
                         }}
                     >
                         {row.mobile}
+                    </div>
+                )
+            },
+            {
+                name: 'Date of Birth',
+                // selector: (row) => row.date_of_birth,
+                selector: (row) => row.date_of_birth,
+                cell: (row) => (
+                    <div
+                        style={{
+                            whiteSpace: 'pre-wrap',
+                            wordWrap: 'break-word'
+                        }}
+                    >
+                        {row.date_of_birth}
                     </div>
                 )
             },

@@ -1,5 +1,6 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable indent */
-import React from 'react';
+import React, { useEffect } from 'react';
 import './styles.scss';
 import { Row, Col, Form, Label } from 'reactstrap';
 import { withRouter } from 'react-router-dom';
@@ -13,11 +14,13 @@ import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { encryptGlobal } from '../../constants/encryptDecrypt';
+import { DropDownWithSearch } from '../../stories/DropdownWithSearch/DropdownWithSearch';
+
 const EditTeamMember = (props) => {
     const { t } = useTranslation();
     const allowedAge = [10, 11, 12, 13, 14, 15, 16, 17, 18];
     const allowedYear = [1, 2, 3, 4, 5];
-    const allowCourse = [1, 2, 3];
+    // const allowCourse = [1, 2, 3];
     const history = useHistory();
     const currentUser = getCurrentUser('current_user');
     const teamMemberData =
@@ -48,10 +51,28 @@ const EditTeamMember = (props) => {
                 )
                 .trim(),
             age: Yup.number()
-                .integer()
-                .min(10, 'Min age is 10')
-                .max(18, 'Max age is 18')
-                .required('required'),
+                .test(
+                    'age-validation',
+                    'Age must be between 14 and 25',
+                    function (value) {
+                        const currentDate = new Date();
+                        const selectedDate = new Date(
+                            this.parent.date_of_birth
+                        );
+
+                        if (isNaN(selectedDate.getTime())) {
+                            return false;
+                        }
+                        const age =
+                            currentDate.getFullYear() -
+                            selectedDate.getFullYear();
+                        if (isNaN(age) || age < 0) {
+                            return false;
+                        }
+                        return age >= 14 && age <= 25;
+                    }
+                )
+                .default(0),
             gender: Yup.string().required('Please select valid gender'),
             email: Yup.string()
                 .required('required')
@@ -151,6 +172,28 @@ const EditTeamMember = (props) => {
             item: item
         });
     };
+    const selectCategory = {
+        label: 'Select Course',
+        options: [
+            { label: 'CSE', value: '1' },
+            { label: 'ECE', value: '2' },
+            { label: 'EEE', value: '3' },
+            { label: 'CIVIL', value: '4' }
+        ],
+        className: 'defaultDropdown'
+    };
+    useEffect(() => {
+        const currentDate = new Date();
+        const selectedDate = new Date(formik.values.date_of_birth);
+
+        if (!isNaN(selectedDate.getTime())) {
+            const age = currentDate.getFullYear() - selectedDate.getFullYear();
+            formik.setFieldValue('age', age);
+        } else {
+            formik.setFieldValue('age', 0);
+        }
+    }, [formik.values.date_of_birth]);
+
     return (
         <Layout title="Teams">
             <div className="EditPersonalDetails new-member-page">
@@ -213,7 +256,7 @@ const EditTeamMember = (props) => {
                                                         *
                                                     </span>
                                                 </Label>
-                                                <div className="dropdown CalendarDropdownComp ">
+                                                {/* <div className="dropdown CalendarDropdownComp ">
                                                     <select
                                                         className="form-control custom-dropdown"
                                                         id="course_id"
@@ -243,7 +286,19 @@ const EditTeamMember = (props) => {
                                                             )
                                                         )}
                                                     </select>
-                                                </div>
+                                                </div> */}
+                                                <DropDownWithSearch
+                                                    {...selectCategory}
+                                                    onBlur={formik.handleBlur}
+                                                    onChange={(option) => {
+                                                        formik.setFieldValue(
+                                                            'course_id',
+                                                            option[0]?.value
+                                                        );
+                                                    }}
+                                                    name="Select Course"
+                                                    id="Select Course"
+                                                />
                                                 {formik.touched.course_id &&
                                                 formik.errors.course_id ? (
                                                     <small className="error-cls">
@@ -387,56 +442,6 @@ const EditTeamMember = (props) => {
                                                 className="mb-5 mb-xl-0"
                                             >
                                                 <Label
-                                                    className="name-req"
-                                                    htmlFor="age"
-                                                >
-                                                    {t('teacher_teams.age')}
-                                                </Label>
-
-                                                <div className="dropdown CalendarDropdownComp ">
-                                                    <select
-                                                        className="form-control custom-dropdown"
-                                                        id="age"
-                                                        name="age"
-                                                        onChange={
-                                                            formik.handleChange
-                                                        }
-                                                        onBlur={
-                                                            formik.handleBlur
-                                                        }
-                                                        value={
-                                                            formik.values.age
-                                                        }
-                                                    >
-                                                        <option value={''}>
-                                                            Select Age
-                                                        </option>
-                                                        {allowedAge.map(
-                                                            (item) => (
-                                                                <option
-                                                                    key={item}
-                                                                    value={item}
-                                                                >
-                                                                    {item}
-                                                                </option>
-                                                            )
-                                                        )}
-                                                    </select>
-                                                </div>
-
-                                                {formik.touched.age &&
-                                                formik.errors.age ? (
-                                                    <small className="error-cls">
-                                                        {formik.errors.age}
-                                                    </small>
-                                                ) : null}
-                                            </Col>
-
-                                            <Col
-                                                md={6}
-                                                className="mb-5 mb-xl-0"
-                                            >
-                                                <Label
                                                     className="name-req-create-member"
                                                     htmlFor="date_of_birth"
                                                 >
@@ -471,6 +476,71 @@ const EditTeamMember = (props) => {
                                                             formik.errors
                                                                 .date_of_birth
                                                         }
+                                                    </small>
+                                                ) : null}
+                                            </Col>
+                                            <Col
+                                                md={6}
+                                                className="mb-5 mb-xl-0"
+                                            >
+                                                <Label
+                                                    className="name-req"
+                                                    htmlFor="age"
+                                                >
+                                                    {t('teacher_teams.age')}
+                                                </Label>
+
+                                                <div className="dropdown CalendarDropdownComp ">
+                                                    <InputBox
+                                                        className={
+                                                            'defaultInput'
+                                                        }
+                                                        isDisabled={true}
+                                                        // onChange={
+                                                        //     formik.handleChange
+                                                        // }
+                                                        placeholder="Age"
+                                                        id="age"
+                                                        name="age"
+                                                        type="text"
+                                                        value={String(
+                                                            formik.values.age
+                                                        )}
+                                                    />
+                                                    {/* <select
+                                                        className="form-control custom-dropdown"
+                                                        id="age"
+                                                        name="age"
+                                                        onChange={
+                                                            formik.handleChange
+                                                        }
+                                                        onBlur={
+                                                            formik.handleBlur
+                                                        }
+                                                        value={
+                                                            formik.values.age
+                                                        }
+                                                    >
+                                                        <option value={''}>
+                                                            Select Age
+                                                        </option>
+                                                        {allowedAge.map(
+                                                            (item) => (
+                                                                <option
+                                                                    key={item}
+                                                                    value={item}
+                                                                >
+                                                                    {item}
+                                                                </option>
+                                                            )
+                                                        )}
+                                                    </select> */}
+                                                </div>
+
+                                                {formik.touched.age &&
+                                                formik.errors.age ? (
+                                                    <small className="error-cls">
+                                                        {formik.errors.age}
                                                     </small>
                                                 ) : null}
                                             </Col>

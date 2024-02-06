@@ -93,7 +93,6 @@ const CreateMultipleMembers = ({ id }) => {
 
     const handleChange = (e, i) => {
         let newItem = [...studentData];
-        console.log(studentData, 'studentData');
 
         const dataKeys = Object.keys(studentBody);
         if (e.target) {
@@ -898,7 +897,7 @@ const CreateTeamMember = (props) => {
                     mobile: values.mobile,
                     email: values.email,
                     username: values.mobile,
-                    data_of_birth: values.date_of_birth,
+                    date_of_birth: values.date_of_birth,
                     country: values.country
                 };
                 var config = {

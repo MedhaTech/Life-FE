@@ -237,7 +237,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                             </span>
                         </NavLink>
                     </MenuItem>
-                    <MenuItem
+                    {/* <MenuItem
                         icon={
                             <img src={ResourceIcon} style={{ width: '20px' }} />
                         }
@@ -258,7 +258,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                                 Resources
                             </span>
                         </NavLink>
-                    </MenuItem>
+                    </MenuItem> */}
                     <MenuItem
                         icon={<img src={PopupIcon} style={{ width: '20px' }} />}
                         className={
@@ -353,7 +353,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                         </NavLink>
                     </MenuItem> */}
 
-                    <MenuItem
+                    {/* <MenuItem
                         icon={
                             <img
                                 src={FAQICON}
@@ -380,7 +380,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                                 FAQs
                             </span>
                         </NavLink>
-                    </MenuItem>
+                    </MenuItem> */}
 
                     {/* <MenuItem
                         icon={
