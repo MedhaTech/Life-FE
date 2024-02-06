@@ -46,7 +46,7 @@ export default function DoughnutChart({ user }) {
         (state) => state?.studentRegistration
     );
     useEffect(() => {
-        if(teamId){
+        if (teamId) {
             dispatch(getTeamMemberStatus(teamId, setshowDefault));
             dispatch(getStudentChallengeSubmittedResponse(teamId));
         }
@@ -238,46 +238,46 @@ export default function DoughnutChart({ user }) {
         //             <FaTimesCircle size={20} color="red" />
         //         )
         // },
-        {
-            title: 'Lesson Progress',
-            dataIndex: 'address',
-            align: 'center',
-            width: '30rem',
-            render: (_, record) => {
-                let percent =
-                    100 -
-                    percentageBWNumbers(
-                        record.all_topics_count,
-                        record.topics_completed_count
-                    );
-                return (
-                    <div className="d-flex">
-                        <div style={{ width: '80%' }}>
-                            <Progress
-                                key={'25'}
-                                className="progress-height"
-                                animated
-                                color={
-                                    percent
-                                        ? percent <= 25
-                                            ? 'danger'
-                                            : percent > 25 && percent <= 50
-                                            ? 'info'
-                                            : percent > 50 && percent <= 75
-                                            ? 'warning'
-                                            : 'sucess'
-                                        : 'danger'
-                                }
-                                value={percent}
-                            />
-                        </div>
-                        <span className="ms-2">
-                            {Math.round(percent) ? Math.round(percent) : '0'}%
-                        </span>
-                    </div>
-                );
-            }
-        },
+        // {
+        //     title: 'Lesson Progress',
+        //     dataIndex: 'address',
+        //     align: 'center',
+        //     width: '30rem',
+        //     render: (_, record) => {
+        //         let percent =
+        //             100 -
+        //             percentageBWNumbers(
+        //                 record.all_topics_count,
+        //                 record.topics_completed_count
+        //             );
+        //         return (
+        //             <div className="d-flex">
+        //                 <div style={{ width: '80%' }}>
+        //                     <Progress
+        //                         key={'25'}
+        //                         className="progress-height"
+        //                         animated
+        //                         color={
+        //                             percent
+        //                                 ? percent <= 25
+        //                                     ? 'danger'
+        //                                     : percent > 25 && percent <= 50
+        //                                     ? 'info'
+        //                                     : percent > 50 && percent <= 75
+        //                                     ? 'warning'
+        //                                     : 'sucess'
+        //                                 : 'danger'
+        //                         }
+        //                         value={percent}
+        //                     />
+        //                 </div>
+        //                 <span className="ms-2">
+        //                     {Math.round(percent) ? Math.round(percent) : '0'}%
+        //                 </span>
+        //             </div>
+        //         );
+        //     }
+        // },
         {
             title: 'Idea Submission',
             dataIndex: 'idea_submission',
@@ -289,31 +289,31 @@ export default function DoughnutChart({ user }) {
                 ) : (
                     <FaTimesCircle size={20} color="red" />
                 )
-        },
-        {
-            title: 'Post Survey',
-            dataIndex: 'post_survey_status',
-            align: 'center',
-            width: '10rem',
-            render: (_, record) =>
-                record?.post_survey_status ? (
-                    <FaCheckCircle size={20} color="green" />
-                ) : (
-                    <FaTimesCircle size={20} color="red" />
-                )
-        },
-        {
-            title: 'Certificate',
-            dataIndex: 'certificate',
-            align: 'center',
-            width: '10rem',
-            render: (_, record) =>
-                record?.certificate ? (
-                    <FaCheckCircle size={20} color="green" />
-                ) : (
-                    <FaTimesCircle size={20} color="red" />
-                )
         }
+        // {
+        //     title: 'Post Survey',
+        //     dataIndex: 'post_survey_status',
+        //     align: 'center',
+        //     width: '10rem',
+        //     render: (_, record) =>
+        //         record?.post_survey_status ? (
+        //             <FaCheckCircle size={20} color="green" />
+        //         ) : (
+        //             <FaTimesCircle size={20} color="red" />
+        //         )
+        // },
+        // {
+        //     title: 'Certificate',
+        //     dataIndex: 'certificate',
+        //     align: 'center',
+        //     width: '10rem',
+        //     render: (_, record) =>
+        //         record?.certificate ? (
+        //             <FaCheckCircle size={20} color="green" />
+        //         ) : (
+        //             <FaTimesCircle size={20} color="red" />
+        //         )
+        // }
     ];
 
     useEffect(() => {
@@ -492,12 +492,12 @@ export default function DoughnutChart({ user }) {
     return (
         <>
             <div style={{ display: 'none' }}>
-                <Schoolpdf
+                {/* <Schoolpdf
                     ref={componentRef}
                     tabledata={teamsData}
                     remMentor={mentorValuesForPDF}
                     ideaStatusDetails={ideaValuesForPDF}
-                />
+                /> */}
             </div>
             <Card
                 className="select-team p-5 w-100"
@@ -507,11 +507,11 @@ export default function DoughnutChart({ user }) {
                     <label htmlFor="teams" className="">
                         Team Progress:
                     </label>
-                    {showPrintSymbol ? (
+                    {/* {showPrintSymbol ? (
                         <FaDownload size={22} onClick={tsetcall} />
                     ) : (
                         <FaHourglassHalf size={22} />
-                    )}
+                    )} */}
                 </div>
                 <div className="d-flex align-items-center teamProgreess">
                     <Col md="3" xs="12">
@@ -615,7 +615,9 @@ export default function DoughnutChart({ user }) {
                                 </div>
                                 <div>
                                     {challengesSubmittedResponse[0]?.status ===
-                                    'SUBMITTED' && challengesSubmittedResponse[0]?.evaluation_status === null? (
+                                        'SUBMITTED' &&
+                                    challengesSubmittedResponse[0]
+                                        ?.evaluation_status === null ? (
                                         <Button
                                             className={
                                                 isideadisable

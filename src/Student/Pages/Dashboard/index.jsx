@@ -189,10 +189,13 @@ const Dashboard = () => {
         {
             title: 'Name',
             dataIndex: 'student_full_name',
-            width: '20%',
+            width: '15%',
             render: (_, record) =>
-                record.student_full_name === currentUser?.data[0]?.student_full_name ? (
-                    <div className="self-decor">{record.student_full_name}*</div>
+                record.student_full_name ===
+                currentUser?.data[0]?.student_full_name ? (
+                    <div className="self-decor">
+                        {record.student_full_name}*
+                    </div>
                 ) : (
                     record.student_full_name
                 )
@@ -209,82 +212,82 @@ const Dashboard = () => {
         //             <FaTimesCircle size={20} color="red" />
         //         )
         // },
-        {
-            title: 'Lesson Progress',
-            dataIndex: 'address',
-            width: '30%',
-            align: 'center',
-            render: (_, record) => {
-                let percent =
-                    100 -
-                    percentageBWNumbers(
-                        record.all_topics_count,
-                        record.topics_completed_count
-                    );
-                return (
-                    <div className="d-flex">
-                        <div style={{ width: '80%' }}>
-                            <Progress
-                                key={'25'}
-                                className="progress-height"
-                                animated
-                                color={
-                                    percent
-                                        ? percent <= 25
-                                            ? 'danger'
-                                            : percent > 25 && percent <= 50
-                                            ? 'info'
-                                            : percent > 50 && percent <= 75
-                                            ? 'warning'
-                                            : 'sucess'
-                                        : 'danger'
-                                }
-                                value={percent}
-                            />
-                        </div>
-                        <span className="ms-2">
-                            {Math.round(percent) ? Math.round(percent) : '0'}%
-                        </span>
-                    </div>
-                );
-            }
-        },
+        // {
+        //     title: 'Lesson Progress',
+        //     dataIndex: 'address',
+        //     width: '30%',
+        //     align: 'center',
+        //     render: (_, record) => {
+        //         let percent =
+        //             100 -
+        //             percentageBWNumbers(
+        //                 record.all_topics_count,
+        //                 record.topics_completed_count
+        //             );
+        //         return (
+        //             <div className="d-flex">
+        //                 <div style={{ width: '80%' }}>
+        //                     <Progress
+        //                         key={'25'}
+        //                         className="progress-height"
+        //                         animated
+        //                         color={
+        //                             percent
+        //                                 ? percent <= 25
+        //                                     ? 'danger'
+        //                                     : percent > 25 && percent <= 50
+        //                                     ? 'info'
+        //                                     : percent > 50 && percent <= 75
+        //                                     ? 'warning'
+        //                                     : 'sucess'
+        //                                 : 'danger'
+        //                         }
+        //                         value={percent}
+        //                     />
+        //                 </div>
+        //                 <span className="ms-2">
+        //                     {Math.round(percent) ? Math.round(percent) : '0'}%
+        //                 </span>
+        //             </div>
+        //         );
+        //     }
+        // },
         {
             title: 'Idea Submission',
             dataIndex: 'idea_submission',
             align: 'center',
-            width: '20%',
+            width: '10%',
             render: (_, record) =>
                 record?.idea_submission ? (
                     <FaCheckCircle size={20} color="green" />
                 ) : (
                     <FaTimesCircle size={20} color="red" />
                 )
-        },
-        {
-            title: 'Post Survey',
-            dataIndex: 'post_survey_status',
-            align: 'center',
-            width: '10%',
-            render: (_, record) =>
-                record?.post_survey_status ? (
-                    <FaCheckCircle size={20} color="green" />
-                ) : (
-                    <FaTimesCircle size={20} color="red" />
-                )
-        },
-        {
-            title: 'Certificate',
-            dataIndex: 'certificate',
-            align: 'center',
-            width: '10%',
-            render: (_, record) =>
-                record?.certificate ? (
-                    <FaCheckCircle size={20} color="green" />
-                ) : (
-                    <FaTimesCircle size={20} color="red" />
-                )
         }
+        // {
+        //     title: 'Post Survey',
+        //     dataIndex: 'post_survey_status',
+        //     align: 'center',
+        //     width: '10%',
+        //     render: (_, record) =>
+        //         record?.post_survey_status ? (
+        //             <FaCheckCircle size={20} color="green" />
+        //         ) : (
+        //             <FaTimesCircle size={20} color="red" />
+        //         )
+        // },
+        // {
+        //     title: 'Certificate',
+        //     dataIndex: 'certificate',
+        //     align: 'center',
+        //     width: '10%',
+        //     render: (_, record) =>
+        //         record?.certificate ? (
+        //             <FaCheckCircle size={20} color="green" />
+        //         ) : (
+        //             <FaTimesCircle size={20} color="red" />
+        //         )
+        // }
     ];
 
     // return (
@@ -452,7 +455,38 @@ const Dashboard = () => {
                     </div>
                 </div>
                 <Row>
-                    <Col style={{ paddingRight: '15px', marginBottom: '20px' }}>
+                    {/* <Row
+                        className="course-team flex-start mb-5"
+                        style={{ gap: '1rem' }}
+                    > */}
+                    <Col md={6} className="flex-2 team-progress">
+                        <label htmlFor="teams" className="">
+                            Team Progress:
+                        </label>
+                        <div
+                            className="bg-white team-progress rounded  p-3"
+                            style={{ overflowX: 'auto' }}
+                        >
+                            <div className="row flex-column p-2">
+                                <label
+                                    htmlFor="teams"
+                                    className="mb-3 text-capitalize"
+                                >
+                                    <span>
+                                        {currentUser?.data[0]?.team_name}
+                                    </span>
+                                </label>
+                            </div>
+                            <Table
+                                bordered
+                                pagination={false}
+                                dataSource={dashboardTeamProgressStatus}
+                                columns={columns}
+                            />
+                        </div>
+                    </Col>
+                    {/* </Row> */}
+                    {/* <Col style={{ paddingRight: '15px', marginBottom: '20px' }}>
                         <Row>
                             <Card
                                 bg="light"
@@ -569,10 +603,15 @@ const Dashboard = () => {
                                 </Card.Body>
                             </Card>
                         </Row>
-                    </Col>
+                    </Col> */}
 
-                    <Col>
-                        <Card bg="light" text="dark" className=" md-3 xs-12 ">
+                    <Col md={6}>
+                        <Card
+                            bg="light"
+                            text="dark"
+                            className=" md-3 xs-12 "
+                            style={{ height: '400px' }}
+                        >
                             <Card.Body style={{ overflowX: 'auto' }}>
                                 {/* <LatestNews usersdata={currentUser?.data} /> */}
                                 <LatestScrollNew
@@ -583,7 +622,7 @@ const Dashboard = () => {
                     </Col>
                 </Row>
 
-                <Row
+                {/* <Row
                     className="course-team flex-start mb-5"
                     style={{ gap: '1rem' }}
                 >
@@ -613,7 +652,7 @@ const Dashboard = () => {
                             />
                         </div>
                     </Col>
-                </Row>
+                </Row> */}
             </Container>
         </Layout>
     );

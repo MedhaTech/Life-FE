@@ -37,6 +37,9 @@ const EditTeacherProfileDetails = (props) => {
                 )
                 .min(10, 'Please enter valid number')
                 .max(10, 'Please enter valid number'),
+            mentor_email: Yup.string()
+                .email('Must be a valid Email Id')
+                .max(255),
             gender: Yup.string().required('Please select valid gender'),
             mentor_title: Yup.string().required('Please select Title'),
             date_of_birth: Yup.string().required('Please Select DOb'),
@@ -112,6 +115,11 @@ const EditTeacherProfileDetails = (props) => {
                 });
         }
     });
+    const inputmentor_Email = {
+        type: 'text',
+        placeholder: 'Enter Email Id',
+        className: 'defaultInput'
+    };
 
     const handleDiscard = () => {
         // where we can discard  the changes //
@@ -242,8 +250,36 @@ const EditTeacherProfileDetails = (props) => {
                                                 </small>
                                             ) : null}
                                         </Col>
+                                        <Col className="form-group" md={4}>
+                                            <Label
+                                                className="name-req"
+                                                htmlFor="mentor_email"
+                                            >
+                                                Email Address
+                                            </Label>
+                                            <InputBox
+                                                {...inputmentor_Email}
+                                                id="mentor_email"
+                                                // isDisabled={
+                                                //     holdKey ? true : false
+                                                // }
+                                                name="mentor_email"
+                                                onChange={formik.handleChange}
+                                                onBlur={formik.handleBlur}
+                                                value={
+                                                    formik.values.mentor_email
+                                                }
+                                            />
 
-                                        <Col md={6}>
+                                            {formik.touched.mentor_email &&
+                                            formik.errors.mentor_email ? (
+                                                <small className="error-cls">
+                                                    {formik.errors.mentor_email}
+                                                </small>
+                                            ) : null}
+                                        </Col>
+
+                                        <Col md={4}>
                                             <Label
                                                 className="name-req"
                                                 htmlFor="date_of_birth"
@@ -272,7 +308,7 @@ const EditTeacherProfileDetails = (props) => {
                                                 </small>
                                             ) : null}
                                         </Col>
-                                        <Col md={6}>
+                                        <Col md={4}>
                                             <Label
                                                 className=" name-req"
                                                 htmlFor="mentor_whatapp_mobile"
