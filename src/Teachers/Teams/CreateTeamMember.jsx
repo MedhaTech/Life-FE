@@ -36,6 +36,9 @@ const allowedAge = [10, 11, 12, 13, 14, 15, 16, 17, 18];
 const allowedYear = [1, 2, 3, 4, 5];
 const allowCourse = [1, 2, 3];
 const CreateMultipleMembers = ({ id }) => {
+    const currentUser = getCurrentUser('current_user');
+    const MentorId = currentUser.data[0]?.mentor_id;
+
     const tempStudentData = {
         team_id: id,
         role: 'STUDENT',
@@ -48,18 +51,17 @@ const CreateMultipleMembers = ({ id }) => {
         email: '',
         Gender: '',
         // disability: '',
-        username: ''
+        username: '',
+        mentor_id: MentorId
     };
     const { t } = useTranslation();
     const dispatch = useDispatch();
-    const currentUser = getCurrentUser('current_user');
 
     const [itemDataErrors, setItemDataErrors] = useState([studentBody]);
     const history = useHistory();
     const [isClicked, setIsClicked] = useState(false);
     const [listCourse, setListCourse] = useState([]);
-    const MentorId = currentUser.data[0]?.mentor_id;
-    console.log(MentorId, '3');
+    // console.log(MentorId, '3');
 
     const [studentData, setStudentData] = useState([
         {
@@ -74,7 +76,8 @@ const CreateMultipleMembers = ({ id }) => {
             // Grade: '',
             Gender: '',
             username: '',
-            email: ''
+            email: '',
+            mentor_id: MentorId
         },
         {
             team_id: id,
@@ -88,7 +91,8 @@ const CreateMultipleMembers = ({ id }) => {
             // Grade: '',
             // Gender: '',
             username: '',
-            email: ''
+            email: '',
+            mentor_id: MentorId
             // disability: ''
         },
         {
@@ -103,7 +107,8 @@ const CreateMultipleMembers = ({ id }) => {
             // Grade: '',
             // Gender: '',
             username: '',
-            email: ''
+            email: '',
+            mentor_id: MentorId
             // disability: ''
         }
     ]);
@@ -162,6 +167,7 @@ const CreateMultipleMembers = ({ id }) => {
     };
     const handleChange = (e, i) => {
         let newItem = [...studentData];
+        console.log(studentData, 'ee');
 
         const dataKeys = Object.keys(studentBody);
         if (e.target) {
@@ -838,7 +844,7 @@ const CreateTeamMember = (props) => {
     const [isClicked, setIsClicked] = useState(false);
     const [aged, setAge] = useState('');
     const [courses, setCourses] = useState([]);
-
+    const MentorsId = currentUser?.data[0]?.mentor_id;
     const headingDetails = {
         title: t('teacher_teams.create_team_members'),
 
@@ -1023,6 +1029,7 @@ const CreateTeamMember = (props) => {
                 const body = {
                     team_id: id,
                     role: 'STUDENT',
+                    mentor_id: MentorsId,
                     student_full_name: values.student_full_name,
                     Age: values.age,
                     stream_id: values.stream_id,
