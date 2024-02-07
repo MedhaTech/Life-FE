@@ -357,7 +357,9 @@ const LoginNew = (props) => {
                                             exact
                                             className="w-100 d-block text-center"
                                         >
-                                            <strong>
+                                            <strong
+                                                style={{ fontSize: '1.6rem' }}
+                                            >
                                                 Click Here To Register
                                             </strong>
                                         </Link>

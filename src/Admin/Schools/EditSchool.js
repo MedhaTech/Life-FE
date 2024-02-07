@@ -167,7 +167,7 @@ const EditSchool = (props) => {
                     if (checkOrgRes.status == 200) {
                         openNotificationWithIcon(
                             'success',
-                            'School Update Successfully'
+                            'Institution Update Successfully'
                         );
                         props.history.push('/admin/registered-schools');
                     }

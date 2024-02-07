@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import './styles.scss';
 import { Row, Col, Form, Label } from 'reactstrap';
 import { withRouter } from 'react-router-dom';
@@ -21,20 +21,21 @@ const EditTeamMember = (props) => {
     const allowedAge = [10, 11, 12, 13, 14, 15, 16, 17, 18];
     const allowedYear = [1, 2, 3, 4, 5];
     // const allowCourse = [1, 2, 3];
+    const [listCourse, setListCourse] = useState([]);
+
     const history = useHistory();
     const currentUser = getCurrentUser('current_user');
     const teamMemberData =
         (history && history.location && history.location.item) || {};
-    console.log(teamMemberData, 'data');
     const formik = useFormik({
         initialValues: {
             student_full_name:
                 teamMemberData && teamMemberData.student_full_name,
-            age: JSON.stringify(teamMemberData && teamMemberData.Age),
+            age: teamMemberData && teamMemberData.Age,
             gender: teamMemberData && teamMemberData.Gender,
             email: teamMemberData && teamMemberData.email,
             mobile: teamMemberData && teamMemberData.mobile,
-            course_id: teamMemberData && teamMemberData.course_id,
+            stream_id: teamMemberData && teamMemberData.stream_id,
             date_of_birth: teamMemberData && teamMemberData.date_of_birth,
             year_of_study: teamMemberData && teamMemberData.year_of_study
 
@@ -79,7 +80,7 @@ const EditTeamMember = (props) => {
                 .trim()
                 .email('Enter Valid Email Id'),
 
-            course_id: Yup.string().required('Please select Course'),
+            stream_id: Yup.string().required('Please select Course'),
             year_of_study: Yup.string().required('Please select Year'),
 
             mobile: Yup.string()
@@ -116,7 +117,7 @@ const EditTeamMember = (props) => {
                 Grade: values.grade,
 
                 // // username: values.username,
-                course_id: values.course_id,
+                stream_id: values.stream_id,
                 Gender: values.gender,
                 year_of_study: values.year_of_study,
                 mobile: values.mobile,
@@ -172,14 +173,63 @@ const EditTeamMember = (props) => {
             item: item
         });
     };
+    // const selectCategory = {
+    //     label: 'Select Course',
+    //     options: [
+    //         { label: 'CSE', value: '1' },
+    //         { label: 'ECE', value: '2' },
+    //         { label: 'EEE', value: '3' },
+    //         { label: 'CIVIL', value: '4' }
+    //     ],
+    //     className: 'defaultDropdown'
+    // };
+    useEffect(() => {
+        CourseList();
+    }, []);
+    const CourseList = () => {
+        const newparam = encryptGlobal(
+            JSON.stringify(currentUser.data[0]?.institution_type_id)
+        );
+
+        var config = {
+            method: 'get',
+            url:
+                process.env.REACT_APP_API_BASE_URL +
+                `/institutions/Streams/${newparam}`,
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${currentUser.data[0]?.token}`
+            }
+        };
+        axios(config)
+            .then(function (response) {
+                if (response.status === 200) {
+                    console.log(response, 'res');
+                    let dataa = response?.data?.data;
+                    if (dataa) {
+                        let courseOption = [];
+                        dataa.map((item) => {
+                            let option = {
+                                label: item.stream_name,
+                                value: item.stream_id
+                            };
+                            courseOption.push(option);
+                        });
+                        setListCourse(courseOption);
+                    }
+                    // setTotalSubmittedideasCount(
+                    //     response.data.data[0].submitted_ideas
+                    // );
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
     const selectCategory = {
         label: 'Select Course',
-        options: [
-            { label: 'CSE', value: '1' },
-            { label: 'ECE', value: '2' },
-            { label: 'EEE', value: '3' },
-            { label: 'CIVIL', value: '4' }
-        ],
+        options: listCourse,
         className: 'defaultDropdown'
     };
     useEffect(() => {
@@ -188,9 +238,9 @@ const EditTeamMember = (props) => {
 
         if (!isNaN(selectedDate.getTime())) {
             const age = currentDate.getFullYear() - selectedDate.getFullYear();
-            formik.setFieldValue('age', age);
+            formik.setFieldValue('age', age.toString());
         } else {
-            formik.setFieldValue('age', 0);
+            formik.setFieldValue('age', '0');
         }
     }, [formik.values.date_of_birth]);
 
@@ -208,12 +258,13 @@ const EditTeamMember = (props) => {
                                         <Row>
                                             <Col md={4}>
                                                 <Label
-                                                    className="name-req"
+                                                    className="name-req-create-member"
                                                     htmlFor="fullName"
                                                 >
-                                                    {t(
+                                                    {/* {t(
                                                         'teacher_teams.student_name'
-                                                    )}
+                                                    )} */}
+                                                    Student Name
                                                 </Label>
                                                 <InputBox
                                                     className={'defaultInput'}
@@ -292,19 +343,19 @@ const EditTeamMember = (props) => {
                                                     onBlur={formik.handleBlur}
                                                     onChange={(option) => {
                                                         formik.setFieldValue(
-                                                            'course_id',
+                                                            'stream_id',
                                                             option[0]?.value
                                                         );
                                                     }}
                                                     name="Select Course"
                                                     id="Select Course"
                                                 />
-                                                {formik.touched.course_id &&
-                                                formik.errors.course_id ? (
+                                                {formik.touched.stream_id &&
+                                                formik.errors.stream_id ? (
                                                     <small className="error-cls">
                                                         {
                                                             formik.errors
-                                                                .course_id
+                                                                .stream_id
                                                         }
                                                     </small>
                                                 ) : null}
@@ -314,7 +365,7 @@ const EditTeamMember = (props) => {
                                                     className="name-req-create-member"
                                                     htmlFor="year_of_study"
                                                 >
-                                                    Year Of Study
+                                                    Year of Study
                                                     <span
                                                         required
                                                         className="p-1"
@@ -339,7 +390,7 @@ const EditTeamMember = (props) => {
                                                         }
                                                     >
                                                         <option value={''}>
-                                                            Select Year
+                                                            Select the Year
                                                         </option>
                                                         {allowedYear.map(
                                                             (item) => (
@@ -445,7 +496,7 @@ const EditTeamMember = (props) => {
                                                     className="name-req-create-member"
                                                     htmlFor="date_of_birth"
                                                 >
-                                                    DOB
+                                                    Date of Birth
                                                     <span
                                                         required
                                                         className="p-1"
@@ -480,14 +531,15 @@ const EditTeamMember = (props) => {
                                                 ) : null}
                                             </Col>
                                             <Col
-                                                md={6}
+                                                md={3}
                                                 className="mb-5 mb-xl-0"
                                             >
                                                 <Label
-                                                    className="name-req"
+                                                    className="name-req-create-member"
                                                     htmlFor="age"
                                                 >
-                                                    {t('teacher_teams.age')}
+                                                    {/* {t('teacher_teams.age')} */}
+                                                    Age
                                                 </Label>
 
                                                 <div className="dropdown CalendarDropdownComp ">
@@ -503,9 +555,9 @@ const EditTeamMember = (props) => {
                                                         id="age"
                                                         name="age"
                                                         type="text"
-                                                        value={String(
+                                                        value={
                                                             formik.values.age
-                                                        )}
+                                                        }
                                                     />
                                                     {/* <select
                                                         className="form-control custom-dropdown"
@@ -541,6 +593,59 @@ const EditTeamMember = (props) => {
                                                 formik.errors.age ? (
                                                     <small className="error-cls">
                                                         {formik.errors.age}
+                                                    </small>
+                                                ) : null}
+                                            </Col>
+                                            <Col
+                                                md={3}
+                                                className="mb-5 mb-xl-0"
+                                            >
+                                                <Label
+                                                    className="name-req-create-member"
+                                                    htmlFor="gender"
+                                                >
+                                                    Gender
+                                                    <span
+                                                        required
+                                                        className="p-1"
+                                                    >
+                                                        *
+                                                    </span>
+                                                </Label>
+
+                                                <select
+                                                    name="gender"
+                                                    className="form-control custom-dropdown"
+                                                    value={formik.values.gender}
+                                                    onChange={
+                                                        formik.handleChange
+                                                    }
+                                                >
+                                                    <option value="">
+                                                        Select Gender
+                                                        {/* {t(
+                                                            'teacher_teams.student_gender'
+                                                        )} */}
+                                                    </option>
+                                                    <option value="MALE">
+                                                        {t(
+                                                            'teacher_teams.student_gender_male'
+                                                        )}
+                                                    </option>
+                                                    <option value="FEMALE">
+                                                        {t(
+                                                            'teacher_teams.student_gender_female'
+                                                        )}
+                                                    </option>
+                                                    <option value="OTHERS">
+                                                        Prefer not to mention
+                                                    </option>
+                                                </select>
+
+                                                {formik.touched.gender &&
+                                                formik.errors.gender ? (
+                                                    <small className="error-cls">
+                                                        {formik.errors.gender}
                                                     </small>
                                                 ) : null}
                                             </Col>

@@ -25,17 +25,15 @@ const SuccessPage = () => {
     const { t } = useTranslation();
     const mentorDaTa = JSON.parse(localStorage.getItem('mentorData'));
     const orgDaTa = JSON.parse(localStorage.getItem('orgData'));
-    console.log(orgDaTa, '1');
-    console.log(mentorDaTa, '2');
     const user = mentorDaTa.username;
     const myArray = user.split('@');
     const word = myArray[0];
     const [buttonData, setButtonData] = useState('');
 
-    const handleButton = () => {
-        // alert('hii');
-        apiCall();
-    };
+    // const handleButton = () => {
+    //     // alert('hii');
+    //     apiCall();
+    // };
     async function apiCall() {
         // Dice code list API //
         // where list = diescode //
@@ -171,7 +169,7 @@ const SuccessPage = () => {
                                     style={{
                                         fontSize: '3.4rem',
                                         fontWeight: 'bold',
-                                        color: 'lightgreen'
+                                        color: 'DarkGreen'
                                     }}
                                 >
                                     Congratulations
@@ -199,7 +197,7 @@ const SuccessPage = () => {
                                 {/* </p>  */}
                                 <p
                                     style={{
-                                        color: 'gray',
+                                        color: '#404040',
                                         marginBottom: '1rem'
                                     }}
                                 >
@@ -210,16 +208,16 @@ const SuccessPage = () => {
                                 </p>
                                 <p
                                     style={{
-                                        color: 'gray',
+                                        color: '#404040',
                                         marginBottom: '1rem'
                                     }}
                                 >
-                                    School Name: {orgDaTa.institution_name}
+                                    Institution Name: {orgDaTa.institution_name}
                                     {/* {mentorDaTa.organization_code} */}
                                 </p>
                                 <p
                                     style={{
-                                        color: 'gray',
+                                        color: '#404040',
                                         marginBottom: '1rem'
                                     }}
                                 >
@@ -232,7 +230,7 @@ const SuccessPage = () => {
                                 </p>
                                 <p
                                     style={{
-                                        color: 'gray',
+                                        color: '#404040',
                                         marginBottom: '1rem'
                                     }}
                                 >
@@ -254,7 +252,7 @@ const SuccessPage = () => {
                                 </p> */}
                                 <p
                                     style={{
-                                        color: 'gray',
+                                        color: '#404040',
                                         marginBottom: '1rem'
                                     }}
                                 >
@@ -264,7 +262,7 @@ const SuccessPage = () => {
 
                                 <p
                                     style={{
-                                        color: 'gray',
+                                        color: '#404040',
                                         marginBottom: '1rem'
                                     }}
                                 >
@@ -280,7 +278,7 @@ const SuccessPage = () => {
                                 </p> */}
                                 <p
                                     style={{
-                                        color: 'gray',
+                                        color: '#404040',
                                         marginBottom: '1rem'
                                     }}
                                 >
@@ -288,7 +286,7 @@ const SuccessPage = () => {
                                 </p>
                                 <p
                                     style={{
-                                        color: 'gray',
+                                        color: '#404040',
                                         marginBottom: '1rem'
                                     }}
                                 >
@@ -298,7 +296,7 @@ const SuccessPage = () => {
 
                                 <p
                                     style={{
-                                        color: 'gray',
+                                        color: '#404040',
                                         marginBottom: '2rem'
                                     }}
                                 >
@@ -319,7 +317,7 @@ const SuccessPage = () => {
                                 </>
                                 <p
                                     style={{
-                                        color: 'gray',
+                                        color: '#404040',
                                         marginBottom: '2rem'
                                     }}
                                 >
@@ -327,7 +325,7 @@ const SuccessPage = () => {
                                 </p>
 
                                 <h3>
-                                    To login into Teacher account
+                                    To login into Mentor account
                                     <Link
                                         exact="true"
                                         to="/teacher"

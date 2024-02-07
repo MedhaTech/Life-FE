@@ -126,7 +126,7 @@ const AddNewSchool = (props) => {
                     if (checkOrgRes.status == 201) {
                         openNotificationWithIcon(
                             'success',
-                            'School Create Successfully'
+                            'Institution Create Successfully'
                         );
                         props.history.push('/admin/registered-schools');
                     }

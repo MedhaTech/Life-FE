@@ -23,7 +23,7 @@ import { error } from 'highcharts';
 const studentBody = {
     student_full_name: '',
     Age: '',
-    course_id: '',
+    stream_id: '',
     mobile: '',
     year_of_study: '',
     date_of_birth: '',
@@ -40,7 +40,7 @@ const CreateMultipleMembers = ({ id }) => {
         team_id: id,
         role: 'STUDENT',
         student_full_name: '',
-        course_id: '',
+        stream_id: '',
         Age: '',
         mobile: '',
         year_of_study: '',
@@ -52,15 +52,18 @@ const CreateMultipleMembers = ({ id }) => {
     };
     const { t } = useTranslation();
     const dispatch = useDispatch();
+    const currentUser = getCurrentUser('current_user');
+
     const [itemDataErrors, setItemDataErrors] = useState([studentBody]);
     const history = useHistory();
     const [isClicked, setIsClicked] = useState(false);
+    const [listCourse, setListCourse] = useState([]);
     const [studentData, setStudentData] = useState([
         {
             team_id: id,
             role: 'STUDENT',
             student_full_name: '',
-            course_id: '',
+            stream_id: '',
             Age: '',
             mobile: '',
             year_of_study: '',
@@ -74,7 +77,22 @@ const CreateMultipleMembers = ({ id }) => {
             team_id: id,
             role: 'STUDENT',
             student_full_name: '',
-            course_id: '',
+            stream_id: '',
+            Age: '',
+            mobile: '',
+            year_of_study: '',
+            date_of_birth: '',
+            // Grade: '',
+            // Gender: '',
+            username: '',
+            email: ''
+            // disability: ''
+        },
+        {
+            team_id: id,
+            role: 'STUDENT',
+            student_full_name: '',
+            stream_id: '',
             Age: '',
             mobile: '',
             year_of_study: '',
@@ -90,7 +108,55 @@ const CreateMultipleMembers = ({ id }) => {
     // const emailRegex = /[A-Za-z-@+.-]*$/;
     const emailRegex = /^[\w.]+@([\w-]+\.)+[\w-]{2,4}$/;
     const isValidNumber = /^[0-9]$/;
+    useEffect(() => {
+        CourseList();
+    }, []);
+    const CourseList = () => {
+        const newparam = encryptGlobal(
+            JSON.stringify(currentUser.data[0]?.institution_type_id)
+        );
 
+        var config = {
+            method: 'get',
+            url:
+                process.env.REACT_APP_API_BASE_URL +
+                `/institutions/Streams/${newparam}`,
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${currentUser.data[0]?.token}`
+            }
+        };
+        axios(config)
+            .then(function (response) {
+                if (response.status === 200) {
+                    // console.log(response, 'res');
+                    let dataa = response?.data?.data;
+                    if (dataa) {
+                        let courseOption = [];
+                        dataa.map((item) => {
+                            let option = {
+                                label: item.stream_name,
+                                value: item.stream_id
+                            };
+                            courseOption.push(option);
+                        });
+                        setListCourse(courseOption);
+                    }
+                    // setTotalSubmittedideasCount(
+                    //     response.data.data[0].submitted_ideas
+                    // );
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
+    const selectCategory = {
+        label: 'Select Course',
+        options: listCourse,
+        className: 'defaultDropdown'
+    };
     const handleChange = (e, i) => {
         let newItem = [...studentData];
 
@@ -148,6 +214,9 @@ const CreateMultipleMembers = ({ id }) => {
                             return;
                             // }
                         }
+                        // if (item === 'stream_id') {
+                        //     newItem[i].stream_id = e.target.value;
+                        // }
                         // console.log(age, '11');
                         // if (check && check.match(isValidNumber)) {
                         //     const { index } = check.match(isValidNumber);
@@ -188,7 +257,8 @@ const CreateMultipleMembers = ({ id }) => {
                 }
             }
             if (!item.date_of_birth) {
-                err['date_of_birth'] = 'Date of Birth is Required';
+                err['date_of_birth'] =
+                    'Date of Birth is Required / Age Must be 14 to 15';
             } else {
                 const currentDate = new Date();
                 const selectedDate = new Date(item.date_of_birth);
@@ -197,7 +267,7 @@ const CreateMultipleMembers = ({ id }) => {
 
                 // Validate age
                 if (age < 14 || age > 25) {
-                    err['Age'] = 'Age must be between 14 and 25';
+                    // err['Age'] = 'Age must be between 14 and 25';
                     openNotificationWithIcon(
                         'error',
                         'Age must be between 14 and 25'
@@ -205,22 +275,15 @@ const CreateMultipleMembers = ({ id }) => {
                 }
             }
 
-            // if (!item.username.trim())
-            //     err['username'] = 'Mobile Number is Required';
-            // if (item.username) {
-            //     const start = item.username.indexOf('@');
-            //     const main = item.username.substring(start);
-            //     const checkarry = ['@gmail.com', '@outlook.com', '@yahoo.com'];
-            //     const text = checkarry.includes(main);
-            //     if (!text) {
-            //         err['username'] = 'Enter Valid Mail Id';
-            //     }
-            // }
-
             // if (!item.Age) err['Age'] = 'Age is Required';
             if (!item.email) err['email'] = 'Email Id is Required';
 
-            if (!item.course_id) err['course_id'] = 'Course is Required';
+            if (!item.stream_id) err['stream_id'] = 'Course is Required';
+            // if (!item.stream_id) {
+            //     err['stream_id'] = 'Course is Required';
+            // } else {
+            //     err['stream_id'] = '';
+            // }
 
             if (!item.mobile) err['mobile'] = 'Mobile number is Required';
             // if (!item.date_of_birth) err['date_of_birth'] = 'DOB is Required';
@@ -291,15 +354,12 @@ const CreateMultipleMembers = ({ id }) => {
             )
         );
     };
-    const selectCategory = {
-        label: 'Select Course',
-        options: [
-            { label: 'CSE', value: '1' },
-            { label: 'ECE', value: '2' },
-            { label: 'EEE', value: '3' },
-            { label: 'CIVIL', value: '4' }
-        ],
-        className: 'defaultDropdown'
+    const handleErrorForStream = (values, i) => {
+        let errCopy = [...itemDataErrors];
+        if (values[i]['stream_id'] !== '') {
+            errCopy[i]['stream_id'] = '';
+        }
+        setItemDataErrors(errCopy);
     };
     return (
         <div className="create-ticket register-blockt">
@@ -309,7 +369,7 @@ const CreateMultipleMembers = ({ id }) => {
                     <div key={i + item} className="mb-5">
                         <div className="d-flex justify-content-between align-items-center">
                             <h6 className="">Student {i + 1} Details</h6>
-                            {i > 1 && (
+                            {i > 3 && (
                                 <Button
                                     label={'Remove'}
                                     onClick={() => removeItem(i)}
@@ -349,10 +409,10 @@ const CreateMultipleMembers = ({ id }) => {
                                         </small>
                                     ) : null}
                                 </Col>
-                                <Col md={4} className="mb-xl-0">
+                                <Col md={4}>
                                     <Label
                                         className="name-req-create-member"
-                                        htmlFor="course_id"
+                                        htmlFor="stream_id"
                                     >
                                         Course
                                         <span required className="p-1">
@@ -360,8 +420,8 @@ const CreateMultipleMembers = ({ id }) => {
                                         </span>
                                     </Label>
 
-                                    <div className="dropdown CalendarDropdownComp ">
-                                        {/* <select
+                                    {/* <div className="dropdown CalendarDropdownComp "> */}
+                                    {/* <select
                                             name="course_id"
                                             className="form-control custom-dropdown"
                                             value={item.course_id}
@@ -376,26 +436,31 @@ const CreateMultipleMembers = ({ id }) => {
                                                 </option>
                                             ))}
                                         </select> */}
-                                        <DropDownWithSearch
-                                            {...selectCategory}
-                                            // onBlur={formik.handleBlur}
-                                            onChange={(option) => {
-                                                studentData[i]['course_id'] =
-                                                    option[0]?.value;
+                                    <DropDownWithSearch
+                                        {...selectCategory}
+                                        // onBlur={formik.handleBlur}
+                                        onChange={(option) => {
+                                            studentData[i]['stream_id'] =
+                                                option[0]?.value;
+                                            handleErrorForStream(
+                                                studentData,
+                                                i
+                                            );
 
-                                                // 'course_id', option[0]?.value;
-                                            }}
-                                            // onChange={(e) => {
-                                            //     handleChange(e, i);
-                                            // }}
-                                            value={item.value}
-                                            name="Select Course"
-                                            id="Select Course"
-                                        />
-                                    </div>
-                                    {foundErrObject?.course_id ? (
+                                            // 'course_id', option[0]?.value;
+                                        }}
+                                        // onChange={(e) => {
+                                        //     handleChange(e, i);
+                                        // }}
+                                        value={item.value}
+                                        name="Select Course"
+                                        id="Select Course"
+                                    />
+                                    {/* </div> */}
+
+                                    {foundErrObject?.stream_id ? (
                                         <small className="error-cls">
-                                            {foundErrObject.course_id}
+                                            {foundErrObject.stream_id}
                                         </small>
                                     ) : null}
                                 </Col>
@@ -404,7 +469,7 @@ const CreateMultipleMembers = ({ id }) => {
                                         className="name-req-create-member"
                                         htmlFor="year_of_study"
                                     >
-                                        Year Of Study
+                                        Year of Study
                                         <span required className="p-1">
                                             *
                                         </span>
@@ -417,7 +482,7 @@ const CreateMultipleMembers = ({ id }) => {
                                             onChange={(e) => handleChange(e, i)}
                                         >
                                             <option value={''}>
-                                                Select The Year
+                                                Select the Year
                                             </option>
                                             {allowedYear.map((item) => (
                                                 <option key={item} value={item}>
@@ -509,7 +574,7 @@ const CreateMultipleMembers = ({ id }) => {
                                         className="name-req-create-member"
                                         htmlFor="date_of_birth"
                                     >
-                                        Date Of Birth
+                                        Date of Birth
                                         <span required className="p-1">
                                             *
                                         </span>
@@ -764,6 +829,7 @@ const CreateTeamMember = (props) => {
     const [teamMemberData, setTeamMemberData] = useState({});
     const [isClicked, setIsClicked] = useState(false);
     const [aged, setAge] = useState('');
+    const [courses, setCourses] = useState([]);
 
     const headingDetails = {
         title: t('teacher_teams.create_team_members'),
@@ -781,6 +847,64 @@ const CreateTeamMember = (props) => {
     useEffect(async () => {
         await handleCreateMemberAPI(id);
     }, [id]);
+    const selectCategory = {
+        label: 'Select Course',
+        options: courses,
+        className: 'defaultDropdown'
+    };
+    // const selectCategory = {
+    //     label: 'Select Course',
+    //     options: [
+    //         { label: 'CSE', value: '1' },
+    //         { label: 'ECE', value: '2' },
+    //         { label: 'EEE', value: '3' },
+    //         { label: 'CIVIL', value: '4' }
+    //     ],
+    //     className: 'defaultDropdown'
+    // };
+    useEffect(() => {
+        CourseList();
+    }, []);
+    const CourseList = () => {
+        const newparam = encryptGlobal(
+            JSON.stringify(currentUser.data[0]?.institution_type_id)
+        );
+
+        var config = {
+            method: 'get',
+            url:
+                process.env.REACT_APP_API_BASE_URL +
+                `/institutions/Streams/${newparam}`,
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${currentUser.data[0]?.token}`
+            }
+        };
+        axios(config)
+            .then(function (response) {
+                if (response.status === 200) {
+                    let data = response?.data?.data;
+                    if (data) {
+                        let courseOptions = [];
+                        data.map((item) => {
+                            let option = {
+                                label: item.stream_name,
+                                value: item.stream_id
+                            };
+                            courseOptions.push(option);
+                        });
+                        setCourses(courseOptions);
+                    }
+                    // setTotalSubmittedideasCount(
+                    //     response.data.data[0].submitted_ideas
+                    // );
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
 
     async function handleCreateMemberAPI(teamId) {
         const creaParam = encryptGlobal(JSON.stringify(teamId));
@@ -812,7 +936,7 @@ const CreateTeamMember = (props) => {
         initialValues: {
             student_full_name: '',
             age: 0,
-            course_id: '',
+            stream_id: '',
             gender: '',
             year_of_study: '',
             date_of_birth: '',
@@ -860,7 +984,7 @@ const CreateTeamMember = (props) => {
                 .trim()
                 .email('Enter Valid Email Id'),
 
-            course_id: Yup.string().required('Please select Course'),
+            stream_id: Yup.string().required('Please select Course'),
             year_of_study: Yup.string().required('Please select Year'),
 
             mobile: Yup.string()
@@ -872,7 +996,9 @@ const CreateTeamMember = (props) => {
                 )
                 .min(10, 'Please enter valid number')
                 .max(10, 'Please enter valid number'),
-            date_of_birth: Yup.string().required('Please select DOB')
+            date_of_birth: Yup.string().required(
+                'Please select Date of Birth / Age Must be 14 to 25'
+            )
         }),
 
         onSubmit: (values) => {
@@ -891,7 +1017,7 @@ const CreateTeamMember = (props) => {
                     role: 'STUDENT',
                     student_full_name: values.student_full_name,
                     Age: values.age,
-                    course_id: values.course_id,
+                    stream_id: values.stream_id,
                     Gender: values.gender,
                     year_of_study: values.year_of_study,
                     mobile: values.mobile,
@@ -956,16 +1082,6 @@ const CreateTeamMember = (props) => {
         }
     }, [formik.values.date_of_birth]);
 
-    const selectCategory = {
-        label: 'Select Course',
-        options: [
-            { label: 'CSE', value: '1' },
-            { label: 'ECE', value: '2' },
-            { label: 'EEE', value: '3' },
-            { label: 'CIVIL', value: '4' }
-        ],
-        className: 'defaultDropdown'
-    };
     // console.log('formik.values.age', formik.values.age);
     return (
         <Layout title="teams">
@@ -1034,7 +1150,7 @@ const CreateTeamMember = (props) => {
                                                 <Col md={4} className="mb-0">
                                                     <Label
                                                         className="name-req-create-member"
-                                                        htmlFor="course_id"
+                                                        htmlFor="stream_id"
                                                     >
                                                         Course
                                                         <span
@@ -1122,19 +1238,19 @@ const CreateTeamMember = (props) => {
                                                         }
                                                         onChange={(option) => {
                                                             formik.setFieldValue(
-                                                                'course_id',
+                                                                'stream_id',
                                                                 option[0]?.value
                                                             );
                                                         }}
                                                         name="Select Course"
                                                         id="Select Course"
                                                     />
-                                                    {formik.touched.course_id &&
-                                                    formik.errors.course_id ? (
+                                                    {formik.touched.stream_id &&
+                                                    formik.errors.stream_id ? (
                                                         <small className="error-cls">
                                                             {
                                                                 formik.errors
-                                                                    .course_id
+                                                                    .stream_id
                                                             }
                                                         </small>
                                                     ) : null}
@@ -1144,7 +1260,7 @@ const CreateTeamMember = (props) => {
                                                         className="name-req-create-member"
                                                         htmlFor="year_of_study"
                                                     >
-                                                        Year Of Study
+                                                        Year of Study
                                                         <span
                                                             required
                                                             className="p-1"
@@ -1327,7 +1443,7 @@ const CreateTeamMember = (props) => {
                                                         className="name-req-create-member"
                                                         htmlFor="date_of_birth"
                                                     >
-                                                        Date Of Birth
+                                                        Date of Birth
                                                         <span
                                                             required
                                                             className="p-1"
