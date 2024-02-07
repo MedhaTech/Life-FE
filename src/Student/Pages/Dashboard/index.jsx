@@ -441,7 +441,7 @@ const Dashboard = () => {
             <Container>
                 <div
                     className="d-flex justify-content-between align-items-center"
-                    style={{ margin: '1rem 0' }}
+                    style={{ margin: '3rem 0' }}
                 >
                     <h2>Dashboard</h2>
                     <div
@@ -610,7 +610,7 @@ const Dashboard = () => {
                             bg="light"
                             text="dark"
                             className=" md-3 xs-12 "
-                            style={{ height: '400px' }}
+                            style={{ height: '600px' }}
                         >
                             <Card.Body style={{ overflowX: 'auto' }}>
                                 {/* <LatestNews usersdata={currentUser?.data} /> */}
