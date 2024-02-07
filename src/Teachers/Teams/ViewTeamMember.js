@@ -475,7 +475,7 @@ const ViewTeamMember = (props) => {
 
                         <a onClick={() => handleDeleteTeamMember(params)}>
                             {props.teamsMembersList &&
-                                props.teamsMembersList.length > 2 &&
+                                props.teamsMembersList.length > 3 &&
                                 IdeaStatus === 'No Idea' && (
                                     <i
                                         key={params.team_id}
@@ -487,7 +487,7 @@ const ViewTeamMember = (props) => {
                         <a onClick={() => handleResetPassword(params)}>
                             <i key={params.team_id} className="fa fa-key" />
                         </a>,
-                        props.teamsMembersList.length > 2 &&
+                        props.teamsMembersList.length > 3 &&
                             IdeaStatus === 'No Idea' && ( // <-- Updated condition
                                 <a onClick={() => handleSwitchTeam(params)}>
                                     <i

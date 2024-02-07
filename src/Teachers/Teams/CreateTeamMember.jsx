@@ -58,6 +58,9 @@ const CreateMultipleMembers = ({ id }) => {
     const history = useHistory();
     const [isClicked, setIsClicked] = useState(false);
     const [listCourse, setListCourse] = useState([]);
+    const MentorId = currentUser.data[0]?.mentor_id;
+    console.log(MentorId, '3');
+
     const [studentData, setStudentData] = useState([
         {
             team_id: id,
@@ -267,11 +270,14 @@ const CreateMultipleMembers = ({ id }) => {
 
                 // Validate age
                 if (age < 14 || age > 25) {
-                    // err['Age'] = 'Age must be between 14 and 25';
+                    err['Age'] = 'Age must be between 14 and 25';
                     openNotificationWithIcon(
                         'error',
                         'Age must be between 14 and 25'
                     );
+                } else {
+                    // err['Age'] = '';
+                    delete err['Age'];
                 }
             }
 
@@ -310,6 +316,7 @@ const CreateMultipleMembers = ({ id }) => {
             return true;
         }
     };
+
     const addItem = () => {
         if (!validateItemData()) {
             return;
@@ -361,6 +368,7 @@ const CreateMultipleMembers = ({ id }) => {
         }
         setItemDataErrors(errCopy);
     };
+
     return (
         <div className="create-ticket register-blockt">
             {studentData.map((item, i) => {
