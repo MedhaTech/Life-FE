@@ -949,7 +949,7 @@ const CreateTeamMember = (props) => {
     const formik = useFormik({
         initialValues: {
             student_full_name: '',
-            age: 0,
+            age: '',
             stream_id: '',
             gender: '',
             year_of_study: '',
@@ -969,28 +969,30 @@ const CreateTeamMember = (props) => {
                 )
                 .trim(),
             age: Yup.number()
-                .test(
-                    'age-validation',
-                    'Age must be between 14 and 25',
-                    function (value) {
-                        const currentDate = new Date();
-                        const selectedDate = new Date(
-                            this.parent.date_of_birth
-                        );
+                    .lessThan(26)
+                    .moreThan(13),
+                // .test(
+                //     'age-validation',
+                //     'Age must be between 14 and 25',
+                //     function (value) {
+                //         const currentDate = new Date();
+                //         const selectedDate = new Date(
+                //             this.parent.date_of_birth
+                //         );
 
-                        if (isNaN(selectedDate.getTime())) {
-                            return false;
-                        }
-                        const age =
-                            currentDate.getFullYear() -
-                            selectedDate.getFullYear();
-                        if (isNaN(age) || age < 0) {
-                            return false;
-                        }
-                        return age >= 14 && age <= 25;
-                    }
-                )
-                .default(0),
+                //         if (isNaN(selectedDate.getTime())) {
+                //             return false;
+                //         }
+                //         const age =
+                //             currentDate.getFullYear() -
+                //             selectedDate.getFullYear();
+                //         if (isNaN(age) || age < 0) {
+                //             return false;
+                //         }
+                //         return age >= 14 && age <= 25;
+                //     }
+                // )
+                // .default(0),
 
             gender: Yup.string().required('Please select valid gender'),
             email: Yup.string()
@@ -1092,9 +1094,10 @@ const CreateTeamMember = (props) => {
         if (!isNaN(selectedDate.getTime())) {
             const age = currentDate.getFullYear() - selectedDate.getFullYear();
             formik.setFieldValue('age', age);
-        } else {
-            formik.setFieldValue('age', 0);
-        }
+        } 
+        // else {
+        //     formik.setFieldValue('age', 0);
+        // }
     }, [formik.values.date_of_birth]);
 
     // console.log('formik.values.age', formik.values.age);
