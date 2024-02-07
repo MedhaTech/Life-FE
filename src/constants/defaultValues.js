@@ -9,13 +9,11 @@ export const URL = {
     schoolLogin: process.env.REACT_APP_API_BASE_URL + '/organizations/login',
     coordinatorLogin:
         process.env.REACT_APP_API_BASE_URL + '/state_coordinators/login',
-    reportLogin:
-        process.env.REACT_APP_API_BASE_URL + '/admins/login?',
+    reportLogin: process.env.REACT_APP_API_BASE_URL + '/admins/login?',
 
     login: process.env.REACT_APP_API_BASE_URL + '/students/login',
     adminLogin: process.env.REACT_APP_API_BASE_URL + '/admins/login',
-    eadminLogin:
-        process.env.REACT_APP_API_BASE_URL + '/admins/login?',
+    eadminLogin: process.env.REACT_APP_API_BASE_URL + '/admins/login?',
     adminRegister: process.env.REACT_APP_API_BASE_URL + '/admins/register',
     evaluatorLogin: process.env.REACT_APP_API_BASE_URL + '/evaluators/login',
     // evaluatorRegister: `${process.env.REACT_APP_API_BASE_URL}/evaluators/register`,
@@ -23,11 +21,9 @@ export const URL = {
     addMentor: process.env.REACT_APP_API_BASE_URL + '/mentors/create',
     addAdminCourses: process.env.REACT_APP_API_BASE_URL + '/course',
     submitChallengeResponse:
-        process.env.REACT_APP_API_BASE_URL +
-        '/challenge_response',
+        process.env.REACT_APP_API_BASE_URL + '/challenge_response',
     initiateChallenge:
-        process.env.REACT_APP_API_BASE_URL +
-        '/challenge_response/',
+        process.env.REACT_APP_API_BASE_URL + '/challenge_response/',
     postAdminRefQuizResponce:
         process.env.REACT_APP_API_BASE_URL + '/reflectiveQuiz/',
     createMentorSupportTickets:
@@ -45,8 +41,7 @@ export const URL = {
     createMultiStudent:
         process.env.REACT_APP_API_BASE_URL + '/students/bulkCreateStudent',
     uploadFile:
-        process.env.REACT_APP_API_BASE_URL +
-        '/challenge_response/fileUpload',
+        process.env.REACT_APP_API_BASE_URL + '/challenge_response/fileUpload',
     updatepromote:
         process.env.REACT_APP_API_BASE_URL + '/challenge_response/updateEntry/',
 
@@ -93,7 +88,7 @@ export const URL = {
     getAdminQstList: process.env.REACT_APP_API_BASE_URL + '/quiz/',
     getAdminRefQizList: process.env.REACT_APP_API_BASE_URL + '/reflectiveQuiz/',
     getSchoolRegistrationBulkupload:
-        process.env.REACT_APP_API_BASE_URL + '/organizations?',
+        process.env.REACT_APP_API_BASE_URL + '/institutions?',
     getFaqCategoryList: `${process.env.REACT_APP_API_BASE_URL}/faqCategories`,
     getFaqByCategoryId: `${process.env.REACT_APP_API_BASE_URL}/faqCategories`,
     getFaqList: `${process.env.REACT_APP_API_BASE_URL}/faqs`,

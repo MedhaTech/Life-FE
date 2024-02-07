@@ -101,7 +101,7 @@ export const InputBox = ({
                 placeholder={placeholder}
                 onChange={onChange}
                 onBlur={onBlur}
-                id={id}
+                id={id === 'password' ? 'password' : 'reg-password'}
                 name={name}
                 aria-describedby="basic-addon1"
                 disabled={isDisabled}

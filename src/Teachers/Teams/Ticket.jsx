@@ -201,7 +201,12 @@ const TicketsPage = () => {
                         <Col className="col-auto" style={centerTitleMobile}>
                             <h2>{t('teacher_teams.team_heading')}</h2>
                         </Col>
-
+                        <Col className="col-auto" style={centerTitleMobile}>
+                            <h2 style={{ color: 'blue' }}>
+                                {' '}
+                                Total Students : {totalCount?.StudentsCount}
+                            </h2>
+                        </Col>
                         <Col className="ticket-btn col ml-auto ">
                             <div className="d-flex justify-content-end">
                                 {totalCount?.StudentsCount < 47 && (
@@ -258,12 +263,12 @@ const TicketsPage = () => {
                             Adding student teams is the first and most important
                             step as part of the project. Please ensure you are
                             ready with the list of students and their details
-                            (Team Name,Student Full Name,Student Class,Student
-                            Age,Student Gender,Student Email,Student Disability
-                            Status) before you start creating teams. Please
-                            ensure you are selecting students who are interested
-                            and will benefit out of this program irrespective of
-                            their communication skills or academic performance.
+                            (Team Name,Student Full Name,Student Age,Student
+                            Gender,Student Email, Status) before you start
+                            creating teams. Please ensure you are selecting
+                            students who are interested and will benefit out of
+                            this program irrespective of their communication
+                            skills or academic performance.
                         </p>
                         <List>
                             <li>
@@ -273,12 +278,12 @@ const TicketsPage = () => {
                             </li>
                             <li>Email id has to be unique for each student.</li>
                             <li>
-                                Teacher email cannot be used for mentor &
+                                Mentor email cannot be used for mentor &
                                 student.
                             </li>
                             <li>
-                                Each team should have a minimum of 2 and maximum
-                                of 3 students.
+                                Each team should have a minimum of 3 and maximum
+                                of 5 students.
                             </li>
                             <li>
                                 Team name cannot be edited whereas student

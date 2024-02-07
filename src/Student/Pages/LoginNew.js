@@ -189,7 +189,8 @@ const LoginNew = (props) => {
                                             alt="login icon"
                                             className="img-fluid"
                                         />{' '}
-                                        {t('loginPage.teacher_login')}
+                                        Mentor Login
+                                        {/* {t('loginPage.teacher_login')} */}
                                     </button>
                                 </Link>
                                 <Link

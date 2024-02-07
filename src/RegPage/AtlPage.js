@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
@@ -85,7 +86,8 @@ function AtlPage() {
     };
     const inputPassword = {
         placeholder: 'Enter Password',
-        className: 'defaultInput'
+        showEyeIcon: true
+        // className: 'defaultInput'
     };
     const inputMentorTn = {
         type: 'text',
@@ -231,7 +233,6 @@ function AtlPage() {
                 await axios(config)
                     .then((mentorRegRes) => {
                         if (mentorRegRes?.data?.status == 201) {
-                            console.log(mentorRegRes, 'mentorRegRes');
                             setMentorData(mentorRegRes?.data?.data[0]);
                             const successData = {
                                 password: mentorRegRes?.data?.data[0].password,
@@ -543,7 +544,8 @@ function AtlPage() {
                                                 htmlFor="institution_code"
                                             >
                                                 {/* {t('teacehr_red.UDISE')} */}
-                                                Institution Unique Code
+                                                Institution Unique Code / EDII's
+                                                Unique Code
                                             </Label>
                                             <Input
                                                 {...inputField}
@@ -555,7 +557,7 @@ function AtlPage() {
                                                 maxLength={11}
                                                 minLength={11}
                                                 name="institution_code"
-                                                placeholder="Enter Institution Unique Code"
+                                                placeholder="Enter Institution Unique Code / EDII's Unique Code "
                                                 className="w-100 mb-3 mb-md-0"
                                                 style={{
                                                     borderRadius: '0px',
@@ -650,6 +652,22 @@ function AtlPage() {
                                                                   ?.place_name
                                                             : ' N/A'}
                                                         <br />
+                                                        Block :{' '}
+                                                        {orgData?.place?.block
+                                                            ?.block_name
+                                                            ? orgData?.place
+                                                                  ?.block
+                                                                  ?.block_name
+                                                            : ' N/A'}
+                                                        <br />
+                                                        Taluk :{' '}
+                                                        {orgData?.place?.block
+                                                            ?.taluk?.taluk_name
+                                                            ? orgData?.place
+                                                                  ?.block?.taluk
+                                                                  ?.taluk_name
+                                                            : ' N/A'}{' '}
+                                                        <br />
                                                         District :{' '}
                                                         {orgData?.place?.block
                                                             ?.taluk?.district
@@ -658,14 +676,6 @@ function AtlPage() {
                                                                   ?.block?.taluk
                                                                   ?.district
                                                                   ?.district_name
-                                                            : ' N/A'}{' '}
-                                                        <br />
-                                                        Taluk :{' '}
-                                                        {orgData?.place?.block
-                                                            ?.taluk?.taluk_name
-                                                            ? orgData?.place
-                                                                  ?.block?.taluk
-                                                                  ?.taluk_name
                                                             : ' N/A'}{' '}
                                                         <br />
                                                         State :{' '}
@@ -935,7 +945,7 @@ function AtlPage() {
                                                         className="mb-2"
                                                         htmlFor="date_of_birth"
                                                     >
-                                                        Date Of Birth
+                                                        Date of Birth
                                                     </Label>
                                                     <InputBox
                                                         {...inputDate}
@@ -986,7 +996,7 @@ function AtlPage() {
                                                     xs={12}
                                                     sm={12}
                                                     md={12}
-                                                    xl={4}
+                                                    xl={6}
                                                 >
                                                     <Label
                                                         className="mb-2 mt-3"
@@ -1032,7 +1042,7 @@ function AtlPage() {
                                                     xs={12}
                                                     sm={12}
                                                     md={12}
-                                                    xl={5}
+                                                    xl={6}
                                                 >
                                                     <div className="d-flex align-items-center justify-content-between">
                                                         <Label
@@ -1127,51 +1137,62 @@ function AtlPage() {
                                                         </small>
                                                     ) : null}
                                                 </Col>
-                                                <Col
+                                                <Row
                                                     className="form-group"
                                                     xs={12}
                                                     sm={12}
                                                     md={12}
-                                                    xl={3}
+                                                    xl={12}
                                                 >
-                                                    <Label
-                                                        className="mb-2 mt-3"
-                                                        htmlFor="password"
+                                                    <Col
+                                                        className="form-group"
+                                                        xs={12}
+                                                        sm={12}
+                                                        md={12}
+                                                        xl={12}
                                                     >
-                                                        Password
-                                                    </Label>
-                                                    <InputBox
-                                                        {...inputPassword}
-                                                        id="password"
-                                                        isDisabled={
-                                                            holdKey
-                                                                ? true
-                                                                : false
-                                                        }
-                                                        name="password"
-                                                        onChange={
-                                                            formik.handleChange
-                                                        }
-                                                        onBlur={
-                                                            formik.handleBlur
-                                                        }
-                                                        value={
-                                                            formik.values
-                                                                .password
-                                                        }
-                                                    />
-
-                                                    {formik.touched.password &&
-                                                    formik.errors.password ? (
-                                                        <small className="error-cls">
-                                                            {
-                                                                formik.errors
+                                                        <Label
+                                                            className="mb-2 mt-3"
+                                                            htmlFor="password"
+                                                        >
+                                                            Password
+                                                        </Label>
+                                                        <InputBox
+                                                            {...inputPassword}
+                                                            id="reg-password"
+                                                            type="password"
+                                                            isDisabled={
+                                                                holdKey
+                                                                    ? true
+                                                                    : false
+                                                            }
+                                                            name="password"
+                                                            onChange={
+                                                                formik.handleChange
+                                                            }
+                                                            onBlur={
+                                                                formik.handleBlur
+                                                            }
+                                                            value={
+                                                                formik.values
                                                                     .password
                                                             }
-                                                        </small>
-                                                    ) : null}
-                                                </Col>
+                                                        />
 
+                                                        {formik.touched
+                                                            .password &&
+                                                        formik.errors
+                                                            .password ? (
+                                                            <small className="error-cls">
+                                                                {
+                                                                    formik
+                                                                        .errors
+                                                                        .password
+                                                                }
+                                                            </small>
+                                                        ) : null}
+                                                    </Col>
+                                                </Row>
                                                 {/* <div className="mt-3">
                                                     <span
                                                         required

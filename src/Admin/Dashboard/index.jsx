@@ -422,9 +422,10 @@ const Dashboard = () => {
         adminMentorCount();
         adminSudentbygenderCount();
         adminSchoolCount();
-        adminmentorCourseCount();
-        adminStudentCourseCount();
-        nonAtlCount();
+        regInstitutions();
+        // adminmentorCourseCount();
+        // adminStudentCourseCount();
+        // nonAtlCount();
     }, []);
 
     const [totalteamsCount, setTotalteamsCount] = useState('-');
@@ -437,7 +438,8 @@ const Dashboard = () => {
     const [totalStudentMaleCount, setTotalStudentMaleCount] = useState('-');
     const [totalStudentFemaleCount, setTotalStudentFemaleCount] = useState('-');
     const [totalSchoolCount, setTotalSchoolCount] = useState('-');
-    const [nonAtl, setNonAtl] = useState('-');
+    // const [nonAtl, setNonAtl] = useState('-');
+    const [regInst, setRegInst] = useState('-');
     const [atl, setAtl] = useState('-');
     const [mentorCoursesCompletedCount, setMentorCoursesCompletedCount] =
         useState('-');
@@ -446,12 +448,12 @@ const Dashboard = () => {
     const [totalstudentCoursesCount, setTotalstudentCoursesCount] =
         useState('-');
 
-    const nonAtlCount = () => {
+    const regInstitutions = () => {
         var config = {
             method: 'get',
             url:
                 process.env.REACT_APP_API_BASE_URL +
-                `/dashboard/ATLNonATLRegCount`,
+                `/dashboard/schoolRegCount`,
             headers: {
                 'Content-Type': 'application/json',
                 Accept: 'application/json',
@@ -461,8 +463,8 @@ const Dashboard = () => {
         axios(config)
             .then(function (response) {
                 if (response.status === 200) {
-                    setAtl(response.data.data[0].ATLCount);
-                    setNonAtl(response.data.data[0].NONATLCount);
+                    // console.log(response, 'v');
+                    setRegInst(response.data.data[0].RegSchools);
                 }
             })
             .catch(function (error) {
@@ -598,55 +600,55 @@ const Dashboard = () => {
                 console.log(error);
             });
     };
-    const adminmentorCourseCount = () => {
-        var config = {
-            method: 'get',
-            url:
-                process.env.REACT_APP_API_BASE_URL +
-                `/dashboard/mentorCourseCount`,
-            headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-                Authorization: `Bearer ${currentUser.data[0]?.token}`
-            }
-        };
-        axios(config)
-            .then(function (response) {
-                if (response.status === 200) {
-                    setMentorCoursesCompletedCount(
-                        response.data.data[0].mentorCoursesCompletedCount
-                    );
-                }
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-    };
-    const adminStudentCourseCount = () => {
-        var config = {
-            method: 'get',
-            url:
-                process.env.REACT_APP_API_BASE_URL +
-                `/dashboard/studentCourseCount`,
-            headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-                Authorization: `Bearer ${currentUser.data[0]?.token}`
-            }
-        };
-        axios(config)
-            .then(function (response) {
-                if (response.status === 200) {
-                    setStudentCoursesCompletedCount(
-                        response.data.data[0].StudentCoursesCompletedCount
-                    );
-                    setTotalstudentCoursesCount(response.data.data[0].started);
-                }
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-    };
+    // const adminmentorCourseCount = () => {
+    //     var config = {
+    //         method: 'get',
+    //         url:
+    //             process.env.REACT_APP_API_BASE_URL +
+    //             `/dashboard/mentorCourseCount`,
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //             Accept: 'application/json',
+    //             Authorization: `Bearer ${currentUser.data[0]?.token}`
+    //         }
+    //     };
+    //     axios(config)
+    //         .then(function (response) {
+    //             if (response.status === 200) {
+    //                 setMentorCoursesCompletedCount(
+    //                     response.data.data[0].mentorCoursesCompletedCount
+    //                 );
+    //             }
+    //         })
+    //         .catch(function (error) {
+    //             console.log(error);
+    //         });
+    // };
+    // const adminStudentCourseCount = () => {
+    //     var config = {
+    //         method: 'get',
+    //         url:
+    //             process.env.REACT_APP_API_BASE_URL +
+    //             `/dashboard/studentCourseCount`,
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //             Accept: 'application/json',
+    //             Authorization: `Bearer ${currentUser.data[0]?.token}`
+    //         }
+    //     };
+    //     axios(config)
+    //         .then(function (response) {
+    //             if (response.status === 200) {
+    //                 setStudentCoursesCompletedCount(
+    //                     response.data.data[0].StudentCoursesCompletedCount
+    //                 );
+    //                 setTotalstudentCoursesCount(response.data.data[0].started);
+    //             }
+    //         })
+    //         .catch(function (error) {
+    //             console.log(error);
+    //         });
+    // };
 
     //     return (
     //         <Layout>
@@ -1038,7 +1040,7 @@ const Dashboard = () => {
                                     >
                                         <Card.Body>
                                             <label htmlFor="teams" className="">
-                                                Total Eligible Schools
+                                                Total Eligible Institutions
                                             </label>
 
                                             <Card.Text
@@ -1063,7 +1065,7 @@ const Dashboard = () => {
                                     >
                                         <Card.Body>
                                             <label htmlFor="teams" className="">
-                                                Total Reg Schools
+                                                Total Reg Institutions
                                             </label>
                                             <Card.Text
                                                 style={{
@@ -1073,7 +1075,7 @@ const Dashboard = () => {
                                                     marginBottom: '20px'
                                                 }}
                                             >
-                                                {totalMentorCount}
+                                                {regInst}
                                             </Card.Text>
                                         </Card.Body>
                                     </Card>
@@ -1087,7 +1089,7 @@ const Dashboard = () => {
                                     >
                                         <Card.Body>
                                             <label htmlFor="teams" className="">
-                                                Total Reg Teachers
+                                                Total Reg Mentors
                                             </label>
                                             <Card.Text
                                                 style={{
@@ -1381,7 +1383,7 @@ const Dashboard = () => {
                                     >
                                         <Card.Body>
                                             <label htmlFor="teams" className="">
-                                                Total Male Teachers
+                                                Total Male Mentors
                                             </label>
 
                                             <Card.Text
@@ -1409,7 +1411,7 @@ const Dashboard = () => {
                                     >
                                         <Card.Body>
                                             <label htmlFor="teams" className="">
-                                                Total Female Teachers
+                                                Total Female Mentors
                                             </label>
 
                                             <Card.Text

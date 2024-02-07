@@ -10,7 +10,7 @@ const Footer = () => {
                 <Row className="py-4">
                     <Col md={12}>
                         <p className="p-0 my-auto text-center">
-                            &copy; EDI's Hackathon 2023-24
+                            &copy; EDII's Hackathon 2023-24
                             {/* {new Date().getFullYear()}{' '} */}
                             <span className="my-auto">&reg;</span> All Rights
                             Reserved.

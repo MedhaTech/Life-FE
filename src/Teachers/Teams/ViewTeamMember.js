@@ -397,11 +397,11 @@ const ViewTeamMember = (props) => {
 
             {
                 name: 'Course',
-                selector: (row) => row.course_id,
+                selector: (row) => row.stream?.stream_name,
                 width: '12rem'
             },
             {
-                name: 'Year Of Study',
+                name: 'Year of Study',
                 selector: (row) => row.year_of_study,
                 width: '15rem'
             },
