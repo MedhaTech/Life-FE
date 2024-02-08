@@ -192,13 +192,14 @@ import ReportsL2 from './Evaluator/Admin/Reports/ReportL2';
 import ReportsL3 from './Evaluator/Admin/Reports/ReportL3';
 import CooTickets from './Coordinators/CooTickets/Tickets';
 import CooTicketResView from './Coordinators/CooTickets/TicketResponse';
+import Home from './Landing_page/Home';
 
 const Routers = () => {
     return (
         <>
             <Router>
                 <Switch>
-                    <Redirect exact={true} from="/" to="/teacher" />
+                    <Route exact={true} path="/" render={() => <Home />} />
                     {/* <Routes> */}
                     <Route
                         exact={true}
