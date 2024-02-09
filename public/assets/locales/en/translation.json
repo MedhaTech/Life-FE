@@ -390,6 +390,18 @@
         "subCategory": "Which problem statement are you targeting with your solution ?",
         "sdg_desc": "",
         "others": "If you picked the option ‘others’ in the above question, Describe your theme",
+        "ques1": "Which theme are you targeting with your solution ?",
+        "ques1other": "If you picked the option ‘others’ in the above question, Describe your theme ?",
+
+        "ques2": "Which problem statement are you targeting with your solution ?",
+        "ques2others": "If you picked the option ‘others’ in the above question, Describe your Problem Statement ?",
+        "ques3description": "Description of the Problem Statement ?",
+        "ques5solution": "Solution Statement",
+        "ques4ideatitile": "Idea Title",
+        "ques6detailsol": "Detailed Solution",
+        "ques7Prototype": "Do you already have a prototype built?",
+        "ques9publication": "Is this idea submitted by you or your team members in any other Forum or Programs or Publications as on date? ",
+        "ques8file": "If yes, Prototype File Upload (Only JPG/PNG)",
         "chars": "Characters Remaining",
         "idea_submission": "Idea Submission",
         "idea_submission_msg1": "Idea submission is",
@@ -423,6 +435,7 @@
         "title3": "Let's take User Feedback",
         "title4": "Prototype - Make & Test",
         "next": "Next",
+        "start": "Start",
         "back": "Back"
     },
     "translation": {

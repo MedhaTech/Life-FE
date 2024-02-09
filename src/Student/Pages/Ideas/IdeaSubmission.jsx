@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import { useEffect, useLayoutEffect } from 'react';
 import { useState } from 'react';
@@ -7,6 +8,8 @@ import { getCurrentUser } from '../../../helpers/Utils';
 import { getStudentChallengeSubmittedResponse } from '../../../redux/studentRegistration/actions';
 import Layout from '../../Layout';
 import IdeasPageNew from './IdeasPageCopy';
+import NewIdeaSubmission from './NewIdeaSubmission';
+
 import SDG from './SDG';
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
@@ -88,11 +91,13 @@ const IdeaSubmission = () => {
                 showChallenges={handleView}
             />
         </Layout>
-    ) : showChallenges ? (
-        <IdeasPageNew />
-    ) : isideadisable ? (
-        <SDG setShowChallenges={setShowChallenges} />
+    ) : !showChallenges ? (
+        // <IdeasPageNew />
+        <NewIdeaSubmission />
     ) : (
+        //  isideadisable ? (
+        //     <SDG setShowChallenges={setShowChallenges} />
+        // ) :
         <Layout title="Idea Submission">
             <CommonPage
                 text={t('student_course.idea_submission_date_com_desc')}
