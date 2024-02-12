@@ -252,8 +252,8 @@ const IdeasPageNew = () => {
         return data && data.length > 0 && (data[0]?.count || '0')
             ? data[0].count
             : max
-                ? max
-                : 100;
+            ? max
+            : 100;
     };
     const handleChange = (e) => {
         let newItems = [...answerResponses];
@@ -533,9 +533,10 @@ const IdeasPageNew = () => {
                 if (challengeStatus?.status == 200) {
                     openNotificationWithIcon(
                         'success',
-                        `${type
-                            ? t('student.idea_draft')
-                            : t('student.idea_submitted')
+                        `${
+                            type
+                                ? t('student.idea_draft')
+                                : t('student.idea_submitted')
                         } `
                     );
                     if (type !== 'DRAFT') {
@@ -675,13 +676,13 @@ const IdeasPageNew = () => {
                                         {challengesSubmittedResponse[0]
                                             ?.status === 'DRAFT'
                                             ? moment(
-                                                challengesSubmittedResponse[0]
-                                                    ?.created_at
-                                            ).format('DD-MM-YYYY')
+                                                  challengesSubmittedResponse[0]
+                                                      ?.created_at
+                                              ).format('DD-MM-YYYY')
                                             : moment(
-                                                challengesSubmittedResponse[0]
-                                                    ?.submitted_at
-                                            ).format('DD-MM-YYYY')}
+                                                  challengesSubmittedResponse[0]
+                                                      ?.submitted_at
+                                              ).format('DD-MM-YYYY')}
                                     </Card>
                                 </div>
                             )}
@@ -695,8 +696,8 @@ const IdeasPageNew = () => {
                                         >
                                             {initiatedBy &&
                                                 initiatedBy ===
-                                                currentUser?.data[0]
-                                                    ?.user_id &&
+                                                    currentUser?.data[0]
+                                                        ?.user_id &&
                                                 challengesSubmittedResponse[0]
                                                     ?.status === 'DRAFT' && (
                                                     <div className="text-right">
@@ -720,7 +721,7 @@ const IdeasPageNew = () => {
                                                                     disabled={
                                                                         answerResponses &&
                                                                         answerResponses.length ===
-                                                                        0
+                                                                            0
                                                                     }
                                                                     onClick={
                                                                         swalWrapper
@@ -803,22 +804,22 @@ const IdeasPageNew = () => {
                                                 )}
                                             {(screenCount === 1 ||
                                                 isDisabled) && (
-                                                    <>
-                                                        <Row className="card mb-4 my-3 comment-card px-0 px-5 py-3 card">
-                                                            <div className="question quiz mb-0">
-                                                                <b
-                                                                    style={{
-                                                                        fontSize:
-                                                                            '1.6rem'
-                                                                    }}
-                                                                >
-                                                                    {1}.{' '}
-                                                                    {t(
-                                                                        'student_course.sdg'
-                                                                    )}
-                                                                </b>
-                                                            </div>
-                                                            {/* <div>
+                                                <>
+                                                    <Row className="card mb-4 my-3 comment-card px-0 px-5 py-3 card">
+                                                        <div className="question quiz mb-0">
+                                                            <b
+                                                                style={{
+                                                                    fontSize:
+                                                                        '1.6rem'
+                                                                }}
+                                                            >
+                                                                {1}.{' '}
+                                                                {t(
+                                                                    'student_course.sdg'
+                                                                )}
+                                                            </b>
+                                                        </div>
+                                                        {/* <div>
                                                         <p
                                                             className="text-muted ms-5"
                                                             style={{
@@ -831,210 +832,210 @@ const IdeasPageNew = () => {
                                                             )}
                                                         </p>
                                                     </div> */}
-                                                            <div className=" answers row flex-column p-4">
-                                                                <select
+                                                        <div className=" answers row flex-column p-4">
+                                                            <select
+                                                                disabled={
+                                                                    isDisabled
+                                                                }
+                                                                onChange={(e) =>
+                                                                    setSdg(
+                                                                        e.target
+                                                                            .value
+                                                                    )
+                                                                }
+                                                                name="teams"
+                                                                id="teams"
+                                                            >
+                                                                {cardData.map(
+                                                                    (
+                                                                        item,
+                                                                        i
+                                                                    ) => (
+                                                                        <option
+                                                                            key={
+                                                                                i
+                                                                            }
+                                                                            value={
+                                                                                item.goal_title
+                                                                            }
+                                                                            selected={
+                                                                                item.goal_title ===
+                                                                                sdg
+                                                                            }
+                                                                        >
+                                                                            {
+                                                                                item.goal_title
+                                                                            }
+                                                                        </option>
+                                                                    )
+                                                                )}
+                                                            </select>
+                                                        </div>
+                                                    </Row>
+                                                    {(screenCount === 1 ||
+                                                        isDisabled) &&
+                                                        sdg === 'OTHERS' && (
+                                                            <Row className="card mb-4 my-3 comment-card px-0 px-5 py-3 card">
+                                                                <div className="question quiz mb-0">
+                                                                    <b
+                                                                        style={{
+                                                                            fontSize:
+                                                                                '1.6rem'
+                                                                        }}
+                                                                    >
+                                                                        {2}.{' '}
+                                                                        {t(
+                                                                            'student_course.others'
+                                                                        )}
+                                                                    </b>
+                                                                </div>
+                                                                <FormGroup
+                                                                    check
+                                                                    className="answers"
+                                                                >
+                                                                    <Label
+                                                                        check
+                                                                        style={{
+                                                                            width: '100%'
+                                                                        }}
+                                                                    >
+                                                                        <TextArea
+                                                                            disabled={
+                                                                                isDisabled
+                                                                            }
+                                                                            placeholder="Enter others description"
+                                                                            value={
+                                                                                others
+                                                                            }
+                                                                            maxLength={
+                                                                                100
+                                                                            }
+                                                                            onChange={(
+                                                                                e
+                                                                            ) =>
+                                                                                setOthers(
+                                                                                    e
+                                                                                        .target
+                                                                                        .value
+                                                                                )
+                                                                            }
+                                                                        />
+                                                                    </Label>
+                                                                </FormGroup>
+                                                                <div className="text-end">
+                                                                    {t(
+                                                                        'student_course.chars'
+                                                                    )}{' '}
+                                                                    :
+                                                                    {100 -
+                                                                        (others
+                                                                            ? others.length
+                                                                            : 0)}
+                                                                </div>
+                                                            </Row>
+                                                        )}
+                                                    <Row className="card mb-4 my-3 comment-card px-0 px-5 py-3 card">
+                                                        <div className="question quiz mb-0">
+                                                            <b
+                                                                style={{
+                                                                    fontSize:
+                                                                        '1.6rem'
+                                                                }}
+                                                            >
+                                                                {sdg ===
+                                                                'OTHERS'
+                                                                    ? `3. `
+                                                                    : `2. `}
+                                                                {t(
+                                                                    'student_course.subCategory'
+                                                                )}
+                                                            </b>
+                                                        </div>
+                                                        {sdg === 'OTHERS' ? (
+                                                            <div className=" answers row flex-column">
+                                                                <TextArea
                                                                     disabled={
                                                                         isDisabled
                                                                     }
-                                                                    onChange={(e) =>
-                                                                        setSdg(
-                                                                            e.target
+                                                                    placeholder="Enter problem statement description"
+                                                                    value={
+                                                                        subCategory
+                                                                    }
+                                                                    maxLength={
+                                                                        100
+                                                                    }
+                                                                    onChange={(
+                                                                        e
+                                                                    ) =>
+                                                                        setSubCategory(
+                                                                            e
+                                                                                .target
                                                                                 .value
                                                                         )
                                                                     }
-                                                                    name="teams"
-                                                                    id="teams"
-                                                                >
-                                                                    {cardData.map(
+                                                                />
+                                                                <div className="text-end">
+                                                                    {t(
+                                                                        'student_course.chars'
+                                                                    )}{' '}
+                                                                    :
+                                                                    {100 -
+                                                                        (subCategory
+                                                                            ? subCategory.length
+                                                                            : 0)}
+                                                                </div>
+                                                            </div>
+                                                        ) : (
+                                                            <div className=" answers row flex-column p-4">
+                                                                <div>
+                                                                    {subCategoryMenu.map(
                                                                         (
                                                                             item,
                                                                             i
                                                                         ) => (
-                                                                            <option
-                                                                                key={
-                                                                                    i
-                                                                                }
-                                                                                value={
-                                                                                    item.goal_title
-                                                                                }
-                                                                                selected={
-                                                                                    item.goal_title ===
-                                                                                    sdg
-                                                                                }
-                                                                            >
-                                                                                {
-                                                                                    item.goal_title
-                                                                                }
-                                                                            </option>
-                                                                        )
-                                                                    )}
-                                                                </select>
-                                                            </div>
-                                                        </Row>
-                                                        {(screenCount === 1 ||
-                                                            isDisabled) &&
-                                                            sdg === 'OTHERS' && (
-                                                                <Row className="card mb-4 my-3 comment-card px-0 px-5 py-3 card">
-                                                                    <div className="question quiz mb-0">
-                                                                        <b
-                                                                            style={{
-                                                                                fontSize:
-                                                                                    '1.6rem'
-                                                                            }}
-                                                                        >
-                                                                            {2}.{' '}
-                                                                            {t(
-                                                                                'student_course.others'
-                                                                            )}
-                                                                        </b>
-                                                                    </div>
-                                                                    <FormGroup
-                                                                        check
-                                                                        className="answers"
-                                                                    >
-                                                                        <Label
-                                                                            check
-                                                                            style={{
-                                                                                width: '100%'
-                                                                            }}
-                                                                        >
-                                                                            <TextArea
-                                                                                disabled={
-                                                                                    isDisabled
-                                                                                }
-                                                                                placeholder="Enter others description"
-                                                                                value={
-                                                                                    others
-                                                                                }
-                                                                                maxLength={
-                                                                                    100
-                                                                                }
-                                                                                onChange={(
-                                                                                    e
-                                                                                ) =>
-                                                                                    setOthers(
-                                                                                        e
-                                                                                            .target
-                                                                                            .value
-                                                                                    )
-                                                                                }
-                                                                            />
-                                                                        </Label>
-                                                                    </FormGroup>
-                                                                    <div className="text-end">
-                                                                        {t(
-                                                                            'student_course.chars'
-                                                                        )}{' '}
-                                                                        :
-                                                                        {100 -
-                                                                            (others
-                                                                                ? others.length
-                                                                                : 0)}
-                                                                    </div>
-                                                                </Row>
-                                                            )}
-                                                        <Row className="card mb-4 my-3 comment-card px-0 px-5 py-3 card">
-                                                            <div className="question quiz mb-0">
-                                                                <b
-                                                                    style={{
-                                                                        fontSize:
-                                                                            '1.6rem'
-                                                                    }}
-                                                                >
-                                                                    {sdg ===
-                                                                        'OTHERS'
-                                                                        ? `3. `
-                                                                        : `2. `}
-                                                                    {t(
-                                                                        'student_course.subCategory'
-                                                                    )}
-                                                                </b>
-                                                            </div>
-                                                            {sdg === 'OTHERS' ? (
-                                                                <div className=" answers row flex-column">
-                                                                    <TextArea
-                                                                        disabled={
-                                                                            isDisabled
-                                                                        }
-                                                                        placeholder="Enter problem statement description"
-                                                                        value={
-                                                                            subCategory
-                                                                        }
-                                                                        maxLength={
-                                                                            100
-                                                                        }
-                                                                        onChange={(
-                                                                            e
-                                                                        ) =>
-                                                                            setSubCategory(
-                                                                                e
-                                                                                    .target
-                                                                                    .value
-                                                                            )
-                                                                        }
-                                                                    />
-                                                                    <div className="text-end">
-                                                                        {t(
-                                                                            'student_course.chars'
-                                                                        )}{' '}
-                                                                        :
-                                                                        {100 -
-                                                                            (subCategory
-                                                                                ? subCategory.length
-                                                                                : 0)}
-                                                                    </div>
-                                                                </div>
-                                                            ) : (
-                                                                <div className=" answers row flex-column p-4">
-                                                                    <div>
-                                                                        {subCategoryMenu.map(
-                                                                            (
-                                                                                item,
-                                                                                i
-                                                                            ) => (
-                                                                                <>
-                                                                                    <label
-                                                                                        key={
-                                                                                            i
+                                                                            <>
+                                                                                <label
+                                                                                    key={
+                                                                                        i
+                                                                                    }
+                                                                                    style={{
+                                                                                        margin: '1rem',
+                                                                                        fontSize:
+                                                                                            '1.6rem'
+                                                                                    }}
+                                                                                >
+                                                                                    <input
+                                                                                        disabled={
+                                                                                            isDisabled
                                                                                         }
-                                                                                        style={{
-                                                                                            margin: '1rem',
-                                                                                            fontSize:
-                                                                                                '1.6rem'
-                                                                                        }}
-                                                                                    >
-                                                                                        <input
-                                                                                            disabled={
-                                                                                                isDisabled
-                                                                                            }
-                                                                                            type="radio"
-                                                                                            value={
-                                                                                                item
-                                                                                            }
-                                                                                            checked={
-                                                                                                item ===
-                                                                                                subCategory
-                                                                                            }
-                                                                                            onChange={(
-                                                                                                e
-                                                                                            ) =>
-                                                                                                setSubCategory(
-                                                                                                    e
-                                                                                                        .target
-                                                                                                        .value
-                                                                                                )
-                                                                                            }
-                                                                                        />{' '}
-                                                                                        {
+                                                                                        type="radio"
+                                                                                        value={
                                                                                             item
                                                                                         }
-                                                                                    </label>
-                                                                                    <br />
-                                                                                </>
-                                                                            )
-                                                                        )}
-                                                                    </div>
-                                                                    {/* <select
+                                                                                        checked={
+                                                                                            item ===
+                                                                                            subCategory
+                                                                                        }
+                                                                                        onChange={(
+                                                                                            e
+                                                                                        ) =>
+                                                                                            setSubCategory(
+                                                                                                e
+                                                                                                    .target
+                                                                                                    .value
+                                                                                            )
+                                                                                        }
+                                                                                    />{' '}
+                                                                                    {
+                                                                                        item
+                                                                                    }
+                                                                                </label>
+                                                                                <br />
+                                                                            </>
+                                                                        )
+                                                                    )}
+                                                                </div>
+                                                                {/* <select
                                                                     disabled={
                                                                         isDisabled
                                                                     }
@@ -1087,67 +1088,69 @@ const IdeasPageNew = () => {
                                                                                             'break-word'
                                                                                     }}
                                                                                 > */}
-                                                                    {/* {item} */}
-                                                                    {/* </div> */}
-                                                                    {/* </option> */}
-                                                                    {/* ) */}
-                                                                    {/* )} */}
-                                                                    {/* </select> */}{' '}
-                                                                </div>
-                                                            )}
-                                                        </Row>
-                                                        {subCategory === 'OTHERS' &&
-                                                            <Row className="card mb-4 my-3 comment-card px-0 px-5 py-3 card">
-                                                                <div className="question quiz mb-0">
-                                                                    <b
-                                                                        style={{
-                                                                            fontSize:
-                                                                                '1.6rem'
-                                                                        }}
-                                                                    >
-                                                                        { `3. `}
-                                                                        {'If you picked the option ‘others’ in the above question, Describe your Problem Statemen'}
-                                                                    </b>
-                                                                </div>
+                                                                {/* {item} */}
+                                                                {/* </div> */}
+                                                                {/* </option> */}
+                                                                {/* ) */}
+                                                                {/* )} */}
+                                                                {/* </select> */}{' '}
+                                                            </div>
+                                                        )}
+                                                    </Row>
+                                                    {subCategory ===
+                                                        'OTHERS' && (
+                                                        <Row className="card mb-4 my-3 comment-card px-0 px-5 py-3 card">
+                                                            <div className="question quiz mb-0">
+                                                                <b
+                                                                    style={{
+                                                                        fontSize:
+                                                                            '1.6rem'
+                                                                    }}
+                                                                >
+                                                                    {`3. `}
+                                                                    {
+                                                                        'If you picked the option ‘others’ in the above question, Describe your Problem Statemen'
+                                                                    }
+                                                                </b>
+                                                            </div>
 
-                                                                <div className=" answers row flex-column">
-                                                                    <TextArea
-                                                                        disabled={
-                                                                            isDisabled
-                                                                        }
-                                                                        placeholder="Enter problem statement description"
-                                                                        value={
-                                                                            otherProb
-                                                                        }
-                                                                        maxLength={
-                                                                            100
-                                                                        }
-                                                                        onChange={(
+                                                            <div className=" answers row flex-column">
+                                                                <TextArea
+                                                                    disabled={
+                                                                        isDisabled
+                                                                    }
+                                                                    placeholder="Enter problem statement description"
+                                                                    value={
+                                                                        otherProb
+                                                                    }
+                                                                    maxLength={
+                                                                        100
+                                                                    }
+                                                                    onChange={(
+                                                                        e
+                                                                    ) =>
+                                                                        setOtherProb(
                                                                             e
-                                                                        ) =>
-                                                                            setOtherProb(
-                                                                                e
-                                                                                    .target
-                                                                                    .value
-                                                                            )
-                                                                        }
-                                                                    />
-                                                                    <div className="text-end">
-                                                                        {t(
-                                                                            'student_course.chars'
-                                                                        )}{' '}
-                                                                        :
-                                                                        {100 -
-                                                                            (subCategory
-                                                                                ? subCategory.length
-                                                                                : 0)}
-                                                                    </div>
+                                                                                .target
+                                                                                .value
+                                                                        )
+                                                                    }
+                                                                />
+                                                                <div className="text-end">
+                                                                    {t(
+                                                                        'student_course.chars'
+                                                                    )}{' '}
+                                                                    :
+                                                                    {100 -
+                                                                        (subCategory
+                                                                            ? subCategory.length
+                                                                            : 0)}
                                                                 </div>
-
-                                                            </Row>
-                                                        }
-                                                    </>
-                                                )}
+                                                            </div>
+                                                        </Row>
+                                                    )}
+                                                </>
+                                            )}
 
                                             {challengeQuestions.map(
                                                 (eachQuestion, i) => (
@@ -1166,13 +1169,15 @@ const IdeasPageNew = () => {
                                                                     {i +
                                                                         (screenCount ===
                                                                             1 &&
-                                                                            sdg ===
+                                                                        sdg ===
                                                                             'OTHERS'
                                                                             ? 4
                                                                             : screenCount ===
-                                                                                1 && subCategory === 'OTHERS'
-                                                                                ? 4
-                                                                                : 3)}
+                                                                                  1 &&
+                                                                              subCategory ===
+                                                                                  'OTHERS'
+                                                                            ? 4
+                                                                            : 3)}
                                                                     .{' '}
                                                                     {
                                                                         eachQuestion.question
@@ -1207,547 +1212,549 @@ const IdeasPageNew = () => {
                                                                     <>
                                                                         {eachQuestion.type ===
                                                                             'TEXT' && (
-                                                                                <>
-                                                                                    <FormGroup
+                                                                            <>
+                                                                                <FormGroup
+                                                                                    check
+                                                                                    className=" answers"
+                                                                                >
+                                                                                    <Label
                                                                                         check
-                                                                                        className=" answers"
+                                                                                        style={{
+                                                                                            width: '100%'
+                                                                                        }}
                                                                                     >
-                                                                                        <Label
-                                                                                            check
-                                                                                            style={{
-                                                                                                width: '100%'
-                                                                                            }}
-                                                                                        >
-                                                                                            <TextArea
-                                                                                                name={`${eachQuestion.challenge_question_id}`}
-                                                                                                disabled={
-                                                                                                    isDisabled
-                                                                                                }
-                                                                                                placeholder={`${t(
-                                                                                                    'student.max_length_msg1'
-                                                                                                )}${eachQuestion?.word_limit ||
+                                                                                        <TextArea
+                                                                                            name={`${eachQuestion.challenge_question_id}`}
+                                                                                            disabled={
+                                                                                                isDisabled
+                                                                                            }
+                                                                                            placeholder={`${t(
+                                                                                                'student.max_length_msg1'
+                                                                                            )}${
+                                                                                                eachQuestion?.word_limit ||
                                                                                                 100
-                                                                                                    }${t(
-                                                                                                        'student.max_length_msg2'
-                                                                                                    )}`}
-                                                                                                maxLength={
-                                                                                                    eachQuestion?.word_limit ||
-                                                                                                    100
-                                                                                                }
-                                                                                                value={filterAnswer(
-                                                                                                    eachQuestion.challenge_question_id
-                                                                                                )}
-                                                                                                onChange={(
+                                                                                            }${t(
+                                                                                                'student.max_length_msg2'
+                                                                                            )}`}
+                                                                                            maxLength={
+                                                                                                eachQuestion?.word_limit ||
+                                                                                                100
+                                                                                            }
+                                                                                            value={filterAnswer(
+                                                                                                eachQuestion.challenge_question_id
+                                                                                            )}
+                                                                                            onChange={(
+                                                                                                e
+                                                                                            ) => {
+                                                                                                handleChange(
                                                                                                     e
-                                                                                                ) => {
-                                                                                                    handleChange(
-                                                                                                        e
-                                                                                                    );
-                                                                                                    handleWordCount(
-                                                                                                        e,
-                                                                                                        eachQuestion.challenge_question_id,
-                                                                                                        eachQuestion?.word_limit
-                                                                                                    );
-                                                                                                }}
-                                                                                            />
-                                                                                        </Label>
-                                                                                    </FormGroup>
-                                                                                    <div className="float-end">
-                                                                                        {t(
-                                                                                            'student_course.chars'
-                                                                                        )}{' '}
-                                                                                        :{' '}
-                                                                                        {filterCount(
-                                                                                            eachQuestion.challenge_question_id,
-                                                                                            eachQuestion?.word_limit
-                                                                                        )}
-                                                                                    </div>
-                                                                                </>
-                                                                            )}
+                                                                                                );
+                                                                                                handleWordCount(
+                                                                                                    e,
+                                                                                                    eachQuestion.challenge_question_id,
+                                                                                                    eachQuestion?.word_limit
+                                                                                                );
+                                                                                            }}
+                                                                                        />
+                                                                                    </Label>
+                                                                                </FormGroup>
+                                                                                <div className="float-end">
+                                                                                    {t(
+                                                                                        'student_course.chars'
+                                                                                    )}{' '}
+                                                                                    :{' '}
+                                                                                    {filterCount(
+                                                                                        eachQuestion.challenge_question_id,
+                                                                                        eachQuestion?.word_limit
+                                                                                    )}
+                                                                                </div>
+                                                                            </>
+                                                                        )}
                                                                         {eachQuestion.type ===
                                                                             'DRAW' && (
-                                                                                <>
-                                                                                    {/* {
+                                                                            <>
+                                                                                {/* {
                                                                                     acceptedParamfileTypes
                                                                                 } */}
-                                                                                    {initiatedBy &&
-                                                                                        initiatedBy ===
+                                                                                {initiatedBy &&
+                                                                                    initiatedBy ===
                                                                                         currentUser
                                                                                             ?.data[0]
                                                                                             ?.user_id &&
-                                                                                        challengesSubmittedResponse[0]
-                                                                                            ?.status ===
+                                                                                    challengesSubmittedResponse[0]
+                                                                                        ?.status ===
                                                                                         'DRAFT' && (
-                                                                                            <FormGroup
-                                                                                                check
-                                                                                                className="answers"
-                                                                                            >
-                                                                                                <div className="wrapper my-3 common-flex">
-                                                                                                    {!isDisabled && (
-                                                                                                        <Button
-                                                                                                            type="button"
-                                                                                                            btnClass={`${isDisabled
+                                                                                        <FormGroup
+                                                                                            check
+                                                                                            className="answers"
+                                                                                        >
+                                                                                            <div className="wrapper my-3 common-flex">
+                                                                                                {!isDisabled && (
+                                                                                                    <Button
+                                                                                                        type="button"
+                                                                                                        btnClass={`${
+                                                                                                            isDisabled
                                                                                                                 ? 'secondary'
                                                                                                                 : 'primary'
-                                                                                                                } me-3 pointer `}
-                                                                                                            size="small"
-                                                                                                            label={t(
-                                                                                                                'student.upload_file'
-                                                                                                            )}
-                                                                                                        />
-                                                                                                    )}
-                                                                                                    <input
-                                                                                                        type="file"
-                                                                                                        name="file"
-                                                                                                        disabled={
-                                                                                                            isDisabled
-                                                                                                        }
-                                                                                                        accept="image/jpeg,image/png,application/msword,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.openxmlformats-officedocument.presentationml.presentation"
-                                                                                                        multiple
-                                                                                                        onChange={(
-                                                                                                            e
-                                                                                                        ) =>
-                                                                                                            fileHandler(
-                                                                                                                e,
-                                                                                                                eachQuestion.challenge_question_id
-                                                                                                            )
-                                                                                                        }
+                                                                                                        } me-3 pointer `}
+                                                                                                        size="small"
+                                                                                                        label={t(
+                                                                                                            'student.upload_file'
+                                                                                                        )}
                                                                                                     />
-                                                                                                </div>
-                                                                                            </FormGroup>
-                                                                                        )}
-                                                                                    <div className="mx-4">
-                                                                                        {immediateLink &&
-                                                                                            immediateLink.length >
+                                                                                                )}
+                                                                                                <input
+                                                                                                    type="file"
+                                                                                                    name="file"
+                                                                                                    disabled={
+                                                                                                        isDisabled
+                                                                                                    }
+                                                                                                    accept="image/jpeg,image/png,application/msword,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.openxmlformats-officedocument.presentationml.presentation"
+                                                                                                    multiple
+                                                                                                    onChange={(
+                                                                                                        e
+                                                                                                    ) =>
+                                                                                                        fileHandler(
+                                                                                                            e,
+                                                                                                            eachQuestion.challenge_question_id
+                                                                                                        )
+                                                                                                    }
+                                                                                                />
+                                                                                            </div>
+                                                                                        </FormGroup>
+                                                                                    )}
+                                                                                <div className="mx-4">
+                                                                                    {immediateLink &&
+                                                                                        immediateLink.length >
                                                                                             0 &&
-                                                                                            immediateLink.map(
-                                                                                                (
-                                                                                                    item
-                                                                                                ) => (
-                                                                                                    <LinkComponent
-                                                                                                        item={
-                                                                                                            item
-                                                                                                        }
-                                                                                                        url={
-                                                                                                            true
-                                                                                                        }
-                                                                                                        key={
-                                                                                                            i
-                                                                                                        }
-                                                                                                    />
-                                                                                                )
-                                                                                            )}
-                                                                                        {!immediateLink &&
-                                                                                            files.length >
-                                                                                            0 &&
-                                                                                            files.map(
-                                                                                                (
-                                                                                                    item,
-                                                                                                    i
-                                                                                                ) => (
-                                                                                                    <LinkComponent
-                                                                                                        original={
-                                                                                                            true
-                                                                                                        }
-                                                                                                        item={
-                                                                                                            item
-                                                                                                        }
-                                                                                                        i={
-                                                                                                            i
-                                                                                                        }
-                                                                                                        key={
-                                                                                                            i
-                                                                                                        }
-                                                                                                        removeFileHandler={
-                                                                                                            removeFileHandler
-                                                                                                        }
-                                                                                                    />
-                                                                                                )
-                                                                                            )}
-
-                                                                                        {!immediateLink &&
-                                                                                            files.length ===
-                                                                                            0 &&
-                                                                                            filterAnswer(
-                                                                                                eachQuestion.challenge_question_id
+                                                                                        immediateLink.map(
+                                                                                            (
+                                                                                                item
+                                                                                            ) => (
+                                                                                                <LinkComponent
+                                                                                                    item={
+                                                                                                        item
+                                                                                                    }
+                                                                                                    url={
+                                                                                                        true
+                                                                                                    }
+                                                                                                    key={
+                                                                                                        i
+                                                                                                    }
+                                                                                                />
                                                                                             )
-                                                                                                .length >
+                                                                                        )}
+                                                                                    {!immediateLink &&
+                                                                                        files.length >
                                                                                             0 &&
-                                                                                            filterAnswer(
-                                                                                                eachQuestion.challenge_question_id
-                                                                                            ).map(
-                                                                                                (
-                                                                                                    item,
-                                                                                                    i
-                                                                                                ) => (
-                                                                                                    <LinkComponent
-                                                                                                        item={
-                                                                                                            item
-                                                                                                        }
-                                                                                                        url={
-                                                                                                            true
-                                                                                                        }
-                                                                                                        key={
-                                                                                                            i
-                                                                                                        }
-                                                                                                    />
-                                                                                                )
-                                                                                            )}
-                                                                                    </div>
-                                                                                </>
-                                                                            )}
+                                                                                        files.map(
+                                                                                            (
+                                                                                                item,
+                                                                                                i
+                                                                                            ) => (
+                                                                                                <LinkComponent
+                                                                                                    original={
+                                                                                                        true
+                                                                                                    }
+                                                                                                    item={
+                                                                                                        item
+                                                                                                    }
+                                                                                                    i={
+                                                                                                        i
+                                                                                                    }
+                                                                                                    key={
+                                                                                                        i
+                                                                                                    }
+                                                                                                    removeFileHandler={
+                                                                                                        removeFileHandler
+                                                                                                    }
+                                                                                                />
+                                                                                            )
+                                                                                        )}
+
+                                                                                    {!immediateLink &&
+                                                                                        files.length ===
+                                                                                            0 &&
+                                                                                        filterAnswer(
+                                                                                            eachQuestion.challenge_question_id
+                                                                                        )
+                                                                                            .length >
+                                                                                            0 &&
+                                                                                        filterAnswer(
+                                                                                            eachQuestion.challenge_question_id
+                                                                                        ).map(
+                                                                                            (
+                                                                                                item,
+                                                                                                i
+                                                                                            ) => (
+                                                                                                <LinkComponent
+                                                                                                    item={
+                                                                                                        item
+                                                                                                    }
+                                                                                                    url={
+                                                                                                        true
+                                                                                                    }
+                                                                                                    key={
+                                                                                                        i
+                                                                                                    }
+                                                                                                />
+                                                                                            )
+                                                                                        )}
+                                                                                </div>
+                                                                            </>
+                                                                        )}
                                                                         {eachQuestion.type ===
                                                                             'MRQ' && (
-                                                                                <>
-                                                                                    {eachQuestion.option_a &&
-                                                                                        eachQuestion.option_a !==
+                                                                            <>
+                                                                                {eachQuestion.option_a &&
+                                                                                    eachQuestion.option_a !==
                                                                                         '' && (
-                                                                                            <FormGroup
-                                                                                                check
-                                                                                                className="mx-5"
-                                                                                            >
-                                                                                                <Label
-                                                                                                    check
-                                                                                                    style={{
-                                                                                                        fontSize:
-                                                                                                            '1.4rem'
-                                                                                                    }}
-                                                                                                >
-                                                                                                    <Input
-                                                                                                        type="radio"
-                                                                                                        name={`${eachQuestion.challenge_question_id}`}
-                                                                                                        id="radioOption1"
-                                                                                                        disabled={
-                                                                                                            isDisabled
-                                                                                                        }
-                                                                                                        checked={
-                                                                                                            filterAnswer(
-                                                                                                                eachQuestion.challenge_question_id
-                                                                                                            ) &&
-                                                                                                            filterAnswer(
-                                                                                                                eachQuestion.challenge_question_id
-                                                                                                            ).includes(
-                                                                                                                eachQuestion.option_a
-                                                                                                            )
-                                                                                                        }
-                                                                                                        onChange={(
-                                                                                                            e
-                                                                                                        ) =>
-                                                                                                            handleChange(
-                                                                                                                e
-                                                                                                            )
-                                                                                                        }
-                                                                                                        value={`${eachQuestion.option_a}`}
-                                                                                                    />
-                                                                                                    {
-                                                                                                        eachQuestion.option_a
-                                                                                                    }
-                                                                                                </Label>
-                                                                                            </FormGroup>
-                                                                                        )}
-                                                                                    {eachQuestion.option_b &&
-                                                                                        eachQuestion.option_b !==
-                                                                                        '' && (
-                                                                                            <FormGroup
-                                                                                                check
-                                                                                                className="mx-5"
-                                                                                            >
-                                                                                                <Label
-                                                                                                    check
-                                                                                                    style={{
-                                                                                                        fontSize:
-                                                                                                            '1.4rem'
-                                                                                                    }}
-                                                                                                >
-                                                                                                    <Input
-                                                                                                        type="radio"
-                                                                                                        name={`${eachQuestion.challenge_question_id}`}
-                                                                                                        id="radioOption2"
-                                                                                                        disabled={
-                                                                                                            isDisabled
-                                                                                                        }
-                                                                                                        checked={
-                                                                                                            filterAnswer(
-                                                                                                                eachQuestion.challenge_question_id
-                                                                                                            ) &&
-                                                                                                            filterAnswer(
-                                                                                                                eachQuestion.challenge_question_id
-                                                                                                            ).includes(
-                                                                                                                eachQuestion.option_b
-                                                                                                            )
-                                                                                                        }
-                                                                                                        onChange={(
-                                                                                                            e
-                                                                                                        ) =>
-                                                                                                            handleChange(
-                                                                                                                e
-                                                                                                            )
-                                                                                                        }
-                                                                                                        value={`${eachQuestion.option_b}`}
-                                                                                                    />{' '}
-                                                                                                    {
-                                                                                                        eachQuestion.option_b
-                                                                                                    }
-                                                                                                </Label>
-                                                                                            </FormGroup>
-                                                                                        )}
-                                                                                    {eachQuestion.option_c &&
-                                                                                        eachQuestion.option_c !==
-                                                                                        '' && (
-                                                                                            <FormGroup
-                                                                                                check
-                                                                                                className="mx-5"
-                                                                                            >
-                                                                                                <Label
-                                                                                                    check
-                                                                                                    style={{
-                                                                                                        fontSize:
-                                                                                                            '1.4rem'
-                                                                                                    }}
-                                                                                                >
-                                                                                                    <Input
-                                                                                                        type="radio"
-                                                                                                        onChange={(
-                                                                                                            e
-                                                                                                        ) =>
-                                                                                                            handleChange(
-                                                                                                                e
-                                                                                                            )
-                                                                                                        }
-                                                                                                        name={`${eachQuestion.challenge_question_id}`}
-                                                                                                        id="radioOption3"
-                                                                                                        disabled={
-                                                                                                            isDisabled
-                                                                                                        }
-                                                                                                        value={`${eachQuestion.option_c}`}
-                                                                                                    />{' '}
-                                                                                                    {
-                                                                                                        eachQuestion.option_c
-                                                                                                    }
-                                                                                                </Label>
-                                                                                            </FormGroup>
-                                                                                        )}
-
-                                                                                    {eachQuestion.option_d &&
-                                                                                        eachQuestion.option_d !==
-                                                                                        '' && (
-                                                                                            <FormGroup
-                                                                                                check
-                                                                                                className="mx-5"
-                                                                                            >
-                                                                                                <Label
-                                                                                                    check
-                                                                                                    style={{
-                                                                                                        fontSize:
-                                                                                                            '1.4rem'
-                                                                                                    }}
-                                                                                                >
-                                                                                                    <Input
-                                                                                                        type="radio"
-                                                                                                        onChange={(
-                                                                                                            e
-                                                                                                        ) =>
-                                                                                                            handleChange(
-                                                                                                                e
-                                                                                                            )
-                                                                                                        }
-                                                                                                        name={`${eachQuestion.challenge_question_id}`}
-                                                                                                        disabled={
-                                                                                                            isDisabled
-                                                                                                        }
-                                                                                                        id="radioOption4"
-                                                                                                        value={`${eachQuestion.option_d}`}
-                                                                                                    />{' '}
-                                                                                                    {
-                                                                                                        eachQuestion.option_d
-                                                                                                    }
-                                                                                                </Label>
-                                                                                            </FormGroup>
-                                                                                        )}
-                                                                                </>
-                                                                            )}
-                                                                        {eachQuestion.type ===
-                                                                            'MCQ' && (
-                                                                                <>
-                                                                                    <FormGroup
-                                                                                        check
-                                                                                        className="mx-5"
-                                                                                    >
-                                                                                        <Label
+                                                                                        <FormGroup
                                                                                             check
-                                                                                            style={{
-                                                                                                fontSize:
-                                                                                                    '1.4rem'
-                                                                                            }}
+                                                                                            className="mx-5"
                                                                                         >
-                                                                                            <Input
-                                                                                                type="checkbox"
-                                                                                                name={`${eachQuestion.challenge_question_id}`}
-                                                                                                disabled={
-                                                                                                    isDisabled
-                                                                                                }
-                                                                                                checked={
-                                                                                                    filterAnswer(
-                                                                                                        eachQuestion.challenge_question_id
-                                                                                                    ) &&
-                                                                                                    filterAnswer(
-                                                                                                        eachQuestion.challenge_question_id
-                                                                                                    ).includes(
-                                                                                                        eachQuestion.option_a
-                                                                                                    )
-                                                                                                }
-                                                                                                id={
+                                                                                            <Label
+                                                                                                check
+                                                                                                style={{
+                                                                                                    fontSize:
+                                                                                                        '1.4rem'
+                                                                                                }}
+                                                                                            >
+                                                                                                <Input
+                                                                                                    type="radio"
+                                                                                                    name={`${eachQuestion.challenge_question_id}`}
+                                                                                                    id="radioOption1"
+                                                                                                    disabled={
+                                                                                                        isDisabled
+                                                                                                    }
+                                                                                                    checked={
+                                                                                                        filterAnswer(
+                                                                                                            eachQuestion.challenge_question_id
+                                                                                                        ) &&
+                                                                                                        filterAnswer(
+                                                                                                            eachQuestion.challenge_question_id
+                                                                                                        ).includes(
+                                                                                                            eachQuestion.option_a
+                                                                                                        )
+                                                                                                    }
+                                                                                                    onChange={(
+                                                                                                        e
+                                                                                                    ) =>
+                                                                                                        handleChange(
+                                                                                                            e
+                                                                                                        )
+                                                                                                    }
+                                                                                                    value={`${eachQuestion.option_a}`}
+                                                                                                />
+                                                                                                {
                                                                                                     eachQuestion.option_a
                                                                                                 }
-                                                                                                onChange={(
-                                                                                                    e
-                                                                                                ) =>
-                                                                                                    handleChange(
-                                                                                                        e
-                                                                                                    )
-                                                                                                }
-                                                                                                value={`${eachQuestion.option_a}`}
-                                                                                            />
-                                                                                            {
-                                                                                                eachQuestion.option_a
-                                                                                            }
-                                                                                        </Label>
-                                                                                    </FormGroup>
-                                                                                    <FormGroup
-                                                                                        check
-                                                                                        className="mx-5"
-                                                                                    >
-                                                                                        <Label
+                                                                                            </Label>
+                                                                                        </FormGroup>
+                                                                                    )}
+                                                                                {eachQuestion.option_b &&
+                                                                                    eachQuestion.option_b !==
+                                                                                        '' && (
+                                                                                        <FormGroup
                                                                                             check
-                                                                                            style={{
-                                                                                                fontSize:
-                                                                                                    '1.4rem'
-                                                                                            }}
+                                                                                            className="mx-5"
                                                                                         >
-                                                                                            <Input
-                                                                                                type="checkbox"
-                                                                                                name={`${eachQuestion.challenge_question_id}`}
-                                                                                                disabled={
-                                                                                                    isDisabled
-                                                                                                }
-                                                                                                checked={
-                                                                                                    filterAnswer(
-                                                                                                        eachQuestion.challenge_question_id
-                                                                                                    ) &&
-                                                                                                    filterAnswer(
-                                                                                                        eachQuestion.challenge_question_id
-                                                                                                    ).includes(
-                                                                                                        eachQuestion.option_b
-                                                                                                    )
-                                                                                                }
-                                                                                                id={
+                                                                                            <Label
+                                                                                                check
+                                                                                                style={{
+                                                                                                    fontSize:
+                                                                                                        '1.4rem'
+                                                                                                }}
+                                                                                            >
+                                                                                                <Input
+                                                                                                    type="radio"
+                                                                                                    name={`${eachQuestion.challenge_question_id}`}
+                                                                                                    id="radioOption2"
+                                                                                                    disabled={
+                                                                                                        isDisabled
+                                                                                                    }
+                                                                                                    checked={
+                                                                                                        filterAnswer(
+                                                                                                            eachQuestion.challenge_question_id
+                                                                                                        ) &&
+                                                                                                        filterAnswer(
+                                                                                                            eachQuestion.challenge_question_id
+                                                                                                        ).includes(
+                                                                                                            eachQuestion.option_b
+                                                                                                        )
+                                                                                                    }
+                                                                                                    onChange={(
+                                                                                                        e
+                                                                                                    ) =>
+                                                                                                        handleChange(
+                                                                                                            e
+                                                                                                        )
+                                                                                                    }
+                                                                                                    value={`${eachQuestion.option_b}`}
+                                                                                                />{' '}
+                                                                                                {
                                                                                                     eachQuestion.option_b
                                                                                                 }
-                                                                                                onChange={(
-                                                                                                    e
-                                                                                                ) =>
-                                                                                                    handleChange(
-                                                                                                        e
-                                                                                                    )
-                                                                                                }
-                                                                                                value={`${eachQuestion.option_b}`}
-                                                                                            />
-                                                                                            {
-                                                                                                eachQuestion.option_b
-                                                                                            }
-                                                                                        </Label>
-                                                                                    </FormGroup>
-                                                                                    <FormGroup
-                                                                                        check
-                                                                                        className="mx-5"
-                                                                                    >
-                                                                                        <Label
+                                                                                            </Label>
+                                                                                        </FormGroup>
+                                                                                    )}
+                                                                                {eachQuestion.option_c &&
+                                                                                    eachQuestion.option_c !==
+                                                                                        '' && (
+                                                                                        <FormGroup
                                                                                             check
-                                                                                            style={{
-                                                                                                fontSize:
-                                                                                                    '1.4rem'
-                                                                                            }}
+                                                                                            className="mx-5"
                                                                                         >
-                                                                                            <Input
-                                                                                                type="checkbox"
-                                                                                                disabled={
-                                                                                                    isDisabled
-                                                                                                }
-                                                                                                name={`${eachQuestion.challenge_question_id}`}
-                                                                                                checked={
-                                                                                                    filterAnswer(
-                                                                                                        eachQuestion.challenge_question_id
-                                                                                                    ) &&
-                                                                                                    filterAnswer(
-                                                                                                        eachQuestion.challenge_question_id
-                                                                                                    ).includes(
-                                                                                                        eachQuestion.option_c
-                                                                                                    )
-                                                                                                }
-                                                                                                id={
+                                                                                            <Label
+                                                                                                check
+                                                                                                style={{
+                                                                                                    fontSize:
+                                                                                                        '1.4rem'
+                                                                                                }}
+                                                                                            >
+                                                                                                <Input
+                                                                                                    type="radio"
+                                                                                                    onChange={(
+                                                                                                        e
+                                                                                                    ) =>
+                                                                                                        handleChange(
+                                                                                                            e
+                                                                                                        )
+                                                                                                    }
+                                                                                                    name={`${eachQuestion.challenge_question_id}`}
+                                                                                                    id="radioOption3"
+                                                                                                    disabled={
+                                                                                                        isDisabled
+                                                                                                    }
+                                                                                                    value={`${eachQuestion.option_c}`}
+                                                                                                />{' '}
+                                                                                                {
                                                                                                     eachQuestion.option_c
                                                                                                 }
-                                                                                                onChange={(
-                                                                                                    e
-                                                                                                ) =>
-                                                                                                    handleChange(
-                                                                                                        e
-                                                                                                    )
-                                                                                                }
-                                                                                                value={`${eachQuestion.option_c}`}
-                                                                                            />
-                                                                                            {
-                                                                                                eachQuestion.option_c
-                                                                                            }
-                                                                                        </Label>
-                                                                                    </FormGroup>
+                                                                                            </Label>
+                                                                                        </FormGroup>
+                                                                                    )}
 
-                                                                                    <FormGroup
-                                                                                        check
-                                                                                        className="mx-5"
-                                                                                    >
-                                                                                        <Label
+                                                                                {eachQuestion.option_d &&
+                                                                                    eachQuestion.option_d !==
+                                                                                        '' && (
+                                                                                        <FormGroup
                                                                                             check
-                                                                                            style={{
-                                                                                                fontSize:
-                                                                                                    '1.4rem'
-                                                                                            }}
+                                                                                            className="mx-5"
                                                                                         >
-                                                                                            <Input
-                                                                                                type="checkbox"
-                                                                                                name={`${eachQuestion.challenge_question_id}`}
-                                                                                                disabled={
-                                                                                                    isDisabled
-                                                                                                }
-                                                                                                checked={
-                                                                                                    filterAnswer(
-                                                                                                        eachQuestion.challenge_question_id
-                                                                                                    ) &&
-                                                                                                    filterAnswer(
-                                                                                                        eachQuestion.challenge_question_id
-                                                                                                    ).includes(
-                                                                                                        eachQuestion.option_d
-                                                                                                    )
-                                                                                                }
-                                                                                                id={
+                                                                                            <Label
+                                                                                                check
+                                                                                                style={{
+                                                                                                    fontSize:
+                                                                                                        '1.4rem'
+                                                                                                }}
+                                                                                            >
+                                                                                                <Input
+                                                                                                    type="radio"
+                                                                                                    onChange={(
+                                                                                                        e
+                                                                                                    ) =>
+                                                                                                        handleChange(
+                                                                                                            e
+                                                                                                        )
+                                                                                                    }
+                                                                                                    name={`${eachQuestion.challenge_question_id}`}
+                                                                                                    disabled={
+                                                                                                        isDisabled
+                                                                                                    }
+                                                                                                    id="radioOption4"
+                                                                                                    value={`${eachQuestion.option_d}`}
+                                                                                                />{' '}
+                                                                                                {
                                                                                                     eachQuestion.option_d
                                                                                                 }
-                                                                                                onChange={(
+                                                                                            </Label>
+                                                                                        </FormGroup>
+                                                                                    )}
+                                                                            </>
+                                                                        )}
+                                                                        {eachQuestion.type ===
+                                                                            'MCQ' && (
+                                                                            <>
+                                                                                <FormGroup
+                                                                                    check
+                                                                                    className="mx-5"
+                                                                                >
+                                                                                    <Label
+                                                                                        check
+                                                                                        style={{
+                                                                                            fontSize:
+                                                                                                '1.4rem'
+                                                                                        }}
+                                                                                    >
+                                                                                        <Input
+                                                                                            type="checkbox"
+                                                                                            name={`${eachQuestion.challenge_question_id}`}
+                                                                                            disabled={
+                                                                                                isDisabled
+                                                                                            }
+                                                                                            checked={
+                                                                                                filterAnswer(
+                                                                                                    eachQuestion.challenge_question_id
+                                                                                                ) &&
+                                                                                                filterAnswer(
+                                                                                                    eachQuestion.challenge_question_id
+                                                                                                ).includes(
+                                                                                                    eachQuestion.option_a
+                                                                                                )
+                                                                                            }
+                                                                                            id={
+                                                                                                eachQuestion.option_a
+                                                                                            }
+                                                                                            onChange={(
+                                                                                                e
+                                                                                            ) =>
+                                                                                                handleChange(
                                                                                                     e
-                                                                                                ) =>
-                                                                                                    handleChange(
-                                                                                                        e
-                                                                                                    )
-                                                                                                }
-                                                                                                value={`${eachQuestion.option_d}`}
-                                                                                            />
-                                                                                            {
+                                                                                                )
+                                                                                            }
+                                                                                            value={`${eachQuestion.option_a}`}
+                                                                                        />
+                                                                                        {
+                                                                                            eachQuestion.option_a
+                                                                                        }
+                                                                                    </Label>
+                                                                                </FormGroup>
+                                                                                <FormGroup
+                                                                                    check
+                                                                                    className="mx-5"
+                                                                                >
+                                                                                    <Label
+                                                                                        check
+                                                                                        style={{
+                                                                                            fontSize:
+                                                                                                '1.4rem'
+                                                                                        }}
+                                                                                    >
+                                                                                        <Input
+                                                                                            type="checkbox"
+                                                                                            name={`${eachQuestion.challenge_question_id}`}
+                                                                                            disabled={
+                                                                                                isDisabled
+                                                                                            }
+                                                                                            checked={
+                                                                                                filterAnswer(
+                                                                                                    eachQuestion.challenge_question_id
+                                                                                                ) &&
+                                                                                                filterAnswer(
+                                                                                                    eachQuestion.challenge_question_id
+                                                                                                ).includes(
+                                                                                                    eachQuestion.option_b
+                                                                                                )
+                                                                                            }
+                                                                                            id={
+                                                                                                eachQuestion.option_b
+                                                                                            }
+                                                                                            onChange={(
+                                                                                                e
+                                                                                            ) =>
+                                                                                                handleChange(
+                                                                                                    e
+                                                                                                )
+                                                                                            }
+                                                                                            value={`${eachQuestion.option_b}`}
+                                                                                        />
+                                                                                        {
+                                                                                            eachQuestion.option_b
+                                                                                        }
+                                                                                    </Label>
+                                                                                </FormGroup>
+                                                                                <FormGroup
+                                                                                    check
+                                                                                    className="mx-5"
+                                                                                >
+                                                                                    <Label
+                                                                                        check
+                                                                                        style={{
+                                                                                            fontSize:
+                                                                                                '1.4rem'
+                                                                                        }}
+                                                                                    >
+                                                                                        <Input
+                                                                                            type="checkbox"
+                                                                                            disabled={
+                                                                                                isDisabled
+                                                                                            }
+                                                                                            name={`${eachQuestion.challenge_question_id}`}
+                                                                                            checked={
+                                                                                                filterAnswer(
+                                                                                                    eachQuestion.challenge_question_id
+                                                                                                ) &&
+                                                                                                filterAnswer(
+                                                                                                    eachQuestion.challenge_question_id
+                                                                                                ).includes(
+                                                                                                    eachQuestion.option_c
+                                                                                                )
+                                                                                            }
+                                                                                            id={
+                                                                                                eachQuestion.option_c
+                                                                                            }
+                                                                                            onChange={(
+                                                                                                e
+                                                                                            ) =>
+                                                                                                handleChange(
+                                                                                                    e
+                                                                                                )
+                                                                                            }
+                                                                                            value={`${eachQuestion.option_c}`}
+                                                                                        />
+                                                                                        {
+                                                                                            eachQuestion.option_c
+                                                                                        }
+                                                                                    </Label>
+                                                                                </FormGroup>
+
+                                                                                <FormGroup
+                                                                                    check
+                                                                                    className="mx-5"
+                                                                                >
+                                                                                    <Label
+                                                                                        check
+                                                                                        style={{
+                                                                                            fontSize:
+                                                                                                '1.4rem'
+                                                                                        }}
+                                                                                    >
+                                                                                        <Input
+                                                                                            type="checkbox"
+                                                                                            name={`${eachQuestion.challenge_question_id}`}
+                                                                                            disabled={
+                                                                                                isDisabled
+                                                                                            }
+                                                                                            checked={
+                                                                                                filterAnswer(
+                                                                                                    eachQuestion.challenge_question_id
+                                                                                                ) &&
+                                                                                                filterAnswer(
+                                                                                                    eachQuestion.challenge_question_id
+                                                                                                ).includes(
+                                                                                                    eachQuestion.option_d
+                                                                                                )
+                                                                                            }
+                                                                                            id={
                                                                                                 eachQuestion.option_d
                                                                                             }
-                                                                                        </Label>
-                                                                                    </FormGroup>
-                                                                                </>
-                                                                            )}
+                                                                                            onChange={(
+                                                                                                e
+                                                                                            ) =>
+                                                                                                handleChange(
+                                                                                                    e
+                                                                                                )
+                                                                                            }
+                                                                                            value={`${eachQuestion.option_d}`}
+                                                                                        />
+                                                                                        {
+                                                                                            eachQuestion.option_d
+                                                                                        }
+                                                                                    </Label>
+                                                                                </FormGroup>
+                                                                            </>
+                                                                        )}
                                                                     </>
                                                                 </FormGroup>
                                                             </div>
@@ -1755,29 +1762,25 @@ const IdeasPageNew = () => {
                                                     </>
                                                 )
                                             )}
-                                            <Row
-                                                className="card mb-4 my-3 comment-card px-0 px-5 py-3 card"
-                                            >
+                                            <Row className="card mb-4 my-3 comment-card px-0 px-5 py-3 card">
                                                 <Label
                                                     check
                                                     style={{
-                                                        fontSize:
-                                                            '1.4rem'
+                                                        fontSize: '1.4rem'
                                                     }}
                                                 >
                                                     <Input
                                                         type="checkbox"
                                                         name="self confirm"
-                                                        disabled={
-                                                            isDisabled
-                                                        }
+                                                        disabled={isDisabled}
                                                         id="self confirm"
                                                         value="yes"
                                                     />
-                                                    {'  I confirm that the Idea Submitted now submitted is not copied or plagiarized version.'}
+                                                    {
+                                                        '  I confirm that the Idea Submitted now submitted is not copied or plagiarized version.'
+                                                    }
                                                 </Label>
                                             </Row>
-
                                         </Form>
                                     )}
                                 </CardBody>
@@ -1824,10 +1827,11 @@ const IdeasPageNew = () => {
                                                 handleSubmit(e, 'DRAFT')
                                             }
                                             size="small"
-                                            label={`${loading.draft
-                                                ? t('teacher_teams.loading')
-                                                : t('teacher_teams.draft')
-                                                }`}
+                                            label={`${
+                                                loading.draft
+                                                    ? t('teacher_teams.loading')
+                                                    : t('teacher_teams.draft')
+                                            }`}
                                         />
                                     </div>
                                 </Col>
