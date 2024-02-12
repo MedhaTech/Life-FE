@@ -28,7 +28,36 @@ const IdeaSubmission = () => {
     const [showCompleted, setShowCompleted] = useState(false);
     const [view, setView] = useState(false);
     const [isideadisable, setIsideadisable] = useState(false);
+    const TeamId = currentUser?.data[0]?.team_id;
+    const [ideaSubmittedData,setIdeaSubmittedData] = useState({});
     useEffect(() => {
+        const Param = encryptGlobal(
+            JSON.stringify({
+                team_id: TeamId
+            })
+        );
+        var configidea = {
+            method: 'get',
+            url:
+                process.env.REACT_APP_API_BASE_URL +
+                `/ideas/submittedDetails?Data=${Param}`,
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${currentUser.data[0]?.token}`
+            }
+        };
+        axios(configidea)
+            .then(function (response) {
+                if (response.status === 200) {
+                    if(response.data.data !== null){
+                        setIdeaSubmittedData(response.data.data);
+                    }
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
         const popParam = encryptGlobal('2');
         var config = {
             method: 'get',
@@ -64,18 +93,18 @@ const IdeaSubmission = () => {
     }, [dispatch, language, currentUser?.data[0]?.team_id]);
     useLayoutEffect(() => {
         if (
-            challengesSubmittedResponse &&
-            challengesSubmittedResponse.length > 0
+            ideaSubmittedData &&
+            ideaSubmittedData.length > 0
         ) {
-            challengesSubmittedResponse[0].status === 'DRAFT'
+            ideaSubmittedData[0].status === 'DRAFT'
                 ? setShowChallenges(true)
                 : view
-                ? setShowChallenges(true)
-                : setShowCompleted(true);
+                    ? setShowChallenges(true)
+                    : setShowCompleted(true);
         } else {
             setShowChallenges(false);
         }
-    }, [challengesSubmittedResponse, view]);
+    }, [ideaSubmittedData, view]);
     const commonPageText = t('student.idea_submitted_desc');
     const handleView = () => {
         // here we can see the idea submission //
@@ -91,9 +120,9 @@ const IdeaSubmission = () => {
                 showChallenges={handleView}
             />
         </Layout>
-    ) : !showChallenges ? (
+    ) : isideadisable ? (
         // <IdeasPageNew />
-        <NewIdeaSubmission />
+        <NewIdeaSubmission submitedData={ideaSubmittedData[0]}/>
     ) : (
         //  isideadisable ? (
         //     <SDG setShowChallenges={setShowChallenges} />

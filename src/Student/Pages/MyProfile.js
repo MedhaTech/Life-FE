@@ -102,7 +102,7 @@ const MyProfile = () => {
                                                             sm={1}
                                                             md={1}
                                                             xl={1}
-                                                            // md={1}
+                                                        // md={1}
                                                         >
                                                             :
                                                         </Col>
@@ -119,8 +119,8 @@ const MyProfile = () => {
                                                                     ?.stream
                                                                     ?.stream_name
                                                                     ? teamMember
-                                                                          ?.stream
-                                                                          ?.stream_name
+                                                                        ?.stream
+                                                                        ?.stream_name
                                                                     : '-'}
                                                             </b>
                                                         </Col>
@@ -283,7 +283,7 @@ const MyProfile = () => {
                                                             sm={1}
                                                             md={1}
                                                             xl={1}
-                                                            // md={1}
+                                                        // md={1}
                                                         >
                                                             :
                                                         </Col>
@@ -318,7 +318,7 @@ const MyProfile = () => {
                                                             sm={1}
                                                             md={1}
                                                             xl={1}
-                                                            // md={1}
+                                                        // md={1}
                                                         >
                                                             :
                                                         </Col>
@@ -387,10 +387,10 @@ const MyProfile = () => {
                                                                     ?.institution
                                                                     ?.institution_code
                                                                     ? teamMember
-                                                                          .team
-                                                                          ?.mentor
-                                                                          ?.institution
-                                                                          ?.institution_code
+                                                                        .team
+                                                                        ?.mentor
+                                                                        ?.institution
+                                                                        ?.institution_code
                                                                     : '-'}
                                                             </b>
                                                         </Col>
@@ -431,10 +431,10 @@ const MyProfile = () => {
                                                                     ?.institution
                                                                     ?.institution_name
                                                                     ? teamMember
-                                                                          .team
-                                                                          ?.mentor
-                                                                          ?.institution
-                                                                          ?.institution_name
+                                                                        .team
+                                                                        ?.mentor
+                                                                        ?.institution
+                                                                        ?.institution_name
                                                                     : '-'}
                                                             </b>
                                                         </Col>
@@ -476,11 +476,11 @@ const MyProfile = () => {
                                                                     ?.institution_type
                                                                     ?.institution_type
                                                                     ? teamMember
-                                                                          .team
-                                                                          ?.mentor
-                                                                          ?.institution
-                                                                          ?.institution_type
-                                                                          ?.institution_type
+                                                                        .team
+                                                                        ?.mentor
+                                                                        ?.institution
+                                                                        ?.institution_type
+                                                                        ?.institution_type
                                                                     : '-'}
                                                             </b>
                                                         </Col>
@@ -520,11 +520,11 @@ const MyProfile = () => {
                                                                     ?.place
                                                                     ?.place_name
                                                                     ? teamMember
-                                                                          .team
-                                                                          ?.mentor
-                                                                          ?.institution
-                                                                          ?.place
-                                                                          ?.place_name
+                                                                        .team
+                                                                        ?.mentor
+                                                                        ?.institution
+                                                                        ?.place
+                                                                        ?.place_name
                                                                     : '-'}
                                                             </b>
                                                         </Col>
@@ -562,15 +562,17 @@ const MyProfile = () => {
                                                                     ?.mentor
                                                                     ?.institution
                                                                     ?.place
+                                                                    ?.taluk
                                                                     ?.block
                                                                     ?.block_name
                                                                     ? teamMember
-                                                                          .team
-                                                                          ?.mentor
-                                                                          ?.institution
-                                                                          ?.place
-                                                                          ?.block
-                                                                          ?.block_name
+                                                                        .team
+                                                                        ?.mentor
+                                                                        ?.institution
+                                                                        ?.place
+                                                                        ?.taluk
+                                                                        ?.block
+                                                                        ?.block_name
                                                                     : '-'}
                                                             </b>
                                                         </Col>
@@ -608,17 +610,15 @@ const MyProfile = () => {
                                                                     ?.mentor
                                                                     ?.institution
                                                                     ?.place
-                                                                    ?.block
                                                                     ?.taluk
                                                                     ?.taluk_name
                                                                     ? teamMember
-                                                                          .team
-                                                                          ?.mentor
-                                                                          ?.institution
-                                                                          ?.place
-                                                                          ?.block
-                                                                          ?.taluk
-                                                                          ?.taluk_name
+                                                                        .team
+                                                                        ?.mentor
+                                                                        ?.institution
+                                                                        ?.place
+                                                                        ?.taluk
+                                                                        ?.taluk_name
                                                                     : '-'}
                                                             </b>
                                                         </Col>
@@ -656,19 +656,19 @@ const MyProfile = () => {
                                                                     ?.mentor
                                                                     ?.institution
                                                                     ?.place
-                                                                    ?.block
                                                                     ?.taluk
+                                                                    ?.block
                                                                     ?.district
                                                                     ?.district_name
                                                                     ? teamMember
-                                                                          .team
-                                                                          ?.mentor
-                                                                          ?.institution
-                                                                          ?.place
-                                                                          ?.block
-                                                                          ?.taluk
-                                                                          ?.district
-                                                                          ?.district_name
+                                                                        .team
+                                                                        ?.mentor
+                                                                        ?.institution
+                                                                        ?.place
+                                                                        ?.taluk
+                                                                        ?.block
+                                                                        ?.district
+                                                                        ?.district_name
                                                                     : '-'}
                                                             </b>
                                                         </Col>
@@ -707,21 +707,21 @@ const MyProfile = () => {
                                                                     ?.mentor
                                                                     ?.institution
                                                                     ?.place
-                                                                    ?.block
                                                                     ?.taluk
+                                                                    ?.block
                                                                     ?.district
                                                                     ?.state
                                                                     ?.state_name
                                                                     ? teamMember
-                                                                          .team
-                                                                          ?.mentor
-                                                                          ?.institution
-                                                                          ?.place
-                                                                          ?.block
-                                                                          ?.taluk
-                                                                          ?.district
-                                                                          ?.state
-                                                                          ?.state_name
+                                                                        .team
+                                                                        ?.mentor
+                                                                        ?.institution
+                                                                        ?.place
+                                                                        ?.taluk
+                                                                        ?.block
+                                                                        ?.district
+                                                                        ?.state
+                                                                        ?.state_name
                                                                     : '-'}
                                                             </b>
                                                         </Col>
@@ -759,8 +759,8 @@ const MyProfile = () => {
                                                                 {teamMember.team
                                                                     ?.team_name
                                                                     ? teamMember
-                                                                          .team
-                                                                          ?.team_name
+                                                                        .team
+                                                                        ?.team_name
                                                                     : '-'}
                                                             </b>
                                                         </Col>
@@ -799,9 +799,9 @@ const MyProfile = () => {
                                                                     ?.mentor
                                                                     ?.mentor_name
                                                                     ? teamMember
-                                                                          .team
-                                                                          ?.mentor
-                                                                          ?.mentor_name
+                                                                        .team
+                                                                        ?.mentor
+                                                                        ?.mentor_name
                                                                     : '-'}
                                                             </b>
                                                         </Col>

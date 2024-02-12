@@ -412,8 +412,8 @@ const MyProfile = () => {
                                                                             ?.institution
                                                                             ?.institution_code
                                                                             ? teacher
-                                                                                  ?.institution
-                                                                                  ?.institution_code
+                                                                                ?.institution
+                                                                                ?.institution_code
                                                                             : '-'}
                                                                     </b>
                                                                 </Col>
@@ -451,8 +451,8 @@ const MyProfile = () => {
                                                                             .institution
                                                                             ?.institution_name
                                                                             ? teacher
-                                                                                  .institution
-                                                                                  ?.institution_name
+                                                                                .institution
+                                                                                ?.institution_name
                                                                             : '-'}
                                                                     </b>
                                                                 </Col>
@@ -491,9 +491,9 @@ const MyProfile = () => {
                                                                             ?.institution_type
                                                                             ?.institution_type
                                                                             ? teacher
-                                                                                  .institution
-                                                                                  ?.institution_type
-                                                                                  ?.institution_type
+                                                                                .institution
+                                                                                ?.institution_type
+                                                                                ?.institution_type
                                                                             : '-'}
                                                                     </b>
                                                                 </Col>
@@ -530,9 +530,9 @@ const MyProfile = () => {
                                                                             ?.place
                                                                             ?.place_name
                                                                             ? teacher
-                                                                                  .institution
-                                                                                  ?.place
-                                                                                  ?.place_name
+                                                                                .institution
+                                                                                ?.place
+                                                                                ?.place_name
                                                                             : '-'}
                                                                     </b>
                                                                 </Col>
@@ -566,13 +566,15 @@ const MyProfile = () => {
                                                                         {teacher
                                                                             .institution
                                                                             ?.place
+                                                                            ?.taluk
                                                                             ?.block
                                                                             ?.block_name
                                                                             ? teacher
-                                                                                  .institution
-                                                                                  ?.place
-                                                                                  ?.block
-                                                                                  ?.block_name
+                                                                                .institution
+                                                                                ?.place
+                                                                                ?.taluk
+                                                                                ?.block
+                                                                                ?.block_name
                                                                             : '-'}
                                                                     </b>
                                                                 </Col>
@@ -606,15 +608,15 @@ const MyProfile = () => {
                                                                         {teacher
                                                                             .institution
                                                                             ?.place
-                                                                            ?.block
+
                                                                             ?.taluk
                                                                             ?.taluk_name
                                                                             ? teacher
-                                                                                  .institution
-                                                                                  ?.place
-                                                                                  ?.block
-                                                                                  ?.taluk
-                                                                                  ?.taluk_name
+                                                                                .institution
+                                                                                ?.place
+
+                                                                                ?.taluk
+                                                                                ?.taluk_name
                                                                             : '-'}
                                                                     </b>
                                                                 </Col>
@@ -651,17 +653,19 @@ const MyProfile = () => {
                                                                         {teacher
                                                                             .institution
                                                                             ?.place
-                                                                            ?.block
                                                                             ?.taluk
+                                                                            ?.block
+
                                                                             ?.district
                                                                             ?.district_name
                                                                             ? teacher
-                                                                                  .institution
-                                                                                  ?.place
-                                                                                  ?.block
-                                                                                  ?.taluk
-                                                                                  ?.district
-                                                                                  ?.district_name
+                                                                                .institution
+                                                                                ?.place
+                                                                                ?.taluk
+                                                                                ?.block
+
+                                                                                ?.district
+                                                                                ?.district_name
                                                                             : '-'}
                                                                     </b>
                                                                 </Col>
@@ -696,19 +700,21 @@ const MyProfile = () => {
                                                                         {teacher
                                                                             .institution
                                                                             ?.place
-                                                                            ?.block
                                                                             ?.taluk
+                                                                            ?.block
+
                                                                             ?.district
                                                                             ?.state
                                                                             ?.state_name
                                                                             ? teacher
-                                                                                  .institution
-                                                                                  ?.place
-                                                                                  ?.block
-                                                                                  ?.taluk
-                                                                                  ?.district
-                                                                                  ?.state
-                                                                                  ?.state_name
+                                                                                .institution
+                                                                                ?.place
+                                                                                ?.taluk
+                                                                                ?.block
+
+                                                                                ?.district
+                                                                                ?.state
+                                                                                ?.state_name
                                                                             : '-'}
                                                                     </b>
                                                                 </Col>
