@@ -116,7 +116,7 @@
         "8-charac_minimum_case_sensitive": "8-character minimum; case sensitive",
         "Verify_New_password": "Confirm New password",
         "Cancel": "Cancel",
-        "Change_password": "Change password"
+        "Change_password": "Change Password"
     },
     "schoolpswd": {
         "Change your password": "Change your password",
@@ -128,7 +128,7 @@
         "8-charac_minimum_case_sensitive": "8-character minimum; case sensitive",
         "Verify_New_password": "Confirm New password",
         "Cancel": "Cancel",
-        "Change_password": "Change password"
+        "Change_password": "Change Password"
     },
     "coordinatorpswd": {
         "Change your password": "Change your password",
@@ -140,7 +140,7 @@
         "8-charac_minimum_case_sensitive": "8-character minimum; case sensitive",
         "Verify_New_password": "Confirm New password",
         "Cancel": "Cancel",
-        "Change_password": "Change password"
+        "Change_password": "Change Password"
     },
     "home": {
         "pre_survey": "Pre Survey",
@@ -152,7 +152,7 @@
         "badges": "Badges",
         "idea_submission": "Idea Submission",
         "my_profile": "My Profile",
-        "change_pass": "Change password",
+        "change_pass": "Change Password",
         "resources": "Resources"
     },
     "get_started": {
@@ -178,8 +178,8 @@
         "refer_video": "Refer Video"
     },
     "teacher_get_started": {
-        "heading": "Welcome Guide Teacher!",
-        "desc": "<p>We are delighted that you have signed up for this program and have joined us on this journey of nurturing problem solving and innovation in youth. As you are already aware, you will be playing the role of a guide teacher to the students for the duration of the course.</p><p>The portal includes various information modules and resources that will help you and your students on their learning journeys.</p><p style='color:green'><b>Your journey as a guide teacher will include the following key milestones</b></p><ol><li>Register yourself on the portal and take the pre-survey.</li><li>Understand the program and the tech platform.</li><li>Identify teams and register them on the portal.</li><li>Arrange access to digital devices for students.</li><li>Support the students on their learning journey.</li><li>Ensure teams submit their final ideas on the portal.</li><li>Complete the post survey.</li><li>Download teacher’s certificate.</li><li>Instruct and support the students to download student certificates.</li></ol><p>We hope you and the students have a great time doing this program.</p><p>We wish you all the best!</p>",
+        "heading": "Welcome Mentor!",
+        "desc": "<p>We are delighted that you have signed up for this program and have joined us on this journey of nurturing problem solving and innovation in youth. As you are already aware, you will be playing the role of a Mentor to the students for the duration of the course.</p><p>The portal includes various information modules and resources that will help you and your students on their learning journeys.</p><p style='color:green'><b>Your journey as a Mentor will include the following key milestones</b></p><ol><li>Register yourself on the portal and take the pre-survey.</li><li>Understand the program and the tech platform.</li><li>Identify teams and register them on the portal.</li><li>Arrange access to digital devices for students.</li><li>Support the students on their learning journey.</li><li>Ensure teams submit their final ideas on the portal.</li><li>Complete the post survey.</li><li>Download teacher’s certificate.</li><li>Instruct and support the students to download student certificates.</li></ol><p>We hope you and the students have a great time doing this program.</p><p>We wish you all the best!</p>",
         "btn": "START JOURNEY",
         "pre": "Pre survey has been submitted"
     },
@@ -314,7 +314,7 @@
         "btn_ok": "ok",
         "cancelled": "Cancelled",
         "logged_in": "You are Logged in",
-        "submit_idea": "Ask your guide teacher to go through the details entered by you to make sure they are correct. You cannot make changes once the idea is submitted. Invalid/Wrong entries will not be selected.",
+        "submit_idea": "Ask your Mentor to go through the details entered by you to make sure they are correct. You cannot make changes once the idea is submitted. Invalid/Wrong entries will not be selected.",
         "idea_sub_cancelled": "Idea Submission Cancelled"
     },
     "teacehr_red": {
@@ -359,11 +359,11 @@
         "please_download": "Please Download Handbook..."
     },
     "dummytext": {
-        "student_idea_sub": "Dear Student, idea submission will be active once you and your team members complete the learning journey. Your guide teacher will support you with this.",
+        "student_idea_sub": "Dear Student, idea submission will be active once you and your team members complete the learning journey. Your Mentor will support you with this.",
         "student_my_cer": "<p>Your certificate will be available once you complete the course, submit ideas and complete the post survey.If you have completed these, your certificate will be ready shortly.</p>",
         "student_post_survey": "Dear Students, Post-Survey will be active once your team submits the idea. Hope you and your team are learning a lot of new things. :)",
-        "student_course": "Dear Student, your learning journey will begin soon. Please discuss with your School Guide Teacher and prepare yourself for this journey.",
-        "certificate_msg": "<p>Your certificate will be printed with the above details.  If your Initial / Full Name is missing or incorrect, request your guide teacher to update the name in the Teams Page of Teacher login.<p>",
+        "student_course": "Dear Student, your learning journey will begin soon. Please discuss with your School Mentor and prepare yourself for this journey.",
+        "certificate_msg": "<p>Your certificate will be printed with the above details.  If your Initial / Full Name is missing or incorrect, request your Mentor to update the name in the Teams Page of Teacher login.<p>",
         "name": "Name : ",
         "school": "</br>School : ",
         "dear": "Dear Student,"
@@ -416,7 +416,7 @@
         "quiz_inst_msg": "<p class='text-center' style='font-size:1.5rem'>Now that you have watched some videos, learnt new concepts, discussed them with your team and teacher and practiced them using the workbook,  it's time to check how much you have understood.</p><b style='color:blue'>Instructions:</b><ol><li>Read and understand the question carefully before answering.</li><li>Quiz will consist of 10-15 questions and will take  5-10  minutes to complete.</li><li>Score will be displayed at the end of the quiz for your reference.</li><li>You need to get at least 60% i.e., at least answer 6-8 questions correctly to move to the next module and unlock the videos.</li><li>You can retake the quiz again if you score less than 60%.</li></ol>",
         "quiz_start_title": "Ready for a quick test?",
         "quiz_con_title": " Continue your quick test",
-        "idea_ins_note": "<p>As you are getting ready to submit your idea, remember these important things to make sure you do it well:</p><p><b>Step-1:</b>Go through Idea submission Process video in Resources section. Discuss with all your team members and the guide teacher to select the final idea for submission.</p><p><b>Step-2:</b> Write down your idea on a paper or notebook before you start submitting it on the website.</p><p><b>Step-3:</b> Fill the form carefully and ensure you double-check everything before you save or submit your idea. Do not forget to ask your guide teacher to go through the details entered by you to make sure they are correct.</p><p><b>Note:</b>  You cannot make changes once the idea is submitted. Invalid/Wrong entries will not be selected.</p><p style='color:blue'><b>Details  to keep ready before you proceed to submit your idea:</b></p><ul><li>Go through Themes and Problem statements document.</li><li>Select your theme and Problem Statement.</li><li>Write down Innovation Title and working in detail. Idea name should convey the uniqueness of your solution.</li><li>List out the ATL tools / technologies you used to develop your project and how.</li><li>Get ready with Project Research Document , Images & Video (Youtube link) of your project’s prototype/design if you have done the Make & test process to upload during Idea submission.</li></ul><p><b>Go ahead and submit your idea! Wish you All the best 👍</b></p>",
+        "idea_ins_note": "<p>As you are getting ready to submit your idea, remember these important things to make sure you do it well:</p><p><b>Step-1:</b>Go through Idea submission Process video in Resources section. Discuss with all your team members and the Mentor to select the final idea for submission.</p><p><b>Step-2:</b> Write down your idea on a paper or notebook before you start submitting it on the website.</p><p><b>Step-3:</b> Fill the form carefully and ensure you double-check everything before you save or submit your idea. Do not forget to ask your Mentor to go through the details entered by you to make sure they are correct.</p><p><b>Note:</b>  You cannot make changes once the idea is submitted. Invalid/Wrong entries will not be selected.</p><p style='color:blue'><b>Details to keep ready before you proceed to submit your idea:</b></p><ul><li>Go Through Themes and Problem Statements document.</li><li>Select your Theme and Problem Statement.</li><li>Write Down Innovation Title and working in detail. Idea name should convey the uniqueness of your solution.</li><li>List out the tools / technologies you used to develop your project and how.</li><li>Get Ready with Project Research Document, Images & Video (Youtube link) of your Project’s Prototype/Design if you have done the Make & Test process to upload during Idea submission.</li></ul><p><b>Go ahead and submit your idea! Wish you All the best 👍</b></p>",
         "my_cer_note": "<p class='text-success'><b>👏🏻 Congratulations on successfully completing the course and submitting the idea 🥳</b></p><p>We wish you All the best 👍& hope you and your team will continue this journey of exploring the world around, learning new things, working together & spreading joy😃</p>",
         "quiz_com_title": "Quick test Completed successfully",
         "quiz_com_note": "Check your score.",

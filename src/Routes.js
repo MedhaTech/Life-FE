@@ -199,7 +199,8 @@ const Routers = () => {
         <>
             <Router>
                 <Switch>
-                    <Route exact={true} path="/" render={() => <Home />} />
+                    <Redirect exact={true} from="/" to="/teacher" />
+                    {/* <Route exact={true} path="/" render={() => <Home />} /> */}
                     {/* <Routes> */}
                     <Route
                         exact={true}
