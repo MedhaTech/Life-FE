@@ -223,7 +223,7 @@
         "please_com_all": "Please complete all the fields before submitting",
         "not_allowed": "Not Allowed",
         "post_survey": "Post Survey",
-        "idea_submitted_desc": "<h2>Congratulations for successfully submitting the idea</h2>.</br><p>Please click continue to complete your post survey and get your certificate.</p>",
+        "idea_submitted_desc": "<h2>Congratulations for successfully submitting the idea</h2>.</br>Please click here to view the Idea <p></p>",
         "post_survey_desc": "Congratulations! your journey in this program is complete.",
         "click_button_post_survey": "Your certificate will be ready soon and you can download it from ‘My Certificate Page’",
         "max_length_msg1": "Maximum length of characters is ",

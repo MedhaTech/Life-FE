@@ -8,6 +8,7 @@ import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { TextArea } from '../../../stories/TextArea/TextArea';
 import CommonPage from '../../../components/CommonPage';
+import IdeaSubmission from '../../Pages/Ideas/IdeaSubmission';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 
@@ -72,25 +73,50 @@ function NewIdeaSubmission(props) {
     const comingSoonText = t('dummytext.student_idea_sub');
     const initialLoadingStatus = { draft: false, submit: false };
     const [loading, setLoading] = useState(initialLoadingStatus);
-    const [theme, setTheme] = useState(props?.submitedData?.themes_problem?.theme_name);
+    const [theme, setTheme] = useState(
+        props?.submitedData?.themes_problem?.theme_name
+    );
+    const [finalPage, setFinalPage] = useState(false);
     const [others, setOthers] = useState('');
-    const [probStatment, setProbStatment] = useState(props?.submitedData?.themes_problem?.problem_statement);
-    const [description, setDescription] = useState(props?.submitedData?.themes_problem?.problem_statement_description);
+    const [probStatment, setProbStatment] = useState(
+        props?.submitedData?.themes_problem?.problem_statement
+    );
+    const [description, setDescription] = useState(
+        props?.submitedData?.themes_problem?.problem_statement_description
+    );
     const [ideaTitle, setIdeaTitle] = useState(props?.submitedData?.idea_title);
-    const [solStatement, setSolStatement] = useState(props?.submitedData?.solution_statement);
-    const [detailSol, setDetailSol] = useState(props?.submitedData?.detailed_solution);
-    const [protoType, setProtoType] = useState(props?.submitedData?.prototype_available);
+    const [solStatement, setSolStatement] = useState(
+        props?.submitedData?.solution_statement
+    );
+    const [detailSol, setDetailSol] = useState(
+        props?.submitedData?.detailed_solution
+    );
+    const [protoType, setProtoType] = useState(
+        props?.submitedData?.prototype_available
+    );
     const question = ['YES', 'NO'];
     const ideaSubmitted = ['YES', 'NO'];
-    const [ideaPublication, setIdeaPublication] = useState(props?.submitedData?.idea_available);
-    const [selfCheck, setSelfCheck] = useState(props?.submitedData?.self_declaration === "YES" ? true : false);
+    const [ideaPublication, setIdeaPublication] = useState(
+        props?.submitedData?.idea_available
+    );
+    const [selfCheck, setSelfCheck] = useState(
+        props?.submitedData?.self_declaration === 'YES' ? true : false
+    );
     const [themesList, setThemesList] = useState([]);
-    const [submitedFile, setSubmitedFile] = useState(props?.submitedData?.Prototype_file ? props?.submitedData?.Prototype_file.split(', ') :[]);
+    const [submitedFile, setSubmitedFile] = useState(
+        props?.submitedData?.Prototype_file
+            ? props?.submitedData?.Prototype_file.split(', ')
+            : []
+    );
     const [statementList, setStatementList] = useState([]);
     const [listofproblemsandID, setListofproblemsandID] = useState({});
-    const [themeProId, setThemeProId] = useState(props?.submitedData?.theme_problem_id ? props?.submitedData?.theme_problem_id : 0);
+    const [themeProId, setThemeProId] = useState(
+        props?.submitedData?.theme_problem_id
+            ? props?.submitedData?.theme_problem_id
+            : 0
+    );
     const TeamId = currentUser?.data[0]?.team_id;
-    console.log(ideaPublication,protoType,"pre");
+    console.log(ideaPublication, protoType, 'pre');
     useEffect(() => {
         setIsDisabled(true);
     }, []);
@@ -105,7 +131,9 @@ function NewIdeaSubmission(props) {
     useEffect(() => {
         if (themeProId) {
             setProbStatment(listofproblemsandID[themeProId]?.problem_statement);
-            setDescription(listofproblemsandID[themeProId]?.problem_statement_description);
+            setDescription(
+                listofproblemsandID[themeProId]?.problem_statement_description
+            );
         }
     }, [themeProId]);
     const themeApi = () => {
@@ -159,7 +187,11 @@ function NewIdeaSubmission(props) {
                     setStatementList(otherList);
                     let decandId = {};
                     otherList.map((itea, i) => {
-                        decandId[itea.theme_problem_id] = { problem_statement_description: itea.problem_statement_description, problem_statement: itea.problem_statement };
+                        decandId[itea.theme_problem_id] = {
+                            problem_statement_description:
+                                itea.problem_statement_description,
+                            problem_statement: itea.problem_statement
+                        };
                     });
                     setListofproblemsandID(decandId);
                 }
@@ -176,7 +208,7 @@ function NewIdeaSubmission(props) {
         setIsDisabled(false);
         scroll();
     };
-    const handleSubmit = async(item, stats) =>{
+    const handleSubmit = async (item, stats) => {
         if (files.length > 0) {
             const formData = new FormData();
             for (let i = 0; i < files.length; i++) {
@@ -188,7 +220,13 @@ function NewIdeaSubmission(props) {
                 JSON.stringify({ team_id: currentUser?.data[0]?.team_id })
             );
             const result = await axios
-                .post(`${process.env.REACT_APP_API_BASE_URL + '/ideas/fileUpload'}?Data=${subId}`, formData, axiosConfig)
+                .post(
+                    `${
+                        process.env.REACT_APP_API_BASE_URL + '/ideas/fileUpload'
+                    }?Data=${subId}`,
+                    formData,
+                    axiosConfig
+                )
                 .then((res) => res)
                 .catch((err) => {
                     return err.response;
@@ -201,13 +239,12 @@ function NewIdeaSubmission(props) {
                 openNotificationWithIcon('error', `${result?.data?.message}`);
                 return;
             }
-        }
-        else{
-            handleSubmitAll(item, stats); 
+        } else {
+            handleSubmitAll(item, stats);
         }
     };
-    
-    const handleSubmitAll = async(item, stats) => {
+
+    const handleSubmitAll = async (item, stats) => {
         const attachmentsList = submitedFile.join(', ');
         const body = JSON.stringify({
             team_id: TeamId,
@@ -218,22 +255,35 @@ function NewIdeaSubmission(props) {
             idea_title: ideaTitle,
             solution_statement: solStatement,
             detailed_solution: detailSol,
-            Prototype_file:attachmentsList,
+            Prototype_file: attachmentsList,
             prototype_available: protoType,
             idea_available: ideaPublication,
-            self_declaration: selfCheck ? "YES" : "NO",
+            self_declaration: selfCheck ? 'YES' : 'NO',
             status: stats
         });
         var allques = false;
         if (stats === 'SUBMITTED') {
-            if (theme !== '' && themeProId !== '' && probStatment !== '' && description !== '' && ideaTitle !== '' && solStatement !== '' && detailSol !== '' && protoType !== '' && ideaPublication !== '' && selfCheck !== false) {
+            if (
+                theme !== '' &&
+                themeProId !== '' &&
+                probStatment !== '' &&
+                description !== '' &&
+                ideaTitle !== '' &&
+                solStatement !== '' &&
+                detailSol !== '' &&
+                protoType !== '' &&
+                ideaPublication !== '' &&
+                selfCheck !== false
+            ) {
                 allques = true;
             }
         }
         if ((allques && stats === 'SUBMITTED') || stats === 'DRAFT') {
             var config = {
                 method: 'put',
-                url: `${process.env.REACT_APP_API_BASE_URL + '/ideas/ideaUpdate'}`,
+                url: `${
+                    process.env.REACT_APP_API_BASE_URL + '/ideas/ideaUpdate'
+                }`,
                 headers: {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${currentUser?.data[0]?.token}`
@@ -248,6 +298,8 @@ function NewIdeaSubmission(props) {
                                 'success',
                                 'Idea submission successful'
                             );
+                            // setFinalPage(true);
+                            props.showChallenges();
                         } else {
                             openNotificationWithIcon(
                                 'success',
@@ -257,7 +309,6 @@ function NewIdeaSubmission(props) {
                             scroll();
                         }
                     }
-
                 })
                 .catch(function (error) {
                     // openNotificationWithIcon(
@@ -266,12 +317,8 @@ function NewIdeaSubmission(props) {
                     // );
                     console.log(error);
                 });
-        }
-        else {
-            openNotificationWithIcon(
-                'error',
-                'Plese fill all the question'
-            );
+        } else {
+            openNotificationWithIcon('error', 'Plese fill all the question');
         }
     };
 
@@ -335,8 +382,11 @@ function NewIdeaSubmission(props) {
     };
     return (
         <Layout title="Idea Submission">
-            {showPage ? (
-                <CommonPage text={comingSoonText} />
+            {finalPage ? (
+                <CommonPage
+                    text={t('student.idea_submitted_desc')}
+                    showButton={true}
+                />
             ) : (
                 <Container className="presuervey mb-50 mt-5 " id="start">
                     <h2>{t('student_course.idea_submission')}</h2>
@@ -348,8 +398,9 @@ function NewIdeaSubmission(props) {
                                         className="form-row row mb-5"
                                         isSubmitting
                                     >
-                                        {isDisabled && props?.submitedData?.status !== 'SUBMITTED' && (
-                                            <div className='text-right'>
+                                        {props?.submitedData?.status !==
+                                            'SUBMITTED' && (
+                                            <div className="text-right">
                                                 <Button
                                                     type="button"
                                                     btnClass="me-3 text-white"
@@ -364,7 +415,10 @@ function NewIdeaSubmission(props) {
                                                     type="button"
                                                     btnClass="primary"
                                                     onClick={(e) =>
-                                                        handleSubmit(e, 'SUBMITTED')
+                                                        handleSubmit(
+                                                            e,
+                                                            'SUBMITTED'
+                                                        )
                                                     }
                                                     size="small"
                                                     label={t(
@@ -378,8 +432,7 @@ function NewIdeaSubmission(props) {
                                                 <div className="question quiz mb-0">
                                                     <b
                                                         style={{
-                                                            fontSize:
-                                                                '1.6rem'
+                                                            fontSize: '1.6rem'
                                                         }}
                                                     >
                                                         {1}.{' '}
@@ -391,13 +444,10 @@ function NewIdeaSubmission(props) {
 
                                                 <div className=" answers row flex-column p-4">
                                                     <select
-                                                        disabled={
-                                                            isDisabled
-                                                        }
+                                                        disabled={isDisabled}
                                                         onChange={(e) =>
                                                             setTheme(
-                                                                e.target
-                                                                    .value
+                                                                e.target.value
                                                             )
                                                         }
                                                         name="teams"
@@ -407,9 +457,7 @@ function NewIdeaSubmission(props) {
                                                             (item, i) => (
                                                                 <option
                                                                     key={i}
-                                                                    value={
-                                                                        item
-                                                                    }
+                                                                    value={item}
                                                                     selected={
                                                                         item ===
                                                                         theme
@@ -485,17 +533,32 @@ function NewIdeaSubmission(props) {
                                                     </Row>
                                                     <Row className="card mb-4 my-3 comment-card px-0 px-5 py-3 card">
                                                         <div className="question quiz mb-0">
-                                                            <b
-                                                                style={{
-                                                                    fontSize:
-                                                                        '1.6rem'
-                                                                }}
-                                                            >
-                                                                {2}.{' '}
-                                                                {t(
-                                                                    'student_course.ques2others'
-                                                                )}
-                                                            </b>
+                                                            {theme ===
+                                                            'Others' ? (
+                                                                <b
+                                                                    style={{
+                                                                        fontSize:
+                                                                            '1.6rem'
+                                                                    }}
+                                                                >
+                                                                    {3}.{' '}
+                                                                    {t(
+                                                                        'student_course.ques2others'
+                                                                    )}
+                                                                </b>
+                                                            ) : (
+                                                                <b
+                                                                    style={{
+                                                                        fontSize:
+                                                                            '1.6rem'
+                                                                    }}
+                                                                >
+                                                                    {2}.{' '}
+                                                                    {t(
+                                                                        'student_course.ques2others'
+                                                                    )}
+                                                                </b>
+                                                            )}
                                                         </div>
                                                         <FormGroup
                                                             check
@@ -574,14 +637,9 @@ function NewIdeaSubmission(props) {
                                                             id="teams"
                                                         >
                                                             {statementList.map(
-                                                                (
-                                                                    item,
-                                                                    i
-                                                                ) => (
+                                                                (item, i) => (
                                                                     <option
-                                                                        key={
-                                                                            i
-                                                                        }
+                                                                        key={i}
                                                                         value={
                                                                             item.theme_problem_id
                                                                         }
@@ -601,8 +659,7 @@ function NewIdeaSubmission(props) {
                                                 </Row>
                                             )}
                                             {theme !== 'Others' &&
-                                                probStatment ===
-                                                'Others' && (
+                                                probStatment === 'Others' && (
                                                     <Row className="card mb-4 my-3 comment-card px-0 px-5 py-3 card">
                                                         <div className="question quiz mb-0">
                                                             <b
@@ -611,7 +668,7 @@ function NewIdeaSubmission(props) {
                                                                         '1.6rem'
                                                                 }}
                                                             >
-                                                                {2}.{' '}
+                                                                {3}.{' '}
                                                                 {t(
                                                                     'student_course.ques2others'
                                                                 )}
@@ -636,7 +693,7 @@ function NewIdeaSubmission(props) {
                                                                         others
                                                                     }
                                                                     maxLength={
-                                                                        100
+                                                                        1000
                                                                     }
                                                                     onChange={(
                                                                         e
@@ -664,17 +721,45 @@ function NewIdeaSubmission(props) {
                                                 )}
                                             <Row className="card mb-4 my-3 comment-card px-0 px-5 py-3 card">
                                                 <div className="question quiz mb-0">
-                                                    <b
-                                                        style={{
-                                                            fontSize:
-                                                                '1.6rem'
-                                                        }}
-                                                    >
-                                                        {3}.{' '}
-                                                        {t(
-                                                            'student_course.ques3description'
-                                                        )}
-                                                    </b>
+                                                    {theme === 'Others' ? (
+                                                        <b
+                                                            style={{
+                                                                fontSize:
+                                                                    '1.6rem'
+                                                            }}
+                                                        >
+                                                            {4}.{' '}
+                                                            {t(
+                                                                'student_course.ques3description'
+                                                            )}
+                                                        </b>
+                                                    ) : theme !== 'Others' &&
+                                                      probStatment ===
+                                                          'Others' ? (
+                                                        <b
+                                                            style={{
+                                                                fontSize:
+                                                                    '1.6rem'
+                                                            }}
+                                                        >
+                                                            {4}.{' '}
+                                                            {t(
+                                                                'student_course.ques3description'
+                                                            )}
+                                                        </b>
+                                                    ) : (
+                                                        <b
+                                                            style={{
+                                                                fontSize:
+                                                                    '1.6rem'
+                                                            }}
+                                                        >
+                                                            {3}.{' '}
+                                                            {t(
+                                                                'student_course.ques3description'
+                                                            )}
+                                                        </b>
+                                                    )}
                                                 </div>
                                                 <FormGroup
                                                     check
@@ -691,10 +776,8 @@ function NewIdeaSubmission(props) {
                                                                 isDisabled
                                                             }
                                                             placeholder="Enter the Problem statement"
-                                                            value={
-                                                                description
-                                                            }
-                                                            maxLength={100}
+                                                            value={description}
+                                                            maxLength={1000}
                                                             onChange={(e) =>
                                                                 setDescription(
                                                                     e.target
@@ -705,9 +788,7 @@ function NewIdeaSubmission(props) {
                                                     </Label>
                                                 </FormGroup>
                                                 <div className="text-end">
-                                                    {t(
-                                                        'student_course.chars'
-                                                    )}{' '}
+                                                    {t('student_course.chars')}{' '}
                                                     :
                                                     {1000 -
                                                         (description
@@ -717,17 +798,44 @@ function NewIdeaSubmission(props) {
                                             </Row>
                                             <Row className="card mb-4 my-3 comment-card px-0 px-5 py-3 card">
                                                 <div className="question quiz mb-0">
-                                                    <b
-                                                        style={{
-                                                            fontSize:
-                                                                '1.6rem'
-                                                        }}
-                                                    >
-                                                        {4}.{' '}
-                                                        {t(
-                                                            'student_course.ques4ideatitile'
-                                                        )}
-                                                    </b>
+                                                    {theme === 'Others' ? (
+                                                        <b
+                                                            style={{
+                                                                fontSize:
+                                                                    '1.6rem'
+                                                            }}
+                                                        >
+                                                            {5}.{' '}
+                                                            {t(
+                                                                'student_course.ques4ideatitile'
+                                                            )}
+                                                        </b>
+                                                    ) : probStatment ===
+                                                      'Others' ? (
+                                                        <b
+                                                            style={{
+                                                                fontSize:
+                                                                    '1.6rem'
+                                                            }}
+                                                        >
+                                                            {5}.{' '}
+                                                            {t(
+                                                                'student_course.ques4ideatitile'
+                                                            )}
+                                                        </b>
+                                                    ) : (
+                                                        <b
+                                                            style={{
+                                                                fontSize:
+                                                                    '1.6rem'
+                                                            }}
+                                                        >
+                                                            {4}.{' '}
+                                                            {t(
+                                                                'student_course.ques4ideatitile'
+                                                            )}
+                                                        </b>
+                                                    )}
                                                 </div>
                                                 <FormGroup
                                                     check
@@ -744,10 +852,8 @@ function NewIdeaSubmission(props) {
                                                                 isDisabled
                                                             }
                                                             placeholder="Enter your Idea Title Name"
-                                                            value={
-                                                                ideaTitle
-                                                            }
-                                                            maxLength={100}
+                                                            value={ideaTitle}
+                                                            maxLength={200}
                                                             onChange={(e) =>
                                                                 setIdeaTitle(
                                                                     e.target
@@ -758,9 +864,7 @@ function NewIdeaSubmission(props) {
                                                     </Label>
                                                 </FormGroup>
                                                 <div className="text-end">
-                                                    {t(
-                                                        'student_course.chars'
-                                                    )}{' '}
+                                                    {t('student_course.chars')}{' '}
                                                     :
                                                     {200 -
                                                         (ideaTitle
@@ -770,17 +874,44 @@ function NewIdeaSubmission(props) {
                                             </Row>
                                             <Row className="card mb-4 my-3 comment-card px-0 px-5 py-3 card">
                                                 <div className="question quiz mb-0">
-                                                    <b
-                                                        style={{
-                                                            fontSize:
-                                                                '1.6rem'
-                                                        }}
-                                                    >
-                                                        {5}.{' '}
-                                                        {t(
-                                                            'student_course.ques5solution'
-                                                        )}
-                                                    </b>
+                                                    {theme === 'Others' ? (
+                                                        <b
+                                                            style={{
+                                                                fontSize:
+                                                                    '1.6rem'
+                                                            }}
+                                                        >
+                                                            {6}.{' '}
+                                                            {t(
+                                                                'student_course.ques5solution'
+                                                            )}
+                                                        </b>
+                                                    ) : probStatment ===
+                                                      'Others' ? (
+                                                        <b
+                                                            style={{
+                                                                fontSize:
+                                                                    '1.6rem'
+                                                            }}
+                                                        >
+                                                            {6}.{' '}
+                                                            {t(
+                                                                'student_course.ques5solution'
+                                                            )}
+                                                        </b>
+                                                    ) : (
+                                                        <b
+                                                            style={{
+                                                                fontSize:
+                                                                    '1.6rem'
+                                                            }}
+                                                        >
+                                                            {5}.{' '}
+                                                            {t(
+                                                                'student_course.ques5solution'
+                                                            )}
+                                                        </b>
+                                                    )}
                                                 </div>
                                                 <FormGroup
                                                     check
@@ -797,10 +928,8 @@ function NewIdeaSubmission(props) {
                                                                 isDisabled
                                                             }
                                                             placeholder="Enter your Solution statement"
-                                                            value={
-                                                                solStatement
-                                                            }
-                                                            maxLength={100}
+                                                            value={solStatement}
+                                                            maxLength={1000}
                                                             onChange={(e) =>
                                                                 setSolStatement(
                                                                     e.target
@@ -811,9 +940,7 @@ function NewIdeaSubmission(props) {
                                                     </Label>
                                                 </FormGroup>
                                                 <div className="text-end">
-                                                    {t(
-                                                        'student_course.chars'
-                                                    )}{' '}
+                                                    {t('student_course.chars')}{' '}
                                                     :
                                                     {1000 -
                                                         (solStatement
@@ -823,17 +950,44 @@ function NewIdeaSubmission(props) {
                                             </Row>
                                             <Row className="card mb-4 my-3 comment-card px-0 px-5 py-3 card">
                                                 <div className="question quiz mb-0">
-                                                    <b
-                                                        style={{
-                                                            fontSize:
-                                                                '1.6rem'
-                                                        }}
-                                                    >
-                                                        {6}.{' '}
-                                                        {t(
-                                                            'student_course.ques6detailsol'
-                                                        )}
-                                                    </b>
+                                                    {theme === 'Others' ? (
+                                                        <b
+                                                            style={{
+                                                                fontSize:
+                                                                    '1.6rem'
+                                                            }}
+                                                        >
+                                                            {7}.{' '}
+                                                            {t(
+                                                                'student_course.ques6detailsol'
+                                                            )}
+                                                        </b>
+                                                    ) : probStatment ===
+                                                      'Others' ? (
+                                                        <b
+                                                            style={{
+                                                                fontSize:
+                                                                    '1.6rem'
+                                                            }}
+                                                        >
+                                                            {7}.{' '}
+                                                            {t(
+                                                                'student_course.ques6detailsol'
+                                                            )}
+                                                        </b>
+                                                    ) : (
+                                                        <b
+                                                            style={{
+                                                                fontSize:
+                                                                    '1.6rem'
+                                                            }}
+                                                        >
+                                                            {6}.{' '}
+                                                            {t(
+                                                                'student_course.ques6detailsol'
+                                                            )}
+                                                        </b>
+                                                    )}
                                                 </div>
                                                 <FormGroup
                                                     check
@@ -850,10 +1004,8 @@ function NewIdeaSubmission(props) {
                                                                 isDisabled
                                                             }
                                                             placeholder="Enter your Detailed solution "
-                                                            value={
-                                                                detailSol
-                                                            }
-                                                            maxLength={100}
+                                                            value={detailSol}
+                                                            maxLength={5000}
                                                             onChange={(e) =>
                                                                 setDetailSol(
                                                                     e.target
@@ -864,9 +1016,7 @@ function NewIdeaSubmission(props) {
                                                     </Label>
                                                 </FormGroup>
                                                 <div className="text-end">
-                                                    {t(
-                                                        'student_course.chars'
-                                                    )}{' '}
+                                                    {t('student_course.chars')}{' '}
                                                     :
                                                     {5000 -
                                                         (detailSol
@@ -876,17 +1026,44 @@ function NewIdeaSubmission(props) {
                                             </Row>
                                             <Row className="card mb-4 my-3 comment-card px-0 px-5 py-3 card">
                                                 <div className="question quiz mb-0">
-                                                    <b
-                                                        style={{
-                                                            fontSize:
-                                                                '1.6rem'
-                                                        }}
-                                                    >
-                                                        {7}.{' '}
-                                                        {t(
-                                                            'student_course.ques7Prototype'
-                                                        )}
-                                                    </b>
+                                                    {theme === 'Others' ? (
+                                                        <b
+                                                            style={{
+                                                                fontSize:
+                                                                    '1.6rem'
+                                                            }}
+                                                        >
+                                                            {8}.{' '}
+                                                            {t(
+                                                                'student_course.ques7Prototype'
+                                                            )}
+                                                        </b>
+                                                    ) : probStatment ===
+                                                      'Others' ? (
+                                                        <b
+                                                            style={{
+                                                                fontSize:
+                                                                    '1.6rem'
+                                                            }}
+                                                        >
+                                                            {8}.{' '}
+                                                            {t(
+                                                                'student_course.ques7Prototype'
+                                                            )}
+                                                        </b>
+                                                    ) : (
+                                                        <b
+                                                            style={{
+                                                                fontSize:
+                                                                    '1.6rem'
+                                                            }}
+                                                        >
+                                                            {7}.{' '}
+                                                            {t(
+                                                                'student_course.ques7Prototype'
+                                                            )}
+                                                        </b>
+                                                    )}
                                                 </div>
 
                                                 <div className=" answers row flex-column p-4">
@@ -895,9 +1072,7 @@ function NewIdeaSubmission(props) {
                                                             (item, i) => (
                                                                 <>
                                                                     <label
-                                                                        key={
-                                                                            i
-                                                                        }
+                                                                        key={i}
                                                                         style={{
                                                                             margin: '1rem',
                                                                             fontSize:
@@ -926,9 +1101,7 @@ function NewIdeaSubmission(props) {
                                                                                 )
                                                                             }
                                                                         />{' '}
-                                                                        {
-                                                                            item
-                                                                        }
+                                                                        {item}
                                                                     </label>
                                                                     <br />
                                                                 </>
@@ -940,6 +1113,19 @@ function NewIdeaSubmission(props) {
                                             {protoType === 'YES' && (
                                                 <Row className="card mb-4 my-3 comment-card px-0 px-5 py-3 card">
                                                     <div className="question quiz mb-0">
+                                                        {/* {theme === 'Others' ? ( */}
+                                                        <b
+                                                            style={{
+                                                                fontSize:
+                                                                    '1.6rem'
+                                                            }}
+                                                        >
+                                                            {/* {9}.{' '} */}
+                                                            {t(
+                                                                'student_course.ques8file'
+                                                            )}
+                                                        </b>
+                                                        {/* ) : ( */}
                                                         <b
                                                             style={{
                                                                 fontSize:
@@ -951,6 +1137,7 @@ function NewIdeaSubmission(props) {
                                                                 'student_course.ques8file'
                                                             )}
                                                         </b>
+                                                        {/* )} */}
                                                     </div>
                                                     <div className=" answers row flex-column p-4">
                                                         <FormGroup
@@ -961,10 +1148,11 @@ function NewIdeaSubmission(props) {
                                                                 {!isDisabled && (
                                                                     <Button
                                                                         type="button"
-                                                                        btnClass={`${isDisabled
-                                                                            ? 'secondary'
-                                                                            : 'primary'
-                                                                            } me-3 pointer `}
+                                                                        btnClass={`${
+                                                                            isDisabled
+                                                                                ? 'secondary'
+                                                                                : 'primary'
+                                                                        } me-3 pointer `}
                                                                         size="small"
                                                                         label={t(
                                                                             'student.upload_file'
@@ -992,10 +1180,11 @@ function NewIdeaSubmission(props) {
                                                         <div className="mx-4">
                                                             {immediateLink &&
                                                                 immediateLink.length >
-                                                                0 &&
+                                                                    0 &&
                                                                 immediateLink.map(
                                                                     (
-                                                                        item,i
+                                                                        item,
+                                                                        i
                                                                     ) => (
                                                                         <LinkComponent
                                                                             item={
@@ -1012,7 +1201,7 @@ function NewIdeaSubmission(props) {
                                                                 )}
                                                             {!immediateLink &&
                                                                 files.length >
-                                                                0 &&
+                                                                    0 &&
                                                                 files.map(
                                                                     (
                                                                         item,
@@ -1040,7 +1229,7 @@ function NewIdeaSubmission(props) {
 
                                                             {!immediateLink &&
                                                                 files.length ===
-                                                                0 &&
+                                                                    0 &&
                                                                 submitedFile.map(
                                                                     (
                                                                         item,
@@ -1065,17 +1254,97 @@ function NewIdeaSubmission(props) {
                                             )}
                                             <Row className="card mb-4 my-3 comment-card px-0 px-5 py-3 card">
                                                 <div className="question quiz mb-0">
-                                                    <b
-                                                        style={{
-                                                            fontSize:
-                                                                '1.6rem'
-                                                        }}
-                                                    >
-                                                        {8}.{' '}
-                                                        {t(
-                                                            'student_course.ques9publication'
-                                                        )}
-                                                    </b>
+                                                    {/* {protoType === 'YES' ? ( */}
+                                                    {theme === 'Others' ? (
+                                                        <b
+                                                            style={{
+                                                                fontSize:
+                                                                    '1.6rem'
+                                                            }}
+                                                        >
+                                                            {9}.{' '}
+                                                            {t(
+                                                                'student_course.ques9publication'
+                                                            )}
+                                                        </b>
+                                                    ) : probStatment ===
+                                                      'Others' ? (
+                                                        <b
+                                                            style={{
+                                                                fontSize:
+                                                                    '1.6rem'
+                                                            }}
+                                                        >
+                                                            {9}.{' '}
+                                                            {t(
+                                                                'student_course.ques7Prototype'
+                                                            )}
+                                                        </b>
+                                                    ) : (
+                                                        <b
+                                                            style={{
+                                                                fontSize:
+                                                                    '1.6rem'
+                                                            }}
+                                                        >
+                                                            {8}.{' '}
+                                                            {t(
+                                                                'student_course.ques9publication'
+                                                            )}
+                                                        </b>
+                                                    )}
+                                                    {/* ) : theme === 'Others' &&
+                                                      protoType === 'YES' ? (
+                                                        <b
+                                                            style={{
+                                                                fontSize:
+                                                                    '1.6rem'
+                                                            }}
+                                                        >
+                                                            {10}.{' '}
+                                                            {t(
+                                                                'student_course.ques9publication'
+                                                            )}
+                                                        </b>
+                                                    ) : theme === 'Others' &&
+                                                      protoType !== 'YES' ? (
+                                                        <b
+                                                            style={{
+                                                                fontSize:
+                                                                    '1.6rem'
+                                                            }}
+                                                        >
+                                                            {9}.{' '}
+                                                            {t(
+                                                                'student_course.ques9publication'
+                                                            )}
+                                                        </b>
+                                                    ) : theme === 'Others' &&
+                                                      protoType === 'NO' ? (
+                                                        <b
+                                                            style={{
+                                                                fontSize:
+                                                                    '1.6rem'
+                                                            }}
+                                                        >
+                                                            {9}.{' '}
+                                                            {t(
+                                                                'student_course.ques9publication'
+                                                            )}
+                                                        </b>
+                                                    ) : (
+                                                        <b
+                                                            style={{
+                                                                fontSize:
+                                                                    '1.6rem'
+                                                            }}
+                                                        >
+                                                            {8}.{' '}
+                                                            {t(
+                                                                'student_course.ques9publication'
+                                                            )}
+                                                        </b>
+                                                    )} */}
                                                 </div>
 
                                                 <div className=" answers row flex-column p-4">
@@ -1084,9 +1353,7 @@ function NewIdeaSubmission(props) {
                                                             (item, i) => (
                                                                 <>
                                                                     <label
-                                                                        key={
-                                                                            i
-                                                                        }
+                                                                        key={i}
                                                                         style={{
                                                                             margin: '1rem',
                                                                             fontSize:
@@ -1115,9 +1382,7 @@ function NewIdeaSubmission(props) {
                                                                                 )
                                                                             }
                                                                         />{' '}
-                                                                        {
-                                                                            item
-                                                                        }
+                                                                        {item}
                                                                     </label>
                                                                     <br />
                                                                 </>
@@ -1141,18 +1406,12 @@ function NewIdeaSubmission(props) {
                                                         }}
                                                         type="checkbox"
                                                         name="self confirm"
-                                                        disabled={
-                                                            isDisabled
-                                                        }
+                                                        disabled={isDisabled}
                                                         id="self confirm"
                                                         checked={selfCheck}
-                                                        onChange={(
-                                                            e
-                                                        ) =>
+                                                        onChange={(e) =>
                                                             setSelfCheck(
-                                                                e
-                                                                    .target
-                                                                    .checked
+                                                                e.target.checked
                                                             )
                                                         }
                                                     />
@@ -1178,10 +1437,11 @@ function NewIdeaSubmission(props) {
                                                 handleSubmit(e, 'DRAFT')
                                             }
                                             size="small"
-                                            label={`${loading.draft
-                                                ? t('teacher_teams.loading')
-                                                : t('teacher_teams.draft')
-                                                }`}
+                                            label={`${
+                                                loading.draft
+                                                    ? t('teacher_teams.loading')
+                                                    : t('teacher_teams.draft')
+                                            }`}
                                         />
                                     </div>
                                 </Col>

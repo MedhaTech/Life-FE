@@ -29,7 +29,7 @@ const IdeaSubmission = () => {
     const [view, setView] = useState(false);
     const [isideadisable, setIsideadisable] = useState(false);
     const TeamId = currentUser?.data[0]?.team_id;
-    const [ideaSubmittedData,setIdeaSubmittedData] = useState({});
+    const [ideaSubmittedData, setIdeaSubmittedData] = useState({});
     useEffect(() => {
         const Param = encryptGlobal(
             JSON.stringify({
@@ -50,8 +50,11 @@ const IdeaSubmission = () => {
         axios(configidea)
             .then(function (response) {
                 if (response.status === 200) {
-                    if(response.data.data !== null){
+                    console.log(response, '1');
+
+                    if (response.data.data !== null) {
                         setIdeaSubmittedData(response.data.data);
+                        setIsideadisable(true);
                     }
                 }
             })
@@ -71,17 +74,18 @@ const IdeaSubmission = () => {
         axios(config)
             .then(function (response) {
                 if (response.status === 200) {
+                    // console.log(response, '2');
                     if (response.data.data[0]?.on_off === '1') {
-                        setIsideadisable(true);
+                        // setIsideadisable(true);
                     } else {
-                        setIsideadisable(false);
+                        // setIsideadisable(false);
                     }
                 }
             })
             .catch(function (error) {
                 console.log(error);
             });
-    }, []);
+    }, [showCompleted]);
 
     useLayoutEffect(() => {
         dispatch(
@@ -92,25 +96,31 @@ const IdeaSubmission = () => {
         );
     }, [dispatch, language, currentUser?.data[0]?.team_id]);
     useLayoutEffect(() => {
-        if (
-            ideaSubmittedData &&
-            ideaSubmittedData.length > 0
-        ) {
+        if (ideaSubmittedData && ideaSubmittedData.length > 0) {
+            console.log('1-------------', ideaSubmittedData);
             ideaSubmittedData[0].status === 'DRAFT'
                 ? setShowChallenges(true)
                 : view
-                    ? setShowChallenges(true)
-                    : setShowCompleted(true);
+                ? setShowChallenges(true)
+                : setShowCompleted(true);
         } else {
             setShowChallenges(false);
         }
     }, [ideaSubmittedData, view]);
     const commonPageText = t('student.idea_submitted_desc');
     const handleView = () => {
+        console.log('123');
         // here we can see the idea submission //
         setShowChallenges(true);
         setShowCompleted(false);
         setView(true);
+    };
+    const handleShow = () => {
+        console.log('123');
+        // here we can see the idea submission //
+        // setShowChallenges(true);
+        setShowCompleted(true);
+        // setView(true);
     };
     return showCompleted ? (
         <Layout title="Idea Submission">
@@ -122,17 +132,21 @@ const IdeaSubmission = () => {
         </Layout>
     ) : isideadisable ? (
         // <IdeasPageNew />
-        <NewIdeaSubmission submitedData={ideaSubmittedData[0]}/>
+        <NewIdeaSubmission
+            submitedData={ideaSubmittedData[0]}
+            showChallenges={handleShow}
+        />
     ) : (
+        ''
         //  isideadisable ? (
         //     <SDG setShowChallenges={setShowChallenges} />
         // ) :
-        <Layout title="Idea Submission">
-            <CommonPage
-                text={t('student_course.idea_submission_date_com_desc')}
-                ideaSubmissionComButton={true}
-            />
-        </Layout>
+        // <Layout title="Idea Submission">
+        //     <CommonPage
+        //         // text={t('student_course.idea_submission_date_com_desc')}
+        //         ideaSubmissionComButton={true}
+        //     />
+        // </Layout>
     );
 };
 export default IdeaSubmission;
