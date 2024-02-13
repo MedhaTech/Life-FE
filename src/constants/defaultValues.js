@@ -133,7 +133,7 @@ export const URL = {
     getChallengeQuestions: process.env.REACT_APP_API_BASE_URL + '/challenge',
     getChallengeSubmittedResponse:
         process.env.REACT_APP_API_BASE_URL +
-        '/challenge_response/submittedDetails?',
+        '/ideas/submittedDetails?',
     getMentorSupportTickets:
         process.env.REACT_APP_API_BASE_URL + '/supportTickets',
     getMentorSupportTicketsById:
