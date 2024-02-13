@@ -19,6 +19,7 @@ import {
     FaCertificate
 } from 'react-icons/fa';
 import { RiSurveyFill, RiLockPasswordFill } from 'react-icons/ri';
+import axios from 'axios';
 
 import 'react-pro-sidebar/dist/css/styles.css';
 import { useLocation } from 'react-router-dom';
@@ -32,11 +33,17 @@ import { logout } from '../helpers/Utils';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import SmallLogo from '../assets/media/logo192.png';
+import { encryptGlobal } from '../constants/encryptDecrypt';
+import { getCurrentUser } from '../helpers/Utils';
 
 const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
     const { t } = useTranslation();
     const history = useHistory();
     const dispatch = useDispatch();
+    const [ideaSubmittedData, setIdeaSubmittedData] = useState({});
+    const currentUser = getCurrentUser('current_user');
+    const TeamId = currentUser?.data[0]?.team_id;
+
     // const presuveyStatusGl = useSelector(
     //     (state) => state?.studentRegistration.presuveyStatusGl
     // );
@@ -59,6 +66,35 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
         ) {
             setMenuCollapse(true);
         }
+        const Param = encryptGlobal(
+            JSON.stringify({
+                team_id: TeamId
+            })
+        );
+        var configidea = {
+            method: 'get',
+            url:
+                process.env.REACT_APP_API_BASE_URL +
+                `/ideas/submittedDetails?Data=${Param}`,
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${currentUser.data[0]?.token}`
+            }
+        };
+        axios(configidea)
+            .then(function (response) {
+                if (response.status === 200) {
+                    console.log(response, '1');
+
+                    // if (response.data.data !== null) {
+                    setIdeaSubmittedData(response.data.data[0]);
+                    // }
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
     }, []);
     // const handleClick = (e) => {
     //     if (presuveyStatusGl !== 'COMPLETED') e.preventDefault();
@@ -152,7 +188,12 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                         <NavLink
                             exact={true}
                             // onClick={handleClick}
-                            to={'/instructions'}
+                            to={
+                                ideaSubmittedData.status == 'SUBMITTED' ||
+                                ideaSubmittedData.status == 'DRAFT'
+                                    ? '/challenges'
+                                    : '/instructions'
+                            }
                         >
                             {t('home.idea_submission')}
                         </NavLink>
