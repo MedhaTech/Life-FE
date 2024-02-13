@@ -130,23 +130,25 @@ const IdeaSubmission = () => {
                 showChallenges={handleView}
             />
         </Layout>
-    ) : isideadisable ? (
-        // <IdeasPageNew />
-        <NewIdeaSubmission
-            submitedData={ideaSubmittedData[0]}
-            showChallenges={handleShow}
-        />
     ) : (
-        ''
-        //  isideadisable ? (
-        //     <SDG setShowChallenges={setShowChallenges} />
-        // ) :
-        // <Layout title="Idea Submission">
-        //     <CommonPage
-        //         // text={t('student_course.idea_submission_date_com_desc')}
-        //         ideaSubmissionComButton={true}
-        //     />
-        // </Layout>
+        isideadisable && (
+            // <IdeasPageNew />
+            <NewIdeaSubmission
+                submitedData={ideaSubmittedData[0]}
+                showChallenges={handleShow}
+            />
+            // ) : (
+            //     ''
+            //  isideadisable ? (
+            //     <SDG setShowChallenges={setShowChallenges} />
+            // ) :
+            // <Layout title="Idea Submission">
+            //     <CommonPage
+            //         // text={t('student_course.idea_submission_date_com_desc')}
+            //         ideaSubmissionComButton={true}
+            //     />
+            // </Layout>
+        )
     );
 };
 export default IdeaSubmission;

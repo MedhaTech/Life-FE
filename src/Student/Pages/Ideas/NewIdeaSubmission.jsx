@@ -1277,7 +1277,7 @@ function NewIdeaSubmission(props) {
                                                         >
                                                             {9}.{' '}
                                                             {t(
-                                                                'student_course.ques7Prototype'
+                                                                'student_course.ques9publication'
                                                             )}
                                                         </b>
                                                     ) : (

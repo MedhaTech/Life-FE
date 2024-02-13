@@ -45,6 +45,7 @@ export default function DoughnutChart({ user }) {
     const { challengesSubmittedResponse } = useSelector(
         (state) => state?.studentRegistration
     );
+    // console.log(challengesSubmittedResponse, 'New');
     useEffect(() => {
         if (teamId) {
             dispatch(getTeamMemberStatus(teamId, setshowDefault));
@@ -94,7 +95,6 @@ export default function DoughnutChart({ user }) {
                 console.log(error);
             });
     };
-    // console.log(teamsMembersStatus, challengesSubmittedResponse);
 
     useEffect(() => {
         const popParam = encryptGlobal('2');
@@ -323,7 +323,7 @@ export default function DoughnutChart({ user }) {
             return stu.full_name;
         });
         let index = studentlist.indexOf(
-            challengesSubmittedResponse[0]?.initiated_name
+            challengesSubmittedResponse?.initiated_name
         );
         if (index >= 0) {
             studentlist.splice(index, 1);
@@ -462,30 +462,28 @@ export default function DoughnutChart({ user }) {
     useEffect(() => {
         if (challengesSubmittedResponse.length === 0) {
             setIdeaStatusEval('NOT STARTED');
-        } else if (challengesSubmittedResponse[0].final_result === '1') {
+        } else if (challengesSubmittedResponse.final_result === '1') {
             setIdeaStatusEval(
                 'Congratulations,Idea is selected for grand finale'
             );
-        } else if (challengesSubmittedResponse[0].final_result === '0') {
+        } else if (challengesSubmittedResponse.final_result === '0') {
             setIdeaStatusEval('Shortlisted for final round of evaluation');
             if (isEvlCom) {
                 setIdeaStatusEval('Better luck next time');
             }
         } else if (
-            challengesSubmittedResponse[0].evaluation_status ===
-            'REJECTEDROUND1'
+            challengesSubmittedResponse.evaluation_status === 'REJECTEDROUND1'
         ) {
             setIdeaStatusEval('Better luck next time');
         } else if (
-            challengesSubmittedResponse[0].evaluation_status ===
-            'SELECTEDROUND1'
+            challengesSubmittedResponse.evaluation_status === 'SELECTEDROUND1'
         ) {
             setIdeaStatusEval('Promoted to Level 2 round of evaluation');
             if (isEvlCom) {
                 setIdeaStatusEval('Better luck next time');
             }
         } else {
-            setIdeaStatusEval(challengesSubmittedResponse[0]?.status);
+            setIdeaStatusEval(challengesSubmittedResponse?.status);
         }
     }, [challengesSubmittedResponse]);
 
@@ -559,8 +557,7 @@ export default function DoughnutChart({ user }) {
                                                 : challengesSubmittedResponse.length ===
                                                   0
                                                 ? 'Not Started'
-                                                : challengesSubmittedResponse[0]
-                                                      ?.status}
+                                                : challengesSubmittedResponse?.status}
                                         </span>
                                     </Card>
                                 </div>
@@ -572,15 +569,13 @@ export default function DoughnutChart({ user }) {
                                         label="View Idea"
                                         disabled={
                                             teamsMembersStatus.length > 0 &&
-                                            challengesSubmittedResponse[0]
-                                                ?.status
+                                            challengesSubmittedResponse?.status
                                                 ? false
                                                 : true
                                         }
                                         btnClass={`${
                                             teamsMembersStatus.length > 0 &&
-                                            challengesSubmittedResponse[0]
-                                                ?.status
+                                            challengesSubmittedResponse?.status
                                                 ? 'primary'
                                                 : 'default'
                                         }`}
@@ -595,15 +590,13 @@ export default function DoughnutChart({ user }) {
                                         label={' Change  '}
                                         disabled={
                                             teamsMembersStatus.length > 0 &&
-                                            challengesSubmittedResponse[0]
-                                                ?.status
+                                            challengesSubmittedResponse?.status
                                                 ? false
                                                 : true
                                         }
                                         btnClass={`${
                                             teamsMembersStatus.length > 0 &&
-                                            challengesSubmittedResponse[0]
-                                                ?.status
+                                            challengesSubmittedResponse?.status
                                                 ? 'primary'
                                                 : 'default'
                                         }`}
@@ -613,11 +606,11 @@ export default function DoughnutChart({ user }) {
                                         onClick={() => setChangeShow(true)}
                                     />
                                 </div>
-                                <div>
-                                    {challengesSubmittedResponse[0]?.status ===
+                                {/* <div>
+                                    {challengesSubmittedResponse?.status ===
                                         'SUBMITTED' &&
-                                    challengesSubmittedResponse[0]
-                                        ?.evaluation_status === null ? (
+                                    challengesSubmittedResponse?.evaluation_status ===
+                                        null ? (
                                         <Button
                                             className={
                                                 isideadisable
@@ -634,10 +627,8 @@ export default function DoughnutChart({ user }) {
                                             }}
                                             onClick={() =>
                                                 handleRevoke(
-                                                    challengesSubmittedResponse[0]
-                                                        .challenge_response_id,
-                                                    challengesSubmittedResponse[0]
-                                                        .status
+                                                    challengesSubmittedResponse.challenge_response_id,
+                                                    challengesSubmittedResponse.status
                                                 )
                                             }
                                             disabled={!isideadisable}
@@ -645,7 +636,7 @@ export default function DoughnutChart({ user }) {
                                     ) : (
                                         ''
                                     )}
-                                </div>
+                                </div> */}
                             </>
                         </>
                     )}
@@ -726,8 +717,7 @@ export default function DoughnutChart({ user }) {
                                 size="small "
                                 onClick={() =>
                                     handleChangeStudent(
-                                        challengesSubmittedResponse[0]
-                                            .challenge_response_id,
+                                        challengesSubmittedResponse.challenge_response_id,
                                         Student
                                     )
                                 }

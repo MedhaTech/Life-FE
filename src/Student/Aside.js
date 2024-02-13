@@ -85,7 +85,6 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
         axios(configidea)
             .then(function (response) {
                 if (response.status === 200) {
-                    console.log(response, '1');
 
                     // if (response.data.data !== null) {
                     setIdeaSubmittedData(response.data.data[0]);
