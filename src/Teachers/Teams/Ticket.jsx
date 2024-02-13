@@ -161,9 +161,8 @@ const TicketsPage = () => {
         // where item = team name //
         // where we can add team member details //
         history.push({
-            pathname: `/teacher/create-team-member/${item.team_id}/${
-                item.StudentCount ? item.StudentCount : 'new'
-            }`
+            pathname: `/teacher/create-team-member/${item.team_id}/${item.StudentCount ? item.StudentCount : 'new'
+                }`
         });
     };
     const handleEditTeam = (item) => {
@@ -260,56 +259,38 @@ const TicketsPage = () => {
                             Instructions for adding teams :
                         </Label>
                         <p>
-                            Adding student teams is the first and most important
-                            step as part of the project. Please ensure you are
-                            ready with the list of students and their details
-                            (Team Name,Student Full Name,Student Age,Student
-                            Gender,Student Email, Status) before you start
-                            creating teams. Please ensure you are selecting
-                            students who are interested and will benefit out of
-                            this program irrespective of their communication
-                            skills or academic performance.
+                            Adding student teams is the first and most important step as part of the project. Please ensure you are ready with the list of students and their details (team name, student full name,age,gender, Email, mobile number, course,year of study and date of birth) before you start creating teams. Please ensure you are selecting students who are interested and will benefit out of this program irrespective of their communication skills or academic performance.
                         </p>
                         <List>
                             <li>
-                                Go through the Team creation process video
-                                available in the resource section before
-                                creating teams.
+                                Go through the Team creation process video available in the resource section before creating teams.
                             </li>
                             <li>Email id has to be unique for each student.</li>
                             <li>
-                                Mentor email cannot be used for mentor &
-                                student.
+                                Mentor email cannot be used for mentor & student.
                             </li>
                             <li>
-                                Each team should have a minimum of 3 and maximum
-                                of 5 students.
+                                Each team should have a minimum of 3 and maximum of 5 students.
                             </li>
                             <li>
-                                Team name cannot be edited whereas student
-                                details can be edited and they allow only
-                                alphanumeric characters.
+                                Team name cannot be edited whereas student details can be edited and they allow only alphanumeric characters.
                             </li>
                             <li>
-                                Special characters (!,@,#,$...etc) are not
-                                allowed in team name & student name.
+                                Special characters (!,@,#,$...etc) are not allowed in team name & student name.
                             </li>
                             <li>
-                                Student delete button will be active only if the
-                                team has 3 students.
+                                Student delete button will be active only if the team has 3 students.
                             </li>
 
                             <li>
-                                Change team option can be used only before
-                                initiating an idea.
+                                Change team option can be used only before initiating an idea.
                             </li>
                             <li>
                                 If Idea is initiated by a team then
                                 <ul>
                                     <li>Students & Team cannot be deleted</li>
                                     <li>
-                                        Students cannot be changed / shifted to
-                                        other teams
+                                        Students cannot be changed / shifted to other teams
                                     </li>
                                 </ul>
                             </li>
