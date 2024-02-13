@@ -103,7 +103,7 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props }) => {
                         className="w-100 d-block text-center"
                     >
                         {response?.themes_problem?.theme_name}
-                        <p>{response?.themes_problem?.problem_statement}</p>
+                        {/* <p>{response?.themes_problem?.problem_statement}</p> */}
                     </Modal.Title>
                 </Modal.Header>
 
