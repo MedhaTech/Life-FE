@@ -77,7 +77,9 @@ function NewIdeaSubmission(props) {
         props?.submitedData?.themes_problem?.theme_name
     );
     const [finalPage, setFinalPage] = useState(false);
-    const [others, setOthers] = useState('');
+    const [othersTheme, setOthersTheme] = useState('');
+    const [othersPStatment, setOthersPStatment] = useState('');
+
     const [probStatment, setProbStatment] = useState(
         props?.submitedData?.themes_problem?.problem_statement
     );
@@ -116,7 +118,6 @@ function NewIdeaSubmission(props) {
             : 0
     );
     const TeamId = currentUser?.data[0]?.team_id;
-    console.log(ideaPublication, protoType, 'pre');
     useEffect(() => {
         setIsDisabled(true);
     }, []);
@@ -152,6 +153,17 @@ function NewIdeaSubmission(props) {
             .then(function (response) {
                 if (response.status === 200) {
                     setThemesList([...response.data.data, 'Others']);
+                    if (props?.submitedData?.themes_problem && props?.submitedData?.themes_problem?.status === 'MANUAL') {
+
+                        if (response.data.data.includes(props?.submitedData?.themes_problem?.theme_name)) {
+                            setTheme(props?.submitedData?.themes_problem?.theme_name);
+                        } else {
+                            setTheme('Others');
+                            setOthersTheme(props?.submitedData?.themes_problem?.theme_name);
+                        }
+                        setProbStatment('Others');
+                        setOthersPStatment(props?.submitedData?.themes_problem?.problem_statement);
+                    }
                 }
             })
             .catch(function (error) {
@@ -200,6 +212,7 @@ function NewIdeaSubmission(props) {
                 console.log(error);
             });
     };
+
     const scroll = () => {
         const section = document.querySelector('#start');
         section.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -221,8 +234,7 @@ function NewIdeaSubmission(props) {
             );
             const result = await axios
                 .post(
-                    `${
-                        process.env.REACT_APP_API_BASE_URL + '/ideas/fileUpload'
+                    `${process.env.REACT_APP_API_BASE_URL + '/ideas/fileUpload'
                     }?Data=${subId}`,
                     formData,
                     axiosConfig
@@ -248,9 +260,9 @@ function NewIdeaSubmission(props) {
         const attachmentsList = submitedFile.join(', ');
         const body = JSON.stringify({
             team_id: TeamId,
-            theme_name: theme,
+            theme_name: theme === 'Others' ? othersTheme : theme,
             problem_statement_id: themeProId,
-            problem_statement: probStatment,
+            problem_statement: theme === 'Others' ? othersPStatment : probStatment === 'Others' ? othersPStatment : probStatment,
             problem_statement_description: description,
             idea_title: ideaTitle,
             solution_statement: solStatement,
@@ -281,9 +293,8 @@ function NewIdeaSubmission(props) {
         if ((allques && stats === 'SUBMITTED') || stats === 'DRAFT') {
             var config = {
                 method: 'put',
-                url: `${
-                    process.env.REACT_APP_API_BASE_URL + '/ideas/ideaUpdate'
-                }`,
+                url: `${process.env.REACT_APP_API_BASE_URL + '/ideas/ideaUpdate'
+                    }`,
                 headers: {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${currentUser?.data[0]?.token}`
@@ -380,6 +391,7 @@ function NewIdeaSubmission(props) {
         }
         handleUploadFiles(choosenFiles);
     };
+
     return (
         <Layout title="Idea Submission">
             {finalPage ? (
@@ -400,33 +412,33 @@ function NewIdeaSubmission(props) {
                                     >
                                         {props?.submitedData?.status !==
                                             'SUBMITTED' && (
-                                            <div className="text-right">
-                                                <Button
-                                                    type="button"
-                                                    btnClass="me-3 text-white"
-                                                    backgroundColor="#067DE1"
-                                                    onClick={handleEdit}
-                                                    size="small"
-                                                    label={t(
-                                                        'teacher_teams.edit_idea'
-                                                    )}
-                                                />
-                                                <Button
-                                                    type="button"
-                                                    btnClass="primary"
-                                                    onClick={(e) =>
-                                                        handleSubmit(
-                                                            e,
-                                                            'SUBMITTED'
-                                                        )
-                                                    }
-                                                    size="small"
-                                                    label={t(
-                                                        'teacher_teams.submit'
-                                                    )}
-                                                />
-                                            </div>
-                                        )}
+                                                <div className="text-right">
+                                                    <Button
+                                                        type="button"
+                                                        btnClass="me-3 text-white"
+                                                        backgroundColor="#067DE1"
+                                                        onClick={handleEdit}
+                                                        size="small"
+                                                        label={t(
+                                                            'teacher_teams.edit_idea'
+                                                        )}
+                                                    />
+                                                    <Button
+                                                        type="button"
+                                                        btnClass="primary"
+                                                        onClick={(e) =>
+                                                            handleSubmit(
+                                                                e,
+                                                                'SUBMITTED'
+                                                            )
+                                                        }
+                                                        size="small"
+                                                        label={t(
+                                                            'teacher_teams.submit'
+                                                        )}
+                                                    />
+                                                </div>
+                                            )}
                                         <Row>
                                             <Row className="card mb-4 my-3 comment-card px-0 px-5 py-3 card">
                                                 <div className="question quiz mb-0">
@@ -503,7 +515,7 @@ function NewIdeaSubmission(props) {
                                                                     }
                                                                     placeholder="Enter your Theme Name"
                                                                     value={
-                                                                        others
+                                                                        othersTheme
                                                                     }
                                                                     maxLength={
                                                                         100
@@ -511,7 +523,7 @@ function NewIdeaSubmission(props) {
                                                                     onChange={(
                                                                         e
                                                                     ) =>
-                                                                        setOthers(
+                                                                        setOthersTheme(
                                                                             e
                                                                                 .target
                                                                                 .value
@@ -526,15 +538,15 @@ function NewIdeaSubmission(props) {
                                                             )}{' '}
                                                             :
                                                             {100 -
-                                                                (others
-                                                                    ? others.length
+                                                                (othersTheme
+                                                                    ? othersTheme.length
                                                                     : 0)}
                                                         </div>
                                                     </Row>
                                                     <Row className="card mb-4 my-3 comment-card px-0 px-5 py-3 card">
                                                         <div className="question quiz mb-0">
                                                             {theme ===
-                                                            'Others' ? (
+                                                                'Others' ? (
                                                                 <b
                                                                     style={{
                                                                         fontSize:
@@ -576,15 +588,15 @@ function NewIdeaSubmission(props) {
                                                                     }
                                                                     placeholder="Enter your Problem statement"
                                                                     value={
-                                                                        others
+                                                                        othersPStatment
                                                                     }
                                                                     maxLength={
-                                                                        100
+                                                                        1000
                                                                     }
                                                                     onChange={(
                                                                         e
                                                                     ) =>
-                                                                        setOthers(
+                                                                        setOthersPStatment(
                                                                             e
                                                                                 .target
                                                                                 .value
@@ -598,9 +610,9 @@ function NewIdeaSubmission(props) {
                                                                 'student_course.chars'
                                                             )}{' '}
                                                             :
-                                                            {100 -
-                                                                (others
-                                                                    ? others.length
+                                                            {1000 -
+                                                                (othersPStatment
+                                                                    ? othersPStatment.length
                                                                     : 0)}
                                                         </div>
                                                     </Row>
@@ -690,7 +702,7 @@ function NewIdeaSubmission(props) {
                                                                     }
                                                                     placeholder="Enter your Problem statement"
                                                                     value={
-                                                                        others
+                                                                        othersPStatment
                                                                     }
                                                                     maxLength={
                                                                         1000
@@ -698,7 +710,7 @@ function NewIdeaSubmission(props) {
                                                                     onChange={(
                                                                         e
                                                                     ) =>
-                                                                        setOthers(
+                                                                        setOthersPStatment(
                                                                             e
                                                                                 .target
                                                                                 .value
@@ -713,8 +725,8 @@ function NewIdeaSubmission(props) {
                                                             )}{' '}
                                                             :
                                                             {1000 -
-                                                                (others
-                                                                    ? others.length
+                                                                (othersPStatment
+                                                                    ? othersPStatment.length
                                                                     : 0)}
                                                         </div>
                                                     </Row>
@@ -734,8 +746,8 @@ function NewIdeaSubmission(props) {
                                                             )}
                                                         </b>
                                                     ) : theme !== 'Others' &&
-                                                      probStatment ===
-                                                          'Others' ? (
+                                                        probStatment ===
+                                                        'Others' ? (
                                                         <b
                                                             style={{
                                                                 fontSize:
@@ -811,7 +823,7 @@ function NewIdeaSubmission(props) {
                                                             )}
                                                         </b>
                                                     ) : probStatment ===
-                                                      'Others' ? (
+                                                        'Others' ? (
                                                         <b
                                                             style={{
                                                                 fontSize:
@@ -887,7 +899,7 @@ function NewIdeaSubmission(props) {
                                                             )}
                                                         </b>
                                                     ) : probStatment ===
-                                                      'Others' ? (
+                                                        'Others' ? (
                                                         <b
                                                             style={{
                                                                 fontSize:
@@ -963,7 +975,7 @@ function NewIdeaSubmission(props) {
                                                             )}
                                                         </b>
                                                     ) : probStatment ===
-                                                      'Others' ? (
+                                                        'Others' ? (
                                                         <b
                                                             style={{
                                                                 fontSize:
@@ -1039,7 +1051,7 @@ function NewIdeaSubmission(props) {
                                                             )}
                                                         </b>
                                                     ) : probStatment ===
-                                                      'Others' ? (
+                                                        'Others' ? (
                                                         <b
                                                             style={{
                                                                 fontSize:
@@ -1148,11 +1160,10 @@ function NewIdeaSubmission(props) {
                                                                 {!isDisabled && (
                                                                     <Button
                                                                         type="button"
-                                                                        btnClass={`${
-                                                                            isDisabled
+                                                                        btnClass={`${isDisabled
                                                                                 ? 'secondary'
                                                                                 : 'primary'
-                                                                        } me-3 pointer `}
+                                                                            } me-3 pointer `}
                                                                         size="small"
                                                                         label={t(
                                                                             'student.upload_file'
@@ -1180,7 +1191,7 @@ function NewIdeaSubmission(props) {
                                                         <div className="mx-4">
                                                             {immediateLink &&
                                                                 immediateLink.length >
-                                                                    0 &&
+                                                                0 &&
                                                                 immediateLink.map(
                                                                     (
                                                                         item,
@@ -1201,7 +1212,7 @@ function NewIdeaSubmission(props) {
                                                                 )}
                                                             {!immediateLink &&
                                                                 files.length >
-                                                                    0 &&
+                                                                0 &&
                                                                 files.map(
                                                                     (
                                                                         item,
@@ -1229,7 +1240,7 @@ function NewIdeaSubmission(props) {
 
                                                             {!immediateLink &&
                                                                 files.length ===
-                                                                    0 &&
+                                                                0 &&
                                                                 submitedFile.map(
                                                                     (
                                                                         item,
@@ -1268,7 +1279,7 @@ function NewIdeaSubmission(props) {
                                                             )}
                                                         </b>
                                                     ) : probStatment ===
-                                                      'Others' ? (
+                                                        'Others' ? (
                                                         <b
                                                             style={{
                                                                 fontSize:
@@ -1437,11 +1448,10 @@ function NewIdeaSubmission(props) {
                                                 handleSubmit(e, 'DRAFT')
                                             }
                                             size="small"
-                                            label={`${
-                                                loading.draft
+                                            label={`${loading.draft
                                                     ? t('teacher_teams.loading')
                                                     : t('teacher_teams.draft')
-                                            }`}
+                                                }`}
                                         />
                                     </div>
                                 </Col>
