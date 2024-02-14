@@ -119,6 +119,20 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props }) => {
             response?.team_name ? response?.team_name : 'temp'
         }_IdeaSubmission`
     });
+    const files = submittedResponse.Prototype_file.split(',');
+
+    const downloadFile = (item) => {
+        const link = document.createElement('a');
+        link.href = item;
+        link.download = 'upload.pdf';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    };
+    // console.log(
+    //     "submittedResponse.Prototype_file.split(',')",
+    //     submittedResponse.Prototype_file.split(',')
+    // );
     return (
         <div>
             {/* <div style={{ display: 'none' }}>
@@ -265,10 +279,56 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props }) => {
                                 If yes, Prototype File Upload (Only JPG/PNG)
                             </label>
                             <CardText>
-                                {submittedResponse.Prototype_file}
+                                {/* <a
+                                    href={submittedResponse.Prototype_file}
+                                    download="upload.pdf"
+                                >
+                                    File Upload
+                                </a> */}
+                                <CardText>
+                                    {files.length > 0 &&
+                                        files.map((item, i) => (
+                                            <Card key={i}>
+                                                {/* <CardTitle className="fw-bold">
+                                                    {item.question}
+                                                </CardTitle> */}
+                                                {/* <CardBody> */}
+                                                <a
+                                                    key={i}
+                                                    className="badge mb-2 bg-info p-3 ms-3"
+                                                    target="_blank"
+                                                    rel="noreferrer"
+                                                    onClick={() =>
+                                                        downloadFile(item)
+                                                    }
+                                                >
+                                                    {item}
+                                                </a>
+                                                {/* </CardBody> */}
+                                            </Card>
+                                        ))}
+                                    {/* {}{' '}
+                                    <button onClick={downloadFile}>
+                                        Download PDF
+                                    </button> */}
+                                </CardText>
                             </CardText>
                         </CardBody>
                     </Card>
+                    {/* <Card className="m-3 p-3">
+                        <CardBody>
+                            <label
+                                htmlFor="teams"
+                                className=""
+                                style={{ fontSize: '1.3rem' }}
+                            >
+                                If yes, Prototype File Upload (Only JPG/PNG)
+                            </label>
+                            <CardText>
+                                {submittedResponse.Prototype_file}
+                            </CardText>
+                        </CardBody>
+                    </Card> */}
                     <Card className="m-3 p-3">
                         <CardBody>
                             <label
