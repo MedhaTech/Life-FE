@@ -10,6 +10,10 @@ import { FaDownload } from 'react-icons/fa';
 import { useReactToPrint } from 'react-to-print';
 import DetailToDownload from '../Admin/Challenges/DetailToDownload';
 // import ViewDetail from '../Admin/Challenges/ViewDetail';
+import axios from 'axios';
+import { encryptGlobal } from '../constants/encryptDecrypt';
+import { getCurrentUser } from '../helpers/Utils';
+import { openNotificationWithIcon } from '../helpers/Utils';
 
 const LinkComponent = ({ item }) => {
     return (
@@ -36,10 +40,46 @@ const LinkComponent = ({ item }) => {
 };
 const IdeaSubmissionCard = ({ handleClose, show, response, props }) => {
     const submittedResponse = response;
-
+    // const [acceptBtn, setAcceptBtn] = useState('');
+    const AcceptButton = submittedResponse.verified_by;
+    const currentUser = getCurrentUser('current_user');
+    const mentorId = currentUser?.data[0]?.mentor_id;
+    const teamId = submittedResponse.team_id;
     const componentRef = useRef();
     const [teamResponse, setTeamResponse] = React.useState([]);
     const [answers, setAnswers] = useState([]);
+    const handleAccept = () => {
+        const currentTime = new Date().toLocaleString();
+
+        const body = {
+            verified_by: mentorId,
+            verified_at: currentTime,
+            team_id: teamId
+        };
+        var config = {
+            method: 'put',
+            url: process.env.REACT_APP_API_BASE_URL + '/ideas/ideaUpdate',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${currentUser?.data[0]?.token}`
+            },
+            data: body
+        };
+        axios(config)
+            .then(async function (response) {
+                if (response.status === 200) {
+                    console.log(response, 'response');
+                    openNotificationWithIcon(
+                        'success',
+                        'Approve the Idea successfully'
+                    );
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+                openNotificationWithIcon('error', 'Something went wrong');
+            });
+    };
     // const data = Object.entries(submittedResponse);
     // useEffect(() => {
     //     if (submittedResponse) {
@@ -102,7 +142,10 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props }) => {
                         id="contained-modal-title-vcenter"
                         className="w-100 d-block text-center"
                     >
-                        {response?.themes_problem?.theme_name}
+                        {/* {response?.themes_problem?.theme_name} */}
+                        <p style={{ fontSize: '2rem' }}>
+                            CID : {response?.idea_id}{' '}
+                        </p>
                         {/* <p>{response?.themes_problem?.problem_statement}</p> */}
                     </Modal.Title>
                 </Modal.Header>
@@ -110,7 +153,11 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props }) => {
                 <Modal.Body>
                     <Card className="m-3 p-3">
                         <CardBody>
-                            <label htmlFor="teams" className="">
+                            <label
+                                htmlFor="teams"
+                                className=""
+                                style={{ fontSize: '1.3rem' }}
+                            >
                                 Which theme are you targeting with your solution
                                 ?
                             </label>
@@ -121,7 +168,11 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props }) => {
                     </Card>
                     <Card className="m-3 p-3">
                         <CardBody>
-                            <label htmlFor="teams" className="">
+                            <label
+                                htmlFor="teams"
+                                className=""
+                                style={{ fontSize: '1.3rem' }}
+                            >
                                 Which problem statement are you targeting with
                                 your solution ?
                             </label>
@@ -135,7 +186,11 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props }) => {
                     </Card>
                     <Card className="m-3 p-3">
                         <CardBody>
-                            <label htmlFor="teams" className="">
+                            <label
+                                htmlFor="teams"
+                                className=""
+                                style={{ fontSize: '1.3rem' }}
+                            >
                                 Description of the Problem Statement
                             </label>
                             <CardText>
@@ -148,7 +203,11 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props }) => {
                     </Card>
                     <Card className="m-3 p-3">
                         <CardBody>
-                            <label htmlFor="teams" className="">
+                            <label
+                                htmlFor="teams"
+                                className=""
+                                style={{ fontSize: '1.3rem' }}
+                            >
                                 Idea Title
                             </label>
                             <CardText>{submittedResponse.idea_title}</CardText>
@@ -156,7 +215,11 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props }) => {
                     </Card>
                     <Card className="m-3 p-3">
                         <CardBody>
-                            <label htmlFor="teams" className="">
+                            <label
+                                htmlFor="teams"
+                                className=""
+                                style={{ fontSize: '1.3rem' }}
+                            >
                                 Solution Statement
                             </label>
                             <CardText>
@@ -166,7 +229,11 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props }) => {
                     </Card>{' '}
                     <Card className="m-3 p-3">
                         <CardBody>
-                            <label htmlFor="teams" className="">
+                            <label
+                                htmlFor="teams"
+                                className=""
+                                style={{ fontSize: '1.3rem' }}
+                            >
                                 Detailed Solution
                             </label>
                             <CardText>
@@ -176,7 +243,11 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props }) => {
                     </Card>{' '}
                     <Card className="m-3 p-3">
                         <CardBody>
-                            <label htmlFor="teams" className="">
+                            <label
+                                htmlFor="teams"
+                                className=""
+                                style={{ fontSize: '1.3rem' }}
+                            >
                                 Do you already have a prototype built?
                             </label>
                             <CardText>
@@ -186,7 +257,11 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props }) => {
                     </Card>
                     <Card className="m-3 p-3">
                         <CardBody>
-                            <label htmlFor="teams" className="">
+                            <label
+                                htmlFor="teams"
+                                className=""
+                                style={{ fontSize: '1.3rem' }}
+                            >
                                 If yes, Prototype File Upload (Only JPG/PNG)
                             </label>
                             <CardText>
@@ -196,7 +271,11 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props }) => {
                     </Card>
                     <Card className="m-3 p-3">
                         <CardBody>
-                            <label htmlFor="teams" className="">
+                            <label
+                                htmlFor="teams"
+                                className=""
+                                style={{ fontSize: '1.3rem' }}
+                            >
                                 Is this idea submitted by you or your team
                                 members in any other Forum or Programs or
                                 Publications as on date?
@@ -230,10 +309,12 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props }) => {
                                 </CardBody> */}
                     {/* </Card> */}
                     {/* ))}  */}
-                    <div className="common-flex">
-                        <p className="fw-bold me-3">
-                            Initiated By: {response?.initiated_name}
-                        </p>
+                    <div className="text-left">
+                        <div>
+                            <p className="fw-bold me-3">
+                                Initiated By: {response?.initiated_name}
+                            </p>
+                        </div>
 
                         {/* {submittedResponse === SUBMITTED ? ( */}
                         {response?.status != 'DRAFT' ? (
@@ -252,6 +333,36 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props }) => {
                 </Modal.Body>
                 <Modal.Footer>
                     {/* <FaDownload size={22} onClick={handlePrint} /> */}
+                    {AcceptButton === null ? (
+                        <Button
+                            size="small"
+                            label={'Approve'}
+                            btnClass="primary text-left"
+                            onClick={handleAccept}
+                        />
+                    ) : (
+                        <>
+                            <div>
+                                <p
+                                    style={{ fontSize: '1.5rem' }}
+                                    className="fw-bold"
+                                >
+                                    Verified By :{' '}
+                                    {submittedResponse.verified_by}
+                                </p>
+                            </div>
+                            <br />
+                            <div>
+                                <p
+                                    style={{ fontSize: '1.5rem' }}
+                                    className="fw-bold"
+                                >
+                                    Verified At :{' '}
+                                    {submittedResponse.verified_at}
+                                </p>
+                            </div>
+                        </>
+                    )}
                     <Button
                         size="small"
                         label={'Close'}

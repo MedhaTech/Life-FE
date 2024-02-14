@@ -171,10 +171,29 @@ function AtlPage() {
                 .max(10, 'Please enter only 10 digit valid number')
                 .min(10, 'Number is less than 10 digit'),
             gender: Yup.string().required('Please select valid gender'),
-            date_of_birth: Yup.string()
-                .required('Please select DOB')
-                // .date_of_birth('Please Enter DOB')
-                .trim(),
+            date_of_birth: Yup.date()
+                .required('Date of Birth is required')
+                .min(
+                    new Date(new Date().getFullYear() - 50, 0, 1),
+                    'Age cannot exceed 50 years'
+                )
+                .max(
+                    new Date(new Date().getFullYear() - 20, 11, 31),
+
+                    'Age must be at least 20 years'
+                ),
+            // date_of_birth: Yup.string()
+            //     .required('Please select DOB')
+            //     .max(
+            //         1970,
+            //         'Age must be at least 20 years and cannot exceed 50 years'
+            //     )
+            //     .min(
+            //         2004,
+            //         'Age must be at least 20 years and cannot exceed 50 years'
+            //     )
+            //     // .date_of_birth('Please Enter DOB')
+            //     .trim(),
             mentor_title: Yup.string().required('Please select Title')
         }),
 
