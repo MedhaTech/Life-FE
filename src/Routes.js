@@ -194,13 +194,18 @@ import CooTickets from './Coordinators/CooTickets/Tickets';
 import CooTicketResView from './Coordinators/CooTickets/TicketResponse';
 import Home from './Landing_page/Home';
 
+function MyComponent() {
+    window.location.href = 'https://www.edii-innovation.tn.gov.in/lp/';
+    return null;
+  }
+
 const Routers = () => {
     return (
         <>
             <Router>
                 <Switch>
-                    <Redirect exact={true} from="/" to="/lp/" />
-                    {/* <Route exact={true} path="/" render={() => <Home />} /> */}
+                    {/* <Redirect from="/" to="https://www.edii-innovation.tn.gov.in/lp/" /> */}
+                    <Route exact={true} path="/" component={MyComponent} />
                     {/* <Routes> */}
                     <Route
                         exact={true}
