@@ -50,7 +50,6 @@ const IdeaSubmission = () => {
         axios(configidea)
             .then(function (response) {
                 if (response.status === 200) {
-                    console.log(response, '1');
 
                     if (response.data.data !== null) {
                         setIdeaSubmittedData(response.data.data);
@@ -97,7 +96,6 @@ const IdeaSubmission = () => {
     }, [dispatch, language, currentUser?.data[0]?.team_id]);
     useLayoutEffect(() => {
         if (ideaSubmittedData && ideaSubmittedData.length > 0) {
-            console.log('1-------------', ideaSubmittedData);
             ideaSubmittedData[0].status === 'DRAFT'
                 ? setShowChallenges(true)
                 : view
@@ -109,14 +107,12 @@ const IdeaSubmission = () => {
     }, [ideaSubmittedData, view]);
     const commonPageText = t('student.idea_submitted_desc');
     const handleView = () => {
-        console.log('123');
         // here we can see the idea submission //
         setShowChallenges(true);
         setShowCompleted(false);
         setView(true);
     };
     const handleShow = () => {
-        console.log('123');
         // here we can see the idea submission //
         // setShowChallenges(true);
         setShowCompleted(true);
@@ -130,25 +126,23 @@ const IdeaSubmission = () => {
                 showChallenges={handleView}
             />
         </Layout>
+    ) : isideadisable ? (
+        // <IdeasPageNew />
+        <NewIdeaSubmission
+            submitedData={ideaSubmittedData[0]}
+            showChallenges={handleShow}
+        />
     ) : (
-        isideadisable && (
-            // <IdeasPageNew />
-            <NewIdeaSubmission
-                submitedData={ideaSubmittedData[0]}
-                showChallenges={handleShow}
-            />
-            // ) : (
-            //     ''
-            //  isideadisable ? (
-            //     <SDG setShowChallenges={setShowChallenges} />
-            // ) :
-            // <Layout title="Idea Submission">
-            //     <CommonPage
-            //         // text={t('student_course.idea_submission_date_com_desc')}
-            //         ideaSubmissionComButton={true}
-            //     />
-            // </Layout>
-        )
+        ''
+        //  isideadisable ? (
+        //     <SDG setShowChallenges={setShowChallenges} />
+        // ) :
+        // <Layout title="Idea Submission">
+        //     <CommonPage
+        //         // text={t('student_course.idea_submission_date_com_desc')}
+        //         ideaSubmissionComButton={true}
+        //     />
+        // </Layout>
     );
 };
 export default IdeaSubmission;

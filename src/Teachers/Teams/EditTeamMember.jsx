@@ -27,9 +27,8 @@ const EditTeamMember = (props) => {
     const currentUser = getCurrentUser('current_user');
     const teamMemberData =
         (history && history.location && history.location.item) || {};
-    console.log(teamMemberData, 'i');
-   
-   
+    console.log(teamMemberData && teamMemberData.stream, 'i');
+
     const formik = useFormik({
         initialValues: {
             student_full_name:
@@ -38,7 +37,10 @@ const EditTeamMember = (props) => {
             gender: teamMemberData && teamMemberData.Gender,
             email: teamMemberData && teamMemberData.email,
             mobile: teamMemberData && teamMemberData.mobile,
-            stream_id: teamMemberData && teamMemberData?.stream?.stream_name,
+            stream_id:
+                teamMemberData &&
+                teamMemberData.stream &&
+                teamMemberData.stream.stream_name,
             date_of_birth: teamMemberData && teamMemberData.date_of_birth,
             year_of_study: teamMemberData && teamMemberData.year_of_study
             // username: teamMemberData && teamMemberData.user.username
@@ -168,7 +170,7 @@ const EditTeamMember = (props) => {
                 });
         }
     });
-    console.log(teamMemberData.stream.stream_name, 'id');
+    console.log(listCourse, 'id');
 
     const handleView = (item) => {
         history.push({
@@ -189,7 +191,7 @@ const EditTeamMember = (props) => {
     useEffect(() => {
         CourseList();
     }, []);
-    const CourseList = () => {
+    const CourseList = async () => {
         const newparam = encryptGlobal(
             JSON.stringify(currentUser.data[0]?.institution_type_id)
         );
@@ -205,7 +207,7 @@ const EditTeamMember = (props) => {
                 Authorization: `Bearer ${currentUser.data[0]?.token}`
             }
         };
-        axios(config)
+        await axios(config)
             .then(function (response) {
                 if (response.status === 200) {
                     let dataa = response?.data?.data;
@@ -234,6 +236,7 @@ const EditTeamMember = (props) => {
         options: listCourse,
         className: 'defaultDropdown'
     };
+    console.log('selectCategory', selectCategory);
     useEffect(() => {
         const currentDate = new Date();
         const selectedDate = new Date(formik.values.date_of_birth);
@@ -344,11 +347,28 @@ const EditTeamMember = (props) => {
                                                     {...selectCategory}
                                                     onBlur={formik.handleBlur}
                                                     onChange={(option) => {
+                                                        console.log(option);
                                                         formik.setFieldValue(
                                                             'stream_id',
-                                                            option[0]?.value
+                                                            option?.value
                                                         );
                                                     }}
+                                                    value={[
+                                                        {
+                                                            label:
+                                                                teamMemberData &&
+                                                                teamMemberData.stream &&
+                                                                teamMemberData
+                                                                    .stream
+                                                                    .stream_name,
+                                                            value:
+                                                                teamMemberData &&
+                                                                teamMemberData.stream &&
+                                                                teamMemberData
+                                                                    .stream
+                                                                    .stream_id
+                                                        }
+                                                    ]}
                                                     name="Select Course"
                                                     id="Select Course"
                                                 />
