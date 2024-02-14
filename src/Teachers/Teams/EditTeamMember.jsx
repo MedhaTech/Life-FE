@@ -347,10 +347,9 @@ const EditTeamMember = (props) => {
                                                     {...selectCategory}
                                                     onBlur={formik.handleBlur}
                                                     onChange={(option) => {
-                                                        console.log(option);
                                                         formik.setFieldValue(
                                                             'stream_id',
-                                                            option?.value
+                                                            option[0]?.value
                                                         );
                                                     }}
                                                     value={[
