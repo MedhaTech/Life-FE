@@ -98,7 +98,7 @@ const LoginNew = (props) => {
 
     const inputUserId = {
         type: 'text',
-        placeholder: t('loginPage.Enter_your_userId')
+        placeholder: 'Enter Mobile number'
     };
 
     const inputPassword = {

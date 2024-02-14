@@ -22,7 +22,7 @@ const ForgotPasswordNew = () => {
     const [errorMsg, seterrorMsg] = useState('');
     const inputMobile = {
         type: 'mobile',
-        placeholder: 'Enter your registered Email Address'
+        placeholder: 'Enter your registered Mobile Number'
     };
 
     const logInBtn = {
@@ -36,10 +36,12 @@ const ForgotPasswordNew = () => {
         },
 
         validationSchema: Yup.object({
-            email: Yup.string().email('Must be a valid email').max(255).trim()
-            // .matches(/^[0-9\s]+$/, 'Mobile number is not valid')
-            // .min(10, 'Please enter valid number')
-            // .max(10, 'Please enter valid number')
+            email: Yup.string()
+                // .email('Must be a valid email').max(255)
+                .trim()
+                .matches(/^[0-9\s]+$/, 'Mobile number is not valid')
+                .min(10, 'Please enter valid number')
+                .max(10, 'Please enter valid number')
         }),
 
         onSubmit: async (values) => {
@@ -56,7 +58,7 @@ const ForgotPasswordNew = () => {
                         // props.setShow(false);
                         openNotificationWithIcon(
                             'success',
-                            'Password reset link will be sent to registered email'
+                            'Password reset link will be sent to registered Mobile Number'
                         );
                         seterrorMsg('');
                     }
@@ -137,7 +139,7 @@ const ForgotPasswordNew = () => {
                                 <h4>Did you forgot your password?</h4>
                                 <span className=" sub mt-2 w-100">
                                     Don’t worry! Resetting your password is
-                                    easy, just type in the email address you
+                                    easy, just type in the Mobile Number you
                                     registered to this program
                                 </span>
                                 <Form onSubmit={formik.handleSubmit}>
@@ -147,7 +149,7 @@ const ForgotPasswordNew = () => {
                                                 className="mb-2"
                                                 htmlFor="email"
                                             >
-                                                Enter Email Address
+                                                Enter Mobile Number
                                             </Label>
                                             <InputBox
                                                 {...inputMobile}
@@ -170,8 +172,8 @@ const ForgotPasswordNew = () => {
 
                                     {errorMsg === 'User not found' && (
                                         <b className="text-danger m-3">
-                                            Please enter registered Email
-                                            Address
+                                            Please enter registered Mobile
+                                            Number
                                         </b>
                                     )}
                                     <div className="mt-3">

@@ -116,7 +116,7 @@ const CreateMultipleMembers = ({ id }) => {
     // const emailRegex = /[A-Za-z-@+.-]*$/;
     const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}$/;
     // const emailRegex = /^[\w.]+@([\w-]+\.)+[\w-]{2,4}$/;
-    const isValidNumber = /^[0-9]$/;
+    const isValidNumber = /^\d{10}$/;
     useEffect(() => {
         CourseList();
     }, []);
@@ -317,10 +317,18 @@ const CreateMultipleMembers = ({ id }) => {
             //         err['mobile'] = 'Enter the valid Mobile number';
             //     }
             // }
+            // if (!item.mobile.trim()) {
+            //     err['mobile'] = 'Mobile number is Required';
+            // } else if (item.mobile.length !==10) {
+            //     err['mobile'] = 'Mobile number must be exactly 10 digits';
+            // } else if (!isValidNumber.test(item.mobile)) {
+            //     err['mobile'] = 'Enter a valid mobile number';
+            // }
             if (!item.mobile.trim()) {
                 err['mobile'] = 'Mobile number is Required';
-            } else if (item.mobile.length !== 10) {
-                err['mobile'] = 'Mobile number must be exactly 10 digits';
+            } else if (!/^\d{10}$/.test(item.mobile)) {
+                err['mobile'] =
+                    'Mobile number must be exactly 10 digits/Accept only digits';
             } else if (!isValidNumber.test(item.mobile)) {
                 err['mobile'] = 'Enter a valid mobile number';
             }
@@ -1125,7 +1133,7 @@ const CreateTeamMember = (props) => {
         // }
     }, [formik.values.date_of_birth]);
 
-    // console.log('formik.values.age', formik.values.age);
+    console.log('formik.values.age', formik.values.age);
     return (
         <Layout title="teams">
             <div className="EditPersonalDetails new-member-page">
@@ -1280,11 +1288,16 @@ const CreateTeamMember = (props) => {
                                                             formik.handleBlur
                                                         }
                                                         onChange={(option) => {
+                                                            console.log(option);
                                                             formik.setFieldValue(
                                                                 'stream_id',
                                                                 option[0]?.value
                                                             );
                                                         }}
+                                                        value={
+                                                            formik.values
+                                                                .stream_id
+                                                        }
                                                         name="Select Course"
                                                         id="Select Course"
                                                     />

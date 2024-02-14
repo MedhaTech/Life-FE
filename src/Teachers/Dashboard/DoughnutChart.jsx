@@ -45,6 +45,7 @@ export default function DoughnutChart({ user }) {
     const { challengesSubmittedResponse } = useSelector(
         (state) => state?.studentRegistration
     );
+    // console.log(challengesSubmittedResponse, 'dataaaaa');
     useEffect(() => {
         if (teamId) {
             dispatch(getTeamMemberStatus(teamId, setshowDefault));
@@ -590,25 +591,28 @@ export default function DoughnutChart({ user }) {
                                     )}
                                 </div>
                                 <div className="m-3">
-                                    <Button
-                                        label={' Change  '}
-                                        disabled={
-                                            teamsMembersStatus.length > 0 &&
-                                            challengesSubmittedResponse?.status
-                                                ? false
-                                                : true
-                                        }
-                                        btnClass={`${
-                                            teamsMembersStatus.length > 0 &&
-                                            challengesSubmittedResponse?.status
-                                                ? 'primary'
-                                                : 'default'
-                                        }`}
-                                        size="small"
-                                        shape="btn-square"
-                                        style={{ padding: '1rem 3rem' }}
-                                        onClick={() => setChangeShow(true)}
-                                    />
+                                    {challengesSubmittedResponse?.status !==
+                                        'SUBMITTED' && (
+                                        <Button
+                                            label={' Change  '}
+                                            disabled={
+                                                teamsMembersStatus.length > 0 &&
+                                                challengesSubmittedResponse?.status
+                                                    ? false
+                                                    : true
+                                            }
+                                            btnClass={`${
+                                                teamsMembersStatus.length > 0 &&
+                                                challengesSubmittedResponse?.status
+                                                    ? 'primary'
+                                                    : 'default'
+                                            }`}
+                                            size="small"
+                                            shape="btn-square"
+                                            style={{ padding: '1rem 3rem' }}
+                                            onClick={() => setChangeShow(true)}
+                                        />
+                                    )}
                                 </div>
                                 {/* <div>
                                     {challengesSubmittedResponse?.status ===
