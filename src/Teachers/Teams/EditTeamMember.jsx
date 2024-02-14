@@ -27,6 +27,9 @@ const EditTeamMember = (props) => {
     const currentUser = getCurrentUser('current_user');
     const teamMemberData =
         (history && history.location && history.location.item) || {};
+    console.log(teamMemberData, 'i');
+   
+   
     const formik = useFormik({
         initialValues: {
             student_full_name:
@@ -35,10 +38,9 @@ const EditTeamMember = (props) => {
             gender: teamMemberData && teamMemberData.Gender,
             email: teamMemberData && teamMemberData.email,
             mobile: teamMemberData && teamMemberData.mobile,
-            stream_id: teamMemberData && teamMemberData.stream_id,
+            stream_id: teamMemberData && teamMemberData?.stream?.stream_name,
             date_of_birth: teamMemberData && teamMemberData.date_of_birth,
             year_of_study: teamMemberData && teamMemberData.year_of_study
-
             // username: teamMemberData && teamMemberData.user.username
         },
 
@@ -166,6 +168,7 @@ const EditTeamMember = (props) => {
                 });
         }
     });
+    console.log(teamMemberData.stream.stream_name, 'id');
 
     const handleView = (item) => {
         history.push({
@@ -205,7 +208,6 @@ const EditTeamMember = (props) => {
         axios(config)
             .then(function (response) {
                 if (response.status === 200) {
-                    console.log(response, 'res');
                     let dataa = response?.data?.data;
                     if (dataa) {
                         let courseOption = [];

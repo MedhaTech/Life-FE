@@ -114,7 +114,8 @@ const CreateMultipleMembers = ({ id }) => {
     ]);
     let pattern = /[A-Za-z0-9\s]*$/;
     // const emailRegex = /[A-Za-z-@+.-]*$/;
-    const emailRegex = /^[\w.]+@([\w-]+\.)+[\w-]{2,4}$/;
+    const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}$/;
+    // const emailRegex = /^[\w.]+@([\w-]+\.)+[\w-]{2,4}$/;
     const isValidNumber = /^[0-9]$/;
     useEffect(() => {
         CourseList();
@@ -167,7 +168,6 @@ const CreateMultipleMembers = ({ id }) => {
     };
     const handleChange = (e, i) => {
         let newItem = [...studentData];
-        console.log(studentData, 'ee');
 
         const dataKeys = Object.keys(studentBody);
         if (e.target) {
@@ -288,8 +288,19 @@ const CreateMultipleMembers = ({ id }) => {
             }
 
             // if (!item.Age) err['Age'] = 'Age is Required';
-            if (!item.email) err['email'] = 'Email Id is Required';
-
+            // if (!item.email) err['email'] = 'Email Id is Required';
+            if (!item.email.trim()) err['email'] = 'Email Id is Required';
+            if (item.email && item.email.match(emailRegex)) {
+                const { index } = item.email.match(emailRegex);
+                if (index) {
+                    err['email'] = 'Enter the valid email id';
+                }
+            }
+            if (!item.email.trim()) {
+                err['email'] = 'Email Id is Required';
+            } else if (!emailRegex.test(item.email)) {
+                err['email'] = 'Enter the valid email id';
+            }
             if (!item.stream_id) err['stream_id'] = 'Course is Required';
             // if (!item.stream_id) {
             //     err['stream_id'] = 'Course is Required';
@@ -297,7 +308,23 @@ const CreateMultipleMembers = ({ id }) => {
             //     err['stream_id'] = '';
             // }
 
-            if (!item.mobile) err['mobile'] = 'Mobile number is Required';
+            // if (!item.mobile) err['mobile'] = 'Mobile number is Required';
+            // if (!item.mobile.trim())
+            //     err['mobile'] = 'Mobile number is Required';
+            // if (item.mobile && item.mobile.match(isValidNumber)) {
+            //     const { index } = item.mobile.match(isValidNumber);
+            //     if (index) {
+            //         err['mobile'] = 'Enter the valid Mobile number';
+            //     }
+            // }
+            if (!item.mobile.trim()) {
+                err['mobile'] = 'Mobile number is Required';
+            } else if (item.mobile.length !== 10) {
+                err['mobile'] = 'Mobile number must be exactly 10 digits';
+            } else if (!isValidNumber.test(item.mobile)) {
+                err['mobile'] = 'Enter a valid mobile number';
+            }
+
             // if (!item.date_of_birth) err['date_of_birth'] = 'DOB is Required';
             if (!item.year_of_study)
                 err['year_of_study'] = 'Year Of Study is Required';
@@ -968,31 +995,29 @@ const CreateTeamMember = (props) => {
                     'Please enter only alphanumeric characters'
                 )
                 .trim(),
-            age: Yup.number()
-                    .lessThan(26)
-                    .moreThan(13),
-                // .test(
-                //     'age-validation',
-                //     'Age must be between 14 and 25',
-                //     function (value) {
-                //         const currentDate = new Date();
-                //         const selectedDate = new Date(
-                //             this.parent.date_of_birth
-                //         );
+            age: Yup.number().lessThan(26).moreThan(13),
+            // .test(
+            //     'age-validation',
+            //     'Age must be between 14 and 25',
+            //     function (value) {
+            //         const currentDate = new Date();
+            //         const selectedDate = new Date(
+            //             this.parent.date_of_birth
+            //         );
 
-                //         if (isNaN(selectedDate.getTime())) {
-                //             return false;
-                //         }
-                //         const age =
-                //             currentDate.getFullYear() -
-                //             selectedDate.getFullYear();
-                //         if (isNaN(age) || age < 0) {
-                //             return false;
-                //         }
-                //         return age >= 14 && age <= 25;
-                //     }
-                // )
-                // .default(0),
+            //         if (isNaN(selectedDate.getTime())) {
+            //             return false;
+            //         }
+            //         const age =
+            //             currentDate.getFullYear() -
+            //             selectedDate.getFullYear();
+            //         if (isNaN(age) || age < 0) {
+            //             return false;
+            //         }
+            //         return age >= 14 && age <= 25;
+            //     }
+            // )
+            // .default(0),
 
             gender: Yup.string().required('Please select valid gender'),
             email: Yup.string()
@@ -1094,7 +1119,7 @@ const CreateTeamMember = (props) => {
         if (!isNaN(selectedDate.getTime())) {
             const age = currentDate.getFullYear() - selectedDate.getFullYear();
             formik.setFieldValue('age', age);
-        } 
+        }
         // else {
         //     formik.setFieldValue('age', 0);
         // }

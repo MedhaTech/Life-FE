@@ -45,7 +45,6 @@ export default function DoughnutChart({ user }) {
     const { challengesSubmittedResponse } = useSelector(
         (state) => state?.studentRegistration
     );
-    // console.log(challengesSubmittedResponse, 'New');
     useEffect(() => {
         if (teamId) {
             dispatch(getTeamMemberStatus(teamId, setshowDefault));
@@ -319,8 +318,8 @@ export default function DoughnutChart({ user }) {
     useEffect(() => {
         const studentlistObj = {};
         const studentlist = teamsMembersStatus.map((stu) => {
-            studentlistObj[stu.full_name] = stu.user_id;
-            return stu.full_name;
+            studentlistObj[stu.student_full_name] = stu.user_id;
+            return stu.student_full_name;
         });
         let index = studentlist.indexOf(
             challengesSubmittedResponse?.initiated_name
@@ -564,26 +563,31 @@ export default function DoughnutChart({ user }) {
                             </Row>
                             <>
                                 <div>
-                                    <Button
-                                        button="button"
-                                        label="View Idea"
-                                        disabled={
-                                            teamsMembersStatus.length > 0 &&
-                                            challengesSubmittedResponse?.status
-                                                ? false
-                                                : true
-                                        }
-                                        btnClass={`${
-                                            teamsMembersStatus.length > 0 &&
-                                            challengesSubmittedResponse?.status
-                                                ? 'primary'
-                                                : 'default'
-                                        }`}
-                                        size="small"
-                                        shape="btn-square"
-                                        style={{ padding: '1rem 2.4rem' }}
-                                        onClick={() => setIdeaShow(true)}
-                                    />
+                                    {challengesSubmittedResponse?.status ===
+                                        'SUBMITTED' && (
+                                        <Button
+                                            button="button"
+                                            label="View Idea"
+                                            disabled={
+                                                teamsMembersStatus.length > 0 &&
+                                                challengesSubmittedResponse?.status ===
+                                                    'SUBMITTED'
+                                                    ? false
+                                                    : true
+                                            }
+                                            btnClass={`${
+                                                teamsMembersStatus.length > 0 &&
+                                                challengesSubmittedResponse?.status ===
+                                                    'SUBMITTED'
+                                                    ? 'primary'
+                                                    : 'default'
+                                            }`}
+                                            size="small"
+                                            shape="btn-square"
+                                            style={{ padding: '1rem 2.4rem' }}
+                                            onClick={() => setIdeaShow(true)}
+                                        />
+                                    )}
                                 </div>
                                 <div className="m-3">
                                     <Button
