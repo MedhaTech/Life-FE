@@ -67,6 +67,9 @@ function NewIdeaSubmission(props) {
     const history = useHistory();
     const { t } = useTranslation();
     const currentUser = getCurrentUser('current_user');
+    const condition1 = localStorage.getItem('condition') === 'true';
+    const [condition, setCondition] = useState(condition1);
+
     const [isDisabled, setIsDisabled] = useState(false);
     const [files, setFiles] = useState([]);
     const showPage = false;
@@ -233,6 +236,8 @@ function NewIdeaSubmission(props) {
     const handleEdit = () => {
         setIsDisabled(false);
         scroll();
+        localStorage.setItem('condition', false);
+        setCondition(false);
     };
     const handleSubmit = async (item, stats) => {
         if (files.length > 0) {
@@ -324,6 +329,8 @@ function NewIdeaSubmission(props) {
             axios(config)
                 .then(function (response) {
                     if (response.status === 200) {
+                        localStorage.setItem('condition', true);
+                        setCondition(true);
                         if (stats === 'SUBMITTED') {
                             openNotificationWithIcon(
                                 'success',
@@ -363,7 +370,7 @@ function NewIdeaSubmission(props) {
         setFiles(upload);
         setImmediateLink(null);
     };
-
+    console.log('condition===========', typeof condition);
     const removeFileHandler = (i) => {
         const fileAdded = [...files];
         fileAdded.splice(i, 1);
@@ -433,16 +440,18 @@ function NewIdeaSubmission(props) {
                                         {props?.submitedData?.status !==
                                             'SUBMITTED' && (
                                             <div className="text-right">
-                                                <Button
-                                                    type="button"
-                                                    btnClass="me-3 text-white"
-                                                    backgroundColor="#067DE1"
-                                                    onClick={handleEdit}
-                                                    size="small"
-                                                    label={t(
-                                                        'teacher_teams.edit_idea'
-                                                    )}
-                                                />
+                                                {condition && (
+                                                    <Button
+                                                        type="button"
+                                                        btnClass="me-3 text-white"
+                                                        backgroundColor="#067DE1"
+                                                        onClick={handleEdit}
+                                                        size="small"
+                                                        label={t(
+                                                            'teacher_teams.edit_idea'
+                                                        )}
+                                                    />
+                                                )}
                                                 <Button
                                                     type="button"
                                                     btnClass="primary"
@@ -476,7 +485,7 @@ function NewIdeaSubmission(props) {
 
                                                 <div className=" answers row flex-column p-4">
                                                     <select
-                                                        disabled={isDisabled}
+                                                        disabled={condition}
                                                         onChange={(e) =>
                                                             setTheme(
                                                                 e.target.value
@@ -531,7 +540,7 @@ function NewIdeaSubmission(props) {
                                                             >
                                                                 <TextArea
                                                                     disabled={
-                                                                        isDisabled
+                                                                        condition
                                                                     }
                                                                     placeholder="Enter your Theme Name"
                                                                     value={
@@ -604,7 +613,7 @@ function NewIdeaSubmission(props) {
                                                             >
                                                                 <TextArea
                                                                     disabled={
-                                                                        isDisabled
+                                                                        condition
                                                                     }
                                                                     placeholder="Enter your Problem statement"
                                                                     value={
@@ -656,9 +665,7 @@ function NewIdeaSubmission(props) {
 
                                                     <div className=" answers row flex-column p-4">
                                                         <select
-                                                            disabled={
-                                                                isDisabled
-                                                            }
+                                                            disabled={condition}
                                                             onChange={(e) =>
                                                                 setThemeProId(
                                                                     e.target
@@ -718,7 +725,7 @@ function NewIdeaSubmission(props) {
                                                             >
                                                                 <TextArea
                                                                     disabled={
-                                                                        isDisabled
+                                                                        condition
                                                                     }
                                                                     placeholder="Enter your Problem statement"
                                                                     value={
@@ -804,9 +811,7 @@ function NewIdeaSubmission(props) {
                                                         }}
                                                     >
                                                         <TextArea
-                                                            disabled={
-                                                                isDisabled
-                                                            }
+                                                            disabled={condition}
                                                             placeholder="Enter the Problem statement"
                                                             value={description}
                                                             maxLength={1000}
@@ -880,9 +885,7 @@ function NewIdeaSubmission(props) {
                                                         }}
                                                     >
                                                         <TextArea
-                                                            disabled={
-                                                                isDisabled
-                                                            }
+                                                            disabled={condition}
                                                             placeholder="Enter your Idea Title Name"
                                                             value={ideaTitle}
                                                             maxLength={200}
@@ -956,9 +959,7 @@ function NewIdeaSubmission(props) {
                                                         }}
                                                     >
                                                         <TextArea
-                                                            disabled={
-                                                                isDisabled
-                                                            }
+                                                            disabled={condition}
                                                             placeholder="Enter your Solution statement"
                                                             value={solStatement}
                                                             maxLength={1000}
@@ -1032,9 +1033,7 @@ function NewIdeaSubmission(props) {
                                                         }}
                                                     >
                                                         <TextArea
-                                                            disabled={
-                                                                isDisabled
-                                                            }
+                                                            disabled={condition}
                                                             placeholder="Enter your Detailed solution "
                                                             value={detailSol}
                                                             maxLength={5000}
@@ -1113,7 +1112,7 @@ function NewIdeaSubmission(props) {
                                                                     >
                                                                         <input
                                                                             disabled={
-                                                                                isDisabled
+                                                                                condition
                                                                             }
                                                                             type="radio"
                                                                             value={
@@ -1177,11 +1176,11 @@ function NewIdeaSubmission(props) {
                                                             className="answers"
                                                         >
                                                             <div className="wrapper my-3 common-flex">
-                                                                {!isDisabled && (
+                                                                {!condition && (
                                                                     <Button
                                                                         type="button"
                                                                         btnClass={`${
-                                                                            isDisabled
+                                                                            condition
                                                                                 ? 'secondary'
                                                                                 : 'primary'
                                                                         } me-3 pointer `}
@@ -1195,7 +1194,7 @@ function NewIdeaSubmission(props) {
                                                                     type="file"
                                                                     name="file"
                                                                     disabled={
-                                                                        isDisabled
+                                                                        condition
                                                                     }
                                                                     accept="image/jpeg,image/png,application/msword,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.openxmlformats-officedocument.presentationml.presentation"
                                                                     multiple
@@ -1394,7 +1393,7 @@ function NewIdeaSubmission(props) {
                                                                     >
                                                                         <input
                                                                             disabled={
-                                                                                isDisabled
+                                                                                condition
                                                                             }
                                                                             type="radio"
                                                                             value={
@@ -1438,7 +1437,7 @@ function NewIdeaSubmission(props) {
                                                         }}
                                                         type="checkbox"
                                                         name="self confirm"
-                                                        disabled={isDisabled}
+                                                        disabled={condition}
                                                         id="self confirm"
                                                         checked={selfCheck}
                                                         onChange={(e) =>
@@ -1457,7 +1456,7 @@ function NewIdeaSubmission(props) {
                                 </CardBody>
                             </div>
                         </Row>
-                        {!isDisabled && (
+                        {!condition && (
                             <Row>
                                 <Col className="d-flex justify-content-between">
                                     <div>
