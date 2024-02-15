@@ -45,7 +45,6 @@ export default function DoughnutChart({ user }) {
     const { challengesSubmittedResponse } = useSelector(
         (state) => state?.studentRegistration
     );
-    console.log(challengesSubmittedResponse, 'dataaaaa');
     useEffect(() => {
         if (teamId) {
             dispatch(getTeamMemberStatus(teamId, setshowDefault));
