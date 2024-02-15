@@ -114,7 +114,9 @@ const CreateMultipleMembers = ({ id }) => {
     ]);
     let pattern = /[A-Za-z0-9\s]*$/;
     // const emailRegex = /[A-Za-z-@+.-]*$/;
-    const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}$/;
+    // const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}$/;
+    const emailRegex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
+
     // const emailRegex = /^[\w.]+@([\w-]+\.)+[\w-]{2,4}$/;
     const isValidNumber = /^\d{10}$/;
     useEffect(() => {
@@ -299,7 +301,8 @@ const CreateMultipleMembers = ({ id }) => {
             if (!item.email.trim()) {
                 err['email'] = 'Email Id is Required';
             } else if (!emailRegex.test(item.email)) {
-                err['email'] = 'Enter the valid email id';
+                err['email'] =
+                    'Enter the valid email id/accept small letters only';
             }
             if (!item.stream_id) err['stream_id'] = 'Course is Required';
             // if (!item.stream_id) {
@@ -893,6 +896,8 @@ const CreateTeamMember = (props) => {
             }
         ]
     };
+    const emailRegex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
+
     useEffect(async () => {
         await handleCreateMemberAPI(id);
     }, [id]);
@@ -1031,6 +1036,7 @@ const CreateTeamMember = (props) => {
             email: Yup.string()
                 .required('required')
                 .trim()
+                .matches(emailRegex, 'accept small letters only')
                 .email('Enter Valid Email Id'),
 
             stream_id: Yup.string().required('Please select Course'),

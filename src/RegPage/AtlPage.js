@@ -109,7 +109,7 @@ function AtlPage() {
         placeholder: 'DD/MM/YYYY',
         className: 'defaultInput'
     };
-
+    const regex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
     const formik = useFormik({
         initialValues: {
             mentor_name: '',
@@ -160,6 +160,7 @@ function AtlPage() {
             //     .min(8, 'password is less than 8 digits'),
             mentor_email: Yup.string()
                 .email('Must be a valid Email Id')
+                .matches(regex, 'only accept small letters only ')
                 .max(255),
             mentor_whatapp_mobile: Yup.string()
                 .required('required')
