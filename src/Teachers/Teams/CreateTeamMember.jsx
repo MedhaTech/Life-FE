@@ -1288,16 +1288,15 @@ const CreateTeamMember = (props) => {
                                                             formik.handleBlur
                                                         }
                                                         onChange={(option) => {
-                                                            console.log(option);
                                                             formik.setFieldValue(
                                                                 'stream_id',
                                                                 option[0]?.value
                                                             );
                                                         }}
-                                                        value={
-                                                            formik.values
-                                                                .stream_id
-                                                        }
+                                                        // value={
+                                                        //     formik.values
+                                                        //         .stream_id
+                                                        // }
                                                         name="Select Course"
                                                         id="Select Course"
                                                     />
