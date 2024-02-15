@@ -27,7 +27,6 @@ const EditTeamMember = (props) => {
     const currentUser = getCurrentUser('current_user');
     const teamMemberData =
         (history && history.location && history.location.item) || {};
-    console.log(teamMemberData && teamMemberData.stream, 'i');
 
     const formik = useFormik({
         initialValues: {
@@ -40,7 +39,7 @@ const EditTeamMember = (props) => {
             stream_id:
                 teamMemberData &&
                 teamMemberData.stream &&
-                teamMemberData.stream.stream_name,
+                teamMemberData.stream.stream_id,
             date_of_birth: teamMemberData && teamMemberData.date_of_birth,
             year_of_study: teamMemberData && teamMemberData.year_of_study
             // username: teamMemberData && teamMemberData.user.username
@@ -125,7 +124,7 @@ const EditTeamMember = (props) => {
                 Gender: values.gender,
                 year_of_study: values.year_of_study,
                 mobile: values.mobile,
-                // username: values.mobile,
+                username: values.mobile,
                 email: values.email,
                 data_of_birth: values.date_of_birth
             };
@@ -170,7 +169,6 @@ const EditTeamMember = (props) => {
                 });
         }
     });
-    console.log(listCourse, 'id');
 
     const handleView = (item) => {
         history.push({
@@ -236,7 +234,6 @@ const EditTeamMember = (props) => {
         options: listCourse,
         className: 'defaultDropdown'
     };
-    console.log('selectCategory', selectCategory);
     useEffect(() => {
         const currentDate = new Date();
         const selectedDate = new Date(formik.values.date_of_birth);

@@ -1133,7 +1133,6 @@ const CreateTeamMember = (props) => {
         // }
     }, [formik.values.date_of_birth]);
 
-    console.log('formik.values.age', formik.values.age);
     return (
         <Layout title="teams">
             <div className="EditPersonalDetails new-member-page">
