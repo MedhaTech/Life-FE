@@ -449,25 +449,25 @@ const Routers = () => {
                     />
                     <ProtectedRoute
                         exact={true}
-                        user="SCHOOL"
+                        user="INSTITUTION"
                         path="/school/dashboard"
                         component={DashboardSchool}
                     />
                     <ProtectedRoute
                         exact={true}
-                        user="SCHOOL"
+                        user="INSTITUTION"
                         path="/school/my-profile"
                         component={MySchoolProfile}
                     />
                     <ProtectedRoute
                         exact={true}
-                        user="SCHOOL"
+                        user="INSTITUTION"
                         path="/EditSchoolProfile"
                         component={SchoolEditProfile}
                     />
                     <ProtectedRoute
                         exact={true}
-                        user="SCHOOL"
+                        user="INSTITUTION"
                         path="/school-changePassword"
                         component={SchoolChangePSWModal}
                     />

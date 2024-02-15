@@ -101,7 +101,7 @@ function LoginSchool(props) {
                 }
             ).toString();
             const body = {
-                organization_code: values.discecode,
+                institution_code: values.discecode,
                 password: encrypted
             };
             props.schoolLoginUserAction(body, history, 'SCHOOL');
@@ -205,7 +205,7 @@ function LoginSchool(props) {
                         </Row>
                         <Row className=" article-header mb-4">
                             <h4 className="mb-4 d-flex justify-content-center align-elements-center">
-                                School Login
+                                Institution Login
                             </h4>
                         </Row>
                         <Row className="mt-5">

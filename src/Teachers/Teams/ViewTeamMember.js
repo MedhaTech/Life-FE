@@ -92,6 +92,7 @@ const ViewTeamMember = (props) => {
         axios(config)
             .then(function (response) {
                 if (response.status === 200) {
+                    console.log(response, 'response');
                     const teamlistobj = {};
                     const listofteams = response.data.data
                         .map((item) => {
@@ -131,7 +132,7 @@ const ViewTeamMember = (props) => {
             method: 'get',
             url:
                 process.env.REACT_APP_API_BASE_URL +
-                `/challenge_response/ideastatusbyteamId?Data=${ideaStatusparam}`,
+                `/ideas/ideastatusbyteamId?Data=${ideaStatusparam}`,
             headers: {
                 'Content-Type': 'application/json',
                 Accept: 'application/json',
