@@ -17,7 +17,6 @@ export const DropDownWithSearch = ({
     className
     // ...props
 }) => {
-    console.log(value);
     return (
         <div className={`searchDropdown ${className}`}>
             <Select

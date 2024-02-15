@@ -129,10 +129,10 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props }) => {
         link.click();
         document.body.removeChild(link);
     };
-    // console.log(
-    //     "submittedResponse.Prototype_file.split(',')",
-    //     submittedResponse.Prototype_file.split(',')
-    // );
+    console.log(
+        "submittedResponse.Prototype_file.split(',')",
+        submittedResponse.Prototype_file.split(',')
+    );
     return (
         <div>
             {/* <div style={{ display: 'none' }}>
