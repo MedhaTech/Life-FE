@@ -153,16 +153,29 @@ function NewIdeaSubmission(props) {
             .then(function (response) {
                 if (response.status === 200) {
                     setThemesList([...response.data.data, 'Others']);
-                    if (props?.submitedData?.themes_problem && props?.submitedData?.themes_problem?.status === 'MANUAL') {
-
-                        if (response.data.data.includes(props?.submitedData?.themes_problem?.theme_name)) {
-                            setTheme(props?.submitedData?.themes_problem?.theme_name);
+                    if (
+                        props?.submitedData?.themes_problem &&
+                        props?.submitedData?.themes_problem?.status === 'MANUAL'
+                    ) {
+                        if (
+                            response.data.data.includes(
+                                props?.submitedData?.themes_problem?.theme_name
+                            )
+                        ) {
+                            setTheme(
+                                props?.submitedData?.themes_problem?.theme_name
+                            );
                         } else {
                             setTheme('Others');
-                            setOthersTheme(props?.submitedData?.themes_problem?.theme_name);
+                            setOthersTheme(
+                                props?.submitedData?.themes_problem?.theme_name
+                            );
                         }
                         setProbStatment('Others');
-                        setOthersPStatment(props?.submitedData?.themes_problem?.problem_statement);
+                        setOthersPStatment(
+                            props?.submitedData?.themes_problem
+                                ?.problem_statement
+                        );
                     }
                 }
             })
@@ -234,7 +247,8 @@ function NewIdeaSubmission(props) {
             );
             const result = await axios
                 .post(
-                    `${process.env.REACT_APP_API_BASE_URL + '/ideas/fileUpload'
+                    `${
+                        process.env.REACT_APP_API_BASE_URL + '/ideas/fileUpload'
                     }?Data=${subId}`,
                     formData,
                     axiosConfig
@@ -262,7 +276,12 @@ function NewIdeaSubmission(props) {
             team_id: TeamId,
             theme_name: theme === 'Others' ? othersTheme : theme,
             problem_statement_id: themeProId,
-            problem_statement: theme === 'Others' ? othersPStatment : probStatment === 'Others' ? othersPStatment : probStatment,
+            problem_statement:
+                theme === 'Others'
+                    ? othersPStatment
+                    : probStatment === 'Others'
+                    ? othersPStatment
+                    : probStatment,
             problem_statement_description: description,
             idea_title: ideaTitle,
             solution_statement: solStatement,
@@ -293,8 +312,9 @@ function NewIdeaSubmission(props) {
         if ((allques && stats === 'SUBMITTED') || stats === 'DRAFT') {
             var config = {
                 method: 'put',
-                url: `${process.env.REACT_APP_API_BASE_URL + '/ideas/ideaUpdate'
-                    }`,
+                url: `${
+                    process.env.REACT_APP_API_BASE_URL + '/ideas/ideaUpdate'
+                }`,
                 headers: {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${currentUser?.data[0]?.token}`
@@ -412,33 +432,33 @@ function NewIdeaSubmission(props) {
                                     >
                                         {props?.submitedData?.status !==
                                             'SUBMITTED' && (
-                                                <div className="text-right">
-                                                    <Button
-                                                        type="button"
-                                                        btnClass="me-3 text-white"
-                                                        backgroundColor="#067DE1"
-                                                        onClick={handleEdit}
-                                                        size="small"
-                                                        label={t(
-                                                            'teacher_teams.edit_idea'
-                                                        )}
-                                                    />
-                                                    <Button
-                                                        type="button"
-                                                        btnClass="primary"
-                                                        onClick={(e) =>
-                                                            handleSubmit(
-                                                                e,
-                                                                'SUBMITTED'
-                                                            )
-                                                        }
-                                                        size="small"
-                                                        label={t(
-                                                            'teacher_teams.submit'
-                                                        )}
-                                                    />
-                                                </div>
-                                            )}
+                                            <div className="text-right">
+                                                <Button
+                                                    type="button"
+                                                    btnClass="me-3 text-white"
+                                                    backgroundColor="#067DE1"
+                                                    onClick={handleEdit}
+                                                    size="small"
+                                                    label={t(
+                                                        'teacher_teams.edit_idea'
+                                                    )}
+                                                />
+                                                <Button
+                                                    type="button"
+                                                    btnClass="primary"
+                                                    onClick={(e) =>
+                                                        handleSubmit(
+                                                            e,
+                                                            'SUBMITTED'
+                                                        )
+                                                    }
+                                                    size="small"
+                                                    label={t(
+                                                        'teacher_teams.submit'
+                                                    )}
+                                                />
+                                            </div>
+                                        )}
                                         <Row>
                                             <Row className="card mb-4 my-3 comment-card px-0 px-5 py-3 card">
                                                 <div className="question quiz mb-0">
@@ -546,7 +566,7 @@ function NewIdeaSubmission(props) {
                                                     <Row className="card mb-4 my-3 comment-card px-0 px-5 py-3 card">
                                                         <div className="question quiz mb-0">
                                                             {theme ===
-                                                                'Others' ? (
+                                                            'Others' ? (
                                                                 <b
                                                                     style={{
                                                                         fontSize:
@@ -746,8 +766,8 @@ function NewIdeaSubmission(props) {
                                                             )}
                                                         </b>
                                                     ) : theme !== 'Others' &&
-                                                        probStatment ===
-                                                        'Others' ? (
+                                                      probStatment ===
+                                                          'Others' ? (
                                                         <b
                                                             style={{
                                                                 fontSize:
@@ -823,7 +843,7 @@ function NewIdeaSubmission(props) {
                                                             )}
                                                         </b>
                                                     ) : probStatment ===
-                                                        'Others' ? (
+                                                      'Others' ? (
                                                         <b
                                                             style={{
                                                                 fontSize:
@@ -899,7 +919,7 @@ function NewIdeaSubmission(props) {
                                                             )}
                                                         </b>
                                                     ) : probStatment ===
-                                                        'Others' ? (
+                                                      'Others' ? (
                                                         <b
                                                             style={{
                                                                 fontSize:
@@ -975,7 +995,7 @@ function NewIdeaSubmission(props) {
                                                             )}
                                                         </b>
                                                     ) : probStatment ===
-                                                        'Others' ? (
+                                                      'Others' ? (
                                                         <b
                                                             style={{
                                                                 fontSize:
@@ -1051,7 +1071,7 @@ function NewIdeaSubmission(props) {
                                                             )}
                                                         </b>
                                                     ) : probStatment ===
-                                                        'Others' ? (
+                                                      'Others' ? (
                                                         <b
                                                             style={{
                                                                 fontSize:
@@ -1138,7 +1158,7 @@ function NewIdeaSubmission(props) {
                                                             )}
                                                         </b>
                                                         {/* ) : ( */}
-                                                        <b
+                                                        {/* <b
                                                             style={{
                                                                 fontSize:
                                                                     '1.6rem'
@@ -1148,7 +1168,7 @@ function NewIdeaSubmission(props) {
                                                             {t(
                                                                 'student_course.ques8file'
                                                             )}
-                                                        </b>
+                                                        </b> */}
                                                         {/* )} */}
                                                     </div>
                                                     <div className=" answers row flex-column p-4">
@@ -1160,10 +1180,11 @@ function NewIdeaSubmission(props) {
                                                                 {!isDisabled && (
                                                                     <Button
                                                                         type="button"
-                                                                        btnClass={`${isDisabled
+                                                                        btnClass={`${
+                                                                            isDisabled
                                                                                 ? 'secondary'
                                                                                 : 'primary'
-                                                                            } me-3 pointer `}
+                                                                        } me-3 pointer `}
                                                                         size="small"
                                                                         label={t(
                                                                             'student.upload_file'
@@ -1191,7 +1212,7 @@ function NewIdeaSubmission(props) {
                                                         <div className="mx-4">
                                                             {immediateLink &&
                                                                 immediateLink.length >
-                                                                0 &&
+                                                                    0 &&
                                                                 immediateLink.map(
                                                                     (
                                                                         item,
@@ -1212,7 +1233,7 @@ function NewIdeaSubmission(props) {
                                                                 )}
                                                             {!immediateLink &&
                                                                 files.length >
-                                                                0 &&
+                                                                    0 &&
                                                                 files.map(
                                                                     (
                                                                         item,
@@ -1240,7 +1261,7 @@ function NewIdeaSubmission(props) {
 
                                                             {!immediateLink &&
                                                                 files.length ===
-                                                                0 &&
+                                                                    0 &&
                                                                 submitedFile.map(
                                                                     (
                                                                         item,
@@ -1279,7 +1300,7 @@ function NewIdeaSubmission(props) {
                                                             )}
                                                         </b>
                                                     ) : probStatment ===
-                                                        'Others' ? (
+                                                      'Others' ? (
                                                         <b
                                                             style={{
                                                                 fontSize:
@@ -1448,10 +1469,11 @@ function NewIdeaSubmission(props) {
                                                 handleSubmit(e, 'DRAFT')
                                             }
                                             size="small"
-                                            label={`${loading.draft
+                                            label={`${
+                                                loading.draft
                                                     ? t('teacher_teams.loading')
                                                     : t('teacher_teams.draft')
-                                                }`}
+                                            }`}
                                         />
                                     </div>
                                 </Col>

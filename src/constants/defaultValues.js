@@ -6,7 +6,7 @@ export const UserRole = {
 
 export const URL = {
     // Post //
-    schoolLogin: process.env.REACT_APP_API_BASE_URL + '/organizations/login',
+    schoolLogin: process.env.REACT_APP_API_BASE_URL + '/institutions/login',
     coordinatorLogin:
         process.env.REACT_APP_API_BASE_URL + '/state_coordinators/login',
     reportLogin: process.env.REACT_APP_API_BASE_URL + '/admins/login?',
