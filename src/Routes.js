@@ -195,7 +195,7 @@ import CooTicketResView from './Coordinators/CooTickets/TicketResponse';
 import Home from './Landing_page/Home';
 
 function MyComponent() {
-    window.location.href = 'https://www.edii-innovation.tn.gov.in/lp/';
+    window.location.href = `${process.env.REACT_APP_LANDING_PAGE_URL}`;
     return null;
   }
 
