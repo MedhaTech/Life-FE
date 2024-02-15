@@ -32,11 +32,11 @@ const ForgotPasswordNew = () => {
     };
     const formik = useFormik({
         initialValues: {
-            email: ''
+            mobile: ''
         },
 
         validationSchema: Yup.object({
-            email: Yup.string()
+            mobile: Yup.string()
                 // .email('Must be a valid email').max(255)
                 .trim()
                 .matches(/^[0-9\s]+$/, 'Mobile number is not valid')
@@ -153,17 +153,17 @@ const ForgotPasswordNew = () => {
                                             </Label>
                                             <InputBox
                                                 {...inputMobile}
-                                                id="email"
-                                                name="email"
+                                                id="mobile"
+                                                name="mobile"
                                                 onChange={formik.handleChange}
                                                 onBlur={formik.handleBlur}
-                                                value={formik.values.email}
+                                                value={formik.values.mobile}
                                             />
 
-                                            {formik.touched.email &&
-                                            formik.errors.email ? (
+                                            {formik.touched.mobile &&
+                                            formik.errors.mobile ? (
                                                 <small className="error-cls">
-                                                    {formik.errors.email}
+                                                    {formik.errors.mobile}
                                                 </small>
                                             ) : null}
                                         </Col>
