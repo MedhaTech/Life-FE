@@ -27,7 +27,7 @@ const EditTeamMember = (props) => {
     const currentUser = getCurrentUser('current_user');
     const teamMemberData =
         (history && history.location && history.location.item) || {};
-
+    console.log(teamMemberData, '1');
     const formik = useFormik({
         initialValues: {
             student_full_name:
@@ -124,13 +124,14 @@ const EditTeamMember = (props) => {
                 Gender: values.gender,
                 year_of_study: values.year_of_study,
                 mobile: values.mobile,
-                username: values.mobile,
+                // username: values.mobile,
                 email: values.email,
-                data_of_birth: values.date_of_birth
+                date_of_birth: values.date_of_birth
             };
-            // if (teamMemberData && teamMemberData.mobile !== values.mobile) {
-            //     body['mobile'] = values.email;
-            // }
+
+            if (teamMemberData && teamMemberData.mobile !== values.mobile) {
+                body['username'] = values.mobile;
+            }
             const teamparamId = encryptGlobal(
                 JSON.stringify(teamMemberData.student_id)
             );
