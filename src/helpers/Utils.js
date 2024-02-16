@@ -55,7 +55,7 @@ export const getNormalHeaders = (apiKey) => {
                 'Content-Type': 'application/json',
                 Accept: 'application/json',
                 'x-api-key': apiKey,
-                Authorization : apiKey
+                Authorization: apiKey
             }
         };
     }
