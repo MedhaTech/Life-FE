@@ -40,14 +40,15 @@ const LinkComponent = ({ item }) => {
 };
 const IdeaSubmissionCard = ({ handleClose, show, response, props }) => {
     const submittedResponse = response;
-    // const [acceptBtn, setAcceptBtn] = useState('');
+    const [acceptBtn, setAcceptBtn] = useState('');
     const AcceptButton = submittedResponse.verified_by;
     const currentUser = getCurrentUser('current_user');
-    const mentorId = currentUser?.data[0]?.mentor_id;
+    const mentorId = currentUser?.data[0]?.user_id;
     const teamId = submittedResponse.team_id;
     const componentRef = useRef();
     const [teamResponse, setTeamResponse] = React.useState([]);
     const [answers, setAnswers] = useState([]);
+    const [hide, setHide] = useState(true);
     const handleAccept = () => {
         const currentTime = new Date().toLocaleString();
 
@@ -68,11 +69,14 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props }) => {
         axios(config)
             .then(async function (response) {
                 if (response.status === 200) {
+                    // setAcceptBtn(response.data.data);
                     console.log(response, 'response');
                     openNotificationWithIcon(
                         'success',
                         'Approve the Idea successfully'
                     );
+                    setHide(false);
+                    await ideaSubmittedApi();
                 }
             })
             .catch(function (error) {
@@ -80,6 +84,40 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props }) => {
                 openNotificationWithIcon('error', 'Something went wrong');
             });
     };
+    // useEffect(() => {
+
+    async function ideaSubmittedApi() {
+        const Param = encryptGlobal(
+            JSON.stringify({
+                team_id: teamId
+            })
+        );
+        var config = {
+            method: 'get',
+            url:
+                process.env.REACT_APP_API_BASE_URL +
+                `/ideas/submittedDetails?Data=${Param}`,
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${currentUser.data[0]?.token}`
+            }
+        };
+        await axios(config)
+            .then(function (response) {
+                if (response.status === 200) {
+                    if (response.data.data !== null) {
+                        setIdeaSubmittedData(response.data.data);
+                        // setIsideadisable(true);
+                    }
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+
+    // }, [showCompleted]);
     // const data = Object.entries(submittedResponse);
     // useEffect(() => {
     //     if (submittedResponse) {
@@ -119,7 +157,10 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props }) => {
             response?.team_name ? response?.team_name : 'temp'
         }_IdeaSubmission`
     });
-    const files = submittedResponse.Prototype_file.split(',');
+    // const files = submittedResponse?.Prototype_file.split(',') : [];
+    const files = submittedResponse?.Prototype_file
+        ? submittedResponse.Prototype_file.split(',')
+        : [];
 
     const downloadFile = (item) => {
         const link = document.createElement('a');
@@ -129,10 +170,10 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props }) => {
         link.click();
         document.body.removeChild(link);
     };
-    console.log(
-        "submittedResponse.Prototype_file.split(',')",
-        submittedResponse.Prototype_file.split(',')
-    );
+    // console.log(
+    //     "submittedResponse.Prototype_file.split(',')",
+    //     submittedResponse.Prototype_file.split(',')
+    // );
     return (
         <div>
             {/* <div style={{ display: 'none' }}>
@@ -393,7 +434,7 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props }) => {
                 </Modal.Body>
                 <Modal.Footer>
                     {/* <FaDownload size={22} onClick={handlePrint} /> */}
-                    {AcceptButton === null ? (
+                    {AcceptButton === null && hide === true ? (
                         <Button
                             size="small"
                             label={'Approve'}
@@ -401,6 +442,8 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props }) => {
                             onClick={handleAccept}
                         />
                     ) : (
+                        // )}
+                        // {hide === true && (
                         <>
                             <div>
                                 <p
@@ -408,7 +451,7 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props }) => {
                                     className="fw-bold"
                                 >
                                     Verified By :{' '}
-                                    {submittedResponse.verified_by}
+                                    {submittedResponse.verified_name}
                                 </p>
                             </div>
                             <br />
