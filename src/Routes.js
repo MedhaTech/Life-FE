@@ -193,11 +193,11 @@ import ReportsL3 from './Evaluator/Admin/Reports/ReportL3';
 import CooTickets from './Coordinators/CooTickets/Tickets';
 import CooTicketResView from './Coordinators/CooTickets/TicketResponse';
 import Home from './Landing_page/Home';
-
+import SchoolEditTec from './School/Dashboard/SchoolEditTec';
 function MyComponent() {
     window.location.href = `${process.env.REACT_APP_LANDING_PAGE_URL}`;
     return null;
-  }
+}
 
 const Routers = () => {
     return (
@@ -453,11 +453,18 @@ const Routers = () => {
                         path="/school/dashboard"
                         component={DashboardSchool}
                     />
+
                     <ProtectedRoute
                         exact={true}
                         user="INSTITUTION"
                         path="/school/my-profile"
                         component={MySchoolProfile}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        user="INSTITUTION"
+                        path="/SchoolEditTeacherProfile"
+                        component={SchoolEditTec}
                     />
                     <ProtectedRoute
                         exact={true}
