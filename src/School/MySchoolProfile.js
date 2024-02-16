@@ -18,11 +18,11 @@ const MySchoolProfile = () => {
 
     const dispatch = useDispatch();
     // console.log(school);
-    useLayoutEffect(() => {
-        if (currentUser?.data[0]?.organization_id) {
-            dispatch(getSchoolByID(currentUser?.data[0]?.organization_id));
-        }
-    }, [currentUser?.data[0]?.organization_id]);
+    // useLayoutEffect(() => {
+    //     if (currentUser?.data[0]?.organization_id) {
+    //         dispatch(getSchoolByID(currentUser?.data[0]?.organization_id));
+    //     }
+    // }, [currentUser?.data[0]?.organization_id]);
     const handleEdit = () => {
         // alert('hii');
         history.push({
@@ -30,7 +30,7 @@ const MySchoolProfile = () => {
             item: {
                 principal_name: school?.school.principal_name,
                 principal_mobile: school?.school.principal_mobile,
-                principal_email:school?.school.principal_email,
+                principal_email: school?.school.principal_email,
                 city: school?.school.city,
                 organization_name: school?.school.organization_name,
                 category: school?.school.category,
@@ -79,7 +79,11 @@ const MySchoolProfile = () => {
                                                                     xl={5}
                                                                     className="my-auto profile-detail"
                                                                 >
-                                                                    <b>Institution Unique Code</b>
+                                                                    <b>
+                                                                        Institution
+                                                                        Unique
+                                                                        Code
+                                                                    </b>
                                                                 </Col>
                                                                 <Col
                                                                     xs={1}
@@ -97,12 +101,12 @@ const MySchoolProfile = () => {
                                                                     className="my-auto profile-detail"
                                                                 >
                                                                     <b>
-                                                                        {school
-                                                                            ?.school
-                                                                            .organization_code
-                                                                            ? school
-                                                                                  ?.school
-                                                                                  .organization_code
+                                                                        {currentUser
+                                                                            ?.data[0]
+                                                                            ?.institution_code
+                                                                            ? currentUser
+                                                                                  ?.data[0]
+                                                                                  ?.institution_code
                                                                             : '-'}
                                                                     </b>
                                                                 </Col>
@@ -116,7 +120,7 @@ const MySchoolProfile = () => {
                                                                     className="my-auto profile-detail"
                                                                 >
                                                                     <b>
-                                                                        School
+                                                                        Institution
                                                                         Name
                                                                     </b>
                                                                 </Col>
@@ -136,12 +140,12 @@ const MySchoolProfile = () => {
                                                                     className="my-auto profile-detail"
                                                                 >
                                                                     <b>
-                                                                        {school
-                                                                            ?.school
-                                                                            .organization_name
-                                                                            ? school
-                                                                                  ?.school
-                                                                                  .organization_name
+                                                                        {currentUser
+                                                                            ?.data[0]
+                                                                            ?.institution_name
+                                                                            ? currentUser
+                                                                                  ?.data[0]
+                                                                                  ?.institution_name
                                                                             : '-'}
                                                                     </b>
                                                                 </Col>
@@ -176,13 +180,13 @@ const MySchoolProfile = () => {
                                                                     className="my-auto profile-detail"
                                                                 >
                                                                     <b>
-                                                                        {school
-                                                                            ?.school
-                                                                            .principal_name
-                                                                            ? school
-                                                                                  ?.school
-                                                                                  .principal_name
-                                                                            : '-'}
+                                                                        {/* {currentUser
+                                                                            ?.data[0]
+                                                                            ?.institution_name
+                                                                            ? currentUser
+                                                                                  ?.data[0]
+                                                                                  ?.institution_name
+                                                                            : '-'} */}
                                                                     </b>
                                                                 </Col>
                                                             </Row>

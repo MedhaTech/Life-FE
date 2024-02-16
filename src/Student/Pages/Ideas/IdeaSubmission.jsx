@@ -50,10 +50,9 @@ const IdeaSubmission = () => {
         axios(configidea)
             .then(function (response) {
                 if (response.status === 200) {
-
                     if (response.data.data !== null) {
                         setIdeaSubmittedData(response.data.data);
-                        setIsideadisable(true);
+                        // setIsideadisable(true);
                     }
                 }
             })
@@ -126,14 +125,16 @@ const IdeaSubmission = () => {
                 showChallenges={handleView}
             />
         </Layout>
-    ) : isideadisable ? (
+    ) : (
+        // isideadisable ?
         // <IdeasPageNew />
         <NewIdeaSubmission
             submitedData={ideaSubmittedData[0]}
             showChallenges={handleShow}
         />
-    ) : (
-        ''
+        // )
+        // : (
+        //     ''
         //  isideadisable ? (
         //     <SDG setShowChallenges={setShowChallenges} />
         // ) :

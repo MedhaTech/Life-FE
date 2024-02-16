@@ -292,7 +292,6 @@ const DashboardSchool = (props) => {
             .get(`${URL.getTeamMembersList}`, axiosConfig)
             .then((res) => {
                 if (res?.status == 200) {
-                    console.log(res, 'res');
                     var mentorTeamArray = [];
                     res &&
                         res.data &&
@@ -433,7 +432,7 @@ const DashboardSchool = (props) => {
         // where we can see all details //
         // where orgData = orgnization details , Mentor details //
         history.push({
-            pathname: '/admin/View-More-details',
+            pathname: '/school/View-More-details',
             data: orgData
         });
         localStorage.setItem('orgData', JSON.stringify(orgData));
@@ -443,60 +442,65 @@ const DashboardSchool = (props) => {
         columns: [
             {
                 name: 'No',
-                selector: 'key',
+                selector: (row, key) => key + 1,
                 width: '12%'
             },
             {
                 name: 'Team Name',
-                selector: 'team_name',
+                // selector: 'team_name',
+                selector: (row) => row?.team_name,
                 sortable: true,
                 center: true,
                 width: '25%'
             },
             {
                 name: 'Student Count',
-                selector: 'student_count',
+                // selector: 'student_count',
+                selector: (row) => row?.student_count,
+
                 center: true,
                 width: '20%'
             },
             {
                 name: 'Idea Sub Status',
-                selector: 'ideaStatus',
+                // selector: 'ideaStatus',
+                selector: (row) => row?.ideaStatus,
+
                 center: true,
                 width: '25%'
-            },
-            {
-                name: 'Actions',
-                cell: (params) => {
-                    return [
-                        <>
-                            {/* {params.ideaStatus == 'SUBMITTED' &&
-                                params.evaluation_status === null && (
-                                    <Button
-                                        key={params}
-                                        className={
-                                            isideadisable
-                                                ? `btn btn-success btn-lg mr-5 mx-2`
-                                                : `btn btn-lg mr-5 mx-2`
-                                        }
-                                        label={'REVOKE'}
-                                        size="small"
-                                        shape="btn-square"
-                                        onClick={() =>
-                                            handleRevoke(
-                                                params.challenge_response_id,
-                                                params.ideaStatus
-                                            )
-                                        }
-                                        disabled={!isideadisable}
-                                    />
-                                )} */}
-                        </>
-                    ];
-                },
-                width: '20%',
-                center: true
             }
+            // {
+            //     name: 'Actions',
+            //     cell: (params) => {
+            //         return [
+            //             <>
+            //                 {/* {params.ideaStatus == 'SUBMITTED' &&
+            //                     params.evaluation_status === null && (
+            //                         <Button
+            //                             key={params}
+            //                             className={
+            //                                 isideadisable
+            //                                     ? `btn btn-success btn-lg mr-5 mx-2`
+            //                                     : `btn btn-lg mr-5 mx-2`
+            //                             }
+            //                             label={'REVOKE'}
+            //                             size="small"
+            //                             shape="btn-square"
+            //                             onClick={() =>
+            //                                 handleRevoke(
+            //                                     params.challenge_response_id,
+            //                                     params.ideaStatus
+            //                                 )
+            //                             }
+            //                             disabled={!isideadisable}
+            //                         />
+            //                     )} */}
+            //             </>
+            //         ];
+            //     },
+            //     width: '20%',
+            //     center: true
+            // }
         ]
     };
     // }, []);
@@ -968,12 +972,12 @@ const DashboardSchool = (props) => {
                                                     Download
                                                 </button>
 
-                                                <button
+                                                {/* <button
                                                     onClick={viewDetails}
                                                     className="btn btn-success rounded-pill px-4 mt-2 mt-md-0 ml-md-2"
                                                 >
                                                     View Details
-                                                </button>
+                                                </button> */}
 
                                                 <button
                                                     onClick={() => {
