@@ -76,7 +76,7 @@ const DashboardReport = () => {
             url: process.env.REACT_APP_API_BASE_URL + '/organizations/checkOrg',
             headers: {
                 'Content-Type': 'application/json',
-                Authorization : 'O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870'
+                Authorization: 'O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870'
             },
             data: body
         };
@@ -117,7 +117,7 @@ const DashboardReport = () => {
             url: process.env.REACT_APP_API_BASE_URL + '/organizations/checkOrg',
             headers: {
                 'Content-Type': 'application/json',
-                Authorization : 'O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870'
+                Authorization: 'O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870'
             },
             data: body
         };
@@ -1592,7 +1592,7 @@ const DashboardReport = () => {
                                 {!diesCode && (
                                     <div className="d-flex  mt-3 p-4 justify-content-center align-items-center">
                                         <span className="text-primary fs-highlight">
-                                            Enter Unique Code
+                                            Enter Institution Unique Code
                                         </span>
                                     </div>
                                 )}

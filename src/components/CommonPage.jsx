@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { Fragment } from 'react';
 import { Card, Container } from 'reactstrap';
 import Congo from '../assets/media/survey-success.jpg';
@@ -17,7 +18,7 @@ const CommonPage = ({
     const history = useHistory();
     const handleClick = () => {
         // here we can go for the next course //
-        history.push('/student/post-survey');
+        // history.push('/dashboard');
     };
 
     return (
@@ -37,28 +38,26 @@ const CommonPage = ({
                             dangerouslySetInnerHTML={{
                                 __html: text ? text : 'Coming Soon...'
                             }}
-                        >
-                           
-                        </div>
+                        ></div>
                     </div>
                     {showButton && (
-                        <div className="d-sm-flex justify-content-between mb-3 text-center">
+                        <div className="text-center">
                             <Button
                                 type="button"
-                                btnClass="primary mt-4 mx-4"
+                                btnClass="primary text-center"
                                 onClick={() => showChallenges()}
                                 size="small"
                                 label={t('student.view_idea')}
                             />
-                            <Button
+                            {/* <Button
                                 label={t('student.continue')}
                                 btnClass="primary mt-4 mx-4"
                                 size="small"
                                 onClick={() => handleClick()}
-                            />
+                            /> */}
                         </div>
                     )}
-                    {ideaSubmissionComButton && (
+                    {/* {ideaSubmissionComButton && (
                         <div className="d-sm-flex justify-content-between mb-3 text-center">
                             <Button
                                 type="button"
@@ -76,7 +75,7 @@ const CommonPage = ({
                                 onClick={() => handleClick()}
                             />
                         </div>
-                    )}
+                    )} */}
                 </Card>
             </Fragment>
         </Container>

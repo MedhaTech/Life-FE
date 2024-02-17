@@ -73,6 +73,7 @@ const Header = (props) => {
                                                 className="img-fluid"
                                             />
                                             <span className="header-name-size">
+                                                Welcome{' '}
                                                 {
                                                     currentUser?.data[0]
                                                         ?.full_name
@@ -98,4 +99,3 @@ const mapStateToProps = ({ adminNotifications }) => {
 export default connect(mapStateToProps, {
     getAdminNotificationsListActions: getAdminNotificationsList
 })(Header);
-

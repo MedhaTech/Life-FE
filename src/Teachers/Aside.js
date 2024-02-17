@@ -159,22 +159,6 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                         </NavLink>
                     </MenuItem>
                     <MenuItem
-                        icon={<FaTh />}
-                        className={
-                            location.pathname === `/teacher/playvideo/${1}` &&
-                            'sidebar-active'
-                        }
-                    >
-                        <NavLink
-                            exact={true}
-                            // onClick={(e) => handleClick(e, '')}
-                            to={`/teacher/playvideo/${1}`}
-                        >
-                            {t('teacher.course')}
-                        </NavLink>
-                    </MenuItem>
-
-                    <MenuItem
                         icon={<RiTeamFill />}
                         className={
                             (location.pathname === '/teacher/teamlist' ||
@@ -194,8 +178,23 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                             {t('teacher.team')}
                         </NavLink>
                     </MenuItem>
+                    {/* <MenuItem
+                        icon={<FaTh />}
+                        className={
+                            location.pathname === `/teacher/playvideo/${1}` &&
+                            'sidebar-active'
+                        }
+                    >
+                        <NavLink
+                            exact={true}
+                            // onClick={(e) => handleClick(e, '')}
+                            to={`/teacher/playvideo/${1}`}
+                        >
+                            {t('teacher.course')}
+                        </NavLink>
+                    </MenuItem> */}
 
-                    <MenuItem
+                    {/* <MenuItem
                         icon={<FaLandmark />}
                         className={
                             location.pathname === '/teacher/Resources' &&
@@ -210,9 +209,9 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                         >
                             {t('Resources')}
                         </NavLink>
-                    </MenuItem>
+                    </MenuItem> */}
 
-                    <MenuItem
+                    {/* <MenuItem
                         icon={<FaQuestionCircle />}
                         className={
                             location.pathname === '/teacher/faq' &&
@@ -227,7 +226,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                             {' '}
                             {t('teacher.faq')}
                         </NavLink>
-                    </MenuItem>
+                    </MenuItem> */}
                     {/* <MenuItem
                         icon={<FaCaretSquareRight />}
                         className={

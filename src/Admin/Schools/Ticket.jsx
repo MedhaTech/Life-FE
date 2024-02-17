@@ -67,9 +67,7 @@ const TicketsPage = (props) => {
         var config = {
             method: 'put',
             url:
-                process.env.REACT_APP_API_BASE_URL +
-                '/organizations/' +
-                upparam,
+                process.env.REACT_APP_API_BASE_URL + '/institutions/' + upparam,
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${currentUser?.data[0]?.token}`
@@ -109,7 +107,7 @@ const TicketsPage = (props) => {
         const stUp = encryptGlobal(JSON.stringify(item.organization_id));
         var config = {
             method: 'put',
-            url: process.env.REACT_APP_API_BASE_URL + '/organizations/' + stUp,
+            url: process.env.REACT_APP_API_BASE_URL + '/institutions/' + stUp,
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${currentUser?.data[0]?.token}`
@@ -150,7 +148,7 @@ const TicketsPage = (props) => {
         const NewUp = encryptGlobal(JSON.stringify(item.organization_id));
         var config = {
             method: 'put',
-            url: process.env.REACT_APP_API_BASE_URL + '/organizations/' + NewUp,
+            url: process.env.REACT_APP_API_BASE_URL + '/institutions/' + NewUp,
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${currentUser?.data[0]?.token}`
@@ -192,7 +190,7 @@ const TicketsPage = (props) => {
             method: 'get',
             url:
                 process.env.REACT_APP_API_BASE_URL +
-                `/organizations?Data=${listParam}`,
+                `/institutions?Data=${listParam}`,
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${currentUser?.data[0]?.token}`
@@ -223,7 +221,7 @@ const TicketsPage = (props) => {
             method: 'get',
             url:
                 process.env.REACT_APP_API_BASE_URL +
-                `/organizations?Data=${newListParam}`,
+                `/institutions?Data=${newListParam}`,
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${currentUser?.data[0]?.token}`
@@ -283,38 +281,52 @@ const TicketsPage = (props) => {
                 cellExport: (row) => row.index,
                 width: '9rem'
             },
+
             {
-                name: 'State',
-                selector: (row) => row.state,
-                cellExport: (row) => row.state,
-                width: '17rem'
-            },
-            {
-                name: 'ATL Code ',
-                selector: (row) => row.organization_code,
-                cellExport: (row) => row.organization_code,
+                name: 'Institution Unique Code ',
+                selector: (row) => row.institution_code,
+                cellExport: (row) => row.institution_code,
                 sortable: true,
 
-                width: '15rem'
+                width: '20rem'
             },
             {
                 name: 'District',
-                selector: (row) => row.district,
-                cellExport: (row) => row.district,
-                width: '18rem'
+                selector: (row) =>
+                    row?.place?.block?.taluk?.district?.district_name,
+                cellExport: (row) =>
+                    row?.place?.block?.taluk?.district?.district_name,
+                width: '15rem'
             },
 
             {
                 name: 'Institution Name',
-                selector: (row) => row.organization_name,
-                cellExport: (row) => row.organization_name,
+                selector: (row) => row.institution_name,
+                // width: '35rem',
+                cell: (row) => (
+                    <div
+                        style={{
+                            whiteSpace: 'pre-wrap',
+                            wordWrap: 'break-word'
+                        }}
+                    >
+                        {row.institution_name}
+                    </div>
+                ),
+                cellExport: (row) => row.institution_name,
                 width: '20rem'
+            },
+            {
+                name: 'Taluk',
+                selector: (row) => row?.place?.block?.taluk?.taluk_name,
+                cellExport: (row) => row?.place?.block?.taluk?.taluk_name,
+                width: '17rem'
             },
 
             {
-                name: 'Category',
-                selector: (row) => row.category,
-                cellExport: (row) => row.category,
+                name: 'Place',
+                selector: (row) => row?.place?.place_name,
+                cellExport: (row) => row?.place?.place_name,
                 width: '12rem'
             },
             // {
@@ -323,21 +335,21 @@ const TicketsPage = (props) => {
             //     cellExport: (row) => row.principal_name,
             //     width: '15rem'
             // },
-            {
-                name: 'Status',
-                cellExport: (row) => row.status,
-                cell: (row) => [
-                    <Badge
-                        key={row.organization_id}
-                        bg={`${
-                            row.status === 'ACTIVE' ? 'secondary' : 'danger'
-                        }`}
-                    >
-                        {row.status}
-                    </Badge>
-                ],
-                width: '8rem'
-            },
+            // {
+            //     name: 'Status',
+            //     cellExport: (row) => row.status,
+            //     cell: (row) => [
+            //         <Badge
+            //             key={row.organization_id}
+            //             bg={`${
+            //                 row.status === 'ACTIVE' ? 'secondary' : 'danger'
+            //             }`}
+            //         >
+            //             {row.status}
+            //         </Badge>
+            //     ],
+            //     width: '8rem'
+            // },
             {
                 name: 'Actions',
                 width: '25rem',

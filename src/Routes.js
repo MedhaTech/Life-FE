@@ -192,13 +192,20 @@ import ReportsL2 from './Evaluator/Admin/Reports/ReportL2';
 import ReportsL3 from './Evaluator/Admin/Reports/ReportL3';
 import CooTickets from './Coordinators/CooTickets/Tickets';
 import CooTicketResView from './Coordinators/CooTickets/TicketResponse';
+import Home from './Landing_page/Home';
+import SchoolEditTec from './School/Dashboard/SchoolEditTec';
+function MyComponent() {
+    window.location.href = `${process.env.REACT_APP_LANDING_PAGE_URL}`;
+    return null;
+}
 
 const Routers = () => {
     return (
         <>
             <Router>
                 <Switch>
-                    <Redirect exact={true} from="/" to="/teacher" />
+                    {/* <Redirect from="/" to="https://www.edii-innovation.tn.gov.in/lp/" /> */}
+                    <Route exact={true} path="/" component={MyComponent} />
                     {/* <Routes> */}
                     <Route
                         exact={true}
@@ -213,7 +220,7 @@ const Routers = () => {
                     <Route
                         exact={true}
                         path="/registration"
-                        render={() => <FirstPage />}
+                        render={() => <AtlPage />}
                     />
                     <Route
                         exact={true}
@@ -442,25 +449,32 @@ const Routers = () => {
                     />
                     <ProtectedRoute
                         exact={true}
-                        user="SCHOOL"
+                        user="INSTITUTION"
                         path="/school/dashboard"
                         component={DashboardSchool}
                     />
+
                     <ProtectedRoute
                         exact={true}
-                        user="SCHOOL"
+                        user="INSTITUTION"
                         path="/school/my-profile"
                         component={MySchoolProfile}
                     />
                     <ProtectedRoute
                         exact={true}
-                        user="SCHOOL"
+                        user="INSTITUTION"
+                        path="/SchoolEditTeacherProfile"
+                        component={SchoolEditTec}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        user="INSTITUTION"
                         path="/EditSchoolProfile"
                         component={SchoolEditProfile}
                     />
                     <ProtectedRoute
                         exact={true}
-                        user="SCHOOL"
+                        user="INSTITUTION"
                         path="/school-changePassword"
                         component={SchoolChangePSWModal}
                     />

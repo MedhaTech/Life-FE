@@ -28,13 +28,13 @@ const MyProfile = () => {
     useEffect(() => {
         dispatch(getStudentByIdData(currentUser?.data[0]?.student_id));
     }, [dispatch, currentUser?.data[0]?.student_id]);
-    useEffect(() => {
-        if (teamMember && teamMember?.team?.moc_name !== null) {
-            setshowMentorCard(true);
-        }
-    }, [teamMember]);
+    // useEffect(() => {
+    //     if (teamMember && teamMember?.team?.moc_name !== null) {
+    //         setshowMentorCard(true);
+    //     }
+    // }, [teamMember]);
     return (
-        <Layout>
+        <Layout title="My Profile">
             <Container className="MyProfile pt-3 pt-xl-5 mb-50">
                 {/* <UsersPage /> */}
                 <Row>
@@ -79,8 +79,8 @@ const MyProfile = () => {
                                                             className="my-auto profile-detail"
                                                         >
                                                             <b>
-                                                                {teamMember?.full_name
-                                                                    ? teamMember?.full_name
+                                                                {teamMember?.student_full_name
+                                                                    ? teamMember?.student_full_name
                                                                     : '-'}
                                                             </b>
                                                         </Col>
@@ -95,14 +95,14 @@ const MyProfile = () => {
                                                             xl={5}
                                                             className="my-auto profile-detail"
                                                         >
-                                                            <b>Class</b>
+                                                            <b>Course</b>
                                                         </Col>
                                                         <Col
                                                             xs={1}
                                                             sm={1}
                                                             md={1}
                                                             xl={1}
-                                                            // md={1}
+                                                        // md={1}
                                                         >
                                                             :
                                                         </Col>
@@ -115,13 +115,52 @@ const MyProfile = () => {
                                                             className="my-auto profile-detail"
                                                         >
                                                             <b>
-                                                                {teamMember?.Grade
-                                                                    ? teamMember?.Grade
+                                                                {teamMember
+                                                                    ?.stream
+                                                                    ?.stream_name
+                                                                    ? teamMember
+                                                                        ?.stream
+                                                                        ?.stream_name
                                                                     : '-'}
                                                             </b>
                                                         </Col>
                                                     </Row>
 
+                                                    <Row className="pt-3 pb-3">
+                                                        <Col
+                                                            // md={3}
+                                                            xs={5}
+                                                            sm={5}
+                                                            md={5}
+                                                            xl={5}
+                                                            className="my-auto profile-detail"
+                                                        >
+                                                            <b>Year of Study</b>
+                                                        </Col>
+                                                        <Col
+                                                            // md={1}
+                                                            xs={1}
+                                                            sm={1}
+                                                            md={1}
+                                                            xl={1}
+                                                        >
+                                                            :
+                                                        </Col>
+                                                        <Col
+                                                            xs={6}
+                                                            sm={6}
+                                                            md={6}
+                                                            xl={6}
+                                                            // md={8}
+                                                            className="my-auto profile-detail"
+                                                        >
+                                                            <b>
+                                                                {teamMember?.year_of_study
+                                                                    ? teamMember?.year_of_study
+                                                                    : '-'}
+                                                            </b>
+                                                        </Col>
+                                                    </Row>
                                                     <Row className="pt-3 pb-3">
                                                         <Col
                                                             // md={3}
@@ -202,14 +241,14 @@ const MyProfile = () => {
                                                             xl={5}
                                                             className="my-auto profile-detail"
                                                         >
-                                                            <b>Email Id</b>
+                                                            <b>Date of Birth</b>
                                                         </Col>
                                                         <Col
+                                                            // md={1}
                                                             xs={1}
                                                             sm={1}
                                                             md={1}
                                                             xl={1}
-                                                            // md={1}
                                                         >
                                                             :
                                                         </Col>
@@ -222,8 +261,8 @@ const MyProfile = () => {
                                                             className="my-auto profile-detail"
                                                         >
                                                             <b>
-                                                                {teamMember?.username_email
-                                                                    ? teamMember?.username_email
+                                                                {teamMember?.date_of_birth
+                                                                    ? teamMember?.date_of_birth
                                                                     : '-'}
                                                             </b>
                                                         </Col>
@@ -237,14 +276,14 @@ const MyProfile = () => {
                                                             xl={5}
                                                             className="my-auto profile-detail"
                                                         >
-                                                            <b>Disability</b>
+                                                            <b>Email Id</b>
                                                         </Col>
                                                         <Col
                                                             xs={1}
                                                             sm={1}
                                                             md={1}
                                                             xl={1}
-                                                            // md={1}
+                                                        // md={1}
                                                         >
                                                             :
                                                         </Col>
@@ -257,8 +296,43 @@ const MyProfile = () => {
                                                             className="my-auto profile-detail"
                                                         >
                                                             <b>
-                                                                {teamMember?.disability
-                                                                    ? teamMember?.disability
+                                                                {teamMember?.email
+                                                                    ? teamMember?.email
+                                                                    : '-'}
+                                                            </b>
+                                                        </Col>
+                                                    </Row>
+                                                    <Row className="pt-3 pb-3">
+                                                        <Col
+                                                            // md={3}
+                                                            xs={5}
+                                                            sm={5}
+                                                            md={5}
+                                                            xl={5}
+                                                            className="my-auto profile-detail"
+                                                        >
+                                                            <b>Mobile Number</b>
+                                                        </Col>
+                                                        <Col
+                                                            xs={1}
+                                                            sm={1}
+                                                            md={1}
+                                                            xl={1}
+                                                        // md={1}
+                                                        >
+                                                            :
+                                                        </Col>
+                                                        <Col
+                                                            // md={8}
+                                                            xs={6}
+                                                            sm={6}
+                                                            md={6}
+                                                            xl={6}
+                                                            className="my-auto profile-detail"
+                                                        >
+                                                            <b>
+                                                                {teamMember?.mobile
+                                                                    ? teamMember?.mobile
                                                                     : '-'}
                                                             </b>
                                                         </Col>
@@ -285,7 +359,10 @@ const MyProfile = () => {
                                                             xl={5}
                                                             className="my-auto profile-detail"
                                                         >
-                                                            <b>ATL Code</b>
+                                                            <b>
+                                                                Institution
+                                                                Unique Code
+                                                            </b>
                                                         </Col>
                                                         <Col
                                                             //  md={1}
@@ -307,11 +384,13 @@ const MyProfile = () => {
                                                             <b>
                                                                 {teamMember.team
                                                                     ?.mentor
-                                                                    ?.organization_code
+                                                                    ?.institution
+                                                                    ?.institution_code
                                                                     ? teamMember
-                                                                          .team
-                                                                          ?.mentor
-                                                                          ?.organization_code
+                                                                        .team
+                                                                        ?.mentor
+                                                                        ?.institution
+                                                                        ?.institution_code
                                                                     : '-'}
                                                             </b>
                                                         </Col>
@@ -325,7 +404,9 @@ const MyProfile = () => {
                                                             xl={5}
                                                             className="my-auto profile-detail"
                                                         >
-                                                            <b>Institution Unique Code</b>
+                                                            <b>
+                                                                Institution Name
+                                                            </b>
                                                         </Col>
                                                         <Col
                                                             //  md={1}
@@ -347,13 +428,13 @@ const MyProfile = () => {
                                                             <b>
                                                                 {teamMember.team
                                                                     ?.mentor
-                                                                    ?.organization
-                                                                    ?.unique_code
+                                                                    ?.institution
+                                                                    ?.institution_name
                                                                     ? teamMember
-                                                                          .team
-                                                                          ?.mentor
-                                                                          ?.organization
-                                                                          ?.unique_code
+                                                                        .team
+                                                                        ?.mentor
+                                                                        ?.institution
+                                                                        ?.institution_name
                                                                     : '-'}
                                                             </b>
                                                         </Col>
@@ -367,7 +448,9 @@ const MyProfile = () => {
                                                             xl={5}
                                                             className="my-auto profile-detail"
                                                         >
-                                                            <b>Category</b>
+                                                            <b>
+                                                                Institution Type
+                                                            </b>
                                                         </Col>
                                                         <Col
                                                             //  md={1}
@@ -389,13 +472,15 @@ const MyProfile = () => {
                                                             <b>
                                                                 {teamMember.team
                                                                     ?.mentor
-                                                                    ?.organization
-                                                                    ?.category
+                                                                    ?.institution
+                                                                    ?.institution_type
+                                                                    ?.institution_type
                                                                     ? teamMember
-                                                                          .team
-                                                                          ?.mentor
-                                                                          ?.organization
-                                                                          ?.category
+                                                                        .team
+                                                                        ?.mentor
+                                                                        ?.institution
+                                                                        ?.institution_type
+                                                                        ?.institution_type
                                                                     : '-'}
                                                             </b>
                                                         </Col>
@@ -409,7 +494,7 @@ const MyProfile = () => {
                                                             xl={5}
                                                             className="my-auto profile-detail"
                                                         >
-                                                            <b>Pin Code</b>
+                                                            <b>Place</b>
                                                         </Col>
                                                         <Col
                                                             //  md={1}
@@ -431,13 +516,109 @@ const MyProfile = () => {
                                                             <b>
                                                                 {teamMember.team
                                                                     ?.mentor
-                                                                    ?.organization
-                                                                    ?.pin_code
+                                                                    ?.institution
+                                                                    ?.place
+                                                                    ?.place_name
                                                                     ? teamMember
-                                                                          .team
-                                                                          ?.mentor
-                                                                          ?.organization
-                                                                          ?.pin_code
+                                                                        .team
+                                                                        ?.mentor
+                                                                        ?.institution
+                                                                        ?.place
+                                                                        ?.place_name
+                                                                    : '-'}
+                                                            </b>
+                                                        </Col>
+                                                    </Row>
+                                                    <Row className="pt-3 pb-3">
+                                                        <Col
+                                                            // md={3}
+                                                            xs={5}
+                                                            sm={5}
+                                                            md={5}
+                                                            xl={5}
+                                                            className="my-auto profile-detail"
+                                                        >
+                                                            <b>Block</b>
+                                                        </Col>
+                                                        <Col
+                                                            //  md={1}
+                                                            xs={1}
+                                                            sm={1}
+                                                            md={1}
+                                                            xl={1}
+                                                        >
+                                                            :
+                                                        </Col>
+                                                        <Col
+                                                            // md={8}
+                                                            xs={6}
+                                                            sm={6}
+                                                            md={6}
+                                                            xl={6}
+                                                            className="my-auto profile-detail"
+                                                        >
+                                                            <b>
+                                                                {teamMember.team
+                                                                    ?.mentor
+                                                                    ?.institution
+                                                                    ?.place
+                                                                    ?.taluk
+                                                                    ?.block
+                                                                    ?.block_name
+                                                                    ? teamMember
+                                                                        .team
+                                                                        ?.mentor
+                                                                        ?.institution
+                                                                        ?.place
+                                                                        ?.taluk
+                                                                        ?.block
+                                                                        ?.block_name
+                                                                    : '-'}
+                                                            </b>
+                                                        </Col>
+                                                    </Row>
+                                                    <Row className="pt-3 pb-3">
+                                                        <Col
+                                                            // md={3}
+                                                            xs={5}
+                                                            sm={5}
+                                                            md={5}
+                                                            xl={5}
+                                                            className="my-auto profile-detail"
+                                                        >
+                                                            <b>Taluk</b>
+                                                        </Col>
+                                                        <Col
+                                                            //  md={1}
+                                                            xs={1}
+                                                            sm={1}
+                                                            md={1}
+                                                            xl={1}
+                                                        >
+                                                            :
+                                                        </Col>
+                                                        <Col
+                                                            // md={8}
+                                                            xs={6}
+                                                            sm={6}
+                                                            md={6}
+                                                            xl={6}
+                                                            className="my-auto profile-detail"
+                                                        >
+                                                            <b>
+                                                                {teamMember.team
+                                                                    ?.mentor
+                                                                    ?.institution
+                                                                    ?.place
+                                                                    ?.taluk
+                                                                    ?.taluk_name
+                                                                    ? teamMember
+                                                                        .team
+                                                                        ?.mentor
+                                                                        ?.institution
+                                                                        ?.place
+                                                                        ?.taluk
+                                                                        ?.taluk_name
                                                                     : '-'}
                                                             </b>
                                                         </Col>
@@ -473,17 +654,26 @@ const MyProfile = () => {
                                                             <b>
                                                                 {teamMember.team
                                                                     ?.mentor
-                                                                    ?.organization
+                                                                    ?.institution
+                                                                    ?.place
+                                                                    ?.taluk
+                                                                    ?.block
                                                                     ?.district
+                                                                    ?.district_name
                                                                     ? teamMember
-                                                                          .team
-                                                                          ?.mentor
-                                                                          ?.organization
-                                                                          ?.district
+                                                                        .team
+                                                                        ?.mentor
+                                                                        ?.institution
+                                                                        ?.place
+                                                                        ?.taluk
+                                                                        ?.block
+                                                                        ?.district
+                                                                        ?.district_name
                                                                     : '-'}
                                                             </b>
                                                         </Col>
                                                     </Row>
+
                                                     <Row className="pt-3 pb-3">
                                                         <Col
                                                             // md={3}
@@ -515,55 +705,23 @@ const MyProfile = () => {
                                                             <b>
                                                                 {teamMember.team
                                                                     ?.mentor
-                                                                    ?.organization
+                                                                    ?.institution
+                                                                    ?.place
+                                                                    ?.taluk
+                                                                    ?.block
+                                                                    ?.district
                                                                     ?.state
+                                                                    ?.state_name
                                                                     ? teamMember
-                                                                          .team
-                                                                          ?.mentor
-                                                                          ?.organization
-                                                                          ?.state
-                                                                    : '-'}
-                                                            </b>
-                                                        </Col>
-                                                    </Row>
-                                                    <Row className="pt-3 pb-3">
-                                                        <Col
-                                                            // md={3}
-                                                            xs={5}
-                                                            sm={5}
-                                                            md={5}
-                                                            xl={5}
-                                                            className="my-auto profile-detail"
-                                                        >
-                                                            <b>School Name</b>
-                                                        </Col>
-                                                        <Col
-                                                            //  md={1}
-                                                            xs={1}
-                                                            sm={1}
-                                                            md={1}
-                                                            xl={1}
-                                                        >
-                                                            :
-                                                        </Col>
-                                                        <Col
-                                                            // md={8}
-                                                            xs={6}
-                                                            sm={6}
-                                                            md={6}
-                                                            xl={6}
-                                                            className="my-auto profile-detail"
-                                                        >
-                                                            <b>
-                                                                {teamMember.team
-                                                                    ?.mentor
-                                                                    ?.organization
-                                                                    ?.organization_name
-                                                                    ? teamMember
-                                                                          .team
-                                                                          ?.mentor
-                                                                          ?.organization
-                                                                          ?.organization_name
+                                                                        .team
+                                                                        ?.mentor
+                                                                        ?.institution
+                                                                        ?.place
+                                                                        ?.taluk
+                                                                        ?.block
+                                                                        ?.district
+                                                                        ?.state
+                                                                        ?.state_name
                                                                     : '-'}
                                                             </b>
                                                         </Col>
@@ -601,8 +759,8 @@ const MyProfile = () => {
                                                                 {teamMember.team
                                                                     ?.team_name
                                                                     ? teamMember
-                                                                          .team
-                                                                          ?.team_name
+                                                                        .team
+                                                                        ?.team_name
                                                                     : '-'}
                                                             </b>
                                                         </Col>
@@ -617,7 +775,7 @@ const MyProfile = () => {
                                                             xl={5}
                                                             className="my-auto profile-detail"
                                                         >
-                                                            <b>Teacher Name</b>
+                                                            <b>Mentor Name</b>
                                                         </Col>
                                                         <Col
                                                             // md={1}
@@ -639,11 +797,11 @@ const MyProfile = () => {
                                                             <b>
                                                                 {teamMember.team
                                                                     ?.mentor
-                                                                    ?.full_name
+                                                                    ?.mentor_name
                                                                     ? teamMember
-                                                                          .team
-                                                                          ?.mentor
-                                                                          ?.full_name
+                                                                        .team
+                                                                        ?.mentor
+                                                                        ?.mentor_name
                                                                     : '-'}
                                                             </b>
                                                         </Col>
@@ -653,11 +811,11 @@ const MyProfile = () => {
                                         </Row>
                                     </CardBody>
                                 </Card>
-                                {showMentorCard && (
-                                    <Card className="w-100  mb-5 p-4">
-                                        <CardBody>
-                                            <Row>
-                                                <Col
+                                {/* {showMentorCard && ( */}
+                                {/* // <Card className="w-100  mb-5 p-4"> */}
+                                {/* <CardBody> */}
+                                {/* <Row> */}
+                                {/* <Col
                                                     md={12}
                                                     className="my-auto profile-detail "
                                                 >
@@ -846,11 +1004,11 @@ const MyProfile = () => {
                                                             </Col>
                                                         </Row>
                                                     </CardText>
-                                                </Col>
-                                            </Row>
-                                        </CardBody>
-                                    </Card>
-                                )}
+                                                </Col> */}
+                                {/* </Row> */}
+                                {/* </CardBody> */}
+                                {/* </Card> */}
+                                {/* )} */}
                             </Col>
                         </Row>
                     </Col>

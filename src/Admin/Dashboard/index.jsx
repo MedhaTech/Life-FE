@@ -77,7 +77,7 @@ const Dashboard = () => {
             url: process.env.REACT_APP_API_BASE_URL + '/organizations/checkOrg',
             headers: {
                 'Content-Type': 'application/json',
-                Authorization : 'O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870'
+                Authorization: 'O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870'
             },
             data: body
         };
@@ -118,7 +118,7 @@ const Dashboard = () => {
             url: process.env.REACT_APP_API_BASE_URL + '/organizations/checkOrg',
             headers: {
                 'Content-Type': 'application/json',
-                Authorization : 'O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870'
+                Authorization: 'O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870'
             },
             data: body
         };
@@ -139,7 +139,7 @@ const Dashboard = () => {
             })
             .catch(function (error) {
                 if (error?.response?.data?.status === 404) {
-                    setError('Entered Invalid Unique Code');
+                    setError('Entered Invalid Institution Unique Code');
                 }
                 setOrgData({});
             });
@@ -422,9 +422,10 @@ const Dashboard = () => {
         adminMentorCount();
         adminSudentbygenderCount();
         adminSchoolCount();
-        adminmentorCourseCount();
-        adminStudentCourseCount();
-        nonAtlCount();
+        regInstitutions();
+        // adminmentorCourseCount();
+        // adminStudentCourseCount();
+        // nonAtlCount();
     }, []);
 
     const [totalteamsCount, setTotalteamsCount] = useState('-');
@@ -437,7 +438,8 @@ const Dashboard = () => {
     const [totalStudentMaleCount, setTotalStudentMaleCount] = useState('-');
     const [totalStudentFemaleCount, setTotalStudentFemaleCount] = useState('-');
     const [totalSchoolCount, setTotalSchoolCount] = useState('-');
-    const [nonAtl, setNonAtl] = useState('-');
+    // const [nonAtl, setNonAtl] = useState('-');
+    const [regInst, setRegInst] = useState('-');
     const [atl, setAtl] = useState('-');
     const [mentorCoursesCompletedCount, setMentorCoursesCompletedCount] =
         useState('-');
@@ -446,12 +448,12 @@ const Dashboard = () => {
     const [totalstudentCoursesCount, setTotalstudentCoursesCount] =
         useState('-');
 
-    const nonAtlCount = () => {
+    const regInstitutions = () => {
         var config = {
             method: 'get',
             url:
                 process.env.REACT_APP_API_BASE_URL +
-                `/dashboard/ATLNonATLRegCount`,
+                `/dashboard/schoolRegCount`,
             headers: {
                 'Content-Type': 'application/json',
                 Accept: 'application/json',
@@ -461,8 +463,8 @@ const Dashboard = () => {
         axios(config)
             .then(function (response) {
                 if (response.status === 200) {
-                    setAtl(response.data.data[0].ATLCount);
-                    setNonAtl(response.data.data[0].NONATLCount);
+                    // console.log(response, 'v');
+                    setRegInst(response.data.data[0].RegSchools);
                 }
             })
             .catch(function (error) {
@@ -598,55 +600,55 @@ const Dashboard = () => {
                 console.log(error);
             });
     };
-    const adminmentorCourseCount = () => {
-        var config = {
-            method: 'get',
-            url:
-                process.env.REACT_APP_API_BASE_URL +
-                `/dashboard/mentorCourseCount`,
-            headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-                Authorization: `Bearer ${currentUser.data[0]?.token}`
-            }
-        };
-        axios(config)
-            .then(function (response) {
-                if (response.status === 200) {
-                    setMentorCoursesCompletedCount(
-                        response.data.data[0].mentorCoursesCompletedCount
-                    );
-                }
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-    };
-    const adminStudentCourseCount = () => {
-        var config = {
-            method: 'get',
-            url:
-                process.env.REACT_APP_API_BASE_URL +
-                `/dashboard/studentCourseCount`,
-            headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-                Authorization: `Bearer ${currentUser.data[0]?.token}`
-            }
-        };
-        axios(config)
-            .then(function (response) {
-                if (response.status === 200) {
-                    setStudentCoursesCompletedCount(
-                        response.data.data[0].StudentCoursesCompletedCount
-                    );
-                    setTotalstudentCoursesCount(response.data.data[0].started);
-                }
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-    };
+    // const adminmentorCourseCount = () => {
+    //     var config = {
+    //         method: 'get',
+    //         url:
+    //             process.env.REACT_APP_API_BASE_URL +
+    //             `/dashboard/mentorCourseCount`,
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //             Accept: 'application/json',
+    //             Authorization: `Bearer ${currentUser.data[0]?.token}`
+    //         }
+    //     };
+    //     axios(config)
+    //         .then(function (response) {
+    //             if (response.status === 200) {
+    //                 setMentorCoursesCompletedCount(
+    //                     response.data.data[0].mentorCoursesCompletedCount
+    //                 );
+    //             }
+    //         })
+    //         .catch(function (error) {
+    //             console.log(error);
+    //         });
+    // };
+    // const adminStudentCourseCount = () => {
+    //     var config = {
+    //         method: 'get',
+    //         url:
+    //             process.env.REACT_APP_API_BASE_URL +
+    //             `/dashboard/studentCourseCount`,
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //             Accept: 'application/json',
+    //             Authorization: `Bearer ${currentUser.data[0]?.token}`
+    //         }
+    //     };
+    //     axios(config)
+    //         .then(function (response) {
+    //             if (response.status === 200) {
+    //                 setStudentCoursesCompletedCount(
+    //                     response.data.data[0].StudentCoursesCompletedCount
+    //                 );
+    //                 setTotalstudentCoursesCount(response.data.data[0].started);
+    //             }
+    //         })
+    //         .catch(function (error) {
+    //             console.log(error);
+    //         });
+    // };
 
     //     return (
     //         <Layout>
@@ -1038,7 +1040,7 @@ const Dashboard = () => {
                                     >
                                         <Card.Body>
                                             <label htmlFor="teams" className="">
-                                                Total Eligible Schools
+                                                Total Eligible Institutions
                                             </label>
 
                                             <Card.Text
@@ -1063,7 +1065,31 @@ const Dashboard = () => {
                                     >
                                         <Card.Body>
                                             <label htmlFor="teams" className="">
-                                                Total Reg Schools
+                                                Total Reg Institutions
+                                            </label>
+                                            <Card.Text
+                                                style={{
+                                                    fontSize: '30px',
+                                                    fontWeight: 'bold',
+                                                    marginTop: '10px',
+                                                    marginBottom: '20px'
+                                                }}
+                                            >
+                                                {regInst}
+                                            </Card.Text>
+                                        </Card.Body>
+                                    </Card>
+                                </Row>
+                                <Row>
+                                    <Card
+                                        bg="light"
+                                        text="dark"
+                                        className="mb-4"
+                                        style={{ height: '150px' }}
+                                    >
+                                        <Card.Body>
+                                            <label htmlFor="teams" className="">
+                                                Total Reg Mentors
                                             </label>
                                             <Card.Text
                                                 style={{
@@ -1078,61 +1104,6 @@ const Dashboard = () => {
                                         </Card.Body>
                                     </Card>
                                 </Row>
-                                <Row>
-                                    <Card
-                                        bg="light"
-                                        text="dark"
-                                        className="mb-4"
-                                        style={{ height: '150px' }}
-                                    >
-                                        <Card.Body>
-                                            <label htmlFor="teams" className="">
-                                                Total Reg Teachers
-                                            </label>
-                                            <Card.Text
-                                                style={{
-                                                    fontSize: '30px',
-                                                    fontWeight: 'bold',
-                                                    marginTop: '10px',
-                                                    marginBottom: '20px'
-                                                }}
-                                            >
-                                                {totalMentorCount}
-                                            </Card.Text>
-                                        </Card.Body>
-                                    </Card>
-                                </Row>
-                                <Row>
-                                    <Card
-                                        bg="light"
-                                        text="dark"
-                                        className="mb-4"
-                                        style={{ height: '150px' }}
-                                    >
-                                        <Card.Body>
-                                            <label htmlFor="teams" className="">
-                                                Teachers Course Completed
-                                            </label>
-                                            <Card.Text
-                                                style={{
-                                                    fontSize: '30px',
-                                                    fontWeight: 'bold',
-                                                    marginTop: '10px',
-                                                    marginBottom: '20px'
-                                                }}
-                                            >
-                                                {mentorCoursesCompletedCount}
-                                            </Card.Text>
-                                        </Card.Body>
-                                    </Card>
-                                </Row>
-                            </Col>
-                            <Col
-                                style={{
-                                    paddingRight: '20px',
-                                    paddingTop: '1rem'
-                                }}
-                            >
                                 <Row>
                                     <Card
                                         bg="light"
@@ -1157,6 +1128,37 @@ const Dashboard = () => {
                                         </Card.Body>
                                     </Card>
                                 </Row>
+                                {/* <Row>
+                                    <Card
+                                        bg="light"
+                                        text="dark"
+                                        className="mb-4"
+                                        style={{ height: '150px' }}
+                                    >
+                                        <Card.Body>
+                                            <label htmlFor="teams" className="">
+                                                Teachers Course Completed
+                                            </label>
+                                            <Card.Text
+                                                style={{
+                                                    fontSize: '30px',
+                                                    fontWeight: 'bold',
+                                                    marginTop: '10px',
+                                                    marginBottom: '20px'
+                                                }}
+                                            >
+                                                {mentorCoursesCompletedCount}
+                                            </Card.Text>
+                                        </Card.Body>
+                                    </Card>
+                                </Row> */}
+                            </Col>
+                            <Col
+                                style={{
+                                    paddingRight: '20px',
+                                    paddingTop: '1rem'
+                                }}
+                            >
                                 <Row>
                                     <Card
                                         bg="light"
@@ -1243,13 +1245,6 @@ const Dashboard = () => {
                                         </Card.Body>
                                     </Card>
                                 </Row>
-                            </Col>
-                            <Col
-                                style={{
-                                    paddingRight: '20px',
-                                    paddingTop: '1rem'
-                                }}
-                            >
                                 <Row>
                                     <Card
                                         bg="light"
@@ -1274,7 +1269,15 @@ const Dashboard = () => {
                                         </Card.Body>
                                     </Card>
                                 </Row>
-                                <Row>
+                            </Col>
+                            {/* <Col
+                                style={{
+                                    paddingRight: '20px',
+                                    paddingTop: '1rem'
+                                }}
+                            > */}
+
+                            {/* <Row>
                                     <Card
                                         bg="light"
                                         text="dark"
@@ -1301,8 +1304,8 @@ const Dashboard = () => {
                                             </Card.Text>
                                         </Card.Body>
                                     </Card>
-                                </Row>
-                                <Row>
+                                </Row> */}
+                            {/* <Row>
                                     <Card
                                         bg="light"
                                         text="dark"
@@ -1330,8 +1333,8 @@ const Dashboard = () => {
                                             </Card.Text>
                                         </Card.Body>
                                     </Card>
-                                </Row>
-                                <Row>
+                                </Row> */}
+                            {/* <Row>
                                     <Card
                                         bg="light"
                                         text="dark"
@@ -1359,8 +1362,8 @@ const Dashboard = () => {
                                             </Card.Text>
                                         </Card.Body>
                                     </Card>
-                                </Row>
-                            </Col>
+                                </Row> */}
+                            {/* </Col> */}
                             <Col
                                 style={{
                                     paddingRight: '20px',
@@ -1380,7 +1383,7 @@ const Dashboard = () => {
                                     >
                                         <Card.Body>
                                             <label htmlFor="teams" className="">
-                                                Total Male Teachers
+                                                Total Male Mentors
                                             </label>
 
                                             <Card.Text
@@ -1408,7 +1411,7 @@ const Dashboard = () => {
                                     >
                                         <Card.Body>
                                             <label htmlFor="teams" className="">
-                                                Total Female Teachers
+                                                Total Female Mentors
                                             </label>
 
                                             <Card.Text
@@ -1486,7 +1489,7 @@ const Dashboard = () => {
                             </Col>
                             <Row>
                                 <Row>
-                                    <Col>
+                                    {/* <Col>
                                         <Card
                                             bg="light"
                                             text="dark"
@@ -1514,13 +1517,13 @@ const Dashboard = () => {
                                                 >
                                                     {nonAtl}
                                                     {/* {totalMentorMaleCount} */}
-                                                </Card.Text>
-                                            </Card.Body>
-                                        </Card>
-                                    </Col>
+                                    {/* </Card.Text> */}
+                                    {/* </Card.Body> */}
+                                    {/* </Card> */}
+                                    {/* </Col> */}
                                     {/* </Row> */}
                                     {/* <Row> */}
-                                    <Col>
+                                    {/* <Col>
                                         <Card
                                             bg="light"
                                             text="dark"
@@ -1548,10 +1551,10 @@ const Dashboard = () => {
                                                 >
                                                     {atl}
                                                     {/* {totalMentorMaleCount} */}
-                                                </Card.Text>
-                                            </Card.Body>
-                                        </Card>
-                                    </Col>
+                                    {/* </Card.Text> */}
+                                    {/* </Card.Body> */}
+                                    {/* </Card> */}
+                                    {/* </Col> */}
                                 </Row>
                             </Row>
                             {/* <div>
@@ -1652,7 +1655,7 @@ const Dashboard = () => {
                                                     }
                                                     value={diesCode}
                                                     name="organization_code"
-                                                    placeholder="Enter Unique Code"
+                                                    placeholder="Enter Institution Unique Code"
                                                     className="w-100 mb-3 mb-md-0"
                                                     style={{
                                                         borderRadius: '60px',
@@ -1884,7 +1887,7 @@ const Dashboard = () => {
                                                             xl={5}
                                                             className="my-auto profile-detail"
                                                         >
-                                                            <p>Teacher Name</p>
+                                                            <p>Mentor Name</p>
                                                         </Col>
                                                         <Col
                                                             xs={1}
@@ -2127,7 +2130,7 @@ const Dashboard = () => {
                                 {!diesCode && (
                                     <div className="d-flex  mt-3 p-4 justify-content-center align-items-center">
                                         <span className="text-primary fs-highlight">
-                                            Enter Unique Code
+                                            Enter Institution Unique Code
                                         </span>
                                     </div>
                                 )}

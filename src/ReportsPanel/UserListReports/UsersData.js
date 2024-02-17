@@ -492,7 +492,7 @@ const TicketsPage = (props) => {
             },
 
             {
-                name: 'Teacher Name',
+                name: 'Mentor Name',
                 selector: (row) => row.full_name,
                 cellExport: (row) => row.full_name,
 

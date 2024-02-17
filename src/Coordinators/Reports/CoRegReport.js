@@ -147,7 +147,7 @@ const CoRegReport = () => {
             key: 'organization.principal_mobile'
         },
         {
-            label: 'Teacher Name',
+            label: 'Mentor Name',
             key: 'full_name'
         },
         {

@@ -173,7 +173,7 @@ function RegisterNew() {
                 url: process.env.REACT_APP_API_BASE_URL + '/mentors/register',
                 headers: {
                     'Content-Type': 'application/json',
-                    Authorization : 'O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870'
+                    Authorization: 'O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870'
                 },
 
                 data: body
@@ -182,8 +182,6 @@ function RegisterNew() {
             await axios(config)
                 .then((mentorRegRes) => {
                     if (mentorRegRes?.data?.status == 201) {
-                        
-
                         setMentorData(mentorRegRes?.data?.data[0]);
                         const successData = {
                             full_name: mentorRegRes?.data?.data[0].full_name,
@@ -228,7 +226,7 @@ function RegisterNew() {
             url: process.env.REACT_APP_API_BASE_URL + '/organizations/checkOrg',
             headers: {
                 'Content-Type': 'application/json',
-                Authorization : 'O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870'
+                Authorization: 'O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870'
             },
             data: body
         };
@@ -253,7 +251,9 @@ function RegisterNew() {
                             setDiceBtn(false);
                             setSchoolBtn(true);
                         } else {
-                            setError('Oops..! Institution Unique Code seems incorrect');
+                            setError(
+                                'Oops..! Institution Unique Code seems incorrect'
+                            );
                         }
                     }
                 }
@@ -697,7 +697,7 @@ function RegisterNew() {
                                                         className="mb-2"
                                                         htmlFor="name"
                                                     >
-                                                        Teacher Name
+                                                        Mentor Name
                                                     </Label>
                                                     <InputBox
                                                         {...inputName}

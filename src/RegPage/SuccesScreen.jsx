@@ -11,7 +11,7 @@ import { Button } from '../stories/Button';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import signuplogo from '../assets/media/logo-rect.svg';
-import successLogo from '../assets/media/th.png';
+import successLogo from '../assets/media/check.png';
 import image_1 from '../assets/media/unisolve_slider1.png';
 import image_2 from '../assets/media/aim_Slider.png';
 import { URL, KEY } from '../constants/defaultValues';
@@ -30,10 +30,10 @@ const SuccessPage = () => {
     const word = myArray[0];
     const [buttonData, setButtonData] = useState('');
 
-    const handleButton = () => {
-        // alert('hii');
-        apiCall();
-    };
+    // const handleButton = () => {
+    //     // alert('hii');
+    //     apiCall();
+    // };
     async function apiCall() {
         // Dice code list API //
         // where list = diescode //
@@ -54,7 +54,7 @@ const SuccessPage = () => {
                 '/mentors/triggerWelcomeEmail',
             headers: {
                 'Content-Type': 'application/json',
-                Authorization : 'O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870'
+                Authorization: 'O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870'
             },
             data: body
         };
@@ -169,7 +169,7 @@ const SuccessPage = () => {
                                     style={{
                                         fontSize: '3.4rem',
                                         fontWeight: 'bold',
-                                        color: 'lightgreen'
+                                        color: 'DarkGreen'
                                     }}
                                 >
                                     Congratulations
@@ -184,7 +184,7 @@ const SuccessPage = () => {
                                     You have successfully registered.
                                 </p>
 
-                                <p
+                                {/* <p
                                     style={{
                                         color: 'gray',
                                         marginBottom: '1rem'
@@ -193,47 +193,55 @@ const SuccessPage = () => {
                                     ATL Code:{' '}
                                     {/* {successData &&
                                         successData.organization_code} */}
-                                    {mentorDaTa.organization_code}
-                                </p>
+                                {/* {mentorDaTa.organization_code} */}
+                                {/* </p>  */}
                                 <p
                                     style={{
-                                        color: 'gray',
+                                        color: '#404040',
                                         marginBottom: '1rem'
                                     }}
                                 >
                                     Institution Unique Code:{' '}
-                                    {orgDaTa.unique_code
-                                        ? orgDaTa.unique_code
+                                    {orgDaTa.institution_code
+                                        ? orgDaTa.institution_code
                                         : '-'}
                                 </p>
                                 <p
                                     style={{
-                                        color: 'gray',
+                                        color: '#404040',
                                         marginBottom: '1rem'
                                     }}
                                 >
-                                    School Name: {orgDaTa.organization_name}
+                                    Institution Name: {orgDaTa.institution_name}
                                     {/* {mentorDaTa.organization_code} */}
                                 </p>
                                 <p
                                     style={{
-                                        color: 'gray',
+                                        color: '#404040',
                                         marginBottom: '1rem'
                                     }}
                                 >
-                                    District: {orgDaTa.district}
+                                    District:{' '}
+                                    {
+                                        orgDaTa?.place?.block?.taluk?.district
+                                            ?.district_name
+                                    }
                                     {/* {mentorDaTa.organization_code} */}
                                 </p>
                                 <p
                                     style={{
-                                        color: 'gray',
+                                        color: '#404040',
                                         marginBottom: '1rem'
                                     }}
                                 >
-                                    State: {orgDaTa.state}
+                                    State:{' '}
+                                    {
+                                        orgDaTa?.place?.block?.taluk?.district
+                                            ?.state?.state_name
+                                    }
                                     {/* {mentorDaTa.organization_code} */}
                                 </p>
-                                <p
+                                {/* <p
                                     style={{
                                         color: 'gray',
                                         marginBottom: '1rem'
@@ -241,60 +249,61 @@ const SuccessPage = () => {
                                 >
                                     Pin Code: {orgDaTa.pin_code}.{' '}
                                     {mentorDaTa.pin_code}
-                                </p>
+                                </p> */}
                                 <p
                                     style={{
-                                        color: 'gray',
+                                        color: '#404040',
                                         marginBottom: '1rem'
                                     }}
                                 >
-                                    Faculty Name: {mentorDaTa.title}.{' '}
-                                    {mentorDaTa.full_name}
+                                    Faculty Name: {mentorDaTa.mentor_title}.{' '}
+                                    {mentorDaTa.mentor_name}
                                 </p>
 
                                 <p
                                     style={{
-                                        color: 'gray',
+                                        color: '#404040',
                                         marginBottom: '1rem'
                                     }}
                                 >
                                     Login ID: {mentorDaTa.username}
                                 </p>
-                                <p
+                                {/* <p
                                     style={{
                                         color: 'gray',
                                         marginBottom: '1rem'
                                     }}
                                 >
-                                    Password: {word}
+                                    Password: {mentorDaTa.username}
+                                </p> */}
+                                <p
+                                    style={{
+                                        color: '#404040',
+                                        marginBottom: '1rem'
+                                    }}
+                                >
+                                    Mobile Number: {mentorDaTa.mentor_mobile}
                                 </p>
                                 <p
                                     style={{
-                                        color: 'gray',
+                                        color: '#404040',
                                         marginBottom: '1rem'
                                     }}
                                 >
-                                    Mobile Number: {mentorDaTa.mobile}
-                                </p>
-                                <p
-                                    style={{
-                                        color: 'gray',
-                                        marginBottom: '1rem'
-                                    }}
-                                >
-                                    Whatsapp Number: {mentorDaTa.whatapp_mobile}
+                                    Whatsapp Number:{' '}
+                                    {mentorDaTa.mentor_whatapp_mobile}
                                 </p>
 
                                 <p
                                     style={{
-                                        color: 'gray',
+                                        color: '#404040',
                                         marginBottom: '2rem'
                                     }}
                                 >
                                     Gender: {mentorDaTa.gender}
                                 </p>
                                 <>
-                                    <Button
+                                    {/* <Button
                                         label="Send Login Details to mail"
                                         btnClass="primary tex-center my-0 py-0 mx-3 px-3"
                                         style={{
@@ -304,11 +313,11 @@ const SuccessPage = () => {
                                         }}
                                         size="small"
                                         onClick={handleButton}
-                                    />
+                                    /> */}
                                 </>
                                 <p
                                     style={{
-                                        color: 'gray',
+                                        color: '#404040',
                                         marginBottom: '2rem'
                                     }}
                                 >
@@ -316,7 +325,7 @@ const SuccessPage = () => {
                                 </p>
 
                                 <h3>
-                                    To login into Teacher account
+                                    To login into Mentor account
                                     <Link
                                         exact="true"
                                         to="/teacher"

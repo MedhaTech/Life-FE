@@ -45,8 +45,9 @@ export default function DoughnutChart({ user }) {
     const { challengesSubmittedResponse } = useSelector(
         (state) => state?.studentRegistration
     );
+    // console.log(challengesSubmittedResponse, 'data');
     useEffect(() => {
-        if(teamId){
+        if (teamId) {
             dispatch(getTeamMemberStatus(teamId, setshowDefault));
             dispatch(getStudentChallengeSubmittedResponse(teamId));
         }
@@ -94,7 +95,6 @@ export default function DoughnutChart({ user }) {
                 console.log(error);
             });
     };
-    // console.log(teamsMembersStatus, challengesSubmittedResponse);
 
     useEffect(() => {
         const popParam = encryptGlobal('2');
@@ -223,7 +223,7 @@ export default function DoughnutChart({ user }) {
     const columns = [
         {
             title: 'Name',
-            dataIndex: 'full_name',
+            dataIndex: 'student_full_name',
             width: '15rem'
         },
         // {
@@ -238,46 +238,46 @@ export default function DoughnutChart({ user }) {
         //             <FaTimesCircle size={20} color="red" />
         //         )
         // },
-        {
-            title: 'Lesson Progress',
-            dataIndex: 'address',
-            align: 'center',
-            width: '30rem',
-            render: (_, record) => {
-                let percent =
-                    100 -
-                    percentageBWNumbers(
-                        record.all_topics_count,
-                        record.topics_completed_count
-                    );
-                return (
-                    <div className="d-flex">
-                        <div style={{ width: '80%' }}>
-                            <Progress
-                                key={'25'}
-                                className="progress-height"
-                                animated
-                                color={
-                                    percent
-                                        ? percent <= 25
-                                            ? 'danger'
-                                            : percent > 25 && percent <= 50
-                                            ? 'info'
-                                            : percent > 50 && percent <= 75
-                                            ? 'warning'
-                                            : 'sucess'
-                                        : 'danger'
-                                }
-                                value={percent}
-                            />
-                        </div>
-                        <span className="ms-2">
-                            {Math.round(percent) ? Math.round(percent) : '0'}%
-                        </span>
-                    </div>
-                );
-            }
-        },
+        // {
+        //     title: 'Lesson Progress',
+        //     dataIndex: 'address',
+        //     align: 'center',
+        //     width: '30rem',
+        //     render: (_, record) => {
+        //         let percent =
+        //             100 -
+        //             percentageBWNumbers(
+        //                 record.all_topics_count,
+        //                 record.topics_completed_count
+        //             );
+        //         return (
+        //             <div className="d-flex">
+        //                 <div style={{ width: '80%' }}>
+        //                     <Progress
+        //                         key={'25'}
+        //                         className="progress-height"
+        //                         animated
+        //                         color={
+        //                             percent
+        //                                 ? percent <= 25
+        //                                     ? 'danger'
+        //                                     : percent > 25 && percent <= 50
+        //                                     ? 'info'
+        //                                     : percent > 50 && percent <= 75
+        //                                     ? 'warning'
+        //                                     : 'sucess'
+        //                                 : 'danger'
+        //                         }
+        //                         value={percent}
+        //                     />
+        //                 </div>
+        //                 <span className="ms-2">
+        //                     {Math.round(percent) ? Math.round(percent) : '0'}%
+        //                 </span>
+        //             </div>
+        //         );
+        //     }
+        // },
         {
             title: 'Idea Submission',
             dataIndex: 'idea_submission',
@@ -289,41 +289,41 @@ export default function DoughnutChart({ user }) {
                 ) : (
                     <FaTimesCircle size={20} color="red" />
                 )
-        },
-        {
-            title: 'Post Survey',
-            dataIndex: 'post_survey_status',
-            align: 'center',
-            width: '10rem',
-            render: (_, record) =>
-                record?.post_survey_status ? (
-                    <FaCheckCircle size={20} color="green" />
-                ) : (
-                    <FaTimesCircle size={20} color="red" />
-                )
-        },
-        {
-            title: 'Certificate',
-            dataIndex: 'certificate',
-            align: 'center',
-            width: '10rem',
-            render: (_, record) =>
-                record?.certificate ? (
-                    <FaCheckCircle size={20} color="green" />
-                ) : (
-                    <FaTimesCircle size={20} color="red" />
-                )
         }
+        // {
+        //     title: 'Post Survey',
+        //     dataIndex: 'post_survey_status',
+        //     align: 'center',
+        //     width: '10rem',
+        //     render: (_, record) =>
+        //         record?.post_survey_status ? (
+        //             <FaCheckCircle size={20} color="green" />
+        //         ) : (
+        //             <FaTimesCircle size={20} color="red" />
+        //         )
+        // },
+        // {
+        //     title: 'Certificate',
+        //     dataIndex: 'certificate',
+        //     align: 'center',
+        //     width: '10rem',
+        //     render: (_, record) =>
+        //         record?.certificate ? (
+        //             <FaCheckCircle size={20} color="green" />
+        //         ) : (
+        //             <FaTimesCircle size={20} color="red" />
+        //         )
+        // }
     ];
 
     useEffect(() => {
         const studentlistObj = {};
         const studentlist = teamsMembersStatus.map((stu) => {
-            studentlistObj[stu.full_name] = stu.user_id;
-            return stu.full_name;
+            studentlistObj[stu.student_full_name] = stu.user_id;
+            return stu.student_full_name;
         });
         let index = studentlist.indexOf(
-            challengesSubmittedResponse[0]?.initiated_name
+            challengesSubmittedResponse?.initiated_name
         );
         if (index >= 0) {
             studentlist.splice(index, 1);
@@ -462,42 +462,40 @@ export default function DoughnutChart({ user }) {
     useEffect(() => {
         if (challengesSubmittedResponse.length === 0) {
             setIdeaStatusEval('NOT STARTED');
-        } else if (challengesSubmittedResponse[0].final_result === '1') {
+        } else if (challengesSubmittedResponse.final_result === '1') {
             setIdeaStatusEval(
                 'Congratulations,Idea is selected for grand finale'
             );
-        } else if (challengesSubmittedResponse[0].final_result === '0') {
+        } else if (challengesSubmittedResponse.final_result === '0') {
             setIdeaStatusEval('Shortlisted for final round of evaluation');
             if (isEvlCom) {
                 setIdeaStatusEval('Better luck next time');
             }
         } else if (
-            challengesSubmittedResponse[0].evaluation_status ===
-            'REJECTEDROUND1'
+            challengesSubmittedResponse.evaluation_status === 'REJECTEDROUND1'
         ) {
             setIdeaStatusEval('Better luck next time');
         } else if (
-            challengesSubmittedResponse[0].evaluation_status ===
-            'SELECTEDROUND1'
+            challengesSubmittedResponse.evaluation_status === 'SELECTEDROUND1'
         ) {
             setIdeaStatusEval('Promoted to Level 2 round of evaluation');
             if (isEvlCom) {
                 setIdeaStatusEval('Better luck next time');
             }
         } else {
-            setIdeaStatusEval(challengesSubmittedResponse[0]?.status);
+            setIdeaStatusEval(challengesSubmittedResponse?.status);
         }
     }, [challengesSubmittedResponse]);
 
     return (
         <>
             <div style={{ display: 'none' }}>
-                <Schoolpdf
+                {/* <Schoolpdf
                     ref={componentRef}
                     tabledata={teamsData}
                     remMentor={mentorValuesForPDF}
                     ideaStatusDetails={ideaValuesForPDF}
-                />
+                /> */}
             </div>
             <Card
                 className="select-team p-5 w-100"
@@ -507,11 +505,11 @@ export default function DoughnutChart({ user }) {
                     <label htmlFor="teams" className="">
                         Team Progress:
                     </label>
-                    {showPrintSymbol ? (
+                    {/* {showPrintSymbol ? (
                         <FaDownload size={22} onClick={tsetcall} />
                     ) : (
                         <FaHourglassHalf size={22} />
-                    )}
+                    )} */}
                 </div>
                 <div className="d-flex align-items-center teamProgreess">
                     <Col md="3" xs="12">
@@ -559,63 +557,68 @@ export default function DoughnutChart({ user }) {
                                                 : challengesSubmittedResponse.length ===
                                                   0
                                                 ? 'Not Started'
-                                                : challengesSubmittedResponse[0]
-                                                      ?.status}
+                                                : challengesSubmittedResponse?.status}
                                         </span>
                                     </Card>
                                 </div>
                             </Row>
                             <>
                                 <div>
-                                    <Button
-                                        button="button"
-                                        label="View Idea"
-                                        disabled={
-                                            teamsMembersStatus.length > 0 &&
-                                            challengesSubmittedResponse[0]
-                                                ?.status
-                                                ? false
-                                                : true
-                                        }
-                                        btnClass={`${
-                                            teamsMembersStatus.length > 0 &&
-                                            challengesSubmittedResponse[0]
-                                                ?.status
-                                                ? 'primary'
-                                                : 'default'
-                                        }`}
-                                        size="small"
-                                        shape="btn-square"
-                                        style={{ padding: '1rem 2.4rem' }}
-                                        onClick={() => setIdeaShow(true)}
-                                    />
+                                    {challengesSubmittedResponse?.status ===
+                                        'SUBMITTED' && (
+                                        <Button
+                                            button="button"
+                                            label="View Idea"
+                                            disabled={
+                                                teamsMembersStatus.length > 0 &&
+                                                challengesSubmittedResponse?.status ===
+                                                    'SUBMITTED'
+                                                    ? false
+                                                    : true
+                                            }
+                                            btnClass={`${
+                                                teamsMembersStatus.length > 0 &&
+                                                challengesSubmittedResponse?.status ===
+                                                    'SUBMITTED'
+                                                    ? 'primary'
+                                                    : 'default'
+                                            }`}
+                                            size="small"
+                                            shape="btn-square"
+                                            style={{ padding: '1rem 2.4rem' }}
+                                            onClick={() => setIdeaShow(true)}
+                                        />
+                                    )}
                                 </div>
                                 <div className="m-3">
-                                    <Button
-                                        label={' Change  '}
-                                        disabled={
-                                            teamsMembersStatus.length > 0 &&
-                                            challengesSubmittedResponse[0]
-                                                ?.status
-                                                ? false
-                                                : true
-                                        }
-                                        btnClass={`${
-                                            teamsMembersStatus.length > 0 &&
-                                            challengesSubmittedResponse[0]
-                                                ?.status
-                                                ? 'primary'
-                                                : 'default'
-                                        }`}
-                                        size="small"
-                                        shape="btn-square"
-                                        style={{ padding: '1rem 3rem' }}
-                                        onClick={() => setChangeShow(true)}
-                                    />
+                                    {challengesSubmittedResponse?.status !==
+                                        'SUBMITTED' && (
+                                        <Button
+                                            label={' Change  '}
+                                            disabled={
+                                                teamsMembersStatus.length > 0 &&
+                                                challengesSubmittedResponse?.status
+                                                    ? false
+                                                    : true
+                                            }
+                                            btnClass={`${
+                                                teamsMembersStatus.length > 0 &&
+                                                challengesSubmittedResponse?.status
+                                                    ? 'primary'
+                                                    : 'default'
+                                            }`}
+                                            size="small"
+                                            shape="btn-square"
+                                            style={{ padding: '1rem 3rem' }}
+                                            onClick={() => setChangeShow(true)}
+                                        />
+                                    )}
                                 </div>
-                                <div>
-                                    {challengesSubmittedResponse[0]?.status ===
-                                    'SUBMITTED' && challengesSubmittedResponse[0]?.evaluation_status === null? (
+                                {/* <div>
+                                    {challengesSubmittedResponse?.status ===
+                                        'SUBMITTED' &&
+                                    challengesSubmittedResponse?.evaluation_status ===
+                                        null ? (
                                         <Button
                                             className={
                                                 isideadisable
@@ -632,10 +635,8 @@ export default function DoughnutChart({ user }) {
                                             }}
                                             onClick={() =>
                                                 handleRevoke(
-                                                    challengesSubmittedResponse[0]
-                                                        .challenge_response_id,
-                                                    challengesSubmittedResponse[0]
-                                                        .status
+                                                    challengesSubmittedResponse.challenge_response_id,
+                                                    challengesSubmittedResponse.status
                                                 )
                                             }
                                             disabled={!isideadisable}
@@ -643,7 +644,7 @@ export default function DoughnutChart({ user }) {
                                     ) : (
                                         ''
                                     )}
-                                </div>
+                                </div> */}
                             </>
                         </>
                     )}
@@ -724,8 +725,7 @@ export default function DoughnutChart({ user }) {
                                 size="small "
                                 onClick={() =>
                                     handleChangeStudent(
-                                        challengesSubmittedResponse[0]
-                                            .challenge_response_id,
+                                        challengesSubmittedResponse.challenge_response_id,
                                         Student
                                     )
                                 }

@@ -112,11 +112,11 @@ const IdeasPageNew = () => {
     );
     const currentUser = getCurrentUser('current_user');
     const dispatch = useDispatch();
-
-    const screenOneQst = challengeQuestions.slice(0, 3);
-    const screenTwoQst = challengeQuestions.slice(3, 5);
+    const [otherProb, setOtherProb] = useState('');
+    // const screenOneQst = challengeQuestions.slice(0, 3);
+    // const screenTwoQst = challengeQuestions.slice(3, 5);
     const [screenCount, setScreenCount] = useState(1);
-    const [screenQst, setScreenQst] = useState(challengeQuestions.slice(0, 7));
+    const [screenQst, setScreenQst] = useState(challengeQuestions);
     const [screenTitle, setScreenTitle] = useState('');
     const [selectedOption, setSelectedOption] = useState('');
 
@@ -124,26 +124,26 @@ const IdeasPageNew = () => {
         setSelectedOption(newOption);
     };
 
-    const handleBack = () => {
-        setScreenCount(screenCount - 1);
-        scroll();
-    };
-    const handleNext = () => {
-        setScreenCount(screenCount + 1);
-        scroll();
-    };
+    // const handleBack = () => {
+    //     setScreenCount(screenCount - 1);
+    //     scroll();
+    // };
+    // const handleNext = () => {
+    //     setScreenCount(screenCount + 1);
+    //     scroll();
+    // };
 
-    useEffect(() => {
-        if (isDisabled) {
-            setScreenQst(challengeQuestions);
-        } else if (screenCount === 1) {
-            setScreenQst(screenOneQst);
-            setScreenTitle(t('idea_page.title1'));
-        } else if (screenCount === 2) {
-            setScreenQst(screenTwoQst);
-            setScreenTitle(t('idea_page.title2'));
-        }
-    }, [screenCount, challengeQuestions, isDisabled]);
+    // useEffect(() => {
+    //     if (isDisabled) {
+    //         setScreenQst(challengeQuestions);
+    //     } else if (screenCount === 1) {
+    //         setScreenQst(screenOneQst);
+    //         setScreenTitle(t('idea_page.title1'));
+    //     } else if (screenCount === 2) {
+    //         setScreenQst(screenTwoQst);
+    //         setScreenTitle(t('idea_page.title2'));
+    //     }
+    // }, [screenCount, challengeQuestions, isDisabled]);
 
     const prePopulatingCount = (answers) => {
         if (answers && answers !== {}) {
@@ -518,7 +518,7 @@ const IdeasPageNew = () => {
         const locale = getLanguage(language);
         const subId = encryptGlobal(
             JSON.stringify({
-                challenge_id :'1',
+                challenge_id: '1',
                 team_id: currentUser?.data[0]?.team_id,
                 locale
             })
@@ -588,7 +588,7 @@ const IdeasPageNew = () => {
             }
             const axiosConfig = getNormalHeaders(KEY.User_API_Key);
             const subId = encryptGlobal(
-                JSON.stringify({team_id:currentUser?.data[0]?.team_id})
+                JSON.stringify({ team_id: currentUser?.data[0]?.team_id })
             );
             const result = await axios
                 .post(`${URL.uploadFile}?Data=${subId}`, formData, axiosConfig)
@@ -645,7 +645,7 @@ const IdeasPageNew = () => {
     //     'Accepting only png,jpg,jpeg,pdf,mp4,doc,docx Only, file size should be below 10MB';
 
     return (
-        <Layout>
+        <Layout title="Idea Submission">
             {showPage ? (
                 <CommonPage text={comingSoonText} />
             ) : (
@@ -993,42 +993,45 @@ const IdeasPageNew = () => {
                                                                             item,
                                                                             i
                                                                         ) => (
-                                                                            <label
-                                                                                key={
-                                                                                    i
-                                                                                }
-                                                                                style={{
-                                                                                    margin: '1rem',
-                                                                                    fontSize:
-                                                                                        '1.6rem'
-                                                                                }}
-                                                                            >
-                                                                                <input
-                                                                                    disabled={
-                                                                                        isDisabled
+                                                                            <>
+                                                                                <label
+                                                                                    key={
+                                                                                        i
                                                                                     }
-                                                                                    type="radio"
-                                                                                    value={
+                                                                                    style={{
+                                                                                        margin: '1rem',
+                                                                                        fontSize:
+                                                                                            '1.6rem'
+                                                                                    }}
+                                                                                >
+                                                                                    <input
+                                                                                        disabled={
+                                                                                            isDisabled
+                                                                                        }
+                                                                                        type="radio"
+                                                                                        value={
+                                                                                            item
+                                                                                        }
+                                                                                        checked={
+                                                                                            item ===
+                                                                                            subCategory
+                                                                                        }
+                                                                                        onChange={(
+                                                                                            e
+                                                                                        ) =>
+                                                                                            setSubCategory(
+                                                                                                e
+                                                                                                    .target
+                                                                                                    .value
+                                                                                            )
+                                                                                        }
+                                                                                    />{' '}
+                                                                                    {
                                                                                         item
                                                                                     }
-                                                                                    checked={
-                                                                                        item ===
-                                                                                        subCategory
-                                                                                    }
-                                                                                    onChange={(
-                                                                                        e
-                                                                                    ) =>
-                                                                                        setSubCategory(
-                                                                                            e
-                                                                                                .target
-                                                                                                .value
-                                                                                        )
-                                                                                    }
-                                                                                />{' '}
-                                                                                {
-                                                                                    item
-                                                                                }
-                                                                            </label>
+                                                                                </label>
+                                                                                <br />
+                                                                            </>
                                                                         )
                                                                     )}
                                                                 </div>
@@ -1094,10 +1097,62 @@ const IdeasPageNew = () => {
                                                             </div>
                                                         )}
                                                     </Row>
+                                                    {subCategory ===
+                                                        'OTHERS' && (
+                                                        <Row className="card mb-4 my-3 comment-card px-0 px-5 py-3 card">
+                                                            <div className="question quiz mb-0">
+                                                                <b
+                                                                    style={{
+                                                                        fontSize:
+                                                                            '1.6rem'
+                                                                    }}
+                                                                >
+                                                                    {`3. `}
+                                                                    {
+                                                                        'If you picked the option ‘others’ in the above question, Describe your Problem Statemen'
+                                                                    }
+                                                                </b>
+                                                            </div>
+
+                                                            <div className=" answers row flex-column">
+                                                                <TextArea
+                                                                    disabled={
+                                                                        isDisabled
+                                                                    }
+                                                                    placeholder="Enter problem statement description"
+                                                                    value={
+                                                                        otherProb
+                                                                    }
+                                                                    maxLength={
+                                                                        100
+                                                                    }
+                                                                    onChange={(
+                                                                        e
+                                                                    ) =>
+                                                                        setOtherProb(
+                                                                            e
+                                                                                .target
+                                                                                .value
+                                                                        )
+                                                                    }
+                                                                />
+                                                                <div className="text-end">
+                                                                    {t(
+                                                                        'student_course.chars'
+                                                                    )}{' '}
+                                                                    :
+                                                                    {100 -
+                                                                        (subCategory
+                                                                            ? subCategory.length
+                                                                            : 0)}
+                                                                </div>
+                                                            </div>
+                                                        </Row>
+                                                    )}
                                                 </>
                                             )}
 
-                                            {screenQst.map(
+                                            {challengeQuestions.map(
                                                 (eachQuestion, i) => (
                                                     <>
                                                         <Row
@@ -1118,9 +1173,11 @@ const IdeasPageNew = () => {
                                                                             'OTHERS'
                                                                             ? 4
                                                                             : screenCount ===
-                                                                              1
-                                                                            ? 3
-                                                                            : 1)}
+                                                                                  1 &&
+                                                                              subCategory ===
+                                                                                  'OTHERS'
+                                                                            ? 4
+                                                                            : 3)}
                                                                     .{' '}
                                                                     {
                                                                         eachQuestion.question
@@ -1705,6 +1762,25 @@ const IdeasPageNew = () => {
                                                     </>
                                                 )
                                             )}
+                                            <Row className="card mb-4 my-3 comment-card px-0 px-5 py-3 card">
+                                                <Label
+                                                    check
+                                                    style={{
+                                                        fontSize: '1.4rem'
+                                                    }}
+                                                >
+                                                    <Input
+                                                        type="checkbox"
+                                                        name="self confirm"
+                                                        disabled={isDisabled}
+                                                        id="self confirm"
+                                                        value="yes"
+                                                    />
+                                                    {
+                                                        '  I confirm that the Idea Submitted now submitted is not copied or plagiarized version.'
+                                                    }
+                                                </Label>
+                                            </Row>
                                         </Form>
                                     )}
                                 </CardBody>
@@ -1713,7 +1789,7 @@ const IdeasPageNew = () => {
                         {!isDisabled && (
                             <Row>
                                 <Col className="d-flex justify-content-between">
-                                    <Button
+                                    {/* <Button
                                         type="button"
                                         btnClass={
                                             screenCount > 1
@@ -1725,9 +1801,9 @@ const IdeasPageNew = () => {
                                         label={t('idea_page.back')}
                                         disabled={!(screenCount > 1)}
                                     />
-                                    <p>{screenCount}</p>
+                                    <p>{screenCount}</p> */}
                                     <div>
-                                        {screenCount < 2 && (
+                                        {/* {screenCount < 2 && (
                                             <Button
                                                 type="button"
                                                 btnClass={
@@ -1742,7 +1818,7 @@ const IdeasPageNew = () => {
                                                 // }
                                                 label={t('idea_page.next')}
                                             />
-                                        )}
+                                        )} */}
                                         <Button
                                             type="button"
                                             btnClass="me-3 text-white"

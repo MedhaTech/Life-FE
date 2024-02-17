@@ -83,7 +83,7 @@ const Dashboard = () => {
             mentorTeamsCount();
             mentorIdeaCount();
             mentorStudentCount();
-            mentorcoursepercentage();
+            // mentorcoursepercentage();
         }
     }, [currentUser?.data[0]?.user_id]);
     // here in  Dashboard we can see all details of teacher //
@@ -174,44 +174,44 @@ const Dashboard = () => {
                 console.log(error);
             });
     };
-    const mentorcoursepercentage = () => {
-        const corseApi = encryptGlobal(
-            JSON.stringify({
-                user_id: currentUser?.data[0]?.user_id
-            })
-        );
-        var config = {
-            method: 'get',
-            url:
-                process.env.REACT_APP_API_BASE_URL +
-                `/dashboard/mentorpercentage?Data=${corseApi}`,
-            headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-                Authorization: `Bearer ${currentUser.data[0]?.token}`
-            }
-        };
-        axios(config)
-            .then(function (response) {
-                if (response.status === 200) {
-                    const per = Math.round(
-                        (response.data.data[0].currentProgress /
-                            response.data.data[0].totalProgress) *
-                            100
-                    );
-                    setCoursepercentage(per);
-                }
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-    };
+    // const mentorcoursepercentage = () => {
+    //     const corseApi = encryptGlobal(
+    //         JSON.stringify({
+    //             user_id: currentUser?.data[0]?.user_id
+    //         })
+    //     );
+    //     var config = {
+    //         method: 'get',
+    //         url:
+    //             process.env.REACT_APP_API_BASE_URL +
+    //             `/dashboard/mentorpercentage?Data=${corseApi}`,
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //             Accept: 'application/json',
+    //             Authorization: `Bearer ${currentUser.data[0]?.token}`
+    //         }
+    //     };
+    //     axios(config)
+    //         .then(function (response) {
+    //             if (response.status === 200) {
+    //                 const per = Math.round(
+    //                     (response.data.data[0].currentProgress /
+    //                         response.data.data[0].totalProgress) *
+    //                         100
+    //                 );
+    //                 setCoursepercentage(per);
+    //             }
+    //         })
+    //         .catch(function (error) {
+    //             console.log(error);
+    //         });
+    // };
     const handleClose = () => {
         setShowsPopup(false);
     };
     const hi = false;
     return (
-        <Layout>
+        <Layout title="Dashboard">
             <GreetingModal
                 handleClose={handleClose}
                 show={showsPopup}
@@ -229,7 +229,7 @@ const Dashboard = () => {
                                 bg="light"
                                 text="dark"
                                 className="mb-4"
-                                style={{ width: '350px' }}
+                                style={{ width: '350px', height: '230px' }}
                             >
                                 <Card.Body>
                                     <label htmlFor="teams" className="">
@@ -249,7 +249,7 @@ const Dashboard = () => {
                                 </Card.Body>
                             </Card>
                         </Row>
-                        <Row>
+                        {/* <Row>
                             <Card
                                 bg="light"
                                 text="dark"
@@ -273,7 +273,7 @@ const Dashboard = () => {
                                     </Card.Text>
                                 </Card.Body>
                             </Card>
-                        </Row>
+                        </Row> */}
                     </Col>
                     <Col>
                         <Row>

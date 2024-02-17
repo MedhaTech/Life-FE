@@ -126,7 +126,7 @@ const AddNewSchool = (props) => {
                     if (checkOrgRes.status == 201) {
                         openNotificationWithIcon(
                             'success',
-                            'School Create Successfully'
+                            'Institution Create Successfully'
                         );
                         props.history.push('/admin/registered-schools');
                     }
@@ -300,7 +300,7 @@ const AddNewSchool = (props) => {
                                                     {...inputDICE}
                                                     id="organization_name"
                                                     name="organization_name"
-                                                    placeholder="Please enter Institute/School name"
+                                                    placeholder="Please enter Institute name"
                                                     onChange={
                                                         formik.handleChange
                                                     }

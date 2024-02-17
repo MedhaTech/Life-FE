@@ -146,7 +146,7 @@ const ChangePSWModal = (props) => {
         }
     };
     return (
-        <Layout>
+        <Layout title="Change Password">
             <div className="container ChangePSWModal mb-5">
                 <Row className="mt-5 change-password">
                     <Col md={12}>

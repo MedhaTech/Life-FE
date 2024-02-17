@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React from 'react';
 import { Row, Col, Form, Label } from 'reactstrap';
@@ -121,7 +122,7 @@ const CreateTeam = (props) => {
     });
 
     return (
-        <Layout>
+        <Layout title="Teams">
             <div className="EditPersonalDetails new-member-page">
                 <Row>
                     <Col className="col-xl-10 offset-xl-1 offset-md-0">
@@ -159,16 +160,13 @@ const CreateTeam = (props) => {
                                                 </small>
                                             ) : null}
                                         </Col>
-                                        <Col md={6} className="mb-5 mb-xl-0">
+                                        {/* <Col md={6} className="mb-5 mb-xl-0">
                                             <Label
                                                 className="name-req"
                                                 htmlFor="name"
                                             >
-                                                {/* {t('teacher_teams.team_name')} */}
                                                 Mentor Name
-                                                {/* <span required className="p-1">
-                                                    *
-                                                </span> */}
+                                               
                                             </Label>
 
                                             <InputBox
@@ -185,10 +183,10 @@ const CreateTeam = (props) => {
                                             formik.errors.name ? (
                                                 <small className="error-cls">
                                                     {/* {formik.errors.name} */}
-                                                </small>
-                                            ) : null}
-                                        </Col>
-                                        <Col md={6}>
+                                        {/* </small> */}
+                                        {/* ) : null} */}
+                                        {/* </Col> */}
+                                        {/* <Col md={6}>
                                             <Label
                                                 className="mb-2"
                                                 htmlFor="email"
@@ -210,18 +208,16 @@ const CreateTeam = (props) => {
                                                     {formik.errors.email}
                                                 </small>
                                             ) : null}
-                                        </Col>
-                                        <Col md={6}>
+                                        </Col> */}
+                                        {/* <Col md={6}>
                                             <Label
                                                 className="mb-2"
                                                 htmlFor="gender"
                                             >
                                                 Mentor Gender
-                                                {/* {t('teacehr_red.gender')} */}
                                             </Label>
                                             <select
                                                 name="gender"
-                                                // id="gender"
                                                 className="col-8 selectDropdown"
                                                 value={formik.values.gender}
                                                 onBlur={formik.handleBlur}
@@ -249,8 +245,8 @@ const CreateTeam = (props) => {
                                                     {formik.errors.gender}
                                                 </small>
                                             ) : null}
-                                        </Col>
-                                        <Col md={6}>
+                                        </Col> */}
+                                        {/* <Col md={6}>
                                             <Label
                                                 className="mb-2 mt-3"
                                                 htmlFor="mobile"
@@ -272,7 +268,7 @@ const CreateTeam = (props) => {
                                                     {formik.errors.mobile}
                                                 </small>
                                             ) : null}
-                                        </Col>
+                                        </Col> */}
                                     </Row>
                                 </div>
 

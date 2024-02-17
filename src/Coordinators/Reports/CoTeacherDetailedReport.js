@@ -140,7 +140,7 @@ const CoTeacherDetailedReport = () => {
             key: 'HM Contact'
         },
         {
-            label: 'Teacher Name',
+            label: 'Mentor Name',
             key: 'Teacher Name'
         },
         {

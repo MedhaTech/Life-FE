@@ -49,8 +49,14 @@ const LoginNew = (props) => {
 
         validationSchema: Yup.object({
             email: Yup.string()
-                .email('Must be a valid email')
-                .required('Required user id'),
+                .required('required')
+                .trim()
+                .matches(
+                    /^\d+$/,
+                    'Mobile number is not valid (Enter only digits)'
+                )
+                .max(10, 'Please enter only 10 digit valid number')
+                .min(10, 'Number is less than 10 digits'),
             password: Yup.string().required('Required Password')
         }),
         // STIDENT ROLE
@@ -92,7 +98,7 @@ const LoginNew = (props) => {
 
     const inputUserId = {
         type: 'text',
-        placeholder: t('loginPage.Enter_your_userId')
+        placeholder: 'Enter Mobile number'
     };
 
     const inputPassword = {
@@ -183,7 +189,8 @@ const LoginNew = (props) => {
                                             alt="login icon"
                                             className="img-fluid"
                                         />{' '}
-                                        {t('loginPage.teacher_login')}
+                                        Mentor Login
+                                        {/* {t('loginPage.teacher_login')} */}
                                     </button>
                                 </Link>
                                 <Link
@@ -219,9 +226,7 @@ const LoginNew = (props) => {
                                                     className="mb-2"
                                                     htmlFor="email"
                                                 >
-                                                    {t(
-                                                        'loginPage.User_ID_Email'
-                                                    )}
+                                                    Mobile Number
                                                 </Label>
                                                 <InputBox
                                                     {...inputUserId}

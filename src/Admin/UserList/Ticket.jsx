@@ -57,7 +57,7 @@ const SelectDists = ({
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        if (tab && (tab == 1 || tab == 2)) getStateDataListAction();
+        if (tab && (tab == 1 || tab == 2)) getDistrictsListAction();
     }, [tab]);
 
     const handleDists = (e) => {
@@ -78,7 +78,7 @@ const SelectDists = ({
             value={newDist}
             className="text-capitalize"
         >
-            <option value="">Select State</option>
+            <option value="">Select District</option>
 
             {dists && dists.length > 0 ? (
                 dists.map((item, i) => (
@@ -87,7 +87,7 @@ const SelectDists = ({
                     </option>
                 ))
             ) : (
-                <option value="">There are no States</option>
+                <option value="">There are no District</option>
             )}
         </select>
     );
@@ -456,60 +456,73 @@ const TicketsPage = (props) => {
                 width: '6rem'
             },
             {
-                name: 'ATL Code',
-                selector: (row) => row.organization_code,
-                cellExport: (row) => row.organization_code,
+                name: 'Institution Unique Code',
+                selector: (row) => row.institution?.institution_code,
+                cellExport: (row) => row.institution?.institution_code,
+                width: '24rem'
+            },
+            {
+                name: 'District',
+                selector: (row) =>
+                    row.institution?.place?.block?.taluk?.district
+                        ?.district_name,
+                cellExport: (row) =>
+                    row.institution?.place?.block?.taluk?.district
+                        ?.district_name,
                 width: '13rem'
             },
+            // {
+            //     name: 'Category',
+            //     selector: (row) => row.organization.category,
+            //     cellExport: (row) => row.organization.category,
+            //     width: '15rem'
+            // },
             {
-                name: 'State',
-                selector: (row) => row.organization.state,
-                cellExport: (row) => row.organization.state,
-                width: '13rem'
-            },
-            {
-                name: 'Category',
-                selector: (row) => row.organization.category,
-                cellExport: (row) => row.organization.category,
-                width: '15rem'
-            },
-            {
-                name: 'School Name',
-                selector: (row) => row.organization.organization_name,
-                cellExport: (row) => row.organization.organization_name,
+                name: 'Institution Name',
+                selector: (row) => row.institution?.institution_name,
+                cell: (row) => (
+                    <div
+                        style={{
+                            whiteSpace: 'pre-wrap',
+                            wordWrap: 'break-word'
+                        }}
+                    >
+                        {row.institution?.institution_name}
+                    </div>
+                ),
+                // selector: (row) => row.institution?.institution_name,
+                cellExport: (row) => row.institution?.institution_name,
                 width: '17rem'
             },
 
             {
-                name: 'Teacher Name',
-                selector: (row) => row.full_name,
-                cellExport: (row) => row.full_name,
-
+                name: 'Mentor Name',
+                selector: (row) => row.mentor_name,
+                cellExport: (row) => row.mentor_name,
                 width: '15rem'
             },
 
             {
-                name: 'Email Id',
-                selector: (row) => row.username,
-                cellExport: (row) => row.username,
-
-                width: '33rem'
+                name: 'Mobile No',
+                selector: (row) => row.mentor_mobile,
+                cellExport: (row) => row.mentor_mobile,
+                width: '15rem'
             },
 
-            {
-                name: 'Status',
-                cell: (row) => [
-                    <Badge
-                        key={row.mentor_id}
-                        bg={`${
-                            row.status === 'ACTIVE' ? 'secondary' : 'danger'
-                        }`}
-                    >
-                        {row.status}
-                    </Badge>
-                ],
-                width: '9rem'
-            },
+            // {
+            //     name: 'Status',
+            //     cell: (row) => [
+            //         <Badge
+            //             key={row.mentor_id}
+            //             bg={`${
+            //                 row.status === 'ACTIVE' ? 'secondary' : 'danger'
+            //             }`}
+            //         >
+            //             {row.status}
+            //         </Badge>
+            //     ],
+            //     width: '9rem'
+            // },
             {
                 name: 'Actions',
                 width: '27rem',
@@ -582,7 +595,8 @@ const TicketsPage = (props) => {
             },
             {
                 name: 'ATL Code',
-                selector: (row) => row.team.mentor.organization.organization_code,
+                selector: (row) =>
+                    row.team.mentor.organization.organization_code,
                 cellExport: (row) =>
                     row.team.mentor.organization.organization_code,
                 width: '13rem'
@@ -601,7 +615,8 @@ const TicketsPage = (props) => {
             },
             {
                 name: 'School Name',
-                selector: (row) => row.team.mentor.organization.organization_name,
+                selector: (row) =>
+                    row.team.mentor.organization.organization_name,
                 cellExport: (row) =>
                     row.team.mentor.organization.organization_name,
                 width: '15rem'
@@ -896,12 +911,12 @@ const TicketsPage = (props) => {
                                 {tab && tab == 1 && (
                                     <>
                                         <SelectDists
-                                            getStateDataListAction={
-                                                props.getStateDataListAction
+                                            getDistrictsListAction={
+                                                props.getDistrictsListAction
                                             }
                                             setDist={setstudentDist}
                                             newDist={studentDist}
-                                            dists={props.regstate}
+                                            dists={props.dists}
                                             tab={tab}
                                         />
                                         {studentDist && (
@@ -915,12 +930,12 @@ const TicketsPage = (props) => {
                                 {tab && tab == 2 && (
                                     <>
                                         <SelectDists
-                                            getStateDataListAction={
-                                                props.getStateDataListAction
+                                            getDistrictsListAction={
+                                                props.getDistrictsListAction
                                             }
                                             setDist={setmentorDist}
                                             newDist={mentorDist}
-                                            dists={props.regstate}
+                                            dists={props.dists}
                                             tab={tab}
                                         />
                                         {mentorDist && (

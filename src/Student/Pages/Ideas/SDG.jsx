@@ -61,7 +61,7 @@ const SDG = ({ setShowChallenges }) => {
         );
     };
     return (
-        <Layout>
+        <Layout title="Idea Submission">
             {showPage ? (
                 <CommonPage text={comingSoonText} />
             ) : (
