@@ -135,8 +135,8 @@ const DashboardSchool = (props) => {
     useEffect(() => {
         if (currentUser?.data[0]?.institution_id) {
             mentorTeamsCount();
-            mentorIdeaCount();
-            mentorStudentCount();
+            // mentorIdeaCount();
+            // mentorStudentCount();
             // mentorcoursepercentage();
         }
     }, [currentUser?.data[0]?.institution_id]);
@@ -149,7 +149,9 @@ const DashboardSchool = (props) => {
 
     const mentorTeamsCount = () => {
         const mentId = encryptGlobal(
-            JSON.stringify(currentUser?.data[0]?.institution_id)
+            JSON.stringify({
+                institution_id: currentUser?.data[0]?.institution_id
+            })
         );
         var config = {
             method: 'get',
@@ -174,7 +176,9 @@ const DashboardSchool = (props) => {
     };
     const mentorIdeaCount = () => {
         const IdeaId = encryptGlobal(
-            JSON.stringify(currentUser?.data[0]?.institution_id)
+            JSON.stringify({
+                institution_id: currentUser?.data[0]?.institution_id
+            })
         );
         var config = {
             method: 'get',
@@ -199,7 +203,9 @@ const DashboardSchool = (props) => {
     };
     const mentorStudentCount = () => {
         const StuId = encryptGlobal(
-            JSON.stringify(currentUser?.data[0]?.institution_id)
+            JSON.stringify({
+                institution_id: currentUser?.data[0]?.institution_id
+            })
         );
         var config = {
             method: 'get',
