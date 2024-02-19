@@ -52,14 +52,12 @@ const DashboardSchool = (props) => {
     const pdfRef = React.useRef(null);
     const [isideadisable, setIsideadisable] = useState(false);
 
-    // console.log(school, 'school');
-
     const dispatch = useDispatch();
     // useLayoutEffect(() => {
     //     if (currentUser?.data[0]?.institution_id) {
     //     }
     // }, [currentUser?.data[0]?.institution_id]);
-
+    console.log(currentUser?.data[0]?.institution_id, '1');
     useEffect(() => {
         // if (school.school.institution_code) {
         const body = JSON.stringify({
@@ -85,7 +83,7 @@ const DashboardSchool = (props) => {
                         // setCount(count + 1);
                     }
                     // setOrgData(response?.data?.data[0]);
-                    // setMentorId(response?.data?.data[0]?.mentor.mentor_id);
+                    setMentorId(response?.data?.data[0]?.mentor.mentor_id);
                     // setMentorData(response?.data?.data[0]?.mentor);
                     // setUserData(response?.data?.data[0]?.mentor?.user);
                     // setUserId(response?.data?.data[0]?.mentor.user_id);
@@ -134,14 +132,14 @@ const DashboardSchool = (props) => {
                 }
             });
     };
-    // useEffect(() => {
-    //     if (mentorId) {
-    //         mentorTeamsCount();
-    //         mentorIdeaCount();
-    //         mentorStudentCount();
-    //         // mentorcoursepercentage();
-    //     }
-    // }, [mentorId]);
+    useEffect(() => {
+        if (currentUser?.data[0]?.institution_id) {
+            mentorTeamsCount();
+            mentorIdeaCount();
+            mentorStudentCount();
+            // mentorcoursepercentage();
+        }
+    }, [currentUser?.data[0]?.institution_id]);
     // useEffect(() => {
     //     if (userId) {
     //         mentorcoursepercentage();
@@ -150,11 +148,14 @@ const DashboardSchool = (props) => {
     // }, [userId]);
 
     const mentorTeamsCount = () => {
+        const mentId = encryptGlobal(
+            JSON.stringify(currentUser?.data[0]?.institution_id)
+        );
         var config = {
             method: 'get',
             url:
                 process.env.REACT_APP_API_BASE_URL +
-                `/dashboard/teamCount?mentor_id=${mentorId}`,
+                `/dashboard/teamCount?Data=${mentId}`,
             headers: {
                 'Content-Type': 'application/json',
                 Accept: 'application/json',
@@ -172,11 +173,14 @@ const DashboardSchool = (props) => {
             });
     };
     const mentorIdeaCount = () => {
+        const IdeaId = encryptGlobal(
+            JSON.stringify(currentUser?.data[0]?.institution_id)
+        );
         var config = {
             method: 'get',
             url:
                 process.env.REACT_APP_API_BASE_URL +
-                `/dashboard/ideaCount?mentor_id=${mentorId}`,
+                `/dashboard/ideaCount?Data=${IdeaId}`,
             headers: {
                 'Content-Type': 'application/json',
                 Accept: 'application/json',
@@ -194,11 +198,14 @@ const DashboardSchool = (props) => {
             });
     };
     const mentorStudentCount = () => {
+        const StuId = encryptGlobal(
+            JSON.stringify(currentUser?.data[0]?.institution_id)
+        );
         var config = {
             method: 'get',
             url:
                 process.env.REACT_APP_API_BASE_URL +
-                `/dashboard/studentCount?mentor_id=${mentorId}`,
+                `/dashboard/studentCount?Data=${StuId}`,
             headers: {
                 'Content-Type': 'application/json',
                 Accept: 'application/json',
@@ -208,6 +215,7 @@ const DashboardSchool = (props) => {
         axios(config)
             .then(function (response) {
                 if (response.status === 200) {
+                    console.log(response, 'ree');
                     setStudentCount(response.data.data[0].student_count);
                 }
             })
@@ -514,9 +522,91 @@ const DashboardSchool = (props) => {
                 <h2 className="mb-5  text-center mt-5">
                     <strong> Institution Dashboard</strong>
                 </h2>
-                <Row>
-                    <div className=" row  col-xs-12 col-md-12">
-                        <Col className="md-6">DashBoard</Col>
+                <Row className="m-5">
+                    <div className=" row  col-xs-12 col-md-12 ">
+                        <Col className="md-6">
+                            <Row>
+                                <Col md={4}>
+                                    <Card
+                                        bg="light"
+                                        text="dark"
+                                        className="p-2"
+                                        // className="md-3 xs-12 mb-4 "
+                                        // style={{ width: '350px' }}
+                                        style={{ height: '16rem' }}
+                                    >
+                                        <Card.Body>
+                                            <label htmlFor="teams" className="">
+                                                Number of Teams
+                                            </label>
+
+                                            <Card.Text
+                                                style={{
+                                                    fontSize: '48px',
+                                                    fontWeight: 'bold',
+                                                    marginTop: '10px',
+                                                    marginBottom: '20px'
+                                                }}
+                                            >
+                                                {teamsCount}
+                                            </Card.Text>
+                                        </Card.Body>
+                                    </Card>
+                                </Col>
+                                <Col md={4}>
+                                    <Card
+                                        bg="light"
+                                        text="dark"
+                                        className="p-2"
+                                        // style={{ height: '200px' }}
+                                        // className="md-3 xs-12 mb-4 "
+                                        style={{ height: '16rem' }}
+                                    >
+                                        <Card.Body>
+                                            <label htmlFor="teams" className="">
+                                                Total Students
+                                            </label>
+                                            <Card.Text
+                                                style={{
+                                                    fontSize: '48px',
+                                                    fontWeight: 'bold',
+                                                    marginTop: '10px',
+                                                    marginBottom: '20px'
+                                                }}
+                                            >
+                                                {studentCount}
+                                            </Card.Text>
+                                        </Card.Body>
+                                    </Card>
+                                </Col>
+                                <Col md={4}>
+                                    <Card
+                                        bg="light"
+                                        text="dark"
+                                        className="p-2"
+                                        // style={{ height: '200px' }}
+                                        // className="md-3 xs-12 mb-4 "
+                                        style={{ height: '16rem' }}
+                                    >
+                                        <Card.Body>
+                                            <label htmlFor="teams" className="">
+                                                Total Students
+                                            </label>
+                                            <Card.Text
+                                                style={{
+                                                    fontSize: '48px',
+                                                    fontWeight: 'bold',
+                                                    marginTop: '10px',
+                                                    marginBottom: '20px'
+                                                }}
+                                            >
+                                                {studentCount}
+                                            </Card.Text>
+                                        </Card.Body>
+                                    </Card>
+                                </Col>
+                            </Row>
+                        </Col>
                         <div
                             style={{ flex: 1, overflow: 'auto' }}
                             className="bg-white rounded px-5 py-3 col-lg-12 disc-card-search col-12"
