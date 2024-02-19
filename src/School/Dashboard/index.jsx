@@ -57,7 +57,6 @@ const DashboardSchool = (props) => {
     //     if (currentUser?.data[0]?.institution_id) {
     //     }
     // }, [currentUser?.data[0]?.institution_id]);
-    console.log(currentUser?.data[0]?.institution_id, '1');
     useEffect(() => {
         // if (school.school.institution_code) {
         const body = JSON.stringify({
@@ -135,8 +134,8 @@ const DashboardSchool = (props) => {
     useEffect(() => {
         if (currentUser?.data[0]?.institution_id) {
             mentorTeamsCount();
-            // mentorIdeaCount();
-            // mentorStudentCount();
+            mentorIdeaCount();
+            mentorStudentCount();
             // mentorcoursepercentage();
         }
     }, [currentUser?.data[0]?.institution_id]);
@@ -167,7 +166,7 @@ const DashboardSchool = (props) => {
         axios(config)
             .then(function (response) {
                 if (response.status === 200) {
-                    setTeamsCount(response.data.data[0].teams_count);
+                    setTeamsCount(response.data.data[0].teamCount);
                 }
             })
             .catch(function (error) {
@@ -596,7 +595,7 @@ const DashboardSchool = (props) => {
                                     >
                                         <Card.Body>
                                             <label htmlFor="teams" className="">
-                                                Total Students
+                                                Total Ideas
                                             </label>
                                             <Card.Text
                                                 style={{
@@ -606,7 +605,7 @@ const DashboardSchool = (props) => {
                                                     marginBottom: '20px'
                                                 }}
                                             >
-                                                {studentCount}
+                                                {ideaCount}
                                             </Card.Text>
                                         </Card.Body>
                                     </Card>
