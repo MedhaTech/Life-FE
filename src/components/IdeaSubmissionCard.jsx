@@ -39,16 +39,21 @@ const LinkComponent = ({ item }) => {
     );
 };
 const IdeaSubmissionCard = ({ handleClose, show, response, props }) => {
-    const submittedResponse = response;
+    const submitted = response;
     const [acceptBtn, setAcceptBtn] = useState('');
-    const AcceptButton = submittedResponse?.verified_by;
+    // const AcceptButton = submittedResponse?.verified_by;
     const currentUser = getCurrentUser('current_user');
     const mentorId = currentUser?.data[0]?.user_id;
-    const teamId = submittedResponse.team_id;
+    const teamId = submitted.team_id;
+    const [submittedResponse, setIdeaSubmittedData] = React.useState(submitted);
+
     const componentRef = useRef();
     const [teamResponse, setTeamResponse] = React.useState([]);
     const [answers, setAnswers] = useState([]);
     const [hide, setHide] = useState(true);
+    useEffect(async () => {
+        await ideaSubmittedApi();
+    }, []);
     const handleAccept = () => {
         const currentTime = new Date().toLocaleString();
 
@@ -109,7 +114,7 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props }) => {
             .then(function (response) {
                 if (response.status === 200) {
                     if (response.data.data !== null) {
-                        setIdeaSubmittedData(response.data.data);
+                        setIdeaSubmittedData(response.data.data[0]);
                         // setIsideadisable(true);
                     }
                 }
@@ -436,7 +441,7 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props }) => {
                 </Modal.Body>
                 <Modal.Footer>
                     {/* <FaDownload size={22} onClick={handlePrint} /> */}
-                    {AcceptButton === null && hide === true ? (
+                    {hide && submittedResponse?.verified_by === null ? (
                         <Button
                             size="small"
                             label={'Approve'}
@@ -444,31 +449,29 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props }) => {
                             onClick={handleAccept}
                         />
                     ) : (
-                        submittedResponse?.initiated_name !== '' && (
-                            // )}
-                            // {hide === true && (
-                            <>
-                                <div>
-                                    <p
-                                        style={{ fontSize: '1.5rem' }}
-                                        className="fw-bold"
-                                    >
-                                        Verified By :{' '}
-                                        {submittedResponse.verified_name}
-                                    </p>
-                                </div>
-                                <br />
-                                <div>
-                                    <p
-                                        style={{ fontSize: '1.5rem' }}
-                                        className="fw-bold"
-                                    >
-                                        Verified At :{' '}
-                                        {submittedResponse.verified_at}
-                                    </p>
-                                </div>
-                            </>
-                        )
+                        // )}
+                        // {hide === true && (
+                        <>
+                            <div>
+                                <p
+                                    style={{ fontSize: '1.5rem' }}
+                                    className="fw-bold"
+                                >
+                                    Verified By :{' '}
+                                    {submittedResponse.verified_name}
+                                </p>
+                            </div>
+                            <br />
+                            <div>
+                                <p
+                                    style={{ fontSize: '1.5rem' }}
+                                    className="fw-bold"
+                                >
+                                    Verified At :{' '}
+                                    {submittedResponse.verified_at}
+                                </p>
+                            </div>
+                        </>
                     )}
                     <Button
                         size="small"

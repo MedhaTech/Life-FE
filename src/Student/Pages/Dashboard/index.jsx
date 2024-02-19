@@ -101,7 +101,6 @@ const Dashboard = () => {
     const dashboardTeamProgressStatus = useSelector(
         (state) => state?.studentRegistration.dashboardTeamProgressStatus
     );
-    console.log(dashboardTeamProgressStatus, '1======');
     // const teamMember = useSelector(
     //     (state) => state?.studentRegistration.teamMember
     // );
