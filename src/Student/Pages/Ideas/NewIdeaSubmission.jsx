@@ -297,24 +297,34 @@ function NewIdeaSubmission(props) {
             self_declaration: selfCheck ? 'YES' : 'NO',
             status: stats
         });
-        var allques = false;
+        var allques = true;
         if (stats === 'SUBMITTED') {
             if (
-                theme !== '' &&
-                themeProId !== '' &&
-                probStatment !== '' &&
-                description !== '' &&
-                ideaTitle !== '' &&
-                solStatement !== '' &&
-                detailSol !== '' &&
-                protoType !== '' &&
-                ideaPublication !== '' &&
-                selfCheck !== false
+                // theme !== '' &&
+                // themeProId !== '' &&
+                // probStatment !== '' &&
+                // description !== '' &&
+                // ideaTitle !== '' &&
+                // solStatement !== '' &&
+                // detailSol !== '' &&
+                // protoType !== '' &&
+                // ideaPublication !== '' &&
+                // selfCheck !== false
+                theme === '' ||
+                themeProId === '' ||
+                probStatment === '' ||
+                description === '' ||
+                ideaTitle === '' ||
+                solStatement === '' ||
+                detailSol === '' ||
+                protoType === '' ||
+                ideaPublication === '' ||
+                selfCheck === false
             ) {
-                allques = true;
+                allques = false;
             }
         }
-        if ((allques && stats === 'SUBMITTED') || stats === 'DRAFT') {
+        if (allques || stats === 'DRAFT') {
             var config = {
                 method: 'put',
                 url: `${
@@ -675,6 +685,14 @@ function NewIdeaSubmission(props) {
                                                             name="teams"
                                                             id="teams"
                                                         >
+                                                            <option
+                                                                // disabled
+                                                                value=""
+                                                            >
+                                                                Please select a
+                                                                Problem
+                                                                statement
+                                                            </option>
                                                             {statementList.map(
                                                                 (item, i) => (
                                                                     <option
@@ -811,7 +829,11 @@ function NewIdeaSubmission(props) {
                                                         }}
                                                     >
                                                         <TextArea
-                                                            disabled={condition}
+                                                            disabled={
+                                                                condition ||
+                                                                theme !==
+                                                                    'Others'
+                                                            }
                                                             placeholder="Enter the Problem statement"
                                                             value={description}
                                                             maxLength={1000}
