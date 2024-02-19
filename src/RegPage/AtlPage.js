@@ -731,6 +731,15 @@ function AtlPage() {
                                                         htmlFor="mentor_title"
                                                     >
                                                         {t('teacehr_red.title')}
+                                                        <span
+                                                            className="m-2"
+                                                            style={{
+                                                                color: 'red'
+                                                            }}
+                                                            required
+                                                        >
+                                                            *
+                                                        </span>
                                                     </Label>
                                                     <select
                                                         disabled={
@@ -804,6 +813,15 @@ function AtlPage() {
                                                         htmlFor="name"
                                                     >
                                                         Mentor Name
+                                                        <span
+                                                            className="m-2"
+                                                            style={{
+                                                                color: 'red'
+                                                            }}
+                                                            required
+                                                        >
+                                                            *
+                                                        </span>
                                                     </Label>
                                                     <InputBox
                                                         {...inputName}
@@ -859,6 +877,15 @@ function AtlPage() {
                                                         htmlFor="mentor_email"
                                                     >
                                                         Email Address
+                                                        <span
+                                                            className="m-2"
+                                                            style={{
+                                                                color: 'red'
+                                                            }}
+                                                            required
+                                                        >
+                                                            *
+                                                        </span>
                                                     </Label>
                                                     <InputBox
                                                         {...inputmentor_Email}
@@ -908,6 +935,15 @@ function AtlPage() {
                                                         {t(
                                                             'teacehr_red.gender'
                                                         )}
+                                                          <span
+                                                            className="m-2"
+                                                            style={{
+                                                                color: 'red'
+                                                            }}
+                                                            required
+                                                        >
+                                                            *
+                                                        </span>
                                                     </Label>
                                                     <select
                                                         disabled={
@@ -966,6 +1002,15 @@ function AtlPage() {
                                                         htmlFor="date_of_birth"
                                                     >
                                                         Date of Birth
+                                                        <span
+                                                            className="m-2"
+                                                            style={{
+                                                                color: 'red'
+                                                            }}
+                                                            required
+                                                        >
+                                                            *
+                                                        </span>
                                                     </Label>
                                                     <InputBox
                                                         {...inputDate}
@@ -1023,6 +1068,15 @@ function AtlPage() {
                                                         htmlFor="mentor_mobile"
                                                     >
                                                         Your Mobile Number
+                                                        <span
+                                                            className="m-2"
+                                                            style={{
+                                                                color: 'red'
+                                                            }}
+                                                            required
+                                                        >
+                                                            *
+                                                        </span>
                                                     </Label>
                                                     <InputBox
                                                         {...inputUsername}
@@ -1070,6 +1124,15 @@ function AtlPage() {
                                                             htmlFor="phone"
                                                         >
                                                             Your WhatsApp Number
+                                                            <span
+                                                            className="m-2"
+                                                            style={{
+                                                                color: 'red'
+                                                            }}
+                                                            required
+                                                        >
+                                                            *
+                                                        </span>
                                                         </Label>
                                                         <div
                                                             className="my-10 checkbox-right"
