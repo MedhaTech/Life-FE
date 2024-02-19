@@ -45,7 +45,6 @@ export default function DoughnutChart({ user }) {
     const { challengesSubmittedResponse } = useSelector(
         (state) => state?.studentRegistration
     );
-    // console.log(challengesSubmittedResponse, 'data');
     useEffect(() => {
         if (teamId) {
             dispatch(getTeamMemberStatus(teamId, setshowDefault));
@@ -154,21 +153,18 @@ export default function DoughnutChart({ user }) {
         //  handleChangeStudent Api we can update the initiate student //
         // here id = class ; name = student name //
 
-        let changParam = encryptGlobal(
-            JSON.stringify({
-                nameChange: 'true'
-            })
-        );
+        const body = {
+            team_id: teamId,
+            initiated_by: studentchangeObj[name]
+        };
         var config = {
             method: 'put',
-            url:
-                process.env.REACT_APP_API_BASE_URL +
-                `/challenge_response/updateEntry/${StudentId}?Data=${changParam}`,
+            url: process.env.REACT_APP_API_BASE_URL + '/ideas/ideaUpdate',
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${currentUser?.data[0]?.token}`
             },
-            data: { initiated_by: studentchangeObj[name] }
+            data: body
         };
         axios(config)
             .then(function (response) {
@@ -322,9 +318,11 @@ export default function DoughnutChart({ user }) {
             studentlistObj[stu.student_full_name] = stu.user_id;
             return stu.student_full_name;
         });
+
         let index = studentlist.indexOf(
             challengesSubmittedResponse?.initiated_name
         );
+
         if (index >= 0) {
             studentlist.splice(index, 1);
         }
@@ -440,10 +438,10 @@ export default function DoughnutChart({ user }) {
             ideaValuesForPDF !== undefined
         ) {
             handlePrint();
-            console.log('printcontinue');
+            // console.log('printcontinue');
             setShowPrintSymbol(true);
         } else {
-            console.log("Some PDF printing related api's are failing");
+            // console.log("Some PDF printing related api's are failing");
             setShowPrintSymbol(true);
         }
     }, [teamsData, mentorValuesForPDF]);

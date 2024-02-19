@@ -389,10 +389,11 @@ export const getStudentChallengeSubmittedResponse =
                     return err.response;
                 });
             if (result && result.status === 200) {
+                // console.log(result, '11');
                 const data =
-                    result.data &&
-                    // result?.data?.data.length > 0 &&
-                    result?.data?.data[0];
+                    result.data && result.data.data
+                        ? result?.data?.data[0]
+                        : [];
                 dispatch(getStudentChallengeSubmittedResponseSuccess(data));
             } else {
                 dispatch(getStudentListError(result.statusText));
