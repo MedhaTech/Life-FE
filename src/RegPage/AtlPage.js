@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable no-undef */
@@ -110,6 +111,7 @@ function AtlPage() {
         className: 'defaultInput'
     };
     const regex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
+    const name = /^[a-zA-Z\s\u0B80-\u0BFF]+$/;
     const formik = useFormik({
         initialValues: {
             mentor_name: '',
@@ -136,7 +138,7 @@ function AtlPage() {
             mentor_name: Yup.string()
                 .trim()
                 .min(2, 'Enter Name')
-                .matches(/^[aA-zZ\s]+$/, 'Special Characters are not allowed')
+                .matches(name, 'Special Characters are not allowed')
                 .required('Required'),
             // mentor_name_vernacular: Yup.string()
             //     .trim()
@@ -935,7 +937,7 @@ function AtlPage() {
                                                         {t(
                                                             'teacehr_red.gender'
                                                         )}
-                                                          <span
+                                                        <span
                                                             className="m-2"
                                                             style={{
                                                                 color: 'red'
@@ -1125,14 +1127,14 @@ function AtlPage() {
                                                         >
                                                             Your WhatsApp Number
                                                             <span
-                                                            className="m-2"
-                                                            style={{
-                                                                color: 'red'
-                                                            }}
-                                                            required
-                                                        >
-                                                            *
-                                                        </span>
+                                                                className="m-2"
+                                                                style={{
+                                                                    color: 'red'
+                                                                }}
+                                                                required
+                                                            >
+                                                                *
+                                                            </span>
                                                         </Label>
                                                         <div
                                                             className="my-10 checkbox-right"
