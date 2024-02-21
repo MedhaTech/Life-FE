@@ -457,7 +457,7 @@ const MyProfile = () => {
                                                                     </b>
                                                                 </Col>
                                                             </Row>
-                                                            <Row className="pt-3 pb-3">
+                                                            {/* <Row className="pt-3 pb-3">
                                                                 <Col
                                                                     xs={5}
                                                                     sm={5}
@@ -497,7 +497,7 @@ const MyProfile = () => {
                                                                             : '-'}
                                                                     </b>
                                                                 </Col>
-                                                            </Row>
+                                                            </Row> */}
 
                                                             <Row className="pt-3 pb-3">
                                                                 <Col

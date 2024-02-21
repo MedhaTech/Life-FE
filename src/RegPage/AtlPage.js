@@ -658,7 +658,7 @@ function AtlPage() {
                                                             orgData?.institution_name
                                                         }{' '}
                                                         <br />
-                                                        Institution Type:{' '}
+                                                        {/* Institution Type:{' '}
                                                         {orgData
                                                             ?.institution_type
                                                             ?.institution_type
@@ -666,7 +666,7 @@ function AtlPage() {
                                                                   ?.institution_type
                                                                   ?.institution_type
                                                             : ' N/A'}{' '}
-                                                        <br />
+                                                        <br /> */}
                                                         Place :{' '}
                                                         {orgData?.place
                                                             ?.place_name
