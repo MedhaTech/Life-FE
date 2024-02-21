@@ -13,6 +13,8 @@ import { useHistory } from 'react-router-dom';
 import { URL, KEY } from '../../constants/defaultValues';
 import DataTableExtensions from 'react-data-table-component-extensions';
 import DataTable, { Alignment } from 'react-data-table-component';
+import { Button } from '../../stories/Button';
+
 import {
     deleteTempMentorById,
     teacherResetPassword
@@ -220,7 +222,6 @@ const DashboardSchool = (props) => {
         axios(config)
             .then(function (response) {
                 if (response.status === 200) {
-                    console.log(response, 'ree');
                     setStudentCount(response.data.data[0].student_count);
                 }
             })
@@ -524,9 +525,21 @@ const DashboardSchool = (props) => {
     return (
         <Layout>
             <Container>
-                <h2 className="mb-5  text-center mt-5">
-                    <strong> Institution Dashboard</strong>
-                </h2>
+                <Row className="ticket-btn col ml-auto mb-3">
+                    <h2 className="mt-5  text-center ">
+                        <strong> Institution Dashboard</strong>
+                    </h2>
+                    <div className="d-flex justify-content-end">
+                        <Button
+                            label="Add/Register Mentor "
+                            btnClass="m-5 btn btn-success"
+                            size="small"
+                            shape="btn-square"
+                            // Icon={BsPlusLg}
+                            onClick={() => history.push('/school/register')}
+                        />
+                    </div>
+                </Row>
                 {/* <Row className="m-5"> */}
                 <div className=" row  col-xs-12 col-md-12 ">
                     <Row className="md-12">

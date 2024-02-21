@@ -398,8 +398,18 @@ const ViewTeamMember = (props) => {
 
             {
                 name: 'Course',
-                selector: (row) => row.stream?.stream_name,
-                width: '12rem'
+                selector: (row) => row.course_name,
+                cell: (row) => (
+                    <div
+                        style={{
+                            whiteSpace: 'pre-wrap',
+                            wordWrap: 'break-word'
+                        }}
+                    >
+                        {row.course_name}
+                    </div>
+                )
+                // width: '12rem'
             },
             {
                 name: 'Year of Study',
