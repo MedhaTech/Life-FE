@@ -64,15 +64,13 @@ const ChangePSWModal = (props) => {
                 const body = JSON.stringify({
                     old_password: old1,
                     new_password: new1,
-                    organization_id: JSON.stringify(
-                        currentUser?.data[0]?.organization_id
-                    )
+                    institution_id: currentUser?.data[0]?.institution_id
                 });
                 const config = {
                     method: 'put',
                     url:
                         process.env.REACT_APP_API_BASE_URL +
-                        '/organizations/changePassword',
+                        '/institutions/changePassword',
                     headers: {
                         'Content-Type': 'application/json',
                         Authorization: `Bearer ${currentUser?.data[0]?.token}`

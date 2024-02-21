@@ -22,6 +22,8 @@ const EditTeacherProfileDetails = (props) => {
     const history = useHistory();
     const { t } = useTranslation();
     const currentUser = getCurrentUser('current_user');
+    const name = /^[a-zA-Z\s\u0B80-\u0BFF]+$/;
+
     const mentorData =
         // where  mentorData = mentor details //
         (history && history.location && history.location.item) || {};
@@ -47,7 +49,7 @@ const EditTeacherProfileDetails = (props) => {
 
                 .trim()
                 .min(2, 'Enter Name')
-                .matches(/^[aA-zZ\s]+$/, 'Special Characters are not allowed')
+                .matches(name, 'Special Characters are not allowed')
                 .required('Required')
             // mentor_name_vernacular: Yup.string()
 
