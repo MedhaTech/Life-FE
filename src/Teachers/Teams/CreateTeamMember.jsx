@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React, { useEffect, useState } from 'react';
@@ -23,13 +24,14 @@ import { error } from 'highcharts';
 const studentBody = {
     student_full_name: '',
     Age: '',
-    stream_id: '',
+    // stream_id: '',
     mobile: '',
     year_of_study: '',
     date_of_birth: '',
     Gender: '',
     email: '',
-    username: ''
+    username: '',
+    institution_course_id: ''
 };
 // const grades = [6, 7, 8, 9, 10, 11, 12];
 const allowedAge = [10, 11, 12, 13, 14, 15, 16, 17, 18];
@@ -43,13 +45,14 @@ const CreateMultipleMembers = ({ id }) => {
         team_id: id,
         role: 'STUDENT',
         student_full_name: '',
-        stream_id: '',
+        // stream_id: '',
         Age: '',
         mobile: '',
         year_of_study: '',
         date_of_birth: '',
         email: '',
         Gender: '',
+        institution_course_id: '',
         // disability: '',
         username: '',
         mentor_id: MentorId
@@ -61,14 +64,21 @@ const CreateMultipleMembers = ({ id }) => {
     const history = useHistory();
     const [isClicked, setIsClicked] = useState(false);
     const [listCourse, setListCourse] = useState([]);
+    const [multiStream, setMultiStream] = useState([]);
+    const [multiProgram, setMultiProgram] = useState([]);
+
     // console.log(MentorId, '3');
+    const [selectedValue, setSelectedValue] = useState('');
+    const [selectedStreamValue, setSelectedStreamValue] = useState('');
 
     const [studentData, setStudentData] = useState([
         {
             team_id: id,
             role: 'STUDENT',
             student_full_name: '',
-            stream_id: '',
+            // stream_id: '',
+            institution_course_id: '',
+
             Age: '',
             mobile: '',
             year_of_study: '',
@@ -88,6 +98,8 @@ const CreateMultipleMembers = ({ id }) => {
             mobile: '',
             year_of_study: '',
             date_of_birth: '',
+            institution_course_id: '',
+
             // Grade: '',
             // Gender: '',
             username: '',
@@ -99,11 +111,13 @@ const CreateMultipleMembers = ({ id }) => {
             team_id: id,
             role: 'STUDENT',
             student_full_name: '',
-            stream_id: '',
+            // stream_id: '',
             Age: '',
             mobile: '',
             year_of_study: '',
             date_of_birth: '',
+            institution_course_id: '',
+
             // Grade: '',
             // Gender: '',
             username: '',
@@ -120,18 +134,20 @@ const CreateMultipleMembers = ({ id }) => {
     // const emailRegex = /^[\w.]+@([\w-]+\.)+[\w-]{2,4}$/;
     const isValidNumber = /^\d{10}$/;
     useEffect(() => {
-        CourseList();
+        multiInstitutionList();
     }, []);
-    const CourseList = () => {
+    const multiInstitutionList = () => {
         const newparam = encryptGlobal(
-            JSON.stringify(currentUser.data[0]?.institution_type_id)
+            JSON.stringify({
+                institution_id: currentUser.data[0]?.institution_id
+            })
         );
 
         var config = {
             method: 'get',
             url:
                 process.env.REACT_APP_API_BASE_URL +
-                `/institutions/Streams/${newparam}`,
+                `/institutions/institutionTypes?Data=${newparam}`,
             headers: {
                 'Content-Type': 'application/json',
                 Accept: 'application/json',
@@ -141,32 +157,133 @@ const CreateMultipleMembers = ({ id }) => {
         axios(config)
             .then(function (response) {
                 if (response.status === 200) {
-                    // console.log(response, 'res');
                     let dataa = response?.data?.data;
+
                     if (dataa) {
                         let courseOption = [];
                         dataa.map((item) => {
                             let option = {
-                                label: item.stream_name,
-                                value: item.stream_id
+                                label: item.institution_type,
+                                value: item.institution_type_id
                             };
                             courseOption.push(option);
                         });
                         setListCourse(courseOption);
                     }
-                    // setTotalSubmittedideasCount(
-                    //     response.data.data[0].submitted_ideas
-                    // );
                 }
             })
             .catch(function (error) {
                 console.log(error);
             });
     };
+
     const selectCategory = {
         label: 'Select Course',
         options: listCourse,
         className: 'defaultDropdown'
+    };
+    const selectMUltiStream = {
+        label: 'Select Stream',
+        options: multiStream,
+        className: 'defaultDropdown'
+    };
+    const selectMUltiProgram = {
+        label: 'Select Program',
+        options: multiProgram,
+        className: 'defaultDropdown'
+    };
+    useEffect(async () => {
+        if (selectedValue) {
+            await MultistreamsApi();
+        }
+    }, [selectedValue]);
+    const MultistreamsApi = () => {
+        const newparam = encryptGlobal(
+            JSON.stringify({
+                institution_id: currentUser.data[0]?.institution_id,
+                institution_type_id: selectedValue
+            })
+        );
+
+        var config = {
+            method: 'get',
+            url:
+                process.env.REACT_APP_API_BASE_URL +
+                `/institutions/Streams?Data=${newparam}`,
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${currentUser.data[0]?.token}`
+            }
+        };
+        axios(config)
+            .then(function (response) {
+                if (response.status === 200) {
+                    // console.log(response, '3');
+                    let StreamListdata = response?.data?.data;
+                    if (StreamListdata) {
+                        let MultiStreamOptions = [];
+                        StreamListdata.map((item) => {
+                            let option = {
+                                label: item.stream_name,
+                                value: item.stream_id
+                            };
+                            MultiStreamOptions.push(option);
+                        });
+                        setMultiStream(MultiStreamOptions);
+                    }
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
+    useEffect(async () => {
+        if (selectedStreamValue) {
+            await MultiProgrammeApi();
+        }
+    }, [selectedStreamValue]);
+    const MultiProgrammeApi = () => {
+        const newparam = encryptGlobal(
+            JSON.stringify({
+                institution_id: currentUser.data[0]?.institution_id,
+                institution_type_id: selectedValue,
+                stream_id: selectedStreamValue
+            })
+        );
+
+        var config = {
+            method: 'get',
+            url:
+                process.env.REACT_APP_API_BASE_URL +
+                `/institutions/programs?Data=${newparam}`,
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${currentUser.data[0]?.token}`
+            }
+        };
+        axios(config)
+            .then(function (response) {
+                if (response.status === 200) {
+                    console.log(response);
+                    let MultiProgrammedata = response?.data?.data;
+                    if (MultiProgrammedata) {
+                        let MultiProgrammeOptions = [];
+                        MultiProgrammedata.map((item) => {
+                            let option = {
+                                label: item.program_name,
+                                value: item.institution_course_id
+                            };
+                            MultiProgrammeOptions.push(option);
+                        });
+                        setMultiProgram(MultiProgrammeOptions);
+                    }
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
     };
     const handleChange = (e, i) => {
         let newItem = [...studentData];
@@ -304,7 +421,8 @@ const CreateMultipleMembers = ({ id }) => {
                 err['email'] =
                     'Enter the valid email id/accept small letters only';
             }
-            if (!item.stream_id) err['stream_id'] = 'Course is Required';
+            if (!item.institution_course_id)
+                err['institution_course_id'] = 'Program is Required';
             // if (!item.stream_id) {
             //     err['stream_id'] = 'Course is Required';
             // } else {
@@ -407,12 +525,12 @@ const CreateMultipleMembers = ({ id }) => {
     };
     const handleErrorForStream = (values, i) => {
         let errCopy = [...itemDataErrors];
-        if (values[i]['stream_id'] !== '') {
-            errCopy[i]['stream_id'] = '';
+        if (values[i]['institution_course_id'] !== '') {
+            errCopy[i]['institution_course_id'] = '';
         }
         setItemDataErrors(errCopy);
     };
-
+    // console.log(selectedStreamValue, 'St');
     return (
         <div className="create-ticket register-blockt">
             {studentData.map((item, i) => {
@@ -433,7 +551,7 @@ const CreateMultipleMembers = ({ id }) => {
                         <hr />
                         <Row className="mb-3">
                             <Row>
-                                <Col md={4}>
+                                <Col md={6}>
                                     <Label
                                         className="name-req-create-member"
                                         htmlFor="fullName"
@@ -461,42 +579,84 @@ const CreateMultipleMembers = ({ id }) => {
                                         </small>
                                     ) : null}
                                 </Col>
-                                <Col md={4}>
+                                <Col md={6}>
                                     <Label
                                         className="name-req-create-member"
                                         htmlFor="stream_id"
                                     >
-                                        Course
+                                        Institution Type
                                         <span required className="p-1">
                                             *
                                         </span>
                                     </Label>
 
-                                    {/* <div className="dropdown CalendarDropdownComp "> */}
-                                    {/* <select
-                                            name="course_id"
-                                            className="form-control custom-dropdown"
-                                            value={item.course_id}
-                                            onChange={(e) => handleChange(e, i)}
-                                        >
-                                            <option value={''}>
-                                                Select The Course
-                                            </option>
-                                            {allowCourse.map((item) => (
-                                                <option key={item} value={item}>
-                                                    {item}
-                                                </option>
-                                            ))}
-                                        </select> */}
                                     <DropDownWithSearch
                                         {...selectCategory}
                                         // onBlur={formik.handleBlur}
+                                        // onChange={(option) => {
+                                        //     // studentData[i][
+                                        //     //     'institution_type_id'
+                                        //     // ] =
+                                        //     option[0]?.value;
+                                        //     // console.log(
+                                        //     //     option[0]?.value,
+                                        //     //     ' option[0]?.value'
+                                        //     // );
+                                        // }}
                                         onChange={(option) => {
-                                            studentData[i]['stream_id'] =
+                                            // const selectedValue =
+                                            //     option[0]?.value;
+                                            const selectedValue =
                                                 option[0]?.value;
-                                            handleErrorForStream(
-                                                studentData,
-                                                i
+                                            setSelectedValue(selectedValue);
+
+                                            // console.log(
+                                            //     selectedValue,
+                                            //     'selectedCategory'
+                                            // );
+                                        }}
+                                        // value={[
+                                        //     {
+                                        //         label: selectedValue?.institution_type,
+                                        //         value: selectedValue?.institution_type_id
+                                        //     }
+                                        // ]}
+                                        // value={selectedValue }
+                                        value={item.value}
+                                        name="Select Institution Type"
+                                        id="Select Institution Type"
+                                    />
+                                    {/* </div> */}
+
+                                    {foundErrObject?.institution_type_id ? (
+                                        <small className="error-cls">
+                                            {foundErrObject.institution_type_id}
+                                        </small>
+                                    ) : null}
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col md={5}>
+                                    <Label
+                                        className="name-req-create-member"
+                                        htmlFor="stream_id"
+                                    >
+                                        Stream Type
+                                        <span required className="p-1">
+                                            *
+                                        </span>
+                                    </Label>
+
+                                    <DropDownWithSearch
+                                        {...selectMUltiStream}
+                                        // onBlur={formik.handleBlur}
+                                        onChange={(option) => {
+                                            // studentData[i]['stream_id'] =
+                                            //     option[0]?.value;
+                                            const selectedStreamValue =
+                                                option[0]?.value;
+                                            setSelectedStreamValue(
+                                                selectedStreamValue
                                             );
 
                                             // 'course_id', option[0]?.value;
@@ -516,7 +676,48 @@ const CreateMultipleMembers = ({ id }) => {
                                         </small>
                                     ) : null}
                                 </Col>
-                                <Col md={4} className="mb-xl-0">
+                                <Col md={5}>
+                                    <Label
+                                        className="name-req-create-member"
+                                        htmlFor="stream_id"
+                                    >
+                                        Program Type
+                                        <span required className="p-1">
+                                            *
+                                        </span>
+                                    </Label>
+
+                                    <DropDownWithSearch
+                                        {...selectMUltiProgram}
+                                        // onBlur={formik.handleBlur}
+                                        onChange={(option) => {
+                                            studentData[i][
+                                                'institution_course_id'
+                                            ] = option[0]?.value;
+                                            handleErrorForStream(
+                                                studentData,
+                                                i
+                                            );
+                                            // 'course_id', option[0]?.value;
+                                        }}
+                                        // onChange={(e) => {
+                                        //     handleChange(e, i);
+                                        // }}
+                                        value={item.value}
+                                        name="Select Program"
+                                        id="Select Program"
+                                    />
+                                    {/* </div> */}
+
+                                    {foundErrObject?.institution_course_id ? (
+                                        <small className="error-cls">
+                                            {
+                                                foundErrObject.institution_course_id
+                                            }
+                                        </small>
+                                    ) : null}
+                                </Col>
+                                <Col md={2} className="mb-xl-0">
                                     <Label
                                         className="name-req-create-member"
                                         htmlFor="year_of_study"
@@ -882,6 +1083,9 @@ const CreateTeamMember = (props) => {
     const [isClicked, setIsClicked] = useState(false);
     const [aged, setAge] = useState('');
     const [courses, setCourses] = useState([]);
+    const [stream, setStream] = useState([]);
+    const [program, setProgram] = useState([]);
+    const [instType, setInstType] = useState();
     const MentorsId = currentUser?.data[0]?.mentor_id;
     const headingDetails = {
         title: t('teacher_teams.create_team_members'),
@@ -906,6 +1110,16 @@ const CreateTeamMember = (props) => {
         options: courses,
         className: 'defaultDropdown'
     };
+    const selectStream = {
+        label: 'Select Stream',
+        options: stream,
+        className: 'defaultDropdown'
+    };
+    const selectProgram = {
+        label: 'Select Program',
+        options: program,
+        className: 'defaultDropdown'
+    };
     // const selectCategory = {
     //     label: 'Select Course',
     //     options: [
@@ -916,19 +1130,24 @@ const CreateTeamMember = (props) => {
     //     ],
     //     className: 'defaultDropdown'
     // };
+    // useEffect(() => {
+    //     CourseList();
+    // }, []);
     useEffect(() => {
-        CourseList();
+        institutionTypeApi();
     }, []);
-    const CourseList = () => {
+    const institutionTypeApi = () => {
         const newparam = encryptGlobal(
-            JSON.stringify(currentUser.data[0]?.institution_type_id)
+            JSON.stringify({
+                institution_id: currentUser.data[0]?.institution_id
+            })
         );
 
         var config = {
             method: 'get',
             url:
                 process.env.REACT_APP_API_BASE_URL +
-                `/institutions/Streams/${newparam}`,
+                `/institutions/institutionTypes?Data=${newparam}`,
             headers: {
                 'Content-Type': 'application/json',
                 Accept: 'application/json',
@@ -943,8 +1162,8 @@ const CreateTeamMember = (props) => {
                         let courseOptions = [];
                         data.map((item) => {
                             let option = {
-                                label: item.stream_name,
-                                value: item.stream_id
+                                label: item.institution_type,
+                                value: item.institution_type_id
                             };
                             courseOptions.push(option);
                         });
@@ -959,6 +1178,10 @@ const CreateTeamMember = (props) => {
                 console.log(error);
             });
     };
+    // useEffect(() => {
+    //     if (formik.values.institution_type_id) {
+    //     }
+    // }, [formik.values.institution_type_id]);
 
     async function handleCreateMemberAPI(teamId) {
         const creaParam = encryptGlobal(JSON.stringify(teamId));
@@ -990,13 +1213,14 @@ const CreateTeamMember = (props) => {
         initialValues: {
             student_full_name: '',
             age: '',
-            stream_id: '',
+            // stream_id: '',
             gender: '',
             year_of_study: '',
             date_of_birth: '',
             mobile: '',
             username: '',
-            email: ''
+            email: '',
+            institution_course_id: ''
         },
         validationSchema: Yup.object({
             student_full_name: Yup.string()
@@ -1073,14 +1297,15 @@ const CreateTeamMember = (props) => {
                     mentor_id: MentorsId,
                     student_full_name: values.student_full_name,
                     Age: values.age,
-                    stream_id: values.stream_id,
+                    // stream_id: values.stream_id,
                     Gender: values.gender,
                     year_of_study: values.year_of_study,
                     mobile: values.mobile,
                     email: values.email,
                     username: values.mobile,
                     date_of_birth: values.date_of_birth,
-                    country: values.country
+                    country: values.country,
+                    institution_course_id: values.institution_course_id
                 };
                 var config = {
                     method: 'post',
@@ -1138,7 +1363,98 @@ const CreateTeamMember = (props) => {
         //     formik.setFieldValue('age', 0);
         // }
     }, [formik.values.date_of_birth]);
+    useEffect(async () => {
+        if (formik.values.institution_type_id) {
+            await streamsApi();
+        }
+    }, [formik.values.institution_type_id]);
+    const streamsApi = () => {
+        const newparam = encryptGlobal(
+            JSON.stringify({
+                institution_id: currentUser.data[0]?.institution_id,
+                institution_type_id: formik.values.institution_type_id
+            })
+        );
 
+        var config = {
+            method: 'get',
+            url:
+                process.env.REACT_APP_API_BASE_URL +
+                `/institutions/Streams?Data=${newparam}`,
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${currentUser.data[0]?.token}`
+            }
+        };
+        axios(config)
+            .then(function (response) {
+                if (response.status === 200) {
+                    let Streamdata = response?.data?.data;
+                    if (Streamdata) {
+                        let StreamOptions = [];
+                        Streamdata.map((item) => {
+                            let option = {
+                                label: item.stream_name,
+                                value: item.stream_id
+                            };
+                            StreamOptions.push(option);
+                        });
+                        setStream(StreamOptions);
+                    }
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
+    useEffect(async () => {
+        if (formik.values.stream_id) {
+            await ProgrammeApi();
+        }
+    }, [formik.values.stream_id]);
+    const ProgrammeApi = () => {
+        const newparam = encryptGlobal(
+            JSON.stringify({
+                institution_id: currentUser.data[0]?.institution_id,
+                institution_type_id: formik.values.institution_type_id,
+                stream_id: formik.values.stream_id
+            })
+        );
+
+        var config = {
+            method: 'get',
+            url:
+                process.env.REACT_APP_API_BASE_URL +
+                `/institutions/programs?Data=${newparam}`,
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${currentUser.data[0]?.token}`
+            }
+        };
+        axios(config)
+            .then(function (response) {
+                if (response.status === 200) {
+                    let Programmedata = response?.data?.data;
+                    if (Programmedata) {
+                        let ProgrammeOptions = [];
+                        Programmedata.map((item) => {
+                            let option = {
+                                label: item.program_name,
+                                value: item.institution_course_id
+                            };
+                            ProgrammeOptions.push(option);
+                        });
+                        setProgram(ProgrammeOptions);
+                    }
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
+    // console.log(formik.values.stream_id, '2');
     return (
         <Layout title="teams">
             <div className="EditPersonalDetails new-member-page">
@@ -1156,7 +1472,7 @@ const CreateTeamMember = (props) => {
                                     <div className="create-ticket register-blockt">
                                         <Row>
                                             <Row>
-                                                <Col md={4}>
+                                                <Col md={6}>
                                                     <Label
                                                         className="name-req-create-member"
                                                         htmlFor="student_full_name"
@@ -1203,12 +1519,13 @@ const CreateTeamMember = (props) => {
                                                         </small>
                                                     ) : null}
                                                 </Col>
-                                                <Col md={4} className="mb-0">
+
+                                                <Col md={6} className="mb-0">
                                                     <Label
                                                         className="name-req-create-member"
                                                         htmlFor="stream_id"
                                                     >
-                                                        Course
+                                                        Institution Type
                                                         <span
                                                             required
                                                             className="p-1"
@@ -1216,77 +1533,7 @@ const CreateTeamMember = (props) => {
                                                             *
                                                         </span>
                                                     </Label>
-                                                    {/* <DropDownWithSearch
-                                                        {...selectCategory}
-                                                        onBlur={
-                                                            formik.handleBlur
-                                                        }
-                                                        value={
-                                                            formik.values
-                                                                .course_id
-                                                        }
-                                                        onChange={(
-                                                            selectedOptions
-                                                        ) => {
-                                                            // Assuming the dropdown allows multiple selections, so it returns an array of selected options
-                                                            if (
-                                                                selectedOptions.length >
-                                                                0
-                                                            ) {
-                                                                formik.setFieldValue(
-                                                                    'course_id',
-                                                                    selectedOptions[0]
-                                                                        .value
-                                                                );
-                                                            } else {
-                                                                // Handle the case where no option is selected if needed
-                                                            }
-                                                        }}
-                                                        // onChange={(option) => {
-                                                        //     formik.setFieldValue(
-                                                        //         'course_id',
-                                                        //         option[0].value
-                                                        //     ); // Use option.value directly
-                                                        // }}
-                                                        name="course_id"
-                                                        id="course_id"
-                                                    /> */}
 
-                                                    {/* <div className="dropdown CalendarDropdownComp ">
-                                                        <select
-                                                            className="form-control custom-dropdown"
-                                                            id="course_id"
-                                                            name="course_id"
-                                                            onChange={
-                                                                formik.handleChange
-                                                            }
-                                                            onBlur={
-                                                                formik.handleBlur
-                                                            }
-                                                            value={
-                                                                formik.values
-                                                                    .course_id
-                                                            }
-                                                        >
-                                                            <option value={''}>
-                                                                Select Course
-                                                            </option>
-                                                            {allowCourse.map(
-                                                                (item) => (
-                                                                    <option
-                                                                        key={
-                                                                            item
-                                                                        }
-                                                                        value={
-                                                                            item
-                                                                        }
-                                                                    >
-                                                                        {item}
-                                                                    </option>
-                                                                )
-                                                            )}
-                                                        </select>
-                                                    </div> */}
                                                     <DropDownWithSearch
                                                         {...selectCategory}
                                                         onBlur={
@@ -1294,7 +1541,7 @@ const CreateTeamMember = (props) => {
                                                         }
                                                         onChange={(option) => {
                                                             formik.setFieldValue(
-                                                                'stream_id',
+                                                                'institution_type_id',
                                                                 option[0]?.value
                                                             );
                                                         }}
@@ -1304,6 +1551,57 @@ const CreateTeamMember = (props) => {
                                                         // }
                                                         name="Select Course"
                                                         id="Select Course"
+                                                    />
+                                                    {formik.touched
+                                                        .institution_type_id &&
+                                                    formik.errors
+                                                        .institution_type_id ? (
+                                                        <small className="error-cls">
+                                                            {
+                                                                formik.errors
+                                                                    .institution_type_id
+                                                            }
+                                                        </small>
+                                                    ) : null}
+                                                </Col>
+                                            </Row>
+                                            <Row>
+                                                <Col md={5} className="mb-0">
+                                                    <Label
+                                                        className="name-req-create-member"
+                                                        htmlFor="stream_id"
+                                                    >
+                                                        Streams Type
+                                                        <span
+                                                            required
+                                                            className="p-1"
+                                                        >
+                                                            *
+                                                        </span>
+                                                    </Label>
+
+                                                    <DropDownWithSearch
+                                                        {...selectStream}
+                                                        onBlur={
+                                                            formik.handleBlur
+                                                        }
+                                                        onChange={(option) => {
+                                                            formik.setFieldValue(
+                                                                'stream_id',
+                                                                option[0]?.value
+                                                            );
+                                                            console.log(
+                                                                option[0]
+                                                                    ?.value,
+                                                                's'
+                                                            );
+                                                        }}
+                                                        // value={
+                                                        //     formik.values
+                                                        //         .stream_id
+                                                        // }
+                                                        name="Select Stream"
+                                                        id="Select Stream"
                                                     />
                                                     {formik.touched.stream_id &&
                                                     formik.errors.stream_id ? (
@@ -1315,7 +1613,51 @@ const CreateTeamMember = (props) => {
                                                         </small>
                                                     ) : null}
                                                 </Col>
-                                                <Col md={4} className="mb-0">
+                                                <Col md={5} className="mb-0">
+                                                    <Label
+                                                        className="name-req-create-member"
+                                                        htmlFor="stream_id"
+                                                    >
+                                                        Program Type
+                                                        <span
+                                                            required
+                                                            className="p-1"
+                                                        >
+                                                            *
+                                                        </span>
+                                                    </Label>
+
+                                                    <DropDownWithSearch
+                                                        {...selectProgram}
+                                                        onBlur={
+                                                            formik.handleBlur
+                                                        }
+                                                        onChange={(option) => {
+                                                            formik.setFieldValue(
+                                                                'institution_course_id',
+                                                                option[0]?.value
+                                                            );
+                                                        }}
+                                                        // value={
+                                                        //     formik.values
+                                                        //         .stream_id
+                                                        // }
+                                                        name="Select Program"
+                                                        id="Select Program"
+                                                    />
+                                                    {formik.touched
+                                                        .institution_course_id &&
+                                                    formik.errors
+                                                        .institution_course_id ? (
+                                                        <small className="error-cls">
+                                                            {
+                                                                formik.errors
+                                                                    .institution_course_id
+                                                            }
+                                                        </small>
+                                                    ) : null}
+                                                </Col>
+                                                <Col md={2} className="mb-0">
                                                     <Label
                                                         className="name-req-create-member"
                                                         htmlFor="year_of_study"
