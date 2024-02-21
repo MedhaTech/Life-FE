@@ -178,7 +178,7 @@ const CreateMultipleMembers = ({ id }) => {
     };
 
     const selectCategory = {
-        label: 'Select Course',
+        label: 'Select Institution',
         options: listCourse,
         className: 'defaultDropdown'
     };
@@ -266,7 +266,6 @@ const CreateMultipleMembers = ({ id }) => {
         axios(config)
             .then(function (response) {
                 if (response.status === 200) {
-                    console.log(response);
                     let MultiProgrammedata = response?.data?.data;
                     if (MultiProgrammedata) {
                         let MultiProgrammeOptions = [];
@@ -1106,7 +1105,7 @@ const CreateTeamMember = (props) => {
         await handleCreateMemberAPI(id);
     }, [id]);
     const selectCategory = {
-        label: 'Select Course',
+        label: 'Select Institution',
         options: courses,
         className: 'defaultDropdown'
     };
@@ -1549,8 +1548,8 @@ const CreateTeamMember = (props) => {
                                                         //     formik.values
                                                         //         .stream_id
                                                         // }
-                                                        name="Select Course"
-                                                        id="Select Course"
+                                                        name="Select Institution"
+                                                        id="Select Institution"
                                                     />
                                                     {formik.touched
                                                         .institution_type_id &&
@@ -1571,7 +1570,7 @@ const CreateTeamMember = (props) => {
                                                         className="name-req-create-member"
                                                         htmlFor="stream_id"
                                                     >
-                                                        Streams Type
+                                                        Stream Type
                                                         <span
                                                             required
                                                             className="p-1"
