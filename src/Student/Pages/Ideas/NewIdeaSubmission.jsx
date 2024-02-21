@@ -120,6 +120,12 @@ function NewIdeaSubmission(props) {
             ? props?.submitedData?.theme_problem_id
             : 0
     );
+    useEffect(() => {
+        if (props?.submitedData?.status === 'SUBMITTED') {
+            setCondition(true);
+            localStorage.setItem('condition', true);
+        }
+    }, [props?.submitedData]);
     const TeamId = currentUser?.data[0]?.team_id;
     useEffect(() => {
         setIsDisabled(true);
@@ -297,24 +303,38 @@ function NewIdeaSubmission(props) {
             self_declaration: selfCheck ? 'YES' : 'NO',
             status: stats
         });
-        var allques = false;
+        var allques = true;
         if (stats === 'SUBMITTED') {
             if (
-                theme !== '' &&
-                themeProId !== '' &&
-                probStatment !== '' &&
-                description !== '' &&
-                ideaTitle !== '' &&
-                solStatement !== '' &&
-                detailSol !== '' &&
-                protoType !== '' &&
-                ideaPublication !== '' &&
-                selfCheck !== false
+                // theme !== '' &&
+                // themeProId !== '' &&
+                // probStatment !== '' &&
+                // description !== '' &&
+                // ideaTitle !== '' &&
+                // solStatement !== '' &&
+                // detailSol !== '' &&
+                // protoType !== '' &&
+                // ideaPublication !== '' &&
+                // selfCheck !== false
+                theme === '' ||
+                themeProId === '' ||
+                probStatment === '' ||
+                typeof probStatment === 'undefined' ||
+                description === '' ||
+                ideaTitle === '' ||
+                solStatement === '' ||
+                detailSol === '' ||
+                protoType === '' ||
+                ideaPublication === '' ||
+                selfCheck === false
             ) {
-                allques = true;
+                allques = false;
+            }
+            if (protoType === 'YES' && attachmentsList.length === 0) {
+                allques = false;
             }
         }
-        if ((allques && stats === 'SUBMITTED') || stats === 'DRAFT') {
+        if (allques || stats === 'DRAFT') {
             var config = {
                 method: 'put',
                 url: `${
@@ -370,7 +390,6 @@ function NewIdeaSubmission(props) {
         setFiles(upload);
         setImmediateLink(null);
     };
-    console.log('condition===========', typeof condition);
     const removeFileHandler = (i) => {
         const fileAdded = [...files];
         fileAdded.splice(i, 1);
@@ -672,9 +691,18 @@ function NewIdeaSubmission(props) {
                                                                         .value
                                                                 )
                                                             }
+                                                            // value={probStatment}
                                                             name="teams"
                                                             id="teams"
                                                         >
+                                                            {/* <option
+                                                                // disabled
+                                                                value=""
+                                                            >
+                                                                Please select a
+                                                                Problem
+                                                                statement
+                                                            </option> */}
                                                             {statementList.map(
                                                                 (item, i) => (
                                                                     <option
@@ -811,7 +839,13 @@ function NewIdeaSubmission(props) {
                                                         }}
                                                     >
                                                         <TextArea
-                                                            disabled={condition}
+                                                            disabled={
+                                                                condition ||
+                                                                (theme !==
+                                                                    'Others' &&
+                                                                    probStatment !==
+                                                                        'Others')
+                                                            }
                                                             placeholder="Enter the Problem statement"
                                                             value={description}
                                                             maxLength={1000}
@@ -1456,28 +1490,33 @@ function NewIdeaSubmission(props) {
                                 </CardBody>
                             </div>
                         </Row>
-                        {!condition && (
-                            <Row>
-                                <Col className="d-flex justify-content-between">
-                                    <div>
-                                        <Button
-                                            type="button"
-                                            btnClass="me-3 text-white"
-                                            backgroundColor="#067DE1"
-                                            onClick={(e) =>
-                                                handleSubmit(e, 'DRAFT')
-                                            }
-                                            size="small"
-                                            label={`${
-                                                loading.draft
-                                                    ? t('teacher_teams.loading')
-                                                    : t('teacher_teams.draft')
-                                            }`}
-                                        />
-                                    </div>
-                                </Col>
-                            </Row>
-                        )}
+                        {!condition &&
+                            props?.submitedData?.status !== 'SUBMITTED' && (
+                                <Row>
+                                    <Col className="d-flex justify-content-between">
+                                        <div>
+                                            <Button
+                                                type="button"
+                                                btnClass="me-3 text-white"
+                                                backgroundColor="#067DE1"
+                                                onClick={(e) =>
+                                                    handleSubmit(e, 'DRAFT')
+                                                }
+                                                size="small"
+                                                label={`${
+                                                    loading.draft
+                                                        ? t(
+                                                              'teacher_teams.loading'
+                                                          )
+                                                        : t(
+                                                              'teacher_teams.draft'
+                                                          )
+                                                }`}
+                                            />
+                                        </div>
+                                    </Col>
+                                </Row>
+                            )}
                     </Col>
                 </Container>
             )}

@@ -444,7 +444,7 @@ const Routers = () => {
 
                     <Route
                         exact={true}
-                        path="/school"
+                        path="/institution"
                         render={() => <LoginSchool />}
                     />
                     <ProtectedRoute

@@ -29,6 +29,7 @@ const SuccessPage = () => {
     const myArray = user.split('@');
     const word = myArray[0];
     const [buttonData, setButtonData] = useState('');
+    console.log(orgDaTa, ' orgDaTa');
 
     // const handleButton = () => {
     //     // alert('hii');
@@ -223,7 +224,7 @@ const SuccessPage = () => {
                                 >
                                     District:{' '}
                                     {
-                                        orgDaTa?.place?.block?.taluk?.district
+                                        orgDaTa?.place?.taluk?.block?.district
                                             ?.district_name
                                     }
                                     {/* {mentorDaTa.organization_code} */}
@@ -236,7 +237,7 @@ const SuccessPage = () => {
                                 >
                                     State:{' '}
                                     {
-                                        orgDaTa?.place?.block?.taluk?.district
+                                        orgDaTa?.place?.taluk?.block?.district
                                             ?.state?.state_name
                                     }
                                     {/* {mentorDaTa.organization_code} */}
