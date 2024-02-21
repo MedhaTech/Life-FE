@@ -118,6 +118,12 @@ export const logout = (history, t, module, dispatch) => {
                         case 'REPORT':
                             history.push('/report');
                             break;
+                        case 'teacher':
+                            history.push('/teacher');
+                            break;
+                        case 'student':
+                            history.push('/login');
+                            break;
                         default:
                             history.push('/');
                     }
