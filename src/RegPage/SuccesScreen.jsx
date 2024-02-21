@@ -29,7 +29,6 @@ const SuccessPage = () => {
     const myArray = user.split('@');
     const word = myArray[0];
     const [buttonData, setButtonData] = useState('');
-    console.log(orgDaTa, ' orgDaTa');
 
     // const handleButton = () => {
     //     // alert('hii');
@@ -257,7 +256,7 @@ const SuccessPage = () => {
                                         marginBottom: '1rem'
                                     }}
                                 >
-                                    Faculty Name: {mentorDaTa.mentor_title}.{' '}
+                                    Mentor Name: {mentorDaTa.mentor_title}.{' '}
                                     {mentorDaTa.mentor_name}
                                 </p>
 
