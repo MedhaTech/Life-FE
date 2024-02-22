@@ -452,44 +452,44 @@ const Routers = () => {
                     <ProtectedRoute
                         exact={true}
                         user="INSTITUTION"
-                        path="/school/dashboard"
+                        path="/institution/dashboard"
                         component={DashboardSchool}
                     />
                     <ProtectedRoute
                         exact={true}
                         user="INSTITUTION"
-                        path="/school/register"
+                        path="/institution/register"
                         component={MentorReg}
                     />
                     <ProtectedRoute
                         exact={true}
                         user="INSTITUTION"
-                        path="/mentor/successScreen"
+                        path="/institution/successScreen"
                         component={SuccessMentorPage}
                     />
 
                     <ProtectedRoute
                         exact={true}
                         user="INSTITUTION"
-                        path="/school/my-profile"
+                        path="/institution/my-profile"
                         component={MySchoolProfile}
                     />
                     <ProtectedRoute
                         exact={true}
                         user="INSTITUTION"
-                        path="/SchoolEditTeacherProfile"
+                        path="/institutionEditTeacherProfile"
                         component={SchoolEditTec}
                     />
                     <ProtectedRoute
                         exact={true}
                         user="INSTITUTION"
-                        path="/EditSchoolProfile"
+                        path="/EditinstitutionProfile"
                         component={SchoolEditProfile}
                     />
                     <ProtectedRoute
                         exact={true}
                         user="INSTITUTION"
-                        path="/school-changePassword"
+                        path="/institution-changePassword"
                         component={SchoolChangePSWModal}
                     />
 

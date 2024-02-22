@@ -52,7 +52,7 @@ export const schoolLoginUser = (data, history, module) => async (dispatch) => {
             localStorage.setItem('time', new Date().toString());
 
             dispatch(schoolLoginUserSuccess(result));
-            history.push('/school/dashboard');
+            history.push('/institution/dashboard');
         } else {
             if (result && result.status === 403) {
                 openNotificationWithIcon(

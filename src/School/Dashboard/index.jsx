@@ -375,7 +375,7 @@ const DashboardSchool = (props) => {
     // };
     const handleEdit = () => {
         history.push({
-            pathname: '/SchoolEditTeacherProfile',
+            pathname: '/institutionEditTeacherProfile',
             item: {
                 mentor_name: orgData.mentor?.mentor_name,
                 mentor_id: orgData.mentor?.mentor_id,
@@ -446,7 +446,7 @@ const DashboardSchool = (props) => {
         // where we can see all details //
         // where orgData = orgnization details , Mentor details //
         history.push({
-            pathname: '/school/View-More-details',
+            pathname: '/institution/View-More-details',
             data: orgData
         });
         localStorage.setItem('orgData', JSON.stringify(orgData));
@@ -536,7 +536,9 @@ const DashboardSchool = (props) => {
                             size="small"
                             shape="btn-square"
                             // Icon={BsPlusLg}
-                            onClick={() => history.push('/school/register')}
+                            onClick={() =>
+                                history.push('/institution/register')
+                            }
                         />
                     </div>
                 </Row>
@@ -748,42 +750,6 @@ const DashboardSchool = (props) => {
                                                             <p>
                                                                 {
                                                                     orgData.institution_name
-                                                                }
-                                                            </p>
-                                                        </Col>
-                                                    </Row>
-                                                    <Row className="pt-3 pb-3">
-                                                        <Col
-                                                            xs={5}
-                                                            sm={5}
-                                                            md={5}
-                                                            xl={5}
-                                                            className="my-auto profile-detail"
-                                                        >
-                                                            <p>
-                                                                Institution Type
-                                                            </p>
-                                                        </Col>
-                                                        <Col
-                                                            xs={1}
-                                                            sm={1}
-                                                            md={1}
-                                                            xl={1}
-                                                        >
-                                                            :
-                                                        </Col>
-                                                        <Col
-                                                            xs={6}
-                                                            sm={6}
-                                                            md={6}
-                                                            xl={6}
-                                                            className="my-auto profile-detail"
-                                                        >
-                                                            <p>
-                                                                {
-                                                                    orgData
-                                                                        ?.institution_type
-                                                                        ?.institution_type
                                                                 }
                                                             </p>
                                                         </Col>

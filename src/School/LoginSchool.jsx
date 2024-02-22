@@ -38,7 +38,7 @@ function LoginSchool(props) {
                 : moduleName === 'EADMIN'
                 ? history.push('/eadmin/dashboard')
                 : moduleName === 'SCHOOL'
-                ? history.push('/school/dashboard')
+                ? history.push('/institution/dashboard')
                 : history.push('/dashboard');
         }
     }, []);

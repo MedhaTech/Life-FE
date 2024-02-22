@@ -82,7 +82,7 @@ const ChangePSWModal = (props) => {
                         SetRes('Password updated successfully');
                         setTimeout(() => {
                             SetRes('');
-                            history.push('/school/dashboard');
+                            history.push('/institution/dashboard');
                         }, 1000);
                     })
                     .catch(function (error) {
@@ -120,7 +120,7 @@ const ChangePSWModal = (props) => {
         className: 'defaultInput'
     };
     const handleOnCancelPassword = () => {
-        history.push('/school/dashboard');
+        history.push('/institution/dashboard');
     };
     const handleShowPassword = (show) => {
         switch (show) {
@@ -141,7 +141,6 @@ const ChangePSWModal = (props) => {
                 break;
         }
     };
-    console.log(formik.values.oldPassword, '1');
     return (
         <Layout>
             <div className="container ChangePSWModal mb-5">

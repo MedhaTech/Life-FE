@@ -287,7 +287,7 @@ function AtlPage() {
                         };
                         // setBtn(true);
                         history.push({
-                            pathname: '/mentor/successScreen',
+                            pathname: '/institution/successScreen',
                             data: successData
                         });
                     }

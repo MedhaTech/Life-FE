@@ -26,7 +26,8 @@ const EditTeacherProfileDetails = (props) => {
         // where  mentorData = mentor details //
         (history && history.location && history.location.item) || {};
     const regex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
-    console.log(mentorData, '1');
+    const name = /^[a-zA-Z\s\u0B80-\u0BFF]+$/;
+
     const getValidationSchema = () => {
         // where data = mentorData //
         const adminValidation = Yup.object({
@@ -59,7 +60,7 @@ const EditTeacherProfileDetails = (props) => {
 
                 .trim()
                 .min(2, 'Enter Name')
-                .matches(/^[aA-zZ\s]+$/, 'Special Characters are not allowed')
+                .matches(name, 'Special Characters are not allowed')
                 .required('Required')
             // mentor_name_vernacular: Yup.string()
 
@@ -124,7 +125,7 @@ const EditTeacherProfileDetails = (props) => {
                         currentUser.data[0].mentor_name = values.mentor_name;
                         setCurrentUser(currentUser);
                         setTimeout(() => {
-                            props.history.push('/school/dashboard');
+                            props.history.push('/institution/dashboard');
                         }, 200);
                     }
                 })
@@ -141,7 +142,7 @@ const EditTeacherProfileDetails = (props) => {
 
     const handleDiscard = () => {
         // where we can discard  the changes //
-        props.history.push('/school/dashboard');
+        props.history.push('/institution/dashboard');
     };
 
     return (
