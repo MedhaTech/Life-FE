@@ -78,8 +78,8 @@ const EditTeacherProfileDetails = (props) => {
             gender: mentorData.gender,
             date_of_birth: mentorData?.date_of_birth,
             mentor_mobile: mentorData?.mentor_mobile,
-            mentor_email: mentorData?.mentor_email,
-            username: mentorData?.username
+            mentor_email: mentorData?.mentor_email
+            // username: mentorData?.username
         };
         return commonInitialValues;
     };
@@ -87,7 +87,7 @@ const EditTeacherProfileDetails = (props) => {
         initialValues: getInitialValues(mentorData),
         validationSchema: getValidationSchema(),
         onSubmit: (values) => {
-            const body = JSON.stringify({
+            const body = {
                 mentor_name: values.mentor_name,
                 mentor_email: values.mentor_email,
                 mentor_title: values.mentor_title,
@@ -96,7 +96,13 @@ const EditTeacherProfileDetails = (props) => {
                 date_of_birth: values.date_of_birth,
                 mentor_mobile: values.mentor_mobile,
                 username: mentorData.username
-            });
+            };
+            if (
+                mentorData &&
+                mentorData.mentor_mobile !== values.mentor_mobile
+            ) {
+                body['username'] = values.mentor_mobile;
+            }
             const ment = encryptGlobal(JSON.stringify(mentorData.mentor_id));
             const url = process.env.REACT_APP_API_BASE_URL + '/mentors/' + ment;
             var config = {

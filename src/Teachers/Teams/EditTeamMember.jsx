@@ -27,7 +27,11 @@ const EditTeamMember = (props) => {
     const currentUser = getCurrentUser('current_user');
     const teamMemberData =
         (history && history.location && history.location.item) || {};
-    console.log(teamMemberData, '1');
+    const [courses, setCourses] = useState([]);
+    const [stream, setStream] = useState([]);
+    const [program, setProgram] = useState([]);
+    // console.log(teamMemberData, 'teamMemberData');
+
     const formik = useFormik({
         initialValues: {
             student_full_name:
@@ -36,10 +40,9 @@ const EditTeamMember = (props) => {
             gender: teamMemberData && teamMemberData.Gender,
             email: teamMemberData && teamMemberData.email,
             mobile: teamMemberData && teamMemberData.mobile,
-            stream_id:
-                teamMemberData &&
-                teamMemberData.stream &&
-                teamMemberData.stream.stream_id,
+
+            institution_course_id:
+                teamMemberData && teamMemberData.institution_course_id,
             date_of_birth: teamMemberData && teamMemberData.date_of_birth,
             year_of_study: teamMemberData && teamMemberData.year_of_study
             // username: teamMemberData && teamMemberData.user.username
@@ -83,7 +86,9 @@ const EditTeamMember = (props) => {
                 .trim()
                 .email('Enter Valid Email Id'),
 
-            stream_id: Yup.string().required('Please select Course'),
+            institution_course_id: Yup.string().required(
+                'Please select Program'
+            ),
             year_of_study: Yup.string().required('Please select Year'),
 
             mobile: Yup.string()
@@ -120,7 +125,7 @@ const EditTeamMember = (props) => {
                 Grade: values.grade,
 
                 // // username: values.username,
-                stream_id: values.stream_id,
+                // institution_course_id: values.institution_course_id,
                 Gender: values.gender,
                 year_of_study: values.year_of_study,
                 mobile: values.mobile,
@@ -131,6 +136,13 @@ const EditTeamMember = (props) => {
 
             if (teamMemberData && teamMemberData.mobile !== values.mobile) {
                 body['username'] = values.mobile;
+            }
+            if (
+                teamMemberData &&
+                teamMemberData.institution_course_id !==
+                    values.institution_course_id
+            ) {
+                body['institution_course_id'] = values.institution_course_id;
             }
             const teamparamId = encryptGlobal(
                 JSON.stringify(teamMemberData.student_id)
@@ -188,38 +200,40 @@ const EditTeamMember = (props) => {
     //     className: 'defaultDropdown'
     // };
     useEffect(() => {
-        CourseList();
+        institutionTypeApi();
     }, []);
-    const CourseList = async () => {
+    const institutionTypeApi = () => {
         const newparam = encryptGlobal(
-            JSON.stringify(currentUser.data[0]?.institution_type_id)
+            JSON.stringify({
+                institution_id: currentUser.data[0]?.institution_id
+            })
         );
 
         var config = {
             method: 'get',
             url:
                 process.env.REACT_APP_API_BASE_URL +
-                `/institutions/Streams/${newparam}`,
+                `/institutions/institutionTypes?Data=${newparam}`,
             headers: {
                 'Content-Type': 'application/json',
                 Accept: 'application/json',
                 Authorization: `Bearer ${currentUser.data[0]?.token}`
             }
         };
-        await axios(config)
+        axios(config)
             .then(function (response) {
                 if (response.status === 200) {
-                    let dataa = response?.data?.data;
-                    if (dataa) {
-                        let courseOption = [];
-                        dataa.map((item) => {
+                    let data = response?.data?.data;
+                    if (data) {
+                        let courseOptions = [];
+                        data.map((item) => {
                             let option = {
-                                label: item.stream_name,
-                                value: item.stream_id
+                                label: item.institution_type,
+                                value: item.institution_type_id
                             };
-                            courseOption.push(option);
+                            courseOptions.push(option);
                         });
-                        setListCourse(courseOption);
+                        setCourses(courseOptions);
                     }
                     // setTotalSubmittedideasCount(
                     //     response.data.data[0].submitted_ideas
@@ -231,8 +245,18 @@ const EditTeamMember = (props) => {
             });
     };
     const selectCategory = {
-        label: 'Select Course',
-        options: listCourse,
+        label: 'Select Institution',
+        options: courses,
+        className: 'defaultDropdown'
+    };
+    const selectStream = {
+        label: 'Select Stream',
+        options: stream,
+        className: 'defaultDropdown'
+    };
+    const selectProgram = {
+        label: 'Select Program',
+        options: program,
         className: 'defaultDropdown'
     };
     useEffect(() => {
@@ -246,6 +270,97 @@ const EditTeamMember = (props) => {
             formik.setFieldValue('age', '0');
         }
     }, [formik.values.date_of_birth]);
+    useEffect(async () => {
+        if (formik.values.institution_type_id) {
+            await streamsApi();
+        }
+    }, [formik.values.institution_type_id]);
+    const streamsApi = () => {
+        const newparam = encryptGlobal(
+            JSON.stringify({
+                institution_id: currentUser.data[0]?.institution_id,
+                institution_type_id: formik.values.institution_type_id
+            })
+        );
+
+        var config = {
+            method: 'get',
+            url:
+                process.env.REACT_APP_API_BASE_URL +
+                `/institutions/Streams?Data=${newparam}`,
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${currentUser.data[0]?.token}`
+            }
+        };
+        axios(config)
+            .then(function (response) {
+                if (response.status === 200) {
+                    let Streamdata = response?.data?.data;
+                    if (Streamdata) {
+                        let StreamOptions = [];
+                        Streamdata.map((item) => {
+                            let option = {
+                                label: item.stream_name,
+                                value: item.stream_id
+                            };
+                            StreamOptions.push(option);
+                        });
+                        setStream(StreamOptions);
+                    }
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
+    useEffect(async () => {
+        if (formik.values.stream_id) {
+            await ProgrammeApi();
+        }
+    }, [formik.values.stream_id]);
+    const ProgrammeApi = () => {
+        const newparam = encryptGlobal(
+            JSON.stringify({
+                institution_id: currentUser.data[0]?.institution_id,
+                institution_type_id: formik.values.institution_type_id,
+                stream_id: formik.values.stream_id
+            })
+        );
+
+        var config = {
+            method: 'get',
+            url:
+                process.env.REACT_APP_API_BASE_URL +
+                `/institutions/programs?Data=${newparam}`,
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${currentUser.data[0]?.token}`
+            }
+        };
+        axios(config)
+            .then(function (response) {
+                if (response.status === 200) {
+                    let Programmedata = response?.data?.data;
+                    if (Programmedata) {
+                        let ProgrammeOptions = [];
+                        Programmedata.map((item) => {
+                            let option = {
+                                label: item.program_name,
+                                value: item.institution_course_id
+                            };
+                            ProgrammeOptions.push(option);
+                        });
+                        setProgram(ProgrammeOptions);
+                    }
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
 
     return (
         <Layout title="Teams">
@@ -259,7 +374,7 @@ const EditTeamMember = (props) => {
                                 <div className="create-ticket register-blockt">
                                     <Row>
                                         <Row>
-                                            <Col md={4}>
+                                            <Col md={6}>
                                                 <Label
                                                     className="name-req-create-member"
                                                     htmlFor="fullName"
@@ -297,12 +412,12 @@ const EditTeamMember = (props) => {
                                                     </small>
                                                 ) : null}
                                             </Col>
-                                            <Col md={4} className="mb-0">
+                                            <Col md={6} className="mb-0">
                                                 <Label
                                                     className="name-req-create-member"
-                                                    htmlFor="course_id"
+                                                    htmlFor="stream_id"
                                                 >
-                                                    Course
+                                                    Institution Type
                                                     <span
                                                         required
                                                         className="p-1"
@@ -310,39 +425,53 @@ const EditTeamMember = (props) => {
                                                         *
                                                     </span>
                                                 </Label>
-                                                {/* <div className="dropdown CalendarDropdownComp ">
-                                                    <select
-                                                        className="form-control custom-dropdown"
-                                                        id="course_id"
-                                                        name="course_id"
-                                                        onChange={
-                                                            formik.handleChange
-                                                        }
-                                                        onBlur={
-                                                            formik.handleBlur
-                                                        }
-                                                        value={
-                                                            formik.values
-                                                                .course_id
-                                                        }
-                                                    >
-                                                        <option value={''}>
-                                                            Select Course
-                                                        </option>
-                                                        {allowCourse.map(
-                                                            (item) => (
-                                                                <option
-                                                                    key={item}
-                                                                    value={item}
-                                                                >
-                                                                    {item}
-                                                                </option>
-                                                            )
-                                                        )}
-                                                    </select>
-                                                </div> */}
+
                                                 <DropDownWithSearch
                                                     {...selectCategory}
+                                                    onBlur={formik.handleBlur}
+                                                    onChange={(option) => {
+                                                        formik.setFieldValue(
+                                                            'institution_type_id',
+                                                            option[0]?.value
+                                                        );
+                                                    }}
+                                                    // value={
+                                                    //     formik.values
+                                                    //         .stream_id
+                                                    // }
+                                                    name="Select Institution"
+                                                    id="Select Institution"
+                                                />
+                                                {formik.touched
+                                                    .institution_type_id &&
+                                                formik.errors
+                                                    .institution_type_id ? (
+                                                    <small className="error-cls">
+                                                        {
+                                                            formik.errors
+                                                                .institution_type_id
+                                                        }
+                                                    </small>
+                                                ) : null}
+                                            </Col>
+                                        </Row>
+                                        <Row>
+                                            <Col md={4} className="mb-0">
+                                                <Label
+                                                    className="name-req-create-member"
+                                                    htmlFor="stream_id"
+                                                >
+                                                    Stream Type
+                                                    <span
+                                                        required
+                                                        className="p-1"
+                                                    >
+                                                        *
+                                                    </span>
+                                                </Label>
+
+                                                <DropDownWithSearch
+                                                    {...selectStream}
                                                     onBlur={formik.handleBlur}
                                                     onChange={(option) => {
                                                         formik.setFieldValue(
@@ -350,24 +479,12 @@ const EditTeamMember = (props) => {
                                                             option[0]?.value
                                                         );
                                                     }}
-                                                    value={[
-                                                        {
-                                                            label:
-                                                                teamMemberData &&
-                                                                teamMemberData.stream &&
-                                                                teamMemberData
-                                                                    .stream
-                                                                    .stream_name,
-                                                            value:
-                                                                teamMemberData &&
-                                                                teamMemberData.stream &&
-                                                                teamMemberData
-                                                                    .stream
-                                                                    .stream_id
-                                                        }
-                                                    ]}
-                                                    name="Select Course"
-                                                    id="Select Course"
+                                                    // value={
+                                                    //     formik.values
+                                                    //         .stream_id
+                                                    // }
+                                                    name="Select Stream"
+                                                    id="Select Stream"
                                                 />
                                                 {formik.touched.stream_id &&
                                                 formik.errors.stream_id ? (
@@ -379,6 +496,57 @@ const EditTeamMember = (props) => {
                                                     </small>
                                                 ) : null}
                                             </Col>
+                                            <Col md={4} className="mb-0">
+                                                <Label
+                                                    className="name-req-create-member"
+                                                    htmlFor="course_id"
+                                                >
+                                                    Program Type
+                                                    <span
+                                                        required
+                                                        className="p-1"
+                                                    >
+                                                        *
+                                                    </span>
+                                                </Label>
+
+                                                <DropDownWithSearch
+                                                    {...selectProgram}
+                                                    onBlur={formik.handleBlur}
+                                                    onChange={(option) => {
+                                                        formik.setFieldValue(
+                                                            'institution_course_id',
+                                                            option[0]?.value
+                                                        );
+                                                    }}
+                                                    // value={item.value}
+                                                    // value={[
+                                                    //     {
+                                                    //         label:
+                                                    //             teamMemberData &&
+                                                    //             teamMemberData.program_name,
+                                                    //         value:
+                                                    //             teamMemberData &&
+                                                    //             // teamMemberData.stream &&
+                                                    //             teamMemberData.institution_course_id
+                                                    //     }
+                                                    // ]}
+                                                    name="Select Program"
+                                                    id="Select Program"
+                                                />
+                                                {formik.touched
+                                                    .institution_course_id &&
+                                                formik.errors
+                                                    .institution_course_id ? (
+                                                    <small className="error-cls">
+                                                        {
+                                                            formik.errors
+                                                                .institution_course_id
+                                                        }
+                                                    </small>
+                                                ) : null}
+                                            </Col>
+
                                             <Col md={4} className="mb-0">
                                                 <Label
                                                     className="name-req-create-member"
@@ -434,10 +602,25 @@ const EditTeamMember = (props) => {
                                                 ) : null}
                                             </Col>
                                         </Row>
+
+                                        <Row className="mt-5">
+                                            <p
+                                                style={{
+                                                    fontSize: '2rem',
+                                                    text: 'bold'
+                                                }}
+                                            >
+                                                Course :{' '}
+                                                {teamMemberData &&
+                                                    teamMemberData.course_name}
+                                            </p>
+                                            <p></p>
+                                        </Row>
+
                                         <Row>
                                             <Col
                                                 md={6}
-                                                className="mb-5 mb-xl-0"
+                                                // className="mb-5 mb-xl-0"
                                             >
                                                 <Label
                                                     className="name-req-create-member"
@@ -508,7 +691,7 @@ const EditTeamMember = (props) => {
                                         </Row>
                                         <Row>
                                             <Col
-                                                md={6}
+                                                md={4}
                                                 className="mb-5 mb-xl-0"
                                             >
                                                 <Label
@@ -550,7 +733,60 @@ const EditTeamMember = (props) => {
                                                 ) : null}
                                             </Col>
                                             <Col
-                                                md={3}
+                                                md={4}
+                                                className="mb-5 mb-xl-0"
+                                            >
+                                                <Label
+                                                    className="name-req-create-member"
+                                                    htmlFor="gender"
+                                                >
+                                                    Gender
+                                                    <span
+                                                        required
+                                                        className="p-1"
+                                                    >
+                                                        *
+                                                    </span>
+                                                </Label>
+
+                                                <select
+                                                    name="gender"
+                                                    className="form-control custom-dropdown"
+                                                    value={formik.values.gender}
+                                                    onChange={
+                                                        formik.handleChange
+                                                    }
+                                                >
+                                                    <option value="">
+                                                        Select Gender
+                                                        {/* {t(
+                                                            'teacher_teams.student_gender'
+                                                        )} */}
+                                                    </option>
+                                                    <option value="MALE">
+                                                        {t(
+                                                            'teacher_teams.student_gender_male'
+                                                        )}
+                                                    </option>
+                                                    <option value="FEMALE">
+                                                        {t(
+                                                            'teacher_teams.student_gender_female'
+                                                        )}
+                                                    </option>
+                                                    <option value="OTHERS">
+                                                        Prefer not to mention
+                                                    </option>
+                                                </select>
+
+                                                {formik.touched.gender &&
+                                                formik.errors.gender ? (
+                                                    <small className="error-cls">
+                                                        {formik.errors.gender}
+                                                    </small>
+                                                ) : null}
+                                            </Col>
+                                            <Col
+                                                md={4}
                                                 className="mb-5 mb-xl-0"
                                             >
                                                 <Label
@@ -612,59 +848,6 @@ const EditTeamMember = (props) => {
                                                 formik.errors.age ? (
                                                     <small className="error-cls">
                                                         {formik.errors.age}
-                                                    </small>
-                                                ) : null}
-                                            </Col>
-                                            <Col
-                                                md={3}
-                                                className="mb-5 mb-xl-0"
-                                            >
-                                                <Label
-                                                    className="name-req-create-member"
-                                                    htmlFor="gender"
-                                                >
-                                                    Gender
-                                                    <span
-                                                        required
-                                                        className="p-1"
-                                                    >
-                                                        *
-                                                    </span>
-                                                </Label>
-
-                                                <select
-                                                    name="gender"
-                                                    className="form-control custom-dropdown"
-                                                    value={formik.values.gender}
-                                                    onChange={
-                                                        formik.handleChange
-                                                    }
-                                                >
-                                                    <option value="">
-                                                        Select Gender
-                                                        {/* {t(
-                                                            'teacher_teams.student_gender'
-                                                        )} */}
-                                                    </option>
-                                                    <option value="MALE">
-                                                        {t(
-                                                            'teacher_teams.student_gender_male'
-                                                        )}
-                                                    </option>
-                                                    <option value="FEMALE">
-                                                        {t(
-                                                            'teacher_teams.student_gender_female'
-                                                        )}
-                                                    </option>
-                                                    <option value="OTHERS">
-                                                        Prefer not to mention
-                                                    </option>
-                                                </select>
-
-                                                {formik.touched.gender &&
-                                                formik.errors.gender ? (
-                                                    <small className="error-cls">
-                                                        {formik.errors.gender}
                                                     </small>
                                                 ) : null}
                                             </Col>

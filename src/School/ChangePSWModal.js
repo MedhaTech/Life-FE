@@ -9,7 +9,7 @@ import { InputBox } from '../stories/InputBox/InputBox';
 import CryptoJS from 'crypto-js';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { getCurrentUser } from '../helpers/Utils';
+import { getCurrentUser, openNotificationWithIcon } from '../helpers/Utils';
 import { useTranslation } from 'react-i18next';
 import 'sweetalert2/src/sweetalert2.scss';
 import Layout from './Layout';
@@ -86,6 +86,10 @@ const ChangePSWModal = (props) => {
                         }, 1000);
                     })
                     .catch(function (error) {
+                        openNotificationWithIcon(
+                            'error',
+                            'Enter the correct current password'
+                        );
                         console.log(error);
                     });
             }
@@ -137,6 +141,7 @@ const ChangePSWModal = (props) => {
                 break;
         }
     };
+    console.log(formik.values.oldPassword, '1');
     return (
         <Layout>
             <div className="container ChangePSWModal mb-5">
