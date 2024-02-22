@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
 /* eslint-disable indent */
-import React, { useLayoutEffect } from 'react';
+import React, { useLayoutEffect, useState, useEffect } from 'react';
 import { Container, Row, Col, Card, CardBody, CardText } from 'reactstrap';
 import 'sweetalert2/src/sweetalert2.scss';
 import Layout from './Layout.jsx';
@@ -10,11 +10,19 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getSchoolByID } from '../School/store/school/actions';
 import { Button } from '../stories/Button';
 import { useHistory } from 'react-router-dom';
+import DataTableExtensions from 'react-data-table-component-extensions';
+import DataTable, { Alignment } from 'react-data-table-component';
+import axios from 'axios';
+import { encryptGlobal } from '../constants/encryptDecrypt';
+
 const MySchoolProfile = () => {
     // here we can see all the details of details of teacher //
     const history = useHistory();
     const currentUser = getCurrentUser('current_user');
     const school = useSelector((state) => state.school);
+    const [resList, setResList] = useState([]);
+    const [profile, setProfile] = useState([]);
+    const [telphone, setTelphone] = useState([]);
 
     const dispatch = useDispatch();
     // console.log(school);
@@ -42,6 +50,81 @@ const MySchoolProfile = () => {
         });
         // console.log(item, 'item');
     };
+    useEffect(() => {
+        handleResList();
+    }, []);
+
+    async function handleResList() {
+        const userIdParam = encryptGlobal(
+            JSON.stringify({
+                institution_id: currentUser?.data[0]?.institution_id
+            })
+        );
+        let config = {
+            method: 'get',
+            url:
+                process.env.REACT_APP_API_BASE_URL +
+                `/institutions/Myprofile?Data=${userIdParam}`,
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${currentUser?.data[0]?.token}`
+            }
+        };
+        await axios(config)
+            .then(function (response) {
+                if (response.status === 200) {
+                    setResList(
+                        response.data && response.data.data[0].courses_list
+                    );
+                    setProfile(response.data && response.data.data[0].profile);
+                    setTelphone(
+                        response.data && response.data.data[0].telePhoneMsg
+                    );
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+    const resData = {
+        data: resList && resList.length > 0 ? resList : [],
+        columns: [
+            {
+                name: 'No',
+                selector: (row, key) => key + 1,
+                width: '7%'
+            },
+            {
+                name: 'Institution Type',
+                selector: (row) => row?.institution_type,
+                sortable: true,
+                center: true,
+                width: '25%'
+            },
+            {
+                name: 'Stream Name',
+                selector: (row) => row?.stream_name,
+                cell: (row) => (
+                    <div
+                        style={{
+                            whiteSpace: 'pre-wrap',
+                            wordWrap: 'break-word'
+                        }}
+                    >
+                        {row?.stream_name}
+                    </div>
+                ),
+                width: '35%'
+            },
+            {
+                name: 'Program Name',
+                // selector: 'ideaStatus',
+                selector: (row) => row?.program_name,
+                center: true,
+                width: '25%'
+            }
+        ]
+    };
     return (
         <Layout>
             <Container className="MyProfile pt-3 pt-xl-5 mb-50">
@@ -49,12 +132,12 @@ const MySchoolProfile = () => {
                     <Col className="col-xl-10 offset-xl-1 offset-md-0">
                         <div className="d-flex justify-content-between mb-3">
                             <h2>My Profile</h2>
-                            <Button
+                            {/* <Button
                                 onClick={() => handleEdit()}
                                 size="small"
                                 label={'Edit'}
                                 btnClass={'primary'}
-                            ></Button>
+                            ></Button> */}
                         </div>
                         <Row>
                             <Col md={12}>
@@ -180,13 +263,79 @@ const MySchoolProfile = () => {
                                                                     className="my-auto profile-detail"
                                                                 >
                                                                     <b>
-                                                                        {/* {currentUser
-                                                                            ?.data[0]
-                                                                            ?.institution_name
-                                                                            ? currentUser
-                                                                                  ?.data[0]
-                                                                                  ?.institution_name
-                                                                            : '-'} */}
+                                                                        {profile?.principal_name
+                                                                            ? profile?.principal_name
+                                                                            : '-'}
+                                                                    </b>
+                                                                </Col>
+                                                            </Row>
+                                                            <Row className="pt-3 pb-3">
+                                                                <Col
+                                                                    xs={5}
+                                                                    sm={5}
+                                                                    md={5}
+                                                                    xl={5}
+                                                                    className="my-auto profile-detail"
+                                                                >
+                                                                    <b>
+                                                                        Principal
+                                                                        Mobile
+                                                                    </b>
+                                                                </Col>
+                                                                <Col
+                                                                    xs={1}
+                                                                    sm={1}
+                                                                    md={1}
+                                                                    xl={1}
+                                                                >
+                                                                    :
+                                                                </Col>
+                                                                <Col
+                                                                    xs={6}
+                                                                    sm={6}
+                                                                    md={6}
+                                                                    xl={6}
+                                                                    className="my-auto profile-detail"
+                                                                >
+                                                                    <b>
+                                                                        {profile?.principal_mobile
+                                                                            ? profile?.principal_mobile
+                                                                            : '-'}
+                                                                    </b>
+                                                                </Col>
+                                                            </Row>
+                                                            <Row className="pt-3 pb-3">
+                                                                <Col
+                                                                    xs={5}
+                                                                    sm={5}
+                                                                    md={5}
+                                                                    xl={5}
+                                                                    className="my-auto profile-detail"
+                                                                >
+                                                                    <b>
+                                                                        Principal
+                                                                        Whatsapp
+                                                                    </b>
+                                                                </Col>
+                                                                <Col
+                                                                    xs={1}
+                                                                    sm={1}
+                                                                    md={1}
+                                                                    xl={1}
+                                                                >
+                                                                    :
+                                                                </Col>
+                                                                <Col
+                                                                    xs={6}
+                                                                    sm={6}
+                                                                    md={6}
+                                                                    xl={6}
+                                                                    className="my-auto profile-detail"
+                                                                >
+                                                                    <b>
+                                                                        {profile?.principal_whatsapp_mobile
+                                                                            ? profile?.principal_whatsapp_mobile
+                                                                            : '-'}
                                                                     </b>
                                                                 </Col>
                                                             </Row>
@@ -219,12 +368,8 @@ const MySchoolProfile = () => {
                                                                     className="my-auto profile-detail"
                                                                 >
                                                                     <b>
-                                                                        {school
-                                                                            ?.school
-                                                                            .principal_email
-                                                                            ? school
-                                                                                  ?.school
-                                                                                  .principal_email
+                                                                        {profile?.principal_email
+                                                                            ? profile?.principal_email
                                                                             : '-'}
                                                                     </b>
                                                                 </Col>
@@ -239,8 +384,8 @@ const MySchoolProfile = () => {
                                                                     className="my-auto profile-detail"
                                                                 >
                                                                     <b>
-                                                                        Principal
-                                                                        Mobile
+                                                                        Place
+                                                                        Name
                                                                     </b>
                                                                 </Col>
                                                                 <Col
@@ -259,91 +404,101 @@ const MySchoolProfile = () => {
                                                                     className="my-auto profile-detail"
                                                                 >
                                                                     <b>
-                                                                        {school
-                                                                            ?.school
-                                                                            .principal_mobile
-                                                                            ? school
-                                                                                  ?.school
-                                                                                  .principal_mobile
+                                                                        {profile
+                                                                            ?.place
+                                                                            ?.place_name
+                                                                            ? profile
+                                                                                  ?.place
+                                                                                  ?.place_name
+                                                                            : '-'}
+                                                                    </b>
+                                                                </Col>
+                                                            </Row>
+                                                            <Row className="pt-3 pb-3">
+                                                                <Col
+                                                                    xs={5}
+                                                                    sm={5}
+                                                                    md={5}
+                                                                    xl={5}
+                                                                    className="my-auto profile-detail"
+                                                                >
+                                                                    <b>
+                                                                        Taluk
+                                                                        Name
+                                                                    </b>
+                                                                </Col>
+                                                                <Col
+                                                                    xs={1}
+                                                                    sm={1}
+                                                                    md={1}
+                                                                    xl={1}
+                                                                >
+                                                                    :
+                                                                </Col>
+                                                                <Col
+                                                                    xs={6}
+                                                                    sm={6}
+                                                                    md={6}
+                                                                    xl={6}
+                                                                    className="my-auto profile-detail"
+                                                                >
+                                                                    <b>
+                                                                        {profile
+                                                                            ?.place
+                                                                            ?.taluk
+                                                                            ?.taluk_name
+                                                                            ? profile
+                                                                                  ?.place
+                                                                                  ?.taluk
+                                                                                  ?.taluk_name
+                                                                            : '-'}
+                                                                    </b>
+                                                                </Col>
+                                                            </Row>
+                                                            <Row className="pt-3 pb-3">
+                                                                <Col
+                                                                    xs={5}
+                                                                    sm={5}
+                                                                    md={5}
+                                                                    xl={5}
+                                                                    className="my-auto profile-detail"
+                                                                >
+                                                                    <b>
+                                                                        Block
+                                                                        Name
+                                                                    </b>
+                                                                </Col>
+                                                                <Col
+                                                                    xs={1}
+                                                                    sm={1}
+                                                                    md={1}
+                                                                    xl={1}
+                                                                >
+                                                                    :
+                                                                </Col>
+                                                                <Col
+                                                                    xs={6}
+                                                                    sm={6}
+                                                                    md={6}
+                                                                    xl={6}
+                                                                    className="my-auto profile-detail"
+                                                                >
+                                                                    <b>
+                                                                        {profile
+                                                                            ?.place
+                                                                            ?.taluk
+                                                                            ?.block
+                                                                            ?.block_name
+                                                                            ? profile
+                                                                                  ?.place
+                                                                                  ?.taluk
+                                                                                  ?.block
+                                                                                  ?.block_name
                                                                             : '-'}
                                                                     </b>
                                                                 </Col>
                                                             </Row>
 
-                                                            <Row className="pt-3 pb-3">
-                                                                <Col
-                                                                    xs={5}
-                                                                    sm={5}
-                                                                    md={5}
-                                                                    xl={5}
-                                                                    className="my-auto profile-detail"
-                                                                >
-                                                                    <b>City</b>
-                                                                </Col>
-                                                                <Col
-                                                                    xs={1}
-                                                                    sm={1}
-                                                                    md={1}
-                                                                    xl={1}
-                                                                >
-                                                                    :
-                                                                </Col>
-                                                                <Col
-                                                                    xs={6}
-                                                                    sm={6}
-                                                                    md={6}
-                                                                    xl={6}
-                                                                    className="my-auto profile-detail"
-                                                                >
-                                                                    <b>
-                                                                        {school
-                                                                            ?.school
-                                                                            .city
-                                                                            ? school
-                                                                                  ?.school
-                                                                                  .city
-                                                                            : '-'}
-                                                                    </b>
-                                                                </Col>
-                                                            </Row>
-                                                            <Row className="pt-3 pb-3">
-                                                                <Col
-                                                                    xs={5}
-                                                                    sm={5}
-                                                                    md={5}
-                                                                    xl={5}
-                                                                    className="my-auto profile-detail"
-                                                                >
-                                                                    <b>
-                                                                        Category
-                                                                    </b>
-                                                                </Col>
-                                                                <Col
-                                                                    xs={1}
-                                                                    sm={1}
-                                                                    md={1}
-                                                                    xl={1}
-                                                                >
-                                                                    :
-                                                                </Col>
-                                                                <Col
-                                                                    xs={6}
-                                                                    sm={6}
-                                                                    md={6}
-                                                                    xl={6}
-                                                                    className="my-auto profile-detail"
-                                                                >
-                                                                    <b>
-                                                                        {school
-                                                                            ?.school
-                                                                            .category
-                                                                            ? school
-                                                                                  ?.school
-                                                                                  .category
-                                                                            : '-'}
-                                                                    </b>
-                                                                </Col>
-                                                            </Row>
                                                             <Row className="pt-3 pb-3">
                                                                 <Col
                                                                     xs={5}
@@ -354,6 +509,7 @@ const MySchoolProfile = () => {
                                                                 >
                                                                     <b>
                                                                         District
+                                                                        Name
                                                                     </b>
                                                                 </Col>
                                                                 <Col
@@ -372,17 +528,22 @@ const MySchoolProfile = () => {
                                                                     className="my-auto profile-detail"
                                                                 >
                                                                     <b>
-                                                                        {school
-                                                                            ?.school
-                                                                            .district
-                                                                            ? school
-                                                                                  ?.school
-                                                                                  .district
+                                                                        {profile
+                                                                            ?.place
+                                                                            ?.taluk
+                                                                            ?.block
+                                                                            ?.district
+                                                                            ?.district_name
+                                                                            ? profile
+                                                                                  ?.place
+                                                                                  ?.taluk
+                                                                                  ?.block
+                                                                                  ?.district
+                                                                                  ?.district_name
                                                                             : '-'}
                                                                     </b>
                                                                 </Col>
                                                             </Row>
-
                                                             <Row className="pt-3 pb-3">
                                                                 <Col
                                                                     xs={5}
@@ -391,7 +552,10 @@ const MySchoolProfile = () => {
                                                                     xl={5}
                                                                     className="my-auto profile-detail"
                                                                 >
-                                                                    <b>State</b>
+                                                                    <b>
+                                                                        State
+                                                                        Name
+                                                                    </b>
                                                                 </Col>
                                                                 <Col
                                                                     xs={1}
@@ -409,12 +573,20 @@ const MySchoolProfile = () => {
                                                                     className="my-auto profile-detail"
                                                                 >
                                                                     <b>
-                                                                        {school
-                                                                            ?.school
-                                                                            .state
-                                                                            ? school
-                                                                                  ?.school
-                                                                                  .state
+                                                                        {profile
+                                                                            ?.place
+                                                                            ?.taluk
+                                                                            ?.block
+                                                                            ?.district
+                                                                            ?.state
+                                                                            ?.state_name
+                                                                            ? profile
+                                                                                  ?.place
+                                                                                  ?.taluk
+                                                                                  ?.block
+                                                                                  ?.district
+                                                                                  ?.state
+                                                                                  ?.state_name
                                                                             : '-'}
                                                                     </b>
                                                                 </Col>
@@ -426,6 +598,26 @@ const MySchoolProfile = () => {
                                         </Row>
                                     </CardBody>
                                 </Card>
+                                <h2>List of Courses</h2>
+                                <div className="my-2">
+                                    <DataTableExtensions
+                                        print={false}
+                                        export={false}
+                                        {...resData}
+                                        exportHeaders
+                                    >
+                                        <DataTable
+                                            data={setResList}
+                                            // noHeader
+                                            defaultSortField="id"
+                                            defaultSortAsc={false}
+                                            pagination
+                                            highlightOnHover
+                                            fixedHeader
+                                            subHeaderAlign={Alignment.Center}
+                                        />
+                                    </DataTableExtensions>
+                                </div>
                             </Col>
                         </Row>
                     </Col>

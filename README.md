@@ -1,6 +1,6 @@
 ![](https://codebuild.ap-south-1.amazonaws.com/badges?uuid=eyJlbmNyeXB0ZWREYXRhIjoiVDI2R3k3ZnRMeWg3dGQ0dXdXVnZxV05BUTBtZTZTYitiNkNUemdyYWszMG5vbGNEQ0Y4alNMT0EvbDlXNnNoU0VyVHFLaGxhMVRPb3g4anc4WmY0T2ljPSIsIml2UGFyYW1ldGVyU3BlYyI6Ijg1RTZoMjZYY0dJdWhoZEgiLCJtYXRlcmlhbFNldFNlcmlhbCI6Mn0%3D&branch=develop)
 # Students Learning Platform Frontend
-# Project Titl
+# Project Title
 Front End
 
 One Paragraph of the project description
@@ -24,7 +24,7 @@ In the project directory, you can run:
 
 # STEP: 3
 Start the app in development mode.
-### `npm start`
+### `npm   start`
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.

@@ -13,6 +13,8 @@ import { useHistory } from 'react-router-dom';
 import { URL, KEY } from '../../constants/defaultValues';
 import DataTableExtensions from 'react-data-table-component-extensions';
 import DataTable, { Alignment } from 'react-data-table-component';
+import { Button } from '../../stories/Button';
+
 import {
     deleteTempMentorById,
     teacherResetPassword
@@ -220,7 +222,6 @@ const DashboardSchool = (props) => {
         axios(config)
             .then(function (response) {
                 if (response.status === 200) {
-                    console.log(response, 'ree');
                     setStudentCount(response.data.data[0].student_count);
                 }
             })
@@ -524,141 +525,154 @@ const DashboardSchool = (props) => {
     return (
         <Layout>
             <Container>
-                <h2 className="mb-5  text-center mt-5">
-                    <strong> Institution Dashboard</strong>
-                </h2>
-                <Row className="m-5">
-                    <div className=" row  col-xs-12 col-md-12 ">
-                        <Col className="md-6">
-                            <Row>
-                                <Col md={4}>
-                                    <Card
-                                        bg="light"
-                                        text="dark"
-                                        className="p-2"
-                                        // className="md-3 xs-12 mb-4 "
-                                        // style={{ width: '350px' }}
-                                        style={{ height: '16rem' }}
-                                    >
-                                        <Card.Body>
-                                            <label htmlFor="teams" className="">
-                                                Number of Teams
-                                            </label>
+                <Row className="ticket-btn col ml-auto mb-3">
+                    <h2 className="mt-5  text-center ">
+                        <strong> Institution Dashboard</strong>
+                    </h2>
+                    <div className="d-flex justify-content-end">
+                        <Button
+                            label="Add/Register Mentor "
+                            btnClass="m-5 btn btn-success"
+                            size="small"
+                            shape="btn-square"
+                            // Icon={BsPlusLg}
+                            onClick={() => history.push('/school/register')}
+                        />
+                    </div>
+                </Row>
+                {/* <Row className="m-5"> */}
+                <div className=" row  col-xs-12 col-md-12 ">
+                    <Row className="md-12">
+                        <Row>
+                            <Col md={4}>
+                                <Card
+                                    bg="light"
+                                    text="dark"
+                                    className="p-2"
+                                    // className="md-3 xs-12 mb-4 "
+                                    // style={{ width: '350px' }}
+                                    style={{ height: '16rem' }}
+                                >
+                                    <Card.Body>
+                                        <label htmlFor="teams" className="">
+                                            Number of Teams
+                                        </label>
 
-                                            <Card.Text
-                                                style={{
-                                                    fontSize: '48px',
-                                                    fontWeight: 'bold',
-                                                    marginTop: '10px',
-                                                    marginBottom: '20px'
-                                                }}
-                                            >
-                                                {teamsCount}
-                                            </Card.Text>
-                                        </Card.Body>
-                                    </Card>
-                                </Col>
-                                <Col md={4}>
-                                    <Card
-                                        bg="light"
-                                        text="dark"
-                                        className="p-2"
-                                        // style={{ height: '200px' }}
-                                        // className="md-3 xs-12 mb-4 "
-                                        style={{ height: '16rem' }}
-                                    >
-                                        <Card.Body>
-                                            <label htmlFor="teams" className="">
-                                                Total Students
-                                            </label>
-                                            <Card.Text
-                                                style={{
-                                                    fontSize: '48px',
-                                                    fontWeight: 'bold',
-                                                    marginTop: '10px',
-                                                    marginBottom: '20px'
-                                                }}
-                                            >
-                                                {studentCount}
-                                            </Card.Text>
-                                        </Card.Body>
-                                    </Card>
-                                </Col>
-                                <Col md={4}>
-                                    <Card
-                                        bg="light"
-                                        text="dark"
-                                        className="p-2"
-                                        // style={{ height: '200px' }}
-                                        // className="md-3 xs-12 mb-4 "
-                                        style={{ height: '16rem' }}
-                                    >
-                                        <Card.Body>
-                                            <label htmlFor="teams" className="">
-                                                Total Ideas
-                                            </label>
-                                            <Card.Text
-                                                style={{
-                                                    fontSize: '48px',
-                                                    fontWeight: 'bold',
-                                                    marginTop: '10px',
-                                                    marginBottom: '20px'
-                                                }}
-                                            >
-                                                {ideaCount}
-                                            </Card.Text>
-                                        </Card.Body>
-                                    </Card>
-                                </Col>
-                            </Row>
-                        </Col>
-                        <div
-                            style={{ flex: 1, overflow: 'auto' }}
-                            className="bg-white rounded px-5 py-3 col-lg-12 disc-card-search col-12"
-                        >
-                            {/* <h2 className="mt-3">Search Registration Details</h2> */}
-
-                            <Col className="md-6">
-                                {multiOrgData.length !== undefined &&
-                                    multiOrgData.length !== 0 &&
-                                    multiOrgData[0]?.mentor !== null && (
-                                        <DataTableExtensions
-                                            print={false}
-                                            export={false}
-                                            {...MultipleMentorsData}
+                                        <Card.Text
+                                            style={{
+                                                fontSize: '48px',
+                                                fontWeight: 'bold',
+                                                marginTop: '10px',
+                                                marginBottom: '20px'
+                                            }}
                                         >
-                                            <DataTable
-                                                data={multiOrgData}
-                                                noHeader
-                                                highlightOnHover
-                                            />
-                                        </DataTableExtensions>
-                                    )}
-                                {orgData &&
-                                    orgData?.institution_name &&
-                                    orgData?.mentor !== null && (
-                                        <>
-                                            {/* <div className="mb-5 p-3" >  */}
-                                            {/* <div
+                                            {teamsCount}
+                                        </Card.Text>
+                                    </Card.Body>
+                                </Card>
+                            </Col>
+                            <Col md={4}>
+                                <Card
+                                    bg="light"
+                                    text="dark"
+                                    className="p-2"
+                                    // style={{ height: '200px' }}
+                                    // className="md-3 xs-12 mb-4 "
+                                    style={{ height: '16rem' }}
+                                >
+                                    <Card.Body>
+                                        <label htmlFor="teams" className="">
+                                            Total Students
+                                        </label>
+                                        <Card.Text
+                                            style={{
+                                                fontSize: '48px',
+                                                fontWeight: 'bold',
+                                                marginTop: '10px',
+                                                marginBottom: '20px'
+                                            }}
+                                        >
+                                            {studentCount}
+                                        </Card.Text>
+                                    </Card.Body>
+                                </Card>
+                            </Col>
+                            <Col md={4}>
+                                <Card
+                                    bg="light"
+                                    text="dark"
+                                    className="p-2"
+                                    // style={{ height: '200px' }}
+                                    // className="md-3 xs-12 mb-4 "
+                                    style={{ height: '16rem' }}
+                                >
+                                    <Card.Body>
+                                        <label htmlFor="teams" className="">
+                                            Total Ideas
+                                        </label>
+                                        <Card.Text
+                                            style={{
+                                                fontSize: '48px',
+                                                fontWeight: 'bold',
+                                                marginTop: '10px',
+                                                marginBottom: '20px'
+                                            }}
+                                        >
+                                            {ideaCount}
+                                        </Card.Text>
+                                    </Card.Body>
+                                </Card>
+                            </Col>
+                        </Row>
+                    </Row>
+
+                    <div
+                        style={{ flex: 1, overflow: 'auto' }}
+                        className="bg-white mt-5 rounded px-5 py-3 col-lg-12 disc-card-search col-12"
+                    >
+                        {/* <h2 className="mt-3">Search Registration Details</h2> */}
+
+                        <Row className="md-12">
+                            {multiOrgData.length !== undefined &&
+                                multiOrgData.length !== 0 &&
+                                multiOrgData[0]?.mentor !== null && (
+                                    <DataTableExtensions
+                                        print={false}
+                                        export={false}
+                                        {...MultipleMentorsData}
+                                    >
+                                        <DataTable
+                                            data={multiOrgData}
+                                            noHeader
+                                            highlightOnHover
+                                        />
+                                    </DataTableExtensions>
+                                )}
+                            {orgData &&
+                                orgData?.institution_name &&
+                                orgData?.mentor !== null && (
+                                    <>
+                                        {/* <div className="mb-5 p-3" >  */}
+                                        {/* <div
                                                 className="container-fluid card shadow border" ref={pdfRef}
                                                 // style={{
                                                 //     width: '300px',
                                                 //     height: '300px'
                                                 // }}
                                             > */}
-                                            <div ref={pdfRef}>
-                                                <div className="row">
-                                                    <div className="col">
-                                                        <h2 className="text-center m-3 text-primary ">
-                                                            Registration Details
-                                                        </h2>
-                                                        <hr />
-                                                    </div>
+                                        <div ref={pdfRef}>
+                                            <div className="row">
+                                                <div className="col">
+                                                    <h2 className="text-center m-3 text-primary ">
+                                                        Registration Details
+                                                    </h2>
+                                                    <hr />
                                                 </div>
-                                                <div className="row ">
-                                                    <div className="col">
-                                                        {}
-                                                        {/* <ul className="p-0">
+                                            </div>
+                                            <div className="row ">
+                                                <div className="col">
+                                                    {}
+                                                    {/* <ul className="p-0">
                                                             <li className="d-flex justify-content-between">
                                                                 School:
                                                                 <p>
@@ -706,440 +720,426 @@ const DashboardSchool = (props) => {
                                                                 </p>
                                                             </li>
                                                         </ul> */}
-                                                        <Row className="pt-3 pb-3">
-                                                            <Col
-                                                                xs={5}
-                                                                sm={5}
-                                                                md={5}
-                                                                xl={5}
-                                                                className="my-auto profile-detail"
-                                                            >
-                                                                <p>
-                                                                    Institution
-                                                                </p>
-                                                            </Col>
-                                                            <Col
-                                                                xs={1}
-                                                                sm={1}
-                                                                md={1}
-                                                                xl={1}
-                                                            >
-                                                                :
-                                                            </Col>
-                                                            <Col
-                                                                xs={6}
-                                                                sm={6}
-                                                                md={6}
-                                                                xl={6}
-                                                                className="my-auto profile-detail"
-                                                            >
-                                                                <p>
-                                                                    {
-                                                                        orgData.institution_name
-                                                                    }
-                                                                </p>
-                                                            </Col>
-                                                        </Row>
-                                                        <Row className="pt-3 pb-3">
-                                                            <Col
-                                                                xs={5}
-                                                                sm={5}
-                                                                md={5}
-                                                                xl={5}
-                                                                className="my-auto profile-detail"
-                                                            >
-                                                                <p>
-                                                                    Institution
-                                                                    Type
-                                                                </p>
-                                                            </Col>
-                                                            <Col
-                                                                xs={1}
-                                                                sm={1}
-                                                                md={1}
-                                                                xl={1}
-                                                            >
-                                                                :
-                                                            </Col>
-                                                            <Col
-                                                                xs={6}
-                                                                sm={6}
-                                                                md={6}
-                                                                xl={6}
-                                                                className="my-auto profile-detail"
-                                                            >
-                                                                <p>
-                                                                    {
-                                                                        orgData
-                                                                            ?.institution_type
-                                                                            ?.institution_type
-                                                                    }
-                                                                </p>
-                                                            </Col>
-                                                        </Row>
-                                                        <Row className="pt-3 pb-3">
-                                                            <Col
-                                                                xs={5}
-                                                                sm={5}
-                                                                md={5}
-                                                                xl={5}
-                                                                className="my-auto profile-detail"
-                                                            >
-                                                                <p>Title</p>
-                                                            </Col>
-                                                            <Col
-                                                                xs={1}
-                                                                sm={1}
-                                                                md={1}
-                                                                xl={1}
-                                                            >
-                                                                :
-                                                            </Col>
-                                                            <Col
-                                                                xs={6}
-                                                                sm={6}
-                                                                md={6}
-                                                                xl={6}
-                                                                className="my-auto profile-detail"
-                                                            >
-                                                                <p>
-                                                                    {
-                                                                        orgData
-                                                                            .mentor
-                                                                            .mentor_title
-                                                                    }
-                                                                </p>
-                                                            </Col>
-                                                        </Row>{' '}
-                                                        <Row className="pt-3 pb-3">
-                                                            <Col
-                                                                xs={5}
-                                                                sm={5}
-                                                                md={5}
-                                                                xl={5}
-                                                                className="my-auto profile-detail"
-                                                            >
-                                                                <p>
-                                                                    Mentor Name
-                                                                </p>
-                                                            </Col>
-                                                            <Col
-                                                                xs={1}
-                                                                sm={1}
-                                                                md={1}
-                                                                xl={1}
-                                                            >
-                                                                :
-                                                            </Col>
-                                                            <Col
-                                                                xs={6}
-                                                                sm={6}
-                                                                md={6}
-                                                                xl={6}
-                                                                className="my-auto profile-detail"
-                                                            >
-                                                                <p>
-                                                                    {
-                                                                        orgData
-                                                                            .mentor
-                                                                            ?.mentor_name
-                                                                    }
-                                                                </p>
-                                                            </Col>
-                                                        </Row>
-                                                        <Row className="pt-3 pb-3">
-                                                            <Col
-                                                                xs={5}
-                                                                sm={5}
-                                                                md={5}
-                                                                xl={5}
-                                                                className="my-auto profile-detail"
-                                                            >
-                                                                <p>
-                                                                    Mentor
-                                                                    Mobile No
-                                                                </p>
-                                                            </Col>
-                                                            <Col
-                                                                xs={1}
-                                                                sm={1}
-                                                                md={1}
-                                                                xl={1}
-                                                            >
-                                                                :
-                                                            </Col>
-                                                            <Col
-                                                                xs={6}
-                                                                sm={6}
-                                                                md={6}
-                                                                xl={6}
-                                                                className="my-auto profile-detail"
-                                                            >
-                                                                <p>
-                                                                    {
-                                                                        orgData
-                                                                            .mentor
-                                                                            ?.mentor_mobile
-                                                                    }
-                                                                </p>
-                                                            </Col>
-                                                        </Row>
-                                                        <Row className="pt-3 pb-3">
-                                                            <Col
-                                                                xs={5}
-                                                                sm={5}
-                                                                md={5}
-                                                                xl={5}
-                                                                className="my-auto profile-detail"
-                                                            >
-                                                                <p>
-                                                                    WhatsApp
-                                                                    Mobile No
-                                                                </p>
-                                                            </Col>
-                                                            <Col
-                                                                xs={1}
-                                                                sm={1}
-                                                                md={1}
-                                                                xl={1}
-                                                            >
-                                                                :
-                                                            </Col>
-                                                            <Col
-                                                                xs={6}
-                                                                sm={6}
-                                                                md={6}
-                                                                xl={6}
-                                                                className="my-auto profile-detail"
-                                                            >
-                                                                <p>
-                                                                    {
-                                                                        orgData
-                                                                            .mentor
-                                                                            ?.mentor_whatapp_mobile
-                                                                    }
-                                                                </p>
-                                                            </Col>
-                                                        </Row>
-                                                        <Row className="pt-3 pb-3">
-                                                            <Col
-                                                                xs={5}
-                                                                sm={5}
-                                                                md={5}
-                                                                xl={5}
-                                                                className="my-auto profile-detail"
-                                                            >
-                                                                <p>
-                                                                    Date of
-                                                                    Birth
-                                                                </p>
-                                                            </Col>
-                                                            <Col
-                                                                xs={1}
-                                                                sm={1}
-                                                                md={1}
-                                                                xl={1}
-                                                            >
-                                                                :
-                                                            </Col>
-                                                            <Col
-                                                                xs={6}
-                                                                sm={6}
-                                                                md={6}
-                                                                xl={6}
-                                                                className="my-auto profile-detail"
-                                                            >
-                                                                <p>
-                                                                    {
-                                                                        orgData
-                                                                            .mentor
-                                                                            ?.date_of_birth
-                                                                    }
-                                                                </p>
-                                                            </Col>
-                                                        </Row>
-                                                        <Row className="pt-3 pb-3">
-                                                            <Col
-                                                                xs={5}
-                                                                sm={5}
-                                                                md={5}
-                                                                xl={5}
-                                                                className="my-auto profile-detail"
-                                                            >
-                                                                <p>Email Id</p>
-                                                            </Col>
-                                                            <Col
-                                                                xs={1}
-                                                                sm={1}
-                                                                md={1}
-                                                                xl={1}
-                                                            >
-                                                                :
-                                                            </Col>
-                                                            <Col
-                                                                xs={6}
-                                                                sm={6}
-                                                                md={6}
-                                                                xl={6}
-                                                                className="my-auto profile-detail"
-                                                            >
-                                                                <p>
-                                                                    {
-                                                                        orgData
-                                                                            .mentor
-                                                                            ?.mentor_email
-                                                                    }
-                                                                </p>
-                                                            </Col>
-                                                        </Row>{' '}
-                                                        <Row className="pt-3 pb-3">
-                                                            <Col
-                                                                xs={5}
-                                                                sm={5}
-                                                                md={5}
-                                                                xl={5}
-                                                                className="my-auto profile-detail"
-                                                            >
-                                                                <p>Gender</p>
-                                                            </Col>
-                                                            <Col
-                                                                xs={1}
-                                                                sm={1}
-                                                                md={1}
-                                                                xl={1}
-                                                            >
-                                                                :
-                                                            </Col>
-                                                            <Col
-                                                                xs={6}
-                                                                sm={6}
-                                                                md={6}
-                                                                xl={6}
-                                                                className="my-auto profile-detail"
-                                                            >
-                                                                <p>
-                                                                    {
-                                                                        orgData
-                                                                            .mentor
-                                                                            .gender
-                                                                    }
-                                                                </p>
-                                                            </Col>
-                                                        </Row>
-                                                    </div>
+                                                    <Row className="pt-3 pb-3">
+                                                        <Col
+                                                            xs={5}
+                                                            sm={5}
+                                                            md={5}
+                                                            xl={5}
+                                                            className="my-auto profile-detail"
+                                                        >
+                                                            <p>Institution</p>
+                                                        </Col>
+                                                        <Col
+                                                            xs={1}
+                                                            sm={1}
+                                                            md={1}
+                                                            xl={1}
+                                                        >
+                                                            :
+                                                        </Col>
+                                                        <Col
+                                                            xs={6}
+                                                            sm={6}
+                                                            md={6}
+                                                            xl={6}
+                                                            className="my-auto profile-detail"
+                                                        >
+                                                            <p>
+                                                                {
+                                                                    orgData.institution_name
+                                                                }
+                                                            </p>
+                                                        </Col>
+                                                    </Row>
+                                                    <Row className="pt-3 pb-3">
+                                                        <Col
+                                                            xs={5}
+                                                            sm={5}
+                                                            md={5}
+                                                            xl={5}
+                                                            className="my-auto profile-detail"
+                                                        >
+                                                            <p>
+                                                                Institution Type
+                                                            </p>
+                                                        </Col>
+                                                        <Col
+                                                            xs={1}
+                                                            sm={1}
+                                                            md={1}
+                                                            xl={1}
+                                                        >
+                                                            :
+                                                        </Col>
+                                                        <Col
+                                                            xs={6}
+                                                            sm={6}
+                                                            md={6}
+                                                            xl={6}
+                                                            className="my-auto profile-detail"
+                                                        >
+                                                            <p>
+                                                                {
+                                                                    orgData
+                                                                        ?.institution_type
+                                                                        ?.institution_type
+                                                                }
+                                                            </p>
+                                                        </Col>
+                                                    </Row>
+                                                    <Row className="pt-3 pb-3">
+                                                        <Col
+                                                            xs={5}
+                                                            sm={5}
+                                                            md={5}
+                                                            xl={5}
+                                                            className="my-auto profile-detail"
+                                                        >
+                                                            <p>Title</p>
+                                                        </Col>
+                                                        <Col
+                                                            xs={1}
+                                                            sm={1}
+                                                            md={1}
+                                                            xl={1}
+                                                        >
+                                                            :
+                                                        </Col>
+                                                        <Col
+                                                            xs={6}
+                                                            sm={6}
+                                                            md={6}
+                                                            xl={6}
+                                                            className="my-auto profile-detail"
+                                                        >
+                                                            <p>
+                                                                {
+                                                                    orgData
+                                                                        .mentor
+                                                                        .mentor_title
+                                                                }
+                                                            </p>
+                                                        </Col>
+                                                    </Row>{' '}
+                                                    <Row className="pt-3 pb-3">
+                                                        <Col
+                                                            xs={5}
+                                                            sm={5}
+                                                            md={5}
+                                                            xl={5}
+                                                            className="my-auto profile-detail"
+                                                        >
+                                                            <p>Mentor Name</p>
+                                                        </Col>
+                                                        <Col
+                                                            xs={1}
+                                                            sm={1}
+                                                            md={1}
+                                                            xl={1}
+                                                        >
+                                                            :
+                                                        </Col>
+                                                        <Col
+                                                            xs={6}
+                                                            sm={6}
+                                                            md={6}
+                                                            xl={6}
+                                                            className="my-auto profile-detail"
+                                                        >
+                                                            <p>
+                                                                {
+                                                                    orgData
+                                                                        .mentor
+                                                                        ?.mentor_name
+                                                                }
+                                                            </p>
+                                                        </Col>
+                                                    </Row>
+                                                    <Row className="pt-3 pb-3">
+                                                        <Col
+                                                            xs={5}
+                                                            sm={5}
+                                                            md={5}
+                                                            xl={5}
+                                                            className="my-auto profile-detail"
+                                                        >
+                                                            <p>
+                                                                Mentor Mobile No
+                                                            </p>
+                                                        </Col>
+                                                        <Col
+                                                            xs={1}
+                                                            sm={1}
+                                                            md={1}
+                                                            xl={1}
+                                                        >
+                                                            :
+                                                        </Col>
+                                                        <Col
+                                                            xs={6}
+                                                            sm={6}
+                                                            md={6}
+                                                            xl={6}
+                                                            className="my-auto profile-detail"
+                                                        >
+                                                            <p>
+                                                                {
+                                                                    orgData
+                                                                        .mentor
+                                                                        ?.mentor_mobile
+                                                                }
+                                                            </p>
+                                                        </Col>
+                                                    </Row>
+                                                    <Row className="pt-3 pb-3">
+                                                        <Col
+                                                            xs={5}
+                                                            sm={5}
+                                                            md={5}
+                                                            xl={5}
+                                                            className="my-auto profile-detail"
+                                                        >
+                                                            <p>
+                                                                WhatsApp Mobile
+                                                                No
+                                                            </p>
+                                                        </Col>
+                                                        <Col
+                                                            xs={1}
+                                                            sm={1}
+                                                            md={1}
+                                                            xl={1}
+                                                        >
+                                                            :
+                                                        </Col>
+                                                        <Col
+                                                            xs={6}
+                                                            sm={6}
+                                                            md={6}
+                                                            xl={6}
+                                                            className="my-auto profile-detail"
+                                                        >
+                                                            <p>
+                                                                {
+                                                                    orgData
+                                                                        .mentor
+                                                                        ?.mentor_whatapp_mobile
+                                                                }
+                                                            </p>
+                                                        </Col>
+                                                    </Row>
+                                                    <Row className="pt-3 pb-3">
+                                                        <Col
+                                                            xs={5}
+                                                            sm={5}
+                                                            md={5}
+                                                            xl={5}
+                                                            className="my-auto profile-detail"
+                                                        >
+                                                            <p>Date of Birth</p>
+                                                        </Col>
+                                                        <Col
+                                                            xs={1}
+                                                            sm={1}
+                                                            md={1}
+                                                            xl={1}
+                                                        >
+                                                            :
+                                                        </Col>
+                                                        <Col
+                                                            xs={6}
+                                                            sm={6}
+                                                            md={6}
+                                                            xl={6}
+                                                            className="my-auto profile-detail"
+                                                        >
+                                                            <p>
+                                                                {
+                                                                    orgData
+                                                                        .mentor
+                                                                        ?.date_of_birth
+                                                                }
+                                                            </p>
+                                                        </Col>
+                                                    </Row>
+                                                    <Row className="pt-3 pb-3">
+                                                        <Col
+                                                            xs={5}
+                                                            sm={5}
+                                                            md={5}
+                                                            xl={5}
+                                                            className="my-auto profile-detail"
+                                                        >
+                                                            <p>Email Id</p>
+                                                        </Col>
+                                                        <Col
+                                                            xs={1}
+                                                            sm={1}
+                                                            md={1}
+                                                            xl={1}
+                                                        >
+                                                            :
+                                                        </Col>
+                                                        <Col
+                                                            xs={6}
+                                                            sm={6}
+                                                            md={6}
+                                                            xl={6}
+                                                            className="my-auto profile-detail"
+                                                        >
+                                                            <p>
+                                                                {
+                                                                    orgData
+                                                                        .mentor
+                                                                        ?.mentor_email
+                                                                }
+                                                            </p>
+                                                        </Col>
+                                                    </Row>{' '}
+                                                    <Row className="pt-3 pb-3">
+                                                        <Col
+                                                            xs={5}
+                                                            sm={5}
+                                                            md={5}
+                                                            xl={5}
+                                                            className="my-auto profile-detail"
+                                                        >
+                                                            <p>Gender</p>
+                                                        </Col>
+                                                        <Col
+                                                            xs={1}
+                                                            sm={1}
+                                                            md={1}
+                                                            xl={1}
+                                                        >
+                                                            :
+                                                        </Col>
+                                                        <Col
+                                                            xs={6}
+                                                            sm={6}
+                                                            md={6}
+                                                            xl={6}
+                                                            className="my-auto profile-detail"
+                                                        >
+                                                            <p>
+                                                                {
+                                                                    orgData
+                                                                        .mentor
+                                                                        .gender
+                                                                }
+                                                            </p>
+                                                        </Col>
+                                                    </Row>
                                                 </div>
                                             </div>
-                                            {/* </div> */}
-                                            {/* <div className="d-flex justify-content-between"> */}
-                                            <div className="d-flex justify-content-between flex-column flex-md-row">
-                                                <button
-                                                    className="btn  rounded-pill px-4  text-white mt-2 mt-md-0 ml-md-2"
-                                                    style={{
-                                                        backgroundColor:
-                                                            '#ffcb34'
-                                                    }}
-                                                    onClick={handleEdit}
-                                                    //className="btn btn-warning btn-lg  px-4"
-                                                >
-                                                    Edit
-                                                </button>
-                                                <button
-                                                    onClick={() =>
-                                                        handleresetpassword({
-                                                            mentor_id:
-                                                                orgData.mentor
-                                                                    .mentor_id,
-                                                            username:
-                                                                orgData?.mentor
-                                                                    ?.mentor_mobile
-                                                        })
-                                                    }
-                                                    className="btn btn-info rounded-pill px-4  text-white mt-2 mt-md-0 ml-md-2"
-                                                >
-                                                    Reset
-                                                </button>
-                                                <button
-                                                    onClick={() => {
-                                                        downloadPDF();
-                                                    }}
-                                                    className="btn btn-primary rounded-pill px-4 mt-2 mt-md-0 ml-md-2"
-                                                >
-                                                    Download
-                                                </button>
+                                        </div>
+                                        {/* </div> */}
+                                        {/* <div className="d-flex justify-content-between"> */}
+                                        <div className="d-flex justify-content-between flex-column flex-md-row">
+                                            <button
+                                                className="btn  rounded-pill px-4  text-white mt-2 mt-md-0 ml-md-2"
+                                                style={{
+                                                    backgroundColor: '#ffcb34'
+                                                }}
+                                                onClick={handleEdit}
+                                                //className="btn btn-warning btn-lg  px-4"
+                                            >
+                                                Edit
+                                            </button>
+                                            <button
+                                                onClick={() =>
+                                                    handleresetpassword({
+                                                        mentor_id:
+                                                            orgData.mentor
+                                                                .mentor_id,
+                                                        username:
+                                                            orgData?.mentor
+                                                                ?.mentor_mobile
+                                                    })
+                                                }
+                                                className="btn btn-info rounded-pill px-4  text-white mt-2 mt-md-0 ml-md-2"
+                                            >
+                                                Reset
+                                            </button>
+                                            <button
+                                                onClick={() => {
+                                                    downloadPDF();
+                                                }}
+                                                className="btn btn-primary rounded-pill px-4 mt-2 mt-md-0 ml-md-2"
+                                            >
+                                                Download
+                                            </button>
 
-                                                {/* <button
+                                            {/* <button
                                                     onClick={viewDetails}
                                                     className="btn btn-success rounded-pill px-4 mt-2 mt-md-0 ml-md-2"
                                                 >
                                                     View Details
                                                 </button> */}
 
-                                                <button
-                                                    onClick={() => {
-                                                        handleAlert(
-                                                            orgData.mentor
-                                                                ?.user_id
-                                                        );
-                                                    }}
-                                                    className="btn  btn-lg  rounded-pill mt-2 mt-md-0 ml-md-2"
-                                                    style={{
-                                                        backgroundColor:
-                                                            '#dc3545'
-                                                    }}
-                                                >
-                                                    Delete
-                                                </button>
-                                            </div>
+                                            <button
+                                                onClick={() => {
+                                                    handleAlert(
+                                                        orgData.mentor?.user_id
+                                                    );
+                                                }}
+                                                className="btn  btn-lg  rounded-pill mt-2 mt-md-0 ml-md-2"
+                                                style={{
+                                                    backgroundColor: '#dc3545'
+                                                }}
+                                            >
+                                                Delete
+                                            </button>
+                                        </div>
 
-                                            {/* <div className="mb-5 p-3"> */}
-                                            {/* <div className="container-fluid card shadow border"> */}
-                                            <div>
-                                                <div className="row">
-                                                    <div className="col">
-                                                        <h2 className="text-center m-3 text-primary">
-                                                            Teams Registered
-                                                        </h2>
-                                                        <hr />
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    <DataTableExtensions
-                                                        print={false}
-                                                        export={false}
-                                                        {...MentorsData}
-                                                    >
-                                                        <DataTable
-                                                            noHeader
-                                                            defaultSortField="id"
-                                                            defaultSortAsc={
-                                                                false
-                                                            }
-                                                            highlightOnHover
-                                                        />
-                                                    </DataTableExtensions>
+                                        {/* <div className="mb-5 p-3"> */}
+                                        {/* <div className="container-fluid card shadow border"> */}
+                                        <div>
+                                            <div className="row">
+                                                <div className="col">
+                                                    <h2 className="text-center m-3 text-primary">
+                                                        Teams Registered
+                                                    </h2>
+                                                    <hr />
                                                 </div>
                                             </div>
-                                            {/* </div> */}
-                                        </>
-                                        // ) : (
-                                        //     // count != 0 && (
-                                        //     //     <div className="text-success fs-highlight d-flex justify-content-center align-items-center">
-                                        //     //         <span>
-                                        //     //             Still No Teacher Registered
-                                        //     //         </span>
-                                        //     //     </div>
-                                        //     // )
-                                        //     multiOrgData[0]?.mentor === null && (
-                                        //         // <Card className="mt-3 p-4">
-                                        //         <div className="text-success fs-highlight d-flex justify-content-center align-items-center">
-                                        //             <span>Still No Teacher Registered</span>
-                                        //         </div>
-                                        //     )
-                                    )}
-                            </Col>
-                        </div>
+                                            <div>
+                                                <DataTableExtensions
+                                                    print={false}
+                                                    export={false}
+                                                    {...MentorsData}
+                                                >
+                                                    <DataTable
+                                                        noHeader
+                                                        defaultSortField="id"
+                                                        defaultSortAsc={false}
+                                                        highlightOnHover
+                                                    />
+                                                </DataTableExtensions>
+                                            </div>
+                                        </div>
+                                        {/* </div> */}
+                                    </>
+                                    // ) : (
+                                    //     // count != 0 && (
+                                    //     //     <div className="text-success fs-highlight d-flex justify-content-center align-items-center">
+                                    //     //         <span>
+                                    //     //             Still No Teacher Registered
+                                    //     //         </span>
+                                    //     //     </div>
+                                    //     // )
+                                    //     multiOrgData[0]?.mentor === null && (
+                                    //         // <Card className="mt-3 p-4">
+                                    //         <div className="text-success fs-highlight d-flex justify-content-center align-items-center">
+                                    //             <span>Still No Teacher Registered</span>
+                                    //         </div>
+                                    //     )
+                                )}
+                        </Row>
                     </div>
-                </Row>
+                </div>
+                {/* </Row> */}
                 {/* <Row className="p-3">
                     <Col className="md-5 ">
                         <Col>

@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import './Student.scss';
@@ -95,14 +96,16 @@ const MyProfile = () => {
                                                             xl={5}
                                                             className="my-auto profile-detail"
                                                         >
-                                                            <b>Course</b>
+                                                            <b>
+                                                                Institution Type
+                                                            </b>
                                                         </Col>
                                                         <Col
                                                             xs={1}
                                                             sm={1}
                                                             md={1}
                                                             xl={1}
-                                                        // md={1}
+                                                            // md={1}
                                                         >
                                                             :
                                                         </Col>
@@ -116,11 +119,181 @@ const MyProfile = () => {
                                                         >
                                                             <b>
                                                                 {teamMember
+                                                                    ?.institutional_course
+                                                                    ?.institution_type
+                                                                    ?.institution_type
+                                                                    ? teamMember
+                                                                          ?.institutional_course
+                                                                          ?.institution_type
+                                                                          ?.institution_type
+                                                                    : '-'}
+                                                            </b>
+                                                        </Col>
+                                                    </Row>
+                                                    <Row className="pt-3 pb-3">
+                                                        <Col
+                                                            // md={3}
+                                                            xs={5}
+                                                            sm={5}
+                                                            md={5}
+                                                            xl={5}
+                                                            className="my-auto profile-detail"
+                                                        >
+                                                            <b>Stream Type</b>
+                                                        </Col>
+                                                        <Col
+                                                            // md={1}
+                                                            xs={1}
+                                                            sm={1}
+                                                            md={1}
+                                                            xl={1}
+                                                        >
+                                                            :
+                                                        </Col>
+                                                        <Col
+                                                            xs={6}
+                                                            sm={6}
+                                                            md={6}
+                                                            xl={6}
+                                                            // md={8}
+                                                            className="my-auto profile-detail"
+                                                        >
+                                                            <b>
+                                                                {teamMember
+                                                                    ?.institutional_course
                                                                     ?.stream
                                                                     ?.stream_name
                                                                     ? teamMember
-                                                                        ?.stream
-                                                                        ?.stream_name
+                                                                          ?.institutional_course
+                                                                          ?.stream
+                                                                          ?.stream_name
+                                                                    : '-'}
+                                                            </b>
+                                                        </Col>
+                                                    </Row>
+                                                    <Row className="pt-3 pb-3">
+                                                        <Col
+                                                            // md={3}
+                                                            xs={5}
+                                                            sm={5}
+                                                            md={5}
+                                                            xl={5}
+                                                            className="my-auto profile-detail"
+                                                        >
+                                                            <b>Program Name</b>
+                                                        </Col>
+                                                        <Col
+                                                            // md={1}
+                                                            xs={1}
+                                                            sm={1}
+                                                            md={1}
+                                                            xl={1}
+                                                        >
+                                                            :
+                                                        </Col>
+                                                        <Col
+                                                            xs={6}
+                                                            sm={6}
+                                                            md={6}
+                                                            xl={6}
+                                                            // md={8}
+                                                            className="my-auto profile-detail"
+                                                        >
+                                                            <b>
+                                                                {teamMember
+                                                                    ?.institutional_course
+                                                                    ?.program
+                                                                    ?.program_name
+                                                                    ? teamMember
+                                                                          ?.institutional_course
+                                                                          ?.program
+                                                                          ?.program_name
+                                                                    : '-'}
+                                                            </b>
+                                                        </Col>
+                                                    </Row>
+                                                    <Row className="pt-3 pb-3">
+                                                        <Col
+                                                            // md={3}
+                                                            xs={5}
+                                                            sm={5}
+                                                            md={5}
+                                                            xl={5}
+                                                            className="my-auto profile-detail"
+                                                        >
+                                                            <b>Program Type</b>
+                                                        </Col>
+                                                        <Col
+                                                            // md={1}
+                                                            xs={1}
+                                                            sm={1}
+                                                            md={1}
+                                                            xl={1}
+                                                        >
+                                                            :
+                                                        </Col>
+                                                        <Col
+                                                            xs={6}
+                                                            sm={6}
+                                                            md={6}
+                                                            xl={6}
+                                                            // md={8}
+                                                            className="my-auto profile-detail"
+                                                        >
+                                                            <b>
+                                                                {teamMember
+                                                                    ?.institutional_course
+                                                                    ?.program
+                                                                    ?.program_type
+                                                                    ? teamMember
+                                                                          ?.institutional_course
+                                                                          ?.program
+                                                                          ?.program_type
+                                                                    : '-'}
+                                                            </b>
+                                                        </Col>
+                                                    </Row>
+                                                    <Row className="pt-3 pb-3">
+                                                        <Col
+                                                            // md={3}
+                                                            xs={5}
+                                                            sm={5}
+                                                            md={5}
+                                                            xl={5}
+                                                            className="my-auto profile-detail"
+                                                        >
+                                                            <b>
+                                                                Program
+                                                                duration(No of
+                                                                year's)
+                                                            </b>
+                                                        </Col>
+                                                        <Col
+                                                            // md={1}
+                                                            xs={1}
+                                                            sm={1}
+                                                            md={1}
+                                                            xl={1}
+                                                        >
+                                                            :
+                                                        </Col>
+                                                        <Col
+                                                            xs={6}
+                                                            sm={6}
+                                                            md={6}
+                                                            xl={6}
+                                                            // md={8}
+                                                            className="my-auto profile-detail"
+                                                        >
+                                                            <b>
+                                                                {teamMember
+                                                                    ?.institutional_course
+                                                                    ?.program
+                                                                    ?.no_of_years
+                                                                    ? teamMember
+                                                                          ?.institutional_course
+                                                                          ?.program
+                                                                          ?.no_of_years
                                                                     : '-'}
                                                             </b>
                                                         </Col>
@@ -283,7 +456,7 @@ const MyProfile = () => {
                                                             sm={1}
                                                             md={1}
                                                             xl={1}
-                                                        // md={1}
+                                                            // md={1}
                                                         >
                                                             :
                                                         </Col>
@@ -318,7 +491,7 @@ const MyProfile = () => {
                                                             sm={1}
                                                             md={1}
                                                             xl={1}
-                                                        // md={1}
+                                                            // md={1}
                                                         >
                                                             :
                                                         </Col>
@@ -387,10 +560,10 @@ const MyProfile = () => {
                                                                     ?.institution
                                                                     ?.institution_code
                                                                     ? teamMember
-                                                                        .team
-                                                                        ?.mentor
-                                                                        ?.institution
-                                                                        ?.institution_code
+                                                                          .team
+                                                                          ?.mentor
+                                                                          ?.institution
+                                                                          ?.institution_code
                                                                     : '-'}
                                                             </b>
                                                         </Col>
@@ -431,10 +604,10 @@ const MyProfile = () => {
                                                                     ?.institution
                                                                     ?.institution_name
                                                                     ? teamMember
-                                                                        .team
-                                                                        ?.mentor
-                                                                        ?.institution
-                                                                        ?.institution_name
+                                                                          .team
+                                                                          ?.mentor
+                                                                          ?.institution
+                                                                          ?.institution_name
                                                                     : '-'}
                                                             </b>
                                                         </Col>
@@ -520,11 +693,11 @@ const MyProfile = () => {
                                                                     ?.place
                                                                     ?.place_name
                                                                     ? teamMember
-                                                                        .team
-                                                                        ?.mentor
-                                                                        ?.institution
-                                                                        ?.place
-                                                                        ?.place_name
+                                                                          .team
+                                                                          ?.mentor
+                                                                          ?.institution
+                                                                          ?.place
+                                                                          ?.place_name
                                                                     : '-'}
                                                             </b>
                                                         </Col>
@@ -566,13 +739,13 @@ const MyProfile = () => {
                                                                     ?.block
                                                                     ?.block_name
                                                                     ? teamMember
-                                                                        .team
-                                                                        ?.mentor
-                                                                        ?.institution
-                                                                        ?.place
-                                                                        ?.taluk
-                                                                        ?.block
-                                                                        ?.block_name
+                                                                          .team
+                                                                          ?.mentor
+                                                                          ?.institution
+                                                                          ?.place
+                                                                          ?.taluk
+                                                                          ?.block
+                                                                          ?.block_name
                                                                     : '-'}
                                                             </b>
                                                         </Col>
@@ -613,12 +786,12 @@ const MyProfile = () => {
                                                                     ?.taluk
                                                                     ?.taluk_name
                                                                     ? teamMember
-                                                                        .team
-                                                                        ?.mentor
-                                                                        ?.institution
-                                                                        ?.place
-                                                                        ?.taluk
-                                                                        ?.taluk_name
+                                                                          .team
+                                                                          ?.mentor
+                                                                          ?.institution
+                                                                          ?.place
+                                                                          ?.taluk
+                                                                          ?.taluk_name
                                                                     : '-'}
                                                             </b>
                                                         </Col>
@@ -661,14 +834,14 @@ const MyProfile = () => {
                                                                     ?.district
                                                                     ?.district_name
                                                                     ? teamMember
-                                                                        .team
-                                                                        ?.mentor
-                                                                        ?.institution
-                                                                        ?.place
-                                                                        ?.taluk
-                                                                        ?.block
-                                                                        ?.district
-                                                                        ?.district_name
+                                                                          .team
+                                                                          ?.mentor
+                                                                          ?.institution
+                                                                          ?.place
+                                                                          ?.taluk
+                                                                          ?.block
+                                                                          ?.district
+                                                                          ?.district_name
                                                                     : '-'}
                                                             </b>
                                                         </Col>
@@ -713,15 +886,15 @@ const MyProfile = () => {
                                                                     ?.state
                                                                     ?.state_name
                                                                     ? teamMember
-                                                                        .team
-                                                                        ?.mentor
-                                                                        ?.institution
-                                                                        ?.place
-                                                                        ?.taluk
-                                                                        ?.block
-                                                                        ?.district
-                                                                        ?.state
-                                                                        ?.state_name
+                                                                          .team
+                                                                          ?.mentor
+                                                                          ?.institution
+                                                                          ?.place
+                                                                          ?.taluk
+                                                                          ?.block
+                                                                          ?.district
+                                                                          ?.state
+                                                                          ?.state_name
                                                                     : '-'}
                                                             </b>
                                                         </Col>
@@ -759,8 +932,8 @@ const MyProfile = () => {
                                                                 {teamMember.team
                                                                     ?.team_name
                                                                     ? teamMember
-                                                                        .team
-                                                                        ?.team_name
+                                                                          .team
+                                                                          ?.team_name
                                                                     : '-'}
                                                             </b>
                                                         </Col>
@@ -799,9 +972,9 @@ const MyProfile = () => {
                                                                     ?.mentor
                                                                     ?.mentor_name
                                                                     ? teamMember
-                                                                        .team
-                                                                        ?.mentor
-                                                                        ?.mentor_name
+                                                                          .team
+                                                                          ?.mentor
+                                                                          ?.mentor_name
                                                                     : '-'}
                                                             </b>
                                                         </Col>
