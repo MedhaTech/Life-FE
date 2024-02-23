@@ -3,7 +3,7 @@
 # Project Title
 Front End
 
-One Paragraph of the project description
+One Paragraph of the project description ok
 
 # Getting Started with Create React App
 # Cloning and Running the Application in local

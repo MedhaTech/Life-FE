@@ -100,7 +100,7 @@ const CreateTeam = (props) => {
                                 'success',
                                 'Team Create Successfully'
                             );
-                            props.history.push('/teacher/teamlist');
+                            props.history.push('/mentor/teamlist');
                         }, 1000);
                     } else {
                         openNotificationWithIcon(
@@ -281,7 +281,7 @@ const CreateTeam = (props) => {
                                             size="small"
                                             onClick={() =>
                                                 props.history.push(
-                                                    '/teacher/teamlist'
+                                                    '/mentor/teamlist'
                                                 )
                                             }
                                         />

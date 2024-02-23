@@ -26,7 +26,8 @@ const EditTeacherProfileDetails = (props) => {
         // where  mentorData = mentor details //
         (history && history.location && history.location.item) || {};
     const regex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
-    console.log(mentorData, '1');
+    const name = /^[a-zA-Z\s\u0B80-\u0BFF]+$/;
+
     const getValidationSchema = () => {
         // where data = mentorData //
         const adminValidation = Yup.object({
@@ -59,7 +60,7 @@ const EditTeacherProfileDetails = (props) => {
 
                 .trim()
                 .min(2, 'Enter Name')
-                .matches(/^[aA-zZ\s]+$/, 'Special Characters are not allowed')
+                .matches(name, 'Special Characters are not allowed')
                 .required('Required')
             // mentor_name_vernacular: Yup.string()
 
@@ -78,8 +79,8 @@ const EditTeacherProfileDetails = (props) => {
             gender: mentorData.gender,
             date_of_birth: mentorData?.date_of_birth,
             mentor_mobile: mentorData?.mentor_mobile,
-            mentor_email: mentorData?.mentor_email,
-            username: mentorData?.username
+            mentor_email: mentorData?.mentor_email
+            // username: mentorData?.username
         };
         return commonInitialValues;
     };
@@ -87,7 +88,7 @@ const EditTeacherProfileDetails = (props) => {
         initialValues: getInitialValues(mentorData),
         validationSchema: getValidationSchema(),
         onSubmit: (values) => {
-            const body = JSON.stringify({
+            const body = {
                 mentor_name: values.mentor_name,
                 mentor_email: values.mentor_email,
                 mentor_title: values.mentor_title,
@@ -96,7 +97,13 @@ const EditTeacherProfileDetails = (props) => {
                 date_of_birth: values.date_of_birth,
                 mentor_mobile: values.mentor_mobile,
                 username: mentorData.username
-            });
+            };
+            if (
+                mentorData &&
+                mentorData.mentor_mobile !== values.mentor_mobile
+            ) {
+                body['username'] = values.mentor_mobile;
+            }
             const ment = encryptGlobal(JSON.stringify(mentorData.mentor_id));
             const url = process.env.REACT_APP_API_BASE_URL + '/mentors/' + ment;
             var config = {
@@ -118,7 +125,7 @@ const EditTeacherProfileDetails = (props) => {
                         currentUser.data[0].mentor_name = values.mentor_name;
                         setCurrentUser(currentUser);
                         setTimeout(() => {
-                            props.history.push('/school/dashboard');
+                            props.history.push('/institution/dashboard');
                         }, 200);
                     }
                 })
@@ -135,7 +142,7 @@ const EditTeacherProfileDetails = (props) => {
 
     const handleDiscard = () => {
         // where we can discard  the changes //
-        props.history.push('/school/dashboard');
+        props.history.push('/institution/dashboard');
     };
 
     return (

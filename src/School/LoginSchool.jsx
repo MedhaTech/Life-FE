@@ -14,7 +14,7 @@ import { schoolLoginUser } from '../School/store/school/actions';
 import { connect } from 'react-redux';
 import CryptoJS from 'crypto-js';
 import { Carousel } from 'react-bootstrap';
-import logo from '../assets/media/tn-brands/UPSHIFT_BLACK.png';
+import logo from '../assets/media/tn-brands/EDII_LOGO.png';
 import image_1 from '../assets/media/unisolve_slider1.png';
 import image_2 from '../assets/media/unisolve_slider2.png';
 import '../Student/Pages/SignUp.scss';
@@ -30,7 +30,7 @@ function LoginSchool(props) {
             localStorage.getItem('module')
         ) {
             moduleName === 'MENTOR'
-                ? history.push('/teacher/dashboard')
+                ? history.push('/mentor/dashboard')
                 : moduleName === 'ADMIN'
                 ? history.push('/admin/dashboard')
                 : moduleName === 'EVALUATOR'
@@ -38,7 +38,7 @@ function LoginSchool(props) {
                 : moduleName === 'EADMIN'
                 ? history.push('/eadmin/dashboard')
                 : moduleName === 'SCHOOL'
-                ? history.push('/school/dashboard')
+                ? history.push('/institution/dashboard')
                 : history.push('/dashboard');
         }
     }, []);

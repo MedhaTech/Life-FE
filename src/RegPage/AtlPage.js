@@ -620,7 +620,7 @@ function AtlPage() {
                                                     {' '}
                                                     Already a member ?
                                                     <Link
-                                                        to={'/teacher'}
+                                                        to={'/mentor'}
                                                         exact
                                                         className=" m-3 text-center"
                                                         style={{

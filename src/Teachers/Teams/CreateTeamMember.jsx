@@ -1025,7 +1025,7 @@ const CreateMultipleMembers = ({ id }) => {
                         label={t('teacher_teams.discard')}
                         btnClass="secondary "
                         size="small"
-                        onClick={() => history.push('/teacher/teamlist')}
+                        onClick={() => history.push('/mentor/teamlist')}
                     />
                 </Col>
                 <Col className="mt-2" xs={12} sm={6} md={6} xl={6}>
@@ -1092,7 +1092,7 @@ const CreateTeamMember = (props) => {
         options: [
             {
                 title: t('teacher_teams.teamslist'),
-                path: '/teacher/teamlist'
+                path: '/mentor/teamlist'
             },
             {
                 title: t('teacher_teams.create_team_members')
@@ -1262,7 +1262,9 @@ const CreateTeamMember = (props) => {
                 .matches(emailRegex, 'accept small letters only')
                 .email('Enter Valid Email Id'),
 
-            stream_id: Yup.string().required('Please select Course'),
+            institution_course_id: Yup.string().required(
+                'Please select Program'
+            ),
             year_of_study: Yup.string().required('Please select Year'),
 
             mobile: Yup.string()
@@ -1324,7 +1326,7 @@ const CreateTeamMember = (props) => {
                                 'success',
                                 'Team Member Created Successfully'
                             );
-                            props.history.push('/teacher/teamlist');
+                            props.history.push('/mentor/teamlist');
                         } else {
                             openNotificationWithIcon(
                                 'error',
@@ -1588,11 +1590,6 @@ const CreateTeamMember = (props) => {
                                                             formik.setFieldValue(
                                                                 'stream_id',
                                                                 option[0]?.value
-                                                            );
-                                                            console.log(
-                                                                option[0]
-                                                                    ?.value,
-                                                                's'
                                                             );
                                                         }}
                                                         // value={
@@ -2050,7 +2047,7 @@ const CreateTeamMember = (props) => {
                                                 size="small"
                                                 onClick={() =>
                                                     props.history.push(
-                                                        '/teacher/teamlist'
+                                                        '/mentor/teamlist'
                                                     )
                                                 }
                                             />

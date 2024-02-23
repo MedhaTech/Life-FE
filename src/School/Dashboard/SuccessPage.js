@@ -331,7 +331,7 @@ const SuccessPage = () => {
                                     To login into Mentor account
                                     <Link
                                         exact="true"
-                                        to="/school/dashboard"
+                                        to="/institution/dashboard"
                                         className="p-0 blue text-link w-100 mt-3"
                                     >
                                         {t(' click here')}

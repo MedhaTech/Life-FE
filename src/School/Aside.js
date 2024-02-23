@@ -52,7 +52,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                         className="d-flex logo-section"
                         style={{ height: '5rem' }}
                     >
-                        <Link to={'/school/dashboard'} exact className="d-flex">
+                        <Link to={'/institution/dashboard'} exact className="d-flex">
                             {menuCollapse ? (
                                 <img
                                     src={SmallLogo}
@@ -91,13 +91,13 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                             />
                         }
                         className={
-                            location.pathname === '/school/dashboard' &&
+                            location.pathname === '/institution/dashboard' &&
                             'sidebar-active'
                         }
                     >
                         <NavLink
                             exact={true}
-                            to={'/school/dashboard'}
+                            to={'/institution/dashboard'}
                             style={{
                                 color: 'black !important',
                                 '--override-color': 'black'
@@ -111,13 +111,13 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                     <MenuItem
                         icon={<RiLockPasswordFill />}
                         className={
-                            location.pathname === '/school-changePassword' &&
+                            location.pathname === '/institution-changePassword' &&
                             'sidebar-active'
                         }
                     >
                         <NavLink
                             exact={true}
-                            to={'/school-changePassword'}
+                            to={'/institution-changePassword'}
                             style={{
                                 color: 'black !important',
                                 '--override-color': 'black'
@@ -131,13 +131,13 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                     <MenuItem
                         icon={<FaHouseUser />}
                         className={
-                            location.pathname === '/school/my-profile' &&
+                            location.pathname === '/institution/my-profile' &&
                             'sidebar-active'
                         }
                     >
                         <NavLink
                             exact={true}
-                            to={'/school/my-profile'}
+                            to={'/institution/my-profile'}
                             style={{
                                 color: 'black !important',
                                 '--override-color': 'black'

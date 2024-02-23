@@ -161,7 +161,7 @@ const TicketsPage = () => {
         // where item = team name //
         // where we can add team member details //
         history.push({
-            pathname: `/teacher/create-team-member/${item.team_id}/${item.StudentCount ? item.StudentCount : 'new'
+            pathname: `/mentor/create-team-member/${item.team_id}/${item.StudentCount ? item.StudentCount : 'new'
                 }`
         });
     };
@@ -169,7 +169,7 @@ const TicketsPage = () => {
         // item = student //
         // here we can edit the team member details //
         history.push({
-            pathname: '/teacher/edit-team',
+            pathname: '/mentor/edit-team',
             item: item
         });
         localStorage.setItem('teamId', JSON.stringify(item));
@@ -178,7 +178,7 @@ const TicketsPage = () => {
         // here item = team member details  //
         item['mentorid'] = currentUser?.data[0]?.mentor_id;
         history.push({
-            pathname: '/teacher/view-team-member',
+            pathname: '/mentor/view-team-member',
             item: item,
             // date_of_birth: item.date_of_birth,
             mentorid: currentUser?.data[0]?.mentor_id
@@ -216,7 +216,7 @@ const TicketsPage = () => {
                                         shape="btn-square"
                                         Icon={BsPlusLg}
                                         onClick={() =>
-                                            history.push('/teacher/create-team')
+                                            history.push('/mentor/create-team')
                                         }
                                     />
                                 )}

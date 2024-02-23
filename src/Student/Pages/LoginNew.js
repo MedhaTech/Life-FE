@@ -11,7 +11,7 @@ import { connect } from 'react-redux';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useTranslation } from 'react-i18next';
-import logo from '../../assets/media/tn-brands/UPSHIFT_BLACK.png';
+import logo from '../../assets/media/tn-brands/EDII_LOGO.png';
 import studentIcon from '../../assets/media/student_login_icon.png';
 import teacherIcon from '../../assets/media/teacher_login_icon.png';
 import image_9 from '../../assets/media/unisolve_slider1.png';
@@ -31,7 +31,7 @@ const LoginNew = (props) => {
             localStorage.getItem('module')
         ) {
             moduleName === 'MENTOR'
-                ? history.push('/teacher/dashboard')
+                ? history.push('/mentor/dashboard')
                 : moduleName === 'ADMIN'
                 ? history.push('/admin/dashboard')
                 : moduleName === 'EVALUATOR'
@@ -181,7 +181,7 @@ const LoginNew = (props) => {
                                 <Link
                                     className="landing-page-actions "
                                     exact="true"
-                                    to="/teacher"
+                                    to="/mentor"
                                 >
                                     <button className="storybook-button storybook-button--small storybook-button--loginBtn ">
                                         <img
