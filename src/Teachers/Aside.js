@@ -72,7 +72,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
     //     }
     // };
     const handleLogout = (e) => {
-        logout(history, t, 'teacher', dispatch);
+        logout(history, t, 'mentor', dispatch);
         e.preventDefault();
     };
     return (
@@ -89,11 +89,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                         className="d-flex logo-section"
                         style={{ height: '5rem' }}
                     >
-                        <Link
-                            to={'/teacher/dashboard'}
-                            exact
-                            className="d-flex"
-                        >
+                        <Link to={'/mentor/dashboard'} exact className="d-flex">
                             {menuCollapse ? (
                                 <img
                                     src={SmallLogo}
@@ -145,7 +141,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                         }
                         // icon={<RiTeamFill />}
                         className={
-                            location.pathname === '/teacher/dashboard' &&
+                            location.pathname === '/mentor/dashboard' &&
                             'sidebar-active'
                         }
                         // suffix={<span className="badge red">new1</span>}
@@ -153,7 +149,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                         <NavLink
                             exact={true}
                             // onClick={(e) => handleClick(e, '')}
-                            to={'/teacher/dashboard'}
+                            to={'/mentor/dashboard'}
                         >
                             {t('teacher.dashboard')}
                         </NavLink>
@@ -161,19 +157,19 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                     <MenuItem
                         icon={<RiTeamFill />}
                         className={
-                            (location.pathname === '/teacher/teamlist' ||
+                            (location.pathname === '/mentor/teamlist' ||
                                 location.pathname ===
-                                    '/teacher/create-team-member' ||
+                                    '/mentor/create-team-member' ||
                                 location.pathname ===
-                                    '/teacher/view-team-member' ||
-                                location.pathname === '/teacher/create-team') &&
+                                    '/mentor/view-team-member' ||
+                                location.pathname === '/mentor/create-team') &&
                             'sidebar-active'
                         }
                     >
                         <NavLink
                             exact={true}
                             // onClick={(e) => handleClick(e, '')}
-                            to={'/teacher/teamlist'}
+                            to={'/mentor/teamlist'}
                         >
                             {t('teacher.team')}
                         </NavLink>
@@ -283,22 +279,22 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                     <MenuItem
                         icon={<RiLockPasswordFill />}
                         className={
-                            location.pathname === '/teacher/change-password' &&
+                            location.pathname === '/mentor/change-password' &&
                             'sidebar-active'
                         }
                     >
-                        <NavLink exact={true} to={'/teacher/change-password'}>
+                        <NavLink exact={true} to={'/mentor/change-password'}>
                             {t('teacher.password')}
                         </NavLink>
                     </MenuItem>
                     <MenuItem
                         icon={<FaHouseUser />}
                         className={
-                            location.pathname === '/teacher/my-profile' &&
+                            location.pathname === '/mentor/my-profile' &&
                             'sidebar-active'
                         }
                     >
-                        <NavLink exact={true} to={'/teacher/my-profile'}>
+                        <NavLink exact={true} to={'/mentor/my-profile'}>
                             {t('teacher.profile')}
                         </NavLink>
                     </MenuItem>

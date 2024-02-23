@@ -202,7 +202,7 @@ const ForgotPasswordNew = () => {
                                 <p className="d-flex text-center  ">
                                     <Link
                                         exact="true"
-                                        to="/teacher"
+                                        to="/mentor"
                                         className="p-0 blue text-link w-100 mt-3"
                                     >
                                         Back to Login

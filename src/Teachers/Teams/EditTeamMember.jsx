@@ -185,7 +185,7 @@ const EditTeamMember = (props) => {
 
     const handleView = (item) => {
         history.push({
-            pathname: '/teacher/view-team-member',
+            pathname: '/mentor/view-team-member',
             item: item
         });
     };
@@ -863,7 +863,7 @@ const EditTeamMember = (props) => {
                                             size="small"
                                             onClick={() =>
                                                 props.history.push(
-                                                    '/teacher/view-team-member'
+                                                    '/mentor/view-team-member'
                                                 )
                                             }
                                         />

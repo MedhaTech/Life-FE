@@ -14,7 +14,7 @@ const PageNotFound = (props) => {
         } else if (currentUser && currentUser?.data[0]?.role === 'STUDENT') {
             props.history.push('/dashboard');
         } else if (currentUser && currentUser?.data[0]?.role === 'MENTOR') {
-            props.history.push('/teacher/dashboard');
+            props.history.push('/mentor/dashboard');
         } else if (!currentUser) {
             props.history.push('/');
         }

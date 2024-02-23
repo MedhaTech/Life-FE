@@ -227,7 +227,7 @@ const ViewTeamMember = (props) => {
                                     'Team Delete Successfully'
                                 );
                                 history.push({
-                                    pathname: '/teacher/teamlist'
+                                    pathname: '/mentor/teamlist'
                                 });
                             } else {
                                 openNotificationWithIcon(
@@ -283,7 +283,7 @@ const ViewTeamMember = (props) => {
                         t('student team switch success')
                     );
                     history.push({
-                        pathname: '/teacher/teamlist'
+                        pathname: '/mentor/teamlist'
                     });
                 } else {
                     openNotificationWithIcon('error', 'Opps! Something Wrong');
@@ -527,7 +527,7 @@ const ViewTeamMember = (props) => {
         // here we can edit team member details //
         // here item = student_id //
         history.push({
-            pathname: '/teacher/edit-team-member',
+            pathname: '/mentor/edit-team-member',
             item: item
         });
     };
@@ -579,7 +579,7 @@ const ViewTeamMember = (props) => {
                                     t('teacher_teams.delete_success')
                                 );
                                 history.push({
-                                    pathname: '/teacher/teamlist'
+                                    pathname: '/mentor/teamlist'
                                 });
                             } else {
                                 openNotificationWithIcon(
@@ -684,9 +684,7 @@ const ViewTeamMember = (props) => {
                                 size="small"
                                 shape="btn-square"
                                 Icon={BsPlusLg}
-                                onClick={() =>
-                                    history.push('/teacher/teamlist')
-                                }
+                                onClick={() => history.push('/mentor/teamlist')}
                             />
                             {/* </div> */}
                             {/* <div className="d-flex justify-content-end"> */}

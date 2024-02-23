@@ -30,7 +30,7 @@ function LoginSchool(props) {
             localStorage.getItem('module')
         ) {
             moduleName === 'MENTOR'
-                ? history.push('/teacher/dashboard')
+                ? history.push('/mentor/dashboard')
                 : moduleName === 'ADMIN'
                 ? history.push('/admin/dashboard')
                 : moduleName === 'EVALUATOR'

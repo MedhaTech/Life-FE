@@ -109,7 +109,7 @@ const EditMentor = (props) => {
                         setCurrentUser(currentUser);
                         // navigate('/teacher/view-team-member');
                         setTimeout(() => {
-                            props.history.push('/teacher/view-team-member');
+                            props.history.push('/mentor/view-team-member');
                         }, 1000);
                     }
                 })
@@ -121,7 +121,7 @@ const EditMentor = (props) => {
 
     const handleDiscard = () => {
         // where we can discard  the changes //
-        props.history.push('/teacher/view-team-member');
+        props.history.push('/mentor/view-team-member');
     };
 
     return (

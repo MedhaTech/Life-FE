@@ -1025,7 +1025,7 @@ const CreateMultipleMembers = ({ id }) => {
                         label={t('teacher_teams.discard')}
                         btnClass="secondary "
                         size="small"
-                        onClick={() => history.push('/teacher/teamlist')}
+                        onClick={() => history.push('/mentor/teamlist')}
                     />
                 </Col>
                 <Col className="mt-2" xs={12} sm={6} md={6} xl={6}>
@@ -1092,7 +1092,7 @@ const CreateTeamMember = (props) => {
         options: [
             {
                 title: t('teacher_teams.teamslist'),
-                path: '/teacher/teamlist'
+                path: '/mentor/teamlist'
             },
             {
                 title: t('teacher_teams.create_team_members')
@@ -1326,7 +1326,7 @@ const CreateTeamMember = (props) => {
                                 'success',
                                 'Team Member Created Successfully'
                             );
-                            props.history.push('/teacher/teamlist');
+                            props.history.push('/mentor/teamlist');
                         } else {
                             openNotificationWithIcon(
                                 'error',
@@ -2047,7 +2047,7 @@ const CreateTeamMember = (props) => {
                                                 size="small"
                                                 onClick={() =>
                                                     props.history.push(
-                                                        '/teacher/teamlist'
+                                                        '/mentor/teamlist'
                                                     )
                                                 }
                                             />
