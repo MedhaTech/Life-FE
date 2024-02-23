@@ -48,12 +48,14 @@ const Dashboard = () => {
     const [mentorTeam, setMentorTeam] = useState([]);
     const [count, setCount] = useState(0);
     const [error, setError] = useState('');
+    const [multiOrgData, setMultiOrgData] = useState({});
+
     // const teacherId = mentorTeam[0]?.team_id;
     const [isideadisable, setIsideadisable] = useState(false);
     const handleOnChange = (e) => {
         // we can give diescode as input //
         //where organization_code = diescode //
-        localStorage.removeItem('organization_code');
+        localStorage.removeItem('institution_code');
         setCount(0);
         setDiesCode(e.target.value);
         setOrgData({});
@@ -62,7 +64,7 @@ const Dashboard = () => {
     useEffect(async () => {
         // where list = diescode //
         //where organization_code = diescode //
-        const list = JSON.parse(localStorage.getItem('organization_code'));
+        const list = JSON.parse(localStorage.getItem('institution_code'));
         setDiesCode(list);
         await apiCall(list);
     }, []);
@@ -70,11 +72,11 @@ const Dashboard = () => {
         // Dice code list API //
         // where list = diescode //
         const body = JSON.stringify({
-            organization_code: list
+            institution_code: list
         });
         var config = {
             method: 'post',
-            url: process.env.REACT_APP_API_BASE_URL + '/organizations/checkOrg',
+            url: process.env.REACT_APP_API_BASE_URL + '/institutions/checkOrg',
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: 'O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870'
@@ -85,17 +87,24 @@ const Dashboard = () => {
         await axios(config)
             .then(async function (response) {
                 if (response.status == 200) {
-                    setOrgData(response?.data?.data[0]);
+                    setOrgData(response?.data?.data);
                     // console.log(orgData);
                     setCount(count + 1);
-                    setMentorId(response?.data?.data[0]?.mentor.mentor_id);
+                    // setMentorId(response?.data?.data[0]?.mentor.mentor_id);
                     setError('');
+                    // setMultiOrgData(response?.data?.data);
+                    // setOrgData(response?.data?.data[0]);
+                    // setMentorId(response?.data?.data[0]?.mentor.mentor_id);
+                    // // console.log(orgData);
+                    // // setCount(count + 1);
+                    // setMentorId(response?.data?.data[0]?.mentor.mentor_id);
+                    // setError('');
 
-                    if (response?.data?.data[0]?.mentor.mentor_id) {
-                        await getMentorIdApi(
-                            response?.data?.data[0]?.mentor.mentor_id
-                        );
-                    }
+                    // if (response?.data?.data[0]?.mentor.mentor_id) {
+                    //     await getMentorIdApi(
+                    //         response?.data?.data[0]?.mentor.mentor_id
+                    //     );
+                    // }
                 }
             })
             .catch(function (error) {
@@ -111,11 +120,11 @@ const Dashboard = () => {
         // we can see Registration Details & Mentor Details //
 
         const body = JSON.stringify({
-            organization_code: diesCode
+            institution_code: diesCode
         });
         var config = {
             method: 'post',
-            url: process.env.REACT_APP_API_BASE_URL + '/organizations/checkOrg',
+            url: process.env.REACT_APP_API_BASE_URL + '/institutions/checkOrg',
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: 'O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870'
@@ -126,15 +135,25 @@ const Dashboard = () => {
         axios(config)
             .then(async function (response) {
                 if (response.status == 200) {
-                    setOrgData(response?.data?.data[0]);
-                    setCount(count + 1);
-                    setMentorId(response?.data?.data[0]?.mentor.mentor_id);
-                    setError('');
-                    if (response?.data?.data[0]?.mentor.mentor_id) {
-                        await getMentorIdApi(
-                            response?.data?.data[0]?.mentor.mentor_id
-                        );
+                    if (response.status == 200) {
+                        setMultiOrgData(response?.data?.data);
+                        setCount(count + 1);
                     }
+                    if (response?.data?.count === 0) {
+                        setError('Entered Invalid Institution Unique Code');
+                    }
+                    // setMultiOrgData(response?.data?.data);
+                    // setOrgData(response?.data?.data[0]);
+                    // setMentorId(response?.data?.data[0]?.mentor.mentor_id);
+
+                    // setCount(count + 1);
+                    // setMentorId(response?.data?.data[0]?.mentor.mentor_id);
+                    // setError('');
+                    // if (response?.data?.data[0]?.mentor.mentor_id) {
+                    //     await getMentorIdApi(
+                    //         response?.data?.data[0]?.mentor.mentor_id
+                    //     );
+                    // }
                 }
             })
             .catch(function (error) {
@@ -146,54 +165,18 @@ const Dashboard = () => {
         e.preventDefault();
     };
 
-    async function getMentorIdApi(id) {
-        // Mentor Id  Api//
-        // id = Mentor Id //
-        let axiosConfig = getNormalHeaders(KEY.User_API_Key);
-        const mentParam = encryptGlobal(
-            JSON.stringify({
-                mentor_id: id,
-                status: 'ACTIVE',
-                ideaStatus: true
-            })
-        );
-        axiosConfig['params'] = {
-            Data: mentParam
-        };
-        await axios
-            .get(`${URL.getTeamMembersList}`, axiosConfig)
-            .then((res) => {
-                if (res?.status == 200) {
-                    var mentorTeamArray = [];
-                    res &&
-                        res.data &&
-                        res.data.data[0] &&
-                        res.data.data[0].dataValues.length > 0 &&
-                        res.data &&
-                        res.data.data[0].dataValues.map((teams, index) => {
-                            var key = index + 1;
-                            return mentorTeamArray.push({ ...teams, key });
-                        });
-                    setMentorTeam(mentorTeamArray);
-                }
-            })
-            .catch((err) => {
-                return err.response;
-            });
-    }
-
     const handleEdit = () => {
         //  here  We can edit the Registration details //
         // Where data = orgData //
         history.push({
             pathname: '/admin/edit-user-profile',
             data: {
-                full_name: orgData.mentor?.full_name,
+                mentor_name: orgData.mentor?.mentor_name,
                 // mobile: orgData.mentor?.mobile,
                 username: orgData.mentor?.user?.username,
                 mentor_id: orgData.mentor?.mentor_id,
                 where: 'Dashbord',
-                organization_code: orgData.organization_code
+                institution_code: orgData.institution_code
             }
         });
     };
@@ -285,6 +268,76 @@ const Dashboard = () => {
                 console.log(error);
             });
     }, []);
+    const handelSelectentor = (data) => {
+        setOrgData(data);
+        setMentorId(data.mentor.mentor_id);
+        setError('');
+        if (data.mentor.mentor_id) {
+            getMentorIdApi(data.mentor.mentor_id);
+        }
+    };
+    const MultipleMentorsData = {
+        data: multiOrgData,
+        columns: [
+            {
+                name: 'Mentor Name',
+                selector: (row) => row?.mentor?.mentor_name,
+                center: true
+            },
+            {
+                name: 'Actions',
+                cell: (params) => {
+                    return [
+                        <div
+                            key={params}
+                            onClick={() => handelSelectentor(params)}
+                        >
+                            <div className="btn btn-primary btn-lg mr-5 mx-2">
+                                view
+                            </div>
+                        </div>
+                    ];
+                },
+                center: true
+            }
+        ]
+    };
+    async function getMentorIdApi(id) {
+        // Mentor Id  Api//
+        // id = Mentor Id //
+        let axiosConfig = getNormalHeaders(KEY.User_API_Key);
+        let enParamData = encryptGlobal(
+            JSON.stringify({
+                mentor_id: id,
+                status: 'ACTIVE',
+                ideaStatus: true
+            })
+        );
+        axiosConfig['params'] = {
+            Data: enParamData
+        };
+
+        await axios
+            .get(`${URL.getTeamMembersList}`, axiosConfig)
+            .then((res) => {
+                if (res?.status == 200) {
+                    var mentorTeamArray = [];
+                    res &&
+                        res.data &&
+                        res.data.data[0] &&
+                        res.data.data[0].dataValues.length > 0 &&
+                        res.data &&
+                        res.data.data[0].dataValues.map((teams, index) => {
+                            var key = index + 1;
+                            return mentorTeamArray.push({ ...teams, key });
+                        });
+                    setMentorTeam(mentorTeamArray);
+                }
+            })
+            .catch((err) => {
+                return err.response;
+            });
+    }
     const MentorsData = {
         data: mentorTeam,
         columns: [
@@ -650,373 +703,6 @@ const Dashboard = () => {
     //         });
     // };
 
-    //     return (
-    //         <Layout>
-    //             <Container>
-    //                 <Row>
-    //             <div className="dashboard-wrapper pb-5 my-5 px-5">
-    //                 <h2 className="mb-5">Dashboard </h2>
-    //                 <div className="dashboard p-5 mb-5">
-    //                     <div className="row " style={{ overflow: 'auto' }}>
-    //                         <div className=" row col-6">
-    //                             <Col
-    //                                 style={{
-    //                                     paddingRight: '20px'
-    //                                 }}
-    //                             >
-    //                                 <Row>
-    //                                     <Card
-    //                                         bg="light"
-    //                                         text="dark"
-    //                                         className="mb-4"
-    //                                         style={{ height: '120px' }}
-    //                                     >
-    //                                         <Card.Body>
-    //                                             <label htmlFor="teams" className="">
-    //                                                 Total Reg. Teachers
-    //                                             </label>
-
-    //                                             <Card.Text
-    //                                                 style={{
-    //                                                     fontSize: '20px',
-    //                                                     fontWeight: 'bold',
-    //                                                     marginTop: '10px',
-    //                                                     marginBottom: '20px'
-    //                                                 }}
-    //                                             >
-    //                                                 950
-    //                                                 {/* {dashboardStates &&
-    //                                             dashboardStates?.teams_count
-    //                                                 ? dashboardStates?.teams_count
-    //                                                 : 0} */}
-    //                                             </Card.Text>
-    //                                         </Card.Body>
-    //                                     </Card>
-    //                                 </Row>
-    //                                 <Row>
-    //                                     <Card
-    //                                         bg="light"
-    //                                         text="dark"
-    //                                         className="mb-4"
-    //                                         style={{ height: '120px' }}
-    //                                     >
-    //                                         <Card.Body>
-    //                                             <label htmlFor="teams" className="">
-    //                                                 Total Teams
-    //                                             </label>
-    //                                             <Card.Text
-    //                                                 style={{
-    //                                                     fontSize: '20px',
-    //                                                     fontWeight: 'bold',
-    //                                                     marginTop: '10px',
-    //                                                     marginBottom: '20px'
-    //                                                 }}
-    //                                             >
-    //                                                 2,004
-    //                                                 {/* {dashboardStates &&
-    //                                             dashboardStates?.course_completed_count !==
-    //                                                 undefined
-    //                                                 ? `${
-    //                                                       (dashboardStates?.course_completed_count /
-    //                                                           dashboardStates?.Total_course_count) *
-    //                                                       100
-    //                                                   }%`
-    //                                                 : '-'} */}
-    //                                             </Card.Text>
-    //                                         </Card.Body>
-    //                                     </Card>
-    //                                 </Row>
-    //                             </Col>
-    //                             <Col style={{ paddingRight: '20px' }}>
-    //                                 <Row>
-    //                                     <Card
-    //                                         bg="light"
-    //                                         text="dark"
-    //                                         className="mb-4"
-    //                                         style={{ height: '120px' }}
-    //                                     >
-    //                                         <Card.Body>
-    //                                             <label htmlFor="teams" className="">
-    //                                                 Total Students
-    //                                             </label>
-    //                                             <Card.Text
-    //                                                 style={{
-    //                                                     fontSize: '20px',
-    //                                                     fontWeight: 'bold',
-    //                                                     marginTop: '10px',
-    //                                                     marginBottom: '20px'
-    //                                                 }}
-    //                                             >
-    //                                                 1,10,000
-    //                                                 {/* {dashboardStates &&
-    //                                             dashboardStates.students_count
-    //                                                 ? dashboardStates.students_count
-    //                                                 : '-'} */}
-    //                                             </Card.Text>
-    //                                         </Card.Body>
-    //                                     </Card>
-    //                                 </Row>
-    //                                 <Row>
-    //                                     <Card
-    //                                         bg="light"
-    //                                         text="dark"
-    //                                         className="mb-4"
-    //                                         style={{
-    //                                             height: '120px'
-    //                                         }}
-    //                                     >
-    //                                         <Card.Body>
-    //                                             <label htmlFor="teams" className="">
-    //                                                 Total Submitted Ideas
-    //                                             </label>
-
-    //                                             <Card.Text
-    //                                                 className="left-aligned"
-    //                                                 style={{
-    //                                                     fontSize: '20px',
-    //                                                     fontWeight: 'bold',
-    //                                                     marginTop: '10px',
-    //                                                     marginBottom: '20px'
-    //                                                 }}
-    //                                             >
-    //                                                 1,940
-    //                                                 {/* {dashboardStates &&
-    //                                             dashboardStates?.ideas_count
-    //                                                 ? dashboardStates?.ideas_count
-    //                                                 : 0} */}
-    //                                             </Card.Text>
-    //                                         </Card.Body>
-    //                                     </Card>
-    //                                 </Row>
-    //                             </Col>
-    //                             {/* <div style={{ flex: 1 }} className="col-lg-12">
-    //                             Data__
-    //                         </div> */}
-    //                         </div>
-    //                         <div className=" row col-6 ">
-    //                             <div
-    //                                 style={{  flex: 1,overflowX: 'auto' }}
-    //                                 className="bg-white rounded px-5 py-3 col-lg-12 disc-card-search col-12"
-    //                             >
-    //                                 <h2 className="mt-3">
-    //                                     Search Registration Details
-    //                                 </h2>
-    //                                 <Row className="text-center justify-content-md-center my-4">
-    //                                     <Col md={9} lg={12}>
-    //                                         <Row>
-    //                                             <Col md={9} className="my-auto">
-    //                                                 <Input
-    //                                                     {...inputField}
-    //                                                     id="organization_code"
-    //                                                     onChange={(e) =>
-    //                                                         handleOnChange(e)
-    //                                                     }
-    //                                                     value={diesCode}
-    //                                                     name="organization_code"
-    //                                                     placeholder="Enter Unique Code"
-    //                                                     className="w-100 mb-3 mb-md-0"
-    //                                                     style={{
-    //                                                         borderRadius: '60px',
-    //                                                         padding: '9px 11px'
-    //                                                     }}
-    //                                                 />
-    //                                             </Col>
-    //                                             <Col md={3} className="partner-btn">
-    //                                                 <Button
-    //                                                     label={'Search'}
-    //                                                     btnClass="primary tex-center my-0 py-0 mx-3 px-3"
-    //                                                     style={{
-    //                                                         fontSize: '15px',
-    //                                                         height: '35px'
-    //                                                     }}
-    //                                                     size="small"
-    //                                                     onClick={(e) =>
-    //                                                         handleSearch(e)
-    //                                                     }
-    //                                                 />
-    //                                             </Col>
-    //                                         </Row>
-    //                                     </Col>
-    //                                 </Row>
-    // <Col>
-    //                                 {orgData &&
-    //                                 orgData?.organization_name &&
-    //                                 orgData?.mentor !== null ? (
-    //                                     <>
-    //                                         <div className="mb-5 p-3" ref={pdfRef}  style={{ overflowX: 'auto' }}>
-    //                                             <div className="container-fluid card shadow border" style={{ overflowX: 'auto' }}>
-    //                                                 <div className="row" >
-    //                                                     <div className="col" style={{ overflowX: 'auto' }}>
-    //                                                         <h2 className="text-center m-3 text-primary ">
-    //                                                             Registration Details
-    //                                                         </h2>
-    //                                                         <hr />
-    //                                                     </div>
-    //                                                 </div>
-    //                                                 <div className="row">
-    //                                                     <div className="col">
-    //                                                         <ul className="p-0">
-    //                                                             <li className="d-flex justify-content-between">
-    //                                                                 School:
-    //                                                                 <p>
-    //                                                                     {
-    //                                                                         orgData.organization_name
-    //                                                                     }
-    //                                                                 </p>
-    //                                                             </li>
-    //                                                             <li className="d-flex justify-content-between">
-    //                                                                 City:{' '}
-    //                                                                 <p>
-    //                                                                     {
-    //                                                                         orgData.city
-    //                                                                     }
-    //                                                                 </p>
-    //                                                             </li>
-    //                                                             <li className="d-flex justify-content-between">
-    //                                                                 District:{' '}
-    //                                                                 <p>
-    //                                                                     {
-    //                                                                         orgData.district
-    //                                                                     }
-    //                                                                 </p>
-    //                                                             </li>
-    //                                                             <li className="d-flex justify-content-between">
-    //                                                                 Mentor Name:{' '}
-    //                                                                 <p>
-    //                                                                     {
-    //                                                                         orgData
-    //                                                                             .mentor
-    //                                                                             ?.full_name
-    //                                                                     }
-    //                                                                 </p>
-    //                                                             </li>
-    //                                                             <li className="d-flex justify-content-between">
-    //                                                                 Mentor Mobile No
-    //                                                                 :{' '}
-    //                                                                 <p>
-    //                                                                     {
-    //                                                                         orgData
-    //                                                                             .mentor
-    //                                                                             ?.user
-    //                                                                             ?.username
-    //                                                                     }
-    //                                                                 </p>
-    //                                                             </li>
-    //                                                         </ul>
-    //                                                     </div>
-    //                                                 </div>
-    //                                             </div>
-    //                                         </div>
-    //                                         <div className="d-flex justify-content-between">
-    //                                             <button
-    //                                                 onClick={handleEdit}
-    //                                                 className="btn btn-warning btn-lg"
-    //                                             >
-    //                                                 Edit
-    //                                             </button>
-    //                                             <button
-    //                                                 onClick={() =>
-    //                                                     handleresetpassword({
-    //                                                         mentor_id:
-    //                                                             orgData.mentor
-    //                                                                 .mentor_id,
-    //                                                         organization_code:
-    //                                                             orgData.organization_code
-    //                                                     })
-    //                                                 }
-    //                                                 className="btn btn-info rounded-pill px-4 btn-lg text-white"
-    //                                             >
-    //                                                 Reset
-    //                                             </button>
-    //                                             <button
-    //                                                 onClick={() => {
-    //                                                     downloadPDF();
-    //                                                 }}
-    //                                                 className="btn btn-primary rounded-pill px-4 btn-lg"
-    //                                             >
-    //                                                 Download
-    //                                             </button>
-    //                                             <button
-    //                                                 onClick={viewDetails}
-    //                                                 className="btn btn-success rounded-pill px-4 btn-lg"
-    //                                             >
-    //                                                 View Details
-    //                                             </button>
-    //                                             <button
-    //                                                 onClick={() => {
-    //                                                     handleAlert(
-    //                                                         orgData.mentor?.user_id
-    //                                                     );
-    //                                                 }}
-    //                                                 className="btn btn-danger btn-lg"
-    //                                             >
-    //                                                 Delete
-    //                                             </button>
-    //                                         </div>
-
-    //                                         <div className="mb-5 p-3">
-    //                                             <div className="container-fluid card shadow border" style={{ overflowX: 'auto' }}>
-    //                                                 <div className="row">
-    //                                                     <div className="col">
-    //                                                         <h2 className="text-center m-3 text-primary">
-    //                                                             Mentor Details
-    //                                                         </h2>
-    //                                                         <hr />
-    //                                                     </div>
-    //                                                 </div>
-    //                                                 <div>
-    //                                                     <DataTableExtensions
-    //                                                         print={false}
-    //                                                         export={false}
-    //                                                         {...MentorsData}
-    //                                                     >
-    //                                                         <DataTable
-    //                                                             noHeader
-    //                                                             defaultSortField="id"
-    //                                                             defaultSortAsc={
-    //                                                                 false
-    //                                                             }
-    //                                                             highlightOnHover
-    //                                                         />
-    //                                                     </DataTableExtensions>
-    //                                                 </div>
-    //                                             </div>
-    //                                         </div>
-    //                                     </>
-    //                                 ) : (
-    //                                     count != 0 && (
-    //                                         <div className="text-success fs-highlight d-flex justify-content-center align-items-center">
-    //                                             <span>
-    //                                                 Still No Teacher Registered
-    //                                             </span>
-    //                                         </div>
-    //                                     )
-    //                                 )}
-    //                                 {error && diesCode && (
-    //                                     <div className="text-danger mt-3 p-4 fs-highlight d-flex justify-content-center align-items-center">
-    //                                         <span>{error}</span>
-    //                                     </div>
-    //                                 )}
-    //                                 {!diesCode && (
-    //                                     <div className="d-flex  mt-3 p-4 justify-content-center align-items-center">
-    //                                         <span className="text-primary fs-highlight">
-    //                                             Enter Unique Code
-    //                                         </span>
-    //                                     </div>
-    //                                 )}
-    //                                 </Col>
-    //                             </div>
-    //                         </div>
-    //                     </div>
-    //                 </div>
-    //             </div>
-    //             </Row>
-    //             </Container>
-    //         </Layout>
-    //     );
-    // };
-
-    // export default Dashboard;
     return (
         <Layout>
             <div className="dashboard-wrapper pb-5 my-5 px-5">
@@ -1637,7 +1323,11 @@ const Dashboard = () => {
                         </div>
                         <div className=" row  col-xs-12 col-md-5">
                             <div
-                                style={{ flex: 1, overflow: 'auto' }}
+                                style={{
+                                    flex: 1,
+                                    overflowY: 'auto',
+                                    overflowX: 'hidden'
+                                }}
                                 className="bg-white rounded px-5 py-3 col-lg-12 disc-card-search col-12"
                             >
                                 <h2 className="mt-3">
@@ -1680,9 +1370,24 @@ const Dashboard = () => {
                                         </Row>
                                     </Col>
                                 </Row>
-
+                                {/* <Row className="md-4"> */}
+                                {multiOrgData.length !== undefined &&
+                                    multiOrgData.length !== 0 &&
+                                    multiOrgData[0]?.mentor !== null && (
+                                        <DataTableExtensions
+                                            print={false}
+                                            export={false}
+                                            {...MultipleMentorsData}
+                                        >
+                                            <DataTable
+                                                data={multiOrgData}
+                                                noHeader
+                                                highlightOnHover
+                                            />
+                                        </DataTableExtensions>
+                                    )}
                                 {orgData &&
-                                orgData?.organization_name &&
+                                orgData?.institution_name &&
                                 orgData?.mentor !== null ? (
                                     <>
                                         {/* <div className="mb-5 p-3" >  */}
@@ -1760,7 +1465,7 @@ const Dashboard = () => {
                                                             xl={5}
                                                             className="my-auto profile-detail"
                                                         >
-                                                            <p>School</p>
+                                                            <p>Institution</p>
                                                         </Col>
                                                         <Col
                                                             xs={1}
@@ -1779,7 +1484,7 @@ const Dashboard = () => {
                                                         >
                                                             <p>
                                                                 {
-                                                                    orgData.organization_name
+                                                                    orgData.institution_name
                                                                 }
                                                             </p>
                                                         </Col>
@@ -1792,38 +1497,7 @@ const Dashboard = () => {
                                                             xl={5}
                                                             className="my-auto profile-detail"
                                                         >
-                                                            <p>State</p>
-                                                        </Col>
-                                                        <Col
-                                                            xs={1}
-                                                            sm={1}
-                                                            md={1}
-                                                            xl={1}
-                                                        >
-                                                            :
-                                                        </Col>
-                                                        <Col
-                                                            xs={6}
-                                                            sm={6}
-                                                            md={6}
-                                                            xl={6}
-                                                            className="my-auto profile-detail"
-                                                        >
-                                                            <p>
-                                                                {orgData.state}
-                                                            </p>
-                                                        </Col>
-                                                    </Row>
-
-                                                    <Row className="pt-3 pb-3">
-                                                        <Col
-                                                            xs={5}
-                                                            sm={5}
-                                                            md={5}
-                                                            xl={5}
-                                                            className="my-auto profile-detail"
-                                                        >
-                                                            <p>District</p>
+                                                            <p>Title</p>
                                                         </Col>
                                                         <Col
                                                             xs={1}
@@ -1842,43 +1516,13 @@ const Dashboard = () => {
                                                         >
                                                             <p>
                                                                 {
-                                                                    orgData.district
+                                                                    orgData
+                                                                        .mentor
+                                                                        .mentor_title
                                                                 }
                                                             </p>
                                                         </Col>
-                                                    </Row>
-                                                    <Row className="pt-3 pb-3">
-                                                        <Col
-                                                            xs={5}
-                                                            sm={5}
-                                                            md={5}
-                                                            xl={5}
-                                                            className="my-auto profile-detail"
-                                                        >
-                                                            <p>Pincode</p>
-                                                        </Col>
-                                                        <Col
-                                                            xs={1}
-                                                            sm={1}
-                                                            md={1}
-                                                            xl={1}
-                                                        >
-                                                            :
-                                                        </Col>
-                                                        <Col
-                                                            xs={6}
-                                                            sm={6}
-                                                            md={6}
-                                                            xl={6}
-                                                            className="my-auto profile-detail"
-                                                        >
-                                                            <p>
-                                                                {
-                                                                    orgData.pin_code
-                                                                }
-                                                            </p>
-                                                        </Col>
-                                                    </Row>
+                                                    </Row>{' '}
                                                     <Row className="pt-3 pb-3">
                                                         <Col
                                                             xs={5}
@@ -1908,7 +1552,7 @@ const Dashboard = () => {
                                                                 {
                                                                     orgData
                                                                         .mentor
-                                                                        ?.full_name
+                                                                        ?.mentor_name
                                                                 }
                                                             </p>
                                                         </Col>
@@ -1922,7 +1566,7 @@ const Dashboard = () => {
                                                             className="my-auto profile-detail"
                                                         >
                                                             <p>
-                                                                Teacher Email Id
+                                                                Mentor Mobile No
                                                             </p>
                                                         </Col>
                                                         <Col
@@ -1944,42 +1588,7 @@ const Dashboard = () => {
                                                                 {
                                                                     orgData
                                                                         .mentor
-                                                                        ?.user
-                                                                        ?.username
-                                                                }
-                                                            </p>
-                                                        </Col>
-                                                    </Row>
-                                                    <Row className="pt-3 pb-3">
-                                                        <Col
-                                                            xs={5}
-                                                            sm={5}
-                                                            md={5}
-                                                            xl={5}
-                                                            className="my-auto profile-detail"
-                                                        >
-                                                            <p>Mobile No</p>
-                                                        </Col>
-                                                        <Col
-                                                            xs={1}
-                                                            sm={1}
-                                                            md={1}
-                                                            xl={1}
-                                                        >
-                                                            :
-                                                        </Col>
-                                                        <Col
-                                                            xs={6}
-                                                            sm={6}
-                                                            md={6}
-                                                            xl={6}
-                                                            className="my-auto profile-detail"
-                                                        >
-                                                            <p>
-                                                                {
-                                                                    orgData
-                                                                        ?.mentor
-                                                                        ?.mobile
+                                                                        ?.mentor_mobile
                                                                 }
                                                             </p>
                                                         </Col>
@@ -2016,7 +1625,109 @@ const Dashboard = () => {
                                                                 {
                                                                     orgData
                                                                         .mentor
-                                                                        ?.whatapp_mobile
+                                                                        ?.mentor_whatapp_mobile
+                                                                }
+                                                            </p>
+                                                        </Col>
+                                                    </Row>
+                                                    <Row className="pt-3 pb-3">
+                                                        <Col
+                                                            xs={5}
+                                                            sm={5}
+                                                            md={5}
+                                                            xl={5}
+                                                            className="my-auto profile-detail"
+                                                        >
+                                                            <p>Date of Birth</p>
+                                                        </Col>
+                                                        <Col
+                                                            xs={1}
+                                                            sm={1}
+                                                            md={1}
+                                                            xl={1}
+                                                        >
+                                                            :
+                                                        </Col>
+                                                        <Col
+                                                            xs={6}
+                                                            sm={6}
+                                                            md={6}
+                                                            xl={6}
+                                                            className="my-auto profile-detail"
+                                                        >
+                                                            <p>
+                                                                {
+                                                                    orgData
+                                                                        .mentor
+                                                                        ?.date_of_birth
+                                                                }
+                                                            </p>
+                                                        </Col>
+                                                    </Row>
+                                                    <Row className="pt-3 pb-3">
+                                                        <Col
+                                                            xs={5}
+                                                            sm={5}
+                                                            md={5}
+                                                            xl={5}
+                                                            className="my-auto profile-detail"
+                                                        >
+                                                            <p>Email Id</p>
+                                                        </Col>
+                                                        <Col
+                                                            xs={1}
+                                                            sm={1}
+                                                            md={1}
+                                                            xl={1}
+                                                        >
+                                                            :
+                                                        </Col>
+                                                        <Col
+                                                            xs={6}
+                                                            sm={6}
+                                                            md={6}
+                                                            xl={6}
+                                                            className="my-auto profile-detail"
+                                                        >
+                                                            <p>
+                                                                {
+                                                                    orgData
+                                                                        .mentor
+                                                                        ?.mentor_email
+                                                                }
+                                                            </p>
+                                                        </Col>
+                                                    </Row>{' '}
+                                                    <Row className="pt-3 pb-3">
+                                                        <Col
+                                                            xs={5}
+                                                            sm={5}
+                                                            md={5}
+                                                            xl={5}
+                                                            className="my-auto profile-detail"
+                                                        >
+                                                            <p>Gender</p>
+                                                        </Col>
+                                                        <Col
+                                                            xs={1}
+                                                            sm={1}
+                                                            md={1}
+                                                            xl={1}
+                                                        >
+                                                            :
+                                                        </Col>
+                                                        <Col
+                                                            xs={6}
+                                                            sm={6}
+                                                            md={6}
+                                                            xl={6}
+                                                            className="my-auto profile-detail"
+                                                        >
+                                                            <p>
+                                                                {
+                                                                    orgData
+                                                                        .mentor
+                                                                        .gender
                                                                 }
                                                             </p>
                                                         </Col>
@@ -2027,7 +1738,7 @@ const Dashboard = () => {
                                         {/* </div> */}
                                         {/* <div className="d-flex justify-content-between"> */}
                                         <div className="d-flex justify-content-between flex-column flex-md-row">
-                                            <button
+                                            {/* <button
                                                 className="btn  rounded-pill px-4  text-white mt-2 mt-md-0 ml-md-2"
                                                 style={{
                                                     backgroundColor: '#ffcb34'
@@ -2036,7 +1747,7 @@ const Dashboard = () => {
                                                 //className="btn btn-warning btn-lg  px-4"
                                             >
                                                 Edit
-                                            </button>
+                                            </button> */}
                                             <button
                                                 onClick={() =>
                                                     handleresetpassword({
@@ -2090,7 +1801,7 @@ const Dashboard = () => {
                                         <div>
                                             <div className="row">
                                                 <div className="col">
-                                                    <h2 className="text-center m-3 text-primary">
+                                                    <h2 className="text-center mt-3 text-primary">
                                                         Teams Registered
                                                     </h2>
                                                     <hr />
@@ -2114,13 +1825,16 @@ const Dashboard = () => {
                                         {/* </div> */}
                                     </>
                                 ) : (
-                                    count != 0 && (
-                                        <div className="text-success fs-highlight d-flex justify-content-center align-items-center">
-                                            <span>
-                                                Still No Teacher Registered
-                                            </span>
-                                        </div>
-                                    )
+                                    // ) : (
+                                    //     count != 0 && (
+                                    //         <div className="text-success fs-highlight d-flex justify-content-center align-items-center">
+                                    //             <span>
+                                    //                 Still No Teacher Registered
+                                    //             </span>
+                                    //         </div>
+                                    //     )
+                                    // )
+                                    ''
                                 )}
                                 {error && diesCode && (
                                     <div className="text-danger mt-3 p-4 fs-highlight d-flex justify-content-center align-items-center">
@@ -2134,6 +1848,7 @@ const Dashboard = () => {
                                         </span>
                                     </div>
                                 )}
+                                {/* </Row> */}
                             </div>
                         </div>
                     </div>
