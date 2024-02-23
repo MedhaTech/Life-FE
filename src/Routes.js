@@ -926,7 +926,7 @@ const Routers = () => {
                     {/* TEACHERS ROUTES */}
                     <Route
                         exact={true}
-                        path="/teacher"
+                        path="/mentor"
                         render={() => <TeacherLogin />}
                     />
                     <ProtectedRoute

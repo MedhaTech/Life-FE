@@ -468,7 +468,11 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props }) => {
                                     className="fw-bold"
                                 >
                                     Verified At :{' '}
-                                    {submittedResponse.verified_at}
+                                    {submittedResponse.verified_at
+                                        ? moment(
+                                              submittedResponse.verified_at
+                                          ).format('DD-MM-YYYY')
+                                        : '-'}
                                 </p>
                             </div>
                         </>

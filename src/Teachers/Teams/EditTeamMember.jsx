@@ -456,7 +456,7 @@ const EditTeamMember = (props) => {
                                             </Col>
                                         </Row>
                                         <Row>
-                                            <Col md={4} className="mb-0">
+                                            <Col md={6} className="mb-0">
                                                 <Label
                                                     className="name-req-create-member"
                                                     htmlFor="stream_id"
@@ -496,7 +496,7 @@ const EditTeamMember = (props) => {
                                                     </small>
                                                 ) : null}
                                             </Col>
-                                            <Col md={4} className="mb-0">
+                                            <Col md={6} className="mb-0">
                                                 <Label
                                                     className="name-req-create-member"
                                                     htmlFor="course_id"
@@ -546,8 +546,24 @@ const EditTeamMember = (props) => {
                                                     </small>
                                                 ) : null}
                                             </Col>
+                                        </Row>
 
-                                            <Col md={4} className="mb-0">
+                                        <Row className="mt-5">
+                                            <p
+                                                style={{
+                                                    fontSize: '2rem',
+                                                    text: 'bold'
+                                                }}
+                                            >
+                                                Course :{' '}
+                                                {teamMemberData &&
+                                                    teamMemberData.course_name}
+                                            </p>
+                                            <p></p>
+                                        </Row>
+
+                                        <Row>
+                                            <Col md={2} className="mb-0">
                                                 <Label
                                                     className="name-req-create-member"
                                                     htmlFor="year_of_study"
@@ -601,25 +617,8 @@ const EditTeamMember = (props) => {
                                                     </small>
                                                 ) : null}
                                             </Col>
-                                        </Row>
-
-                                        <Row className="mt-5">
-                                            <p
-                                                style={{
-                                                    fontSize: '2rem',
-                                                    text: 'bold'
-                                                }}
-                                            >
-                                                Course :{' '}
-                                                {teamMemberData &&
-                                                    teamMemberData.course_name}
-                                            </p>
-                                            <p></p>
-                                        </Row>
-
-                                        <Row>
                                             <Col
-                                                md={6}
+                                                md={5}
                                                 // className="mb-5 mb-xl-0"
                                             >
                                                 <Label
@@ -654,7 +653,7 @@ const EditTeamMember = (props) => {
                                                 ) : null}
                                             </Col>
                                             <Col
-                                                md={6}
+                                                md={5}
                                                 className="mb-5 mb-xl-0"
                                             >
                                                 <Label
