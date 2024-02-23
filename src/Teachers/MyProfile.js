@@ -28,7 +28,7 @@ const MyProfile = () => {
     }, [currentUser?.data[0]?.mentor_id]);
     const handleEdit = () => {
         history.push({
-            pathname: '/EditTeacherProfile',
+            pathname: '/EditmentorProfile',
             item: {
                 mentor_name: teacher?.mentor_name,
                 mentor_id: teacher?.mentor_id,

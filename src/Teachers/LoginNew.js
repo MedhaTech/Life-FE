@@ -38,7 +38,7 @@ const LoginNew = (props) => {
             localStorage.getItem('module')
         ) {
             moduleName === 'MENTOR'
-                ? history.push('/teacher/dashboard')
+                ? history.push('/mentor/dashboard')
                 : moduleName === 'ADMIN'
                 ? history.push('/admin/dashboard')
                 : moduleName === 'EVALUATOR'
@@ -196,7 +196,7 @@ const LoginNew = (props) => {
                                 <Link
                                     className="landing-page-actions "
                                     exact="true"
-                                    to="/teacher"
+                                    to="/mentor"
                                 >
                                     <button className="storybook-button storybook-button--small storybook-button--loginBtn active">
                                         <img
@@ -311,7 +311,7 @@ const LoginNew = (props) => {
                                                     >
                                                         <Link
                                                             exact="true"
-                                                            to="/teacher/forgotpassword"
+                                                            to="/mentor/forgotpassword"
                                                             className="text-link pt-1"
                                                         >
                                                             Forgot password

@@ -103,7 +103,7 @@ const AddMentor = (props) => {
                         currentUser.data[0].moc_name = values.name;
                         setCurrentUser(currentUser);
                         setTimeout(() => {
-                            props.history.push('/teacher/view-team-member');
+                            props.history.push('/mentor/view-team-member');
                         }, 200);
                     }
                 })
@@ -115,7 +115,7 @@ const AddMentor = (props) => {
 
     const handleDiscard = () => {
         // where we can discard  the changes //
-        props.history.push('/teacher/view-team-member');
+        props.history.push('/mentor/view-team-member');
     };
 
     return (

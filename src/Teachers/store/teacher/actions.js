@@ -65,7 +65,7 @@ export const teacherCreateMultipleStudent =
                 });
             if (result && result.status === 201) {
                 openNotificationWithIcon('success', result.data.data);
-                history.push('/teacher/teamlist');
+                history.push('/mentor/teamlist');
                 setIsClicked(false);
             } else {
                 openNotificationWithIcon('error', 'Something went wrong');
@@ -117,7 +117,7 @@ export const teacherLoginUser = (data, history, module) => async (dispatch) => {
             localStorage.setItem('module', module);
             localStorage.setItem('time', new Date().toString());
             dispatch(teacherLoginUserSuccess(result));
-            history.push('/teacher/dashboard');
+            history.push('/mentor/dashboard');
             // setTimeout(() => {
             //     localStorage.clear();
             // }, 60000);
@@ -158,7 +158,7 @@ export const teacherLoginUserLogOut = (history) => async () => {
         if (result && result.status === 200) {
             setCurrentUser();
             localStorage.removeItem('headerOption');
-            history.push('/teacher');
+            history.push('/mentor');
         }
     } catch (error) {
         console.log('Somethinng went wrong in teachers actions');

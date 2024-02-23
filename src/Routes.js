@@ -931,14 +931,14 @@ const Routers = () => {
                     />
                     <ProtectedRoute
                         exact={true}
-                        path="/teacher/dashboard"
+                        path="/mentor/dashboard"
                         user="MENTOR"
                         component={TeacherDashboard}
                     />
 
                     <ProtectedRoute
                         exact={true}
-                        path="/teacher/faq"
+                        path="/mentor/faq"
                         user="MENTOR"
                         component={TeacherFaqPage}
                     />
@@ -946,25 +946,25 @@ const Routers = () => {
                     <ProtectedRoute
                         exact={true}
                         user="MENTOR"
-                        path="/teacher/Resources/index"
+                        path="/mentor/Resources/index"
                         component={TeacherResources}
                     />
                     <Route
                         exact={true}
-                        path="/teacher/forgotpassword"
+                        path="/mentor/forgotpassword"
                         component={ForgotPasswordNew}
                     />
 
                     <ProtectedRoute
                         exact={true}
                         user="MENTOR"
-                        path="/teacher/teamlist"
+                        path="/mentor/teamlist"
                         component={TeacherTeamList}
                     />
                     <ProtectedRoute
                         exact={true}
                         user="MENTOR"
-                        path="/teacher/create-team"
+                        path="/mentor/create-team"
                         component={TeacherCreateTeam}
                     />
                     {/* <ProtectedRoute
@@ -976,14 +976,14 @@ const Routers = () => {
                     <ProtectedRoute
                         exact={true}
                         user="MENTOR"
-                        path="/teacher/edit-team"
+                        path="/mentor/edit-team"
                         component={TeacherEditTeam}
                     />
                     {/* Team member */}
                     <ProtectedRoute
                         exact={true}
                         user="MENTOR"
-                        path="/teacher/view-team-member"
+                        path="/mentor/view-team-member"
                         component={TeacherViewTeamMember}
                     />
                     <ProtectedRoute
@@ -1001,13 +1001,13 @@ const Routers = () => {
                     <ProtectedRoute
                         exact={true}
                         user="MENTOR"
-                        path="/teacher/create-team-member/:id/:count"
+                        path="/mentor/create-team-member/:id/:count"
                         component={TeacherTeamMember}
                     />
                     <ProtectedRoute
                         exact={true}
                         user="MENTOR"
-                        path="/teacher/edit-team-member"
+                        path="/mentor/edit-team-member"
                         component={TeacherEditTeamMember}
                     />
                     <ProtectedRoute
@@ -1019,19 +1019,19 @@ const Routers = () => {
                     <ProtectedRoute
                         exact={true}
                         user="MENTOR"
-                        path="/EditTeacherProfile"
+                        path="/EditmentorProfile"
                         component={TeacherEditProfile}
                     />
                     <ProtectedRoute
                         exact={true}
                         user="MENTOR"
-                        path="/teacher/my-profile"
+                        path="/mentor/my-profile"
                         component={TeacherMyProfile}
                     />
                     <ProtectedRoute
                         exact={true}
                         user="MENTOR"
-                        path="/teacher/change-password"
+                        path="/mentor/change-password"
                         component={ChangePSWModal}
                     />
                     {/* support journey */}

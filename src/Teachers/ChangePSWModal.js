@@ -84,7 +84,7 @@ const ChangePSWModal = (props) => {
                         SetResponce('Password updated successfully');
                         setTimeout(() => {
                             SetResponce('');
-                            history.push('/teacher/dashboard');
+                            history.push('/mentor/dashboard');
                         }, 1000);
                     })
                     .catch(function (error) {
@@ -122,7 +122,7 @@ const ChangePSWModal = (props) => {
     };
     const handleOnCancel = () => {
         //here we can cancel the changes //
-        history.push('/teacher/dashboard');
+        history.push('/mentor/dashboard');
     };
     const handleShowPassword = (name) => {
         // here we can see the password //

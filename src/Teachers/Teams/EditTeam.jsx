@@ -58,7 +58,7 @@ const EditTeam = (props) => {
                             'success',
                             'Team Update Successfully'
                         );
-                        props.history.push('/teacher/teamlist');
+                        props.history.push('/mentor/teamlist');
                     } else {
                         openNotificationWithIcon(
                             'error',
@@ -119,7 +119,7 @@ const EditTeam = (props) => {
                                             size="small"
                                             onClick={() =>
                                                 props.history.push(
-                                                    '/teacher/teamlist'
+                                                    '/mentor/teamlist'
                                                 )
                                             }
                                         />
