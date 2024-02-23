@@ -37,40 +37,40 @@ const ViewMore = () => {
             pathname: '/admin/dashboard'
         });
         localStorage.setItem(
-            'organization_code',
-            JSON.stringify(orgDaTa.organization_code)
+            'institution_code',
+            JSON.stringify(orgDaTa.institution_code)
         );
     };
 
-    useEffect(() => {
-        const userIdParam = encryptGlobal(
-            JSON.stringify({
-                user_id: orgDaTa?.mentor.user_id,
-                role: 'MENTOR'
-            })
-        );
+    // useEffect(() => {
+    //     const userIdParam = encryptGlobal(
+    //         JSON.stringify({
+    //             user_id: orgDaTa?.mentor.user_id,
+    //             role: 'MENTOR'
+    //         })
+    //     );
 
-        var config = {
-            method: 'get',
-            url:
-                process.env.REACT_APP_API_BASE_URL +
-                `/dashboard/quizscores?Data=${userIdParam}`,
-            headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-                Authorization: `Bearer ${currentUser.data[0]?.token}`
-            }
-        };
-        axios(config)
-            .then(function (response) {
-                if (response.status === 200) {
-                    setCourse(response.data.data);
-                }
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-    }, []);
+    //     var config = {
+    //         method: 'get',
+    //         url:
+    //             process.env.REACT_APP_API_BASE_URL +
+    //             `/dashboard/quizscores?Data=${userIdParam}`,
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //             Accept: 'application/json',
+    //             Authorization: `Bearer ${currentUser.data[0]?.token}`
+    //         }
+    //     };
+    //     axios(config)
+    //         .then(function (response) {
+    //             if (response.status === 200) {
+    //                 setCourse(response.data.data);
+    //             }
+    //         })
+    //         .catch(function (error) {
+    //             console.log(error);
+    //         });
+    // }, []);
     // useEffect(() => {
     //     mentorsData();
     // }, []);
@@ -100,9 +100,9 @@ const ViewMore = () => {
     //             console.log(error);
     //         });
     // };
-    const atlData = orgDaTa.organization_code;
-    const altRes = atlData.split('-');
-    const atlNew = altRes[0];
+    // const atlData = orgDaTa.organization_code;
+    // const altRes = atlData.split('-');
+    // const atlNew = altRes[0];
     const percentageBWNumbers = (a, b) => {
         // here a = all_topics_count ; b= topics_completed_count //
         return (((a - b) / a) * 100).toFixed(2);
@@ -123,7 +123,7 @@ const ViewMore = () => {
                     <Row className="py-5">
                         <Card className="py-5">
                             <CardBody>
-                                <h2 className="mb-4">Organization Details</h2>
+                                <h2 className="mb-4">Institution Details</h2>
 
                                 {/* <CardText>
                                 <span className="mx-3">
@@ -139,57 +139,67 @@ const ViewMore = () => {
                             </CardText> */}
                                 <CardText>
                                     <span className="mx-3">
-                                        <b>Organization Name :</b>
+                                        <b>Institution Name :</b>
                                     </span>
-                                    <b>{orgDaTa.organization_name}</b>
-                                </CardText>
-                                <CardText>
-                                    <span className="mx-3">
-                                        <b>Organization Code :</b>
-                                    </span>
-                                    <b>{orgDaTa.organization_code}</b>
-                                </CardText>
-                                <CardText>
-                                    <span className="mx-3">
-                                        <b>Institution Unique Code :</b>
-                                    </span>
-                                    <b>{orgDaTa.unique_code}</b>
-                                </CardText>
-                                <CardText>
-                                    <span className="mx-3">
-                                        <b>Category :</b>
-                                    </span>
-                                    <b>{orgDaTa.category}</b>
-                                </CardText>
-                                <CardText>
-                                    <span className="mx-3">
-                                        <b>State:</b>
-                                    </span>
-                                    <b>{orgDaTa.state}</b>
+                                    <b>{orgDaTa.institution_name}</b>
                                 </CardText>
 
                                 <CardText>
                                     <span className="mx-3">
-                                        <b>District :</b>
+                                        <b>Institution Unique Code :</b>
                                     </span>
-                                    <b>{orgDaTa.district}</b>
+                                    <b>{orgDaTa.institution_code}</b>
                                 </CardText>
                                 <CardText>
                                     <span className="mx-3">
-                                        <b>Pincode :</b>
+                                        <b>Place :</b>
                                     </span>
-                                    <b>{orgDaTa.pin_code}</b>
+                                    <b>{orgDaTa?.place?.place_name}</b>
                                 </CardText>
-                                {/* <CardText>
-                                <span className="mx-3">
-                                    <b>Country :</b>
-                                </span>
-                                <b>{orgDaTa.country}</b>
-                            </CardText> */}
+                                <CardText>
+                                    <span className="mx-3">
+                                        <b>Taluk:</b>
+                                    </span>
+                                    <b>{orgDaTa?.place?.taluk?.taluk_name}</b>
+                                </CardText>
+
+                                <CardText>
+                                    <span className="mx-3">
+                                        <b>Block :</b>
+                                    </span>
+                                    <b>
+                                        {
+                                            orgDaTa?.place?.taluk?.block
+                                                ?.block_name
+                                        }
+                                    </b>
+                                </CardText>
+                                <CardText>
+                                    <span className="mx-3">
+                                        <b>District :</b>
+                                    </span>
+                                    <b>
+                                        {
+                                            orgDaTa?.place?.taluk?.block
+                                                ?.district?.district_name
+                                        }
+                                    </b>
+                                </CardText>
+                                <CardText>
+                                    <span className="mx-3">
+                                        <b>State :</b>
+                                    </span>
+                                    <b>
+                                        {
+                                            orgDaTa?.place?.taluk?.block
+                                                ?.district?.state?.state_name
+                                        }
+                                    </b>
+                                </CardText>
                             </CardBody>
                         </Card>
                     </Row>
-                    <Row>
+                    {/* <Row>
                         {orgDaTa.category === 'Non ATL' && (
                             <Card className="py-5">
                                 <CardBody>
@@ -229,29 +239,35 @@ const ViewMore = () => {
                                 </CardBody>
                             </Card>
                         )}
-                    </Row>
+                    </Row> */}
                     <Row className="py-5">
                         <Card className="py-5">
                             <CardBody>
-                                <h2 className="mb-4">Teacher Details</h2>
+                                <h2 className="mb-4">Mentor Details</h2>
                                 <CardText>
                                     <span className="mx-3">
                                         <b>Title :</b>
                                     </span>
-                                    <b>{orgDaTa.mentor.title}</b>
+                                    <b>{orgDaTa.mentor.mentor_title}</b>
                                 </CardText>
 
                                 <CardText>
                                     <span className="mx-3">
                                         <b>Mentor Name :</b>
                                     </span>
-                                    <b>{orgDaTa.mentor.full_name}</b>
+                                    <b>{orgDaTa.mentor.mentor_name}</b>
                                 </CardText>
                                 <CardText>
                                     <span className="mx-3">
                                         <b>Gender :</b>
                                     </span>
                                     <b>{orgDaTa.mentor.gender}</b>
+                                </CardText>
+                                <CardText>
+                                    <span className="mx-3">
+                                        <b>Date of Birth :</b>
+                                    </span>
+                                    <b>{orgDaTa.mentor.date_of_birth}</b>
                                 </CardText>
                                 <CardText>
                                     <span className="mx-3">
@@ -263,19 +279,21 @@ const ViewMore = () => {
                                     <span className="mx-3">
                                         <b>Email Id :</b>
                                     </span>
-                                    <b>{orgDaTa.mentor.user.username}</b>
+                                    <b>{orgDaTa.mentor.mentor_email}</b>
                                 </CardText>
                                 <CardText>
                                     <span className="mx-3">
                                         <b>Mobile No :</b>
                                     </span>
-                                    <b>{orgDaTa.mentor.mobile}</b>
+                                    <b>{orgDaTa.mentor.mentor_mobile}</b>
                                 </CardText>
                                 <CardText>
                                     <span className="mx-3">
                                         <b>WhatsApp No :</b>
                                     </span>
-                                    <b>{orgDaTa.mentor.whatapp_mobile}</b>
+                                    <b>
+                                        {orgDaTa.mentor.mentor_whatapp_mobile}
+                                    </b>
                                 </CardText>
                             </CardBody>
                         </Card>
@@ -293,7 +311,7 @@ const ViewMore = () => {
                             </Col>
                         </Row>
                     </Row>
-                    <Row className="py-5">
+                    {/* <Row className="py-5">
                         <Card className="py-5">
                             <CardBody>
                                 <h2 className="mb-4">Teacher Course Details</h2>
@@ -329,7 +347,7 @@ const ViewMore = () => {
                                 </CardText>
                             </CardBody>
                         </Card>
-                    </Row>
+                    </Row> */}
                     {/* <Row>
                         {button ? (
                             <Col md={12}>
