@@ -196,6 +196,7 @@ import Home from './Landing_page/Home';
 import SchoolEditTec from './School/Dashboard/SchoolEditTec';
 import MentorReg from './School/Dashboard/MentorReg';
 import SuccessMentorPage from './School/Dashboard/SuccessPage';
+import AddCourse from './School/AddCourse';
 function MyComponent() {
     window.location.href = `${process.env.REACT_APP_LANDING_PAGE_URL}`;
     return null;
@@ -460,6 +461,12 @@ const Routers = () => {
                         user="INSTITUTION"
                         path="/institution/register"
                         component={MentorReg}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        user="INSTITUTION"
+                        path="/instituion/addCourse"
+                        component={AddCourse}
                     />
                     <ProtectedRoute
                         exact={true}

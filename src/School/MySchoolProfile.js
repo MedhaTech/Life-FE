@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-key */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
 /* eslint-disable indent */
@@ -5,7 +6,7 @@ import React, { useLayoutEffect, useState, useEffect } from 'react';
 import { Container, Row, Col, Card, CardBody, CardText } from 'reactstrap';
 import 'sweetalert2/src/sweetalert2.scss';
 import Layout from './Layout.jsx';
-import { getCurrentUser } from '../helpers/Utils';
+import { getCurrentUser, openNotificationWithIcon } from '../helpers/Utils';
 import { useDispatch, useSelector } from 'react-redux';
 import { getSchoolByID } from '../School/store/school/actions';
 import { Button } from '../stories/Button';
@@ -13,7 +14,9 @@ import { useHistory } from 'react-router-dom';
 import DataTableExtensions from 'react-data-table-component-extensions';
 import DataTable, { Alignment } from 'react-data-table-component';
 import axios from 'axios';
-import { encryptGlobal } from '../constants/encryptDecrypt';
+import Swal from 'sweetalert2/dist/sweetalert2';
+import { encryptGlobal } from '../constants/encryptDecrypt.js';
+import logout from '../assets/media/logout.svg';
 
 const MySchoolProfile = () => {
     // here we can see all the details of details of teacher //
@@ -34,26 +37,106 @@ const MySchoolProfile = () => {
     const handleEdit = () => {
         // alert('hii');
         history.push({
-            pathname: '/EditSchoolProfile',
+            pathname: '/EditinstitutionProfile',
             item: {
-                principal_name: school?.school.principal_name,
-                principal_mobile: school?.school.principal_mobile,
-                principal_email: school?.school.principal_email,
-                city: school?.school.city,
-                organization_name: school?.school.organization_name,
-                category: school?.school.category,
-                district: school?.school.district,
-                organization_code: school?.school.organization_code,
-                organization_id: school?.school.organization_id,
-                state: school?.school.state
+                principal_name: profile?.principal_name,
+                principal_mobile: profile?.principal_mobile,
+                principal_whatsapp_mobile: profile?.principal_whatsapp_mobile,
+                principal_email: profile?.principal_email,
+                institution_name: currentUser?.data[0]?.institution_name,
+                place_name: profile?.place?.place_name,
+                block: profile?.place?.taluk?.block?.block_name,
+                taluk: profile?.place?.taluk?.taluk_name,
+                district: profile?.place?.taluk?.block?.district?.district_name
+                // city: profile
+                // ?.place
+                // ?.place_name,
+                // category: school?.school.category,
+                // district: school?.school.district,
+                // organization_code: school?.school.organization_code,
+                // organization_id: school?.school.organization_id,
+                // state: school?.school.state
             }
         });
-        // console.log(item, 'item');
     };
     useEffect(() => {
         handleResList();
     }, []);
+    const handleDeleteTeamMember = (item) => {
+        // here we can delete the team member details //
+        // here item = student_id //
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: false
+        });
 
+        swalWithBootstrapButtons
+            .fire({
+                title: 'Are you deleting the Course',
+                text: 'Are you sure?',
+                imageUrl: `${logout}`,
+                showCloseButton: true,
+                confirmButtonText: 'Confirm',
+                showCancelButton: true,
+                cancelButtonText: 'Cancel',
+                reverseButtons: false
+            })
+            .then((result) => {
+                if (result.isConfirmed) {
+                    const delparamId = encryptGlobal(
+                        JSON.stringify(item.institution_course_id)
+                    );
+                    var config = {
+                        method: 'delete',
+                        url:
+                            process.env.REACT_APP_API_BASE_URL +
+                            '/institutions/delectinstCourse/' +
+                            delparamId,
+                        headers: {
+                            'Content-Type': 'application/json',
+                            Authorization: `Bearer ${currentUser?.data[0]?.token}`
+                        }
+                    };
+                    axios(config)
+                        .then(function (response) {
+                            if (response.status === 200) {
+                                openNotificationWithIcon(
+                                    'success',
+                                    'Course deleted successfully'
+                                );
+                                // history.push({
+                                //     pathname: '/mentor/teamlist'
+                                // });
+                            }
+                            // if (response.status === 406)
+                            else {
+                                openNotificationWithIcon(
+                                    'error',
+                                    'This course is associated with some student'
+                                );
+                            }
+                        })
+                        .catch(function (error) {
+                            if (error?.response?.data?.status === 406) {
+                                openNotificationWithIcon(
+                                    'error',
+                                    error?.response?.data?.message
+                                );
+                            }
+                            console.log(error.message);
+                        });
+                } else if (result.dismiss === Swal.DismissReason.cancel) {
+                    swalWithBootstrapButtons.fire(
+                        t('teacher_teams.delete_cancelled'),
+                        t('teacher_teams.delete_member_cancel'),
+                        'error'
+                    );
+                }
+            });
+    };
     async function handleResList() {
         const userIdParam = encryptGlobal(
             JSON.stringify({
@@ -114,7 +197,7 @@ const MySchoolProfile = () => {
                         {row?.stream_name}
                     </div>
                 ),
-                width: '35%'
+                width: '25%'
             },
             {
                 name: 'Program Name',
@@ -122,6 +205,33 @@ const MySchoolProfile = () => {
                 selector: (row) => row?.program_name,
                 center: true,
                 width: '25%'
+            },
+            {
+                name: 'Delete',
+                // cell: (params) => {
+                //     return [
+                //         <button
+                //             style={{ background: 'red', text: 'white' }}
+                //             onClick={() => handleDeleteTeamMember(params)}
+                //         >
+                //             Delete
+                //         </button>
+                //     ];
+                // },
+                cell: (params) => {
+                    return [
+                        <div
+                            key={params}
+                            onClick={() => handleDeleteTeamMember(params)}
+                        >
+                            <div className="btn btn-danger btn-lg mr-5 mx-2">
+                                Delete
+                            </div>
+                        </div>
+                    ];
+                },
+                width: '18%',
+                center: true
             }
         ]
     };
@@ -132,12 +242,12 @@ const MySchoolProfile = () => {
                     <Col className="col-xl-10 offset-xl-1 offset-md-0">
                         <div className="d-flex justify-content-between mb-3">
                             <h2>My Profile</h2>
-                            {/* <Button
+                            <Button
                                 onClick={() => handleEdit()}
                                 size="small"
                                 label={'Edit'}
                                 btnClass={'primary'}
-                            ></Button> */}
+                            ></Button>
                         </div>
                         <Row>
                             <Col md={12}>
@@ -599,6 +709,20 @@ const MySchoolProfile = () => {
                                     </CardBody>
                                 </Card>
                                 <h2>List of Courses</h2>
+                                <div className="d-flex justify-content-end">
+                                    <Button
+                                        label="Add Courses"
+                                        btnClass=" btn btn-success"
+                                        size="small"
+                                        shape="btn-square"
+                                        // Icon={BsPlusLg}
+                                        onClick={() =>
+                                            history.push(
+                                                '/instituion/addCourse'
+                                            )
+                                        }
+                                    />
+                                </div>
                                 <div className="my-2">
                                     <DataTableExtensions
                                         print={false}

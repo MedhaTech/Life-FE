@@ -35,6 +35,11 @@ export const GET_FETCHDIST = 'GET_FETCHDIST';
 export const GET_PINCODES = 'GET_PINCODES';
 export const GET_ATLCODES = 'GET_ATLCODES';
 
+export const GET_FETCH_INST_DIST = 'GET_FETCH_INST_DIST';
+export const GET_INST_BLOCK = 'GET_INST_BLOCK';
+export const GET_INST_TALUK = 'GET_INST_TALUK';
+export const GET_PLACE = 'GET_PLACE';
+
 export const GET_STUDENT_DASHBOARD_STATUS = 'GET_STUDENT_DASHBOARD_STATUS';
 export const GET_STUDENT_DASHBOARD_CHALLENGES_STATUS =
     'GET_STUDENT_DASHBOARD_CHALLENGES_STATUS';
@@ -233,6 +238,7 @@ export * from './auth/actions';
 export * from '../School/store/school/actions';
 export * from '../Coordinators/store/Coordinator/actions';
 export * from '../ReportsPanel/store/actions';
+export * from './Institution/actions';
 
 export * from '../Admin/store/admin/actions';
 export * from '../Teachers/store/mentors/actions';
