@@ -21,6 +21,7 @@ import studentRegistration from './studentRegistration/reducers';
 import studentTeam from './teams/reducers';
 import teacherDashBoard from '../Teachers/store/dashboard/reducer';
 import evaluator from '../Evaluator/store/evaluator/reducer';
+import institution from '../redux/Institution/reducers';
 
 const reducers = combineReducers({
     authUser,
@@ -44,7 +45,8 @@ const reducers = combineReducers({
     schedules,
     teacherDashBoard,
     reports,
-    evaluator
+    evaluator,
+    institution
 });
 const rootReducer = (state, action) => {
     if (action.type === 'USER_LOGOUT') {
