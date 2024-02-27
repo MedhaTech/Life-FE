@@ -240,7 +240,7 @@ const EditSchool = () => {
                 <Row>
                     <Col className="col-xl-10 offset-xl-1 offset-md-0">
                         {/* <BreadcrumbTwo {...headingDetails} /> */}
-                        <h3 className="mb-5">Edit Institutions Details</h3>
+                        <h3 className="mb-5">Add Courses</h3>
 
                         <div>
                             <Form onSubmit={formik.handleSubmit} isSubmitting>
