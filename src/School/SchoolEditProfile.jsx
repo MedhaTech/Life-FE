@@ -413,7 +413,7 @@ const EditSchool = (props) => {
                                                     </small>
                                                 ) : null} */}
                                             {/* </Col> */}
-                                            <Col md={6}>
+                                            <Col md={4}>
                                                 <p>
                                                     <b> Select District</b>
                                                 </p>
@@ -426,17 +426,17 @@ const EditSchool = (props) => {
                                                                 value
                                                             )
                                                         }
-                                                         // value={[
-                                                    //     {
-                                                    //         label:
-                                                    //             teamMemberData &&
-                                                    //             teamMemberData.program_name,
-                                                    //         value:
-                                                    //             teamMemberData &&
-                                                    //             // teamMemberData.stream &&
-                                                    //             teamMemberData.institution_course_id
-                                                    //     }
-                                                    // ]}
+                                                        // value={[
+                                                        //     {
+                                                        //         label:
+                                                        //             teamMemberData &&
+                                                        //             teamMemberData.program_name,
+                                                        //         value:
+                                                        //             teamMemberData &&
+                                                        //             // teamMemberData.stream &&
+                                                        //             teamMemberData.institution_course_id
+                                                        //     }
+                                                        // ]}
                                                         // setValue={(value) =>
                                                         //     formik.setFieldValue(
                                                         //         'district_id',
@@ -459,7 +459,7 @@ const EditSchool = (props) => {
                                         </Row>
 
                                         <Row>
-                                            <Col md={6}>
+                                            <Col md={4}>
                                                 <p>
                                                     <b> Select Block</b>
                                                 </p>
@@ -483,7 +483,7 @@ const EditSchool = (props) => {
                                                     />
                                                 </div>
                                             </Col>
-                                            <Col md={6}>
+                                            <Col md={4}>
                                                 <p>
                                                     <b> Select Taluk</b>
                                                 </p>
@@ -508,7 +508,7 @@ const EditSchool = (props) => {
                                                 </div>
                                             </Col>
 
-                                            <Col md={6}>
+                                            <Col md={4}>
                                                 <p>
                                                     <b> Select Place</b>
                                                 </p>

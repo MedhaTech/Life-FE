@@ -169,18 +169,22 @@ const Dashboard = () => {
         //  here  We can edit the Registration details //
         // Where data = orgData //
         history.push({
-            pathname: '/admin/edit-user-profile',
+            pathname: '/admin/MentorEdit',
             data: {
                 mentor_name: orgData.mentor?.mentor_name,
-                // mobile: orgData.mentor?.mobile,
-                username: orgData.mentor?.user?.username,
+                mentor_mobile: orgData.mentor?.mentor_mobile,
+                mentor_whatapp_mobile: orgData.mentor?.mentor_whatapp_mobile,
                 mentor_id: orgData.mentor?.mentor_id,
                 where: 'Dashbord',
+                mentor_title: orgData.mentor?.mentor_title,
+                username: orgData.mentor?.mentor_mobile,
+                date_of_birth: orgData.mentor?.date_of_birth,
+                mentor_email: orgData.mentor?.mentor_email,
+                gender: orgData.mentor.gender,
                 institution_code: orgData.institution_code
             }
         });
     };
-
     const handleresetpassword = (data) => {
         //  here we can reset the password as disecode //
         const swalWithBootstrapButtons = Swal.mixin({
@@ -207,7 +211,7 @@ const Dashboard = () => {
                     dispatch(
                         teacherResetPassword({
                             // organization_code: data.organization_code,
-                            username: orgData.mentor?.user?.username,
+                            username: orgData.mentor.mentor_mobile,
                             mentor_id: data.mentor_id,
                             otp: false
                         })
@@ -284,6 +288,11 @@ const Dashboard = () => {
                 selector: (row) => row?.mentor?.mentor_name,
                 center: true
             },
+            // {
+            //     name: 'Mobile No',
+            //     selector: (row) => row?.mentor?.mentor_mobile,
+            //     center: true
+            // },
             {
                 name: 'Actions',
                 cell: (params) => {
@@ -1489,7 +1498,7 @@ const Dashboard = () => {
                                                             </p>
                                                         </Col>
                                                     </Row>
-                                                    <Row className="pt-3 pb-3">
+                                                    {/* <Row className="pt-3 pb-3">
                                                         <Col
                                                             xs={5}
                                                             sm={5}
@@ -1522,7 +1531,7 @@ const Dashboard = () => {
                                                                 }
                                                             </p>
                                                         </Col>
-                                                    </Row>{' '}
+                                                    </Row>{' '} */}
                                                     <Row className="pt-3 pb-3">
                                                         <Col
                                                             xs={5}
@@ -1549,6 +1558,11 @@ const Dashboard = () => {
                                                             className="my-auto profile-detail"
                                                         >
                                                             <p>
+                                                                {
+                                                                    orgData
+                                                                        .mentor
+                                                                        .mentor_title
+                                                                }{' '}
                                                                 {
                                                                     orgData
                                                                         .mentor
@@ -1738,7 +1752,7 @@ const Dashboard = () => {
                                         {/* </div> */}
                                         {/* <div className="d-flex justify-content-between"> */}
                                         <div className="d-flex justify-content-between flex-column flex-md-row">
-                                            {/* <button
+                                            <button
                                                 className="btn  rounded-pill px-4  text-white mt-2 mt-md-0 ml-md-2"
                                                 style={{
                                                     backgroundColor: '#ffcb34'
@@ -1747,7 +1761,7 @@ const Dashboard = () => {
                                                 //className="btn btn-warning btn-lg  px-4"
                                             >
                                                 Edit
-                                            </button> */}
+                                            </button>
                                             <button
                                                 onClick={() =>
                                                     handleresetpassword({
@@ -1755,8 +1769,8 @@ const Dashboard = () => {
                                                             orgData.mentor
                                                                 .mentor_id,
                                                         username:
-                                                            orgData.mentor.user
-                                                                .username
+                                                            orgData.mentor
+                                                                .mentor_mobile
                                                         // organization_code:
                                                         //     orgData.organization_code
                                                     })
