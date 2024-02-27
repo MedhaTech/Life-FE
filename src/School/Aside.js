@@ -13,7 +13,7 @@ import DashboardIcon1 from '../assets/media/DashboardIcon1.png';
 import { FaHouseUser } from 'react-icons/fa';
 import 'react-pro-sidebar/dist/css/styles.css';
 import SmallLogo from '../assets/media/logo192.png';
-import Logo from '../assets/media/tn-brands/UPSHIFT_BLACK.png';
+import Logo from '../assets/media/tn-brands/EDII_LOGO.png';
 import { RiLockPasswordFill } from 'react-icons/ri';
 import logoutIcon from '../assets/media/logoutIcon.png';
 
@@ -47,12 +47,20 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
             collapsed={menuCollapse}
         >
             <SidebarHeader>
-                <div className="sidebar-header header-comp sticky-top">
+                <div
+                    // className="d-flex logo-section justify-content-center align-items-center"
+                    // style={{ height: '5rem' }}
+                    className="sidebar-header header-comp sticky-top d-flex logo-section justify-content-center align-items-center"
+                >
                     <div
                         className="d-flex logo-section"
                         style={{ height: '5rem' }}
                     >
-                        <Link to={'/institution/dashboard'} exact className="d-flex">
+                        <Link
+                            to={'/institution/dashboard'}
+                            exact
+                            className="d-flex"
+                        >
                             {menuCollapse ? (
                                 <img
                                     src={SmallLogo}
@@ -111,7 +119,8 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                     <MenuItem
                         icon={<RiLockPasswordFill />}
                         className={
-                            location.pathname === '/institution-changePassword' &&
+                            location.pathname ===
+                                '/institution-changePassword' &&
                             'sidebar-active'
                         }
                     >

@@ -29,6 +29,13 @@ const Header = (props) => {
                                     md={12}
                                     className="d-flex profile-section text-right"
                                 >
+                                    <p className="m-0">
+                                        <b>Menu :</b> {props.title}
+                                    </p>
+                                    {/* <p className="m-0">
+                                        <b>Institution : </b>{' '}
+                                        {currentUser?.data[0].institution_name}
+                                    </p> */}
                                     <div className="d-flex align-items-center profile">
                                         <div className="d-flex align-items-center profile">
                                             <img
@@ -36,9 +43,10 @@ const Header = (props) => {
                                                 className="img-fluid"
                                             />
                                             <span className="header-name-size">
+                                                Welcome Institution User :{' '}
                                                 {
                                                     currentUser?.data[0]
-                                                        ?.organization_name
+                                                        ?.institution_name
                                                 }
                                             </span>
                                         </div>

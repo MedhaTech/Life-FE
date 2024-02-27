@@ -194,8 +194,8 @@ import CooTickets from './Coordinators/CooTickets/Tickets';
 import CooTicketResView from './Coordinators/CooTickets/TicketResponse';
 import Home from './Landing_page/Home';
 import SchoolEditTec from './School/Dashboard/SchoolEditTec';
-import MentorReg from './School/Dashboard/MentorReg';
-import SuccessMentorPage from './School/Dashboard/SuccessPage';
+import MentorNewReg from './School/Dashboard/MentorNewReg';
+import MentorScuccess from './School/Dashboard/MentorScuccess';
 import AddCourse from './School/AddCourse';
 function MyComponent() {
     window.location.href = `${process.env.REACT_APP_LANDING_PAGE_URL}`;
@@ -460,7 +460,7 @@ const Routers = () => {
                         exact={true}
                         user="INSTITUTION"
                         path="/institution/register"
-                        component={MentorReg}
+                        component={MentorNewReg}
                     />
                     <ProtectedRoute
                         exact={true}
@@ -472,7 +472,7 @@ const Routers = () => {
                         exact={true}
                         user="INSTITUTION"
                         path="/institution/successScreen"
-                        component={SuccessMentorPage}
+                        component={MentorScuccess}
                     />
 
                     <ProtectedRoute

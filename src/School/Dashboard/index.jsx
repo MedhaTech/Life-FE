@@ -341,6 +341,11 @@ const DashboardSchool = (props) => {
                 center: true
             },
             {
+                name: 'Mobile number',
+                selector: (row) => row?.mentor?.mentor_mobile,
+                center: true
+            },
+            {
                 name: 'Actions',
                 cell: (params) => {
                     return [
@@ -523,7 +528,7 @@ const DashboardSchool = (props) => {
 
     const hi = false;
     return (
-        <Layout>
+        <Layout title="Dashboard">
             <Container>
                 <Row className="ticket-btn col ml-auto mb-3">
                     <h2 className="mt-5  text-center ">
@@ -531,7 +536,7 @@ const DashboardSchool = (props) => {
                     </h2>
                     <div className="d-flex justify-content-end">
                         <Button
-                            label="Add/Register Mentor "
+                            label="Register Mentor "
                             btnClass="m-5 btn btn-success"
                             size="small"
                             shape="btn-square"
@@ -754,7 +759,7 @@ const DashboardSchool = (props) => {
                                                             </p>
                                                         </Col>
                                                     </Row>
-                                                    <Row className="pt-3 pb-3">
+                                                    {/* <Row className="pt-3 pb-3">
                                                         <Col
                                                             xs={5}
                                                             sm={5}
@@ -787,7 +792,7 @@ const DashboardSchool = (props) => {
                                                                 }
                                                             </p>
                                                         </Col>
-                                                    </Row>{' '}
+                                                    </Row>{' '} */}
                                                     <Row className="pt-3 pb-3">
                                                         <Col
                                                             xs={5}
@@ -814,6 +819,11 @@ const DashboardSchool = (props) => {
                                                             className="my-auto profile-detail"
                                                         >
                                                             <p>
+                                                                {
+                                                                    orgData
+                                                                        .mentor
+                                                                        .mentor_title
+                                                                }{' '}
                                                                 {
                                                                     orgData
                                                                         .mentor
