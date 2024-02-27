@@ -23,7 +23,7 @@ import axios from 'axios';
 
 import 'react-pro-sidebar/dist/css/styles.css';
 import { useLocation } from 'react-router-dom';
-import Logo from '../assets/media/tn-brands/UPSHIFT_BLACK.png';
+import Logo from '../assets/media/tn-brands/EDII_LOGO.png';
 
 import TicketIcon from '../assets/media/ticket.png';
 import FaqIcon from '../assets/media/faq.png';
@@ -85,7 +85,6 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
         axios(configidea)
             .then(function (response) {
                 if (response.status === 200) {
-
                     // if (response.data.data !== null) {
                     setIdeaSubmittedData(response.data.data[0]);
                     // }
@@ -111,7 +110,10 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
             collapsed={menuCollapse}
         >
             <SidebarHeader>
-                <div className="sidebar-header header-comp sticky-top">
+                <div
+                    // className="sidebar-header header-comp sticky-top"
+                    className="sidebar-header header-comp sticky-top d-flex logo-section justify-content-center align-items-center"
+                >
                     <div
                         className="d-flex logo-section"
                         style={{ height: '5rem' }}

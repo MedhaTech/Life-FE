@@ -66,7 +66,10 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
             collapsed={menuCollapse}
         >
             <SidebarHeader>
-                <div className="sidebar-header header-comp sticky-top">
+                <div
+                    // className="sidebar-header header-comp sticky-top"
+                    className="sidebar-header header-comp sticky-top d-flex logo-section justify-content-center align-items-center"
+                >
                     <div
                         className="d-flex logo-section"
                         style={{ height: '5rem' }}

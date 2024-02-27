@@ -54,6 +54,7 @@ const EditSchool = (props) => {
     useEffect(() => {
         dispatch(getFetchInstDistData());
     }, []);
+    // console.log(fullDistrictNames, '1');
     // useEffect(() => {
     //     if (district !== '') {
     //         dispatch(getInstBlockData(district));
@@ -80,7 +81,7 @@ const EditSchool = (props) => {
     const currentUser = getCurrentUser('current_user');
 
     const listId = (history && history.location && history.location.item) || {};
-    console.log(listId);
+    // console.log(listId);
     const inputDICE = {
         type: 'text',
         className: 'defaultInput'
@@ -96,7 +97,7 @@ const EditSchool = (props) => {
                 listId && listId.principal_whatsapp_mobile,
             taluk: listId && listId.taluk,
             block: listId && listId.block,
-            district: listId && listId.district,
+            district: listId && listId?.district,
             place_name: listId && listId.place_name,
 
             // state: listId && listId.state,
@@ -133,7 +134,6 @@ const EditSchool = (props) => {
         }),
 
         onSubmit: async (values) => {
-
             const body = {
                 principal_name: values.principal_name,
                 principal_mobile: values.principal_mobile,
@@ -191,8 +191,9 @@ const EditSchool = (props) => {
             dispatch(getInstPlaceData(formik.values.taluk));
         }
     }, [formik.values.taluk]);
+    // console.log(formik.values.place_name, 'value');
     return (
-        <Layout>
+        <Layout title="My Profile">
             <div className="EditPersonalDetails new-member-page">
                 <Row>
                     <Col className="col-xl-10 offset-xl-1 offset-md-0">
@@ -425,6 +426,17 @@ const EditSchool = (props) => {
                                                                 value
                                                             )
                                                         }
+                                                         // value={[
+                                                    //     {
+                                                    //         label:
+                                                    //             teamMemberData &&
+                                                    //             teamMemberData.program_name,
+                                                    //         value:
+                                                    //             teamMemberData &&
+                                                    //             // teamMemberData.stream &&
+                                                    //             teamMemberData.institution_course_id
+                                                    //     }
+                                                    // ]}
                                                         // setValue={(value) =>
                                                         //     formik.setFieldValue(
                                                         //         'district_id',

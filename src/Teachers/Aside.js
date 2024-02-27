@@ -27,7 +27,7 @@ import {
 } from 'react-icons/ri';
 import 'react-pro-sidebar/dist/css/styles.css';
 import { useLocation } from 'react-router-dom';
-import Logo from '../assets/media/tn-brands/UPSHIFT_BLACK.png';
+import Logo from '../assets/media/tn-brands/EDII_LOGO.png';
 import SmallLogo from '../assets/media/logo192.png';
 import { compareDates, logout } from '../helpers/Utils';
 import { useHistory } from 'react-router-dom';
@@ -84,7 +84,10 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
             collapsed={menuCollapse}
         >
             <SidebarHeader>
-                <div className="sidebar-header header-comp sticky-top">
+                <div
+                    // className="sidebar-header header-comp sticky-top"
+                    className="sidebar-header header-comp sticky-top d-flex logo-section justify-content-center align-items-center"
+                >
                     <div
                         className="d-flex logo-section"
                         style={{ height: '5rem' }}
