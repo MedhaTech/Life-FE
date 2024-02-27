@@ -244,18 +244,21 @@ const ViewMore = () => {
                         <Card className="py-5">
                             <CardBody>
                                 <h2 className="mb-4">Mentor Details</h2>
-                                <CardText>
+                                {/* <CardText>
                                     <span className="mx-3">
                                         <b>Title :</b>
                                     </span>
                                     <b>{orgDaTa.mentor.mentor_title}</b>
-                                </CardText>
+                                </CardText> */}
 
                                 <CardText>
                                     <span className="mx-3">
                                         <b>Mentor Name :</b>
                                     </span>
-                                    <b>{orgDaTa.mentor.mentor_name}</b>
+                                    <b>
+                                        {orgDaTa.mentor.mentor_title}
+                                        {orgDaTa.mentor.mentor_name}
+                                    </b>
                                 </CardText>
                                 <CardText>
                                     <span className="mx-3">

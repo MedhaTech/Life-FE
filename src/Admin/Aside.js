@@ -210,7 +210,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                             </span>
                         </NavLink>
                     </MenuItem> */}
-                    <MenuItem
+                    {/* <MenuItem
                         icon={
                             <img
                                 src={InstituionsIcon}
@@ -239,7 +239,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                                 Institutions
                             </span>
                         </NavLink>
-                    </MenuItem>
+                    </MenuItem> */}
                     {/* <MenuItem
                         icon={
                             <img src={ResourceIcon} style={{ width: '20px' }} />

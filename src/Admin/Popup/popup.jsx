@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import { useState } from 'react';
 import React, { useEffect } from 'react';
@@ -317,12 +318,12 @@ const Popup = () => {
                             </Col>
                         </Row>
                     </Card>
-                    <Row className="mb-2 mb-sm-5 mb-md-5 mb-lg-2 mt-2 mt-sm-5 mt-md-5 mt-lg-5">
+                    {/* <Row className="mb-2 mb-sm-5 mb-md-5 mb-lg-2 mt-2 mt-sm-5 mt-md-5 mt-lg-5">
                         <Col className="col-auto">
                             <h2>Idea Submission</h2>
                         </Col>
-                    </Row>
-                    <Card className="p-5">
+                    </Row> */}
+                    {/* <Card className="p-5">
                         <Row>
                             <Col>
                                 <h2>
@@ -369,13 +370,13 @@ const Popup = () => {
                                 </p>
                             </Col>
                         </Row>
-                    </Card>
-                    <Row className="mb-2 mb-sm-5 mb-md-5 mb-lg-2 mt-2 mt-sm-5 mt-md-5 mt-lg-5">
+                    </Card> */}
+                    {/* <Row className="mb-2 mb-sm-5 mb-md-5 mb-lg-2 mt-2 mt-sm-5 mt-md-5 mt-lg-5">
                         <Col className="col-auto">
                             <h2>Bulk Email sending</h2>
                         </Col>
-                    </Row>
-                    <Card className="p-5">
+                    </Row> */}
+                    {/* <Card className="p-5">
                         <Row>
                             <Col>
                                 <label
@@ -411,7 +412,7 @@ const Popup = () => {
                                 />
                             </Col>
                         </Row>
-                    </Card>
+                    </Card> */}
                 </Row>
             </Container>
         </Layout>

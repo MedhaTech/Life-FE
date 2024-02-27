@@ -197,6 +197,7 @@ import SchoolEditTec from './School/Dashboard/SchoolEditTec';
 import MentorNewReg from './School/Dashboard/MentorNewReg';
 import MentorScuccess from './School/Dashboard/MentorScuccess';
 import AddCourse from './School/AddCourse';
+import MentorEdit from './Admin/Dashboard/MentorEdit';
 function MyComponent() {
     window.location.href = `${process.env.REACT_APP_LANDING_PAGE_URL}`;
     return null;
@@ -680,6 +681,12 @@ const Routers = () => {
                         path="/admin/teacherview"
                         user="ADMIN"
                         component={TeacherViewDetails}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        path="/admin/MentorEdit"
+                        user="ADMIN"
+                        component={MentorEdit}
                     />
                     <ProtectedRoute
                         exact={true}
