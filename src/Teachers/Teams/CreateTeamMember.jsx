@@ -50,6 +50,7 @@ const CreateMultipleMembers = ({ id }) => {
         mobile: '',
         year_of_study: '',
         date_of_birth: '',
+
         email: '',
         Gender: '',
         institution_course_id: '',
@@ -1223,7 +1224,7 @@ const CreateTeamMember = (props) => {
         },
         validationSchema: Yup.object({
             student_full_name: Yup.string()
-                .required('Please Enter valid Full Name')
+                .required('Please Enter Full Name')
                 .max(40)
                 .required()
                 .matches(
@@ -1255,20 +1256,20 @@ const CreateTeamMember = (props) => {
             // )
             // .default(0),
 
-            gender: Yup.string().required('Please select valid gender'),
+            gender: Yup.string().required('Please select any gender'),
             email: Yup.string()
-                .required('required')
+                .required('Please Enter Email Id')
                 .trim()
                 .matches(emailRegex, 'accept small letters only')
                 .email('Enter Valid Email Id'),
 
             institution_course_id: Yup.string().required(
-                'Please select Program'
+                'Please select any Program'
             ),
-            year_of_study: Yup.string().required('Please select Year'),
+            year_of_study: Yup.string().required('Please select any Year'),
 
             mobile: Yup.string()
-                .required('required')
+                .required('Please Enter Mobile Number')
                 .trim()
                 .matches(
                     /^\d+$/,
@@ -1461,7 +1462,8 @@ const CreateTeamMember = (props) => {
             <div className="EditPersonalDetails new-member-page">
                 <Row>
                     <Col className="col-xl-10 offset-xl-1 offset-md-0">
-                        <BreadcrumbTwo {...headingDetails} />
+                        <h3> Create Team Member Details</h3>
+                        {/* <BreadcrumbTwo {...headingDetails} /> */}
                         {studentCount && studentCount === 'new' ? (
                             <CreateMultipleMembers id={id} />
                         ) : (

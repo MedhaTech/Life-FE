@@ -88,7 +88,7 @@ export const studentResetPassword = (body) => async () => {
         if (result && result.status === 200) {
             openNotificationWithIcon(
                 'success',
-                'Password Successfully Updated'
+                'Reset Password Successfully Updated'
             );
         } else {
             openNotificationWithIcon('error', 'Something went wrong');

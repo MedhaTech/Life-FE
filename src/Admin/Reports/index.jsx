@@ -18,7 +18,7 @@ const Reports = () => {
                                 <Link to="/admin/reports-registration">
                                     <Card className="p-4 text-center card-effect mb-4">
                                         <b className="text-secondary">
-                                            SCHOOL/TEACHER REGISTRATION REPORTS
+                                           INSTITUTION/ MENTOR REGISTRATION REPORTS
                                         </b>
                                     </Card>
                                 </Link>
@@ -40,7 +40,7 @@ const Reports = () => {
                                 <Link to="/admin/TeacherProgressDetailed">
                                     <Card className="p-4 text-center card-effect mb-4">
                                         <b className="text-secondary">
-                                            SCHOOL PROGRESS DETAILED REPORT
+                                        INSTITUTION PROGRESS DETAILED REPORT
                                         </b>
                                     </Card>
                                 </Link>

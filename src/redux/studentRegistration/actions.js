@@ -221,7 +221,7 @@ export const getFetchDistData = (item) => async (dispatch) => {
         const axiosConfig = getNormalHeaders(KEY.User_API_Key);
         const distParam = encryptGlobal(
             JSON.stringify({
-                state: item
+                district_name: item
             })
         );
 
