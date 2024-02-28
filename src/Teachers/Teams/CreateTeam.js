@@ -98,7 +98,7 @@ const CreateTeam = (props) => {
                         setTimeout(() => {
                             openNotificationWithIcon(
                                 'success',
-                                'Team Create Successfully'
+                                'Team Created Successfully'
                             );
                             props.history.push('/mentor/teamlist');
                         }, 1000);

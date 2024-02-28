@@ -102,7 +102,7 @@ const LoginNew = (props) => {
     };
 
     const inputPassword = {
-        placeholder: t('loginPage.Password'),
+        placeholder: 'Enter Your Password',
         showEyeIcon: true
     };
 
