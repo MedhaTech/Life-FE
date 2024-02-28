@@ -35,7 +35,6 @@ const MySchoolProfile = () => {
     //     }
     // }, [currentUser?.data[0]?.organization_id]);
     const handleEdit = () => {
-        // alert('hii');
         history.push({
             pathname: '/EditinstitutionProfile',
             item: {
@@ -44,10 +43,10 @@ const MySchoolProfile = () => {
                 principal_whatsapp_mobile: profile?.principal_whatsapp_mobile,
                 principal_email: profile?.principal_email,
                 institution_name: currentUser?.data[0]?.institution_name,
-                place_name: profile?.place?.place_name,
-                block: profile?.place?.taluk?.block?.block_name,
-                taluk: profile?.place?.taluk?.taluk_name,
-                district: profile?.place?.taluk?.block?.district?.district_name
+                place_name: profile?.place?.place_id,
+                block: profile?.place?.taluk?.block?.block_id,
+                taluk: profile?.place?.taluk?.taluk_id,
+                district: profile?.place?.taluk?.block?.district?.district_id
                 // city: profile
                 // ?.place
                 // ?.place_name,
@@ -55,6 +54,7 @@ const MySchoolProfile = () => {
                 // district: school?.school.district,
                 // organization_code: school?.school.organization_code,
                 // organization_id: school?.school.organization_id,
+
                 // state: school?.school.state
             }
         });
