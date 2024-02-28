@@ -35,7 +35,6 @@ const MySchoolProfile = () => {
     //     }
     // }, [currentUser?.data[0]?.organization_id]);
     const handleEdit = () => {
-        // alert('hii');
         history.push({
             pathname: '/EditinstitutionProfile',
             item: {

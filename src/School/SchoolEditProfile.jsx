@@ -81,7 +81,6 @@ const EditSchool = (props) => {
     const currentUser = getCurrentUser('current_user');
 
     const listId = (history && history.location && history.location.item) || {};
-    console.log(listId, '====');
     const inputDICE = {
         type: 'text',
         className: 'defaultInput'
@@ -145,7 +144,6 @@ const EditSchool = (props) => {
                 place_id: values.place_name
                 // place_id: values.place_id
             };
-            console.log(values.place_name, 'xx');
             const editId = encryptGlobal(
                 JSON.stringify(currentUser?.data[0]?.institution_id)
             );
@@ -192,7 +190,6 @@ const EditSchool = (props) => {
             dispatch(getInstPlaceData(formik.values.taluk));
         }
     }, [formik.values.taluk]);
-    console.log(formik.values.place_name, 'value');
     return (
         <Layout title="My Profile">
             <div className="EditPersonalDetails new-member-page">
