@@ -60,7 +60,7 @@ const EditTeamMember = (props) => {
             age: Yup.number()
                 .test(
                     'age-validation',
-                    'Age must be between 14 and 25',
+                    'Age must be between 14 to 25',
                     function (value) {
                         const currentDate = new Date();
                         const selectedDate = new Date(

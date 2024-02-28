@@ -198,6 +198,8 @@ import MentorNewReg from './School/Dashboard/MentorNewReg';
 import MentorScuccess from './School/Dashboard/MentorScuccess';
 import AddCourse from './School/AddCourse';
 import MentorEdit from './Admin/Dashboard/MentorEdit';
+import AdminMentorReg from './Admin/UserList/MentorReg';
+import AdminMentorSuccess from './Admin/UserList/MentorSuccess';
 function MyComponent() {
     window.location.href = `${process.env.REACT_APP_LANDING_PAGE_URL}`;
     return null;
@@ -571,6 +573,12 @@ const Routers = () => {
                     <ProtectedRoute
                         exact={true}
                         user="ADMIN"
+                        path="/admin/successScreen"
+                        component={AdminMentorSuccess}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        user="ADMIN"
                         path="/admin/dashboard"
                         component={AdminDashboard}
                     />
@@ -693,6 +701,12 @@ const Routers = () => {
                         user="ADMIN"
                         path="/admin/userprofile"
                         component={CommonUserProfile}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        user="ADMIN"
+                        path="/admin/mentor/register"
+                        component={AdminMentorReg}
                     />
                     {/* CommonUserProfileEdit */}
                     <ProtectedRoute

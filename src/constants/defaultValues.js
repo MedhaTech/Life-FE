@@ -111,7 +111,7 @@ export const URL = {
         process.env.REACT_APP_API_BASE_URL + '/mentorCourses/',
     getStudents: process.env.REACT_APP_API_BASE_URL + '/students',
     getDistrictsOnly:
-        process.env.REACT_APP_API_BASE_URL + '/organizations/districts',
+        process.env.REACT_APP_API_BASE_URL + '/institutions/districtNames',
     getPinCodesOnly:
         process.env.REACT_APP_API_BASE_URL + '/organizations/pinCode?',
     getAtlCodesOnly:
@@ -163,7 +163,7 @@ export const URL = {
         process.env.REACT_APP_API_BASE_URL + '/reports/allMentorReports',
     getTeamMemberStatusEndpoint:
         process.env.REACT_APP_API_BASE_URL + '/dashboard/teamStats/',
-    getidealist: process.env.REACT_APP_API_BASE_URL + '/challenge_response?',
+    getidealist: process.env.REACT_APP_API_BASE_URL + '/ideas?',
     getidealistfinal:
         process.env.REACT_APP_API_BASE_URL +
         '/challenge_response/evaluationResult',

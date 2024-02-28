@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 import { Input, Radio } from 'antd';
 
 import successIcon from '../assets/media/img/rocket.gif';
-import signuplogo from '../assets/media/tn-brands/UPSHIFT_BLACK.png';
+import signuplogo from '../assets/media/tn-brands/EDII_LOGO.png';
 import image_1 from '../assets/media/unisolve_slider1.png';
 import image_2 from '../assets/media/aim_Slider.png';
 import { useFormik } from 'formik';
@@ -82,7 +82,7 @@ function AtlPage() {
 
     const inputUsername = {
         type: 'text',
-        placeholder: 'Enter Mobile Number',
+        placeholder: 'Enter Your Mobile Number',
         className: 'defaultInput'
     };
     const inputPassword = {
@@ -97,12 +97,12 @@ function AtlPage() {
     };
     const inputMobile = {
         type: 'text',
-        placeholder: 'Enter WhatsApp Number',
+        placeholder: 'Enter Your WhatsApp Number',
         className: 'defaultInput'
     };
     const inputmentor_Email = {
         type: 'text',
-        placeholder: 'Enter Email Id',
+        placeholder: 'Enter Your Email Id',
         className: 'defaultInput'
     };
     const inputDate = {

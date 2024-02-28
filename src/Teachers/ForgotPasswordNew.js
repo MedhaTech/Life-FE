@@ -10,7 +10,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useTranslation } from 'react-i18next';
 import { Carousel } from 'react-bootstrap';
-import logo from '../assets/media/tn-brands/UPSHIFT_BLACK.png';
+import logo from '../assets/media/tn-brands/EDII_LOGO.png';
 import image_7 from '../assets/media/unisolve_slider1.png';
 import image_8 from '../assets/media/aim_Slider.png';
 import { URL, KEY } from '../constants/defaultValues';
@@ -22,7 +22,7 @@ const ForgotPasswordNew = () => {
     const [errorMsg, seterrorMsg] = useState('');
     const inputMobile = {
         type: 'mobile',
-        placeholder: 'Enter your registered Mobile Number'
+        placeholder: 'Enter your registered mobile number'
     };
 
     const logInBtn = {
@@ -58,7 +58,7 @@ const ForgotPasswordNew = () => {
                         // props.setShow(false);
                         openNotificationWithIcon(
                             'success',
-                            'Password reset link will be sent to registered Mobile Number'
+                            'Password reset link will be sent to registered mobile number'
                         );
                         seterrorMsg('');
                     }
@@ -139,7 +139,7 @@ const ForgotPasswordNew = () => {
                                 <h4>Did you forgot your password?</h4>
                                 <span className=" sub mt-2 w-100">
                                     Don’t worry! Resetting your password is
-                                    easy, just type in the Mobile Number you
+                                    easy, just type the Mobile Number you
                                     registered to this program
                                 </span>
                                 <Form onSubmit={formik.handleSubmit}>
@@ -149,7 +149,7 @@ const ForgotPasswordNew = () => {
                                                 className="mb-2"
                                                 htmlFor="email"
                                             >
-                                                Enter Mobile Number
+                                                Enter Your Mobile Number
                                             </Label>
                                             <InputBox
                                                 {...inputMobile}
@@ -172,7 +172,7 @@ const ForgotPasswordNew = () => {
 
                                     {errorMsg === 'User not found' && (
                                         <b className="text-danger m-3">
-                                            Please enter registered Mobile
+                                            Please Enter Your Registered Mobile
                                             Number
                                         </b>
                                     )}

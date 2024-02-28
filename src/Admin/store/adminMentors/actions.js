@@ -47,7 +47,7 @@ export const getAdminMentorsList = (status, district) => async (dispatch) => {
         const newsParam = encryptGlobal(
             JSON.stringify({
                 status: mentorStatus,
-                state: district
+                district_name: district
             })
         );
         const actualURL = `${
@@ -62,16 +62,13 @@ export const getAdminMentorsList = (status, district) => async (dispatch) => {
                 return err.response;
             });
         if (result && result.status === 200) {
-            const data = result.data?.data[0]?.dataValues || [];
-            let datamodify =
-                data.length > 0
-                    ? data.forEach((item, i) => (item.id = i + 1))
-                    : [];
-            console.log(datamodify);
+            const data = result.data?.data || [];
+            // let datamodify =
+            //     data.length > 0
+            //         ? data.forEach((item, i) => (item.id = i + 1))
+            //         : [];
             const totalData =
-                result.data &&
-                result.data.data[0] &&
-                result.data.data[0].totalItems;
+                result.data && result.data.data && result.data.data.totalItems;
             dispatch(getAdminMentorsListSuccess(data, totalData));
         } else {
             dispatch(getAdminMentorsListError(result.statusText));

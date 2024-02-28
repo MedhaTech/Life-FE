@@ -335,7 +335,7 @@ const CreateMultipleMembers = ({ id }) => {
                             // if (index) {
                             const foo = { ...errCopy[i] };
 
-                            foo['age'] = 'Age must be between 14 and 25';
+                            foo['age'] = 'Age must be between 14 to 25';
                             errCopy[i] = { ...foo };
                             setItemDataErrors(errCopy);
                             return;
@@ -394,10 +394,10 @@ const CreateMultipleMembers = ({ id }) => {
 
                 // Validate age
                 if (age < 14 || age > 25) {
-                    err['Age'] = 'Age must be between 14 and 25';
+                    err['Age'] = 'Age must be between 14 to 25';
                     openNotificationWithIcon(
                         'error',
-                        'Age must be between 14 and 25'
+                        'Age must be between 14 to 25'
                     );
                 } else {
                     // err['Age'] = '';

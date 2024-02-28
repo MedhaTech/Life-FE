@@ -52,14 +52,15 @@ const SelectDists = ({
     dists,
     tab,
     setDist,
-    newDist
+    newDist,
+    drop
 }) => {
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         if (tab && (tab == 1 || tab == 2)) getDistrictsListAction();
     }, [tab]);
-
+    console.log();
     const handleDists = (e) => {
         // setNewDist(e.target.value);
         setLoading(true);
@@ -254,8 +255,8 @@ const TicketsPage = (props) => {
             data: item
         });
         localStorage.setItem(
-            'organization_code',
-            JSON.stringify(item.organization_code)
+            'institution_code',
+            JSON.stringify(item.institution_code)
         );
     };
 
@@ -452,23 +453,22 @@ const TicketsPage = (props) => {
         columns: [
             {
                 name: 'No',
-                selector: (row) => row.id,
+                // selector: (row) => row.id,
+                selector: (row, key) => key + 1,
+                cellExport: (row) => row.index,
+
                 width: '6rem'
             },
             {
-                name: 'Institution Unique Code',
-                selector: (row) => row.institution?.institution_code,
-                cellExport: (row) => row.institution?.institution_code,
-                width: '24rem'
+                name: 'Institution Code',
+                selector: (row) => row?.institution_code,
+                cellExport: (row) => row?.institution_code,
+                width: '19rem'
             },
             {
                 name: 'District',
-                selector: (row) =>
-                    row.institution?.place?.block?.taluk?.district
-                        ?.district_name,
-                cellExport: (row) =>
-                    row.institution?.place?.block?.taluk?.district
-                        ?.district_name,
+                selector: (row) => row?.district_name,
+                cellExport: (row) => row?.district_name,
                 width: '13rem'
             },
             // {
@@ -479,7 +479,7 @@ const TicketsPage = (props) => {
             // },
             {
                 name: 'Institution Name',
-                selector: (row) => row.institution?.institution_name,
+                selector: (row) => row?.institution_name,
                 cell: (row) => (
                     <div
                         style={{
@@ -487,19 +487,19 @@ const TicketsPage = (props) => {
                             wordWrap: 'break-word'
                         }}
                     >
-                        {row.institution?.institution_name}
+                        {row?.institution_name}
                     </div>
                 ),
                 // selector: (row) => row.institution?.institution_name,
-                cellExport: (row) => row.institution?.institution_name,
-                width: '17rem'
+                cellExport: (row) => row?.institution_name,
+                width: '23rem'
             },
 
             {
                 name: 'Mentor Name',
                 selector: (row) => row.mentor_name,
                 cellExport: (row) => row.mentor_name,
-                width: '15rem'
+                width: '18rem'
             },
 
             {
@@ -590,79 +590,82 @@ const TicketsPage = (props) => {
         columns: [
             {
                 name: 'No',
-                selector: (row) => row.id,
+                // selector: (row) => row.id,
+                selector: (row, key) => key + 1,
+                cellExport: (row) => row.index,
                 width: '6rem'
             },
             {
-                name: 'ATL Code',
-                selector: (row) =>
-                    row.team.mentor.organization.organization_code,
-                cellExport: (row) =>
-                    row.team.mentor.organization.organization_code,
+                name: 'Institution Code',
+                selector: (row) => row?.institution_code,
+                cellExport: (row) => row?.institution_code,
+                width: '18rem'
+            },
+            {
+                name: 'District',
+                selector: (row) => row.district_name,
+                cellExport: (row) => row.district_name,
                 width: '13rem'
             },
+            // {
+            //     name: 'Category',
+            //     // selector: (row) => row.team.mentor.organization.category,
+            //     // cellExport: (row) => row.team.mentor.organization.category,
+            //     width: '13rem'
+            // },
             {
-                name: 'State',
-                selector: (row) => row.team.mentor.organization.state,
-                cellExport: (row) => row.team.mentor.organization.state,
-                width: '13rem'
+                name: 'Institution Name',
+                cell: (row) => (
+                    <div
+                        style={{
+                            whiteSpace: 'pre-wrap',
+                            wordWrap: 'break-word'
+                        }}
+                    >
+                        {row?.institution_name}
+                    </div>
+                ),
+                selector: (row) => row.institution_name,
+                cellExport: (row) => row.institution_name,
+                width: '20rem'
             },
-            {
-                name: 'Category',
-                selector: (row) => row.team.mentor.organization.category,
-                cellExport: (row) => row.team.mentor.organization.category,
-                width: '13rem'
-            },
-            {
-                name: 'School Name',
-                selector: (row) =>
-                    row.team.mentor.organization.organization_name,
-                cellExport: (row) =>
-                    row.team.mentor.organization.organization_name,
-                width: '15rem'
-            },
-            {
-                name: 'Team Name',
-                selector: (row) => row.team.team_name,
-                cellExport: (row) => row.team.team_name,
 
-                width: '17rem'
-            },
             {
                 name: 'Student Name',
-                selector: (row) => row.full_name,
-                cellExport: (row) => row.full_name,
+                selector: (row) => row.student_full_name,
+                cellExport: (row) => row.student_full_name,
                 width: '20rem'
             },
             {
-                name: 'Grade',
-                selector: (row) => row.Grade,
-                width: '9rem'
+                name: 'Mentor Name',
+                selector: (row) => row.mentor_name,
+                width: '15rem'
             },
             {
                 name: 'Age',
                 selector: (row) => row.Age,
                 width: '8rem'
             },
+
             {
-                name: 'Gender',
-                selector: (row) => row.Gender,
-                width: '10rem'
+                name: 'Mobile No',
+                selector: (row) => row.mobile,
+                width: '15rem'
             },
-            {
-                name: 'Status',
-                cell: (row) => [
-                    <Badge
-                        key={row.mentor_id}
-                        bg={`${
-                            row.status === 'ACTIVE' ? 'secondary' : 'danger'
-                        }`}
-                    >
-                        {row.status}
-                    </Badge>
-                ],
-                width: '8rem'
-            },
+            // {
+            //     name: 'Status',
+            //     cell: (row) => [
+            //         <Badge
+            //             key={row.mentor_id}
+            //             bg={`${
+            //                 row.status === 'ACTIVE' ? 'secondary' : 'danger'
+            //             }`}
+            //         >
+            //             {row.status}
+            //         </Badge>
+            //     ],
+            //     width: '8rem'
+            // },
             {
                 name: 'Actions',
                 sortable: false,
@@ -696,7 +699,6 @@ const TicketsPage = (props) => {
             }
         ]
     };
-
     const evaluatorsData = {
         data: props.evalutorsList,
         columns: [
@@ -918,6 +920,7 @@ const TicketsPage = (props) => {
                                             newDist={studentDist}
                                             dists={props.dists}
                                             tab={tab}
+                                            // drop={1}
                                         />
                                         {studentDist && (
                                             <Card className="ms-3 p-3">
@@ -937,10 +940,11 @@ const TicketsPage = (props) => {
                                             newDist={mentorDist}
                                             dists={props.dists}
                                             tab={tab}
+                                            // drop={1}
                                         />
                                         {mentorDist && (
                                             <Card className="ms-3 p-3">
-                                                Total Teachers :{' '}
+                                                Total Mentors :{' '}
                                                 {props.mentorsList.length}
                                             </Card>
                                         )}
@@ -967,14 +971,14 @@ const TicketsPage = (props) => {
                                         <Col className="ticket-btn col ml-auto ">
                                             <div className="d-flex justify-content-end">
                                                 <Button
-                                                    label="Add/Register Teacher "
+                                                    label="Register Mentor"
                                                     btnClass="m-5 btn btn-success"
                                                     size="small"
                                                     shape="btn-square"
                                                     // Icon={BsPlusLg}
                                                     onClick={() =>
                                                         history.push(
-                                                            '/admin/teacher/register'
+                                                            '/admin/mentor/register'
                                                         )
                                                     }
                                                 />
@@ -1051,7 +1055,7 @@ const TicketsPage = (props) => {
                                 )}
                             </TabPane>
                             <TabPane
-                                tab="Teachers"
+                                tab="Mentors"
                                 key="2"
                                 className="bg-white p-3 mt-2 sub-tab"
                                 tabId="2"

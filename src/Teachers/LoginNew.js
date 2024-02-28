@@ -118,11 +118,11 @@ const LoginNew = (props) => {
     const inputUserId = {
         type: 'text',
 
-        placeholder: 'Enter your Mobile Number'
+        placeholder: 'Enter Your Mobile Number'
     };
 
     const inputPassword = {
-        placeholder: 'Enter your password',
+        placeholder: 'Enter Your password',
         showEyeIcon: true
     };
 
