@@ -82,7 +82,7 @@ function AtlPage() {
 
     const inputUsername = {
         type: 'text',
-        placeholder: 'Enter Your Mobile Number',
+        placeholder: 'Enter Mobile Number',
         className: 'defaultInput'
     };
     const inputPassword = {
@@ -97,12 +97,12 @@ function AtlPage() {
     };
     const inputMobile = {
         type: 'text',
-        placeholder: 'Enter Your WhatsApp Number',
+        placeholder: 'Enter WhatsApp Number',
         className: 'defaultInput'
     };
     const inputmentor_Email = {
         type: 'text',
-        placeholder: 'Enter Your Email Id',
+        placeholder: 'Enter  Email Id',
         className: 'defaultInput'
     };
     const inputDate = {

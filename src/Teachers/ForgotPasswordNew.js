@@ -22,7 +22,7 @@ const ForgotPasswordNew = () => {
     const [errorMsg, seterrorMsg] = useState('');
     const inputMobile = {
         type: 'mobile',
-        placeholder: 'Enter your registered mobile number'
+        placeholder: 'Enter Your Registered Mobile Number'
     };
 
     const logInBtn = {

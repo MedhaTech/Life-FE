@@ -668,7 +668,7 @@ export default function DoughnutChart({ user }) {
                         style={{ minHeight: '25rem' }}
                     >
                         <p className="text-primary">
-                            There are no students in selected Team
+                            There are no students in the selected Team
                         </p>
                     </div>
                 ) : null}
