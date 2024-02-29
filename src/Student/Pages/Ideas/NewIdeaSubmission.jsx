@@ -85,6 +85,8 @@ function NewIdeaSubmission(props) {
 
     const [probStatment, setProbStatment] = useState(
         props?.submitedData?.themes_problem?.problem_statement
+            ? props?.submitedData?.themes_problem?.problem_statement
+            : ''
     );
     const [description, setDescription] = useState(
         props?.submitedData?.themes_problem?.problem_statement_description
@@ -114,7 +116,7 @@ function NewIdeaSubmission(props) {
             : []
     );
     const [statementList, setStatementList] = useState([]);
-    const [listofproblemsandID, setListofproblemsandID] = useState({});
+    const [listofproblemsandID, setListofproblemsandID] = useState([]);
     const [themeProId, setThemeProId] = useState(
         props?.submitedData?.theme_problem_id
             ? props?.submitedData?.theme_problem_id
@@ -140,7 +142,12 @@ function NewIdeaSubmission(props) {
     }, [theme]);
     useEffect(() => {
         if (themeProId) {
-            // setProbStatment(listofproblemsandID[themeProId]?.problem_statement);
+            console.log('listofproblemsandID', listofproblemsandID);
+
+            listofproblemsandID.length > 0 &&
+                setProbStatment(
+                    listofproblemsandID[themeProId]?.problem_statement
+                );
             setDescription(
                 listofproblemsandID[themeProId]?.problem_statement_description
             );
@@ -219,7 +226,7 @@ function NewIdeaSubmission(props) {
                     };
                     const otherList = [...response.data.data, otherArray];
                     setStatementList(otherList);
-                    let decandId = {};
+                    let decandId = [];
                     otherList.map((itea, i) => {
                         decandId[itea.theme_problem_id] = {
                             problem_statement_description:
