@@ -127,7 +127,7 @@ const LoginNew = (props) => {
     };
 
     const logInBtn = {
-        label: 'Log in',
+        label: 'Login',
         size: 'large'
     };
 

@@ -75,7 +75,7 @@ const ReportsRegistration = () => {
                 },
                 title: {
                     display: true,
-                    text: 'States',
+                    text: 'Districts',
                     color: 'blue'
                 },
                 ticks: {
@@ -89,7 +89,7 @@ const ReportsRegistration = () => {
                 stepSize: 20,
                 title: {
                     display: true,
-                    text: 'Number of Teachers',
+                    text: 'Number of Mentors',
                     color: 'blue'
                 },
                 grid: {
@@ -140,20 +140,27 @@ const ReportsRegistration = () => {
     const fullDistrictsNames = useSelector(
         (state) => state?.studentRegistration?.dists
     );
+    // useEffect(() => {
+    //     dispatch(getStateData());
+    // }, []);
+    // useEffect(() => {
+    //     if (RegTeachersState !== '') {
+    //         dispatch(getFetchDistData(RegTeachersState));
+    //     }
+    //     setRegTeachersdistrict('');
+    //     fetchChartTableData();
+    // }, [RegTeachersState]);
     useEffect(() => {
-        dispatch(getStateData());
-    }, []);
-    useEffect(() => {
-        if (RegTeachersState !== '') {
-            dispatch(getFetchDistData(RegTeachersState));
-        }
-        setRegTeachersdistrict('');
+        // if (RegTeachersState !== '') {
+        dispatch(getFetchDistData());
+        // }
+        // setRegTeachersdistrict('');
         fetchChartTableData();
-    }, [RegTeachersState]);
+    }, []);
     const studentTableHeaders = [
         {
-            label: 'State Name',
-            key: 'state'
+            label: 'District Name',
+            key: 'district_name'
         },
         {
             label: 'Total No.Of TEAMS created',
@@ -163,18 +170,18 @@ const ReportsRegistration = () => {
             label: 'Total No.Of STUDENTS enrolled',
             key: 'totalStudents'
         },
-        {
-            label: 'No.Of Students completed the Course',
-            key: 'courseCompleted'
-        },
-        {
-            label: 'No.Of Students course In Progress',
-            key: 'courseInProgress'
-        },
-        {
-            label: 'No.Of students NOT STARTED Course',
-            key: 'courseNotStarted'
-        },
+        // {
+        //     label: 'No.Of Students completed the Course',
+        //     key: 'courseCompleted'
+        // },
+        // {
+        //     label: 'No.Of Students course In Progress',
+        //     key: 'courseInProgress'
+        // },
+        // {
+        //     label: 'No.Of students NOT STARTED Course',
+        //     key: 'courseNotStarted'
+        // },
         {
             label: ' No.Of TEAMS SUBMITTED IDEAS',
             key: 'submittedCount'
@@ -187,10 +194,10 @@ const ReportsRegistration = () => {
             label: 'No.Of Teams NOT STARTED IDEAS SUBMISSION',
             key: 'ideaNotStarted'
         },
-        {
-            label: 'Course Completion Percentage',
-            key: 'coursePercentage'
-        },
+        // {
+        //     label: 'Course Completion Percentage',
+        //     key: 'coursePercentage'
+        // },
         {
             label: 'IDEA Submission Percentage',
             key: 'ideaSubmissionPercentage'
@@ -199,72 +206,89 @@ const ReportsRegistration = () => {
 
     const studentDetailsHeaders = [
         {
-            label: 'ATL CODE',
-            key: 'ATL code'
-        },
-        {
             label: 'Institution Unique Code',
-            key: 'UDISE code'
+            key: 'institution_code'
         },
         {
-            label: 'School Name',
-            key: 'School Name'
+            label: 'Institution Name',
+            key: 'institution_name'
+        },
+
+        {
+            label: 'District',
+            key: 'district_name'
         },
         {
-            label: 'School Type/Category',
-            key: 'category'
+            label: 'Block',
+            key: 'block_name'
+        },
+        {
+            label: 'Taluk',
+            key: 'taluk_name'
+        },
+        {
+            label: 'Place',
+            key: 'place_name'
         },
         {
             label: 'State',
-            key: 'state'
+            key: 'state_name'
         },
         {
-            label: 'District',
-            key: 'district'
+            label: 'Principal Name',
+            key: 'principal_name'
         },
         {
-            label: 'City',
-            key: 'city'
+            label: 'Principal Mobile No',
+            key: 'principal_mobile'
         },
         {
-            label: 'HM Name',
-            key: 'HM Name'
+            label: 'Principal Whatsapp Noo',
+            key: 'principal_whatsapp_mobile'
         },
         {
-            label: 'HM Contact',
-            key: 'HM Contact'
+            label: 'Principal Email',
+            key: 'principal_email'
         },
         {
             label: 'Mentor Name',
             key: 'Teacher Name'
         },
         {
-            label: 'Teacher Email',
-            key: 'Teacher Email'
+            label: 'Mentor Name',
+            key: 'mentor_name'
         },
         {
-            label: 'Teacher Gender',
-            key: 'Teacher Gender'
+            label: 'Email ID',
+            key: 'mentor_email'
         },
         {
-            label: 'Teacher Contact',
-            key: 'Teacher Contact'
+            label: 'Mentor Gender',
+            key: 'gender'
         },
         {
-            label: 'Teacher WhatsApp Contact',
-            key: 'Teacher WhatsApp Contact'
+            label: 'Mentor No',
+            key: 'mentor_mobile'
+        },
+        {
+            label: 'Mentor WhatsApp No',
+            key: 'mentor_whatapp_mobile'
         },
         {
             label: 'Team Name',
-            key: 'Team Name'
+            key: 'team_name'
         },
         {
             label: 'Student Name',
-            key: 'Student Name'
+            key: 'student_full_name'
         },
         {
-            label: 'Student Username',
-            key: 'Student Username'
+            label: 'Student Mobile No',
+            key: 'mobile'
+        },
+        {
+            label: 'Student Email',
+            key: 'email'
         },
         {
             label: 'Age',
@@ -272,32 +296,32 @@ const ReportsRegistration = () => {
         },
         {
             label: 'Gender',
-            key: 'gender'
+            key: 'Gender'
         },
         {
-            label: 'Grade',
-            key: 'Grade'
+            label: 'Year of study',
+            key: 'year_of_study'
         },
-        {
-            label: 'Disability status',
-            key: 'Disability status'
-        },
-        {
-            label: 'Course Completion%',
-            key: 'Course Completion'
-        },
-        {
-            label: 'Course Status',
-            key: 'Course Status'
-        },
+        // {
+        //     label: 'Disability status',
+        //     key: 'Disability status'
+        // },
+        // {
+        //     label: 'Course Completion%',
+        //     key: 'Course Completion'
+        // },
+        // {
+        //     label: 'Course Status',
+        //     key: 'Course Status'
+        // },
         {
             label: 'Idea Status',
-            key: 'Idea Status'
-        },
-        {
-            label: 'Post-Survey Status',
-            key: 'Post Survey Status'
+            key: 'idea_status'
         }
+        // {
+        //     label: 'Post-Survey Status',
+        //     key: 'Post Survey Status'
+        // }
     ];
     // useEffect(() => {
     //     dispatch(getDistrictData());
@@ -360,12 +384,12 @@ const ReportsRegistration = () => {
     const fetchData = () => {
         const param = encryptGlobal(
             JSON.stringify({
-                state: RegTeachersState,
-                district:
+                // state: RegTeachersState,
+                district_name:
                     RegTeachersdistrict === ''
                         ? 'All Districts'
-                        : RegTeachersdistrict,
-                category: category
+                        : RegTeachersdistrict
+                // category: category
             })
         );
         const url = `/reports/studentdetailsreport?Data=${param}`;
@@ -418,17 +442,17 @@ const ReportsRegistration = () => {
     };
 
     const handleDownload = () => {
-        if (
-            !RegTeachersState ||
-            // || !RegTeachersdistrict
-            !category
-        ) {
-            notification.warning({
-                message:
-                    'Please select a state and category type before Downloading Reports.'
-            });
-            return;
-        }
+        // if (
+        //     // !RegTeachersState |
+        //     !RegTeachersdistrict
+        //     // !category
+        // ) {
+        //     notification.warning({
+        //         message:
+        //             'Please select district type before Downloading Reports.'
+        //     });
+        //     return;
+        // }
         setIsDownloading(true);
         fetchData();
     };
@@ -437,7 +461,7 @@ const ReportsRegistration = () => {
         if (downloadComplete) {
             setDownloadComplete(false);
             setRegTeachersdistrict('');
-            setRegTeachersState('');
+            // setRegTeachersState('');
         }
         const newDate = new Date();
         const formattedDate = `${newDate.getUTCDate()}/${
@@ -461,43 +485,44 @@ const ReportsRegistration = () => {
         axios(config)
             .then((response) => {
                 if (response.status === 200) {
+                    // console.log(response);
                     const summary = response.data.data[0].summary;
                     const studentCountDetails =
                         response.data.data[0].studentCountDetails;
-                    const courseCompleted =
-                        response.data.data[0].courseCompleted;
-                    const courseINprogesss =
-                        response.data.data[0].courseINprogesss;
+                    // const courseCompleted =
+                    //     response.data.data[0].courseCompleted;
+                    // const courseINprogesss =
+                    //     response.data.data[0].courseINprogesss;
                     const submittedCount = response.data.data[0].submittedCount;
                     const draftCount = response.data.data[0].draftCount;
 
                     const combinedArray = summary.map((summaryItem) => {
-                        const state = summaryItem.state;
+                        const district_name = summaryItem.district_name;
                         const totalTeams = summaryItem.totalTeams;
                         const studentCountItem = studentCountDetails.find(
-                            (item) => item.state === state
+                            (item) => item.district_name === district_name
                         );
-                        const courseCompletedItem = courseCompleted.find(
-                            (item) => item.state === state
-                        );
-                        const courseInProgressItem = courseINprogesss.find(
-                            (item) => item.state === state
-                        );
-                        const courseNotStarted = studentCountItem
-                            ? studentCountItem.totalstudent -
-                              (courseCompletedItem
-                                  ? courseCompletedItem.studentCourseCMP
-                                  : 0) -
-                              (courseInProgressItem
-                                  ? courseInProgressItem.studentCourseIN
-                                  : 0)
-                            : 0;
+                        // const courseCompletedItem = courseCompleted.find(
+                        //     (item) => item.state === state
+                        // );
+                        // const courseInProgressItem = courseINprogesss.find(
+                        //     (item) => item.state === state
+                        // );
+                        // const courseNotStarted = studentCountItem
+                        //     ? studentCountItem.totalstudent -
+                        //       (courseCompletedItem
+                        //           ? courseCompletedItem.studentCourseCMP
+                        //           : 0) -
+                        //       (courseInProgressItem
+                        //           ? courseInProgressItem.studentCourseIN
+                        //           : 0)
+                        //     : 0;
 
                         const submittedCountItem = submittedCount.find(
-                            (item) => item.state === state
+                            (item) => item.district_name === district_name
                         );
                         const draftCountItem = draftCount.find(
-                            (item) => item.state === state
+                            (item) => item.district_name === district_name
                         );
                         const ideaNotStarted =
                             summaryItem.totalTeams -
@@ -508,17 +533,17 @@ const ReportsRegistration = () => {
                                     ? draftCountItem.draftCount
                                     : 0));
 
-                        const coursePercentage =
-                            studentCountItem &&
-                            studentCountItem.totalstudent > 0
-                                ? Math.round(
-                                      ((courseCompletedItem
-                                          ? courseCompletedItem.studentCourseCMP
-                                          : 0) /
-                                          studentCountItem.totalstudent) *
-                                          100
-                                  )
-                                : 0;
+                        // const coursePercentage =
+                        //     studentCountItem &&
+                        //     studentCountItem.totalstudent > 0
+                        //         ? Math.round(
+                        //               ((courseCompletedItem
+                        //                   ? courseCompletedItem.studentCourseCMP
+                        //                   : 0) /
+                        //                   studentCountItem.totalstudent) *
+                        //                   100
+                        //           )
+                        //         : 0;
                         const ideaSubmissionPercentage =
                             totalTeams > 0
                                 ? Math.round(
@@ -531,18 +556,18 @@ const ReportsRegistration = () => {
                                 : 0;
 
                         return {
-                            state,
+                            district_name,
                             totalTeams,
                             totalStudents: studentCountItem
                                 ? studentCountItem.totalstudent
                                 : 0,
-                            courseCompleted: courseCompletedItem
-                                ? courseCompletedItem.studentCourseCMP
-                                : 0,
-                            courseInProgress: courseInProgressItem
-                                ? courseInProgressItem.studentCourseIN
-                                : 0,
-                            courseNotStarted,
+                            // courseCompleted: courseCompletedItem
+                            //     ? courseCompletedItem.studentCourseCMP
+                            //     : 0,
+                            // courseInProgress: courseInProgressItem
+                            //     ? courseInProgressItem.studentCourseIN
+                            //     : 0,
+                            // courseNotStarted,
                             submittedCount: submittedCountItem
                                 ? submittedCountItem.submittedCount
                                 : 0,
@@ -550,7 +575,7 @@ const ReportsRegistration = () => {
                                 ? draftCountItem.draftCount
                                 : 0,
                             ideaNotStarted,
-                            coursePercentage,
+                            // coursePercentage,
                             ideaSubmissionPercentage
                         };
                     });
@@ -559,27 +584,32 @@ const ReportsRegistration = () => {
                         (acc, item) => {
                             acc.totalTeams += item.totalTeams;
                             acc.totalStudents += item.totalStudents;
-                            acc.courseCompleted += item.courseCompleted;
-                            acc.courseInProgress += item.courseInProgress;
+                            // acc.courseCompleted += item.courseCompleted;
+                            // acc.courseInProgress += item.courseInProgress;
                             acc.submittedCount += item.submittedCount;
                             acc.draftCount += item.draftCount;
-                            acc.courseNotStarted =
-                                acc.totalStudents -
-                                (acc.courseCompleted + acc.courseInProgress);
+                            // acc.courseNotStarted =
+                            //     acc.totalStudents -
+                            //     (acc.courseCompleted + acc.courseInProgress);
                             acc.ideaNotStarted =
                                 acc.totalTeams -
                                 (acc.submittedCount + acc.draftCount);
+                            acc.ideaSubmissionPercentage = (
+                                (acc.submittedCount / acc.totalTeams) *
+                                100
+                            ).toFixed(2);
                             return acc;
                         },
                         {
                             totalTeams: 0,
                             totalStudents: 0,
-                            courseCompleted: 0,
-                            courseInProgress: 0,
+                            // courseCompleted: 0,
+                            // courseInProgress: 0,
                             submittedCount: 0,
                             draftCount: 0,
-                            courseNotStarted: 0,
-                            ideaNotStarted: 0
+                            // courseNotStarted: 0,
+                            ideaNotStarted: 0,
+                            ideaSubmissionPercentage: 0
                         }
                     );
                     const doughNutData1 = {
@@ -659,7 +689,7 @@ const ReportsRegistration = () => {
                     };
 
                     const stackedBarChart2Data = {
-                        labels: combinedArray.map((item) => item.state),
+                        labels: combinedArray.map((item) => item.district_name),
                         datasets: [
                             {
                                 label: 'No of Teams Submitted Ideas',
@@ -684,7 +714,10 @@ const ReportsRegistration = () => {
                             }
                         ]
                     };
-                    setCombinedArray(combinedArray);
+                    var array = combinedArray;
+                    array.push({ district_name: 'Total Count', ...total });
+                    setCombinedArray(array);
+                    // setCombinedArray(combinedArray);
                     setDownloadTableData(combinedArray);
                     setDoughnutChart1Data(doughNutData1);
                     setDoughnutChart2Data(doughNutData2);
@@ -700,7 +733,7 @@ const ReportsRegistration = () => {
 
     return (
         <>
-            <Layout>
+            <Layout title="Reports">
                 <Container className="RegReports mt-4 mb-30 userlist">
                     <Row className="mt-0 pt-2">
                         <Col>
@@ -717,7 +750,7 @@ const ReportsRegistration = () => {
                         </Col>
                         <div className="reports-data p-5 mt-4 mb-5 bg-white">
                             <Row className="align-items-center">
-                                <Col md={3}>
+                                {/* <Col md={3}>
                                     <div className="my-3 d-md-block d-flex justify-content-center">
                                         <Select
                                             list={fullStatesNames}
@@ -726,7 +759,7 @@ const ReportsRegistration = () => {
                                             value={RegTeachersState}
                                         />
                                     </div>
-                                </Col>
+                                </Col> */}
                                 <Col md={3}>
                                     <div className="my-3 d-md-block d-flex justify-content-center">
                                         <Select
@@ -737,7 +770,7 @@ const ReportsRegistration = () => {
                                         />
                                     </div>
                                 </Col>
-                                <Col md={3}>
+                                {/* <Col md={3}>
                                     <div className="my-3 d-md-block d-flex justify-content-center">
                                         <Select
                                             list={categoryData}
@@ -746,7 +779,7 @@ const ReportsRegistration = () => {
                                             value={category}
                                         />
                                     </div>
-                                </Col>
+                                </Col> */}
                                 <Col
                                     md={3}
                                     className="d-flex align-items-center justify-content-center"
@@ -816,7 +849,8 @@ const ReportsRegistration = () => {
                                                             <tr>
                                                                 <th>No</th>
                                                                 <th>
-                                                                    State Name
+                                                                    District
+                                                                    Name
                                                                 </th>
                                                                 <th>
                                                                     Total No.Of
@@ -828,7 +862,7 @@ const ReportsRegistration = () => {
                                                                     STUDENTS
                                                                     enrolled
                                                                 </th>
-                                                                <th>
+                                                                {/* <th>
                                                                     No.Of
                                                                     Students
                                                                     completed
@@ -845,7 +879,7 @@ const ReportsRegistration = () => {
                                                                     students NOT
                                                                     STARTED
                                                                     Course
-                                                                </th>
+                                                                </th> */}
                                                                 <th>
                                                                     No.Of TEAMS
                                                                     SUBMITTED
@@ -862,11 +896,11 @@ const ReportsRegistration = () => {
                                                                     IDEAS
                                                                     SUBMISSION
                                                                 </th>
-                                                                <th>
+                                                                {/* <th>
                                                                     Course
                                                                     Completion
                                                                     Percentage
-                                                                </th>
+                                                                </th> */}
                                                                 <th>
                                                                     IDEA
                                                                     Submission
@@ -891,7 +925,7 @@ const ReportsRegistration = () => {
                                                                         </td>
                                                                         <td>
                                                                             {
-                                                                                item.state
+                                                                                item.district_name
                                                                             }
                                                                         </td>
                                                                         <td>
@@ -904,7 +938,7 @@ const ReportsRegistration = () => {
                                                                                 item.totalStudents
                                                                             }
                                                                         </td>
-                                                                        <td>
+                                                                        {/* <td>
                                                                             {
                                                                                 item.courseCompleted
                                                                             }
@@ -918,7 +952,7 @@ const ReportsRegistration = () => {
                                                                             {
                                                                                 item.courseNotStarted
                                                                             }
-                                                                        </td>
+                                                                        </td> */}
                                                                         <td>
                                                                             {
                                                                                 item.submittedCount
@@ -934,12 +968,12 @@ const ReportsRegistration = () => {
                                                                                 item.ideaNotStarted
                                                                             }
                                                                         </td>
-                                                                        <td>
+                                                                        {/* <td>
                                                                             {
                                                                                 item.coursePercentage
                                                                             }
                                                                             %
-                                                                        </td>
+                                                                        </td> */}
                                                                         <td>
                                                                             {
                                                                                 item.ideaSubmissionPercentage
@@ -949,7 +983,7 @@ const ReportsRegistration = () => {
                                                                     </tr>
                                                                 )
                                                             )}
-                                                            <tr>
+                                                            {/* <tr>
                                                                 <td>{}</td>
                                                                 <td>
                                                                     {
@@ -1012,12 +1046,12 @@ const ReportsRegistration = () => {
                                                                     )}
                                                                     %
                                                                 </td>
-                                                            </tr>
+                                                            </tr> */}
                                                         </tbody>
                                                     </Table>
                                                 </div>
                                             </div>
-                                            <div className="col-md-6">
+                                            {/* <div className="col-md-6">
                                                 <div className="col-md-6 text-center mt-5">
                                                     <p
                                                         style={{
@@ -1045,7 +1079,7 @@ const ReportsRegistration = () => {
                                                         />
                                                     )}
                                                 </div>
-                                            </div>
+                                            </div> */}
                                             <div className="col-md-6">
                                                 <div className="col-md-6 text-center mt-5 ">
                                                     <p
@@ -1075,7 +1109,7 @@ const ReportsRegistration = () => {
                                                     )}
                                                 </div>
                                             </div>
-                                            <div className="row">
+                                            {/* <div className="row">
                                                 <div
                                                     className="col-md-6 chart-container mt-2"
                                                     style={{
@@ -1103,7 +1137,7 @@ const ReportsRegistration = () => {
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div> */}
 
                                             <div
                                                 className="col-md-6 chart-container mt-4"

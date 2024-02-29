@@ -22,6 +22,7 @@ import { Row, Col, Form, Label } from 'reactstrap';
 import { encryptGlobal } from '../../constants/encryptDecrypt';
 
 const ViewDetail = (props) => {
+    console.log(props, '2');
     const componentRef = useRef();
     const currentUser = getCurrentUser('current_user');
     const [teamResponse, setTeamResponse] = React.useState([]);
@@ -197,7 +198,7 @@ const ViewDetail = (props) => {
                                             <h2 className="mb-md-4 mb-3">
                                                 Theme :
                                                 <span className="text-capitalize fs-3">
-                                                    {props?.ideaDetails?.sdg?.toLowerCase() ||
+                                                    {props?.ideaDetails?.themes_problem?.theme_name?.toLowerCase() ||
                                                         ''}
                                                 </span>
                                             </h2>
@@ -207,8 +208,7 @@ const ViewDetail = (props) => {
                                                 CID :
                                                 <span className="text-capitalize fs-3">
                                                     {props?.ideaDetails
-                                                        ?.challenge_response_id ||
-                                                        ''}
+                                                        ?.idea_id || ''}
                                                 </span>
                                             </h2>
                                         </Col>
@@ -320,7 +320,7 @@ const ViewDetail = (props) => {
                                                 Problem Statement :{' '}
                                             </span>
                                             <span className="text-capitalize fs-3">
-                                                {props?.ideaDetails?.sub_category?.toLowerCase() ||
+                                                {props?.ideaDetails?.themes_problem?.problem_statement?.toLowerCase() ||
                                                     ''}
                                             </span>
                                         </h2>

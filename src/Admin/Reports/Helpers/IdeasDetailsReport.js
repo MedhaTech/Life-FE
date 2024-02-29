@@ -47,6 +47,7 @@ const ReportsRegistration = () => {
     //     categoryValue[process.env.REACT_APP_LOCAL_LANGUAGE_CODE];
 
     const [downloadData, setDownloadData] = useState(null);
+    console.log(downloadData, 'bb');
     const [downloadNotRegisteredData, setDownloadNotRegisteredData] =
         useState(null);
     const [chartTableData, setChartTableData] = useState([]);
@@ -79,8 +80,8 @@ const ReportsRegistration = () => {
     const [downloadTableData, setDownloadTableData] = useState(null);
     const summaryHeaders = [
         {
-            label: 'State Name',
-            key: 'state'
+            label: 'District Name',
+            key: 'district_name'
         },
         {
             label: 'No of Ideas Submitted',
@@ -129,41 +130,42 @@ const ReportsRegistration = () => {
     ];
     const teacherDetailsHeaders = [
         {
-            label: 'ATL CODE',
-            key: 'organization_code'
+            label: 'District Name',
+            key: 'district_name'
         },
         {
-            label: 'Institution Unique Code',
-            key: 'unique_code'
+            label: 'Institution Name',
+            key: 'institution_name'
         },
-        {
-            label: 'State',
-            key: 'state'
-        },
+
         {
             label: 'District',
-            key: 'district'
+            key: 'district_name'
         },
         {
-            label: 'CID',
-            key: 'challenge_response_id'
+            label: 'Block',
+            key: 'block_name'
         },
         {
-            label: 'School Name',
-            key: 'organization_name'
+            label: 'Taluk',
+            key: 'taluk_name'
+        },
+        {
+            label: 'Place',
+            key: 'place_name'
         },
         {
             label: 'School Type/Category',
             key: 'category'
         },
         {
-            label: 'Pin code',
-            key: 'pin_code'
+            label: 'State',
+            key: 'state_name'
         },
-        {
-            label: 'Address',
-            key: 'address'
-        },
+        // {
+        //     label: 'Address',
+        //     key: 'address'
+        // },
 
         // {
         //     label: 'City',
@@ -179,16 +181,27 @@ const ReportsRegistration = () => {
         // },
         {
             label: 'Mentor Name',
-            key: 'full_name'
+            key: 'Teacher Name'
         },
         {
-            label: 'Teacher Email',
-            key: 'email'
+            label: 'Mentor Name',
+            key: 'mentor_name'
         },
-
         {
-            label: 'Teacher Contact',
-            key: 'mobile'
+            label: 'Email ID',
+            key: 'mentor_email'
+        },
+        {
+            label: 'Mentor Gender',
+            key: 'gender'
+        },
+        {
+            label: 'Mentor No',
+            key: 'mentor_mobile'
+        },
+        {
+            label: 'Mentor WhatsApp No',
+            key: 'mentor_whatapp_mobile'
         },
 
         {
@@ -197,45 +210,64 @@ const ReportsRegistration = () => {
         },
         {
             label: 'Student Name',
-            key: 'Students names'
+            key: 'students_names'
         },
         {
-            label: 'Theme',
-            key: 'sdg'
+            label: 'Which theme are you targeting with your solution ?',
+            key: 'theme_name'
         },
         {
             label: 'Idea Title',
-            key: '1'
+            key: 'idea_title'
         },
         {
-            label: 'Problem Statement',
-            key: 'sub_category'
-        },
-        { label: 'Explain your innovation and working in detail', key: '2' },
-        {
-            label: 'What ATL tools / technologies have you used while developing your project ?',
-            key: '3'
+            label: 'Which problem statement are you targeting with your solution ?',
+            key: 'problem_statement'
         },
         {
-            label: 'Upload Research Document of your project and your team group photo',
-            key: '4'
+            label: 'Description of the Problem Statement ?',
+            key: 'problem_statement_description'
+        },
+        { label: 'Solution Statement', key: 'solution_statement' },
+        {
+            label: 'Detailed Solution',
+            key: 'detailed_solution'
         },
         {
-            label: 'Upload Video of your project (Share Youtube link)',
-            key: '5'
+            label: 'Do you already have a prototype built?',
+            key: 'prototype_available'
+        },
+        {
+            label: 'If yes, Prototype File Upload (Only JPG/PNG)',
+            key: 'Prototype_file'
+        },
+        {
+            label: 'Is this idea submitted by you or your team members in any other Forum or Programs or Publications as on date?',
+            key: 'idea_available'
+        },
+        {
+            label: ' I confirm that the Idea Submitted now submitted is not copied or plagiarized version.',
+            key: 'self_declaration'
         }
     ];
 
+    // useEffect(() => {
+    //     dispatch(getStateData());
+    // }, []);
+    // useEffect(() => {
+    //     if (RegTeachersState !== '') {
+    //         dispatch(getFetchDistData(RegTeachersState));
+    //     }
+    //     setRegTeachersdistrict('');
+    //     fetchChartTableData();
+    // }, [RegTeachersState]);
     useEffect(() => {
-        dispatch(getStateData());
+        // if (RegTeachersState !== '') {
+        dispatch(getFetchDistData());
+        // }
+        // setRegTeachersdistrict('');
+        // fetchChartTableData();
     }, []);
-    useEffect(() => {
-        if (RegTeachersState !== '') {
-            dispatch(getFetchDistData(RegTeachersState));
-        }
-        setRegTeachersdistrict('');
-        fetchChartTableData();
-    }, [RegTeachersState]);
 
     // useEffect(() => {
     //     dispatch(getDistrictData());
@@ -334,13 +366,13 @@ const ReportsRegistration = () => {
         const IdeaPram = encryptGlobal(
             JSON.stringify({
                 status: 'ACTIVE',
-                state: RegTeachersState,
-                district:
+                // state: RegTeachersState,
+                district_name:
                     RegTeachersdistrict === ''
                         ? 'All Districts'
-                        : RegTeachersdistrict,
-                category: category,
-                sdg: sdg
+                        : RegTeachersdistrict
+                // category: category,
+                // sdg: sdg
             })
         );
         // alert('hi');
@@ -370,33 +402,34 @@ const ReportsRegistration = () => {
         axios(config)
             .then((response) => {
                 if (response.status === 200) {
-                    const transformedData = response.data.data.map((entry) => {
-                        const { response, ...rest } = entry;
-                        const parsedResponse = JSON.parse(response);
+                    const IdeaFormData = response?.data?.data || [];
+                    // const transformedData = response.data.data.map((entry) => {
+                    //     const { response, ...rest } = entry;
+                    //     const parsedResponse = JSON.parse(response);
 
-                        Object.keys(parsedResponse).forEach((key) => {
-                            const { challenge_question_id, selected_option } =
-                                parsedResponse[key];
-                            var newSelectedOption;
-                            const tostringCovert = selected_option.toString();
-                            if (
-                                tostringCovert === null ||
-                                tostringCovert === undefined
-                            ) {
-                                newSelectedOption = selected_option;
-                            } else {
-                                newSelectedOption = tostringCovert
-                                    .replace(/\n/g, ' ')
-                                    .replace(/,/g, ';');
-                            }
-                            entry[challenge_question_id] = newSelectedOption;
-                        });
+                    //     Object.keys(parsedResponse).forEach((key) => {
+                    //         const { challenge_question_id, selected_option } =
+                    //             parsedResponse[key];
+                    //         var newSelectedOption;
+                    //         const tostringCovert = selected_option.toString();
+                    //         if (
+                    //             tostringCovert === null ||
+                    //             tostringCovert === undefined
+                    //         ) {
+                    //             newSelectedOption = selected_option;
+                    //         } else {
+                    //             newSelectedOption = tostringCovert
+                    //                 .replace(/\n/g, ' ')
+                    //                 .replace(/,/g, ';');
+                    //         }
+                    //         entry[challenge_question_id] = newSelectedOption;
+                    //     });
 
-                        return {
-                            ...entry
-                        };
-                    });
-                    setDownloadData(transformedData);
+                    //     return {
+                    //         ...entry
+                    //     };
+                    // });
+                    setDownloadData(IdeaFormData);
                     csvLinkRef.current.link.click();
                     openNotificationWithIcon(
                         'success',
@@ -414,19 +447,19 @@ const ReportsRegistration = () => {
         RegTeachersdistrict === '' ? 'All Districts' : RegTeachersdistrict;
     const handleDownload = () => {
         // alert('hii');
-        if (
-            !RegTeachersState ||
-            // !RegTeachersdistrict ||
-            // !filterType ||
-            !category ||
-            !sdg
-        ) {
-            notification.warning({
-                message:
-                    'Please select a state,category and Theme type before Downloading Reports.'
-            });
-            return;
-        }
+        // if (
+        //     !RegTeachersState ||
+        //     // !RegTeachersdistrict ||
+        //     // !filterType ||
+        //     !category ||
+        //     !sdg
+        // ) {
+        //     notification.warning({
+        //         message:
+        //             'Please select a state,category and Theme type before Downloading Reports.'
+        //     });
+        //     return;
+        // }
         setIsDownloading(true);
         fetchData();
     };
@@ -440,12 +473,12 @@ const ReportsRegistration = () => {
     useEffect(() => {
         if (downloadComplete) {
             setDownloadComplete(false);
-            setRegTeachersState('');
+            // setRegTeachersState('');
 
-            setRegTeachersdistrict('');
+            // setRegTeachersdistrict('');
 
             // setFilterType('');
-            setsdg('');
+            // setsdg('');
         }
         const newDate = new Date();
         const formattedDate = `${newDate.getUTCDate()}/${
@@ -573,7 +606,7 @@ const ReportsRegistration = () => {
 
     return (
         <>
-            <Layout>
+            <Layout title="Reports">
                 <Container className="RegReports mt-4 mb-30 userlist">
                     <Row className="mt-0 pt-2">
                         <Col>
@@ -590,7 +623,7 @@ const ReportsRegistration = () => {
                         </Col>
                         <div className="reports-data p-5 mt-4 mb-5 bg-white">
                             <Row className="align-items-center">
-                                <Col md={2}>
+                                {/* <Col md={2}>
                                     <div className="my-3 d-md-block d-flex justify-content-center">
                                         <Select
                                             list={fullStatesNames}
@@ -599,7 +632,7 @@ const ReportsRegistration = () => {
                                             value={RegTeachersState}
                                         />
                                     </div>
-                                </Col>
+                                </Col> */}
                                 <Col md={2}>
                                     <div className="my-3 d-md-block d-flex justify-content-center">
                                         <Select
@@ -611,7 +644,7 @@ const ReportsRegistration = () => {
                                     </div>
                                 </Col>
 
-                                <Col md={2}>
+                                {/* <Col md={2}>
                                     <div className="my-3 d-md-block d-flex justify-content-center">
                                         <Select
                                             list={categoryData}
@@ -620,15 +653,15 @@ const ReportsRegistration = () => {
                                             value={category}
                                         />
                                     </div>
-                                </Col>
+                                </Col> */}
                                 <Col md={2}>
                                     <div className="my-3 d-md-block d-flex justify-content-center">
-                                        <Select
+                                        {/* <Select
                                             list={SDGDate}
                                             setValue={setsdg}
                                             placeHolder={'Select Themes'}
                                             value={sdg}
-                                        />
+                                        /> */}
                                         {/* <Select
                                             list={filterOptions}
                                             setValue={setFilterType}
@@ -780,7 +813,7 @@ const ReportsRegistration = () => {
                                                                         </td>
                                                                         <td>
                                                                             {
-                                                                                item.state
+                                                                                item.district_name
                                                                             }
                                                                         </td>
                                                                         <td>
@@ -915,7 +948,7 @@ const ReportsRegistration = () => {
                                             <div className="col-md-5 mt-5">
                                                 <div className="row">
                                                     <Row>
-                                                        <Col>
+                                                        {/* <Col>
                                                             <div className="col-md-6 text-center mt-3">
                                                                 <p>
                                                                     <b>
@@ -943,8 +976,8 @@ const ReportsRegistration = () => {
                                                                     />
                                                                 )}
                                                             </div>
-                                                        </Col>
-                                                        <Col>
+                                                        </Col> */}
+                                                        {/* <Col>
                                                             <div className="col-md-6 text-center mt-3">
                                                                 <p>
                                                                     <b>
@@ -969,7 +1002,7 @@ const ReportsRegistration = () => {
                                                                     />
                                                                 )}
                                                             </div>
-                                                        </Col>
+                                                        </Col> */}
                                                     </Row>
                                                 </div>
                                             </div>

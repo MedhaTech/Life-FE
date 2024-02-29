@@ -140,7 +140,7 @@ function NewIdeaSubmission(props) {
     }, [theme]);
     useEffect(() => {
         if (themeProId) {
-            setProbStatment(listofproblemsandID[themeProId]?.problem_statement);
+            // setProbStatment(listofproblemsandID[themeProId]?.problem_statement);
             setDescription(
                 listofproblemsandID[themeProId]?.problem_statement_description
             );
@@ -437,7 +437,7 @@ function NewIdeaSubmission(props) {
         }
         handleUploadFiles(choosenFiles);
     };
-
+    console.log(probStatment, '1');
     return (
         <Layout title="Idea Submission">
             {finalPage ? (
@@ -683,7 +683,7 @@ function NewIdeaSubmission(props) {
                                                     </div>
 
                                                     <div className=" answers row flex-column p-4">
-                                                        <select
+                                                        {/* <select
                                                             disabled={condition}
                                                             onChange={(e) =>
                                                                 setThemeProId(
@@ -703,25 +703,69 @@ function NewIdeaSubmission(props) {
                                                                 Problem
                                                                 statement
                                                             </option> */}
-                                                            {statementList.map(
-                                                                (item, i) => (
-                                                                    <option
+                                                        {/* {statementList.map(
+                                                            (item, i) => (
+                                                                <option
+                                                                    key={i}
+                                                                    value={
+                                                                        item.theme_problem_id
+                                                                    }
+                                                                    selected={
+                                                                        item.problem_statement ===
+                                                                        probStatment
+                                                                    }
+                                                                >
+                                                                    {
+                                                                        item.problem_statement
+                                                                    }
+                                                                </option>
+                                                            )
+                                                        )} */}
+                                                        {/* </select> */}
+                                                        {statementList.map(
+                                                            (item, i) => (
+                                                                <>
+                                                                    <label
                                                                         key={i}
-                                                                        value={
-                                                                            item.theme_problem_id
-                                                                        }
-                                                                        selected={
-                                                                            item.problem_statement ===
-                                                                            probStatment
-                                                                        }
+                                                                        style={{
+                                                                            margin: '1rem',
+                                                                            fontSize:
+                                                                                '1.6rem'
+                                                                        }}
                                                                     >
+                                                                        <input
+                                                                            disabled={
+                                                                                condition
+                                                                            }
+                                                                            type="radio"
+                                                                            // value={
+                                                                            //     item
+                                                                            // }
+                                                                            value={
+                                                                                item.theme_problem_id
+                                                                            }
+                                                                            checked={
+                                                                                item.problem_statement ===
+                                                                                probStatment
+                                                                            }
+                                                                            onChange={(
+                                                                                e
+                                                                            ) =>
+                                                                                setThemeProId(
+                                                                                    e
+                                                                                        .target
+                                                                                        .value
+                                                                                )
+                                                                            }
+                                                                        />{' '}
                                                                         {
                                                                             item.problem_statement
                                                                         }
-                                                                    </option>
-                                                                )
-                                                            )}
-                                                        </select>
+                                                                    </label>
+                                                                    <br />
+                                                                </>
+                                                            )
+                                                        )}
                                                     </div>
                                                 </Row>
                                             )}

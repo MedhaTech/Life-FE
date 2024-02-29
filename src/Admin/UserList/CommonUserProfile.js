@@ -217,12 +217,15 @@ const CommonUserProfile = (props) => {
             data: {
                 Age: StudentsDaTa.Age,
                 Gender: StudentsDaTa.Gender,
-                Grade: StudentsDaTa.Grade,
+                email: StudentsDaTa.email,
                 student_id: StudentsDaTa.student_id,
-                team_id: StudentsDaTa?.team.team_id,
-                full_name: StudentsDaTa.full_name,
-                disability: StudentsDaTa.disability,
-                username: StudentsDaTa.username_email
+                team_id: StudentsDaTa?.team_id,
+                student_full_name: StudentsDaTa.student_full_name,
+                date_of_birth: StudentsDaTa.date_of_birth,
+                mobile: StudentsDaTa?.mobile,
+                year_of_study: StudentsDaTa?.year_of_study,
+                institution_id: StudentsDaTa?.institution_id,
+                course_name: StudentsDaTa?.course_name
             }
         });
     };
@@ -258,7 +261,7 @@ const CommonUserProfile = (props) => {
         ]
     };
     return (
-        <Layout>
+        <Layout title="UserList">
             <Container className="mt-5 pt-5 dynamic-form">
                 <Row>
                     <div className="col-6">

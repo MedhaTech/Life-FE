@@ -17,7 +17,6 @@ const MyProfile = () => {
     const history = useHistory();
     const currentUser = getCurrentUser('current_user');
     const { teacher } = useSelector((state) => state.teacher);
-    console.log(teacher, '33');
     const [data, setData] = useState('');
     const [code, setCode] = useState('');
     const dispatch = useDispatch();

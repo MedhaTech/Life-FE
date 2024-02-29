@@ -637,14 +637,20 @@ const TicketsPage = (props) => {
                 width: '20rem'
             },
             {
+                name: 'Age',
+                selector: (row) => row.Age,
+                width: '8rem'
+            },
+
+            {
                 name: 'Mentor Name',
                 selector: (row) => row.mentor_name,
                 width: '15rem'
             },
             {
-                name: 'Age',
-                selector: (row) => row.Age,
-                width: '8rem'
+                name: 'Team Name',
+                selector: (row) => row.team_name,
+                width: '13rem'
             },
 
             {
@@ -897,7 +903,7 @@ const TicketsPage = (props) => {
     };
 
     return (
-        <Layout>
+        <Layout title="UserList">
             <Container className="ticket-page mt-5 mb-50 userlist">
                 <Row className="mt-0 pt-3">
                     <h2>User List</h2>
