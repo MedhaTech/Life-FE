@@ -73,7 +73,7 @@ const MyProfile = () => {
     });
 
     return (
-        <Layout>
+        <Layout title="MyProfile">
             <Container className="MyProfile pt-3 pt-xl-5 mb-50">
                 {/* <UsersPage /> */}
                 <Row>

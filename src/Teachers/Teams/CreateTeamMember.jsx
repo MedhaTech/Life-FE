@@ -374,7 +374,7 @@ const CreateMultipleMembers = ({ id }) => {
         const errors = studentData.map((item, i) => {
             let err = {};
             if (!item.student_full_name.trim())
-                err['student_full_name'] = 'Full name is Required';
+                err['student_full_name'] = 'Please enter full name';
             if (
                 item.student_full_name &&
                 item.student_full_name.match(pattern)
@@ -386,7 +386,7 @@ const CreateMultipleMembers = ({ id }) => {
             }
             if (!item.date_of_birth) {
                 err['date_of_birth'] =
-                    'Date of Birth is Required / Age Must be 14 to 15';
+                    'Please select date-of-birth / Age Must be 14 to 15';
             } else {
                 const currentDate = new Date();
                 const selectedDate = new Date(item.date_of_birth);
@@ -408,21 +408,21 @@ const CreateMultipleMembers = ({ id }) => {
 
             // if (!item.Age) err['Age'] = 'Age is Required';
             // if (!item.email) err['email'] = 'Email Id is Required';
-            if (!item.email.trim()) err['email'] = 'Email Id is Required';
+            if (!item.email.trim()) err['email'] = 'Please enter email id';
             if (item.email && item.email.match(emailRegex)) {
                 const { index } = item.email.match(emailRegex);
                 if (index) {
-                    err['email'] = 'Enter the valid email id';
+                    err['email'] = 'Please enter valid email id';
                 }
             }
             if (!item.email.trim()) {
-                err['email'] = 'Email Id is Required';
+                err['email'] = 'Please enter email id';
             } else if (!emailRegex.test(item.email)) {
                 err['email'] =
                     'Enter the valid email id/accept small letters only';
             }
             if (!item.institution_course_id)
-                err['institution_course_id'] = 'Program is Required';
+                err['institution_course_id'] = 'Please select any program ';
             // if (!item.stream_id) {
             //     err['stream_id'] = 'Course is Required';
             // } else {
@@ -446,19 +446,19 @@ const CreateMultipleMembers = ({ id }) => {
             //     err['mobile'] = 'Enter a valid mobile number';
             // }
             if (!item.mobile.trim()) {
-                err['mobile'] = 'Mobile number is Required';
+                err['mobile'] = 'Please enter mobile number ';
             } else if (!/^\d{10}$/.test(item.mobile)) {
                 err['mobile'] =
-                    'Mobile number must be exactly 10 digits/Accept only digits';
+                    'Mobile number must be exactly 10 digits/accept only digits';
             } else if (!isValidNumber.test(item.mobile)) {
-                err['mobile'] = 'Enter a valid mobile number';
+                err['mobile'] = 'Please enter a valid mobile number';
             }
 
             // if (!item.date_of_birth) err['date_of_birth'] = 'DOB is Required';
             if (!item.year_of_study)
-                err['year_of_study'] = 'Year Of Study is Required';
+                err['year_of_study'] = 'Please select year of study';
 
-            if (!item.Gender) err['Gender'] = 'Gender is Required';
+            if (!item.Gender) err['Gender'] = 'Please select gender ';
             if (Object.values(err).length === 0) {
                 return { ...studentBody, i };
             }

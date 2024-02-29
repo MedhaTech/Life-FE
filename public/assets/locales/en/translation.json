@@ -112,11 +112,11 @@
         "Current_password": "Current password",
         "Enter_current_password_here": "Enter current password here",
         "New_password": "New password",
-        "Create_new_password_here": "Create new password here",
+        "Create_new_password_here": "Enter new password here",
         "8-charac_minimum_case_sensitive": "8-character minimum; case sensitive",
-        "Verify_New_password": "Confirm New password",
+        "Verify_New_password": "Confirm new password",
         "Cancel": "Cancel",
-        "Change_password": "Change Password"
+        "Change_password": "Change password"
     },
     "schoolpswd": {
         "Change your password": "Change your password",
@@ -124,11 +124,11 @@
         "Current_password": "Current password",
         "Enter_current_password_here": "Enter current password here",
         "New_password": "New password",
-        "Create_new_password_here": "Create new password here",
+        "Create_new_password_here": "Enter new password here",
         "8-charac_minimum_case_sensitive": "8-character minimum; case sensitive",
-        "Verify_New_password": "Confirm New password",
+        "Verify_New_password": "Confirm new password",
         "Cancel": "Cancel",
-        "Change_password": "Change Password"
+        "Change_password": "Change Ppassword"
     },
     "coordinatorpswd": {
         "Change your password": "Change your password",
@@ -138,9 +138,9 @@
         "New_password": "New password",
         "Create_new_password_here": "Create new password here",
         "8-charac_minimum_case_sensitive": "8-character minimum; case sensitive",
-        "Verify_New_password": "Confirm New password",
+        "Verify_New_password": "Confirm new password",
         "Cancel": "Cancel",
-        "Change_password": "Change Password"
+        "Change_password": "Change password"
     },
     "home": {
         "pre_survey": "Pre Survey",

@@ -33,9 +33,18 @@ const CreateLatestNews = (props) => {
         const maxFileSize = 10000000;
         const isOverMaxSize = file.size > maxFileSize;
 
-        const allowedTypes = ['image/jpeg', 'image/png','application/msword','application/pdf','application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
-        if(!allowedTypes.includes(file.type)){
-            openNotificationWithIcon('error', t('Accepting only png,jpg,jpeg,pdf,doc,docx Only'));
+        const allowedTypes = [
+            'image/jpeg',
+            'image/png',
+            'application/msword',
+            'application/pdf',
+            'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+        ];
+        if (!allowedTypes.includes(file.type)) {
+            openNotificationWithIcon(
+                'error',
+                t('Accepting only png,jpg,jpeg,pdf,doc,docx Only')
+            );
             return;
         }
 
@@ -132,7 +141,7 @@ const CreateLatestNews = (props) => {
     });
 
     return (
-        <Layout>
+        <Layout title="LatestNews">
             <div className="EditPersonalDetails new-member-page">
                 <Row>
                     <Col className="col-xl-10 offset-xl-1 offset-md-0">

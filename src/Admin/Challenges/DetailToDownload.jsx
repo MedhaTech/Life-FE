@@ -11,6 +11,7 @@ class detailToDownload extends React.Component {
     constructor(props) {
         super(props);
         this.state = {};
+        console.log(props, 'd');
     }
     render() {
         return (
@@ -249,8 +250,13 @@ class detailToDownload extends React.Component {
                     {/* -------------questions answers---- */}
                     <div className="col-12">
                         <div style={{ borderStyle: 'solid', margin: '0 2rem' }}>
-                            <p className="mb-4 my-3  px-5 py-3 me-md-3"><b>Theme : </b> {this.props?.ideaDetails?.sdg}</p>
-                            <p className="mb-4 my-3  px-5 py-3 me-md-3"><b>Problem Statement : </b>{this.props?.ideaDetails?.sub_category}</p>
+                            <p className="mb-4 my-3  px-5 py-3 me-md-3">
+                                <b>Theme : </b> {this.props?.ideaDetails?.sdg}
+                            </p>
+                            <p className="mb-4 my-3  px-5 py-3 me-md-3">
+                                <b>Problem Statement : </b>
+                                {this.props?.ideaDetails?.sub_category}
+                            </p>
                             {this.props?.teamResponse &&
                                 this.props?.teamResponse.length > 0 &&
                                 this.props?.teamResponse.map((item, index) => {

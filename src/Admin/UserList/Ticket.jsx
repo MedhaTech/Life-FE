@@ -897,7 +897,7 @@ const TicketsPage = (props) => {
     };
 
     return (
-        <Layout>
+        <Layout title="UserList">
             <Container className="ticket-page mt-5 mb-50 userlist">
                 <Row className="mt-0 pt-3">
                     <h2>User List</h2>

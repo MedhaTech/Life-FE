@@ -121,7 +121,7 @@ const MySchoolProfile = () => {
     };
     const inputmentor_Email = {
         type: 'text',
-        placeholder: 'Enter Email Id',
+        placeholder: 'Enter Email Address',
         className: 'defaultInput'
     };
     const inputDate = {
@@ -509,7 +509,7 @@ const MySchoolProfile = () => {
             ? 'default rounded-0'
             : 'primary rounded-0';
     return (
-        <Layout title="Dashboard">
+        <Layout title="UserList">
             <div className="container ChangePSWModal mb-5">
                 <Row>
                     <Col className="col-xl-10 offset-xl-1 offset-md-0">

@@ -120,7 +120,7 @@ const MySchoolProfile = () => {
     };
     const inputmentor_Email = {
         type: 'text',
-        placeholder: 'Enter Email Id',
+        placeholder: 'Enter Email Address',
         className: 'defaultInput'
     };
     const inputDate = {

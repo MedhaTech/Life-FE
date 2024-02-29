@@ -62,9 +62,9 @@ const TeacherDetailed = () => {
     const fiterDistData = useSelector(
         (state) => state?.studentRegistration?.fetchdist
     );
-    useEffect(() => {
-        dispatch(getStateData());
-    }, []);
+    // useEffect(() => {
+    //     dispatch(getStateData());
+    // }, []);
     // useEffect(() => {
     //     if (state !== '') {
     //         dispatch(getFetchDistData(state));
@@ -130,10 +130,10 @@ const TeacherDetailed = () => {
             label: 'Institution Name',
             key: 'institution_name'
         },
-        {
-            label: 'School Type/Category',
-            key: 'category'
-        },
+        // {
+        //     label: 'School Type/Category',
+        //     key: 'category'
+        // },
         {
             label: 'District',
             key: 'district_name'
@@ -155,12 +155,20 @@ const TeacherDetailed = () => {
             key: 'state_name'
         },
         {
-            label: 'HM Name',
-            key: 'HM Name'
+            label: 'Principal Name',
+            key: 'principal_name'
         },
         {
-            label: 'HM Contact',
-            key: 'HM Contact'
+            label: 'Principal Mobile No',
+            key: 'principal_mobile'
+        },
+        {
+            label: 'Principal Whatsapp Noo',
+            key: 'principal_whatsapp_mobile'
+        },
+        {
+            label: 'Principal Email',
+            key: 'principal_email'
         },
         {
             label: 'Title',
@@ -679,7 +687,7 @@ const TeacherDetailed = () => {
 
     return (
         <>
-            <Layout>
+            <Layout title="Reports">
                 <Container className="RegReports mt-4 mb-30 userlist">
                     <Row className="mt-0 pt-2">
                         <Col>

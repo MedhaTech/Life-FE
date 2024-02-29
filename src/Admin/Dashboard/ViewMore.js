@@ -108,7 +108,7 @@ const ViewMore = () => {
         return (((a - b) / a) * 100).toFixed(2);
     };
     return (
-        <Layout>
+        <Layout title="Dashboard">
             <Container className="mt-5 pt-5 dynamic-form">
                 <div className="d-flex justify-content-between align-items-center mb-3">
                     <BreadcrumbTwo {...headingDetails} />

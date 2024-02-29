@@ -13,7 +13,7 @@ const Eadmindashboard = () => {
     // here we can see all  the Challenges  and count //
 
     const [dateCount, setdateCount] = useState({});
-    useEffect(async() => {
+    useEffect(async () => {
         await handlecountvalue();
     }, []);
 
@@ -36,7 +36,7 @@ const Eadmindashboard = () => {
             });
     }
     return (
-        <Layout>
+        <Layout title="Evaluation">
             <div className="container dashboard-wrapper mt-5 mb-5">
                 <h2 className="mb-5">Evaluation</h2>
                 <div className="dashboard">

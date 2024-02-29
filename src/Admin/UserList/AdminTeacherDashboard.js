@@ -419,7 +419,7 @@ const Dashboard = () => {
             });
     };
     return (
-        <Layout>
+        <Layout title="UserList">
             <div className="dashboard-wrapper pb-5 my-5 px-5">
                 <h2 className="mb-5">Dashboard </h2>
                 <div className="dashboard p-5 mb-5">

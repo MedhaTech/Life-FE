@@ -148,12 +148,20 @@ const ReportsRegistration = () => {
             key: 'state_name'
         },
         {
-            label: 'HM Name',
-            key: 'organization.principal_name'
+            label: 'Principal Name',
+            key: 'principal_name'
         },
         {
-            label: 'HM Contact',
-            key: 'organization.principal_mobile'
+            label: 'Principal Mobile No',
+            key: 'principal_mobile'
+        },
+        {
+            label: 'Principal Whatsapp Noo',
+            key: 'principal_whatsapp_mobile'
+        },
+        {
+            label: 'Principal Email',
+            key: 'principal_email'
         },
         {
             label: 'Title',
@@ -254,9 +262,9 @@ const ReportsRegistration = () => {
             key: 'principal_email'
         }
     ];
-    useEffect(() => {
-        dispatch(getStateData());
-    }, []);
+    // useEffect(() => {
+    //     dispatch(getStateData());
+    // }, []);
     // useEffect(() => {
     //     if (RegTeachersState !== '') {
     //         dispatch(getFetchDistData(RegTeachersState));
@@ -544,7 +552,7 @@ const ReportsRegistration = () => {
 
     return (
         <>
-            <Layout>
+            <Layout title="Reports">
                 <Container className="RegReports mt-4 mb-30 userlist">
                     <Row className="mt-0 pt-2">
                         <Col>

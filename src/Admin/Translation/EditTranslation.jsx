@@ -86,7 +86,7 @@ const EditTranslation = (props) => {
     });
 
     return (
-        <Layout>
+        <Layout title="Translation">
             <Container className="mt-5 pt-5 mb-5">
                 <Form onSubmit={formik.handleSubmit} isSubmitting>
                     <Row>

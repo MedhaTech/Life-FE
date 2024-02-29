@@ -68,15 +68,15 @@ const ViewSelectedIdea = () => {
     // useEffect(() => {
     //     dispatch(getDistrictData());
     // }, []);
+    // useEffect(() => {
+    //     dispatch(getStateData());
+    // }, []);
     useEffect(() => {
-        dispatch(getStateData());
+        // if (state !== '') {
+        dispatch(getFetchDistData());
+        // }
+        // setdistrict('');
     }, []);
-    useEffect(() => {
-        if (state !== '') {
-            dispatch(getFetchDistData(state));
-        }
-        setdistrict('');
-    }, [state]);
 
     const handleclickcall = async () => {
         // where we can select district and sdg //
@@ -94,9 +94,9 @@ const ViewSelectedIdea = () => {
         const resparam = encryptGlobal(
             JSON.stringify({
                 status: param,
-                state : state !== 'All States' ? state : '',
-                district : district !== 'All Districts' ? district: '',
-                sdg : sdg !== 'All Themes' ? sdg : ''
+                state: state !== 'All States' ? state : '',
+                district: district !== 'All Districts' ? district : '',
+                sdg: sdg !== 'All Themes' ? sdg : ''
             })
         );
         await axios
@@ -130,13 +130,13 @@ const ViewSelectedIdea = () => {
                 width: '10rem'
             },
             {
-                name: 'State',
-                selector: (row) => row.state,
+                name: 'District',
+                selector: (row) => row.district,
                 width: '10rem'
             },
             {
-                name: 'ATL Code',
-                selector: (row) => row.organization_code,
+                name: 'Institution Code',
+                // selector: (row) => row.institution_code,
                 width: '15rem'
             },
             {
@@ -146,7 +146,7 @@ const ViewSelectedIdea = () => {
             },
             {
                 name: 'CID',
-                selector: (row) => row.challenge_response_id,
+                selector: (row) => row.idea_id,
 
                 width: '10rem'
             },
@@ -159,7 +159,7 @@ const ViewSelectedIdea = () => {
                             wordWrap: 'break-word'
                         }}
                     >
-                        {row.sdg}
+                        {row?.themes_problem?.theme_name}
                     </div>
                 ),
                 width: '15rem'
@@ -174,7 +174,7 @@ const ViewSelectedIdea = () => {
                             wordWrap: 'break-word'
                         }}
                     >
-                        {row.sub_category}
+                        {row?.themes_problem?.problem_statement}
                     </div>
                 ),
                 width: '25rem'
@@ -188,7 +188,7 @@ const ViewSelectedIdea = () => {
                             wordWrap: 'break-word'
                         }}
                     >
-                        {row?.response[1]?.selected_option || ''}
+                        {row?.idea_title}
                     </div>
                 ),
                 width: '25rem'
@@ -230,14 +230,14 @@ const ViewSelectedIdea = () => {
                                     setIdeaDetails(params);
                                     setIsDetail(true);
                                     let index = 0;
-                                    tableData?.forEach((item, i) => {
-                                        if (
-                                            item?.challenge_response_id ==
-                                            params?.challenge_response_id
-                                        ) {
-                                            index = i;
-                                        }
-                                    });
+                                    // tableData?.forEach((item, i) => {
+                                    //     if (
+                                    //         item?.challenge_response_id ==
+                                    //         params?.challenge_response_id
+                                    //     ) {
+                                    //         index = i;
+                                    //     }
+                                    // });
                                     setCurrentRow(index + 1);
                                 }}
                             >
@@ -258,7 +258,7 @@ const ViewSelectedIdea = () => {
         ]
     };
 
-    const showbutton = state && sdg;
+    const showbutton = district;
 
     const handleNext = () => {
         // here we can go for next page //
@@ -313,7 +313,7 @@ const ViewSelectedIdea = () => {
                     level={'Draft'}
                 />
             </div>
-            <Layout>
+            <Layout title="Challenges">
                 <div className="container evaluated_idea_wrapper pt-5 mb-50">
                     <div className="row">
                         <div className="col-12 p-0">
@@ -323,7 +323,7 @@ const ViewSelectedIdea = () => {
 
                                     <Container fluid className="px-0">
                                         <Row className="align-items-center">
-                                            <Col md={3}>
+                                            {/* <Col md={3}>
                                                 <div className="my-3 d-md-block d-flex justify-content-center">
                                                     <Select
                                                         list={fullStatesNames}
@@ -334,7 +334,7 @@ const ViewSelectedIdea = () => {
                                                         value={state}
                                                     />
                                                 </div>
-                                            </Col>
+                                            </Col> */}
                                             <Col md={3}>
                                                 <div className="my-3 d-md-block d-flex justify-content-center">
                                                     <Select
@@ -347,7 +347,7 @@ const ViewSelectedIdea = () => {
                                                     />
                                                 </div>
                                             </Col>
-                                            <Col md={3}>
+                                            {/* <Col md={3}>
                                                 <div className="my-3 d-md-block d-flex justify-content-center">
                                                     <Select
                                                         list={SDGDate}
@@ -358,7 +358,7 @@ const ViewSelectedIdea = () => {
                                                         value={sdg}
                                                     />
                                                 </div>
-                                            </Col>
+                                            </Col> */}
                                             <Col md={2}>
                                                 <div className="text-center">
                                                     <Button
