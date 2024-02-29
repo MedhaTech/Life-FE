@@ -224,7 +224,8 @@ const CommonUserProfile = (props) => {
                 date_of_birth: StudentsDaTa.date_of_birth,
                 mobile: StudentsDaTa?.mobile,
                 year_of_study: StudentsDaTa?.year_of_study,
-                institution_id: StudentsDaTa?.institution_id
+                institution_id: StudentsDaTa?.institution_id,
+                course_name: StudentsDaTa?.course_name
             }
         });
     };

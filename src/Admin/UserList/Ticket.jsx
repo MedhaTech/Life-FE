@@ -637,14 +637,20 @@ const TicketsPage = (props) => {
                 width: '20rem'
             },
             {
+                name: 'Age',
+                selector: (row) => row.Age,
+                width: '8rem'
+            },
+
+            {
                 name: 'Mentor Name',
                 selector: (row) => row.mentor_name,
                 width: '15rem'
             },
             {
-                name: 'Age',
-                selector: (row) => row.Age,
-                width: '8rem'
+                name: 'Team Name',
+                selector: (row) => row.team_name,
+                width: '13rem'
             },
 
             {
