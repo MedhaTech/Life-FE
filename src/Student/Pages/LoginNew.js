@@ -11,7 +11,7 @@ import { connect } from 'react-redux';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useTranslation } from 'react-i18next';
-import logo from '../../assets/media/tn-brands/EDII_LOGO.png';
+import logo from '../../assets/media/tn-brands/EDII.png';
 import studentIcon from '../../assets/media/student_login_icon.png';
 import teacherIcon from '../../assets/media/teacher_login_icon.png';
 import image_9 from '../../assets/media/unisolve_slider1.png';
@@ -98,7 +98,7 @@ const LoginNew = (props) => {
 
     const inputUserId = {
         type: 'text',
-        placeholder: 'Enter Your Mobile number'
+        placeholder: 'Enter Your Mobile Number'
     };
 
     const inputPassword = {
