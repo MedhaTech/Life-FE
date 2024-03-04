@@ -149,7 +149,7 @@ export const getSubmittedIdeaList = (level) => async (dispatch) => {
             .get(
                 `${
                     process.env.REACT_APP_API_BASE_URL +
-                    `/challenge_response/fetchRandomChallenge?Data=${ApiParam}`
+                    `/ideas/fetchRandomChallenge?Data=${ApiParam}`
                 }`,
                 axiosConfig
             )
@@ -220,7 +220,7 @@ export const getL1EvaluatedIdea = (params, setshowspin) => async (dispatch) => {
             .get(
                 `${
                     process.env.REACT_APP_API_BASE_URL +
-                    '/challenge_response/evaluated/' +
+                    '/ideas/evaluated/' +
                     evId +
                     '?Data=' +
                     idRes
@@ -232,7 +232,8 @@ export const getL1EvaluatedIdea = (params, setshowspin) => async (dispatch) => {
                 return err.response;
             });
         if (result && result.status === 200) {
-            const data = result?.data?.data;
+            console.log(result, 'a');
+            const data = result?.data?.data || [];
             dispatch(getL1EvaluatedIdeaSuccess(data));
             setshowspin(false);
         } else {

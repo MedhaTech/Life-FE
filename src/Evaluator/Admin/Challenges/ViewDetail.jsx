@@ -186,6 +186,9 @@ const ViewDetail = (props) => {
     //     });
     //     setPdfLoader(false);
     // };
+    const files = teamResponse?.Prototype_file
+        ? teamResponse?.Prototype_file.split(',')
+        : [];
     const handlePrint = useReactToPrint({
         content: () => componentRef.current,
         documentTitle: `${
@@ -194,7 +197,14 @@ const ViewDetail = (props) => {
                 : 'temp'
         }_IdeaSubmission`
     });
-
+    const downloadFile = (item) => {
+        const link = document.createElement('a');
+        link.href = item;
+        link.download = 'upload.pdf';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    };
     return (
         <div>
             {teamResponse ? (
@@ -283,10 +293,10 @@ const ViewDetail = (props) => {
                                         />
                                     </div>
                                     <div>
-                                        <FaDownload
+                                        {/* <FaDownload
                                             size={22}
                                             onClick={handlePrint}
-                                        />
+                                        /> */}
                                         {/* <Button
                                             onClick={handlePrint}
                                             label={'Download'}
@@ -336,260 +346,290 @@ const ViewDetail = (props) => {
                                 </div>
                             </div>
                         </div>
-                        <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
-                            <div
-                                // key={index}
-                                className="mb-4 my-3 comment-card px-5 py-3 card me-md-3"
-                            >
-                                <div className="question quiz mb-0">
-                                    <b
-                                        style={{
-                                            fontSize: '1.6rem'
-                                        }}
-                                    >
-                                        {1}. {t('student_course.ques1')}
-                                        {/* {item?.question_no || ''}.{' '}
+                        <div className="col-lg-8 order-lg-0 order-1 p-0 h-100">
+                            <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
+                                <div
+                                    // key={index}
+                                    className="mb-4 my-3 comment-card px-5 py-3 card me-md-3"
+                                >
+                                    <div className="question quiz mb-0">
+                                        <b
+                                            style={{
+                                                fontSize: '1.6rem'
+                                            }}
+                                        >
+                                            {1}. {t('student_course.ques1')}
+                                            {/* {item?.question_no || ''}.{' '}
                                                 {item?.question || ''} */}
-                                    </b>
-                                </div>
-                                <div className="bg-light rounded p-5">
-                                    <p
-                                        style={{
-                                            fontSize: '1.4rem'
-                                        }}
-                                    >
-                                        {
-                                            teamResponse?.themes_problem
-                                                ?.theme_name
-                                        }
-                                    </p>
+                                        </b>
+                                    </div>
+                                    <div className="bg-light rounded p-5">
+                                        <p
+                                            style={{
+                                                fontSize: '1.4rem'
+                                            }}
+                                        >
+                                            {
+                                                teamResponse?.themes_problem
+                                                    ?.theme_name
+                                            }
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
-                            <div
-                                // key={index}
-                                className="mb-4 my-3 comment-card px-5 py-3 card me-md-3"
-                            >
-                                <div className="question quiz mb-0">
-                                    <b
-                                        style={{
-                                            fontSize: '1.6rem'
-                                        }}
-                                    >
-                                        {2}. {t('student_course.ques2')}
-                                        {/* {item?.question_no || ''}.{' '}
+                            <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
+                                <div
+                                    // key={index}
+                                    className="mb-4 my-3 comment-card px-5 py-3 card me-md-3"
+                                >
+                                    <div className="question quiz mb-0">
+                                        <b
+                                            style={{
+                                                fontSize: '1.6rem'
+                                            }}
+                                        >
+                                            {2}. {t('student_course.ques2')}
+                                            {/* {item?.question_no || ''}.{' '}
                                                 {item?.question || ''} */}
-                                    </b>
+                                        </b>
+                                    </div>
+                                    <div className="bg-light rounded p-5">
+                                        <p
+                                            style={{
+                                                fontSize: '1.4rem'
+                                            }}
+                                        >
+                                            {
+                                                teamResponse?.themes_problem
+                                                    ?.problem_statement
+                                            }
+                                        </p>
+                                    </div>
                                 </div>
-                                <div className="bg-light rounded p-5">
-                                    <p
-                                        style={{
-                                            fontSize: '1.4rem'
-                                        }}
-                                    >
-                                        {
-                                            teamResponse?.themes_problem
-                                                ?.problem_statement
-                                        }
-                                    </p>
-                                </div>
-                            </div>
-                        </div>{' '}
-                        <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
-                            <div
-                                // key={index}
-                                className="mb-4 my-3 comment-card px-5 py-3 card me-md-3"
-                            >
-                                <div className="question quiz mb-0">
-                                    <b
-                                        style={{
-                                            fontSize: '1.6rem'
-                                        }}
-                                    >
-                                        {3}.{' '}
-                                        {t('student_course.ques3description')}
-                                        {/* {item?.question_no || ''}.{' '}
+                            </div>{' '}
+                            <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
+                                <div
+                                    // key={index}
+                                    className="mb-4 my-3 comment-card px-5 py-3 card me-md-3"
+                                >
+                                    <div className="question quiz mb-0">
+                                        <b
+                                            style={{
+                                                fontSize: '1.6rem'
+                                            }}
+                                        >
+                                            {3}.{' '}
+                                            {t(
+                                                'student_course.ques3description'
+                                            )}
+                                            {/* {item?.question_no || ''}.{' '}
                                                 {item?.question || ''} */}
-                                    </b>
+                                        </b>
+                                    </div>
+                                    <div className="bg-light rounded p-5">
+                                        <p
+                                            style={{
+                                                fontSize: '1.4rem'
+                                            }}
+                                        >
+                                            {
+                                                teamResponse?.themes_problem
+                                                    ?.problem_statement_description
+                                            }
+                                        </p>
+                                    </div>
                                 </div>
-                                <div className="bg-light rounded p-5">
-                                    <p
-                                        style={{
-                                            fontSize: '1.4rem'
-                                        }}
-                                    >
-                                        {
-                                            teamResponse?.themes_problem
-                                                ?.problem_statement_description
-                                        }
-                                    </p>
-                                </div>
-                            </div>
-                        </div>{' '}
-                        <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
-                            <div
-                                // key={index}
-                                className="mb-4 my-3 comment-card px-5 py-3 card me-md-3"
-                            >
-                                <div className="question quiz mb-0">
-                                    <b
-                                        style={{
-                                            fontSize: '1.6rem'
-                                        }}
-                                    >
-                                        {4}.{' '}
-                                        {t('student_course.ques4ideatitile')}
-                                        {/* {item?.question_no || ''}.{' '}
+                            </div>{' '}
+                            <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
+                                <div
+                                    // key={index}
+                                    className="mb-4 my-3 comment-card px-5 py-3 card me-md-3"
+                                >
+                                    <div className="question quiz mb-0">
+                                        <b
+                                            style={{
+                                                fontSize: '1.6rem'
+                                            }}
+                                        >
+                                            {4}.{' '}
+                                            {t(
+                                                'student_course.ques4ideatitile'
+                                            )}
+                                            {/* {item?.question_no || ''}.{' '}
                                                 {item?.question || ''} */}
-                                    </b>
+                                        </b>
+                                    </div>
+                                    <div className="bg-light rounded p-5">
+                                        <p
+                                            style={{
+                                                fontSize: '1.4rem'
+                                            }}
+                                        >
+                                            {teamResponse?.idea_title}
+                                        </p>
+                                    </div>
                                 </div>
-                                <div className="bg-light rounded p-5">
-                                    <p
-                                        style={{
-                                            fontSize: '1.4rem'
-                                        }}
-                                    >
-                                        {teamResponse?.idea_title}
-                                    </p>
-                                </div>
-                            </div>
-                        </div>{' '}
-                        <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
-                            <div
-                                // key={index}
-                                className="mb-4 my-3 comment-card px-5 py-3 card me-md-3"
-                            >
-                                <div className="question quiz mb-0">
-                                    <b
-                                        style={{
-                                            fontSize: '1.6rem'
-                                        }}
-                                    >
-                                        {5}. {t('student_course.ques5solution')}
-                                        {/* {item?.question_no || ''}.{' '}
+                            </div>{' '}
+                            <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
+                                <div
+                                    // key={index}
+                                    className="mb-4 my-3 comment-card px-5 py-3 card me-md-3"
+                                >
+                                    <div className="question quiz mb-0">
+                                        <b
+                                            style={{
+                                                fontSize: '1.6rem'
+                                            }}
+                                        >
+                                            {5}.{' '}
+                                            {t('student_course.ques5solution')}
+                                            {/* {item?.question_no || ''}.{' '}
                                                 {item?.question || ''} */}
-                                    </b>
+                                        </b>
+                                    </div>
+                                    <div className="bg-light rounded p-5">
+                                        <p
+                                            style={{
+                                                fontSize: '1.4rem'
+                                            }}
+                                        >
+                                            {teamResponse?.solution_statement}
+                                        </p>
+                                    </div>
                                 </div>
-                                <div className="bg-light rounded p-5">
-                                    <p
-                                        style={{
-                                            fontSize: '1.4rem'
-                                        }}
-                                    >
-                                        {teamResponse?.solution_statement}
-                                    </p>
-                                </div>
-                            </div>
-                        </div>{' '}
-                        <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
-                            <div
-                                // key={index}
-                                className="mb-4 my-3 comment-card px-5 py-3 card me-md-3"
-                            >
-                                <div className="question quiz mb-0">
-                                    <b
-                                        style={{
-                                            fontSize: '1.6rem'
-                                        }}
-                                    >
-                                        {6}.{' '}
-                                        {t('student_course.ques6detailsol')}
-                                        {/* {item?.question_no || ''}.{' '}
+                            </div>{' '}
+                            <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
+                                <div
+                                    // key={index}
+                                    className="mb-4 my-3 comment-card px-5 py-3 card me-md-3"
+                                >
+                                    <div className="question quiz mb-0">
+                                        <b
+                                            style={{
+                                                fontSize: '1.6rem'
+                                            }}
+                                        >
+                                            {6}.{' '}
+                                            {t('student_course.ques6detailsol')}
+                                            {/* {item?.question_no || ''}.{' '}
                                                 {item?.question || ''} */}
-                                    </b>
+                                        </b>
+                                    </div>
+                                    <div className="bg-light rounded p-5">
+                                        <p
+                                            style={{
+                                                fontSize: '1.4rem'
+                                            }}
+                                        >
+                                            {teamResponse?.detailed_solution}
+                                        </p>
+                                    </div>
                                 </div>
-                                <div className="bg-light rounded p-5">
-                                    <p
-                                        style={{
-                                            fontSize: '1.4rem'
-                                        }}
-                                    >
-                                        {teamResponse?.detailed_solution}
-                                    </p>
-                                </div>
-                            </div>
-                        </div>{' '}
-                        <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
-                            <div
-                                // key={index}
-                                className="mb-4 my-3 comment-card px-5 py-3 card me-md-3"
-                            >
-                                <div className="question quiz mb-0">
-                                    <b
-                                        style={{
-                                            fontSize: '1.6rem'
-                                        }}
-                                    >
-                                        {7}.{' '}
-                                        {t('student_course.ques7Prototype')}
-                                        {/* {item?.question_no || ''}.{' '}
+                            </div>{' '}
+                            <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
+                                <div
+                                    // key={index}
+                                    className="mb-4 my-3 comment-card px-5 py-3 card me-md-3"
+                                >
+                                    <div className="question quiz mb-0">
+                                        <b
+                                            style={{
+                                                fontSize: '1.6rem'
+                                            }}
+                                        >
+                                            {7}.{' '}
+                                            {t('student_course.ques7Prototype')}
+                                            {/* {item?.question_no || ''}.{' '}
                                                 {item?.question || ''} */}
-                                    </b>
+                                        </b>
+                                    </div>
+                                    <div className="bg-light rounded p-5">
+                                        <p
+                                            style={{
+                                                fontSize: '1.4rem'
+                                            }}
+                                        >
+                                            {teamResponse?.prototype_available}
+                                        </p>
+                                    </div>
                                 </div>
-                                <div className="bg-light rounded p-5">
-                                    <p
-                                        style={{
-                                            fontSize: '1.4rem'
-                                        }}
-                                    >
-                                        {teamResponse?.prototype_available}
-                                    </p>
-                                </div>
-                            </div>
-                        </div>{' '}
-                        <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
-                            <div
-                                // key={index}
-                                className="mb-4 my-3 comment-card px-5 py-3 card me-md-3"
-                            >
-                                <div className="question quiz mb-0">
-                                    <b
-                                        style={{
-                                            fontSize: '1.6rem'
-                                        }}
-                                    >
-                                        {t('student_course.ques8file')}
-                                        {/* {item?.question_no || ''}.{' '}
+                            </div>{' '}
+                            <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
+                                <div
+                                    // key={index}
+                                    className="mb-4 my-3 comment-card px-5 py-3 card me-md-3"
+                                >
+                                    <div className="question quiz mb-0">
+                                        <b
+                                            style={{
+                                                fontSize: '1.6rem'
+                                            }}
+                                        >
+                                            {t('student_course.ques8file')}
+                                            {/* {item?.question_no || ''}.{' '}
                                                 {item?.question || ''} */}
-                                    </b>
-                                </div>
-                                <div className="bg-light rounded p-5">
-                                    <p
+                                        </b>
+                                    </div>
+                                    <div className="bg-light rounded p-5">
+                                        {files.length > 0 &&
+                                            files.map((item, i) => (
+                                                <div key={i}>
+                                                    {/* <CardTitle className="fw-bold">
+                                                    {item.question}
+                                                </CardTitle> */}
+                                                    {/* <CardBody> */}
+                                                    <a
+                                                        key={i}
+                                                        className="badge mb-2 bg-info p-3 ms-3"
+                                                        target="_blank"
+                                                        rel="noreferrer"
+                                                        onClick={() =>
+                                                            downloadFile(item)
+                                                        }
+                                                    >
+                                                        {item}
+                                                    </a>
+                                                    {/* </CardBody> */}
+                                                </div>
+                                            ))}
+                                        {/* <p
                                         style={{
                                             fontSize: '1.4rem'
                                         }}
                                     >
                                         {teamResponse?.Prototype_file}
-                                    </p>
+                                    </p> */}
+                                    </div>
                                 </div>
-                            </div>
-                        </div>{' '}
-                        <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
-                            <div
-                                // key={index}
-                                className="mb-4 my-3 comment-card px-5 py-3 card me-md-3"
-                            >
-                                <div className="question quiz mb-0">
-                                    <b
-                                        style={{
-                                            fontSize: '1.6rem'
-                                        }}
-                                    >
-                                        {8}.{' '}
-                                        {t('student_course.ques9publication')}
-                                        {/* {item?.question_no || ''}.{' '}
+                            </div>{' '}
+                            <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
+                                <div
+                                    // key={index}
+                                    className="mb-4 my-3 comment-card px-5 py-3 card me-md-3"
+                                >
+                                    <div className="question quiz mb-0">
+                                        <b
+                                            style={{
+                                                fontSize: '1.6rem'
+                                            }}
+                                        >
+                                            {8}.{' '}
+                                            {t(
+                                                'student_course.ques9publication'
+                                            )}
+                                            {/* {item?.question_no || ''}.{' '}
                                                 {item?.question || ''} */}
-                                    </b>
-                                </div>
-                                <div className="bg-light rounded p-5">
-                                    <p
-                                        style={{
-                                            fontSize: '1.4rem'
-                                        }}
-                                    >
-                                        {teamResponse?.idea_available}
-                                    </p>
+                                        </b>
+                                    </div>
+                                    <div className="bg-light rounded p-5">
+                                        <p
+                                            style={{
+                                                fontSize: '1.4rem'
+                                            }}
+                                        >
+                                            {teamResponse?.idea_available}
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -648,6 +688,7 @@ const ViewDetail = (props) => {
                                 );
                             })}
                         </div> */}
+                        {/* <div className="col-lg-4 order-lg-0 order-1 p-0 h-100"> */}
                         {props?.ideaDetails?.status === 'SUBMITTED' && (
                             <div className="col-lg-4 order-lg-1 order-0 p-0 h-100 mt-3 status_info_col">
                                 <div className="level-status-card card border p-md-5 p-3 mb-3 me-lg-0 me-md-3">
@@ -782,6 +823,7 @@ const ViewDetail = (props) => {
                                 </div>
                             </div>
                         )}
+                        {/* </div> */}
                     </div>
 
                     <div>
