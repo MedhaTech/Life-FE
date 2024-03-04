@@ -42,7 +42,7 @@ const IdeaList = () => {
                 <div className="row">
                     {!isNextDiv ? (
                         <div className="col-12">
-                            {Object.keys(ideaDetails).length > 0 ? (
+                            {ideaDetails ? (
                                 <IdeaDetail
                                     ideaDetails={ideaDetails}
                                     handleSkip={handleNext}

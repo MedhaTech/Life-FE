@@ -97,26 +97,26 @@ const EvaluatedIdea = () => {
                 width: '6%'
             },
             {
-                name: 'State',
-                selector: (row) => row.state,
+                name: 'District',
+                selector: (row) => row.district,
                 width: '10rem'
             },
-            {
-                name: 'ATL Code',
-                selector: (row) => row.organization_code,
-                width: '15rem'
-            },
+            // {
+            //     name: 'Institution Code',
+            //     selector: (row) => row.institution_code,
+            //     width: '15rem'
+            // },
             {
                 name: 'Team Name',
                 selector: (row) => row.team_name || '',
                 sortable: true,
-                width: '15%'
+                width: '8rem'
             },
             {
                 name: 'CID',
-                selector: (row) => row.challenge_response_id,
+                selector: (row) => row.idea_id,
 
-                width: '10rem'
+                width: '8rem'
             },
             {
                 name: 'Theme',
@@ -127,7 +127,7 @@ const EvaluatedIdea = () => {
                             wordWrap: 'break-word'
                         }}
                     >
-                        {row.sdg}
+                        {row?.themes_problem?.theme_name}
                     </div>
                 ),
                 width: '15rem'
@@ -142,10 +142,10 @@ const EvaluatedIdea = () => {
                             wordWrap: 'break-word'
                         }}
                     >
-                        {row.sub_category}
+                        {row?.themes_problem?.problem_statement}
                     </div>
                 ),
-                width: '25rem'
+                width: '15rem'
             },
             {
                 name: 'Idea Name',
@@ -157,27 +157,27 @@ const EvaluatedIdea = () => {
                             wordWrap: 'break-word'
                         }}
                     >
-                        {row?.response[1]?.selected_option || ''}
+                        {row?.idea_title}
                     </div>
                 ),
-                width: '25rem'
+                width: '15rem'
             },
 
             {
                 name: 'Submitted By',
                 selector: (row) => row.initiated_name,
-                width: '15%'
+                width: '10rem'
             },
-            {
-                name: 'Evaluated At',
-                selector: (row) =>
-                    row?.evaluator_ratings[0]?.created_at
-                        ? moment(row?.evaluator_ratings[0]?.created_at).format(
-                              'DD-MM-YY h:mm:ss a'
-                          )
-                        : row?.evaluator_ratings[0]?.created_at,
-                width: '17%'
-            },
+            // {
+            //     name: 'Evaluated At',
+            //     selector: (row) =>
+            //         row?.evaluator_ratings[0]?.created_at
+            //             ? moment(row?.evaluator_ratings[0]?.created_at).format(
+            //                   'DD-MM-YY h:mm:ss a'
+            //               )
+            //             : row?.evaluator_ratings[0]?.created_at,
+            //     width: '17%'
+            // },
             {
                 name: 'Overall',
 
@@ -188,7 +188,7 @@ const EvaluatedIdea = () => {
                         </div>
                     ];
                 },
-                width: '10%'
+                width: '10rem'
             },
             {
                 name: 'Actions',
@@ -201,14 +201,14 @@ const EvaluatedIdea = () => {
                                     setIdeaDetails(params);
                                     setIsDetail(true);
                                     let index = 0;
-                                    evaluatedIdeaList?.forEach((item, i) => {
-                                        if (
-                                            item?.challenge_response_id ==
-                                            params?.challenge_response_id
-                                        ) {
-                                            index = i;
-                                        }
-                                    });
+                                    // evaluatedIdeaList?.forEach((item, i) => {
+                                    //     if (
+                                    //         item?.challenge_response_id ==
+                                    //         params?.challenge_response_id
+                                    //     ) {
+                                    //         index = i;
+                                    //     }
+                                    // });
                                     setCurrentRow(index + 1);
                                 }}
                             >
@@ -217,7 +217,7 @@ const EvaluatedIdea = () => {
                         </div>
                     ];
                 },
-                width: '17%',
+                width: '17rem',
                 left: true
             }
         ]

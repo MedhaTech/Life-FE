@@ -180,6 +180,17 @@ const ViewDetail = (props) => {
     //     });
     //     setPdfLoader(false);
     // };
+    const files = teamResponse?.Prototype_file
+        ? teamResponse?.Prototype_file.split(',')
+        : [];
+    const downloadFile = (item) => {
+        const link = document.createElement('a');
+        link.href = item;
+        link.download = 'upload.pdf';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    };
     const handlePrint = useReactToPrint({
         content: () => componentRef.current,
         documentTitle: `${
@@ -286,10 +297,10 @@ const ViewDetail = (props) => {
                                         />
                                     </div>
                                     <div>
-                                        <FaDownload
+                                        {/* <FaDownload
                                             size={22}
                                             onClick={handlePrint}
-                                        />
+                                        /> */}
 
                                         {/* <Button
                                             onClick={handlePrint}
@@ -559,13 +570,34 @@ const ViewDetail = (props) => {
                                     </b>
                                 </div>
                                 <div className="bg-light rounded p-5">
-                                    <p
+                                    {/* <p
                                         style={{
                                             fontSize: '1.4rem'
                                         }}
                                     >
                                         {teamResponse?.Prototype_file}
-                                    </p>
+                                    </p> */}
+                                    {files.length > 0 &&
+                                        files.map((item, i) => (
+                                            <div key={i}>
+                                                {/* <CardTitle className="fw-bold">
+                                                    {item.question}
+                                                </CardTitle> */}
+                                                {/* <CardBody> */}
+                                                <a
+                                                    key={i}
+                                                    className="badge mb-2 bg-info p-3 ms-3"
+                                                    target="_blank"
+                                                    rel="noreferrer"
+                                                    onClick={() =>
+                                                        downloadFile(item)
+                                                    }
+                                                >
+                                                    {item}
+                                                </a>
+                                                {/* </CardBody> */}
+                                            </div>
+                                        ))}
                                 </div>
                             </div>
                         </div>{' '}

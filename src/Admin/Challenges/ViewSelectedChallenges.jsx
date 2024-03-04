@@ -95,7 +95,7 @@ const ViewSelectedIdea = () => {
             JSON.stringify({
                 status: param,
                 // state: state !== 'All States' ? state : '',
-                district: district !== 'All Districts' ? district : '',
+                district: district !== 'All Districts' ? district : ''
                 // sdg: sdg !== 'All Themes' ? sdg : ''
             })
         );
@@ -243,12 +243,12 @@ const ViewSelectedIdea = () => {
                             >
                                 View
                             </div>
-                            <FaDownload
+                            {/* <FaDownload
                                 size={22}
                                 onClick={() => {
                                     handleDownpdf(params);
                                 }}
-                            />
+                            /> */}
                         </div>
                     ];
                 },

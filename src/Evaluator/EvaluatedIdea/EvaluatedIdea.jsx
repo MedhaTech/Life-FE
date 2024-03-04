@@ -85,9 +85,9 @@ const EvaluatedIdea = () => {
                         : 'REJECTEDROUND1'
                     : '',
             state: state !== 'All States' ? state : '',
-            sdg: sdg !== 'All Themes' ? sdg : '',
-            rejected_reason: reason,
-            rejected_reasonSecond: reason2
+            // sdg: sdg !== 'All Themes' ? sdg : '',
+            rejected_reason: reason
+            // rejected_reasonSecond: reason2
         };
         setshowspin(true);
         dispatch(getL1EvaluatedIdea(newQuery, setshowspin));
@@ -129,15 +129,15 @@ const EvaluatedIdea = () => {
                 width: '6%'
             },
             {
-                name: 'State',
-                selector: (row) => row.state,
+                name: 'District',
+                selector: (row) => row.district,
                 width: '10rem'
             },
-            {
-                name: 'ATL Code',
-                selector: (row) => row.organization_code,
-                width: '15rem'
-            },
+            // {
+            //     name: 'Institution Code',
+            //     selector: (row) => row.institution_code,
+            //     width: '15rem'
+            // },
             {
                 name: 'Team Name',
                 selector: (row) => row.team_name,
@@ -145,7 +145,7 @@ const EvaluatedIdea = () => {
             },
             {
                 name: 'CID',
-                selector: (row) => row.challenge_response_id,
+                selector: (row) => row.idea_id,
 
                 width: '10rem'
             },
@@ -158,7 +158,7 @@ const EvaluatedIdea = () => {
                             wordWrap: 'break-word'
                         }}
                     >
-                        {row.sdg}
+                        {row?.themes_problem?.theme_name}
                     </div>
                 ),
                 width: '15rem'
@@ -173,10 +173,10 @@ const EvaluatedIdea = () => {
                             wordWrap: 'break-word'
                         }}
                     >
-                        {row.sub_category}
+                        {row?.themes_problem?.problem_statement}
                     </div>
                 ),
-                width: '25rem'
+                width: '20rem'
             },
             {
                 name: 'Idea Name',
@@ -188,25 +188,26 @@ const EvaluatedIdea = () => {
                             wordWrap: 'break-word'
                         }}
                     >
-                        {row?.response[1]?.selected_option || ''}
+                        {row?.idea_title}
+                        {/* {row?.response[1]?.selected_option || ''} */}
                     </div>
                 ),
-                width: '25rem'
+                width: '15rem'
             },
 
             {
                 name: 'Submitted By',
                 selector: (row) => row.initiated_name,
-                width: '15%'
+                width: '15rem'
             },
-            {
-                name: 'Evaluated At',
-                selector: (row) =>
-                    row.evaluated_at
-                        ? moment(row.evaluated_at).format('DD-MM-YY h:mm:ss a')
-                        : row.evaluated_at,
-                width: '17%'
-            },
+            // {
+            //     name: 'Evaluated At',
+            //     selector: (row) =>
+            //         row.evaluated_at
+            //             ? moment(row.evaluated_at).format('DD-MM-YY h:mm:ss a')
+            //             : row.evaluated_at,
+            //     width: '17%'
+            // },
             {
                 name: 'Status',
                 cell: (row) => {
@@ -224,7 +225,7 @@ const EvaluatedIdea = () => {
                         </div>
                     ];
                 },
-                width: '10%'
+                width: '10rem'
             },
             {
                 name: 'Actions',
@@ -237,14 +238,14 @@ const EvaluatedIdea = () => {
                                     setIdeaDetails(params);
                                     setIsDetail(true);
                                     let index = 0;
-                                    evaluatedIdeaList?.forEach((item, i) => {
-                                        if (
-                                            item?.challenge_response_id ==
-                                            params?.challenge_response_id
-                                        ) {
-                                            index = i;
-                                        }
-                                    });
+                                    // evaluatedIdeaList?.forEach((item, i) => {
+                                    //     if (
+                                    //         item?.challenge_response_id ==
+                                    //         params?.challenge_response_id
+                                    //     ) {
+                                    //         index = i;
+                                    //     }
+                                    // });
                                     setCurrentRow(index + 1);
                                 }}
                             >
@@ -253,7 +254,7 @@ const EvaluatedIdea = () => {
                         </div>
                     ];
                 },
-                width: '17%',
+                width: '17rem',
                 left: true
             }
         ]
@@ -337,7 +338,7 @@ const EvaluatedIdea = () => {
                                                 </div>
                                             </Col>
                                         )}
-                                        {status && status !== 'Accepted' && (
+                                        {/* {status && status !== 'Accepted' && (
                                             <Col md={3}>
                                                 <div className="my-3 d-md-block d-flex justify-content-center">
                                                     <Select
@@ -350,7 +351,7 @@ const EvaluatedIdea = () => {
                                                     />
                                                 </div>
                                             </Col>
-                                        )}
+                                        )} */}
                                         <Col md={1}>
                                             <div className="text-center">
                                                 <Button

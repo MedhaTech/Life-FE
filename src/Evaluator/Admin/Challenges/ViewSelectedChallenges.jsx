@@ -240,12 +240,12 @@ const ViewSelectedIdea = () => {
                             >
                                 View
                             </div>
-                            <FaDownload
+                            {/* <FaDownload
                                 size={22}
                                 onClick={() => {
                                     handleDownpdf(params);
                                 }}
-                            />
+                            /> */}
                         </div>
                     ];
                 },
