@@ -154,12 +154,12 @@ const EditProfile = (props) => {
         // where we can discard  the changes //
         props.history.push('/eadmin/evaluator');
         localStorage.setItem(
-            'organization_code',
-            JSON.stringify(mentorData.organization_code)
+            'institution_code',
+            JSON.stringify(mentorData.institution_code)
         );
     };
     return (
-        <Layout>
+        <Layout title="Evaluator">
             <div className="EditPersonalDetails new-member-page">
                 <Row>
                     <Col className="col-xl-10 offset-xl-1 offset-md-0">

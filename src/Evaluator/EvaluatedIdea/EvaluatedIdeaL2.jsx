@@ -14,7 +14,8 @@ import { Container, Row, Col } from 'reactstrap';
 import Select from '../Helper/Select';
 import {
     getDistrictData,
-    getStateData
+    getStateData,
+    getFetchDistData
 } from '../../redux/studentRegistration/actions';
 import { cardData } from '../../Student/Pages/Ideas/SDGData';
 import { Button } from '../../stories/Button';
@@ -44,10 +45,12 @@ const EvaluatedIdea = () => {
     );
 
     const [tabledate, settabledate] = React.useState([]);
-
+    const fiterDistData = useSelector(
+        (state) => state?.studentRegistration?.fetchdist
+    );
     useEffect(() => {
         // dispatch(getDistrictData());
-        dispatch(getStateData());
+        dispatch(getFetchDistData());
     }, []);
     useEffect(() => {
         if (state === '') {
@@ -60,10 +63,10 @@ const EvaluatedIdea = () => {
     const handleclickcall = () => {
         // here we can select status , district , SDG //
         const newQuery = {
-            evaluation_status : 'SELECTEDROUND1',
-            level:'L2',
-            state: state !== 'All States' ? state : '',
-            sdg: sdg !== 'All Themes' ? sdg : '',
+            evaluation_status: 'SELECTEDROUND1',
+            level: 'L2',
+            state: state !== 'All States' ? state : ''
+            // sdg: sdg !== 'All Themes' ? sdg : ''
         };
         setshowspin(true);
         dispatch(getL1EvaluatedIdea(newQuery, setshowspin));
@@ -116,7 +119,7 @@ const EvaluatedIdea = () => {
                 width: '10rem'
             },
             {
-                name: 'Theme', 
+                name: 'Theme',
                 cell: (row) => (
                     <div
                         style={{
@@ -238,7 +241,7 @@ const EvaluatedIdea = () => {
     };
 
     return (
-        <Layout>
+        <Layout title="L2 Evaluated Idea">
             <div className="container evaluated_idea_wrapper pt-5 mb-50">
                 <div className="row">
                     <div className="col-12 p-0">
@@ -250,14 +253,16 @@ const EvaluatedIdea = () => {
                                         <Col md={3}>
                                             <div className="my-3 d-md-block d-flex justify-content-center">
                                                 <Select
-                                                    list={fullStatesNames}
+                                                    list={fiterDistData}
                                                     setValue={setState}
-                                                    placeHolder={'Select State'}
+                                                    placeHolder={
+                                                        'Select District'
+                                                    }
                                                     value={state}
                                                 />
                                             </div>
                                         </Col>
-                                        <Col md={3}>
+                                        {/* <Col md={3}>
                                             <div className="my-3 d-md-block d-flex justify-content-center">
                                                 <Select
                                                     list={SDGDate}
@@ -268,19 +273,19 @@ const EvaluatedIdea = () => {
                                                     value={sdg}
                                                 />
                                             </div>
-                                        </Col>
+                                        </Col> */}
 
                                         <Col md={1}>
                                             <div className="text-center">
                                                 <Button
                                                     btnClass={
-                                                        state && sdg
+                                                        state
                                                             ? 'primary'
                                                             : 'default'
                                                     }
                                                     size="small"
                                                     label="Search"
-                                                    disabled={!(state && sdg)}
+                                                    disabled={!state}
                                                     onClick={() =>
                                                         handleclickcall()
                                                     }

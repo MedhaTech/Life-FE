@@ -19,7 +19,7 @@ const Instructions = () => {
     }, []);
 
     return (
-        <Layout>
+        <Layout title="Instructions">
             <Card className="m-5 p-5">
                 <h1>Instructions</h1>
                 <div

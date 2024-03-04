@@ -20,7 +20,10 @@ function Layout(props) {
                 handleToggleSidebar={handleToggleSidebar}
             />
             <main>
-                <Header handleToggleSidebar={handleToggleSidebar} />
+                <Header
+                    handleToggleSidebar={handleToggleSidebar}
+                    title={props?.title}
+                />
                 <div className="app-content">{props.children}</div>
                 <Footer />
             </main>
