@@ -14,7 +14,8 @@ import { Container, Row, Col } from 'reactstrap';
 import Select from '../Helper/Select';
 import {
     getDistrictData,
-    getStateData
+    getStateData,
+    getFetchDistData
 } from '../../redux/studentRegistration/actions';
 import {
     ReasonsOptions,
@@ -56,12 +57,14 @@ const EvaluatedIdea = () => {
             setReason2('');
         }
     }, [status]);
-
+    const fiterDistData = useSelector(
+        (state) => state?.studentRegistration?.fetchdist
+    );
     const [tabledate, settabledate] = React.useState([]);
 
     useEffect(() => {
-        // dispatch(getDistrictData());
-        dispatch(getStateData());
+        dispatch(getFetchDistData());
+        // dispatch(getStateData());
     }, []);
     useEffect(() => {
         if (state === '') {
@@ -74,12 +77,17 @@ const EvaluatedIdea = () => {
     const handleclickcall = () => {
         // here we can select status , district , SDG //
         const newQuery = {
-            level:'L1',
-            evaluation_status: status !== 'Both'? (status === 'Accepted' ? 'SELECTEDROUND1' : 'REJECTEDROUND1'): '',
+            level: 'L1',
+            evaluation_status:
+                status !== 'Both'
+                    ? status === 'Accepted'
+                        ? 'SELECTEDROUND1'
+                        : 'REJECTEDROUND1'
+                    : '',
             state: state !== 'All States' ? state : '',
             sdg: sdg !== 'All Themes' ? sdg : '',
-            rejected_reason : reason,
-            rejected_reasonSecond : reason2
+            rejected_reason: reason,
+            rejected_reasonSecond: reason2
         };
         setshowspin(true);
         dispatch(getL1EvaluatedIdea(newQuery, setshowspin));
@@ -269,7 +277,7 @@ const EvaluatedIdea = () => {
     };
 
     return (
-        <Layout>
+        <Layout title="L1 Evaluated Idea">
             <div className="container evaluated_idea_wrapper pt-5 mb-50">
                 <div className="row">
                     <div className="col-12 p-0">
@@ -294,14 +302,16 @@ const EvaluatedIdea = () => {
                                         <Col md={2}>
                                             <div className="my-3 d-md-block d-flex justify-content-center">
                                                 <Select
-                                                    list={fullStatesNames}
+                                                    list={fiterDistData}
                                                     setValue={setState}
-                                                    placeHolder={'Select State'}
+                                                    placeHolder={
+                                                        'Select District'
+                                                    }
                                                     value={state}
                                                 />
                                             </div>
                                         </Col>
-                                        <Col md={2}>
+                                        {/* <Col md={2}>
                                             <div className="my-3 d-md-block d-flex justify-content-center">
                                                 <Select
                                                     list={SDGDate}
@@ -312,7 +322,7 @@ const EvaluatedIdea = () => {
                                                     value={sdg}
                                                 />
                                             </div>
-                                        </Col>
+                                        </Col> */}
                                         {status && status !== 'Accepted' && (
                                             <Col md={3}>
                                                 <div className="my-3 d-md-block d-flex justify-content-center">
@@ -345,18 +355,14 @@ const EvaluatedIdea = () => {
                                             <div className="text-center">
                                                 <Button
                                                     btnClass={
-                                                        status && state && sdg
+                                                        status && state
                                                             ? 'primary'
                                                             : 'default'
                                                     }
                                                     size="small"
                                                     label="Search"
                                                     disabled={
-                                                        !(
-                                                            status &&
-                                                            state &&
-                                                            sdg
-                                                        )
+                                                        !(status && state)
                                                     }
                                                     onClick={() =>
                                                         handleclickcall()

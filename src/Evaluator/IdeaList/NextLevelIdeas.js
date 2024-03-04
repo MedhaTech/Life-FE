@@ -35,7 +35,7 @@ const IdeaList = () => {
     };
 
     return (
-        <Layout>
+        <Layout title="L2 Evaluation">
             <div
                 className="container idea_list_wrapper pt-5 mb-50"
                 ref={topRef}

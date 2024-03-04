@@ -201,7 +201,7 @@ const Register = (props) => {
                                     md={12}
                                 >
                                     <Label className="mb-2" htmlFor="username">
-                                        Email
+                                        Email Id
                                     </Label>
                                     <InputBox
                                         {...inputUserId}
@@ -227,7 +227,7 @@ const Register = (props) => {
                                     md={12}
                                 >
                                     <Label className="mb-2" htmlFor="mobile">
-                                        Contact Number
+                                        Mobile Number
                                     </Label>
                                     {/* <InputWithMobileNoComp {...inputPhone} id='mobile' name='mobile' /> */}
                                     <InputBox

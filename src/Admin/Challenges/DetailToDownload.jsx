@@ -11,7 +11,7 @@ class detailToDownload extends React.Component {
     constructor(props) {
         super(props);
         this.state = {};
-        console.log(props, 'd');
+        // console.log(props, 'd');
     }
     render() {
         return (
@@ -28,7 +28,7 @@ class detailToDownload extends React.Component {
                                 fontFamily: 'Poppins'
                             }}
                         >
-                            {this.props?.ideaDetails?.organization_code}
+                            {this.props?.ideaDetails?.institution_code}
                         </span>
                         <span
                             className="text-capitalize"
@@ -40,7 +40,7 @@ class detailToDownload extends React.Component {
                                 fontFamily: 'Poppins'
                             }}
                         >
-                            {this.props?.ideaDetails?.organization_name}
+                            {/* {this.props?.ideaDetails?.organization_name} */}
                         </span>
                         <span
                             className="text-capitalize"
@@ -64,7 +64,7 @@ class detailToDownload extends React.Component {
                                 fontFamily: 'Poppins'
                             }}
                         >
-                            {this.props?.ideaDetails?.category}
+                            {/* {this.props?.ideaDetails?.category} */}
                         </span>
                         <span
                             className="text-capitalize"
@@ -88,7 +88,7 @@ class detailToDownload extends React.Component {
                                 fontFamily: 'Poppins'
                             }}
                         >
-                            {this.props?.ideaDetails?.mentor_name}
+                            {/* {this.props?.ideaDetails?.mentor_name} */}
                         </span>
                         <span
                             className="text-capitalize"
@@ -100,7 +100,7 @@ class detailToDownload extends React.Component {
                                 fontFamily: 'Poppins'
                             }}
                         >
-                            {this.props?.ideaDetails?.mobile}
+                            {/* {this.props?.ideaDetails?.mobile} */}
                         </span>
                         <span
                             className="text-capitalize"
@@ -124,7 +124,7 @@ class detailToDownload extends React.Component {
                                 fontFamily: 'Poppins'
                             }}
                         >
-                            {this.props?.ideaDetails?.challenge_response_id}
+                            {this.props?.ideaDetails?.idea_id}
                         </span>
                         <span
                             style={{
@@ -149,9 +149,8 @@ class detailToDownload extends React.Component {
                                 width: '65%'
                             }}
                         >
-                            {this.props?.teamResponse &&
-                            this.props?.teamResponse[0]
-                                ? this.props?.teamResponse[0].selected_option[0]
+                            {this.props?.ideaDetails?.idea_title
+                                ? this.props?.ideaDetails?.idea_title
                                 : '-'}
                         </span>
                         <span
@@ -177,8 +176,8 @@ class detailToDownload extends React.Component {
                                 width: '60%'
                             }}
                         >
-                            {this.props?.ideaDetails?.team_members &&
-                                this.props?.ideaDetails?.team_members.toString()}
+                            {/* {this.props?.ideaDetails?.team_members &&
+                                this.props?.ideaDetails?.team_members.toString()} */}
                         </span>
 
                         <img
@@ -251,11 +250,18 @@ class detailToDownload extends React.Component {
                     <div className="col-12">
                         <div style={{ borderStyle: 'solid', margin: '0 2rem' }}>
                             <p className="mb-4 my-3  px-5 py-3 me-md-3">
-                                <b>Theme : </b> {this.props?.ideaDetails?.sdg}
+                                <b>Theme : </b>{' '}
+                                {
+                                    this.props?.ideaDetails?.themes_problem
+                                        ?.theme_name
+                                }
                             </p>
                             <p className="mb-4 my-3  px-5 py-3 me-md-3">
                                 <b>Problem Statement : </b>
-                                {this.props?.ideaDetails?.sub_category}
+                                {
+                                    this.props?.ideaDetails?.themes_problem
+                                        ?.problem_statement
+                                }
                             </p>
                             {this.props?.teamResponse &&
                                 this.props?.teamResponse.length > 0 &&

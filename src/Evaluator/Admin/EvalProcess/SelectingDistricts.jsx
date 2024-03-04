@@ -39,8 +39,7 @@ const EditEvalProcess = (props) => {
         //     : '';
         if (evalID && evalID.state) {
             if (
-                evalID.state.split(',').length ===
-                    fullStatesNames.length - 1 &&
+                evalID.state.split(',').length === fullStatesNames.length - 1 &&
                 !evalID.state.includes('All States')
             ) {
                 setselectedStates(fullStatesNames);
@@ -74,11 +73,13 @@ const EditEvalProcess = (props) => {
     async function handleStates(value) {
         //  handleStates Api where value = state //
         // where we can update the state //
-        if(value.state===''){
+        if (value.state === '') {
             value.state = '-';
         }
         const axiosConfig = getNormalHeaders(KEY.User_API_Key);
-        const evalid = encryptGlobal(JSON.stringify(evalID.evaluation_process_id));
+        const evalid = encryptGlobal(
+            JSON.stringify(evalID.evaluation_process_id)
+        );
         await axios
             .put(
                 `${URL.updateEvalProcess + evalid}`,
@@ -111,7 +112,7 @@ const EditEvalProcess = (props) => {
     };
 
     return (
-        <Layout>
+        <Layout title="Evaluation Config">
             <Container>
                 <Card className="p-5 m-5">
                     <Row>

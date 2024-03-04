@@ -94,9 +94,9 @@ const ViewSelectedIdea = () => {
         const resparam = encryptGlobal(
             JSON.stringify({
                 status: param,
-                state: state !== 'All States' ? state : '',
+                // state: state !== 'All States' ? state : '',
                 district: district !== 'All Districts' ? district : '',
-                sdg: sdg !== 'All Themes' ? sdg : ''
+                // sdg: sdg !== 'All Themes' ? sdg : ''
             })
         );
         await axios
@@ -136,7 +136,7 @@ const ViewSelectedIdea = () => {
             },
             {
                 name: 'Institution Code',
-                // selector: (row) => row.institution_code,
+                selector: (row) => row.institution_code,
                 width: '15rem'
             },
             {
@@ -281,13 +281,19 @@ const ViewSelectedIdea = () => {
     const componentRef = useRef();
     const [pdfIdeaDetails, setPdfIdeaDetails] = useState('');
     const [pdfTeamResponse, setpdfTeamResponse] = useState('');
+    // console.log(pdfIdeaDetails, 'd');
     const handleDownpdf = (params) => {
+        // console.log(params, 'pp');
         setPdfIdeaDetails(params);
-        if (params?.response) {
-            setpdfTeamResponse(
-                Object.entries(params?.response).map((e) => e[1])
-            );
-        }
+        setpdfTeamResponse(params);
+
+        // handlePrint();
+
+        // if (params) {
+        //     setpdfTeamResponse(
+        //         Object.entries(params?.response).map((e) => e[1])
+        //     );
+        // }
     };
     const handlePrint = useReactToPrint({
         content: () => componentRef.current,
@@ -432,6 +438,7 @@ const ViewSelectedIdea = () => {
                                         dataLength={
                                             tableData && tableData?.length
                                         }
+                                        // data={tableData}
                                     />
                                 ))}
                         </div>

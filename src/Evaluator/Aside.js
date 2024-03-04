@@ -12,7 +12,7 @@ import SmallLogo from '../assets/media/logo192.png';
 
 import 'react-pro-sidebar/dist/css/styles.css';
 import { useLocation } from 'react-router-dom';
-import Logo from '../assets/media/tn-brands/UPSHIFT_BLACK.png';
+import Logo from '../assets/media/tn-brands/EDII_LOGO.png';
 import { useHistory } from 'react-router-dom';
 import { RiLogoutBoxRFill, RiLockPasswordFill } from 'react-icons/ri';
 import { useTranslation } from 'react-i18next';
@@ -49,7 +49,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
             collapsed={menuCollapse}
         >
             <SidebarHeader>
-                <div className="sidebar-header header-comp sticky-top">
+                <div className="sidebar-header header-comp sticky-top  d-flex logo-section justify-content-center align-items-center">
                     <div
                         className="d-flex logo-section"
                         style={{ height: '5rem' }}
@@ -141,10 +141,14 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                         icon={<FaLightbulb />}
                         className={
                             location.pathname ===
-                                '/evaluator/evaluated-ideasL2' && 'sidebar-active'
+                                '/evaluator/evaluated-ideasL2' &&
+                            'sidebar-active'
                         }
                     >
-                        <NavLink exact={true} to={'/evaluator/evaluated-ideasL2'}>
+                        <NavLink
+                            exact={true}
+                            to={'/evaluator/evaluated-ideasL2'}
+                        >
                             L2 Evaluated Ideas
                         </NavLink>
                     </MenuItem>
