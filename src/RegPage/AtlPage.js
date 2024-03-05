@@ -484,6 +484,7 @@ function AtlPage() {
         formik.setFieldValue('mentor_whatapp_mobile', '');
     }, [formik.values.mentor_mobile.length == 0]);
     const dateRegex = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/;
+    // console.log(orgData, '1');
     return (
         <div className="container-fluid  SignUp Login">
             <Row className="row-flex  ">
@@ -674,38 +675,41 @@ function AtlPage() {
                                                                   ?.place_name
                                                             : ' N/A'}
                                                         <br />
-                                                        Taluk :{' '}
-                                                        {orgData?.place?.taluk
-                                                            ?.taluk_name
-                                                            ? orgData?.place
-                                                                  ?.taluk
-                                                                  ?.taluk_name
-                                                            : ' N/A'}
-                                                        <br />
                                                         Block :{' '}
-                                                        {orgData?.place?.taluk
-                                                            ?.block?.block_name
+                                                        {orgData?.place?.block
+                                                            ?.block_name
                                                             ? orgData?.place
-                                                                  ?.taluk?.block
+                                                                  ?.block
                                                                   ?.block_name
                                                             : ' N/A'}{' '}
                                                         <br />
                                                         District :{' '}
-                                                        {orgData?.place?.taluk
-                                                            ?.block?.district
+                                                        {orgData?.place?.block
+                                                            ?.district
                                                             ?.district_name
                                                             ? orgData?.place
-                                                                  ?.taluk?.block
+                                                                  ?.block
                                                                   ?.district
                                                                   ?.district_name
                                                             : ' N/A'}{' '}
                                                         <br />
-                                                        State :{' '}
-                                                        {orgData?.place?.taluk
-                                                            ?.block?.district
-                                                            ?.state?.state_name
+                                                        Taluk :{' '}
+                                                        {orgData?.place?.block
+                                                            ?.district?.taluk
+                                                            ?.taluk_name
                                                             ? orgData?.place
-                                                                  ?.taluk?.block
+                                                                  ?.block
+                                                                  ?.district
+                                                                  ?.taluk
+                                                                  ?.taluk_name
+                                                            : ' N/A'}
+                                                        <br />
+                                                        State :{' '}
+                                                        {orgData?.place?.block
+                                                            ?.district?.state
+                                                            ?.state_name
+                                                            ? orgData?.place
+                                                                  ?.block
                                                                   ?.district
                                                                   ?.state
                                                                   ?.state_name

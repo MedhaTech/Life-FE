@@ -131,7 +131,7 @@ const CommonUserProfile = (props) => {
             .catch((err) => console.log(err.response));
     };
     useEffect(() => {
-        mentorsData();
+        // mentorsData();
     }, []);
     const mentorsData = () => {
         const mentorsParam = encryptGlobal(
@@ -371,9 +371,9 @@ const CommonUserProfile = (props) => {
                             </CardText>
                             <CardText>
                                 <span className="mx-3">
-                                    <b>District :</b>
+                                    <b>Place:</b>
                                 </span>
-                                <b>{StudentsDaTa?.district_name}</b>
+                                <b>{StudentsDaTa?.place_name}</b>
                             </CardText>
                             <CardText>
                                 <span className="mx-3">
@@ -383,16 +383,16 @@ const CommonUserProfile = (props) => {
                             </CardText>
                             <CardText>
                                 <span className="mx-3">
+                                    <b>District :</b>
+                                </span>
+                                <b>{StudentsDaTa?.district_name}</b>
+                            </CardText>
+                            <CardText>
+                                <span className="mx-3">
                                     <b>Taluk:</b>
                                 </span>
                                 <b>{StudentsDaTa?.taluk_name}</b>
                             </CardText>{' '}
-                            <CardText>
-                                <span className="mx-3">
-                                    <b>Place:</b>
-                                </span>
-                                <b>{StudentsDaTa?.place_name}</b>
-                            </CardText>
                             <CardText>
                                 <span className="mx-3">
                                     <b>State :</b>

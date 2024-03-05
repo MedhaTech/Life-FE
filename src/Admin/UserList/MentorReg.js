@@ -653,52 +653,50 @@ const MySchoolProfile = () => {
                                                                           ?.place_name
                                                                     : ' N/A'}
                                                                 <br />
-                                                                Taluk :{' '}
-                                                                {orgData?.place
-                                                                    ?.taluk
-                                                                    ?.taluk_name
-                                                                    ? orgData
-                                                                          ?.place
-                                                                          ?.taluk
-                                                                          ?.taluk_name
-                                                                    : ' N/A'}
-                                                                <br />
                                                                 Block :{' '}
                                                                 {orgData?.place
-                                                                    ?.taluk
                                                                     ?.block
                                                                     ?.block_name
                                                                     ? orgData
                                                                           ?.place
-                                                                          ?.taluk
                                                                           ?.block
                                                                           ?.block_name
                                                                     : ' N/A'}{' '}
                                                                 <br />
                                                                 District :{' '}
                                                                 {orgData?.place
-                                                                    ?.taluk
                                                                     ?.block
                                                                     ?.district
                                                                     ?.district_name
                                                                     ? orgData
                                                                           ?.place
-                                                                          ?.taluk
                                                                           ?.block
                                                                           ?.district
                                                                           ?.district_name
                                                                     : ' N/A'}{' '}
                                                                 <br />
+                                                                Taluk :{' '}
+                                                                {orgData?.place
+                                                                    ?.block
+                                                                    ?.district
+                                                                    ?.taluk
+                                                                    ?.taluk_name
+                                                                    ? orgData
+                                                                          ?.place
+                                                                          ?.block
+                                                                          ?.district
+                                                                          ?.taluk
+                                                                          ?.taluk_name
+                                                                    : ' N/A'}
+                                                                <br />
                                                                 State :{' '}
                                                                 {orgData?.place
-                                                                    ?.taluk
                                                                     ?.block
                                                                     ?.district
                                                                     ?.state
                                                                     ?.state_name
                                                                     ? orgData
                                                                           ?.place
-                                                                          ?.taluk
                                                                           ?.block
                                                                           ?.district
                                                                           ?.state

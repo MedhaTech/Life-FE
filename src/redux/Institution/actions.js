@@ -25,7 +25,7 @@ export const getInstPlaceData = (item) => async (dispatch) => {
         let result;
         const ItemAtl = encryptGlobal(
             JSON.stringify({
-                taluk_id: item
+                block_id: item
             })
         );
         result = await axios
@@ -64,7 +64,7 @@ export const getInstTalukData = (item) => async (dispatch) => {
         let result;
         const Item = encryptGlobal(
             JSON.stringify({
-                block_id: item
+                district_id: item
             })
         );
         result = await axios
@@ -139,6 +139,7 @@ export const getInstBlockData = (item) => async (dispatch) => {
             });
         if (result && result.status === 200) {
             const data = result.data.data.length > 0 ? result.data.data : [];
+
             dispatch(getInstBlockSuccess(data));
         } else {
             dispatch(getInstBlockSuccess([]));

@@ -178,18 +178,20 @@ const EditSchool = (props) => {
     useEffect(() => {
         if (formik.values.district !== '') {
             dispatch(getInstBlockData(formik.values.district));
+            dispatch(getInstTalukData(formik.values.district));
         }
     }, [formik.values.district]);
     useEffect(() => {
         if (formik.values.block !== '') {
-            dispatch(getInstTalukData(formik.values.block));
+            // dispatch(getInstTalukData(formik.values.block));
+            dispatch(getInstPlaceData(formik.values.block));
         }
     }, [formik.values.block]);
-    useEffect(() => {
-        if (formik.values.taluk !== '') {
-            dispatch(getInstPlaceData(formik.values.taluk));
-        }
-    }, [formik.values.taluk]);
+    // useEffect(() => {
+    //     if (formik.values.taluk !== '') {
+    //         dispatch(getInstPlaceData(formik.values.taluk));
+    //     }
+    // }, [formik.values.taluk]);
     return (
         <Layout title="My Profile">
             <div className="EditPersonalDetails new-member-page">
