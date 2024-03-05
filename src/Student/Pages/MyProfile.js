@@ -731,22 +731,78 @@ const MyProfile = () => {
                                                             className="my-auto profile-detail"
                                                         >
                                                             <b>
-                                                                {teamMember.team
-                                                                    ?.mentor
-                                                                    ?.institution
-                                                                    ?.place
-                                                                    ?.taluk
-                                                                    ?.block
-                                                                    ?.block_name
-                                                                    ? teamMember
-                                                                          .team
-                                                                          ?.mentor
-                                                                          ?.institution
-                                                                          ?.place
-                                                                          ?.taluk
-                                                                          ?.block
-                                                                          ?.block_name
-                                                                    : '-'}
+                                                                {
+                                                                    // ?.taluk
+                                                                    teamMember
+                                                                        .team
+                                                                        ?.mentor
+                                                                        ?.institution
+                                                                        ?.place
+                                                                        ?.block
+                                                                        ?.block_name
+                                                                        ? //   ?.taluk
+                                                                          teamMember
+                                                                              .team
+                                                                              ?.mentor
+                                                                              ?.institution
+                                                                              ?.place
+                                                                              ?.block
+                                                                              ?.block_name
+                                                                        : '-'
+                                                                }
+                                                            </b>
+                                                        </Col>
+                                                    </Row>
+
+                                                    <Row className="pt-3 pb-3">
+                                                        <Col
+                                                            // md={3}
+                                                            xs={5}
+                                                            sm={5}
+                                                            md={5}
+                                                            xl={5}
+                                                            className="my-auto profile-detail"
+                                                        >
+                                                            <b>District</b>
+                                                        </Col>
+                                                        <Col
+                                                            //  md={1}
+                                                            xs={1}
+                                                            sm={1}
+                                                            md={1}
+                                                            xl={1}
+                                                        >
+                                                            :
+                                                        </Col>
+                                                        <Col
+                                                            // md={8}
+                                                            xs={6}
+                                                            sm={6}
+                                                            md={6}
+                                                            xl={6}
+                                                            className="my-auto profile-detail"
+                                                        >
+                                                            <b>
+                                                                {
+                                                                    // ?.taluk
+                                                                    teamMember
+                                                                        .team
+                                                                        ?.mentor
+                                                                        ?.institution
+                                                                        ?.place
+                                                                        ?.block
+                                                                        ?.district
+                                                                        ?.district_name
+                                                                        ? teamMember
+                                                                              .team
+                                                                              ?.mentor
+                                                                              ?.institution
+                                                                              ?.place
+                                                                              ?.block
+                                                                              ?.district
+                                                                              ?.district_name
+                                                                        : '-'
+                                                                }
                                                             </b>
                                                         </Col>
                                                     </Row>
@@ -783,6 +839,8 @@ const MyProfile = () => {
                                                                     ?.mentor
                                                                     ?.institution
                                                                     ?.place
+                                                                    ?.block
+                                                                    ?.district
                                                                     ?.taluk
                                                                     ?.taluk_name
                                                                     ? teamMember
@@ -790,63 +848,14 @@ const MyProfile = () => {
                                                                           ?.mentor
                                                                           ?.institution
                                                                           ?.place
+                                                                          ?.block
+                                                                          ?.district
                                                                           ?.taluk
                                                                           ?.taluk_name
                                                                     : '-'}
                                                             </b>
                                                         </Col>
                                                     </Row>
-                                                    <Row className="pt-3 pb-3">
-                                                        <Col
-                                                            // md={3}
-                                                            xs={5}
-                                                            sm={5}
-                                                            md={5}
-                                                            xl={5}
-                                                            className="my-auto profile-detail"
-                                                        >
-                                                            <b>District</b>
-                                                        </Col>
-                                                        <Col
-                                                            //  md={1}
-                                                            xs={1}
-                                                            sm={1}
-                                                            md={1}
-                                                            xl={1}
-                                                        >
-                                                            :
-                                                        </Col>
-                                                        <Col
-                                                            // md={8}
-                                                            xs={6}
-                                                            sm={6}
-                                                            md={6}
-                                                            xl={6}
-                                                            className="my-auto profile-detail"
-                                                        >
-                                                            <b>
-                                                                {teamMember.team
-                                                                    ?.mentor
-                                                                    ?.institution
-                                                                    ?.place
-                                                                    ?.taluk
-                                                                    ?.block
-                                                                    ?.district
-                                                                    ?.district_name
-                                                                    ? teamMember
-                                                                          .team
-                                                                          ?.mentor
-                                                                          ?.institution
-                                                                          ?.place
-                                                                          ?.taluk
-                                                                          ?.block
-                                                                          ?.district
-                                                                          ?.district_name
-                                                                    : '-'}
-                                                            </b>
-                                                        </Col>
-                                                    </Row>
-
                                                     <Row className="pt-3 pb-3">
                                                         <Col
                                                             // md={3}
@@ -876,26 +885,29 @@ const MyProfile = () => {
                                                             className="my-auto profile-detail"
                                                         >
                                                             <b>
-                                                                {teamMember.team
-                                                                    ?.mentor
-                                                                    ?.institution
-                                                                    ?.place
-                                                                    ?.taluk
-                                                                    ?.block
-                                                                    ?.district
-                                                                    ?.state
-                                                                    ?.state_name
-                                                                    ? teamMember
-                                                                          .team
-                                                                          ?.mentor
-                                                                          ?.institution
-                                                                          ?.place
-                                                                          ?.taluk
-                                                                          ?.block
-                                                                          ?.district
-                                                                          ?.state
-                                                                          ?.state_name
-                                                                    : '-'}
+                                                                {
+                                                                    // ?.taluk
+                                                                    teamMember
+                                                                        .team
+                                                                        ?.mentor
+                                                                        ?.institution
+                                                                        ?.place
+                                                                        ?.block
+                                                                        ?.district
+                                                                        ?.state
+                                                                        ?.state_name
+                                                                        ? //   ?.taluk
+                                                                          teamMember
+                                                                              .team
+                                                                              ?.mentor
+                                                                              ?.institution
+                                                                              ?.place
+                                                                              ?.block
+                                                                              ?.district
+                                                                              ?.state
+                                                                              ?.state_name
+                                                                        : '-'
+                                                                }
                                                             </b>
                                                         </Col>
                                                     </Row>

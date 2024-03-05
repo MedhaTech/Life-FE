@@ -217,7 +217,7 @@ const ViewDetail = (props) => {
                             <div className="row">
                                 <div className="col-lg-6">
                                     <Row>
-                                        <Col>
+                                        {/* <Col>
                                             <h2 className="mb-md-4 mb-3">
                                                 Theme :
                                                 <span className="text-capitalize fs-3">
@@ -225,7 +225,7 @@ const ViewDetail = (props) => {
                                                         ''}
                                                 </span>
                                             </h2>
-                                        </Col>
+                                        </Col> */}
                                         <Col>
                                             <h2 className="mb-md-4 mb-3">
                                                 CID :
@@ -333,7 +333,7 @@ const ViewDetail = (props) => {
                                     </div> */}
                                 </div>
                                 <div className="col-lg-12 mt-3">
-                                    <Row className="col-lg-12">
+                                    {/* <Row className="col-lg-12">
                                         <h2>
                                             <span
                                                 style={{
@@ -347,7 +347,7 @@ const ViewDetail = (props) => {
                                                     ''}
                                             </span>
                                         </h2>
-                                    </Row>
+                                    </Row> */}
                                 </div>
                             </div>
                         </div>
