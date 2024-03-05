@@ -96,21 +96,26 @@ const ViewDetail = (props) => {
     };
 
     const handleL1Round = (handledText) => {
+        const currentTime = new Date().toLocaleString();
+
         const body = JSON.stringify({
-            status:
+            evaluation_status:
                 handledText == 'accept' ? 'SELECTEDROUND1' : 'REJECTEDROUND1',
-            rejected_reason: handledText == 'reject' ? reason : '',
-            rejected_reasonSecond: handledText == 'reject' ? reasonSec : ''
+            team_id: teamResponse?.team_id,
+            evaluated_by: currentUser?.data[0]?.user_id,
+            evaluated_at: currentTime,
+            rejected_reason: handledText == 'reject' ? reason : ''
+            // rejected_reasonSecond: handledText == 'reject' ? reasonSec : ''
         });
-        const challId = encryptGlobal(
-            JSON.stringify(props?.ideaDetails?.challenge_response_id)
-        );
+        // const challId = encryptGlobal(
+        //     JSON.stringify(props?.ideaDetails?.challenge_response_id)
+        // );
         var config = {
             method: 'put',
             url: `${
-                process.env.REACT_APP_API_BASE_URL +
-                '/challenge_response/' +
-                challId
+                process.env.REACT_APP_API_BASE_URL + '/ideas/ideaUpdate'
+                // +
+                // challId
             }`,
             headers: {
                 'Content-Type': 'application/json',
@@ -140,7 +145,7 @@ const ViewDetail = (props) => {
     };
 
     const handleReject = () => {
-        if (reason && reasonSec) {
+        if (reason) {
             handleAlert('reject');
             setIsreject(false);
         }
@@ -222,7 +227,7 @@ const ViewDetail = (props) => {
                             <div className="row">
                                 <div className="col-lg-6">
                                     <Row>
-                                        <Col>
+                                        {/* <Col>
                                             <h2 className="mb-md-4 mb-3">
                                                 Theme :
                                                 <span className="text-capitalize fs-3">
@@ -230,7 +235,7 @@ const ViewDetail = (props) => {
                                                         ''}
                                                 </span>
                                             </h2>
-                                        </Col>
+                                        </Col> */}
                                         <Col>
                                             <h2 className="mb-md-4 mb-3">
                                                 CID :
@@ -328,7 +333,7 @@ const ViewDetail = (props) => {
                                     </div> */}
                                 </div>
                                 <div className="col-lg-12 mt-3">
-                                    <Row className="col-lg-12">
+                                    {/* <Row className="col-lg-12">
                                         <h2>
                                             <span
                                                 style={{
@@ -342,7 +347,7 @@ const ViewDetail = (props) => {
                                                     ''}
                                             </span>
                                         </h2>
-                                    </Row>
+                                    </Row> */}
                                 </div>
                             </div>
                         </div>
@@ -751,14 +756,14 @@ const ViewDetail = (props) => {
                                                 {props?.ideaDetails
                                                     ?.rejected_reason || ''}
                                             </p>
-                                            <p className="text-center">
+                                            {/* <p className="text-center">
                                                 <span className="text-bold">
                                                     Rejected Reason 2:{' '}
                                                 </span>{' '}
                                                 {props?.ideaDetails
                                                     ?.rejected_reasonSecond ||
                                                     ''}
-                                            </p>
+                                            </p> */}
                                         </>
                                     )}
                                     {props?.ideaDetails?.evaluation_status ? (
@@ -891,7 +896,7 @@ const ViewDetail = (props) => {
                                     value={reason}
                                 />
                             </Col>
-                            <Col className="m-5">
+                            {/* <Col className="m-5">
                                 <p className="text-left">
                                     <b>
                                         2. Does the submission show any evidence
@@ -905,18 +910,16 @@ const ViewDetail = (props) => {
                                     placeHolder="Please Select Reject Reason 2"
                                     value={reasonSec}
                                 />
-                            </Col>
+                            </Col> */}
                         </Col>
                     </div>
                     <div className="text-center">
                         <Button
                             label={'Submit'}
-                            btnClass={
-                                !reason && reasonSec ? 'default' : 'primary'
-                            }
+                            btnClass={!reason ? 'default' : 'primary'}
                             size="small "
                             onClick={() => handleReject()}
-                            disabled={!reason && reasonSec}
+                            disabled={!reason}
                         />
                     </div>
                 </Modal.Body>

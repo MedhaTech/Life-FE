@@ -238,7 +238,7 @@ const EditSchool = () => {
         <Layout title="My Profile">
             <div className="EditPersonalDetails new-member-page">
                 <Row>
-                    <Col className="col-xl-10 offset-xl-1 offset-md-0">
+                    <Col className="col-6 offset-xl-1 offset-md-0">
                         {/* <BreadcrumbTwo {...headingDetails} /> */}
                         <h3 className="mb-5">Add Courses</h3>
 

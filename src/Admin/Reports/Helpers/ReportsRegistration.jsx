@@ -147,22 +147,22 @@ const ReportsRegistration = () => {
             label: 'State',
             key: 'state_name'
         },
-        {
-            label: 'Principal Name',
-            key: 'principal_name'
-        },
-        {
-            label: 'Principal Mobile No',
-            key: 'principal_mobile'
-        },
-        {
-            label: 'Principal Whatsapp Noo',
-            key: 'principal_whatsapp_mobile'
-        },
-        {
-            label: 'Principal Email',
-            key: 'principal_email'
-        },
+        // {
+        //     label: 'Principal Name',
+        //     key: 'principal_name'
+        // },
+        // {
+        //     label: 'Principal Mobile No',
+        //     key: 'principal_mobile'
+        // },
+        // {
+        //     label: 'Principal Whatsapp Noo',
+        //     key: 'principal_whatsapp_mobile'
+        // },
+        // {
+        //     label: 'Principal Email',
+        //     key: 'principal_email'
+        // },
         {
             label: 'Title',
             key: 'mentor_title'
@@ -233,6 +233,22 @@ const ReportsRegistration = () => {
             label: 'State',
             key: 'state_name'
         },
+        {
+            label: 'Principal Name',
+            key: 'principal_name'
+        },
+        {
+            label: 'Principal Mobile No',
+            key: 'principal_mobile'
+        },
+        {
+            label: 'Principal Whatsapp Noo',
+            key: 'principal_whatsapp_mobile'
+        },
+        {
+            label: 'Principal Email',
+            key: 'principal_email'
+        }
         // {
         //     label: 'City',
         //     key: 'city'
@@ -249,18 +265,18 @@ const ReportsRegistration = () => {
         //     label: 'Country',
         //     key: 'country'
         // },
-        {
-            label: 'HM Name',
-            key: 'principal_name'
-        },
-        {
-            label: 'HM Contact',
-            key: 'principal_mobile'
-        },
-        {
-            label: 'HM Email',
-            key: 'principal_email'
-        }
+        // {
+        //     label: 'HM Name',
+        //     key: 'principal_name'
+        // },
+        // {
+        //     label: 'HM Contact',
+        //     key: 'principal_mobile'
+        // },
+        // {
+        //     label: 'HM Email',
+        //     key: 'principal_email'
+        // }
     ];
     // useEffect(() => {
     //     dispatch(getStateData());

@@ -47,7 +47,6 @@ const ReportsRegistration = () => {
     //     categoryValue[process.env.REACT_APP_LOCAL_LANGUAGE_CODE];
 
     const [downloadData, setDownloadData] = useState(null);
-    console.log(downloadData, 'bb');
     const [downloadNotRegisteredData, setDownloadNotRegisteredData] =
         useState(null);
     const [chartTableData, setChartTableData] = useState([]);
@@ -154,13 +153,29 @@ const ReportsRegistration = () => {
             label: 'Place',
             key: 'place_name'
         },
-        {
-            label: 'School Type/Category',
-            key: 'category'
-        },
+        // {
+        //     label: 'School Type/Category',
+        //     key: 'category'
+        // },
         {
             label: 'State',
             key: 'state_name'
+        },
+        {
+            label: 'Principal Name',
+            key: 'principal_name'
+        },
+        {
+            label: 'Principal Mobile No',
+            key: 'principal_mobile'
+        },
+        // {
+        //     label: 'Principal Whatsapp Noo',
+        //     key: 'principal_whatsapp_mobile'
+        // },
+        {
+            label: 'Principal Email',
+            key: 'principal_email'
         },
         // {
         //     label: 'Address',
@@ -179,10 +194,10 @@ const ReportsRegistration = () => {
         //     label: 'HM Contact',
         //     key: 'HM Contact'
         // },
-        {
-            label: 'Mentor Name',
-            key: 'Teacher Name'
-        },
+        // {
+        //     label: 'Mentor Name',
+        //     key: 'Teacher Name'
+        // },
         {
             label: 'Mentor Name',
             key: 'mentor_name'
@@ -191,18 +206,18 @@ const ReportsRegistration = () => {
             label: 'Email ID',
             key: 'mentor_email'
         },
-        {
-            label: 'Mentor Gender',
-            key: 'gender'
-        },
+        // {
+        //     label: 'Mentor Gender',
+        //     key: 'gender'
+        // },
         {
             label: 'Mentor No',
             key: 'mentor_mobile'
         },
-        {
-            label: 'Mentor WhatsApp No',
-            key: 'mentor_whatapp_mobile'
-        },
+        // {
+        //     label: 'Mentor WhatsApp No',
+        //     key: 'mentor_whatapp_mobile'
+        // },
 
         {
             label: 'Team Name',

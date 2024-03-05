@@ -250,10 +250,10 @@ const ReportsRegistration = () => {
             label: 'Principal Email',
             key: 'principal_email'
         },
-        {
-            label: 'Mentor Name',
-            key: 'Teacher Name'
-        },
+        // {
+        //     label: 'Mentor Name',
+        //     key: 'Teacher Name'
+        // },
         {
             label: 'Mentor Name',
             key: 'mentor_name'
@@ -262,18 +262,18 @@ const ReportsRegistration = () => {
             label: 'Email ID',
             key: 'mentor_email'
         },
-        {
-            label: 'Mentor Gender',
-            key: 'gender'
-        },
+        // {
+        //     label: 'Mentor Gender',
+        //     key: 'gender'
+        // },
         {
             label: 'Mentor No',
             key: 'mentor_mobile'
         },
-        {
-            label: 'Mentor WhatsApp No',
-            key: 'mentor_whatapp_mobile'
-        },
+        // {
+        //     label: 'Mentor WhatsApp No',
+        //     key: 'mentor_whatapp_mobile'
+        // },
         {
             label: 'Team Name',
             key: 'team_name'

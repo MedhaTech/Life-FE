@@ -177,10 +177,10 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props }) => {
         link.click();
         document.body.removeChild(link);
     };
-    // console.log(
-    //     "submittedResponse.Prototype_file.split(',')",
-    //     submittedResponse.Prototype_file.split(',')
-    // );
+    console.log(
+        "submittedResponse.Prototype_file.split(',')",
+        submittedResponse.prototype_available
+    );
     return (
         <div>
             {/* <div style={{ display: 'none' }}>
@@ -317,52 +317,58 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props }) => {
                             </CardText>
                         </CardBody>
                     </Card>
-                    <Card className="m-3 p-3">
-                        <CardBody>
-                            <label
-                                htmlFor="teams"
-                                className=""
-                                style={{ fontSize: '1.3rem' }}
-                            >
-                                If yes, Prototype File Upload (Only JPG/PNG)
-                            </label>
-                            <CardText>
-                                {/* <a
+                    {submittedResponse.prototype_available !== 'NO' &&
+                        submittedResponse.prototype_available !== '' && (
+                            <Card className="m-3 p-3">
+                                <CardBody>
+                                    <label
+                                        htmlFor="teams"
+                                        className=""
+                                        style={{ fontSize: '1.3rem' }}
+                                    >
+                                        If yes, Prototype File Upload (Only
+                                        JPG/PNG)
+                                    </label>
+                                    <CardText>
+                                        {/* <a
                                     href={submittedResponse.Prototype_file}
                                     download="upload.pdf"
                                 >
                                     File Upload
                                 </a> */}
-                                <CardText>
-                                    {files.length > 0 &&
-                                        files.map((item, i) => (
-                                            <Card key={i}>
-                                                {/* <CardTitle className="fw-bold">
+                                        <CardText>
+                                            {files.length > 0 &&
+                                                files.map((item, i) => (
+                                                    <Card key={i}>
+                                                        {/* <CardTitle className="fw-bold">
                                                     {item.question}
                                                 </CardTitle> */}
-                                                {/* <CardBody> */}
-                                                <a
-                                                    key={i}
-                                                    className="badge mb-2 bg-info p-3 ms-3"
-                                                    target="_blank"
-                                                    rel="noreferrer"
-                                                    onClick={() =>
-                                                        downloadFile(item)
-                                                    }
-                                                >
-                                                    {item}
-                                                </a>
-                                                {/* </CardBody> */}
-                                            </Card>
-                                        ))}
-                                    {/* {}{' '}
+                                                        {/* <CardBody> */}
+                                                        <a
+                                                            key={i}
+                                                            className="badge mb-2 bg-info p-3 ms-3"
+                                                            target="_blank"
+                                                            rel="noreferrer"
+                                                            onClick={() =>
+                                                                downloadFile(
+                                                                    item
+                                                                )
+                                                            }
+                                                        >
+                                                            {item}
+                                                        </a>
+                                                        {/* </CardBody> */}
+                                                    </Card>
+                                                ))}
+                                            {/* {}{' '}
                                     <button onClick={downloadFile}>
                                         Download PDF
                                     </button> */}
-                                </CardText>
-                            </CardText>
-                        </CardBody>
-                    </Card>
+                                        </CardText>
+                                    </CardText>
+                                </CardBody>
+                            </Card>
+                        )}
                     {/* <Card className="m-3 p-3">
                         <CardBody>
                             <label

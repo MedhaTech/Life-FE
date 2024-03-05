@@ -103,11 +103,12 @@ const MySchoolProfile = () => {
                     axios(config)
                         .then(function (response) {
                             if (response.status === 200) {
-                                console.log(response, '44');
+                                // console.log(response, '44');
                                 openNotificationWithIcon(
                                     'success',
                                     'Course deleted successfully'
                                 );
+                                handleResList();
                                 // history.push({
                                 //     pathname: '/mentor/teamlist'
                                 // });
