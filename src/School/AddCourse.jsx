@@ -238,13 +238,13 @@ const EditSchool = () => {
         <Layout title="My Profile">
             <div className="EditPersonalDetails new-member-page">
                 <Row>
-                    <Col className="col-6 offset-xl-1 offset-md-0">
+                    <Col className="col-9 offset-xl-1 offset-md-0">
                         {/* <BreadcrumbTwo {...headingDetails} /> */}
                         <h3 className="mb-5">Add Courses</h3>
 
                         <div>
                             <Form onSubmit={formik.handleSubmit} isSubmitting>
-                                <div className="create-ticket register-block">
+                                <div className="create-ticket register-blockt">
                                     <FormGroup className="form-group">
                                         <Row>
                                             <Col md={12} className="mb-0">

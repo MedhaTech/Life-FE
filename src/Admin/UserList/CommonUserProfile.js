@@ -383,16 +383,16 @@ const CommonUserProfile = (props) => {
                             </CardText>
                             <CardText>
                                 <span className="mx-3">
-                                    <b>District :</b>
-                                </span>
-                                <b>{StudentsDaTa?.district_name}</b>
-                            </CardText>
-                            <CardText>
-                                <span className="mx-3">
                                     <b>Taluk:</b>
                                 </span>
                                 <b>{StudentsDaTa?.taluk_name}</b>
                             </CardText>{' '}
+                            <CardText>
+                                <span className="mx-3">
+                                    <b>District :</b>
+                                </span>
+                                <b>{StudentsDaTa?.district_name}</b>
+                            </CardText>
                             <CardText>
                                 <span className="mx-3">
                                     <b>State :</b>

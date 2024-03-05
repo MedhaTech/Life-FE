@@ -589,6 +589,50 @@ const MyProfile = () => {
                                                                     xl={5}
                                                                     className="my-auto profile-detail"
                                                                 >
+                                                                    <b>Taluk</b>
+                                                                </Col>
+                                                                <Col
+                                                                    xs={1}
+                                                                    sm={1}
+                                                                    md={1}
+                                                                    xl={1}
+                                                                >
+                                                                    :
+                                                                </Col>
+                                                                <Col
+                                                                    xs={6}
+                                                                    sm={6}
+                                                                    md={6}
+                                                                    xl={6}
+                                                                    className="my-auto profile-detail"
+                                                                >
+                                                                    <b>
+                                                                        {teacher
+                                                                            .institution
+                                                                            ?.place
+                                                                            ?.block
+                                                                            ?.district
+                                                                            ?.taluk
+                                                                            ?.taluk_name
+                                                                            ? teacher
+                                                                                  .institution
+                                                                                  ?.place
+                                                                                  ?.block
+                                                                                  ?.district
+                                                                                  ?.taluk
+                                                                                  ?.taluk_name
+                                                                            : '-'}
+                                                                    </b>
+                                                                </Col>
+                                                            </Row>
+                                                            <Row className="pt-3 pb-3">
+                                                                <Col
+                                                                    xs={5}
+                                                                    sm={5}
+                                                                    md={5}
+                                                                    xl={5}
+                                                                    className="my-auto profile-detail"
+                                                                >
                                                                     <b>
                                                                         District
                                                                     </b>
@@ -626,50 +670,6 @@ const MyProfile = () => {
                                                                                       ?.district_name
                                                                                 : '-'
                                                                         }
-                                                                    </b>
-                                                                </Col>
-                                                            </Row>
-                                                            <Row className="pt-3 pb-3">
-                                                                <Col
-                                                                    xs={5}
-                                                                    sm={5}
-                                                                    md={5}
-                                                                    xl={5}
-                                                                    className="my-auto profile-detail"
-                                                                >
-                                                                    <b>Taluk</b>
-                                                                </Col>
-                                                                <Col
-                                                                    xs={1}
-                                                                    sm={1}
-                                                                    md={1}
-                                                                    xl={1}
-                                                                >
-                                                                    :
-                                                                </Col>
-                                                                <Col
-                                                                    xs={6}
-                                                                    sm={6}
-                                                                    md={6}
-                                                                    xl={6}
-                                                                    className="my-auto profile-detail"
-                                                                >
-                                                                    <b>
-                                                                        {teacher
-                                                                            .institution
-                                                                            ?.place
-                                                                            ?.block
-                                                                            ?.district
-                                                                            ?.taluk
-                                                                            ?.taluk_name
-                                                                            ? teacher
-                                                                                  .institution
-                                                                                  ?.place
-                                                                                  ?.block
-                                                                                  ?.district
-                                                                                  ?.taluk
-                                                                                  ?.taluk_name
-                                                                            : '-'}
                                                                     </b>
                                                                 </Col>
                                                             </Row>
