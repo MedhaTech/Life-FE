@@ -223,7 +223,7 @@ const SuccessPage = () => {
                                 >
                                     District:{' '}
                                     {
-                                        orgDaTa?.place?.taluk?.block?.district
+                                        orgDaTa?.place?.block?.district
                                             ?.district_name
                                     }
                                     {/* {mentorDaTa.organization_code} */}
@@ -236,8 +236,8 @@ const SuccessPage = () => {
                                 >
                                     State:{' '}
                                     {
-                                        orgDaTa?.place?.taluk?.block?.district
-                                            ?.state?.state_name
+                                        orgDaTa?.place?.block?.district?.state
+                                            ?.state_name
                                     }
                                     {/* {mentorDaTa.organization_code} */}
                                 </p>
