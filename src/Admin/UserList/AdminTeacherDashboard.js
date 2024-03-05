@@ -410,6 +410,7 @@ const Dashboard = () => {
                 if (result.isConfirmed) {
                     if (result.isConfirmed) {
                         await deleteTempMentorById(id);
+                        history.push('/admin/userlist');
                         setOrgData({});
                         setDiesCode('');
                     }
