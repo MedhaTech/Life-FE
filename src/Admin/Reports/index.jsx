@@ -8,7 +8,7 @@ import PageNotFoundImg from '../../assets/media/page-not-found.png';
 const Reports = () => {
     const showPage = true;
     return (
-        <Layout>
+        <Layout title="Reports">
             {showPage ? (
                 <Container className="mt-5 report-wrapper mb-5 pb-5">
                     <h2>Reports</h2>
@@ -18,7 +18,8 @@ const Reports = () => {
                                 <Link to="/admin/reports-registration">
                                     <Card className="p-4 text-center card-effect mb-4">
                                         <b className="text-secondary">
-                                            SCHOOL/TEACHER REGISTRATION REPORTS
+                                            INSTITUTION/ MENTOR REGISTRATION
+                                            REPORTS
                                         </b>
                                     </Card>
                                 </Link>
@@ -40,7 +41,7 @@ const Reports = () => {
                                 <Link to="/admin/TeacherProgressDetailed">
                                     <Card className="p-4 text-center card-effect mb-4">
                                         <b className="text-secondary">
-                                            SCHOOL PROGRESS DETAILED REPORT
+                                            INSTITUTION PROGRESS DETAILED REPORT
                                         </b>
                                     </Card>
                                 </Link>

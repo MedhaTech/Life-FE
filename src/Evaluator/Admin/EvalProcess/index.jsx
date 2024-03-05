@@ -122,7 +122,7 @@ const Evalprocess = () => {
                             style={{ marginRight: '12px' }}
                         >
                             <div className="btn btn-success btn-lg mx-2">
-                                STATES
+                                Districts
                             </div>
                         </div>
                     </>
@@ -193,7 +193,7 @@ const Evalprocess = () => {
 
     ///////////////////////
     return (
-        <Layout>
+        <Layout title="Evaluation Config">
             <Container className="ticket-page mt-5 mb-50">
                 <Row className="pt-3">
                     <Row className="mb-2 mb-sm-5 mb-md-5 mb-lg-0">
@@ -220,7 +220,7 @@ const Evalprocess = () => {
                             />
                         </DataTableExtensions>
                     </div>
-                    <Row className="pt-3">
+                    {/* <Row className="pt-3">
                         <Row className="mb-2 mb-sm-5 mb-md-5 mb-lg-2 mt-2 mt-sm-5 mt-md-5 mt-lg-5">
                             <Col className="col-auto">
                                 <h2>Evaluation Status</h2>
@@ -280,7 +280,7 @@ const Evalprocess = () => {
                                 </Col>
                             </Row>
                         </Card>
-                    </Row>
+                    </Row> */}
                 </Row>
             </Container>
         </Layout>

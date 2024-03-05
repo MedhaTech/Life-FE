@@ -731,22 +731,25 @@ const MyProfile = () => {
                                                             className="my-auto profile-detail"
                                                         >
                                                             <b>
-                                                                {teamMember.team
-                                                                    ?.mentor
-                                                                    ?.institution
-                                                                    ?.place
-                                                                    ?.taluk
-                                                                    ?.block
-                                                                    ?.block_name
-                                                                    ? teamMember
-                                                                          .team
-                                                                          ?.mentor
-                                                                          ?.institution
-                                                                          ?.place
-                                                                          ?.taluk
-                                                                          ?.block
-                                                                          ?.block_name
-                                                                    : '-'}
+                                                                {
+                                                                    // ?.taluk
+                                                                    teamMember
+                                                                        .team
+                                                                        ?.mentor
+                                                                        ?.institution
+                                                                        ?.place
+                                                                        ?.block
+                                                                        ?.block_name
+                                                                        ? //   ?.taluk
+                                                                          teamMember
+                                                                              .team
+                                                                              ?.mentor
+                                                                              ?.institution
+                                                                              ?.place
+                                                                              ?.block
+                                                                              ?.block_name
+                                                                        : '-'
+                                                                }
                                                             </b>
                                                         </Col>
                                                     </Row>
@@ -783,6 +786,8 @@ const MyProfile = () => {
                                                                     ?.mentor
                                                                     ?.institution
                                                                     ?.place
+                                                                    ?.block
+                                                                    ?.district
                                                                     ?.taluk
                                                                     ?.taluk_name
                                                                     ? teamMember
@@ -790,6 +795,8 @@ const MyProfile = () => {
                                                                           ?.mentor
                                                                           ?.institution
                                                                           ?.place
+                                                                          ?.block
+                                                                          ?.district
                                                                           ?.taluk
                                                                           ?.taluk_name
                                                                     : '-'}
@@ -825,24 +832,26 @@ const MyProfile = () => {
                                                             className="my-auto profile-detail"
                                                         >
                                                             <b>
-                                                                {teamMember.team
-                                                                    ?.mentor
-                                                                    ?.institution
-                                                                    ?.place
-                                                                    ?.taluk
-                                                                    ?.block
-                                                                    ?.district
-                                                                    ?.district_name
-                                                                    ? teamMember
-                                                                          .team
-                                                                          ?.mentor
-                                                                          ?.institution
-                                                                          ?.place
-                                                                          ?.taluk
-                                                                          ?.block
-                                                                          ?.district
-                                                                          ?.district_name
-                                                                    : '-'}
+                                                                {
+                                                                    // ?.taluk
+                                                                    teamMember
+                                                                        .team
+                                                                        ?.mentor
+                                                                        ?.institution
+                                                                        ?.place
+                                                                        ?.block
+                                                                        ?.district
+                                                                        ?.district_name
+                                                                        ? teamMember
+                                                                              .team
+                                                                              ?.mentor
+                                                                              ?.institution
+                                                                              ?.place
+                                                                              ?.block
+                                                                              ?.district
+                                                                              ?.district_name
+                                                                        : '-'
+                                                                }
                                                             </b>
                                                         </Col>
                                                     </Row>
@@ -876,26 +885,29 @@ const MyProfile = () => {
                                                             className="my-auto profile-detail"
                                                         >
                                                             <b>
-                                                                {teamMember.team
-                                                                    ?.mentor
-                                                                    ?.institution
-                                                                    ?.place
-                                                                    ?.taluk
-                                                                    ?.block
-                                                                    ?.district
-                                                                    ?.state
-                                                                    ?.state_name
-                                                                    ? teamMember
-                                                                          .team
-                                                                          ?.mentor
-                                                                          ?.institution
-                                                                          ?.place
-                                                                          ?.taluk
-                                                                          ?.block
-                                                                          ?.district
-                                                                          ?.state
-                                                                          ?.state_name
-                                                                    : '-'}
+                                                                {
+                                                                    // ?.taluk
+                                                                    teamMember
+                                                                        .team
+                                                                        ?.mentor
+                                                                        ?.institution
+                                                                        ?.place
+                                                                        ?.block
+                                                                        ?.district
+                                                                        ?.state
+                                                                        ?.state_name
+                                                                        ? //   ?.taluk
+                                                                          teamMember
+                                                                              .team
+                                                                              ?.mentor
+                                                                              ?.institution
+                                                                              ?.place
+                                                                              ?.block
+                                                                              ?.district
+                                                                              ?.state
+                                                                              ?.state_name
+                                                                        : '-'
+                                                                }
                                                             </b>
                                                         </Col>
                                                     </Row>

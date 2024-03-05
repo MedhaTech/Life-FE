@@ -14,7 +14,8 @@ import { Container, Row, Col } from 'reactstrap';
 import Select from '../Helper/Select';
 import {
     getDistrictData,
-    getStateData
+    getStateData,
+    getFetchDistData
 } from '../../redux/studentRegistration/actions';
 import {
     ReasonsOptions,
@@ -56,12 +57,14 @@ const EvaluatedIdea = () => {
             setReason2('');
         }
     }, [status]);
-
+    const fiterDistData = useSelector(
+        (state) => state?.studentRegistration?.fetchdist
+    );
     const [tabledate, settabledate] = React.useState([]);
 
     useEffect(() => {
-        // dispatch(getDistrictData());
-        dispatch(getStateData());
+        dispatch(getFetchDistData());
+        // dispatch(getStateData());
     }, []);
     useEffect(() => {
         if (state === '') {
@@ -74,12 +77,17 @@ const EvaluatedIdea = () => {
     const handleclickcall = () => {
         // here we can select status , district , SDG //
         const newQuery = {
-            level:'L1',
-            evaluation_status: status !== 'Both'? (status === 'Accepted' ? 'SELECTEDROUND1' : 'REJECTEDROUND1'): '',
+            level: 'L1',
+            evaluation_status:
+                status !== 'Both'
+                    ? status === 'Accepted'
+                        ? 'SELECTEDROUND1'
+                        : 'REJECTEDROUND1'
+                    : '',
             state: state !== 'All States' ? state : '',
-            sdg: sdg !== 'All Themes' ? sdg : '',
-            rejected_reason : reason,
-            rejected_reasonSecond : reason2
+            // sdg: sdg !== 'All Themes' ? sdg : '',
+            rejected_reason: reason
+            // rejected_reasonSecond: reason2
         };
         setshowspin(true);
         dispatch(getL1EvaluatedIdea(newQuery, setshowspin));
@@ -121,15 +129,15 @@ const EvaluatedIdea = () => {
                 width: '6%'
             },
             {
-                name: 'State',
-                selector: (row) => row.state,
+                name: 'District',
+                selector: (row) => row.district,
                 width: '10rem'
             },
-            {
-                name: 'ATL Code',
-                selector: (row) => row.organization_code,
-                width: '15rem'
-            },
+            // {
+            //     name: 'Institution Code',
+            //     selector: (row) => row.institution_code,
+            //     width: '15rem'
+            // },
             {
                 name: 'Team Name',
                 selector: (row) => row.team_name,
@@ -137,7 +145,7 @@ const EvaluatedIdea = () => {
             },
             {
                 name: 'CID',
-                selector: (row) => row.challenge_response_id,
+                selector: (row) => row.idea_id,
 
                 width: '10rem'
             },
@@ -150,7 +158,7 @@ const EvaluatedIdea = () => {
                             wordWrap: 'break-word'
                         }}
                     >
-                        {row.sdg}
+                        {row?.themes_problem?.theme_name}
                     </div>
                 ),
                 width: '15rem'
@@ -165,10 +173,10 @@ const EvaluatedIdea = () => {
                             wordWrap: 'break-word'
                         }}
                     >
-                        {row.sub_category}
+                        {row?.themes_problem?.problem_statement}
                     </div>
                 ),
-                width: '25rem'
+                width: '20rem'
             },
             {
                 name: 'Idea Name',
@@ -180,25 +188,26 @@ const EvaluatedIdea = () => {
                             wordWrap: 'break-word'
                         }}
                     >
-                        {row?.response[1]?.selected_option || ''}
+                        {row?.idea_title}
+                        {/* {row?.response[1]?.selected_option || ''} */}
                     </div>
                 ),
-                width: '25rem'
+                width: '15rem'
             },
 
             {
                 name: 'Submitted By',
                 selector: (row) => row.initiated_name,
-                width: '15%'
+                width: '15rem'
             },
-            {
-                name: 'Evaluated At',
-                selector: (row) =>
-                    row.evaluated_at
-                        ? moment(row.evaluated_at).format('DD-MM-YY h:mm:ss a')
-                        : row.evaluated_at,
-                width: '17%'
-            },
+            // {
+            //     name: 'Evaluated At',
+            //     selector: (row) =>
+            //         row.evaluated_at
+            //             ? moment(row.evaluated_at).format('DD-MM-YY h:mm:ss a')
+            //             : row.evaluated_at,
+            //     width: '17%'
+            // },
             {
                 name: 'Status',
                 cell: (row) => {
@@ -216,7 +225,7 @@ const EvaluatedIdea = () => {
                         </div>
                     ];
                 },
-                width: '10%'
+                width: '10rem'
             },
             {
                 name: 'Actions',
@@ -229,14 +238,14 @@ const EvaluatedIdea = () => {
                                     setIdeaDetails(params);
                                     setIsDetail(true);
                                     let index = 0;
-                                    evaluatedIdeaList?.forEach((item, i) => {
-                                        if (
-                                            item?.challenge_response_id ==
-                                            params?.challenge_response_id
-                                        ) {
-                                            index = i;
-                                        }
-                                    });
+                                    // evaluatedIdeaList?.forEach((item, i) => {
+                                    //     if (
+                                    //         item?.challenge_response_id ==
+                                    //         params?.challenge_response_id
+                                    //     ) {
+                                    //         index = i;
+                                    //     }
+                                    // });
                                     setCurrentRow(index + 1);
                                 }}
                             >
@@ -245,7 +254,7 @@ const EvaluatedIdea = () => {
                         </div>
                     ];
                 },
-                width: '17%',
+                width: '17rem',
                 left: true
             }
         ]
@@ -269,7 +278,7 @@ const EvaluatedIdea = () => {
     };
 
     return (
-        <Layout>
+        <Layout title="L1 Evaluated Idea">
             <div className="container evaluated_idea_wrapper pt-5 mb-50">
                 <div className="row">
                     <div className="col-12 p-0">
@@ -294,14 +303,16 @@ const EvaluatedIdea = () => {
                                         <Col md={2}>
                                             <div className="my-3 d-md-block d-flex justify-content-center">
                                                 <Select
-                                                    list={fullStatesNames}
+                                                    list={fiterDistData}
                                                     setValue={setState}
-                                                    placeHolder={'Select State'}
+                                                    placeHolder={
+                                                        'Select District'
+                                                    }
                                                     value={state}
                                                 />
                                             </div>
                                         </Col>
-                                        <Col md={2}>
+                                        {/* <Col md={2}>
                                             <div className="my-3 d-md-block d-flex justify-content-center">
                                                 <Select
                                                     list={SDGDate}
@@ -312,7 +323,7 @@ const EvaluatedIdea = () => {
                                                     value={sdg}
                                                 />
                                             </div>
-                                        </Col>
+                                        </Col> */}
                                         {status && status !== 'Accepted' && (
                                             <Col md={3}>
                                                 <div className="my-3 d-md-block d-flex justify-content-center">
@@ -327,7 +338,7 @@ const EvaluatedIdea = () => {
                                                 </div>
                                             </Col>
                                         )}
-                                        {status && status !== 'Accepted' && (
+                                        {/* {status && status !== 'Accepted' && (
                                             <Col md={3}>
                                                 <div className="my-3 d-md-block d-flex justify-content-center">
                                                     <Select
@@ -340,23 +351,19 @@ const EvaluatedIdea = () => {
                                                     />
                                                 </div>
                                             </Col>
-                                        )}
+                                        )} */}
                                         <Col md={1}>
                                             <div className="text-center">
                                                 <Button
                                                     btnClass={
-                                                        status && state && sdg
+                                                        status && state
                                                             ? 'primary'
                                                             : 'default'
                                                     }
                                                     size="small"
                                                     label="Search"
                                                     disabled={
-                                                        !(
-                                                            status &&
-                                                            state &&
-                                                            sdg
-                                                        )
+                                                        !(status && state)
                                                     }
                                                     onClick={() =>
                                                         handleclickcall()

@@ -194,8 +194,12 @@ import CooTickets from './Coordinators/CooTickets/Tickets';
 import CooTicketResView from './Coordinators/CooTickets/TicketResponse';
 import Home from './Landing_page/Home';
 import SchoolEditTec from './School/Dashboard/SchoolEditTec';
-import MentorReg from './School/Dashboard/MentorReg';
-import SuccessMentorPage from './School/Dashboard/SuccessPage';
+import MentorNewReg from './School/Dashboard/MentorNewReg';
+import MentorScuccess from './School/Dashboard/MentorScuccess';
+import AddCourse from './School/AddCourse';
+import MentorEdit from './Admin/Dashboard/MentorEdit';
+import AdminMentorReg from './Admin/UserList/MentorReg';
+import AdminMentorSuccess from './Admin/UserList/MentorSuccess';
 function MyComponent() {
     window.location.href = `${process.env.REACT_APP_LANDING_PAGE_URL}`;
     return null;
@@ -459,13 +463,19 @@ const Routers = () => {
                         exact={true}
                         user="INSTITUTION"
                         path="/institution/register"
-                        component={MentorReg}
+                        component={MentorNewReg}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        user="INSTITUTION"
+                        path="/instituion/addCourse"
+                        component={AddCourse}
                     />
                     <ProtectedRoute
                         exact={true}
                         user="INSTITUTION"
                         path="/institution/successScreen"
-                        component={SuccessMentorPage}
+                        component={MentorScuccess}
                     />
 
                     <ProtectedRoute
@@ -560,6 +570,12 @@ const Routers = () => {
                         render={() => <AdminLogin />}
                     />
 
+                    <ProtectedRoute
+                        exact={true}
+                        user="ADMIN"
+                        path="/admin/successScreen"
+                        component={AdminMentorSuccess}
+                    />
                     <ProtectedRoute
                         exact={true}
                         user="ADMIN"
@@ -676,9 +692,21 @@ const Routers = () => {
                     />
                     <ProtectedRoute
                         exact={true}
+                        path="/admin/MentorEdit"
+                        user="ADMIN"
+                        component={MentorEdit}
+                    />
+                    <ProtectedRoute
+                        exact={true}
                         user="ADMIN"
                         path="/admin/userprofile"
                         component={CommonUserProfile}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        user="ADMIN"
+                        path="/admin/mentor/register"
+                        component={AdminMentorReg}
                     />
                     {/* CommonUserProfileEdit */}
                     <ProtectedRoute

@@ -11,7 +11,7 @@ import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import logo from '../assets/media/tn-brands/EDII_LOGO.png';
+import logo from '../assets/media/tn-brands/EDII.png';
 import image_1 from '../assets/media/unisolve_slider1.png';
 import image_2 from '../assets/media/aim_Slider.png';
 import { adminLoginUser } from '../redux/actions';

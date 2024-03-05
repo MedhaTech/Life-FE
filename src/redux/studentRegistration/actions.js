@@ -73,7 +73,7 @@ export const getStudentRegistationData = (studentType) => async (dispatch) => {
         const newS = encryptGlobal(
             JSON.stringify({
                 status: 'ALL',
-                state: studentType
+                district_name: studentType
             })
         );
         let result;
@@ -93,12 +93,13 @@ export const getStudentRegistationData = (studentType) => async (dispatch) => {
                 });
         }
         if (result && result.status === 200) {
-            const data = result.data?.data[0]?.dataValues || [];
-            let datamodify =
-                data.length > 0
-                    ? data.forEach((item, i) => (item.id = i + 1))
-                    : [];
-            console.log(datamodify);
+            // console.log(result, '2');
+            const data = result.data?.data || [];
+            // let datamodify =
+            //     data.length > 0
+            //         ? data.forEach((item, i) => (item.id = i + 1))
+            //         : [];
+            // console.log(datamodify);
             dispatch(getStudentListSuccess(data));
         } else {
             dispatch(getStudentListError(result.statusText));
@@ -220,7 +221,7 @@ export const getFetchDistData = (item) => async (dispatch) => {
         const axiosConfig = getNormalHeaders(KEY.User_API_Key);
         const distParam = encryptGlobal(
             JSON.stringify({
-                state: item
+                district_name: item
             })
         );
 

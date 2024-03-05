@@ -34,7 +34,7 @@ const IdeaList = () => {
     };
 
     return (
-        <Layout>
+        <Layout title="L1 Evaluation">
             <div
                 className="container idea_list_wrapper pt-5 mb-50"
                 ref={topRef}
@@ -42,7 +42,7 @@ const IdeaList = () => {
                 <div className="row">
                     {!isNextDiv ? (
                         <div className="col-12">
-                            {Object.keys(ideaDetails).length > 0 ? (
+                            {ideaDetails ? (
                                 <IdeaDetail
                                     ideaDetails={ideaDetails}
                                     handleSkip={handleNext}

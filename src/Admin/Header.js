@@ -66,6 +66,9 @@ const Header = (props) => {
                                     md={12}
                                     className="d-flex profile-section text-right"
                                 >
+                                    <p className="m-0 text-center">
+                                        <b>Menu :</b> {props.title}
+                                    </p>
                                     <div className="d-flex align-items-center profile">
                                         <div className="d-flex align-items-center profile">
                                             <img

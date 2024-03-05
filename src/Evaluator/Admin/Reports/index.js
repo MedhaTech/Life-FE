@@ -8,7 +8,7 @@ import PageNotFoundImg from '../../../assets/media/page-not-found.png';
 const Reports = () => {
     const showPage = true;
     return (
-        <Layout>
+        <Layout title="Reports">
             {showPage ? (
                 <Container className="mt-5 report-wrapper mb-5 pb-5">
                     <h2>Reports</h2>

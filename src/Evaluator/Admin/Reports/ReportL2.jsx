@@ -230,16 +230,18 @@ const ReportL2 = () => {
     ];
 
     useEffect(() => {
-        dispatch(getStateData());
-    }, []);
-    useEffect(() => {
-        if (RegTeachersState !== '') {
-            dispatch(getFetchDistData(RegTeachersState));
-        }
-        setRegTeachersdistrict('');
+        dispatch(getFetchDistData());
         fetchChartTableData();
         fetchChartTableData2();
-    }, [RegTeachersState]);
+    }, []);
+    // useEffect(() => {
+    //     if (RegTeachersState !== '') {
+    //         dispatch(getFetchDistData(RegTeachersState));
+    //     }
+    //     setRegTeachersdistrict('');
+    //     fetchChartTableData();
+    //     fetchChartTableData2();
+    // }, [RegTeachersState]);
 
     // useEffect(() => {
     //     dispatch(getDistrictData());
@@ -252,10 +254,10 @@ const ReportL2 = () => {
         const api = encryptGlobal(
             JSON.stringify({
                 status: 'ACTIVE',
-                state: RegTeachersState,
-                district: eDistParam,
-                category: category,
-                sdg: sdg
+                // state: RegTeachersState,
+                district: eDistParam
+                // category: category,
+                // sdg: sdg
             })
         );
         const url = `/reports/L2deatilreport?Data=${api}`;
@@ -327,19 +329,19 @@ const ReportL2 = () => {
 
     const handleDownload = () => {
         // alert('hii');
-        if (
-            !RegTeachersState ||
-            // !RegTeachersdistrict ||
-            // !filterType ||
-            !category ||
-            !sdg
-        ) {
-            notification.warning({
-                message:
-                    'Please select a state,category and Theme type before Downloading Reports.'
-            });
-            return;
-        }
+        // if (
+        //     !RegTeachersState ||
+        //     // !RegTeachersdistrict ||
+        //     // !filterType ||
+        //     !category ||
+        //     !sdg
+        // ) {
+        //     notification.warning({
+        //         message:
+        //             'Please select a state,category and Theme type before Downloading Reports.'
+        //     });
+        //     return;
+        // }
         setIsDownloading(true);
         fetchData();
     };
@@ -353,12 +355,12 @@ const ReportL2 = () => {
     useEffect(() => {
         if (downloadComplete) {
             setDownloadComplete(false);
-            setRegTeachersState('');
+            // setRegTeachersState('');
 
             setRegTeachersdistrict('');
 
             // setFilterType('');
-            setsdg('');
+            // setsdg('');
         }
         const newDate = new Date();
         const formattedDate = `${newDate.getUTCDate()}/${
@@ -497,7 +499,7 @@ const ReportL2 = () => {
     };
     return (
         <>
-            <Layout>
+            <Layout title="Reports">
                 <Container className="RegReports mt-4 mb-30 userlist">
                     <Row className="mt-0 pt-2">
                         <Col>
@@ -514,7 +516,7 @@ const ReportL2 = () => {
                         </Col>
                         <div className="reports-data p-5 mt-4 mb-5 bg-white">
                             <Row className="align-items-center">
-                                <Col md={2}>
+                                {/* <Col md={2}>
                                     <div className="my-3 d-md-block d-flex justify-content-center">
                                         <Select
                                             list={fullStatesNames}
@@ -523,7 +525,7 @@ const ReportL2 = () => {
                                             value={RegTeachersState}
                                         />
                                     </div>
-                                </Col>
+                                </Col> */}
                                 <Col md={2}>
                                     <div className="my-3 d-md-block d-flex justify-content-center">
                                         <Select
@@ -535,7 +537,7 @@ const ReportL2 = () => {
                                     </div>
                                 </Col>
 
-                                <Col md={2}>
+                                {/* <Col md={2}>
                                     <div className="my-3 d-md-block d-flex justify-content-center">
                                         <Select
                                             list={categoryData}
@@ -544,23 +546,23 @@ const ReportL2 = () => {
                                             value={category}
                                         />
                                     </div>
-                                </Col>
-                                <Col md={2}>
-                                    <div className="my-3 d-md-block d-flex justify-content-center">
+                                </Col> */}
+                                {/* <Col md={2}> */}
+                                {/* <div className="my-3 d-md-block d-flex justify-content-center">
                                         <Select
                                             list={SDGDate}
                                             setValue={setsdg}
                                             placeHolder={'Select Themes'}
                                             value={sdg}
-                                        />
-                                        {/* <Select
+                                        /> */}
+                                {/* <Select
                                             list={filterOptions}
                                             setValue={setFilterType}
                                             placeHolder={'Select Filter'}
                                             value={filterType}
                                         /> */}
-                                    </div>
-                                </Col>
+                                {/* </div>
+                                </Col> */}
                                 <Col
                                     md={2}
                                     className="d-flex align-items-center justify-content-center"

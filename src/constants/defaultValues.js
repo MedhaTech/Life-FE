@@ -35,6 +35,9 @@ export const URL = {
     createEvalProcess:
         process.env.REACT_APP_API_BASE_URL + '/evaluationProcess',
     updateOrganization: process.env.REACT_APP_API_BASE_URL + '/organizations/',
+    updateinstitution:
+        process.env.REACT_APP_API_BASE_URL + '/institutions/edit/',
+
     updateEvalProcess:
         process.env.REACT_APP_API_BASE_URL + '/evaluationProcess/',
 
@@ -108,13 +111,21 @@ export const URL = {
         process.env.REACT_APP_API_BASE_URL + '/mentorCourses/',
     getStudents: process.env.REACT_APP_API_BASE_URL + '/students',
     getDistrictsOnly:
-        process.env.REACT_APP_API_BASE_URL + '/organizations/districts',
+        process.env.REACT_APP_API_BASE_URL + '/institutions/districtNames',
     getPinCodesOnly:
         process.env.REACT_APP_API_BASE_URL + '/organizations/pinCode?',
     getAtlCodesOnly:
         process.env.REACT_APP_API_BASE_URL + '/organizations/ATLCode?',
     getFetchDistsOnly:
         process.env.REACT_APP_API_BASE_URL + '/organizations/districts?',
+    getFetchInstDistsOnly:
+        process.env.REACT_APP_API_BASE_URL + '/institutions/districts',
+    getBlocksOnly: process.env.REACT_APP_API_BASE_URL + '/institutions/blocks?',
+    getInstTalukOnly:
+        process.env.REACT_APP_API_BASE_URL + '/institutions/taluks?',
+    getInstPlacesOnly:
+        process.env.REACT_APP_API_BASE_URL + '/institutions/places?',
+
     getStatesOnly: process.env.REACT_APP_API_BASE_URL + '/organizations/states',
     getStudentBadges: process.env.REACT_APP_API_BASE_URL + '/students/',
     getStudentById: process.env.REACT_APP_API_BASE_URL + '/students/',
@@ -132,8 +143,7 @@ export const URL = {
         process.env.REACT_APP_API_BASE_URL + '/dashboard/mentorStats/',
     getChallengeQuestions: process.env.REACT_APP_API_BASE_URL + '/challenge',
     getChallengeSubmittedResponse:
-        process.env.REACT_APP_API_BASE_URL +
-        '/ideas/submittedDetails?',
+        process.env.REACT_APP_API_BASE_URL + '/ideas/submittedDetails?',
     getMentorSupportTickets:
         process.env.REACT_APP_API_BASE_URL + '/supportTickets',
     getMentorSupportTicketsById:
@@ -153,7 +163,7 @@ export const URL = {
         process.env.REACT_APP_API_BASE_URL + '/reports/allMentorReports',
     getTeamMemberStatusEndpoint:
         process.env.REACT_APP_API_BASE_URL + '/dashboard/teamStats/',
-    getidealist: process.env.REACT_APP_API_BASE_URL + '/challenge_response?',
+    getidealist: process.env.REACT_APP_API_BASE_URL + '/ideas?',
     getidealistfinal:
         process.env.REACT_APP_API_BASE_URL +
         '/challenge_response/evaluationResult',

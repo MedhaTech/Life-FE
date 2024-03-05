@@ -50,6 +50,7 @@ const CreateMultipleMembers = ({ id }) => {
         mobile: '',
         year_of_study: '',
         date_of_birth: '',
+
         email: '',
         Gender: '',
         institution_course_id: '',
@@ -335,7 +336,7 @@ const CreateMultipleMembers = ({ id }) => {
                             // if (index) {
                             const foo = { ...errCopy[i] };
 
-                            foo['age'] = 'Age must be between 14 and 25';
+                            foo['age'] = 'Age must be between 14 to 25';
                             errCopy[i] = { ...foo };
                             setItemDataErrors(errCopy);
                             return;
@@ -373,7 +374,7 @@ const CreateMultipleMembers = ({ id }) => {
         const errors = studentData.map((item, i) => {
             let err = {};
             if (!item.student_full_name.trim())
-                err['student_full_name'] = 'Full name is Required';
+                err['student_full_name'] = 'Please enter full name';
             if (
                 item.student_full_name &&
                 item.student_full_name.match(pattern)
@@ -385,7 +386,7 @@ const CreateMultipleMembers = ({ id }) => {
             }
             if (!item.date_of_birth) {
                 err['date_of_birth'] =
-                    'Date of Birth is Required / Age Must be 14 to 15';
+                    'Please select date-of-birth / Age Must be 14 to 15';
             } else {
                 const currentDate = new Date();
                 const selectedDate = new Date(item.date_of_birth);
@@ -394,10 +395,10 @@ const CreateMultipleMembers = ({ id }) => {
 
                 // Validate age
                 if (age < 14 || age > 25) {
-                    err['Age'] = 'Age must be between 14 and 25';
+                    err['Age'] = 'Age must be between 14 to 25';
                     openNotificationWithIcon(
                         'error',
-                        'Age must be between 14 and 25'
+                        'Age must be between 14 to 25'
                     );
                 } else {
                     // err['Age'] = '';
@@ -407,21 +408,21 @@ const CreateMultipleMembers = ({ id }) => {
 
             // if (!item.Age) err['Age'] = 'Age is Required';
             // if (!item.email) err['email'] = 'Email Id is Required';
-            if (!item.email.trim()) err['email'] = 'Email Id is Required';
+            if (!item.email.trim()) err['email'] = 'Please enter email id';
             if (item.email && item.email.match(emailRegex)) {
                 const { index } = item.email.match(emailRegex);
                 if (index) {
-                    err['email'] = 'Enter the valid email id';
+                    err['email'] = 'Please enter valid email id';
                 }
             }
             if (!item.email.trim()) {
-                err['email'] = 'Email Id is Required';
+                err['email'] = 'Please enter email id';
             } else if (!emailRegex.test(item.email)) {
                 err['email'] =
                     'Enter the valid email id/accept small letters only';
             }
             if (!item.institution_course_id)
-                err['institution_course_id'] = 'Program is Required';
+                err['institution_course_id'] = 'Please select any program ';
             // if (!item.stream_id) {
             //     err['stream_id'] = 'Course is Required';
             // } else {
@@ -445,19 +446,19 @@ const CreateMultipleMembers = ({ id }) => {
             //     err['mobile'] = 'Enter a valid mobile number';
             // }
             if (!item.mobile.trim()) {
-                err['mobile'] = 'Mobile number is Required';
+                err['mobile'] = 'Please enter mobile number ';
             } else if (!/^\d{10}$/.test(item.mobile)) {
                 err['mobile'] =
-                    'Mobile number must be exactly 10 digits/Accept only digits';
+                    'Mobile number must be exactly 10 digits/accept only digits';
             } else if (!isValidNumber.test(item.mobile)) {
-                err['mobile'] = 'Enter a valid mobile number';
+                err['mobile'] = 'Please enter a valid mobile number';
             }
 
             // if (!item.date_of_birth) err['date_of_birth'] = 'DOB is Required';
             if (!item.year_of_study)
-                err['year_of_study'] = 'Year Of Study is Required';
+                err['year_of_study'] = 'Please select year of study';
 
-            if (!item.Gender) err['Gender'] = 'Gender is Required';
+            if (!item.Gender) err['Gender'] = 'Please select gender ';
             if (Object.values(err).length === 0) {
                 return { ...studentBody, i };
             }
@@ -1223,7 +1224,7 @@ const CreateTeamMember = (props) => {
         },
         validationSchema: Yup.object({
             student_full_name: Yup.string()
-                .required('Please Enter valid Full Name')
+                .required('Please Enter Full Name')
                 .max(40)
                 .required()
                 .matches(
@@ -1255,20 +1256,20 @@ const CreateTeamMember = (props) => {
             // )
             // .default(0),
 
-            gender: Yup.string().required('Please select valid gender'),
+            gender: Yup.string().required('Please select any gender'),
             email: Yup.string()
-                .required('required')
+                .required('Please Enter Email Id')
                 .trim()
                 .matches(emailRegex, 'accept small letters only')
                 .email('Enter Valid Email Id'),
 
             institution_course_id: Yup.string().required(
-                'Please select Program'
+                'Please select any Program'
             ),
-            year_of_study: Yup.string().required('Please select Year'),
+            year_of_study: Yup.string().required('Please select any Year'),
 
             mobile: Yup.string()
-                .required('required')
+                .required('Please Enter Mobile Number')
                 .trim()
                 .matches(
                     /^\d+$/,
@@ -1461,7 +1462,8 @@ const CreateTeamMember = (props) => {
             <div className="EditPersonalDetails new-member-page">
                 <Row>
                     <Col className="col-xl-10 offset-xl-1 offset-md-0">
-                        <BreadcrumbTwo {...headingDetails} />
+                        <h3> Create Team Member Details</h3>
+                        {/* <BreadcrumbTwo {...headingDetails} /> */}
                         {studentCount && studentCount === 'new' ? (
                             <CreateMultipleMembers id={id} />
                         ) : (

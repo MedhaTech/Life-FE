@@ -10,7 +10,7 @@ import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import signuplogo from '../assets/media/tn-brands/UPSHIFT_BLACK.png';
+import signuplogo from '../assets/media/tn-brands/EDII.png';
 import ellipse_1 from '../assets/media/ellipse.svg';
 import { evaluatorLoginUser } from '../redux/actions';
 import { Carousel } from 'react-bootstrap';
@@ -100,7 +100,7 @@ const LoginEvaluator = (props) => {
     };
 
     const inputPassword = {
-        placeholder: 'Enter password',
+        placeholder: 'Enter Password',
         showEyeIcon: true
     };
 

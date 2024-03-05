@@ -93,7 +93,7 @@ const LoginAdminEvaluator = (props) => {
 
     const inputUserId = {
         type: 'text',
-        placeholder: 'Enter admin evaluator email '
+        placeholder: 'Enter admin evaluator email id'
     };
 
     const inputPassword = {
@@ -191,7 +191,7 @@ const LoginAdminEvaluator = (props) => {
                                                 className="mb-2"
                                                 htmlFor="email"
                                             >
-                                                Email
+                                                Email Id
                                             </Label>
                                             <InputBox
                                                 {...inputUserId}

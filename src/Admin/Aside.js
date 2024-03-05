@@ -27,7 +27,7 @@ import {
 import { FaBars } from 'react-icons/fa';
 import 'react-pro-sidebar/dist/css/styles.css';
 import { useLocation } from 'react-router-dom';
-import Logo from '../assets/media/tn-brands/UPSHIFT_BLACK.png';
+import Logo from '../assets/media/tn-brands/EDII_LOGO.png';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { logout } from '../helpers/Utils';
@@ -66,7 +66,10 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
             collapsed={menuCollapse}
         >
             <SidebarHeader>
-                <div className="sidebar-header header-comp sticky-top">
+                <div
+                    // className="sidebar-header header-comp sticky-top"
+                    className="sidebar-header header-comp sticky-top d-flex logo-section justify-content-center align-items-center"
+                >
                     <div
                         className="d-flex logo-section"
                         style={{ height: '5rem' }}
@@ -207,7 +210,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                             </span>
                         </NavLink>
                     </MenuItem> */}
-                    <MenuItem
+                    {/* <MenuItem
                         icon={
                             <img
                                 src={InstituionsIcon}
@@ -236,7 +239,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                                 Institutions
                             </span>
                         </NavLink>
-                    </MenuItem>
+                    </MenuItem> */}
                     {/* <MenuItem
                         icon={
                             <img src={ResourceIcon} style={{ width: '20px' }} />

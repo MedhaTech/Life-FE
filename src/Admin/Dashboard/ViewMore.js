@@ -108,7 +108,7 @@ const ViewMore = () => {
         return (((a - b) / a) * 100).toFixed(2);
     };
     return (
-        <Layout>
+        <Layout title="Dashboard">
             <Container className="mt-5 pt-5 dynamic-form">
                 <div className="d-flex justify-content-between align-items-center mb-3">
                     <BreadcrumbTwo {...headingDetails} />
@@ -156,23 +156,12 @@ const ViewMore = () => {
                                     </span>
                                     <b>{orgDaTa?.place?.place_name}</b>
                                 </CardText>
-                                <CardText>
-                                    <span className="mx-3">
-                                        <b>Taluk:</b>
-                                    </span>
-                                    <b>{orgDaTa?.place?.taluk?.taluk_name}</b>
-                                </CardText>
 
                                 <CardText>
                                     <span className="mx-3">
                                         <b>Block :</b>
                                     </span>
-                                    <b>
-                                        {
-                                            orgDaTa?.place?.taluk?.block
-                                                ?.block_name
-                                        }
-                                    </b>
+                                    <b>{orgDaTa?.place?.block?.block_name}</b>
                                 </CardText>
                                 <CardText>
                                     <span className="mx-3">
@@ -180,8 +169,19 @@ const ViewMore = () => {
                                     </span>
                                     <b>
                                         {
-                                            orgDaTa?.place?.taluk?.block
-                                                ?.district?.district_name
+                                            orgDaTa?.place?.block?.district
+                                                ?.district_name
+                                        }
+                                    </b>
+                                </CardText>
+                                <CardText>
+                                    <span className="mx-3">
+                                        <b>Taluk:</b>
+                                    </span>
+                                    <b>
+                                        {
+                                            orgDaTa?.place?.block?.district
+                                                ?.taluk?.taluk_name
                                         }
                                     </b>
                                 </CardText>
@@ -191,8 +191,8 @@ const ViewMore = () => {
                                     </span>
                                     <b>
                                         {
-                                            orgDaTa?.place?.taluk?.block
-                                                ?.district?.state?.state_name
+                                            orgDaTa?.place?.block?.district
+                                                ?.state?.state_name
                                         }
                                     </b>
                                 </CardText>
@@ -244,18 +244,21 @@ const ViewMore = () => {
                         <Card className="py-5">
                             <CardBody>
                                 <h2 className="mb-4">Mentor Details</h2>
-                                <CardText>
+                                {/* <CardText>
                                     <span className="mx-3">
                                         <b>Title :</b>
                                     </span>
                                     <b>{orgDaTa.mentor.mentor_title}</b>
-                                </CardText>
+                                </CardText> */}
 
                                 <CardText>
                                     <span className="mx-3">
                                         <b>Mentor Name :</b>
                                     </span>
-                                    <b>{orgDaTa.mentor.mentor_name}</b>
+                                    <b>
+                                        {orgDaTa.mentor.mentor_title}
+                                        {orgDaTa.mentor.mentor_name}
+                                    </b>
                                 </CardText>
                                 <CardText>
                                     <span className="mx-3">

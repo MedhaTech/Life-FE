@@ -245,16 +245,18 @@ const ReportL3 = () => {
     ];
 
     useEffect(() => {
-        dispatch(getStateData());
-    }, []);
-    useEffect(() => {
-        if (RegTeachersState !== '') {
-            dispatch(getFetchDistData(RegTeachersState));
-        }
-        setRegTeachersdistrict('');
+        dispatch(getFetchDistData());
         fetchChartTableData();
         fetchChartTableData2();
-    }, [RegTeachersState]);
+    }, []);
+    // useEffect(() => {
+    //     if (RegTeachersState !== '') {
+    //         dispatch(getFetchDistData(RegTeachersState));
+    //     }
+    //     setRegTeachersdistrict('');
+    //     fetchChartTableData();
+    //     fetchChartTableData2();
+    // }, [RegTeachersState]);
 
     // useEffect(() => {
     //     dispatch(getDistrictData());
@@ -523,7 +525,7 @@ const ReportL3 = () => {
                     );
 
                     var array = chartTableData2;
-                    array.push({ state: 'Total Count', ...total });
+                    array.push({ district: 'Total Count', ...total });
                     setChartTableData2(array);
 
                     // setChartTableData2(chartTableData2);
@@ -536,7 +538,7 @@ const ReportL3 = () => {
     };
     return (
         <>
-            <Layout>
+            <Layout title="Reports">
                 <Container className="RegReports mt-4 mb-30 userlist">
                     <Row className="mt-0 pt-2">
                         <Col>
@@ -553,7 +555,7 @@ const ReportL3 = () => {
                         </Col>
                         <div className="reports-data p-5 mt-4 mb-5 bg-white">
                             <Row className="align-items-center">
-                                <Col md={2}>
+                                {/* <Col md={2}>
                                     <div className="my-3 d-md-block d-flex justify-content-center">
                                         <Select
                                             list={fullStatesNames}
@@ -562,7 +564,7 @@ const ReportL3 = () => {
                                             value={RegTeachersState}
                                         />
                                     </div>
-                                </Col>
+                                </Col> */}
                                 <Col md={2}>
                                     <div className="my-3 d-md-block d-flex justify-content-center">
                                         <Select
@@ -574,7 +576,7 @@ const ReportL3 = () => {
                                     </div>
                                 </Col>
 
-                                <Col md={2}>
+                                {/* <Col md={2}>
                                     <div className="my-3 d-md-block d-flex justify-content-center">
                                         <Select
                                             list={categoryData}
@@ -583,23 +585,23 @@ const ReportL3 = () => {
                                             value={category}
                                         />
                                     </div>
-                                </Col>
-                                <Col md={2}>
-                                    <div className="my-3 d-md-block d-flex justify-content-center">
+                                </Col> */}
+                                {/* <Col md={2}> */}
+                                {/* <div className="my-3 d-md-block d-flex justify-content-center">
                                         <Select
                                             list={SDGDate}
                                             setValue={setsdg}
                                             placeHolder={'Select Themes'}
                                             value={sdg}
-                                        />
-                                        {/* <Select
+                                        /> */}
+                                {/* <Select
                                             list={filterOptions}
                                             setValue={setFilterType}
                                             placeHolder={'Select Filter'}
                                             value={filterType}
                                         /> */}
-                                    </div>
-                                </Col>
+                                {/* </div> */}
+                                {/* </Col> */}
                                 <Col
                                     md={2}
                                     className="d-flex align-items-center justify-content-center"
@@ -831,7 +833,8 @@ const ReportL3 = () => {
                                                             <tr>
                                                                 <th>No</th>
                                                                 <th>
-                                                                    State Name
+                                                                    District
+                                                                    Name
                                                                 </th>
                                                                 <th>
                                                                     No of Ideas
@@ -867,7 +870,7 @@ const ReportL3 = () => {
                                                                         </td>
                                                                         <td>
                                                                             {
-                                                                                item.state
+                                                                                item.district
                                                                             }
                                                                         </td>
                                                                         <td>

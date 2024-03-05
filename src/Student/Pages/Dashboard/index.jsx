@@ -609,8 +609,8 @@ const Dashboard = () => {
                         <Card
                             bg="light"
                             text="dark"
-                            className=" md-3 xs-12 "
-                            style={{ height: '600px' }}
+                            className="mt-5 md-3 xs-12 "
+                            style={{ height: '300px' }}
                         >
                             <Card.Body style={{ overflowX: 'auto' }}>
                                 {/* <LatestNews usersdata={currentUser?.data} /> */}

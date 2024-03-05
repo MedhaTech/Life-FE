@@ -62,14 +62,24 @@ const TeacherDetailed = () => {
     const fiterDistData = useSelector(
         (state) => state?.studentRegistration?.fetchdist
     );
+    // useEffect(() => {
+    //     dispatch(getStateData());
+    // }, []);
+    // useEffect(() => {
+    //     if (state !== '') {
+    //         dispatch(getFetchDistData(state));
+    //     }
+    //     setdistrict('');
+    //     fetchChartTableData();
+    //     const newDate = new Date();
+    //     const formattedDate = `${newDate.getUTCDate()}/${
+    //         1 + newDate.getMonth()
+    //     }/${newDate.getFullYear()} ${newDate.getHours()}:${newDate.getMinutes()}:${newDate.getSeconds()}`;
+    //     setNewFormat(formattedDate);
+    // }, [state]);
     useEffect(() => {
-        dispatch(getStateData());
-    }, []);
-    useEffect(() => {
-        if (state !== '') {
-            dispatch(getFetchDistData(state));
-        }
-        setdistrict('');
+        dispatch(getFetchDistData(state));
+
         fetchChartTableData();
         const newDate = new Date();
         const formattedDate = `${newDate.getUTCDate()}/${
@@ -83,11 +93,15 @@ const TeacherDetailed = () => {
     );
     const tableHeaders = [
         {
-            label: 'State Name',
-            key: 'state'
+            label: 'District Name',
+            key: 'district_name'
         },
         {
-            label: 'Total Registered Teachers',
+            label: 'Total Registered Schools',
+            key: 'totalRegInstitutions'
+        },
+        {
+            label: 'Total Registered Mentors',
             key: 'totalReg'
         },
         {
@@ -105,85 +119,89 @@ const TeacherDetailed = () => {
         {
             label: 'No.of Male Students',
             key: 'maleStudents'
-        },
-        {
-            label: 'No.of Teachers completed the course',
-            key: 'courseCompleted'
-        },
-        {
-            label: 'No.of Teachers course IN Progress',
-            key: 'courseINcompleted'
-        },
-        {
-            label: 'No.of Teachers NOT Started Course',
-            key: 'courseNotStarted'
         }
     ];
     const teacherDetailsHeaders = [
         {
-            label: 'ATL CODE',
-            key: 'ATL code'
-        },
-        {
             label: 'Institution Unique Code',
-            key: 'UDISE code'
+            key: 'institution_code'
         },
         {
-            label: 'School Name',
-            key: 'School Name'
+            label: 'Institution Name',
+            key: 'institution_name'
+        },
+        // {
+        //     label: 'School Type/Category',
+        //     key: 'category'
+        // },
+        {
+            label: 'District',
+            key: 'district_name'
         },
         {
-            label: 'School Type/Category',
-            key: 'category'
+            label: 'Block',
+            key: 'block_name'
+        },
+        {
+            label: 'Taluk',
+            key: 'taluk_name'
+        },
+        {
+            label: 'Place',
+            key: 'place_name'
         },
         {
             label: 'State',
-            key: 'state'
+            key: 'state_name'
         },
         {
-            label: 'District',
-            key: 'district'
+            label: 'Principal Name',
+            key: 'principal_name'
         },
         {
-            label: 'City',
-            key: 'city'
+            label: 'Principal Mobile No',
+            key: 'principal_mobile'
         },
         {
-            label: 'HM Name',
-            key: 'HM Name'
+            label: 'Principal Whatsapp Noo',
+            key: 'principal_whatsapp_mobile'
         },
         {
-            label: 'HM Contact',
-            key: 'HM Contact'
+            label: 'Principal Email',
+            key: 'principal_email'
+        },
+        {
+            label: 'Title',
+            key: 'mentor_title'
         },
         {
             label: 'Mentor Name',
-            key: 'Teacher Name'
+            key: 'mentor_name'
         },
         {
-            label: 'Teacher Email',
-            key: 'Teacher Email'
+            label: 'Email ID',
+            key: 'mentor_email'
         },
         {
-            label: 'Teacher Gender',
-            key: 'Teacher Gender'
+            label: 'Mentor Gender',
+            key: 'gender'
         },
         {
-            label: 'Teacher Contact',
-            key: 'Teacher Contact'
+            label: 'Mentor No',
+            key: 'mentor_mobile'
         },
         {
-            label: 'Teacher WhatsApp Contact',
-            key: 'Teacher WhatsApp Contact'
+            label: 'Mentor WhatsApp No',
+            key: 'mentor_whatapp_mobile'
         },
-        {
-            label: 'Course Status',
-            key: 'Course Status'
-        },
-        {
-            label: 'Post Survey Status',
-            key: 'Post Survey Status'
-        },
+        // {
+        //     label: 'Course Status',
+        //     key: 'Course Status'
+        // },
+        // {
+        //     label: 'Post Survey Status',
+        //     key: 'Post Survey Status'
+        // },
         {
             label: 'NO.of Teams Created',
             key: 'team_count'
@@ -192,18 +210,18 @@ const TeacherDetailed = () => {
             label: 'No.of Students Enrollrd',
             key: 'student_count'
         },
-        {
-            label: 'No.of Students Course Completed',
-            key: 'countop'
-        },
-        {
-            label: 'No.of Students Course Inprogress',
-            key: 'courseinprogess'
-        },
-        {
-            label: 'No.of Students Course Not Started',
-            key: 'courseNotStarted'
-        },
+        // {
+        //     label: 'No.of Students Course Completed',
+        //     key: 'countop'
+        // },
+        // {
+        //     label: 'No.of Students Course Inprogress',
+        //     key: 'courseinprogess'
+        // },
+        // {
+        //     label: 'No.of Students Course Not Started',
+        //     key: 'courseNotStarted'
+        // },
         {
             label: 'No.of Teams Idea Submitted',
             key: 'submittedcout'
@@ -279,7 +297,7 @@ const TeacherDetailed = () => {
                 },
                 title: {
                     display: true,
-                    text: 'States',
+                    text: 'Districts',
                     color: 'blue'
                 },
                 ticks: {
@@ -363,7 +381,7 @@ const TeacherDetailed = () => {
         }
     };
     useEffect(() => {
-        nonAtlCount();
+        // nonAtlCount();
     }, []);
     const nonAtlCount = () => {
         var config = {
@@ -392,7 +410,9 @@ const TeacherDetailed = () => {
 
                     // setAtl(response.data.data);
                     const barStudentData = {
-                        labels: mentorStuArray.map((item) => item.state),
+                        labels: mentorStuArray.map(
+                            (item) => item.district_name
+                        ),
                         datasets: [
                             {
                                 label: 'No.of  ATL Students',
@@ -418,26 +438,27 @@ const TeacherDetailed = () => {
             });
     };
     const handleDownload = () => {
-        if (
-            !state ||
-            //  || !district
-            !category
-        ) {
-            notification.warning({
-                message:
-                    'Please select a state and category type before Downloading Reports.'
-            });
-            return;
-        }
+        // if (
+        //     // !state ||
+        //     !district
+        //     // !category
+        // ) {
+        //     notification.warning({
+        //         message: 'Please select a district before Downloading Reports.'
+        //     });
+        //     return;
+        // }
+        // csvLinkRef.current.link.click();
+
         setIsDownload(true);
         fetchData();
     };
     const fetchData = () => {
         const apiRes = encryptGlobal(
             JSON.stringify({
-                state: state,
-                district: district === '' ? 'All Districts' : district,
-                category: category
+                // state: state,
+                district_name: district === '' ? 'All Districts' : district
+                // category: category
             })
         );
         const config = {
@@ -455,11 +476,11 @@ const TeacherDetailed = () => {
                 if (response.status === 200) {
                     const newdatalist = response.data.data.map((item) => {
                         const dataList = { ...item };
-                        dataList['presurveyNotStarted'] =
-                            item['student_count'] - item['preSur_cmp'];
-                        dataList['courseNotStarted'] =
-                            item['student_count'] -
-                            (item['countop'] + item['courseinprogess']);
+                        // dataList['presurveyNotStarted'] =
+                        //     item['student_count'] - item['preSur_cmp'];
+                        // dataList['courseNotStarted'] =
+                        //     item['student_count'] -
+                        //     (item['countop'] + item['courseinprogess']);
                         dataList['ideanotIN'] =
                             item['team_count'] -
                             (item['submittedcout'] + item['draftcout']);
@@ -494,42 +515,54 @@ const TeacherDetailed = () => {
                 if (response.status === 200) {
                     const summary = response.data.data[0].summary;
                     const teamCount = response.data.data[0].teamCount;
+                    const regSchools = response.data.data[0].Regschool;
                     const studentCountDetails =
                         response.data.data[0].studentCountDetails;
-                    const courseCompleted =
-                        response.data.data[0].courseCompleted;
-                    const courseINcompleted =
-                        response.data.data[0].courseINcompleted;
+                    // const courseCompleted =
+                    //     response.data.data[0].courseCompleted;
+                    // const courseINcompleted =
+                    //     response.data.data[0].courseINcompleted;
 
                     const combinedArray = summary.map((summaryItem) => {
-                        const state = summaryItem.state;
+                        const district_name = summaryItem.district_name;
                         const teamCountItem = teamCount.find(
-                            (item) => item.state === state
+                            (item) => item.district_name === district_name
                         );
+                        const regSchoolsItem = regSchools.find(
+                            (item) => item.district_name === district_name
+                        );
+
                         const studentCountItem = studentCountDetails.find(
-                            (item) => item.state === state
+                            (item) => item.district_name === district_name
                         );
-                        const courseCompletedItem = courseCompleted.find(
-                            (item) => item.state === state
-                        );
-                        const courseINcompletedItem = courseINcompleted.find(
-                            (item) => item.state === state
-                        );
-                        const courseNotStarted =
-                            summaryItem.totalReg -
-                            ((courseCompletedItem
-                                ? courseCompletedItem.courseCMP
-                                : 0) +
-                                (courseINcompletedItem
-                                    ? courseINcompletedItem.courseIN
-                                    : 0));
+                        // const courseCompletedItem = courseCompleted.find(
+                        //     (item) => item.district_name === district_name
+                        // );
+                        // const courseINcompletedItem = courseINcompleted.find(
+                        //     (item) => item.district_name === district_name
+                        // );
+                        // const courseNotStarted =
+                        //     summaryItem.totalReg -
+                        //     ((courseCompletedItem
+                        //         ? courseCompletedItem.courseCMP
+                        //         : 0) +
+                        //         (courseINcompletedItem
+                        //             ? courseINcompletedItem.courseIN
+                        //             : 0));
 
                         return {
-                            state,
+                            district_name,
                             totalReg: summaryItem.totalReg,
+
+                            totalRegInstitutions: regSchoolsItem
+                                ? regSchoolsItem.totalRegInstitutions
+                                : 0,
                             totalTeams: teamCountItem
                                 ? teamCountItem.totalTeams
                                 : 0,
+                            // totalRegInst: RegschoolItem
+                            //     ? RegschoolItem.totalRegInst
+                            //     : 0,
                             totalStudents: studentCountItem
                                 ? studentCountItem.totalstudent
                                 : 0,
@@ -538,35 +571,41 @@ const TeacherDetailed = () => {
                                 : 0,
                             femaleStudents: studentCountItem
                                 ? parseInt(studentCountItem.female)
-                                : 0,
-                            courseCompleted: courseCompletedItem
-                                ? courseCompletedItem.courseCMP
-                                : 0,
-                            courseINcompleted: courseINcompletedItem
-                                ? courseINcompletedItem.courseIN
-                                : 0,
-                            courseNotStarted
+                                : 0
+                            // courseCompleted: courseCompletedItem
+                            //     ? courseCompletedItem.courseCMP
+                            //     : 0,
+                            // courseINcompleted: courseINcompletedItem
+                            //     ? courseINcompletedItem.courseIN
+                            //     : 0,
+                            // courseNotStarted
                         };
                     });
                     const total = combinedArray.reduce(
                         (acc, item) => {
                             acc.totalReg += item.totalReg;
+                            acc.totalRegInstitutions +=
+                                item.totalRegInstitutions;
+
                             acc.totalTeams += item.totalTeams;
                             acc.totalStudents += item.totalStudents;
                             acc.maleStudents += item.maleStudents;
                             acc.femaleStudents += item.femaleStudents;
-                            acc.courseCompleted += item.courseCompleted;
-                            acc.courseINcompleted += item.courseINcompleted;
+                            // acc.courseCompleted += item.courseCompleted;
+                            // acc.courseINcompleted += item.courseINcompleted;
                             return acc;
                         },
                         {
                             totalReg: 0,
+
+                            totalRegInstitutions: 0,
+
                             totalTeams: 0,
                             totalStudents: 0,
                             maleStudents: 0,
-                            femaleStudents: 0,
-                            courseCompleted: 0,
-                            courseINcompleted: 0
+                            femaleStudents: 0
+                            // courseCompleted: 0,
+                            // courseINcompleted: 0
                         }
                     );
                     const doughnutData = {
@@ -584,7 +623,7 @@ const TeacherDetailed = () => {
                     };
 
                     const barData = {
-                        labels: combinedArray.map((item) => item.state),
+                        labels: combinedArray.map((item) => item.district_name),
                         datasets: [
                             {
                                 label: 'No.of Students Enrolled',
@@ -603,33 +642,37 @@ const TeacherDetailed = () => {
                         ]
                     };
 
-                    const stackedBarChartData = {
-                        labels: combinedArray.map((item) => item.state),
-                        datasets: [
-                            {
-                                label: 'No. of Teachers not started course',
-                                data: combinedArray.map(
-                                    (item) => item.courseNotStarted
-                                ),
-                                backgroundColor: 'rgba(255, 0, 0, 0.6)'
-                            },
-                            {
-                                label: 'No. of Teachers course IN progress',
-                                data: combinedArray.map(
-                                    (item) => item.courseINcompleted
-                                ),
-                                backgroundColor: 'rgba(255, 255, 0, 0.6)'
-                            },
-                            {
-                                label: 'No. of teachers Completed Course',
-                                data: combinedArray.map(
-                                    (item) => item.courseCompleted
-                                ),
-                                backgroundColor: 'rgba(0, 128, 0, 0.6)'
-                            }
-                        ]
-                    };
-                    setCombinedArray(combinedArray);
+                    // const stackedBarChartData = {
+                    //     labels: combinedArray.map((item) => item.district_name),
+                    //     datasets: [
+                    //         {
+                    //             label: 'No. of Teachers not started course',
+                    //             data: combinedArray.map(
+                    //                 (item) => item.courseNotStarted
+                    //             ),
+                    //             backgroundColor: 'rgba(255, 0, 0, 0.6)'
+                    //         },
+                    //         {
+                    //             label: 'No. of Teachers course IN progress',
+                    //             data: combinedArray.map(
+                    //                 (item) => item.courseINcompleted
+                    //             ),
+                    //             backgroundColor: 'rgba(255, 255, 0, 0.6)'
+                    //         },
+                    //         {
+                    //             label: 'No. of teachers Completed Course',
+                    //             data: combinedArray.map(
+                    //                 (item) => item.courseCompleted
+                    //             ),
+                    //             backgroundColor: 'rgba(0, 128, 0, 0.6)'
+                    //         }
+                    //     ]
+                    // };
+                    var array = combinedArray;
+                    array.push({ district_name: 'Total Count', ...total });
+                    setCombinedArray(array);
+
+                    // setCombinedArray(combinedArray);
                     setDownloadTableData(combinedArray);
                     setDoughnutChartData(doughnutData);
                     setBarChart1Data(barData);
@@ -644,11 +687,11 @@ const TeacherDetailed = () => {
 
     return (
         <>
-            <Layout>
+            <Layout title="Reports">
                 <Container className="RegReports mt-4 mb-30 userlist">
                     <Row className="mt-0 pt-2">
                         <Col>
-                            <h2>School Progress Detailed Report</h2>
+                            <h2>Institution Progress Detailed Report</h2>
                         </Col>
                         <Col className="text-right mb-1">
                             <Button
@@ -661,7 +704,7 @@ const TeacherDetailed = () => {
                         </Col>
                         <div className="reports-data p-5 mt-4 mb-5 bg-white">
                             <Row className="align-items-center">
-                                <Col md={3}>
+                                {/* <Col md={3}>
                                     <div className="my-3 d-md-block d-flex justify-content-center">
                                         <Select
                                             list={fullStatesNames}
@@ -670,7 +713,7 @@ const TeacherDetailed = () => {
                                             value={state}
                                         />
                                     </div>
-                                </Col>
+                                </Col> */}
                                 <Col md={3}>
                                     <div className="my-3 d-md-block d-flex justify-content-center">
                                         <Select
@@ -681,7 +724,7 @@ const TeacherDetailed = () => {
                                         />
                                     </div>
                                 </Col>
-                                <Col md={3}>
+                                {/* <Col md={3}>
                                     <div className="my-3 d-md-block d-flex justify-content-center">
                                         <Select
                                             list={categoryData}
@@ -690,7 +733,7 @@ const TeacherDetailed = () => {
                                             value={category}
                                         />
                                     </div>
-                                </Col>
+                                </Col> */}
                                 <Col
                                     md={3}
                                     className="d-flex align-items-center justify-content-center"
@@ -765,12 +808,18 @@ const TeacherDetailed = () => {
                                                             <tr>
                                                                 <th>No</th>
                                                                 <th>
-                                                                    State Name
+                                                                    District
+                                                                    Name
                                                                 </th>
                                                                 <th>
                                                                     Total
                                                                     Registered
-                                                                    Teachers
+                                                                    Institution
+                                                                </th>
+                                                                <th>
+                                                                    Total
+                                                                    Registered
+                                                                    Mentors
                                                                 </th>
                                                                 <th>
                                                                     Total of
@@ -791,24 +840,6 @@ const TeacherDetailed = () => {
                                                                     No.of Male
                                                                     Students
                                                                 </th>
-                                                                <th>
-                                                                    No.of
-                                                                    Teachers
-                                                                    Completed
-                                                                    the course
-                                                                </th>
-                                                                <th>
-                                                                    No.of
-                                                                    Teachers
-                                                                    course IN
-                                                                    Progress
-                                                                </th>
-                                                                <th>
-                                                                    No.of
-                                                                    Teachers NOT
-                                                                    started
-                                                                    course
-                                                                </th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
@@ -828,7 +859,12 @@ const TeacherDetailed = () => {
                                                                         </td>
                                                                         <td>
                                                                             {
-                                                                                item.state
+                                                                                item.district_name
+                                                                            }
+                                                                        </td>
+                                                                        <td>
+                                                                            {
+                                                                                item.totalRegInstitutions
                                                                             }
                                                                         </td>
                                                                         <td>
@@ -856,7 +892,7 @@ const TeacherDetailed = () => {
                                                                                 item.maleStudents
                                                                             }
                                                                         </td>
-                                                                        <td>
+                                                                        {/* <td>
                                                                             {
                                                                                 item.courseCompleted
                                                                             }
@@ -870,15 +906,20 @@ const TeacherDetailed = () => {
                                                                             {
                                                                                 item.courseNotStarted
                                                                             }
-                                                                        </td>
+                                                                        </td> */}
                                                                     </tr>
                                                                 )
                                                             )}
-                                                            <tr>
+                                                            {/* <tr>
                                                                 <td>{}</td>
                                                                 <td>
                                                                     {
                                                                         'Total Count'
+                                                                    }
+                                                                </td>
+                                                                <td>
+                                                                    {
+                                                                        totalCount.totalRegInstitutions
                                                                     }
                                                                 </td>
                                                                 <td>
@@ -906,22 +947,8 @@ const TeacherDetailed = () => {
                                                                         totalCount.maleStudents
                                                                     }
                                                                 </td>
-                                                                <td>
-                                                                    {
-                                                                        totalCount.courseCompleted
-                                                                    }
-                                                                </td>
-                                                                <td>
-                                                                    {
-                                                                        totalCount.courseINcompleted
-                                                                    }
-                                                                </td>
-                                                                <td>
-                                                                    {totalCount.totalReg -
-                                                                        (totalCount.courseCompleted +
-                                                                            totalCount.courseINcompleted)}
-                                                                </td>
-                                                            </tr>
+                                                               
+                                                            </tr> */}
                                                         </tbody>
                                                     </Table>
                                                 </div>
@@ -983,7 +1010,7 @@ const TeacherDetailed = () => {
                                                 </div>
                                             </div>
 
-                                            <div
+                                            {/* <div
                                                 className="col-md-6 chart-container mt-3"
                                                 style={{
                                                     width: '100%',
@@ -1007,8 +1034,8 @@ const TeacherDetailed = () => {
                                                         </p>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div
+                                            </div> */}
+                                            {/* <div
                                                 className="col-md-6 chart-container mt-5"
                                                 style={{
                                                     width: '100%',
@@ -1032,7 +1059,7 @@ const TeacherDetailed = () => {
                                                         </p>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div> */}
                                         </div>
                                     </div>
                                 )}
@@ -1040,7 +1067,7 @@ const TeacherDetailed = () => {
                                     <CSVLink
                                         data={downloadTableData}
                                         headers={tableHeaders}
-                                        filename={`SchoolDetailedSummaryReport_${newFormat}.csv`}
+                                        filename={`InstitutionDetailedSummaryReport_${newFormat}.csv`}
                                         className="hidden"
                                         ref={csvLinkRefTable}
                                     >
@@ -1052,7 +1079,7 @@ const TeacherDetailed = () => {
                                     <CSVLink
                                         headers={teacherDetailsHeaders}
                                         data={mentorDetailedReportsData}
-                                        filename={`SchoolProgressDetailedReport_${newFormat}.csv`}
+                                        filename={`InstitutionProgressDetailedReport_${newFormat}.csv`}
                                         className="hidden"
                                         ref={csvLinkRef}
                                     >

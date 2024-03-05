@@ -14,7 +14,8 @@ import { Container, Row, Col } from 'reactstrap';
 import Select from '../Helper/Select';
 import {
     getDistrictData,
-    getStateData
+    getStateData,
+    getFetchDistData
 } from '../../redux/studentRegistration/actions';
 import { cardData } from '../../Student/Pages/Ideas/SDGData';
 import { Button } from '../../stories/Button';
@@ -44,10 +45,12 @@ const EvaluatedIdea = () => {
     );
 
     const [tabledate, settabledate] = React.useState([]);
-
+    const fiterDistData = useSelector(
+        (state) => state?.studentRegistration?.fetchdist
+    );
     useEffect(() => {
         // dispatch(getDistrictData());
-        dispatch(getStateData());
+        dispatch(getFetchDistData());
     }, []);
     useEffect(() => {
         if (state === '') {
@@ -60,10 +63,10 @@ const EvaluatedIdea = () => {
     const handleclickcall = () => {
         // here we can select status , district , SDG //
         const newQuery = {
-            evaluation_status : 'SELECTEDROUND1',
-            level:'L2',
-            state: state !== 'All States' ? state : '',
-            sdg: sdg !== 'All Themes' ? sdg : '',
+            evaluation_status: 'SELECTEDROUND1',
+            level: 'L2',
+            state: state !== 'All States' ? state : ''
+            // sdg: sdg !== 'All Themes' ? sdg : ''
         };
         setshowspin(true);
         dispatch(getL1EvaluatedIdea(newQuery, setshowspin));
@@ -94,29 +97,29 @@ const EvaluatedIdea = () => {
                 width: '6%'
             },
             {
-                name: 'State',
-                selector: (row) => row.state,
+                name: 'District',
+                selector: (row) => row.district,
                 width: '10rem'
             },
-            {
-                name: 'ATL Code',
-                selector: (row) => row.organization_code,
-                width: '15rem'
-            },
+            // {
+            //     name: 'Institution Code',
+            //     selector: (row) => row.institution_code,
+            //     width: '15rem'
+            // },
             {
                 name: 'Team Name',
                 selector: (row) => row.team_name || '',
                 sortable: true,
-                width: '15%'
+                width: '8rem'
             },
             {
                 name: 'CID',
-                selector: (row) => row.challenge_response_id,
+                selector: (row) => row.idea_id,
 
-                width: '10rem'
+                width: '8rem'
             },
             {
-                name: 'Theme', 
+                name: 'Theme',
                 cell: (row) => (
                     <div
                         style={{
@@ -124,7 +127,7 @@ const EvaluatedIdea = () => {
                             wordWrap: 'break-word'
                         }}
                     >
-                        {row.sdg}
+                        {row?.themes_problem?.theme_name}
                     </div>
                 ),
                 width: '15rem'
@@ -139,10 +142,10 @@ const EvaluatedIdea = () => {
                             wordWrap: 'break-word'
                         }}
                     >
-                        {row.sub_category}
+                        {row?.themes_problem?.problem_statement}
                     </div>
                 ),
-                width: '25rem'
+                width: '15rem'
             },
             {
                 name: 'Idea Name',
@@ -154,27 +157,27 @@ const EvaluatedIdea = () => {
                             wordWrap: 'break-word'
                         }}
                     >
-                        {row?.response[1]?.selected_option || ''}
+                        {row?.idea_title}
                     </div>
                 ),
-                width: '25rem'
+                width: '15rem'
             },
 
             {
                 name: 'Submitted By',
                 selector: (row) => row.initiated_name,
-                width: '15%'
+                width: '10rem'
             },
-            {
-                name: 'Evaluated At',
-                selector: (row) =>
-                    row?.evaluator_ratings[0]?.created_at
-                        ? moment(row?.evaluator_ratings[0]?.created_at).format(
-                              'DD-MM-YY h:mm:ss a'
-                          )
-                        : row?.evaluator_ratings[0]?.created_at,
-                width: '17%'
-            },
+            // {
+            //     name: 'Evaluated At',
+            //     selector: (row) =>
+            //         row?.evaluator_ratings[0]?.created_at
+            //             ? moment(row?.evaluator_ratings[0]?.created_at).format(
+            //                   'DD-MM-YY h:mm:ss a'
+            //               )
+            //             : row?.evaluator_ratings[0]?.created_at,
+            //     width: '17%'
+            // },
             {
                 name: 'Overall',
 
@@ -185,7 +188,7 @@ const EvaluatedIdea = () => {
                         </div>
                     ];
                 },
-                width: '10%'
+                width: '10rem'
             },
             {
                 name: 'Actions',
@@ -198,14 +201,14 @@ const EvaluatedIdea = () => {
                                     setIdeaDetails(params);
                                     setIsDetail(true);
                                     let index = 0;
-                                    evaluatedIdeaList?.forEach((item, i) => {
-                                        if (
-                                            item?.challenge_response_id ==
-                                            params?.challenge_response_id
-                                        ) {
-                                            index = i;
-                                        }
-                                    });
+                                    // evaluatedIdeaList?.forEach((item, i) => {
+                                    //     if (
+                                    //         item?.challenge_response_id ==
+                                    //         params?.challenge_response_id
+                                    //     ) {
+                                    //         index = i;
+                                    //     }
+                                    // });
                                     setCurrentRow(index + 1);
                                 }}
                             >
@@ -214,7 +217,7 @@ const EvaluatedIdea = () => {
                         </div>
                     ];
                 },
-                width: '17%',
+                width: '17rem',
                 left: true
             }
         ]
@@ -238,7 +241,7 @@ const EvaluatedIdea = () => {
     };
 
     return (
-        <Layout>
+        <Layout title="L2 Evaluated Idea">
             <div className="container evaluated_idea_wrapper pt-5 mb-50">
                 <div className="row">
                     <div className="col-12 p-0">
@@ -250,14 +253,16 @@ const EvaluatedIdea = () => {
                                         <Col md={3}>
                                             <div className="my-3 d-md-block d-flex justify-content-center">
                                                 <Select
-                                                    list={fullStatesNames}
+                                                    list={fiterDistData}
                                                     setValue={setState}
-                                                    placeHolder={'Select State'}
+                                                    placeHolder={
+                                                        'Select District'
+                                                    }
                                                     value={state}
                                                 />
                                             </div>
                                         </Col>
-                                        <Col md={3}>
+                                        {/* <Col md={3}>
                                             <div className="my-3 d-md-block d-flex justify-content-center">
                                                 <Select
                                                     list={SDGDate}
@@ -268,19 +273,19 @@ const EvaluatedIdea = () => {
                                                     value={sdg}
                                                 />
                                             </div>
-                                        </Col>
+                                        </Col> */}
 
                                         <Col md={1}>
                                             <div className="text-center">
                                                 <Button
                                                     btnClass={
-                                                        state && sdg
+                                                        state
                                                             ? 'primary'
                                                             : 'default'
                                                     }
                                                     size="small"
                                                     label="Search"
-                                                    disabled={!(state && sdg)}
+                                                    disabled={!state}
                                                     onClick={() =>
                                                         handleclickcall()
                                                     }

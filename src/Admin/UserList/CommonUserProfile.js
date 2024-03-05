@@ -32,6 +32,7 @@ const CommonUserProfile = (props) => {
     const currentUser = getCurrentUser('current_user');
 
     const StudentsDaTa = JSON.parse(localStorage.getItem('studentData'));
+    // console.log(StudentsDaTa, '3');
     const [course, setCourse] = useState([]);
     const language = useSelector(
         (state) => state?.studentRegistration?.studentLanguage
@@ -52,33 +53,33 @@ const CommonUserProfile = (props) => {
             );
         }
     }, [currentUser?.data[0]?.user_id, language]);
-    useEffect(() => {
-        const stuParam = encryptGlobal(
-            JSON.stringify({
-                user_id: StudentsDaTa.user_id
-            })
-        );
-        var config = {
-            method: 'get',
-            url:
-                process.env.REACT_APP_API_BASE_URL +
-                `/dashboard/quizscores?Data=${stuParam}`,
-            headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-                Authorization: `Bearer ${currentUser.data[0]?.token}`
-            }
-        };
-        axios(config)
-            .then(function (response) {
-                if (response.status === 200) {
-                    setCourse(response.data.data[0]?.scores);
-                }
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-    }, []);
+    // useEffect(() => {
+    //     const stuParam = encryptGlobal(
+    //         JSON.stringify({
+    //             user_id: StudentsDaTa.user_id
+    //         })
+    //     );
+    //     var config = {
+    //         method: 'get',
+    //         url:
+    //             process.env.REACT_APP_API_BASE_URL +
+    //             `/dashboard/quizscores?Data=${stuParam}`,
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //             Accept: 'application/json',
+    //             Authorization: `Bearer ${currentUser.data[0]?.token}`
+    //         }
+    //     };
+    //     axios(config)
+    //         .then(function (response) {
+    //             if (response.status === 200) {
+    //                 setCourse(response.data.data[0]?.scores);
+    //             }
+    //         })
+    //         .catch(function (error) {
+    //             console.log(error);
+    //         });
+    // }, []);
     const dashboardTeamProgressStatus = useSelector(
         (state) => state?.studentRegistration.dashboardTeamProgressStatus
     );
@@ -130,12 +131,12 @@ const CommonUserProfile = (props) => {
             .catch((err) => console.log(err.response));
     };
     useEffect(() => {
-        mentorsData();
+        // mentorsData();
     }, []);
     const mentorsData = () => {
         const mentorsParam = encryptGlobal(
             JSON.stringify({
-                team_id: StudentsDaTa.team.team_id
+                team_id: StudentsDaTa.team_id
             })
         );
         var config = {
@@ -216,12 +217,15 @@ const CommonUserProfile = (props) => {
             data: {
                 Age: StudentsDaTa.Age,
                 Gender: StudentsDaTa.Gender,
-                Grade: StudentsDaTa.Grade,
+                email: StudentsDaTa.email,
                 student_id: StudentsDaTa.student_id,
-                team_id: StudentsDaTa?.team.team_id,
-                full_name: StudentsDaTa.full_name,
-                disability: StudentsDaTa.disability,
-                username: StudentsDaTa.username_email
+                team_id: StudentsDaTa?.team_id,
+                student_full_name: StudentsDaTa.student_full_name,
+                date_of_birth: StudentsDaTa.date_of_birth,
+                mobile: StudentsDaTa?.mobile,
+                year_of_study: StudentsDaTa?.year_of_study,
+                institution_id: StudentsDaTa?.institution_id,
+                course_name: StudentsDaTa?.course_name
             }
         });
     };
@@ -257,12 +261,12 @@ const CommonUserProfile = (props) => {
         ]
     };
     return (
-        <Layout>
+        <Layout title="UserList">
             <Container className="mt-5 pt-5 dynamic-form">
                 <Row>
                     <div className="col-6">
                         {/* <BreadcrumbTwo {...headingDetails} /> */}
-                        <h3 className="mt-5"> User List Details</h3>
+                        <h3 className="mt-5"> Student Details</h3>
                     </div>
                     <div className="col-6 text-end">
                         <Button
@@ -293,7 +297,7 @@ const CommonUserProfile = (props) => {
                                     <b>Name :</b>
                                 </span>
                                 <b>
-                                    {StudentsDaTa.full_name}
+                                    {StudentsDaTa.student_full_name}
                                     {/* {props.location.data &&
                                     props.location.data.full_name
                                         ? props.location.data &&
@@ -303,9 +307,9 @@ const CommonUserProfile = (props) => {
                             </CardText>
                             <CardText>
                                 <span className="mx-3">
-                                    <b>Class :</b>
+                                    <b>Age :</b>
                                 </span>
-                                <b>{StudentsDaTa.Grade}</b>
+                                <b>{StudentsDaTa.Age}</b>
                             </CardText>
                             <CardText>
                                 <span className="mx-3">
@@ -316,34 +320,34 @@ const CommonUserProfile = (props) => {
 
                             <CardText>
                                 <span className="mx-3">
-                                    <b>Age :</b>
+                                    <b>Date of Birth :</b>
                                 </span>
-                                <b>{StudentsDaTa.Age}</b>
+                                <b>{StudentsDaTa.date_of_birth}</b>
                             </CardText>
                             <CardText>
                                 <span className="mx-3">
-                                    <b>Disability :</b>
+                                    <b>Mobile No :</b>
                                 </span>
-                                <b>{StudentsDaTa?.disability}</b>
+                                <b>{StudentsDaTa?.mobile}</b>
                             </CardText>
                             <CardText>
                                 <span className="mx-3">
                                     <b>Email Id:</b>
                                 </span>
-                                <b>{StudentsDaTa?.username_email}</b>
+                                <b>{StudentsDaTa?.email}</b>
                             </CardText>
 
                             <CardText>
                                 <span className="mx-3">
                                     <b>Mentor Name :</b>
                                 </span>
-                                <b>{StudentsDaTa.team?.mentor.full_name}</b>
+                                <b>{StudentsDaTa.mentor_name}</b>
                             </CardText>
                             <CardText>
                                 <span className="mx-3">
                                     <b>Team Name :</b>
                                 </span>
-                                <b>{StudentsDaTa?.team.team_name}</b>
+                                {/* <b>{StudentsDaTa?.team.team_name}</b> */}
                             </CardText>
                         </CardBody>
                     </Card>
@@ -352,63 +356,59 @@ const CommonUserProfile = (props) => {
                     <Card className="py-5">
                         <CardBody>
                             <h2 className="mb-4">Institution Details</h2>
-
                             <CardText>
                                 <span className="mx-3">
                                     <b>Institution Unique Code :</b>
                                 </span>
 
-                                <b>
-                                    {
-                                        StudentsDaTa?.team?.mentor?.organization
-                                            .organization_code
-                                    }
-                                </b>
+                                <b>{StudentsDaTa?.institution_code}</b>
                             </CardText>
                             <CardText>
                                 <span className="mx-3">
-                                    <b>School Name :</b>
+                                    <b>Institution Name :</b>
                                 </span>
-                                <b>
-                                    {
-                                        StudentsDaTa?.team?.mentor?.organization
-                                            .organization_name
-                                    }
-                                </b>
+                                <b>{StudentsDaTa?.institution_name}</b>
                             </CardText>
-
+                            <CardText>
+                                <span className="mx-3">
+                                    <b>Place:</b>
+                                </span>
+                                <b>{StudentsDaTa?.place_name}</b>
+                            </CardText>
+                            <CardText>
+                                <span className="mx-3">
+                                    <b>Block:</b>
+                                </span>
+                                <b>{StudentsDaTa?.block_name}</b>
+                            </CardText>
+                            <CardText>
+                                <span className="mx-3">
+                                    <b>Taluk:</b>
+                                </span>
+                                <b>{StudentsDaTa?.taluk_name}</b>
+                            </CardText>{' '}
                             <CardText>
                                 <span className="mx-3">
                                     <b>District :</b>
                                 </span>
-                                <b>
-                                    {
-                                        StudentsDaTa?.team?.mentor?.organization
-                                            .district
-                                    }
-                                </b>
+                                <b>{StudentsDaTa?.district_name}</b>
                             </CardText>
                             <CardText>
                                 <span className="mx-3">
                                     <b>State :</b>
                                 </span>
-                                <b>
-                                    {
-                                        StudentsDaTa?.team?.mentor?.organization
-                                            .state
-                                    }
-                                </b>
+                                <b>{StudentsDaTa?.state_name}</b>
                             </CardText>
-                            <CardText>
-                                <span className="mx-3">
+                            {/* <CardText> */}
+                            {/* <span className="mx-3">
                                     <b>Category :</b>
-                                </span>
-                                <b>
-                                    {
+                                </span> */}
+                            {/* <b> */}
+                            {/* {
                                         StudentsDaTa?.team?.mentor?.organization
                                             .category
-                                    }
-                                    {/* {props.location.data &&
+                                    } */}
+                            {/* {props.location.data &&
                                     props.location.data.team &&
                                     props.location.data.team.mentor &&
                                     props.location.data.team.mentor.organization
@@ -419,34 +419,12 @@ const CommonUserProfile = (props) => {
                                           props.location.data.team.mentor
                                               .organization.category
                                         : '-'} */}
-                                </b>
-                            </CardText>
-                            <CardText>
-                                <span className="mx-3">
-                                    <b>Pincode :</b>
-                                </span>
-                                <b>
-                                    {
-                                        StudentsDaTa?.team?.mentor?.organization
-                                            .pin_code
-                                    }
-                                </b>
-                            </CardText>
-                            <CardText>
-                                <span className="mx-3">
-                                    <b>Address :</b>
-                                </span>
-                                <b>
-                                    {
-                                        StudentsDaTa?.team?.mentor?.organization
-                                            .address
-                                    }
-                                </b>
-                            </CardText>
+                            {/* </b> */}
+                            {/* </CardText> */}
                         </CardBody>
                     </Card>
                 </Row>
-                <Row className="my-5">
+                {/* <Row className="my-5">
                     <Card className="py-5">
                         <CardBody>
                             <h2 className="mb-4">Course Details</h2>
@@ -504,8 +482,8 @@ const CommonUserProfile = (props) => {
                             </CardText>
                         </CardBody>
                     </Card>
-                </Row>
-                <Row className="my-5">
+                </Row> */}
+                {/* <Row className="my-5">
                     {button ? (
                         <Col md={12}>
                             <Card className="w-100  mb-5 p-4">
@@ -700,7 +678,7 @@ const CommonUserProfile = (props) => {
                             </DataTableExtensions>
                         </div>
                     </Card>
-                </Row>
+                </Row> */}
             </Container>
         </Layout>
     );

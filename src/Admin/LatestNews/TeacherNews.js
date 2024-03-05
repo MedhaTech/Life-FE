@@ -549,7 +549,7 @@ const AdminLatestNews = () => {
         ]
     };
     return (
-        <Layout>
+        <Layout title="LatestNews">
             <Container className="ticket-page mt-5 mb-50">
                 <Row className="pt-3">
                     <Col className="col-auto">

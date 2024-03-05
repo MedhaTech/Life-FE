@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React, { useEffect, useState } from 'react';
@@ -13,13 +14,14 @@ import { encryptGlobal } from '../../constants/encryptDecrypt';
 const ViewMore = () => {
     const history = useHistory();
     const currentUser = getCurrentUser('current_user');
-
-    const orgDaTa = JSON.parse(localStorage.getItem('orgData'));
-    // const tecDaTa = JSON.parse(localStorage.getItem('teacherId'));
-
-    const [course, setCourse] = useState([]);
     const [button, setButton] = useState('');
     const [data, setData] = useState('');
+
+    const orgDaTa = JSON.parse(localStorage.getItem('orgData'));
+    const tecDaTa = JSON.parse(localStorage.getItem('teacherId'));
+    // console.log(tecDaTa, 'id');
+    const [showMentorCard, setshowMentorCard] = useState(false);
+    const [course, setCourse] = useState([]);
     // where orgDaTa = orgnization details //
     // we can see all orgnization , mentor details //
     const headingDetails = {
@@ -31,45 +33,45 @@ const ViewMore = () => {
         mentor_id: orgDaTa.mentor.mentor_id,
         user_id: orgDaTa.mentor.user_id
     });
-
     const handleBack = () => {
         history.push({
             pathname: '/admin/teacher/dashboard'
         });
         localStorage.setItem(
-            'organization_code',
-            JSON.stringify(orgDaTa.organization_code)
+            'institution_code',
+            JSON.stringify(orgDaTa.institution_code)
         );
     };
 
-    useEffect(() => {
-        const userIdParam = encryptGlobal(
-            JSON.stringify({
-                user_id: orgDaTa?.mentor.user_id,
-                role: 'MENTOR'
-            })
-        );
-        var config = {
-            method: 'get',
-            url:
-                process.env.REACT_APP_API_BASE_URL +
-                `/dashboard/quizscores?Data=${userIdParam}`,
-            headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-                Authorization: `Bearer ${currentUser.data[0]?.token}`
-            }
-        };
-        axios(config)
-            .then(function (response) {
-                if (response.status === 200) {
-                    setCourse(response.data.data);
-                }
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-    }, []);
+    // useEffect(() => {
+    //     const userIdParam = encryptGlobal(
+    //         JSON.stringify({
+    //             user_id: orgDaTa?.mentor.user_id,
+    //             role: 'MENTOR'
+    //         })
+    //     );
+
+    //     var config = {
+    //         method: 'get',
+    //         url:
+    //             process.env.REACT_APP_API_BASE_URL +
+    //             `/dashboard/quizscores?Data=${userIdParam}`,
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //             Accept: 'application/json',
+    //             Authorization: `Bearer ${currentUser.data[0]?.token}`
+    //         }
+    //     };
+    //     axios(config)
+    //         .then(function (response) {
+    //             if (response.status === 200) {
+    //                 setCourse(response.data.data);
+    //             }
+    //         })
+    //         .catch(function (error) {
+    //             console.log(error);
+    //         });
+    // }, []);
     // useEffect(() => {
     //     mentorsData();
     // }, []);
@@ -88,7 +90,6 @@ const ViewMore = () => {
     //     axios(config)
     //         .then(function (response) {
     //             if (response.status === 200) {
-    //
     //                 setData(response?.data?.data[0]);
     //                 setButton(response.data.data[0].moc_name);
     //                 // if (response.data.data[0].moc_name !== null) {
@@ -100,15 +101,15 @@ const ViewMore = () => {
     //             console.log(error);
     //         });
     // };
-    const atlData = orgDaTa.organization_code;
-    const altRes = atlData.split('-');
-    const atlNew = altRes[0];
+    // const atlData = orgDaTa.organization_code;
+    // const altRes = atlData.split('-');
+    // const atlNew = altRes[0];
     const percentageBWNumbers = (a, b) => {
         // here a = all_topics_count ; b= topics_completed_count //
         return (((a - b) / a) * 100).toFixed(2);
     };
     return (
-        <Layout>
+        <Layout title="UserList">
             <Container className="mt-5 pt-5 dynamic-form">
                 <div className="d-flex justify-content-between align-items-center mb-3">
                     <BreadcrumbTwo {...headingDetails} />
@@ -119,59 +120,88 @@ const ViewMore = () => {
                         onClick={handleBack}
                     />
                 </div>
-                <Row>
-                    <Row>
+                <Row className="py-5">
+                    <Row className="py-5">
                         <Card className="py-5">
                             <CardBody>
-                                <h2 className="mb-4">Organization Details</h2>
+                                <h2 className="mb-4">Institution Details</h2>
 
+                                {/* <CardText>
+                                <span className="mx-3">
+                                    <b>principal Name :</b>
+                                </span>
+                                <b>{orgDaTa.principal_name}</b>
+                            </CardText>
+                            <CardText>
+                                <span className="mx-3">
+                                    <b>principal Email :</b>
+                                </span>
+                                <b>{orgDaTa.principal_email}</b>
+                            </CardText> */}
                                 <CardText>
                                     <span className="mx-3">
-                                        <b>Organization Name :</b>
+                                        <b>Institution Name :</b>
                                     </span>
-                                    <b>{orgDaTa.organization_name}</b>
+                                    <b>{orgDaTa.institution_name}</b>
                                 </CardText>
-                                <CardText>
-                                    <span className="mx-3">
-                                        <b>ATL Code :</b>
-                                    </span>
-                                    <b>{orgDaTa.organization_code}</b>
-                                </CardText>
+
                                 <CardText>
                                     <span className="mx-3">
                                         <b>Institution Unique Code :</b>
                                     </span>
-                                    <b>{orgDaTa.unique_code}</b>
+                                    <b>{orgDaTa.institution_code}</b>
                                 </CardText>
                                 <CardText>
                                     <span className="mx-3">
-                                        <b>Category :</b>
+                                        <b>Place :</b>
                                     </span>
-                                    <b>{orgDaTa.category}</b>
+                                    <b>{orgDaTa?.place?.place_name}</b>
                                 </CardText>
 
                                 <CardText>
                                     <span className="mx-3">
+                                        <b>Block :</b>
+                                    </span>
+                                    <b>{orgDaTa?.place?.block?.block_name}</b>
+                                </CardText>
+                                <CardText>
+                                    <span className="mx-3">
+                                        <b>Taluk:</b>
+                                    </span>
+                                    <b>
+                                        {
+                                            orgDaTa?.place?.block?.district
+                                                ?.taluk?.taluk_name
+                                        }
+                                    </b>
+                                </CardText>
+                                <CardText>
+                                    <span className="mx-3">
                                         <b>District :</b>
                                     </span>
-                                    <b>{orgDaTa.district}</b>
+                                    <b>
+                                        {
+                                            orgDaTa?.place?.block?.district
+                                                ?.district_name
+                                        }
+                                    </b>
                                 </CardText>
+
                                 <CardText>
                                     <span className="mx-3">
-                                        <b>state :</b>
+                                        <b>State :</b>
                                     </span>
-                                    <b>{orgDaTa.state}</b>
-                                </CardText>
-                                <CardText>
-                                    <span className="mx-3">
-                                        <b>Pincode :</b>
-                                    </span>
-                                    <b>{orgDaTa.pin_code}</b>
+                                    <b>
+                                        {
+                                            orgDaTa?.place?.block?.district
+                                                ?.state?.state_name
+                                        }
+                                    </b>
                                 </CardText>
                             </CardBody>
                         </Card>
                     </Row>
-                    <Row>
+                    {/* <Row>
                         {orgDaTa.category === 'Non ATL' && (
                             <Card className="py-5">
                                 <CardBody>
@@ -211,23 +241,26 @@ const ViewMore = () => {
                                 </CardBody>
                             </Card>
                         )}
-                    </Row>
+                    </Row> */}
                     <Row className="py-5">
                         <Card className="py-5">
                             <CardBody>
-                                <h2 className="mb-4">Teacher Details</h2>
-                                <CardText>
+                                <h2 className="mb-4">Mentor Details</h2>
+                                {/* <CardText>
                                     <span className="mx-3">
                                         <b>Title :</b>
                                     </span>
-                                    <b>{orgDaTa.mentor.title}</b>
-                                </CardText>
+                                    <b>{orgDaTa.mentor.mentor_title}</b>
+                                </CardText> */}
 
                                 <CardText>
                                     <span className="mx-3">
                                         <b>Mentor Name :</b>
                                     </span>
-                                    <b>{orgDaTa.mentor.full_name}</b>
+                                    <b>
+                                        {orgDaTa.mentor.mentor_title}
+                                        {orgDaTa.mentor.mentor_name}
+                                    </b>
                                 </CardText>
                                 <CardText>
                                     <span className="mx-3">
@@ -237,7 +270,13 @@ const ViewMore = () => {
                                 </CardText>
                                 <CardText>
                                     <span className="mx-3">
-                                        <b>Mentor Id :</b>
+                                        <b>Date of Birth :</b>
+                                    </span>
+                                    <b>{orgDaTa.mentor.date_of_birth}</b>
+                                </CardText>
+                                <CardText>
+                                    <span className="mx-3">
+                                        <b> Mentor Id :</b>
                                     </span>
                                     <b>{orgDaTa.mentor.mentor_id}</b>
                                 </CardText>
@@ -245,23 +284,26 @@ const ViewMore = () => {
                                     <span className="mx-3">
                                         <b>Email Id :</b>
                                     </span>
-                                    <b>{orgDaTa.mentor.user.username}</b>
+                                    <b>{orgDaTa.mentor.mentor_email}</b>
                                 </CardText>
                                 <CardText>
                                     <span className="mx-3">
                                         <b>Mobile No :</b>
                                     </span>
-                                    <b>{orgDaTa.mentor.mobile}</b>
+                                    <b>{orgDaTa.mentor.mentor_mobile}</b>
                                 </CardText>
                                 <CardText>
                                     <span className="mx-3">
                                         <b>WhatsApp No :</b>
                                     </span>
-                                    <b>{orgDaTa.mentor.whatapp_mobile}</b>
+                                    <b>
+                                        {orgDaTa.mentor.mentor_whatapp_mobile}
+                                    </b>
                                 </CardText>
                             </CardBody>
                         </Card>
                     </Row>
+
                     <Row className="teacher-statistics bg-white p-5">
                         <Row className="">
                             <Col>
@@ -274,10 +316,10 @@ const ViewMore = () => {
                             </Col>
                         </Row>
                     </Row>
-                    <Row className="py-5">
+                    {/* <Row className="py-5">
                         <Card className="py-5">
                             <CardBody>
-                                <h2 className="mb-4">Mentor Course Details</h2>
+                                <h2 className="mb-4">Teacher Course Details</h2>
                                 <CardText>
                                     <span className="mx-3">
                                         <b> Quiz Score :</b>
@@ -286,7 +328,7 @@ const ViewMore = () => {
                                         {course[0]?.scores[0]?.score
                                             ? course[0]?.scores[0]?.score +
                                               '/15'
-                                            : 0}
+                                            : '-'}
                                     </b>
                                 </CardText>
                                 <CardText>
@@ -305,12 +347,12 @@ const ViewMore = () => {
                                                           100
                                                   ) + '%'
                                               }`
-                                            : 0}
+                                            : '-'}
                                     </b>{' '}
                                 </CardText>
                             </CardBody>
                         </Card>
-                    </Row>
+                    </Row> */}
                     {/* <Row>
                         {button ? (
                             <Col md={12}>

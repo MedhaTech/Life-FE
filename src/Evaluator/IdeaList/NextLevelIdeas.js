@@ -19,10 +19,11 @@ const IdeaList = () => {
     const allIdeaList = useSelector(
         (state) => state?.evaluator.submittedIdeaList
     );
-
+    // console.log(ideaDetails, 'ideaDetails');
     React.useEffect(() => {
         dispatch(getSubmittedIdeaList('L2'));
     }, []);
+    
     React.useEffect(() => {
         if (allIdeaList) {
             setIdeaDetails(allIdeaList);
@@ -35,7 +36,7 @@ const IdeaList = () => {
     };
 
     return (
-        <Layout>
+        <Layout title="L2 Evaluation">
             <div
                 className="container idea_list_wrapper pt-5 mb-50"
                 ref={topRef}
@@ -43,7 +44,7 @@ const IdeaList = () => {
                 <div className="row">
                     {!isNextDiv ? (
                         <div className="col-12">
-                            {Object.keys(ideaDetails).length > 0 ? (
+                            {ideaDetails ? (
                                 <NextLevel
                                     ideaDetails={ideaDetails}
                                     handleSkip={handleNext}

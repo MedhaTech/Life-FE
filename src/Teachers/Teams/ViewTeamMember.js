@@ -224,7 +224,7 @@ const ViewTeamMember = (props) => {
                             if (response.status === 200) {
                                 openNotificationWithIcon(
                                     'success',
-                                    'Team Delete Successfully'
+                                    'Team Deleted Successfully'
                                 );
                                 history.push({
                                     pathname: '/mentor/teamlist'
