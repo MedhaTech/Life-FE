@@ -683,16 +683,6 @@ function AtlPage() {
                                                                   ?.block_name
                                                             : ' N/A'}{' '}
                                                         <br />
-                                                        District :{' '}
-                                                        {orgData?.place?.block
-                                                            ?.district
-                                                            ?.district_name
-                                                            ? orgData?.place
-                                                                  ?.block
-                                                                  ?.district
-                                                                  ?.district_name
-                                                            : ' N/A'}{' '}
-                                                        <br />
                                                         Taluk :{' '}
                                                         {orgData?.place?.block
                                                             ?.district?.taluk
@@ -703,6 +693,16 @@ function AtlPage() {
                                                                   ?.taluk
                                                                   ?.taluk_name
                                                             : ' N/A'}
+                                                        <br />
+                                                        District :{' '}
+                                                        {orgData?.place?.block
+                                                            ?.district
+                                                            ?.district_name
+                                                            ? orgData?.place
+                                                                  ?.block
+                                                                  ?.district
+                                                                  ?.district_name
+                                                            : ' N/A'}{' '}
                                                         <br />
                                                         State :{' '}
                                                         {orgData?.place?.block

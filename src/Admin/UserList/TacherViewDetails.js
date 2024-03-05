@@ -166,17 +166,6 @@ const ViewMore = () => {
                                 </CardText>
                                 <CardText>
                                     <span className="mx-3">
-                                        <b>District :</b>
-                                    </span>
-                                    <b>
-                                        {
-                                            orgDaTa?.place?.block?.district
-                                                ?.district_name
-                                        }
-                                    </b>
-                                </CardText>
-                                <CardText>
-                                    <span className="mx-3">
                                         <b>Taluk:</b>
                                     </span>
                                     <b>
@@ -186,6 +175,18 @@ const ViewMore = () => {
                                         }
                                     </b>
                                 </CardText>
+                                <CardText>
+                                    <span className="mx-3">
+                                        <b>District :</b>
+                                    </span>
+                                    <b>
+                                        {
+                                            orgDaTa?.place?.block?.district
+                                                ?.district_name
+                                        }
+                                    </b>
+                                </CardText>
+
                                 <CardText>
                                     <span className="mx-3">
                                         <b>State :</b>
