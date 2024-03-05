@@ -165,7 +165,7 @@ function NewIdeaSubmission(props) {
     }, [theme]);
     useEffect(() => {
         if (themeProId) {
-            
+
 
             listofproblemsandID.length > 0 &&
                 setProbStatment(
@@ -471,7 +471,7 @@ function NewIdeaSubmission(props) {
         }
         handleUploadFiles(choosenFiles);
     };
-   
+  
     return (
         <Layout title="Idea Submission">
             {finalPage ? (

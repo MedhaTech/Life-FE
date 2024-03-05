@@ -87,7 +87,9 @@ const ViewSelectedIdea = () => {
         setshowspin(true);
         await handleideaList();
     };
-
+    // useEffect(() => {
+    //     handleideaList();
+    // }, []);
     async function handleideaList() {
         // handleideaList api //
         //where we can see all ideas in districtwise //
@@ -98,7 +100,7 @@ const ViewSelectedIdea = () => {
             JSON.stringify({
                 status: stat,
                 // state: state !== 'All States' ? state : '',
-                district: district !== 'All Districts' ? district : '',
+                district: district !== 'All Districts' ? district : ''
                 // sdg: sdg !== 'All Themes' ? sdg : ''
             })
         );

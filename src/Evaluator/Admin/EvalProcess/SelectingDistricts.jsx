@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React, { useState, useEffect } from 'react';
 import Layout from '../Pages/Layout';
@@ -11,20 +12,26 @@ import axios from 'axios';
 import { URL, KEY } from '../../../constants/defaultValues';
 import Check from './Pages/Check';
 import { useDispatch, useSelector } from 'react-redux';
-import { getStateData } from '../../../redux/studentRegistration/actions';
+import {
+    getStateData,
+    getFetchDistData
+} from '../../../redux/studentRegistration/actions';
 import { encryptGlobal } from '../../../constants/encryptDecrypt';
 
 const EditEvalProcess = (props) => {
     const evalID = JSON.parse(localStorage.getItem('eavlId'));
+    console.log(evalID, '1');
     //  where evalID= evaluation_process_id //
     const dispatch = useDispatch();
     const [clickedValue, setclickedValue] = useState({});
     const [selectedStates, setselectedStates] = useState([]);
 
     useEffect(() => {
-        dispatch(getStateData());
+        dispatch(getFetchDistData());
     }, []);
-
+    const fiterDistData = useSelector(
+        (state) => state?.studentRegistration?.fetchdist
+    );
     const fullStatesNames = useSelector(
         (state) => state?.studentRegistration?.regstate
     );
@@ -33,39 +40,40 @@ const EditEvalProcess = (props) => {
         // evalID && evalID.state
         //     ? evalID.state.split(',').length ===
         //           fullStatesNames.length - 1 &&
-        //       !evalID.state.includes('All States')
+        //       !evalID.state.includes('All Districts')
         //         ? setselectedStates(fullStatesNames)
         //         : setselectedStates(evalID.state.split(','))
         //     : '';
-        if (evalID && evalID.state) {
+        if (evalID && evalID.district) {
             if (
-                evalID.state.split(',').length === fullStatesNames.length - 1 &&
-                !evalID.state.includes('All States')
+                evalID.district.split(',').length ===
+                    fullStatesNames.length - 1 &&
+                !evalID.district.includes('All Districts')
             ) {
                 setselectedStates(fullStatesNames);
             } else {
-                setselectedStates(evalID.state.split(','));
+                setselectedStates(evalID.district.split(','));
             }
         }
     }, []);
 
     useEffect(() => {
-        if (clickedValue.name === 'All States') {
-            if (selectedStates.includes('All States')) {
+        if (clickedValue.name === 'All Districts') {
+            if (selectedStates.includes('All Districts')) {
                 setselectedStates(fullStatesNames);
             } else {
                 setselectedStates([]);
             }
         } else if (
             clickedValue.name &&
-            clickedValue.name !== 'All States' &&
+            clickedValue.name !== 'All Districts' &&
             selectedStates.length === fullStatesNames.length - 1 &&
-            !selectedStates.includes('All States')
+            !selectedStates.includes('All Districts')
         ) {
             setselectedStates(fullStatesNames);
-        } else if (clickedValue.name && clickedValue.name !== 'All States') {
+        } else if (clickedValue.name && clickedValue.name !== 'All Districts') {
             setselectedStates(
-                selectedStates?.filter((item) => item !== 'All States')
+                selectedStates?.filter((item) => item !== 'All Districts')
             );
         }
     }, [clickedValue]);
@@ -73,8 +81,8 @@ const EditEvalProcess = (props) => {
     async function handleStates(value) {
         //  handleStates Api where value = state //
         // where we can update the state //
-        if (value.state === '') {
-            value.state = '-';
+        if (value.district === '') {
+            value.district = '-';
         }
         const axiosConfig = getNormalHeaders(KEY.User_API_Key);
         const evalid = encryptGlobal(
@@ -90,7 +98,7 @@ const EditEvalProcess = (props) => {
                 if (response.status == 200) {
                     openNotificationWithIcon(
                         'success',
-                        'States Update Successfully'
+                        'Districts Updated Successfully'
                     );
                     props.history.push('/eadmin/evaluationProcess');
                 }
@@ -102,12 +110,12 @@ const EditEvalProcess = (props) => {
 
     const handleclick = async () => {
         // where we can select  the States //
-        const value = { state: '' };
-        selectedStates.includes('All States')
-            ? (value.state = selectedStates
-                  ?.filter((item) => item !== 'All States')
+        const value = { district: '' };
+        selectedStates.includes('All Districts')
+            ? (value.district = selectedStates
+                  ?.filter((item) => item !== 'All Districts')
                   .toString())
-            : (value.state = selectedStates.toString());
+            : (value.district = selectedStates.toString());
         await handleStates(value);
     };
 
@@ -142,9 +150,9 @@ const EditEvalProcess = (props) => {
                         </Col>
                     </Row>
                     <Row>
-                        <Label className="mb-2">States:</Label>
+                        <Label className="mb-2">Districts:</Label>
                         <Check
-                            list={fullStatesNames}
+                            list={fiterDistData}
                             value={selectedStates}
                             setValue={setselectedStates}
                             selValue={setclickedValue}

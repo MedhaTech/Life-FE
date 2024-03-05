@@ -84,8 +84,8 @@ const ReportL1 = () => {
 
     const summaryHeaders = [
         {
-            label: 'State Name',
-            key: 'state'
+            label: 'District Name',
+            key: 'district'
         },
         {
             label: 'No of Ideas Evaluated',
@@ -129,10 +129,10 @@ const ReportL1 = () => {
             label: 'Institution Unique Code',
             key: 'unique_code'
         },
-        {
-            label: 'State',
-            key: 'state'
-        },
+        // {
+        //     label: 'State',
+        //     key: 'state'
+        // },
         {
             label: 'District',
             key: 'district'
@@ -212,16 +212,16 @@ const ReportL1 = () => {
     ];
 
     useEffect(() => {
-        dispatch(getStateData());
+        // dispatch(getStateData());
     }, []);
     useEffect(() => {
-        if (RegTeachersState !== '') {
-            dispatch(getFetchDistData(RegTeachersState));
-        }
-        setRegTeachersdistrict('');
+        // if (RegTeachersState !== '') {
+        dispatch(getFetchDistData());
+        // }
+        // setRegTeachersdistrict('');
         fetchChartTableData();
         fetchChartTableData2();
-    }, [RegTeachersState]);
+    }, []);
 
     useEffect(() => {
         // dispatch(getDistrictData());
@@ -234,10 +234,10 @@ const ReportL1 = () => {
         const param = encryptGlobal(
             JSON.stringify({
                 status: 'ACTIVE',
-                state: RegTeachersState,
-                district: edist,
-                category: category,
-                sdg: sdg
+                // state: RegTeachersState,
+                district: edist
+                // category: category,
+                // sdg: sdg
             })
         );
         const url = `/reports/L1deatilreport?Data=${param}`;
@@ -301,19 +301,19 @@ const ReportL1 = () => {
 
     const handleDownload = () => {
         // alert('hii');
-        if (
-            !RegTeachersState ||
-            // !RegTeachersdistrict ||
-            // !filterType ||
-            !category ||
-            !sdg
-        ) {
-            notification.warning({
-                message:
-                    'Please select a state,category and Theme type before Downloading Reports.'
-            });
-            return;
-        }
+        // if (
+        //     !RegTeachersState ||
+        //     // !RegTeachersdistrict ||
+        //     // !filterType ||
+        //     !category ||
+        //     !sdg
+        // ) {
+        //     notification.warning({
+        //         message:
+        //             'Please select a state,category and Theme type before Downloading Reports.'
+        //     });
+        //     return;
+        // }
         setIsDownloading(true);
         fetchData();
     };
@@ -327,12 +327,12 @@ const ReportL1 = () => {
     useEffect(() => {
         if (downloadComplete) {
             setDownloadComplete(false);
-            setRegTeachersState('');
+            // setRegTeachersState('');
 
             setRegTeachersdistrict('');
 
             // setFilterType('');
-            setsdg('');
+            // setsdg('');
         }
         const newDate = new Date();
         const formattedDate = `${newDate.getUTCDate()}/${
@@ -374,7 +374,7 @@ const ReportL1 = () => {
                     );
 
                     var array = chartTableData;
-                    array.push({ state: 'Total Count', ...total });
+                    array.push({ district: 'Total Count', ...total });
                     setChartTableData(array);
                     setDownloadTableData(chartTableData);
                     setTotalCount(total);
@@ -427,7 +427,7 @@ const ReportL1 = () => {
                         </Col>
                         <div className="reports-data p-5 mt-4 mb-5 bg-white">
                             <Row className="align-items-center">
-                                <Col md={2}>
+                                {/* <Col md={2}>
                                     <div className="my-3 d-md-block d-flex justify-content-center">
                                         <Select
                                             list={fullStatesNames}
@@ -436,7 +436,7 @@ const ReportL1 = () => {
                                             value={RegTeachersState}
                                         />
                                     </div>
-                                </Col>
+                                </Col> */}
                                 <Col md={2}>
                                     <div className="my-3 d-md-block d-flex justify-content-center">
                                         <Select
@@ -448,7 +448,7 @@ const ReportL1 = () => {
                                     </div>
                                 </Col>
 
-                                <Col md={2}>
+                                {/* <Col md={2}>
                                     <div className="my-3 d-md-block d-flex justify-content-center">
                                         <Select
                                             list={categoryData}
@@ -457,8 +457,8 @@ const ReportL1 = () => {
                                             value={category}
                                         />
                                     </div>
-                                </Col>
-                                <Col md={2}>
+                                </Col> */}
+                                {/* <Col md={2}>
                                     <div className="my-3 d-md-block d-flex justify-content-center">
                                         <Select
                                             list={SDGDate}
@@ -472,8 +472,8 @@ const ReportL1 = () => {
                                             placeHolder={'Select Filter'}
                                             value={filterType}
                                         /> */}
-                                    </div>
-                                </Col>
+                                {/* </div> */}
+                                {/* </Col> */}
                                 <Col
                                     md={2}
                                     className="d-flex align-items-center justify-content-center"
@@ -557,7 +557,8 @@ const ReportL1 = () => {
                                                             <tr>
                                                                 <th>No</th>
                                                                 <th>
-                                                                    State Name
+                                                                    District
+                                                                    Name
                                                                 </th>
                                                                 <th>
                                                                     No of Ideas
@@ -591,7 +592,7 @@ const ReportL1 = () => {
                                                                             </td>
                                                                             <td>
                                                                                 {
-                                                                                    item.state
+                                                                                    item.district
                                                                                 }
                                                                             </td>
                                                                             <td>
