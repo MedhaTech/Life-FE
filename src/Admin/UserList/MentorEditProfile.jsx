@@ -125,7 +125,7 @@ const EditTeacherProfileDetails = (props) => {
                         currentUser.data[0].mentor_name = values.mentor_name;
                         setCurrentUser(currentUser);
                         setTimeout(() => {
-                            props.history.push('/admin/teacher/dashboard');
+                            props.history.push('/admin/userlist');
                         }, 200);
                     }
                 })
@@ -142,7 +142,7 @@ const EditTeacherProfileDetails = (props) => {
 
     const handleDiscard = () => {
         // where we can discard  the changes //
-        props.history.push('/admin/teacher/dashboard');
+        props.history.push('/admin/userlist');
     };
 
     return (

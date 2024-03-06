@@ -108,18 +108,20 @@ const ViewSelectedIdea = () => {
     }, []);
 
     const handlePromotel2processed = async (item) => {
-        await promoteapi(item.challenge_response_id);
+        // alert('dd');
+        // console.log(item.team_id, 'i');
+        await promoteapi(item.team_id);
     };
 
     async function promoteapi(id) {
-        const promoteId = encryptGlobal(JSON.stringify(id));
-        const body = JSON.stringify({ final_result: '0' });
+        // const promoteId = encryptGlobal(JSON.stringify(id));
+        const body = JSON.stringify({ final_result: '0', team_id: id });
         var config = {
             method: 'put',
             url: `${
-                process.env.REACT_APP_API_BASE_URL +
-                '/challenge_response/updateEntry/' +
-                promoteId
+                process.env.REACT_APP_API_BASE_URL + '/ideas/ideaUpdate'
+                //  +
+                // promoteId
             }`,
             headers: {
                 'Content-Type': 'application/json',
@@ -520,13 +522,14 @@ const ViewSelectedIdea = () => {
     };
 
     const [pdfLoader, setPdfLoader] = React.useState(false);
-    const [teamResponse, setTeamResponse] = React.useState([]);
+    const [teamResponse, setTeamResponse] = React.useState({});
     const [details, setDetails] = React.useState();
     const downloadPDF = async (params) => {
         await setDetails(params);
-        if (params?.response) {
+        if (props?.ideaDetails) {
             await setTeamResponse(
-                Object.entries(params?.response).map((e) => e[1])
+                props?.ideaDetails
+                // Object.entries(params?.response).map((e) => e[1])
             );
         }
         setPdfLoader(true);
@@ -595,23 +598,7 @@ const ViewSelectedIdea = () => {
 
             {
                 name: 'Theme',
-                cellExport: (row) => row.sdg,
-                cell: (row) => (
-                    <div
-                        style={{
-                            whiteSpace: 'pre-wrap',
-                            wordWrap: 'break-word'
-                        }}
-                    >
-                        {row.sdg}
-                    </div>
-                ),
-                width: '15rem'
-            },
-            {
-                name: 'Problem Statement',
                 cellExport: (row) => row?.themes_problem?.theme_name,
-
                 cell: (row) => (
                     <div
                         style={{
@@ -620,6 +607,22 @@ const ViewSelectedIdea = () => {
                         }}
                     >
                         {row?.themes_problem?.theme_name}
+                    </div>
+                ),
+                width: '15rem'
+            },
+            {
+                name: 'Problem Statement',
+                cellExport: (row) => row?.themes_problem?.problem_statement,
+
+                cell: (row) => (
+                    <div
+                        style={{
+                            whiteSpace: 'pre-wrap',
+                            wordWrap: 'break-word'
+                        }}
+                    >
+                        {row?.themes_problem?.problem_statement}
                     </div>
                 ),
                 width: '25rem'
@@ -647,7 +650,7 @@ const ViewSelectedIdea = () => {
             // },
             {
                 name: 'Quality Score',
-                cellExport: (row) => row?.response[1]?.selected_option || '',
+                // cellExport: (row) => row?.response[1]?.selected_option || '',
                 selector: (row) => {
                     return [
                         (
@@ -740,14 +743,14 @@ const ViewSelectedIdea = () => {
                                         setIdeaDetails(params);
                                         setIsDetail(true);
                                         let index = 0;
-                                        tableData?.forEach((item, i) => {
-                                            if (
-                                                item?.challenge_response_id ==
-                                                params?.challenge_response_id
-                                            ) {
-                                                index = i;
-                                            }
-                                        });
+                                        // tableData?.forEach((item, i) => {
+                                        //     if (
+                                        //         item?.challenge_response_id ==
+                                        //         params?.challenge_response_id
+                                        //     ) {
+                                        //         index = i;
+                                        //     }
+                                        // });
                                         setCurrentRow(index + 1);
                                     }}
                                 >
@@ -769,12 +772,12 @@ const ViewSelectedIdea = () => {
                                         className="text-info"
                                     />
                                 )} */}
-                                <FaDownload
+                                {/* <FaDownload
                                     size={22}
                                     onClick={() => {
                                         handleDownpdf(params);
                                     }}
-                                />
+                                /> */}
                             </div>
                             {/* {!params.final_result && (
                                 <div

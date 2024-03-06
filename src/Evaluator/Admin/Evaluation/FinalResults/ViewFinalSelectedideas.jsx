@@ -17,6 +17,7 @@ import { cardData } from '../../../../Student/Pages/Ideas/SDGData.js';
 import { useSelector } from 'react-redux';
 import {
     getDistrictData,
+    getFetchDistData,
     getStateData
 } from '../../../../redux/studentRegistration/actions';
 import { useDispatch } from 'react-redux';
@@ -58,28 +59,31 @@ const ViewSelectedIdea = () => {
     const fullDistrictsNames = useSelector(
         (state) => state?.studentRegistration?.dists
     );
-
+    const fiterDistData = useSelector(
+        (state) => state?.studentRegistration?.fetchdist
+    );
     const filterParamsfinal =
         (state && state !== 'All States' ? '&state=' + state : '') +
         (sdg && sdg !== 'All Themes' ? '&sdg=' + sdg : '');
     useEffect(() => {
         // dispatch(getDistrictData());
-        dispatch(getStateData());
+        dispatch(getFetchDistData());
+        // dispatch(getStateData());
     }, []);
 
     const handlePromotelFinalEvaluated = async (item) => {
-        await promoteapi(item.challenge_response_id);
+        await promoteapi(item.team_id);
     };
 
     async function promoteapi(id) {
-        const body = JSON.stringify({ final_result: '1' });
-        const promPram = encryptGlobal(JSON.stringify(id));
+        const body = JSON.stringify({ final_result: '1', team_id: id });
+        // const promPram = encryptGlobal(JSON.stringify(id));
         var config = {
             method: 'put',
             url: `${
-                process.env.REACT_APP_API_BASE_URL +
-                '/challenge_response/updateEntry/' +
-                promPram
+                process.env.REACT_APP_API_BASE_URL + 'ideas/ideaUpdate'
+                // +
+                // promPram
             }`,
             headers: {
                 'Content-Type': 'application/json',
@@ -108,8 +112,8 @@ const ViewSelectedIdea = () => {
         const apiParam = encryptGlobal(
             JSON.stringify({
                 key: title == '0' ? '0' : '1',
-                state : state !== 'All States' ? state : '',
-                sdg : sdg !== 'All Themes' ? sdg : ''
+                state: state !== 'All States' ? state : ''
+                // sdg : sdg !== 'All Themes' ? sdg : ''
             })
         );
         await axios
@@ -144,24 +148,13 @@ const ViewSelectedIdea = () => {
                 width: '8rem'
             },
             {
-                name: 'State',
-                cellExport: (row) => row.state,
-                cell: (row) => (
-                    <div
-                        style={{
-                            whiteSpace: 'pre-wrap',
-                            wordWrap: 'break-word'
-                        }}
-                    >
-                        {row.state}
-                    </div>
-                ),
-                width: '15rem'
+                name: 'District',
+                selector: (row) => row.district,
+                width: '10rem'
             },
             {
-                name: 'ATL Code',
-                selector: (row) => row.organization_code,
-                cellExport: (row) => row.organization_code,
+                name: 'Institution Code',
+                selector: (row) => row.institution_code,
                 width: '15rem'
             },
             {
@@ -172,15 +165,15 @@ const ViewSelectedIdea = () => {
             },
             {
                 name: 'CID',
-                selector: (row) => row.challenge_response_id,
-                cellExport: (row) => row.challenge_response_id,
-                width: '6rem'
+                selector: (row) => row.idea_id,
+
+                width: '10rem'
             },
-            {
-                name: 'Category',
-                selector: (row) => row.category,
-                width: '15rem'
-            },
+            // {
+            //     name: 'Category',
+            //     selector: (row) => row.category,
+            //     width: '15rem'
+            // },
             {
                 name: 'Theme',
                 cellExport: (row) => row.sdg,
@@ -191,14 +184,15 @@ const ViewSelectedIdea = () => {
                             wordWrap: 'break-word'
                         }}
                     >
-                        {row.sdg}
+                        {row?.themes_problem?.theme_name}
                     </div>
                 ),
                 width: '15rem'
             },
             {
                 name: 'Problem Statement',
-                cellExport: (row) => row.sub_category,
+                cellExport: (row) => row?.themes_problem?.problem_statement,
+
                 cell: (row) => (
                     <div
                         style={{
@@ -206,15 +200,15 @@ const ViewSelectedIdea = () => {
                             wordWrap: 'break-word'
                         }}
                     >
-                        {row.sub_category}
+                        {row?.themes_problem?.problem_statement}
                     </div>
                 ),
                 width: '25rem'
             },
             {
                 name: 'Idea Name',
-                cellExport: (row) => row?.response[1]?.selected_option || '',
                 // sortable: true,
+                cellExport: (row) => row?.idea_title || '',
                 cell: (row) => (
                     <div
                         style={{
@@ -222,7 +216,7 @@ const ViewSelectedIdea = () => {
                             wordWrap: 'break-word'
                         }}
                     >
-                        {row?.response[1]?.selected_option || ''}
+                        {row?.idea_title}
                     </div>
                 ),
                 width: '25rem'
@@ -378,14 +372,14 @@ const ViewSelectedIdea = () => {
                                     setIdeaDetails(params);
                                     setIsDetail(true);
                                     let index = 0;
-                                    tableData?.forEach((item, i) => {
-                                        if (
-                                            item?.challenge_response_id ==
-                                            params?.challenge_response_id
-                                        ) {
-                                            index = i;
-                                        }
-                                    });
+                                    // tableData?.forEach((item, i) => {
+                                    //     if (
+                                    //         item?.challenge_response_id ==
+                                    //         params?.challenge_response_id
+                                    //     ) {
+                                    //         index = i;
+                                    //     }
+                                    // });
                                     setCurrentRow(index + 1);
                                 }}
                             >
@@ -406,12 +400,12 @@ const ViewSelectedIdea = () => {
                                         className="text-info"
                                     />
                                 )} */}
-                                <FaDownload
+                                {/* <FaDownload
                                     size={22}
                                     onClick={() => {
                                         handleDownpdf(params);
                                     }}
-                                />
+                                /> */}
                             </div>
                             {params.final_result === '0' && (
                                 <div
@@ -464,7 +458,7 @@ const ViewSelectedIdea = () => {
         setsortid(e.id);
     };
 
-    const showbutton = state && sdg;
+    const showbutton = state;
 
     const handleNext = () => {
         if (tableData && currentRow < tableData?.length) {
@@ -579,16 +573,16 @@ const ViewSelectedIdea = () => {
                                             <Col md={2}>
                                                 <div className="my-3 d-md-block d-flex justify-content-center">
                                                     <Select
-                                                        list={fullStatesNames}
+                                                        list={fiterDistData}
                                                         setValue={setState}
                                                         placeHolder={
-                                                            'Select State'
+                                                            'Select District'
                                                         }
                                                         value={state}
                                                     />
                                                 </div>
                                             </Col>
-                                            <Col md={2}>
+                                            {/* <Col md={2}>
                                                 <div className="my-3 d-md-block d-flex justify-content-center">
                                                     <Select
                                                         list={SDGDate}
@@ -599,7 +593,7 @@ const ViewSelectedIdea = () => {
                                                         value={sdg}
                                                     />
                                                 </div>
-                                            </Col>
+                                            </Col> */}
                                             <Col md={2}>
                                                 <div className="text-center">
                                                     <Button

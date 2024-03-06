@@ -42,7 +42,7 @@ const Dashboard = () => {
     };
     const currentUser = getCurrentUser('current_user');
     const [diesCode, setDiesCode] = useState('');
-    const [orgData, setOrgData] = useState({});
+    // const [orgData, setOrgData] = useState({});
     const [mentorId, setMentorId] = useState('');
     const [SRows, setSRows] = React.useState([]);
     const [mentorTeam, setMentorTeam] = useState([]);
@@ -50,101 +50,135 @@ const Dashboard = () => {
     const [error, setError] = useState('');
     const [isideadisable, setIsideadisable] = useState(false);
     // const Mentor = JSON.parse(localStorage.getItem('mentor'));
-
+    const orgData =
+        (history && history.location && history.location.data) || {};
+    useEffect(() => {
+        getMentorIdApi(orgData.mentor_id);
+    }, []);
+    // async function getMentorIdApi(id) {
+    //     // Mentor Id  Api//
+    //     // id = Mentor Id //
+    //     let axiosConfig = getNormalHeaders(KEY.User_API_Key);
+    //     axiosConfig['params'] = {
+    //         mentor_id: id,
+    //         status: 'ACTIVE',
+    //         ideaStatus: true
+    //     };
+    //     await axios
+    //         .get(`${URL.getTeamMembersList}`, axiosConfig)
+    //         .then((res) => {
+    //             if (res?.status == 200) {
+    //                 var mentorTeamArray = [];
+    //                 res &&
+    //                     res.data &&
+    //                     res.data.data[0] &&
+    //                     res.data.data[0].dataValues.length > 0 &&
+    //                     res.data &&
+    //                     res.data.data[0].dataValues.map((teams, index) => {
+    //                         var key = index + 1;
+    //                         return mentorTeamArray.push({ ...teams, key });
+    //                     });
+    //                 setMentorTeam(mentorTeamArray);
+    //             }
+    //         })
+    //         .catch((err) => {
+    //             return err.response;
+    //         });
+    // }
     const handleOnChange = (e) => {
         // we can give diescode as input //
         //where organization_code = diescode //
         localStorage.removeItem('institution_code');
         setCount(0);
         setDiesCode(e.target.value);
-        setOrgData({});
+        // setOrgData({});
         setError('');
     };
-    useEffect(async () => {
-        // where list = diescode //
-        //where organization_code = diescode //
-        const list = JSON.parse(localStorage.getItem('institution_code'));
-        setDiesCode(list);
-        await apiCall(list);
-    }, []);
-    async function apiCall(list) {
-        // Dice code list API //
-        // where list = diescode //
-        const body = JSON.stringify({
-            institution_code: list
-        });
-        var config = {
-            method: 'post',
-            url: process.env.REACT_APP_API_BASE_URL + '/institutions/checkOrg',
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: 'O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870'
-            },
-            data: body
-        };
+    // useEffect(async () => {
+    //     // where list = diescode //
+    //     //where organization_code = diescode //
+    //     const list = JSON.parse(localStorage.getItem('institution_code'));
+    //     setDiesCode(list);
+    //     await apiCall(list);
+    // }, []);
+    // async function apiCall(list) {
+    //     // Dice code list API //
+    //     // where list = diescode //
+    //     const body = JSON.stringify({
+    //         institution_code: list
+    //     });
+    //     var config = {
+    //         method: 'post',
+    //         url: process.env.REACT_APP_API_BASE_URL + '/institutions/checkOrg',
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //             Authorization: 'O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870'
+    //         },
+    //         data: body
+    //     };
 
-        await axios(config)
-            .then(async function (response) {
-                if (response.status == 200) {
-                    setOrgData(response?.data?.data[0]);
-                    setCount(count + 1);
-                    setMentorId(response?.data?.data[0]?.mentor.mentor_id);
-                    setError('');
+    //     await axios(config)
+    //         .then(async function (response) {
+    //             if (response.status == 200) {
+    //                 setOrgData(response?.data?.data[0]);
+    //                 setCount(count + 1);
+    //                 setMentorId(response?.data?.data[0]?.mentor.mentor_id);
+    //                 setError('');
 
-                    if (response?.data?.data[0]?.mentor.mentor_id) {
-                        await getMentorIdApi(
-                            response?.data?.data[0]?.mentor.mentor_id
-                        );
-                    }
-                }
-            })
-            .catch(function (error) {
-                if (error?.response?.data?.status === 404) {
-                    setError('Entered Invalid Institution Unique Code');
-                }
-                setOrgData({});
-            });
-    }
+    //                 if (response?.data?.data[0]?.mentor.mentor_id) {
+    //                     await getMentorIdApi(
+    //                         response?.data?.data[0]?.mentor.mentor_id
+    //                     );
+    //                 }
+    //             }
+    //         })
+    //         .catch(function (error) {
+    //             if (error?.response?.data?.status === 404) {
+    //                 setError('Entered Invalid Institution Unique Code');
+    //             }
+    //             setOrgData({});
+    //         });
+    // }
 
-    const handleSearch = (e) => {
-        //where we can search through diescode //
-        // we can see Registration Details & Mentor Details //
+    // const handleSearch = (e) => {
+    //     //where we can search through diescode //
+    //     // we can see Registration Details & Mentor Details //
 
-        const body = JSON.stringify({
-            organization_code: diesCode
-        });
-        var config = {
-            method: 'post',
-            url: process.env.REACT_APP_API_BASE_URL + '/organizations/checkOrg',
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: 'O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870'
-            },
-            data: body
-        };
+    //     const body = JSON.stringify({
+    //         organization_code: diesCode
+    //     });
+    //     var config = {
+    //         method: 'post',
+    //         url: process.env.REACT_APP_API_BASE_URL + '/organizations/checkOrg',
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //             Authorization: 'O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870'
+    //         },
+    //         data: body
+    //     };
 
-        axios(config)
-            .then(async function (response) {
-                if (response.status == 200) {
-                    setOrgData(response?.data?.data[0]);
-                    setCount(count + 1);
-                    setMentorId(response?.data?.data[0]?.mentor.mentor_id);
-                    setError('');
-                    if (response?.data?.data[0]?.mentor.mentor_id) {
-                        await getMentorIdApi(
-                            response?.data?.data[0]?.mentor.mentor_id
-                        );
-                    }
-                }
-            })
-            .catch(function (error) {
-                if (error?.response?.data?.status === 404) {
-                    setError('Entered Invalid Unique Code');
-                }
-                setOrgData({});
-            });
-        e.preventDefault();
-    };
+    //     axios(config)
+    //         .then(async function (response) {
+    //             if (response.status == 200) {
+    //                 setOrgData(response?.data?.data[0]);
+    //                 setCount(count + 1);
+    //                 setMentorId(response?.data?.data[0]?.mentor.mentor_id);
+    //                 setError('');
+    //                 if (response?.data?.data[0]?.mentor.mentor_id) {
+    //                     await getMentorIdApi(
+    //                         response?.data?.data[0]?.mentor.mentor_id
+    //                     );
+    //                 }
+    //             }
+    //         })
+    //         .catch(function (error) {
+    //             if (error?.response?.data?.status === 404) {
+    //                 setError('Entered Invalid Unique Code');
+    //             }
+    //             setOrgData({});
+    //         });
+    //     e.preventDefault();
+    // };
 
     async function getMentorIdApi(id) {
         // Mentor Id  Api//
@@ -188,16 +222,16 @@ const Dashboard = () => {
         history.push({
             pathname: '/admin/mentor/edit-user-profile',
             data: {
-                mentor_name: orgData.mentor?.mentor_name,
-                mentor_id: orgData.mentor?.mentor_id,
-                mentor_email: orgData.mentor?.mentor_email,
-                mentor_title: orgData.mentor?.mentor_title,
-                username: orgData.mentor?.mentor_mobile,
-                mentor_mobile: orgData.mentor?.mentor_mobile,
+                mentor_name: orgData?.mentor_name,
+                mentor_id: orgData?.mentor_id,
+                mentor_email: orgData?.mentor_email,
+                mentor_title: orgData?.mentor_title,
+                username: orgData?.mentor_mobile,
+                mentor_mobile: orgData?.mentor_mobile,
 
-                gender: orgData.mentor?.gender,
-                mentor_whatapp_mobile: orgData.mentor?.mentor_whatapp_mobile,
-                date_of_birth: orgData.mentor?.date_of_birth
+                gender: orgData?.gender,
+                mentor_whatapp_mobile: orgData?.mentor_whatapp_mobile,
+                date_of_birth: orgData?.date_of_birth
             }
         });
     };
@@ -411,7 +445,7 @@ const Dashboard = () => {
                     if (result.isConfirmed) {
                         await deleteTempMentorById(id);
                         history.push('/admin/userlist');
-                        setOrgData({});
+                        // setOrgData({});
                         setDiesCode('');
                     }
                 } else if (result.dismiss === Swal.DismissReason.cancel) {
@@ -615,14 +649,12 @@ const Dashboard = () => {
                                                             >
                                                                 <p>
                                                                     {
-                                                                        orgData
-                                                                            .mentor
-                                                                            .mentor_title
+                                                                        // .mentor
+                                                                        orgData.mentor_title
                                                                     }{' '}
                                                                     {
-                                                                        orgData
-                                                                            .mentor
-                                                                            ?.mentor_name
+                                                                        // .mentor
+                                                                        orgData?.mentor_name
                                                                     }
                                                                 </p>
                                                             </Col>
@@ -657,9 +689,8 @@ const Dashboard = () => {
                                                             >
                                                                 <p>
                                                                     {
-                                                                        orgData
-                                                                            .mentor
-                                                                            ?.mentor_mobile
+                                                                        // .mentor
+                                                                        orgData?.mentor_mobile
                                                                     }
                                                                 </p>
                                                             </Col>
@@ -694,9 +725,8 @@ const Dashboard = () => {
                                                             >
                                                                 <p>
                                                                     {
-                                                                        orgData
-                                                                            .mentor
-                                                                            ?.mentor_whatapp_mobile
+                                                                        // .mentor
+                                                                        orgData?.mentor_whatapp_mobile
                                                                     }
                                                                 </p>
                                                             </Col>
@@ -731,9 +761,8 @@ const Dashboard = () => {
                                                             >
                                                                 <p>
                                                                     {
-                                                                        orgData
-                                                                            .mentor
-                                                                            ?.date_of_birth
+                                                                        // .mentor
+                                                                        orgData?.date_of_birth
                                                                     }
                                                                 </p>
                                                             </Col>
@@ -765,9 +794,8 @@ const Dashboard = () => {
                                                             >
                                                                 <p>
                                                                     {
-                                                                        orgData
-                                                                            .mentor
-                                                                            ?.mentor_email
+                                                                        // .mentor
+                                                                        orgData?.mentor_email
                                                                     }
                                                                 </p>
                                                             </Col>
@@ -799,9 +827,8 @@ const Dashboard = () => {
                                                             >
                                                                 <p>
                                                                     {
-                                                                        orgData
-                                                                            .mentor
-                                                                            .gender
+                                                                        // .mentor
+                                                                        orgData.gender
                                                                     }
                                                                 </p>
                                                             </Col>
@@ -827,11 +854,9 @@ const Dashboard = () => {
                                                     onClick={() =>
                                                         handleresetpassword({
                                                             mentor_id:
-                                                                orgData.mentor
-                                                                    .mentor_id,
+                                                                orgData.mentor_id,
                                                             username:
-                                                                orgData?.mentor
-                                                                    ?.mentor_mobile
+                                                                orgData?.mentor_mobile
                                                         })
                                                     }
                                                     className="btn btn-info rounded-pill px-4  text-white mt-2 mt-md-0 ml-md-2"
@@ -857,8 +882,7 @@ const Dashboard = () => {
                                                 <button
                                                     onClick={() => {
                                                         handleAlert(
-                                                            orgData.mentor
-                                                                ?.user_id
+                                                            orgData?.user_id
                                                         );
                                                     }}
                                                     className="btn  btn-lg  rounded-pill mt-2 mt-md-0 ml-md-2"
