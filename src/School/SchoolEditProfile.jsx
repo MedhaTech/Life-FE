@@ -414,10 +414,16 @@ const EditSchool = (props) => {
                                                 ) : null} */}
                                             {/* </Col> */}
                                             <Col md={4}>
-                                                <p>
+                                                {/* <p>
                                                     <b> Select District</b>
-                                                </p>
-                                                <div className="my-3 d-md-block d-flex justify-content-center">
+                                                </p> */}
+                                                <Label
+                                                    // className="mb-2"
+                                                    htmlFor="principal_whatsapp_mobile"
+                                                >
+                                                    Select District
+                                                </Label>
+                                                <div className=" d-md-block d-flex justify-content-center">
                                                     <Select
                                                         list={fullDistrictNames}
                                                         setValue={(value) =>
@@ -460,9 +466,15 @@ const EditSchool = (props) => {
 
                                         <Row>
                                             <Col md={4}>
-                                                <p>
+                                                {/* <p>
                                                     <b> Select Block</b>
-                                                </p>
+                                                </p> */}
+                                                <Label
+                                                    // className="mb-2"
+                                                    htmlFor="principal_whatsapp_mobile"
+                                                >
+                                                    Select Block
+                                                </Label>
                                                 <div className="my-3 d-md-block d-flex justify-content-center">
                                                     <Select
                                                         list={fiterBlockData}
@@ -484,9 +496,15 @@ const EditSchool = (props) => {
                                                 </div>
                                             </Col>
                                             <Col md={4}>
-                                                <p>
+                                                {/* <p>
                                                     <b> Select Taluk</b>
-                                                </p>
+                                                </p> */}
+                                                <Label
+                                                    // className="mb-2"
+                                                    htmlFor="principal_whatsapp_mobile"
+                                                >
+                                                    Select Taluk
+                                                </Label>
                                                 <div className="my-3 d-md-block d-flex justify-content-center">
                                                     <Select
                                                         list={fiterTalukData}
@@ -509,9 +527,15 @@ const EditSchool = (props) => {
                                             </Col>
 
                                             <Col md={4}>
-                                                <p>
+                                                {/* <p>
                                                     <b> Select Place</b>
-                                                </p>
+                                                </p> */}
+                                                <Label
+                                                    // className="mb-2"
+                                                    htmlFor="principal_whatsapp_mobile"
+                                                >
+                                                    Select Place
+                                                </Label>
                                                 <div className="my-3 d-md-block d-flex justify-content-center">
                                                     <Select
                                                         list={fiterPlaceData}
