@@ -155,24 +155,33 @@ const ViewMore = () => {
                                     <span className="mx-3">
                                         <b>Place :</b>
                                     </span>
-                                    <b>{orgDaTa?.place?.place_name}</b>
+                                    <b>
+                                        {orgDaTa?.place?.place_name
+                                            ? orgDaTa?.place?.place_name
+                                            : '-'}
+                                    </b>
                                 </CardText>
 
                                 <CardText>
                                     <span className="mx-3">
                                         <b>Block :</b>
                                     </span>
-                                    <b>{orgDaTa?.place?.block?.block_name}</b>
+                                    <b>
+                                        {orgDaTa?.place?.block?.block_name
+                                            ? orgDaTa?.place?.block?.block_name
+                                            : '-'}
+                                    </b>
                                 </CardText>
                                 <CardText>
                                     <span className="mx-3">
                                         <b>Taluk:</b>
                                     </span>
                                     <b>
-                                        {
-                                            orgDaTa?.place?.block?.district
-                                                ?.taluk?.taluk_name
-                                        }
+                                        {orgDaTa?.place?.block?.district?.taluk
+                                            ?.taluk_name
+                                            ? orgDaTa?.place?.block?.district
+                                                  ?.taluk?.taluk_name
+                                            : '-'}
                                     </b>
                                 </CardText>
                                 <CardText>
@@ -180,10 +189,11 @@ const ViewMore = () => {
                                         <b>District :</b>
                                     </span>
                                     <b>
-                                        {
-                                            orgDaTa?.place?.block?.district
-                                                ?.district_name
-                                        }
+                                        {orgDaTa?.place?.block?.district
+                                            ?.district_name
+                                            ? orgDaTa?.place?.block?.district
+                                                  ?.district_name
+                                            : '-'}
                                     </b>
                                 </CardText>
 
@@ -192,10 +202,11 @@ const ViewMore = () => {
                                         <b>State :</b>
                                     </span>
                                     <b>
-                                        {
-                                            orgDaTa?.place?.block?.district
-                                                ?.state?.state_name
-                                        }
+                                        {orgDaTa?.place?.block?.district?.state
+                                            ?.state_name
+                                            ? orgDaTa?.place?.block?.district
+                                                  ?.state?.state_name
+                                            : '-'}
                                     </b>
                                 </CardText>
                             </CardBody>
