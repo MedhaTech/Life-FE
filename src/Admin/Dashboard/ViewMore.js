@@ -178,12 +178,7 @@ const ViewMore = () => {
                                     <span className="mx-3">
                                         <b>Taluk:</b>
                                     </span>
-                                    <b>
-                                        {
-                                            orgDaTa?.place?.block?.district
-                                                ?.taluk?.taluk_name
-                                        }
-                                    </b>
+                                    <b>{orgDaTa?.place?.taluk?.taluk_name}</b>
                                 </CardText>
                                 <CardText>
                                     <span className="mx-3">

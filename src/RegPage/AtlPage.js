@@ -685,12 +685,9 @@ function AtlPage() {
                                                             : ' N/A'}{' '}
                                                         <br />
                                                         Taluk :{' '}
-                                                        {orgData?.place?.block
-                                                            ?.district?.taluk
+                                                        {orgData?.place?.taluk
                                                             ?.taluk_name
                                                             ? orgData?.place
-                                                                  ?.block
-                                                                  ?.district
                                                                   ?.taluk
                                                                   ?.taluk_name
                                                             : ' N/A'}

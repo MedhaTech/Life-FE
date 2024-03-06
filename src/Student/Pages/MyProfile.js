@@ -786,8 +786,6 @@ const MyProfile = () => {
                                                                     ?.mentor
                                                                     ?.institution
                                                                     ?.place
-                                                                    ?.block
-                                                                    ?.district
                                                                     ?.taluk
                                                                     ?.taluk_name
                                                                     ? teamMember
@@ -795,8 +793,6 @@ const MyProfile = () => {
                                                                           ?.mentor
                                                                           ?.institution
                                                                           ?.place
-                                                                          ?.block
-                                                                          ?.district
                                                                           ?.taluk
                                                                           ?.taluk_name
                                                                     : '-'}

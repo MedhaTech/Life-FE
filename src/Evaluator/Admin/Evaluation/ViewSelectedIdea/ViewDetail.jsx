@@ -31,7 +31,7 @@ const ViewDetail = (props) => {
     const { search } = useLocation();
     const level = new URLSearchParams(search).get('level');
     const currentUser = getCurrentUser('current_user');
-    const [teamResponse, setTeamResponse] = React.useState([]);
+    const [teamResponse, setTeamResponse] = React.useState({});
     const [isReject, setIsreject] = React.useState(false);
     const [reason, setReason] = React.useState('');
     const [reasonSec, setReasonSec] = React.useState('');
@@ -237,8 +237,7 @@ const ViewDetail = (props) => {
                                                 CID :
                                                 <span className="text-capitalize fs-3">
                                                     {props?.ideaDetails
-                                                        ?.challenge_response_id ||
-                                                        ''}
+                                                        ?.idea_id || ''}
                                                 </span>
                                             </h2>
                                         </Col>
@@ -729,13 +728,13 @@ const ViewDetail = (props) => {
                                             {props?.ideaDetails
                                                 ?.rejected_reason || ''}
                                         </p>
-                                        <p className="text-center">
+                                        {/* <p className="text-center">
                                             <span className="text-bold">
                                                 Rejected Reason 2:{' '}
                                             </span>{' '}
                                             {props?.ideaDetails
                                                 ?.rejected_reasonSecond || ''}
-                                        </p>
+                                        </p> */}
                                     </>
                                 )}
                                 {level === 'L1' &&
@@ -871,7 +870,7 @@ const ViewDetail = (props) => {
                                     value={reason}
                                 />
                             </Col>
-                            <Col className="m-5">
+                            {/* <Col className="m-5">
                                 <p className="text-left">
                                     <b>
                                         2. Does the submission show any evidence
@@ -885,18 +884,16 @@ const ViewDetail = (props) => {
                                     placeHolder="Please Select Reject Reason"
                                     value={reasonSec}
                                 />
-                            </Col>
+                            </Col> */}
                         </Col>
                     </div>
                     <div className="text-center">
                         <Button
                             label={'Submit'}
-                            btnClass={
-                                !reason && reasonSec ? 'default' : 'primary'
-                            }
+                            btnClass={!reason ? 'default' : 'primary'}
                             size="small "
                             onClick={() => handleReject()}
-                            disabled={!reason && reasonSec}
+                            disabled={!reason}
                         />
                     </div>
                 </Modal.Body>

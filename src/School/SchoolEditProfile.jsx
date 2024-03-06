@@ -47,6 +47,7 @@ const EditSchool = (props) => {
     const fiterTalukData = useSelector(
         (state) => state?.institution?.instTaluk
     );
+
     const fiterPlaceData = useSelector(
         (state) => state?.institution?.instPlace
     );
@@ -81,6 +82,7 @@ const EditSchool = (props) => {
     const currentUser = getCurrentUser('current_user');
 
     const listId = (history && history.location && history.location.item) || {};
+    // console.log(listId, 'o');
     const inputDICE = {
         type: 'text',
         className: 'defaultInput'
@@ -94,7 +96,7 @@ const EditSchool = (props) => {
             principal_email: listId && listId.principal_email,
             principal_whatsapp_mobile:
                 listId && listId.principal_whatsapp_mobile,
-            taluk: listId && listId.taluk,
+            taluk: listId && listId?.taluk,
             block: listId && listId.block,
             district: listId && listId?.district,
             place_name: listId && listId?.place_name,
@@ -187,6 +189,7 @@ const EditSchool = (props) => {
             dispatch(getInstPlaceData(formik.values.block));
         }
     }, [formik.values.block]);
+    // console.log(formik.values.taluk, 'T');
     // useEffect(() => {
     //     if (formik.values.taluk !== '') {
     //         dispatch(getInstPlaceData(formik.values.taluk));

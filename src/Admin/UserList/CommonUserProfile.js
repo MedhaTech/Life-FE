@@ -32,7 +32,6 @@ const CommonUserProfile = (props) => {
     const currentUser = getCurrentUser('current_user');
 
     const StudentsDaTa = JSON.parse(localStorage.getItem('studentData'));
-    console.log(StudentsDaTa, '3');
     const [course, setCourse] = useState([]);
     const language = useSelector(
         (state) => state?.studentRegistration?.studentLanguage
