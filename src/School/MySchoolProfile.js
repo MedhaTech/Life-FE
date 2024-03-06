@@ -44,9 +44,9 @@ const MySchoolProfile = () => {
                 principal_email: profile?.principal_email,
                 institution_name: currentUser?.data[0]?.institution_name,
                 place_name: profile?.place?.place_id,
-                block: profile?.place?.taluk?.block?.block_id,
-                taluk: profile?.place?.taluk?.taluk_id,
-                district: profile?.place?.taluk?.block?.district?.district_id
+                block: profile?.place?.block?.block_id,
+                taluk: profile?.place?.block?.district?.taluk?.taluk_id,
+                district: profile?.place?.block?.district?.district_id
                 // city: profile
                 // ?.place
                 // ?.place_name,
