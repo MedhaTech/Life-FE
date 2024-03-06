@@ -94,7 +94,7 @@ const EvaluatedIdea = () => {
                     ];
                 },
                 sortable: true,
-                width: '6%'
+                width: '8rem'
             },
             {
                 name: 'District',
@@ -110,7 +110,7 @@ const EvaluatedIdea = () => {
                 name: 'Team Name',
                 selector: (row) => row.team_name || '',
                 sortable: true,
-                width: '8rem'
+                width: '13rem'
             },
             {
                 name: 'CID',
@@ -145,7 +145,7 @@ const EvaluatedIdea = () => {
                         {row?.themes_problem?.problem_statement}
                     </div>
                 ),
-                width: '15rem'
+                width: '20rem'
             },
             {
                 name: 'Idea Name',

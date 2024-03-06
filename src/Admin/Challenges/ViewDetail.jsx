@@ -553,54 +553,59 @@ const ViewDetail = (props) => {
                                 </div>
                             </div>
                         </div>{' '}
-                        <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
-                            <div
-                                // key={index}
-                                className="mb-4 my-3 comment-card px-5 py-3 card me-md-3"
-                            >
-                                <div className="question quiz mb-0">
-                                    <b
-                                        style={{
-                                            fontSize: '1.6rem'
-                                        }}
+                        {teamResponse?.prototype_available !== 'NO' &&
+                            teamResponse?.prototype_available !== '' && (
+                                <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
+                                    <div
+                                        // key={index}
+                                        className="mb-4 my-3 comment-card px-5 py-3 card me-md-3"
                                     >
-                                        {t('student_course.ques8file')}
-                                        {/* {item?.question_no || ''}.{' '}
+                                        <div className="question quiz mb-0">
+                                            <b
+                                                style={{
+                                                    fontSize: '1.6rem'
+                                                }}
+                                            >
+                                                {t('student_course.ques8file')}
+                                                {/* {item?.question_no || ''}.{' '}
                                                 {item?.question || ''} */}
-                                    </b>
-                                </div>
-                                <div className="bg-light rounded p-5">
-                                    {/* <p
+                                            </b>
+                                        </div>
+                                        <div className="bg-light rounded p-5">
+                                            {/* <p
                                         style={{
                                             fontSize: '1.4rem'
                                         }}
                                     >
                                         {teamResponse?.Prototype_file}
                                     </p> */}
-                                    {files.length > 0 &&
-                                        files.map((item, i) => (
-                                            <div key={i}>
-                                                {/* <CardTitle className="fw-bold">
+                                            {files.length > 0 &&
+                                                files.map((item, i) => (
+                                                    <div key={i}>
+                                                        {/* <CardTitle className="fw-bold">
                                                     {item.question}
                                                 </CardTitle> */}
-                                                {/* <CardBody> */}
-                                                <a
-                                                    key={i}
-                                                    className="badge mb-2 bg-info p-3 ms-3"
-                                                    target="_blank"
-                                                    rel="noreferrer"
-                                                    onClick={() =>
-                                                        downloadFile(item)
-                                                    }
-                                                >
-                                                    {item}
-                                                </a>
-                                                {/* </CardBody> */}
-                                            </div>
-                                        ))}
+                                                        {/* <CardBody> */}
+                                                        <a
+                                                            key={i}
+                                                            className="badge mb-2 bg-info p-3 ms-3"
+                                                            target="_blank"
+                                                            rel="noreferrer"
+                                                            onClick={() =>
+                                                                downloadFile(
+                                                                    item
+                                                                )
+                                                            }
+                                                        >
+                                                            {item}
+                                                        </a>
+                                                        {/* </CardBody> */}
+                                                    </div>
+                                                ))}
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>{' '}
+                            )}
                         <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
                             <div
                                 // key={index}
