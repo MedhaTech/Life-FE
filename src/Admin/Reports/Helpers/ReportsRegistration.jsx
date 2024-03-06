@@ -136,10 +136,6 @@ const ReportsRegistration = () => {
             key: 'block_name'
         },
         {
-            label: 'Taluk',
-            key: 'taluk_name'
-        },
-        {
             label: 'District',
             key: 'district_name'
         },
@@ -221,10 +217,6 @@ const ReportsRegistration = () => {
         {
             label: 'Block',
             key: 'block_name'
-        },
-        {
-            label: 'Taluk',
-            key: 'taluk_name'
         },
         {
             label: 'District',
