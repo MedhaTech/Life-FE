@@ -92,7 +92,7 @@ const ViewTeamMember = (props) => {
         axios(config)
             .then(function (response) {
                 if (response.status === 200) {
-                    console.log(response, 'response');
+                    // console.log(response, 'response');
                     const teamlistobj = {};
                     const listofteams = response.data.data
                         .map((item) => {
@@ -883,7 +883,7 @@ const ViewTeamMember = (props) => {
                             )}
                         </Tabs>
                     </div>
-                    {StudentCount <= 2 && IdeaStatus === 'No Idea' && (
+                    {StudentCount <= 3 && IdeaStatus === 'No Idea' && (
                         <div className="p-5">
                             <Button
                                 label={t('teacher_teams.delete')}
