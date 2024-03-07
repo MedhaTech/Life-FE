@@ -666,13 +666,9 @@ const MySchoolProfile = () => {
                                                                 Taluk :{' '}
                                                                 {orgData?.place
                                                                     ?.block
-                                                                    ?.district
-                                                                    ?.taluk
                                                                     ?.taluk_name
                                                                     ? orgData
                                                                           ?.place
-                                                                          ?.block
-                                                                          ?.district
                                                                           ?.taluk
                                                                           ?.taluk_name
                                                                     : ' N/A'}
