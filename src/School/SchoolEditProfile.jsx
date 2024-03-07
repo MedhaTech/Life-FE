@@ -121,17 +121,17 @@ const EditSchool = (props) => {
                 .email('Invalid email address format'),
             principal_name: Yup.string()
                 .optional()
-                .matches(/^[aA-zZ\s/^.*$/]+$/, 'Invalid Name')
-                .trim(),
+                .matches(/^[aA-zZ\s/^.*$/]+$/, 'Invalid Name'),
+            // .trim(),
             principal_mobile: Yup.string()
                 .optional()
-                .matches(/^[0-9\s]+$/, 'Please Enter Valid Number')
-                .trim(),
+                .matches(/^[0-9\s]+$/, 'Please Enter Valid Number'),
+            // .trim(),
             principal_whatsapp_mobile: Yup.string()
                 .optional()
-                .matches(/^[0-9\s]+$/, 'Please Enter Valid Number')
-                .trim(),
-            place_name: Yup.string().required('Place is required')
+                .matches(/^[0-9\s]+$/, 'Please Enter Valid Number'),
+            // .trim(),
+            place_name: Yup.string()
         }),
 
         onSubmit: async (values) => {
@@ -146,6 +146,12 @@ const EditSchool = (props) => {
                 place_id: values.place_name
                 // place_id: values.place_id
             };
+            // if (
+            //     mentorData &&
+            //     mentorData.mentor_mobile !== values.mentor_mobile
+            // ) {
+            //     body['username'] = values.mentor_mobile;
+            // }
             const editId = encryptGlobal(
                 JSON.stringify(currentUser?.data[0]?.institution_id)
             );
@@ -323,7 +329,7 @@ const EditSchool = (props) => {
                                                     htmlFor="principal_email"
                                                 >
                                                     Principal Email
-                                                    <span required>*</span>
+                                                    {/* <span required>*</span> */}
                                                 </Label>
                                                 <InputBox
                                                     {...inputDICE}
