@@ -78,7 +78,7 @@ const ReportsRegistration = () => {
         //     key: 'ATL_Count'
         // },
         {
-            label: 'Total Eligible Schools',
+            label: 'Total Eligible Institutions',
             key: 'institution_count'
         },
         {
