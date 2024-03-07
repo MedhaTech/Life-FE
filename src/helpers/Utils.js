@@ -119,7 +119,7 @@ export const logout = (history, t, module, dispatch) => {
                             history.push('/report');
                             break;
                         case 'teacher':
-                            history.push('/teacher');
+                            history.push('/mentor');
                             break;
                         case 'student':
                             history.push('/login');

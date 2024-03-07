@@ -97,7 +97,7 @@ const TeacherDetailed = () => {
             key: 'district_name'
         },
         {
-            label: 'Total Registered Schools',
+            label: 'Total Registered Institutions',
             key: 'totalRegInstitutions'
         },
         {
@@ -135,21 +135,18 @@ const TeacherDetailed = () => {
         //     key: 'category'
         // },
         {
-            label: 'District',
-            key: 'district_name'
+            label: 'Place',
+            key: 'place_name'
         },
         {
             label: 'Block',
             key: 'block_name'
         },
         {
-            label: 'Taluk',
-            key: 'taluk_name'
+            label: 'District',
+            key: 'district_name'
         },
-        {
-            label: 'Place',
-            key: 'place_name'
-        },
+
         {
             label: 'State',
             key: 'state_name'
@@ -159,11 +156,11 @@ const TeacherDetailed = () => {
             key: 'principal_name'
         },
         {
-            label: 'Principal Mobile No',
+            label: 'Principal Mobile Number',
             key: 'principal_mobile'
         },
         {
-            label: 'Principal Whatsapp Noo',
+            label: 'Principal Whatsapp Number',
             key: 'principal_whatsapp_mobile'
         },
         {
@@ -187,11 +184,11 @@ const TeacherDetailed = () => {
             key: 'gender'
         },
         {
-            label: 'Mentor No',
+            label: 'Mentor Mobile Number',
             key: 'mentor_mobile'
         },
         {
-            label: 'Mentor WhatsApp No',
+            label: 'Mentor WhatsApp Number',
             key: 'mentor_whatapp_mobile'
         },
         // {
@@ -207,7 +204,7 @@ const TeacherDetailed = () => {
             key: 'team_count'
         },
         {
-            label: 'No.of Students Enrollrd',
+            label: 'No.of Students Enrolled',
             key: 'student_count'
         },
         // {

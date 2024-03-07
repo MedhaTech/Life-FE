@@ -47,6 +47,7 @@ const EditSchool = (props) => {
     const fiterTalukData = useSelector(
         (state) => state?.institution?.instTaluk
     );
+
     const fiterPlaceData = useSelector(
         (state) => state?.institution?.instPlace
     );
@@ -81,6 +82,7 @@ const EditSchool = (props) => {
     const currentUser = getCurrentUser('current_user');
 
     const listId = (history && history.location && history.location.item) || {};
+    // console.log(listId, 'o');
     const inputDICE = {
         type: 'text',
         className: 'defaultInput'
@@ -94,56 +96,63 @@ const EditSchool = (props) => {
             principal_email: listId && listId.principal_email,
             principal_whatsapp_mobile:
                 listId && listId.principal_whatsapp_mobile,
-            taluk: listId && listId.taluk,
+            taluk: listId && listId?.taluk,
             block: listId && listId.block,
             district: listId && listId?.district,
             place_name: listId && listId?.place_name,
-
-            // state: listId && listId.state,
             status: 'ACTIVE'
-            // category: 'Category'
         },
 
         validationSchema: Yup.object({
-            // district: Yup.string()
-            //     .matches(/^[aA-zZ\s]+$/, 'Invalid district')
-            //     .required('District is Required'),
-            // category: Yup.string()
-            //     .matches(/^[aA-zZ\s]+$/, 'Invalid category')
-            //     .required('category is Required'),
-            // state: Yup.string()
-            //     .optional()
-            //     .matches(/^[aA-zZ\s]+$/, 'Invalid State'),
-            principal_email: Yup.string()
-                .optional()
-                .email('Invalid email address format'),
-            principal_name: Yup.string()
-                .optional()
-                .matches(/^[aA-zZ\s/^.*$/]+$/, 'Invalid Name')
-                .trim(),
-            principal_mobile: Yup.string()
-                .optional()
-                .matches(/^[0-9\s]+$/, 'Please Enter Valid Number')
-                .trim(),
+            principal_email: Yup
+                .string()
+                .trim()
+                .nullable()
+                .email({
+                    message: 'Invalid email address format',
+                    excludeEmptyString: true,
+                }),
+            principal_name: Yup
+                .string()
+                .trim()
+                .nullable()
+                .matches(/^[aA-zZ\s/^.*$/]+$/, {
+                    message: 'Invalid Name',
+                    excludeEmptyString: true,
+                }),
+            principal_mobile: Yup
+                .string()
+                .trim()
+                .nullable()
+                .matches(/^[0-9\s]+$/, {
+                    message: 'Please Enter Valid Number',
+                    excludeEmptyString: true,
+                }),
             principal_whatsapp_mobile: Yup.string()
-                .optional()
-                .matches(/^[0-9\s]+$/, 'Please Enter Valid Number')
-                .trim(),
-            place_name: Yup.string().required('Place is required')
+                .trim()
+                .nullable()
+                .matches(/^[0-9\s]+$/, {
+                    message: 'Please Enter Valid Number',
+                    excludeEmptyString: true,
+                }),
         }),
 
         onSubmit: async (values) => {
             const body = {
-                principal_name: values.principal_name,
-                principal_mobile: values.principal_mobile,
-                principal_email: values.principal_email,
-                principal_whatsapp_mobile: values.principal_whatsapp_mobile,
-                // district: values.district,
-                // block: values.block,
-                // taluk: values.taluk,
                 place_id: values.place_name
-                // place_id: values.place_id
             };
+            if (values.principal_name !== null) {
+                body['principal_name'] = values.principal_name;
+            }
+            if (values.principal_mobile !== null) {
+                body['principal_mobile'] = values.principal_mobile;
+            }
+            if (values.principal_email !== null) {
+                body['principal_email'] = values.principal_email;
+            }
+            if (values.principal_whatsapp_mobile !== null) {
+                body['principal_whatsapp_mobile'] = values.principal_whatsapp_mobile;
+            }
             const editId = encryptGlobal(
                 JSON.stringify(currentUser?.data[0]?.institution_id)
             );
@@ -187,6 +196,7 @@ const EditSchool = (props) => {
             dispatch(getInstPlaceData(formik.values.block));
         }
     }, [formik.values.block]);
+    // console.log(formik.values.taluk, 'T');
     // useEffect(() => {
     //     if (formik.values.taluk !== '') {
     //         dispatch(getInstPlaceData(formik.values.taluk));
@@ -232,8 +242,8 @@ const EditSchool = (props) => {
                                                 />
                                                 {formik.touched
                                                     .institution_name &&
-                                                formik.errors
-                                                    .institution_name ? (
+                                                    formik.errors
+                                                        .institution_name ? (
                                                     <small className="error-cls">
                                                         {
                                                             formik.errors
@@ -267,7 +277,7 @@ const EditSchool = (props) => {
                                                 />
                                                 {formik.touched
                                                     .principal_name &&
-                                                formik.errors.principal_name ? (
+                                                    formik.errors.principal_name ? (
                                                     <small className="error-cls">
                                                         {
                                                             formik.errors
@@ -302,8 +312,8 @@ const EditSchool = (props) => {
 
                                                 {formik.touched
                                                     .principal_mobile &&
-                                                formik.errors
-                                                    .principal_mobile ? (
+                                                    formik.errors
+                                                        .principal_mobile ? (
                                                     <small className="error-cls">
                                                         {
                                                             formik.errors
@@ -320,7 +330,7 @@ const EditSchool = (props) => {
                                                     htmlFor="principal_email"
                                                 >
                                                     Principal Email
-                                                    <span required>*</span>
+                                                    {/* <span required>*</span> */}
                                                 </Label>
                                                 <InputBox
                                                     {...inputDICE}
@@ -339,8 +349,8 @@ const EditSchool = (props) => {
                                                 />
                                                 {formik.touched
                                                     .principal_email &&
-                                                formik.errors
-                                                    .principal_email ? (
+                                                    formik.errors
+                                                        .principal_email ? (
                                                     <small className="error-cls">
                                                         {
                                                             formik.errors
@@ -372,8 +382,8 @@ const EditSchool = (props) => {
                                                 />
                                                 {formik.touched
                                                     .principal_whatsapp_mobile &&
-                                                formik.errors
-                                                    .principal_whatsapp_mobile ? (
+                                                    formik.errors
+                                                        .principal_whatsapp_mobile ? (
                                                     <small className="error-cls">
                                                         {
                                                             formik.errors
@@ -414,10 +424,16 @@ const EditSchool = (props) => {
                                                 ) : null} */}
                                             {/* </Col> */}
                                             <Col md={4}>
-                                                <p>
+                                                {/* <p>
                                                     <b> Select District</b>
-                                                </p>
-                                                <div className="my-3 d-md-block d-flex justify-content-center">
+                                                </p> */}
+                                                <Label
+                                                    // className="mb-2"
+                                                    htmlFor="principal_whatsapp_mobile"
+                                                >
+                                                    Select District
+                                                </Label>
+                                                <div className=" d-md-block d-flex justify-content-center">
                                                     <Select
                                                         list={fullDistrictNames}
                                                         setValue={(value) =>
@@ -452,7 +468,7 @@ const EditSchool = (props) => {
                                                         placeHolder={
                                                             'Select District'
                                                         }
-                                                        // value={district}
+                                                    // value={district}
                                                     />
                                                 </div>
                                             </Col>
@@ -460,9 +476,15 @@ const EditSchool = (props) => {
 
                                         <Row>
                                             <Col md={4}>
-                                                <p>
+                                                {/* <p>
                                                     <b> Select Block</b>
-                                                </p>
+                                                </p> */}
+                                                <Label
+                                                    // className="mb-2"
+                                                    htmlFor="principal_whatsapp_mobile"
+                                                >
+                                                    Select Block
+                                                </Label>
                                                 <div className="my-3 d-md-block d-flex justify-content-center">
                                                     <Select
                                                         list={fiterBlockData}
@@ -484,9 +506,15 @@ const EditSchool = (props) => {
                                                 </div>
                                             </Col>
                                             <Col md={4}>
-                                                <p>
+                                                {/* <p>
                                                     <b> Select Taluk</b>
-                                                </p>
+                                                </p> */}
+                                                <Label
+                                                    // className="mb-2"
+                                                    htmlFor="principal_whatsapp_mobile"
+                                                >
+                                                    Select Taluk
+                                                </Label>
                                                 <div className="my-3 d-md-block d-flex justify-content-center">
                                                     <Select
                                                         list={fiterTalukData}
@@ -509,9 +537,15 @@ const EditSchool = (props) => {
                                             </Col>
 
                                             <Col md={4}>
-                                                <p>
+                                                {/* <p>
                                                     <b> Select Place</b>
-                                                </p>
+                                                </p> */}
+                                                <Label
+                                                    // className="mb-2"
+                                                    htmlFor="principal_whatsapp_mobile"
+                                                >
+                                                    Select Place
+                                                </Label>
                                                 <div className="my-3 d-md-block d-flex justify-content-center">
                                                     <Select
                                                         list={fiterPlaceData}
@@ -532,7 +566,7 @@ const EditSchool = (props) => {
                                                     />
                                                     {formik.touched
                                                         .place_name &&
-                                                    formik.errors.place_name ? (
+                                                        formik.errors.place_name ? (
                                                         <small className="error-cls">
                                                             {
                                                                 formik.errors

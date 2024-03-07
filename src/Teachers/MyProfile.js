@@ -610,15 +610,11 @@ const MyProfile = () => {
                                                                         {teacher
                                                                             .institution
                                                                             ?.place
-                                                                            ?.block
-                                                                            ?.district
                                                                             ?.taluk
                                                                             ?.taluk_name
                                                                             ? teacher
                                                                                   .institution
                                                                                   ?.place
-                                                                                  ?.block
-                                                                                  ?.district
                                                                                   ?.taluk
                                                                                   ?.taluk_name
                                                                             : '-'}

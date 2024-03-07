@@ -44,9 +44,9 @@ const MySchoolProfile = () => {
                 principal_email: profile?.principal_email,
                 institution_name: currentUser?.data[0]?.institution_name,
                 place_name: profile?.place?.place_id,
-                block: profile?.place?.taluk?.block?.block_id,
+                block: profile?.place?.block?.block_id,
                 taluk: profile?.place?.taluk?.taluk_id,
-                district: profile?.place?.taluk?.block?.district?.district_id
+                district: profile?.place?.block?.district?.district_id
                 // city: profile
                 // ?.place
                 // ?.place_name,
@@ -59,6 +59,7 @@ const MySchoolProfile = () => {
             }
         });
     };
+    // console.log(profile?.place?.taluk?.taluk_id, '2');
     useEffect(() => {
         handleResList();
     }, []);
@@ -231,7 +232,7 @@ const MySchoolProfile = () => {
             }
         ]
     };
-    console.log(profile, 'p');
+    // console.log(profile, 'p');
     return (
         <Layout title="My Profile">
             <Container className="MyProfile pt-3 pt-xl-5 mb-50">
@@ -594,14 +595,10 @@ const MySchoolProfile = () => {
                                                                     <b>
                                                                         {profile
                                                                             ?.place
-                                                                            ?.block
-                                                                            ?.district
                                                                             ?.taluk
                                                                             ?.taluk_name
                                                                             ? profile
                                                                                   ?.place
-                                                                                  ?.block
-                                                                                  ?.district
                                                                                   ?.taluk
                                                                                   ?.taluk_name
                                                                             : '-'}

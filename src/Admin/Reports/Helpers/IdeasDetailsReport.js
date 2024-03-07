@@ -129,8 +129,8 @@ const ReportsRegistration = () => {
     ];
     const teacherDetailsHeaders = [
         {
-            label: 'District Name',
-            key: 'district_name'
+            label: 'Institution Unique Code',
+            key: 'institution_code'
         },
         {
             label: 'Institution Name',
@@ -138,25 +138,18 @@ const ReportsRegistration = () => {
         },
 
         {
-            label: 'District',
-            key: 'district_name'
+            label: 'Place',
+            key: 'place_name'
         },
         {
             label: 'Block',
             key: 'block_name'
         },
         {
-            label: 'Taluk',
-            key: 'taluk_name'
+            label: 'District',
+            key: 'district_name'
         },
-        {
-            label: 'Place',
-            key: 'place_name'
-        },
-        // {
-        //     label: 'School Type/Category',
-        //     key: 'category'
-        // },
+
         {
             label: 'State',
             key: 'state_name'
@@ -166,7 +159,7 @@ const ReportsRegistration = () => {
             key: 'principal_name'
         },
         {
-            label: 'Principal Mobile No',
+            label: 'Principal Mobile Number',
             key: 'principal_mobile'
         },
         // {
@@ -177,6 +170,7 @@ const ReportsRegistration = () => {
             label: 'Principal Email',
             key: 'principal_email'
         },
+        
         // {
         //     label: 'Address',
         //     key: 'address'
@@ -211,7 +205,7 @@ const ReportsRegistration = () => {
         //     key: 'gender'
         // },
         {
-            label: 'Mentor No',
+            label: 'Mentor Mobile Number',
             key: 'mentor_mobile'
         },
         // {

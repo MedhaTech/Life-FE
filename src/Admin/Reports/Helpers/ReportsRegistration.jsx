@@ -78,7 +78,7 @@ const ReportsRegistration = () => {
         //     key: 'ATL_Count'
         // },
         {
-            label: 'Total Eligible Schools',
+            label: 'Total Eligible Institutions',
             key: 'institution_count'
         },
         {
@@ -128,21 +128,18 @@ const ReportsRegistration = () => {
         //     key: 'organization.state'
         // },
         {
-            label: 'District',
-            key: 'district_name'
+            label: 'Place',
+            key: 'place_name'
         },
         {
             label: 'Block',
             key: 'block_name'
         },
         {
-            label: 'Taluk',
-            key: 'taluk_name'
+            label: 'District',
+            key: 'district_name'
         },
-        {
-            label: 'Place',
-            key: 'place_name'
-        },
+
         {
             label: 'State',
             key: 'state_name'
@@ -180,11 +177,11 @@ const ReportsRegistration = () => {
             key: 'gender'
         },
         {
-            label: 'Mentor No',
+            label: 'Mentor Mobile Number',
             key: 'mentor_mobile'
         },
         {
-            label: 'Mentor WhatsApp No',
+            label: 'Mentor WhatsApp Number',
             key: 'mentor_whatapp_mobile'
         }
         // {
@@ -214,21 +211,18 @@ const ReportsRegistration = () => {
         //     key: 'state'
         // },
         {
-            label: 'District',
-            key: 'district_name'
+            label: 'Place',
+            key: 'place_name'
         },
         {
             label: 'Block',
             key: 'block_name'
         },
         {
-            label: 'Taluk',
-            key: 'taluk_name'
+            label: 'District',
+            key: 'district_name'
         },
-        {
-            label: 'Place',
-            key: 'place_name'
-        },
+
         {
             label: 'State',
             key: 'state_name'
@@ -238,11 +232,11 @@ const ReportsRegistration = () => {
             key: 'principal_name'
         },
         {
-            label: 'Principal Mobile No',
+            label: 'Principal Mobile Number',
             key: 'principal_mobile'
         },
         {
-            label: 'Principal Whatsapp Noo',
+            label: 'Principal Whatsapp Number',
             key: 'principal_whatsapp_mobile'
         },
         {

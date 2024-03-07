@@ -254,10 +254,10 @@ const TicketsPage = (props) => {
             pathname: '/admin/teacher/dashboard',
             data: item
         });
-        localStorage.setItem(
-            'institution_code',
-            JSON.stringify(item.institution_code)
-        );
+        // localStorage.setItem(
+        //     'institution_code',
+        //     JSON.stringify(item.institution_code)
+        // );
     };
 
     const handleEdit = (item) => {

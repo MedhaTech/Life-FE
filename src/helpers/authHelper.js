@@ -18,7 +18,7 @@ const ProtectedRoute = ({ component: Component, user: user, ...rest }) => {
 
             if (difference > 3600000) {
                 localStorage.clear();
-                return <Redirect to="/teacher" />;
+                return <Redirect to="/mentor" />;
             } else {
                 localStorage.setItem('time', new Date().toString());
             }

@@ -86,9 +86,7 @@ const EditTeamMember = (props) => {
                 .trim()
                 .email('Enter Valid Email Id'),
 
-            institution_course_id: Yup.string().required(
-                'Please select Program'
-            ),
+            institution_course_id: Yup.string(),
             year_of_study: Yup.string().required('Please select Year'),
 
             mobile: Yup.string()

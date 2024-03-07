@@ -3,7 +3,7 @@ import { Col } from 'reactstrap';
 const Check = ({ list, setValue, value, selValue }) => {
     const handleClick = (e) => {
         const { name, checked } = e.target;
-        selValue({name:name,checked:checked});
+        selValue({ name: name, checked: checked });
         setValue([...value, name]);
         if (!checked) {
             setValue(value.filter((item) => item !== name));

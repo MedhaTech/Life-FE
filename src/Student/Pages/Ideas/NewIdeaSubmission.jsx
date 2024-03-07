@@ -66,10 +66,11 @@ const LinkComponent = ({ original, item, url, removeFileHandler, i }) => {
 function NewIdeaSubmission(props) {
     const history = useHistory();
     const { t } = useTranslation();
+    const FirstInitiaData =
+        (history && history.location && history.location.data) || false; 
     const currentUser = getCurrentUser('current_user');
     const condition1 = localStorage.getItem('condition') === 'true';
     const [condition, setCondition] = useState(condition1);
-
     const [isDisabled, setIsDisabled] = useState(false);
     const [files, setFiles] = useState([]);
     const showPage = false;
@@ -149,7 +150,13 @@ function NewIdeaSubmission(props) {
             setCondition(true);
             localStorage.setItem('condition', true);
         }
-
+        if (props?.submitedData?.status !==
+            'SUBMITTED' && props?.submitedData?.initiated_by !== currentUser?.data[0]?.user_id) {
+            setCondition(true);
+        }
+        if(FirstInitiaData){
+            setCondition(false);
+        }
     }, [props?.submitedData]);
     const TeamId = currentUser?.data[0]?.team_id;
     useEffect(() => {
@@ -364,7 +371,7 @@ function NewIdeaSubmission(props) {
             ) {
                 allques = false;
             }
-            
+
             if (protoType === 'YES' && (attachmentsList.length === 0 && submitedFile.length === 0)) {
                 allques = false;
             }
@@ -410,7 +417,7 @@ function NewIdeaSubmission(props) {
                     console.log(error);
                 });
         } else {
-            openNotificationWithIcon('error', 'Plese fill all the question');
+            openNotificationWithIcon('error', 'Plese fill all the questions');
         }
     };
 
@@ -471,7 +478,7 @@ function NewIdeaSubmission(props) {
         }
         handleUploadFiles(choosenFiles);
     };
-  
+
     return (
         <Layout title="Idea Submission">
             {finalPage ? (
@@ -490,37 +497,37 @@ function NewIdeaSubmission(props) {
                                         className="form-row row mb-5"
                                         isSubmitting
                                     >
-                                        {props?.submitedData?.status !==
-                                            'SUBMITTED' && (
-                                                <div className="text-right">
-                                                    {condition && (
-                                                        <Button
-                                                            type="button"
-                                                            btnClass="me-3 text-white"
-                                                            backgroundColor="#067DE1"
-                                                            onClick={handleEdit}
-                                                            size="small"
-                                                            label={t(
-                                                                'teacher_teams.edit_idea'
-                                                            )}
-                                                        />
-                                                    )}
+                                        {(props?.submitedData?.status !==
+                                            'SUBMITTED' && props?.submitedData?.initiated_by === currentUser?.data[0]?.user_id) ? (
+                                            <div className="text-right">
+                                                {condition && (
                                                     <Button
                                                         type="button"
-                                                        btnClass="primary"
-                                                        onClick={(e) =>
-                                                            handleSubmit(
-                                                                e,
-                                                                'SUBMITTED'
-                                                            )
-                                                        }
+                                                        btnClass="me-3 text-white"
+                                                        backgroundColor="#067DE1"
+                                                        onClick={handleEdit}
                                                         size="small"
                                                         label={t(
-                                                            'teacher_teams.submit'
+                                                            'teacher_teams.edit_idea'
                                                         )}
                                                     />
-                                                </div>
-                                            )}
+                                                )}
+                                                <Button
+                                                    type="button"
+                                                    btnClass="primary"
+                                                    onClick={(e) =>
+                                                        handleSubmit(
+                                                            e,
+                                                            'SUBMITTED'
+                                                        )
+                                                    }
+                                                    size="small"
+                                                    label={t(
+                                                        'teacher_teams.submit'
+                                                    )}
+                                                />
+                                            </div>
+                                        ) : (`Idea initiated by ${props?.submitedData?.initiated_name}`)}
                                         <Row>
                                             <Row className="card mb-4 my-3 comment-card px-0 px-5 py-3 card">
                                                 <div className="question quiz mb-0">

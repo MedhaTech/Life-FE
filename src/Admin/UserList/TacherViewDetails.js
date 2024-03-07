@@ -18,6 +18,7 @@ const ViewMore = () => {
     const [data, setData] = useState('');
 
     const orgDaTa = JSON.parse(localStorage.getItem('orgData'));
+    // console.log(orgDaTa, 'pb');
     const tecDaTa = JSON.parse(localStorage.getItem('teacherId'));
     // console.log(tecDaTa, 'id');
     const [showMentorCard, setshowMentorCard] = useState(false);
@@ -30,12 +31,12 @@ const ViewMore = () => {
     };
     var teamId = [];
     teamId.push({
-        mentor_id: orgDaTa.mentor.mentor_id,
-        user_id: orgDaTa.mentor.user_id
+        mentor_id: orgDaTa.mentor_id,
+        user_id: orgDaTa.user_id
     });
     const handleBack = () => {
         history.push({
-            pathname: '/admin/teacher/dashboard'
+            pathname: '/admin/userlist'
         });
         localStorage.setItem(
             'institution_code',
@@ -155,24 +156,31 @@ const ViewMore = () => {
                                     <span className="mx-3">
                                         <b>Place :</b>
                                     </span>
-                                    <b>{orgDaTa?.place?.place_name}</b>
+                                    <b>
+                                        {orgDaTa?.place_name
+                                            ? orgDaTa?.place_name
+                                            : '-'}
+                                    </b>
                                 </CardText>
 
                                 <CardText>
                                     <span className="mx-3">
                                         <b>Block :</b>
                                     </span>
-                                    <b>{orgDaTa?.place?.block?.block_name}</b>
+                                    <b>
+                                        {orgDaTa?.block_name
+                                            ? orgDaTa?.block_name
+                                            : '-'}
+                                    </b>
                                 </CardText>
                                 <CardText>
                                     <span className="mx-3">
                                         <b>Taluk:</b>
                                     </span>
                                     <b>
-                                        {
-                                            orgDaTa?.place?.block?.district
-                                                ?.taluk?.taluk_name
-                                        }
+                                        {orgDaTa?.taluk_name
+                                            ? orgDaTa?.taluk_name
+                                            : '-'}
                                     </b>
                                 </CardText>
                                 <CardText>
@@ -180,10 +188,9 @@ const ViewMore = () => {
                                         <b>District :</b>
                                     </span>
                                     <b>
-                                        {
-                                            orgDaTa?.place?.block?.district
-                                                ?.district_name
-                                        }
+                                        {orgDaTa?.district_name
+                                            ? orgDaTa?.district_name
+                                            : '-'}
                                     </b>
                                 </CardText>
 
@@ -192,10 +199,9 @@ const ViewMore = () => {
                                         <b>State :</b>
                                     </span>
                                     <b>
-                                        {
-                                            orgDaTa?.place?.block?.district
-                                                ?.state?.state_name
-                                        }
+                                        {orgDaTa?.state_name
+                                            ? orgDaTa?.state_name
+                                            : '-'}
                                     </b>
                                 </CardText>
                             </CardBody>
@@ -258,47 +264,45 @@ const ViewMore = () => {
                                         <b>Mentor Name :</b>
                                     </span>
                                     <b>
-                                        {orgDaTa.mentor.mentor_title}
-                                        {orgDaTa.mentor.mentor_name}
+                                        {orgDaTa.mentor_title}
+                                        {orgDaTa.mentor_name}
                                     </b>
                                 </CardText>
                                 <CardText>
                                     <span className="mx-3">
                                         <b>Gender :</b>
                                     </span>
-                                    <b>{orgDaTa.mentor.gender}</b>
+                                    <b>{orgDaTa.gender}</b>
                                 </CardText>
                                 <CardText>
                                     <span className="mx-3">
                                         <b>Date of Birth :</b>
                                     </span>
-                                    <b>{orgDaTa.mentor.date_of_birth}</b>
+                                    <b>{orgDaTa.date_of_birth}</b>
                                 </CardText>
                                 <CardText>
                                     <span className="mx-3">
                                         <b> Mentor Id :</b>
                                     </span>
-                                    <b>{orgDaTa.mentor.mentor_id}</b>
+                                    <b>{orgDaTa.mentor_id}</b>
                                 </CardText>
                                 <CardText>
                                     <span className="mx-3">
                                         <b>Email Id :</b>
                                     </span>
-                                    <b>{orgDaTa.mentor.mentor_email}</b>
+                                    <b>{orgDaTa.mentor_email}</b>
                                 </CardText>
                                 <CardText>
                                     <span className="mx-3">
                                         <b>Mobile No :</b>
                                     </span>
-                                    <b>{orgDaTa.mentor.mentor_mobile}</b>
+                                    <b>{orgDaTa.mentor_mobile}</b>
                                 </CardText>
                                 <CardText>
                                     <span className="mx-3">
                                         <b>WhatsApp No :</b>
                                     </span>
-                                    <b>
-                                        {orgDaTa.mentor.mentor_whatapp_mobile}
-                                    </b>
+                                    <b>{orgDaTa.mentor_whatapp_mobile}</b>
                                 </CardText>
                             </CardBody>
                         </Card>

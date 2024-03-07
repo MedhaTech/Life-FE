@@ -215,21 +215,18 @@ const ReportsRegistration = () => {
         },
 
         {
-            label: 'District',
-            key: 'district_name'
+            label: 'Place',
+            key: 'place_name'
         },
         {
             label: 'Block',
             key: 'block_name'
         },
         {
-            label: 'Taluk',
-            key: 'taluk_name'
+            label: 'District',
+            key: 'district_name'
         },
-        {
-            label: 'Place',
-            key: 'place_name'
-        },
+
         {
             label: 'State',
             key: 'state_name'
@@ -239,11 +236,11 @@ const ReportsRegistration = () => {
             key: 'principal_name'
         },
         {
-            label: 'Principal Mobile No',
+            label: 'Principal Mobile Number',
             key: 'principal_mobile'
         },
         {
-            label: 'Principal Whatsapp Noo',
+            label: 'Principal Whatsapp Number',
             key: 'principal_whatsapp_mobile'
         },
         {
@@ -267,7 +264,7 @@ const ReportsRegistration = () => {
         //     key: 'gender'
         // },
         {
-            label: 'Mentor No',
+            label: 'Mentor Mobile Number',
             key: 'mentor_mobile'
         },
         // {
@@ -283,7 +280,7 @@ const ReportsRegistration = () => {
             key: 'student_full_name'
         },
         {
-            label: 'Student Mobile No',
+            label: 'Student Mobile Number',
             key: 'mobile'
         },
         {

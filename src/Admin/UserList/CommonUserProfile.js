@@ -32,7 +32,6 @@ const CommonUserProfile = (props) => {
     const currentUser = getCurrentUser('current_user');
 
     const StudentsDaTa = JSON.parse(localStorage.getItem('studentData'));
-    // console.log(StudentsDaTa, '3');
     const [course, setCourse] = useState([]);
     const language = useSelector(
         (state) => state?.studentRegistration?.studentLanguage
@@ -309,45 +308,71 @@ const CommonUserProfile = (props) => {
                                 <span className="mx-3">
                                     <b>Age :</b>
                                 </span>
-                                <b>{StudentsDaTa.Age}</b>
+                                <b>
+                                    {StudentsDaTa.Age ? StudentsDaTa.Age : '-'}
+                                </b>
                             </CardText>
                             <CardText>
                                 <span className="mx-3">
                                     <b> Gender :</b>
                                 </span>
-                                <b>{StudentsDaTa.Gender}</b>
+                                <b>
+                                    {StudentsDaTa.Gender
+                                        ? StudentsDaTa.Gender
+                                        : '-'}
+                                </b>
                             </CardText>
 
                             <CardText>
                                 <span className="mx-3">
                                     <b>Date of Birth :</b>
                                 </span>
-                                <b>{StudentsDaTa.date_of_birth}</b>
+                                <b>
+                                    {StudentsDaTa.date_of_birth
+                                        ? StudentsDaTa.date_of_birth
+                                        : '-'}
+                                </b>
                             </CardText>
                             <CardText>
                                 <span className="mx-3">
                                     <b>Mobile No :</b>
                                 </span>
-                                <b>{StudentsDaTa?.mobile}</b>
+                                <b>
+                                    {StudentsDaTa?.mobile
+                                        ? StudentsDaTa?.mobile
+                                        : '-'}
+                                </b>
                             </CardText>
                             <CardText>
                                 <span className="mx-3">
                                     <b>Email Id:</b>
                                 </span>
-                                <b>{StudentsDaTa?.email}</b>
+                                <b>
+                                    {StudentsDaTa?.email
+                                        ? StudentsDaTa?.email
+                                        : '-'}
+                                </b>
                             </CardText>
 
                             <CardText>
                                 <span className="mx-3">
                                     <b>Mentor Name :</b>
                                 </span>
-                                <b>{StudentsDaTa.mentor_name}</b>
+                                <b>
+                                    {StudentsDaTa.mentor_name
+                                        ? StudentsDaTa.mentor_name
+                                        : '-'}
+                                </b>
                             </CardText>
                             <CardText>
                                 <span className="mx-3">
                                     <b>Team Name :</b>
                                 </span>
-                                {/* <b>{StudentsDaTa?.team.team_name}</b> */}
+                                <b>
+                                    {StudentsDaTa.team_name
+                                        ? StudentsDaTa.team_name
+                                        : '-'}
+                                </b>
                             </CardText>
                         </CardBody>
                     </Card>
@@ -373,31 +398,51 @@ const CommonUserProfile = (props) => {
                                 <span className="mx-3">
                                     <b>Place:</b>
                                 </span>
-                                <b>{StudentsDaTa?.place_name}</b>
+                                <b>
+                                    {StudentsDaTa?.place_name
+                                        ? StudentsDaTa?.place_name
+                                        : '-'}
+                                </b>
                             </CardText>
                             <CardText>
                                 <span className="mx-3">
                                     <b>Block:</b>
                                 </span>
-                                <b>{StudentsDaTa?.block_name}</b>
+                                <b>
+                                    {StudentsDaTa?.block_name
+                                        ? StudentsDaTa?.block_name
+                                        : '-'}
+                                </b>
                             </CardText>
                             <CardText>
                                 <span className="mx-3">
                                     <b>Taluk:</b>
                                 </span>
-                                <b>{StudentsDaTa?.taluk_name}</b>
+                                <b>
+                                    {StudentsDaTa?.taluk_name
+                                        ? StudentsDaTa?.taluk_name
+                                        : '-'}
+                                </b>
                             </CardText>{' '}
                             <CardText>
                                 <span className="mx-3">
                                     <b>District :</b>
                                 </span>
-                                <b>{StudentsDaTa?.district_name}</b>
+                                <b>
+                                    {StudentsDaTa?.district_name
+                                        ? StudentsDaTa?.district_name
+                                        : '-'}
+                                </b>
                             </CardText>
                             <CardText>
                                 <span className="mx-3">
                                     <b>State :</b>
                                 </span>
-                                <b>{StudentsDaTa?.state_name}</b>
+                                <b>
+                                    {StudentsDaTa?.state_name
+                                        ? StudentsDaTa?.state_name
+                                        : '_'}
+                                </b>
                             </CardText>
                             {/* <CardText> */}
                             {/* <span className="mx-3">

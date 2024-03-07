@@ -164,6 +164,8 @@ function AtlPage() {
                 .email('Must be a valid Email Id')
                 .matches(regex, 'only accept small letters only ')
                 .max(255),
+            mentor_title: Yup.string().required('Please select Title'),
+
             mentor_whatapp_mobile: Yup.string()
                 .required('required')
                 .trim()
@@ -184,7 +186,7 @@ function AtlPage() {
                     new Date(new Date().getFullYear() - 20, 11, 31),
 
                     'Age must be at least 20 years'
-                ),
+                )
             // date_of_birth: Yup.string()
             //     .required('Please select DOB')
             //     .max(
@@ -197,7 +199,6 @@ function AtlPage() {
             //     )
             //     // .date_of_birth('Please Enter DOB')
             //     .trim(),
-            mentor_title: Yup.string().required('Please select Title')
         }),
 
         onSubmit: async (values) => {
@@ -684,12 +685,9 @@ function AtlPage() {
                                                             : ' N/A'}{' '}
                                                         <br />
                                                         Taluk :{' '}
-                                                        {orgData?.place?.block
-                                                            ?.district?.taluk
+                                                        {orgData?.place?.taluk
                                                             ?.taluk_name
                                                             ? orgData?.place
-                                                                  ?.block
-                                                                  ?.district
                                                                   ?.taluk
                                                                   ?.taluk_name
                                                             : ' N/A'}
@@ -798,7 +796,8 @@ function AtlPage() {
                                                     </select>
                                                     {formik.touched
                                                         .mentor_title &&
-                                                    formik.errors.title ? (
+                                                    formik.errors
+                                                        .mentor_title ? (
                                                         <small className="error-cls">
                                                             {
                                                                 formik.errors
