@@ -20,7 +20,7 @@ import { encryptGlobal } from '../../../constants/encryptDecrypt';
 
 const EditEvalProcess = (props) => {
     const evalID = JSON.parse(localStorage.getItem('eavlId'));
-    console.log(evalID, '1');
+    // console.log(evalID, '1');
     //  where evalID= evaluation_process_id //
     const dispatch = useDispatch();
     const [clickedValue, setclickedValue] = useState({});
@@ -47,10 +47,10 @@ const EditEvalProcess = (props) => {
         if (evalID && evalID.district) {
             if (
                 evalID.district.split(',').length ===
-                    fullStatesNames.length - 1 &&
+                    fiterDistData.length - 1 &&
                 !evalID.district.includes('All Districts')
             ) {
-                setselectedStates(fullStatesNames);
+                setselectedStates(fiterDistData);
             } else {
                 setselectedStates(evalID.district.split(','));
             }
@@ -60,17 +60,17 @@ const EditEvalProcess = (props) => {
     useEffect(() => {
         if (clickedValue.name === 'All Districts') {
             if (selectedStates.includes('All Districts')) {
-                setselectedStates(fullStatesNames);
+                setselectedStates(fiterDistData);
             } else {
                 setselectedStates([]);
             }
         } else if (
             clickedValue.name &&
             clickedValue.name !== 'All Districts' &&
-            selectedStates.length === fullStatesNames.length - 1 &&
+            selectedStates.length === fiterDistData.length - 1 &&
             !selectedStates.includes('All Districts')
         ) {
-            setselectedStates(fullStatesNames);
+            setselectedStates(fiterDistData);
         } else if (clickedValue.name && clickedValue.name !== 'All Districts') {
             setselectedStates(
                 selectedStates?.filter((item) => item !== 'All Districts')
@@ -95,6 +95,7 @@ const EditEvalProcess = (props) => {
                 axiosConfig
             )
             .then((response) => {
+                
                 if (response.status == 200) {
                     openNotificationWithIcon(
                         'success',
