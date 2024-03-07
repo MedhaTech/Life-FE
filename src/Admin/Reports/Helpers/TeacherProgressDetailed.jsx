@@ -97,7 +97,7 @@ const TeacherDetailed = () => {
             key: 'district_name'
         },
         {
-            label: 'Total Registered Schools',
+            label: 'Total Registered Institutions',
             key: 'totalRegInstitutions'
         },
         {
