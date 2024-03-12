@@ -14,7 +14,7 @@ import signuplogo from '../assets/media/tn-brands/EDII.png';
 import ellipse_1 from '../assets/media/ellipse.svg';
 import { evaluatorLoginUser } from '../redux/actions';
 import { Carousel } from 'react-bootstrap';
-import logo from '../assets/media/tn-brands/UPSHIFT_BLACK.png';
+import logo from '../assets/media/tn-brands/EDII.png';
 import image_1 from '../assets/media/unisolve_slider1.png';
 import image_2 from '../assets/media/unisolve_slider2.png';
 import CryptoJS from 'crypto-js';

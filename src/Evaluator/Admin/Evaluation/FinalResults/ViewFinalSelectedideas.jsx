@@ -81,7 +81,7 @@ const ViewSelectedIdea = () => {
         var config = {
             method: 'put',
             url: `${
-                process.env.REACT_APP_API_BASE_URL + 'ideas/ideaUpdate'
+                process.env.REACT_APP_API_BASE_URL + '/ideas/ideaUpdate'
                 // +
                 // promPram
             }`,
@@ -112,7 +112,7 @@ const ViewSelectedIdea = () => {
         const apiParam = encryptGlobal(
             JSON.stringify({
                 key: title == '0' ? '0' : '1',
-                state: state !== 'All States' ? state : ''
+                state: state !== 'All Districts' ? state : ''
                 // sdg : sdg !== 'All Themes' ? sdg : ''
             })
         );
@@ -145,28 +145,71 @@ const ViewSelectedIdea = () => {
                 selector: (row) => row.key,
                 cellExport: (row) => row.key,
                 sortable: true,
-                width: '8rem'
+                width: '10rem'
             },
             {
                 name: 'District',
                 selector: (row) => row.district,
-                width: '10rem'
-            },
-            {
-                name: 'Institution Code',
-                selector: (row) => row.institution_code,
+                cell: (row) => (
+                    <div
+                        style={{
+                            whiteSpace: 'pre-wrap',
+                            wordWrap: 'break-word'
+                        }}
+                    >
+                        {row.district}
+                    </div>
+                ),
                 width: '15rem'
             },
-            {
-                name: 'Team Name',
-                selector: (row) => row.team_name,
-                cellExport: (row) => row.team_name,
-                width: '15rem'
-            },
+            // {
+            //     name: 'Institution Code',
+            //     selector: (row) => row.institution_code,
+            //     width: '18rem'
+            // },
+            // {
+            //     name: 'Team Name',
+            //     selector: (row) => row.team_name,
+            //     cellExport: (row) => row.team_name,
+            //     width: '15rem'
+            // },
             {
                 name: 'CID',
                 selector: (row) => row.idea_id,
-
+                cell: (params) => {
+                    return [
+                        <div className="d-flex" key={params}>
+                            <a
+                                href="#"
+                                style={{ color: 'black' }}
+                                // className="btn btn-primary btn-lg mr-5 mx-2"
+                                onClick={(e) => {
+                                    e.preventDefault(); // Prevent the default behavior of anchor tag
+                                    setIdeaDetails(params);
+                                    setIsDetail(true);
+                                    let index = 0;
+                                    // tableData?.forEach((item, i) => {
+                                    //     if (
+                                    //         item?.challenge_response_id ==
+                                    //         params?.challenge_response_id
+                                    //     ) {
+                                    //         index = i;
+                                    //     }
+                                    // });
+                                    setCurrentRow(index + 1);
+                                }}
+                            >
+                                {params.idea_id}
+                            </a>
+                            {/* <FaDownload
+                                size={22}
+                                onClick={() => {
+                                    handleDownpdf(params);
+                                }}
+                            /> */}
+                        </div>
+                    ];
+                },
                 width: '10rem'
             },
             // {
@@ -174,37 +217,37 @@ const ViewSelectedIdea = () => {
             //     selector: (row) => row.category,
             //     width: '15rem'
             // },
-            {
-                name: 'Theme',
-                cellExport: (row) => row.sdg,
-                cell: (row) => (
-                    <div
-                        style={{
-                            whiteSpace: 'pre-wrap',
-                            wordWrap: 'break-word'
-                        }}
-                    >
-                        {row?.themes_problem?.theme_name}
-                    </div>
-                ),
-                width: '15rem'
-            },
-            {
-                name: 'Problem Statement',
-                cellExport: (row) => row?.themes_problem?.problem_statement,
+            // {
+            //     name: 'Theme',
+            //     cellExport: (row) => row.sdg,
+            //     cell: (row) => (
+            //         <div
+            //             style={{
+            //                 whiteSpace: 'pre-wrap',
+            //                 wordWrap: 'break-word'
+            //             }}
+            //         >
+            //             {row?.theme_name}
+            //         </div>
+            //     ),
+            //     width: '20rem'
+            // },
+            // {
+            //     name: 'Problem Statement',
+            //     cellExport: (row) => row?.themes_problem?.problem_statement,
 
-                cell: (row) => (
-                    <div
-                        style={{
-                            whiteSpace: 'pre-wrap',
-                            wordWrap: 'break-word'
-                        }}
-                    >
-                        {row?.themes_problem?.problem_statement}
-                    </div>
-                ),
-                width: '25rem'
-            },
+            //     cell: (row) => (
+            //         <div
+            //             style={{
+            //                 whiteSpace: 'pre-wrap',
+            //                 wordWrap: 'break-word'
+            //             }}
+            //         >
+            //             {row?.themes_problem?.problem_statement}
+            //         </div>
+            //     ),
+            //     width: '25rem'
+            // },
             {
                 name: 'Idea Name',
                 // sortable: true,
@@ -219,7 +262,7 @@ const ViewSelectedIdea = () => {
                         {row?.idea_title}
                     </div>
                 ),
-                width: '25rem'
+                width: '20rem'
             },
             // {
             //     name: 'District',
@@ -335,7 +378,7 @@ const ViewSelectedIdea = () => {
                 },
 
                 sortable: true,
-                width: '13rem'
+                width: '16rem'
             },
             {
                 name: 'Overall',

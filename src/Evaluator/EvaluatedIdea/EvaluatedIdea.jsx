@@ -126,7 +126,7 @@ const EvaluatedIdea = () => {
                     ];
                 },
                 sortable: true,
-                width: '6%'
+                width: '10rem'
             },
             {
                 name: 'District',
@@ -138,15 +138,48 @@ const EvaluatedIdea = () => {
             //     selector: (row) => row.institution_code,
             //     width: '15rem'
             // },
-            {
-                name: 'Team Name',
-                selector: (row) => row.team_name,
-                width: '15rem'
-            },
+            // {
+            //     name: 'Team Name',
+            //     selector: (row) => row.team_name,
+            //     width: '15rem'
+            // },
             {
                 name: 'CID',
                 selector: (row) => row.idea_id,
-
+                cell: (params) => {
+                    return [
+                        <div className="d-flex" key={params}>
+                            <a
+                                href="#"
+                                style={{ color: 'black' }}
+                                // className="btn btn-primary btn-lg mr-5 mx-2"
+                                onClick={(e) => {
+                                    e.preventDefault(); // Prevent the default behavior of anchor tag
+                                    setIdeaDetails(params);
+                                    setIsDetail(true);
+                                    let index = 0;
+                                    // tableData?.forEach((item, i) => {
+                                    //     if (
+                                    //         item?.challenge_response_id ==
+                                    //         params?.challenge_response_id
+                                    //     ) {
+                                    //         index = i;
+                                    //     }
+                                    // });
+                                    setCurrentRow(index + 1);
+                                }}
+                            >
+                                {params.idea_id}
+                            </a>
+                            {/* <FaDownload
+                                size={22}
+                                onClick={() => {
+                                    handleDownpdf(params);
+                                }}
+                            /> */}
+                        </div>
+                    ];
+                },
                 width: '10rem'
             },
             {
@@ -161,23 +194,23 @@ const EvaluatedIdea = () => {
                         {row?.themes_problem?.theme_name}
                     </div>
                 ),
-                width: '15rem'
-            },
-
-            {
-                name: 'Problem Statement',
-                cell: (row) => (
-                    <div
-                        style={{
-                            whiteSpace: 'pre-wrap',
-                            wordWrap: 'break-word'
-                        }}
-                    >
-                        {row?.themes_problem?.problem_statement}
-                    </div>
-                ),
                 width: '20rem'
             },
+
+            // {
+            //     name: 'Problem Statement',
+            //     cell: (row) => (
+            //         <div
+            //             style={{
+            //                 whiteSpace: 'pre-wrap',
+            //                 wordWrap: 'break-word'
+            //             }}
+            //         >
+            //             {row?.themes_problem?.problem_statement}
+            //         </div>
+            //     ),
+            //     width: '20rem'
+            // },
             {
                 name: 'Idea Name',
                 // sortable: true,
@@ -192,7 +225,7 @@ const EvaluatedIdea = () => {
                         {/* {row?.response[1]?.selected_option || ''} */}
                     </div>
                 ),
-                width: '15rem'
+                width: '25rem'
             },
 
             {
