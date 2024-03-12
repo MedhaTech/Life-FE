@@ -138,22 +138,55 @@ const ViewSelectedIdea = () => {
             {
                 name: 'District',
                 selector: (row) => row.district,
-                width: '10rem'
+                width: '18rem'
             },
-            {
-                name: 'Institution Code',
-                selector: (row) => row.institution_code,
-                width: '15rem'
-            },
-            {
-                name: 'Team Name',
-                selector: (row) => row.team_name,
-                width: '15rem'
-            },
+            // {
+            //     name: 'Institution Code',
+            //     selector: (row) => row.institution_code,
+            //     width: '18rem'
+            // },
+            // {
+            //     name: 'Team Name',
+            //     selector: (row) => row.team_name,
+            //     width: '15rem'
+            // },
             {
                 name: 'CID',
                 selector: (row) => row.idea_id,
-
+                cell: (params) => {
+                    return [
+                        <div className="d-flex" key={params}>
+                            <a
+                                href="#"
+                                style={{ color: 'black' }}
+                                // className="btn btn-primary btn-lg mr-5 mx-2"
+                                onClick={(e) => {
+                                    e.preventDefault(); // Prevent the default behavior of anchor tag
+                                    setIdeaDetails(params);
+                                    setIsDetail(true);
+                                    let index = 0;
+                                    // tableData?.forEach((item, i) => {
+                                    //     if (
+                                    //         item?.challenge_response_id ==
+                                    //         params?.challenge_response_id
+                                    //     ) {
+                                    //         index = i;
+                                    //     }
+                                    // });
+                                    setCurrentRow(index + 1);
+                                }}
+                            >
+                                {params.idea_id}
+                            </a>
+                            {/* <FaDownload
+                                size={22}
+                                onClick={() => {
+                                    handleDownpdf(params);
+                                }}
+                            /> */}
+                        </div>
+                    ];
+                },
                 width: '10rem'
             },
             {
@@ -168,22 +201,22 @@ const ViewSelectedIdea = () => {
                         {row?.themes_problem?.theme_name}
                     </div>
                 ),
-                width: '15rem'
+                width: '20rem'
             },
-            {
-                name: 'Problem Statement',
-                cell: (row) => (
-                    <div
-                        style={{
-                            whiteSpace: 'pre-wrap',
-                            wordWrap: 'break-word'
-                        }}
-                    >
-                        {row?.themes_problem?.problem_statement}
-                    </div>
-                ),
-                width: '25rem'
-            },
+            // {
+            //     name: 'Problem Statement',
+            //     cell: (row) => (
+            //         <div
+            //             style={{
+            //                 whiteSpace: 'pre-wrap',
+            //                 wordWrap: 'break-word'
+            //             }}
+            //         >
+            //             {row?.themes_problem?.problem_statement}
+            //         </div>
+            //     ),
+            //     width: '25rem'
+            // },
             {
                 name: 'Idea Name',
                 cell: (row) => (
@@ -215,7 +248,7 @@ const ViewSelectedIdea = () => {
                 cellExport: (row) => row.status,
 
                 // cell: (row) => row.status,
-                width: '15rem'
+                width: '18rem'
             },
             {
                 name: 'Actions',
@@ -251,7 +284,7 @@ const ViewSelectedIdea = () => {
                         </div>
                     ];
                 },
-                width: '15rem',
+                width: '9rem',
                 center: true
                 // left: true
             }

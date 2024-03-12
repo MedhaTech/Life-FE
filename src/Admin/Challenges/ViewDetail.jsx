@@ -18,10 +18,12 @@ import jsPDF from 'jspdf';
 import { FaDownload, FaHourglassHalf } from 'react-icons/fa';
 import { useReactToPrint } from 'react-to-print';
 import { useTranslation } from 'react-i18next';
+import { Card } from 'react-bootstrap';
+import { Col, Container, Row, CardBody, CardText } from 'reactstrap';
 
 import DetailToDownload from './DetailToDownload';
 import html2canvas from 'html2canvas';
-import { Row, Col, Form, Label } from 'reactstrap';
+import { Form, Label } from 'reactstrap';
 import { encryptGlobal } from '../../constants/encryptDecrypt';
 
 const ViewDetail = (props) => {
@@ -333,21 +335,168 @@ const ViewDetail = (props) => {
                                     </div> */}
                                 </div>
                                 <div className="col-lg-12 mt-3">
-                                    {/* <Row className="col-lg-12">
-                                        <h2>
-                                            <span
-                                                style={{
-                                                    color: 'blue'
-                                                }}
+                                    <Row className="col-lg-12">
+                                        <Col className="md-6">
+                                            <Card
+                                                bg="light"
+                                                text="dark"
+                                                className="mb-4"
+                                                // style={{ height: '150px' }}
                                             >
-                                                Problem Statement :{' '}
-                                            </span>
-                                            <span className="text-capitalize fs-3">
+                                                <Card.Body>
+                                                    <label
+                                                        htmlFor="teams"
+                                                        className=""
+                                                    >
+                                                        Institutions Details
+                                                    </label>
+                                                    <Card.Text
+                                                        style={{
+                                                            // fontSize: '30px',
+                                                            // fontWeight: 'bold',
+                                                            marginTop: '10px',
+                                                            marginBottom: '20px'
+                                                        }}
+                                                    >
+                                                        {/* {regInst} */}
+                                                        <span>
+                                                            Institution Code :
+                                                        </span>
+                                                        <span className=" fs-3">
+                                                            &nbsp;
+                                                            {
+                                                                teamResponse?.institution_code
+                                                            }
+                                                        </span>
+                                                        <br />
+                                                        <span>
+                                                            Institution Name :
+                                                        </span>
+                                                        <span className="fs-3">
+                                                            &nbsp;
+                                                            {
+                                                                teamResponse?.institution_name
+                                                            }
+                                                        </span>
+                                                        <br />
+                                                        <span>Place :</span>
+                                                        <span className="fs-3">
+                                                            &nbsp;
+                                                            {
+                                                                teamResponse?.place_name
+                                                            }
+                                                        </span>
+                                                        <br />
+                                                        <span>Block :</span>
+                                                        <span className="fs-3">
+                                                            &nbsp;
+                                                            {
+                                                                teamResponse?.block_name
+                                                            }
+                                                        </span>{' '}
+                                                        <br />
+                                                        <span>Taluk :</span>
+                                                        <span className="fs-3">
+                                                            &nbsp;
+                                                            {teamResponse?.taluk_name
+                                                                ? teamResponse?.taluk_name
+                                                                : '-'}
+                                                        </span>{' '}
+                                                        <br />
+                                                        <span>District :</span>
+                                                        <span className="fs-3">
+                                                            &nbsp;
+                                                            {
+                                                                teamResponse?.district
+                                                            }
+                                                        </span>
+                                                    </Card.Text>
+                                                </Card.Body>
+                                            </Card>
+                                            {/* <h2>
+                                                <span
+                                                    style={{
+                                                        color: 'blue'
+                                                    }}
+                                                >
+                                                    Institutions Details:{' '}
+                                                </span>
+                                                {/* <span className="text-capitalize fs-3">
                                                 {props?.ideaDetails?.themes_problem?.problem_statement?.toLowerCase() ||
                                                     ''}
-                                            </span>
-                                        </h2>
-                                    </Row> */}
+                                            </span> */}
+                                            {/* </h2>  */}
+                                        </Col>
+                                        <Col className="md-6">
+                                            <Card
+                                                bg="light"
+                                                text="dark"
+                                                className="mb-4"
+                                                style={{ height: '227px' }}
+                                            >
+                                                <Card.Body>
+                                                    <label
+                                                        htmlFor="teams"
+                                                        className=""
+                                                    >
+                                                        Team Details
+                                                    </label>
+                                                    <Card.Text
+                                                        style={{
+                                                            // fontSize: '30px',
+                                                            // fontWeight: 'bold',
+                                                            marginTop: '10px',
+                                                            marginBottom: '20px'
+                                                        }}
+                                                    >
+                                                        {/* {regInst} */}
+                                                        <span>Team Name :</span>
+                                                        <span className=" fs-3">
+                                                            &nbsp;
+                                                            {
+                                                                teamResponse?.team_name
+                                                            }
+                                                        </span>
+                                                        <br />
+                                                        <span>
+                                                            Team Members :
+                                                        </span>
+                                                        <span className=" fs-3">
+                                                            &nbsp;
+                                                            {teamResponse &&
+                                                                teamResponse.team_members &&
+                                                                teamResponse.team_members.join(
+                                                                    ', '
+                                                                )}
+                                                        </span>
+                                                        <br />
+                                                        <span>
+                                                            Idea Status :
+                                                        </span>
+                                                        <span className=" fs-3">
+                                                            &nbsp;
+                                                            {
+                                                                teamResponse?.status
+                                                            }
+                                                        </span>
+                                                    </Card.Text>
+                                                </Card.Body>
+                                            </Card>
+                                            {/* <h2>
+                                                <span
+                                                    style={{
+                                                        color: 'blue'
+                                                    }}
+                                                >
+                                                    Institutions Details:{' '}
+                                                </span>
+                                                {/* <span className="text-capitalize fs-3">
+                                                {props?.ideaDetails?.themes_problem?.problem_statement?.toLowerCase() ||
+                                                    ''}
+                                            </span> */}
+                                            {/* </h2>  */}
+                                        </Col>
+                                    </Row>
                                 </div>
                             </div>
                         </div>
@@ -633,6 +782,51 @@ const ViewDetail = (props) => {
                                     </p>
                                 </div>
                             </div>
+                        </div>
+                        <div style={{ display: 'flex' }}>
+                            <p
+                                style={{ fontSize: '1.5rem', margin: '1rem' }}
+                                className="fw-bold"
+                            >
+                                Submitted By :{' '}
+                                {teamResponse?.initiated_name
+                                    ? teamResponse?.initiated_name
+                                    : '-'}
+                            </p>
+                            <p
+                                style={{ fontSize: '1.5rem', margin: '1rem' }}
+                                className="fw-bold"
+                            >
+                                Submitted At :{' '}
+                                {teamResponse.submitted_at
+                                    ? moment(teamResponse.submitted_at).format(
+                                          'DD-MM-YYYY'
+                                      )
+                                    : '-'}
+                            </p>
+                        </div>
+                        <br />
+                        <div style={{ display: 'flex' }}>
+                            <p
+                                style={{ fontSize: '1.5rem', margin: '1rem' }}
+                                className="fw-bold"
+                            >
+                                Verified By :{' '}
+                                {teamResponse.verified_name
+                                    ? teamResponse.verified_name
+                                    : '-'}
+                            </p>
+                            <p
+                                style={{ fontSize: '1.5rem', margin: '1rem' }}
+                                className="fw-bold"
+                            >
+                                Verified At :{' '}
+                                {teamResponse.verified_at
+                                    ? moment(teamResponse.verified_at).format(
+                                          'DD-MM-YYYY'
+                                      )
+                                    : '-'}
+                            </p>
                         </div>
                         {/* <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
                             {teamResponse?.map((item, index) => {

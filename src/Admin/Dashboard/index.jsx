@@ -141,6 +141,10 @@ const Dashboard = () => {
                     }
                     if (response?.data?.count === 0) {
                         setError('Entered Invalid Institution Unique Code');
+                    } else if (response?.data?.count === 1) {
+                        setError('Still No Teacher Registered');
+                    } else if (response?.data?.count > 1) {
+                        setError('');
                     }
                     // setMultiOrgData(response?.data?.data);
                     // setOrgData(response?.data?.data[0]);
@@ -1840,13 +1844,13 @@ const Dashboard = () => {
                                     </>
                                 ) : (
                                     // ) : (
-                                    //     count != 0 && (
-                                    //         <div className="text-success fs-highlight d-flex justify-content-center align-items-center">
-                                    //             <span>
-                                    //                 Still No Teacher Registered
-                                    //             </span>
-                                    //         </div>
-                                    //     )
+                                    // count != 0 && (
+                                    //     <div className="text-success fs-highlight d-flex justify-content-center align-items-center">
+                                    //         <span>
+                                    //             Still No Teacher Registered
+                                    //         </span>
+                                    //     </div>
+                                    // )
                                     // )
                                     ''
                                 )}
