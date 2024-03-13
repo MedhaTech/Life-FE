@@ -23,7 +23,7 @@ const Register = (props) => {
 
     const inputPhone = {
         type: 'text',
-        placeholder: 'Enter Phone Number',
+        placeholder: 'Enter Mobile Number',
         className: 'defaultInput'
     };
 
@@ -47,23 +47,23 @@ const Register = (props) => {
         full_name: Yup.string()
             .trim()
             .min(2, 'Enter Name')
-            .matches(/^[a-zA-Z\s]+$/, 'Allow only alpha characters')
-            .required('Required'),
+            .matches(/^[a-zA-Z\s]+$/, 'Enter only Alphabets')
+            .required('Please enter full name'),
         mobile: Yup.string()
             // .required('required')
             // .trim()
             // .matches(/^\d+$/, 'Mobile number is not valid (Enter only digits)')
             // .max(10, 'Please enter only 10 digit valid number')
             // .min(10, 'Number is less than 10 digits'),
-            .required('required')
+            .required('Please enter mobile number')
             .trim()
             .matches(phoneRegExp, 'Contact number is not valid')
             .min(10, 'Number is less than 10 digits')
             .max(10, 'Please enter valid number'),
         username: Yup.string()
             .trim()
-            .email('Invalid username format')
-            .required('Required')
+            .email('Invalid email id')
+            .required('Please enter email id')
         // district: Yup.string().trim().required('Required')
     });
 

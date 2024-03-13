@@ -280,7 +280,7 @@ const TicketsPage = (props) => {
                                 {...evaluatorsData}
                                 exportHeaders
                                 print={false}
-                                export={true}
+                                export={false}
                             >
                                 <DataTable
                                     responsive={true}
