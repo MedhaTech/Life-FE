@@ -58,8 +58,8 @@ const IdeaList = () => {
                                                 <br />
                                             </div>
                                             <h2 className="my-auto text-center my-4">
-                                                All idea has been accepted, no
-                                                more challenges to display.
+                                                All idea has been processed, no
+                                                more idea to display.
                                             </h2>
                                         </div>
                                     </div>

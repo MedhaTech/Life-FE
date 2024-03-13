@@ -61,7 +61,7 @@ const IdeaList = () => {
                                             </div>
                                             <h2 className="my-auto text-center my-4">
                                                 All idea has been rated, no more
-                                                challenges to display.
+                                                idea to display.
                                             </h2>
                                         </div>
                                     </div>
