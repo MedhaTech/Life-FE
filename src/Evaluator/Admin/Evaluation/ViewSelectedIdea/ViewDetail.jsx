@@ -891,8 +891,6 @@ const ViewDetail = (props) => {
                                     </>
                                 )}
                                 {level === 'L1' &&
-                                    // teamResponse.verified_name !== null &&
-                                    // teamResponse.verified_name !== '' &&
                                     (props?.ideaDetails?.evaluation_status ? (
                                         props?.ideaDetails?.evaluation_status ==
                                         'SELECTEDROUND1' ? (

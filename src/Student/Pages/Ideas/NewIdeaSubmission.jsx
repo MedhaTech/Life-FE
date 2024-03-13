@@ -584,18 +584,6 @@ function NewIdeaSubmission(props) {
                                                     </p>
                                                 )}
                                             </div>
-                                            // `Idea initiated by ${props?.submitedData?.initiated_name}`(
-                                            //     <p>
-                                            //         {' '}
-                                            //         `Mentor by $
-                                            //         {props?.submitedData
-                                            //             ?.verified_name !== null
-                                            //             ? props?.submitedData
-                                            //                   ?.verified_name
-                                            //             : ''}
-                                            //         `
-                                            //     </p>
-                                            // )
                                         )}
                                         <Row>
                                             <Row className="card mb-4 my-3 comment-card px-0 px-5 py-3 card">
