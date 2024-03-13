@@ -4,7 +4,7 @@ import React from 'react';
 import { Carousel } from 'react-bootstrap';
 import { Row, Col, Form, Label } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import logo from '../assets/media/tn-brands/UPSHIFT_BLACK.png';
+import logo from '../assets/media/tn-brands/EDII.png';
 import { InputBox } from '../stories/InputBox/InputBox';
 import { Button } from '../stories/Button';
 import { useFormik } from 'formik';
@@ -35,7 +35,7 @@ const ForgotPassword = () => {
 
     const inputEmail = {
         type: 'email',
-        placeholder: 'Enter your Unisolve registered email ID'
+        placeholder: 'Enter your unisolve registered email address'
     };
 
     const logInBtn = {
