@@ -1002,51 +1002,67 @@ const ViewDetail = (props) => {
 
                         {/* </div> */}
                     </div>
-                    <div style={{ display: 'flex' }}>
-                        <p
-                            style={{ fontSize: '1.5rem', margin: '1rem' }}
-                            className="fw-bold"
-                        >
-                            Submitted By :{' '}
-                            {teamResponse.initiated_name
-                                ? teamResponse.initiated_name
-                                : '-'}
-                        </p>
-                        <p
-                            style={{ fontSize: '1.5rem', margin: '1rem' }}
-                            className="fw-bold"
-                        >
-                            Submitted At :{' '}
-                            {teamResponse.submitted_at
-                                ? moment(teamResponse.submitted_at).format(
-                                      'DD-MM-YYYY'
-                                  )
-                                : '-'}
-                        </p>
-                    </div>
-                    <br />
-                    <div style={{ display: 'flex' }}>
-                        <p
-                            style={{ fontSize: '1.5rem', margin: '1rem' }}
-                            className="fw-bold"
-                        >
-                            Verified By :{' '}
-                            {teamResponse.verified_name
-                                ? teamResponse.verified_name
-                                : '-'}
-                        </p>
-                        <p
-                            style={{ fontSize: '1.5rem', margin: '1rem' }}
-                            className="fw-bold"
-                        >
-                            Verified At :{' '}
-                            {teamResponse.verified_at
-                                ? moment(teamResponse.verified_at).format(
-                                      'DD-MM-YYYY'
-                                  )
-                                : '-'}
-                        </p>
-                    </div>
+                    {teamResponse?.status !== 'DRAFT' ? (
+                        <>
+                            <div style={{ display: 'flex' }}>
+                                <p
+                                    style={{
+                                        fontSize: '1.5rem',
+                                        margin: '1rem'
+                                    }}
+                                    className="fw-bold"
+                                >
+                                    Submitted By :{' '}
+                                    {teamResponse.initiated_name
+                                        ? teamResponse.initiated_name
+                                        : '-'}
+                                </p>
+                                <p
+                                    style={{
+                                        fontSize: '1.5rem',
+                                        margin: '1rem'
+                                    }}
+                                    className="fw-bold"
+                                >
+                                    Submitted At :{' '}
+                                    {teamResponse.submitted_at
+                                        ? moment(
+                                              teamResponse.submitted_at
+                                          ).format('DD-MM-YYYY')
+                                        : '-'}
+                                </p>
+                            </div>
+                            <br />
+                        </>
+                    ) : (
+                        ''
+                    )}
+                    {teamResponse?.status !== 'DRAFT' ? (
+                        <div style={{ display: 'flex' }}>
+                            <p
+                                style={{ fontSize: '1.5rem', margin: '1rem' }}
+                                className="fw-bold"
+                            >
+                                Verified By :{' '}
+                                {teamResponse.verified_name
+                                    ? teamResponse.verified_name
+                                    : '-'}
+                            </p>
+                            <p
+                                style={{ fontSize: '1.5rem', margin: '1rem' }}
+                                className="fw-bold"
+                            >
+                                Verified At :{' '}
+                                {teamResponse.verified_at
+                                    ? moment(teamResponse.verified_at).format(
+                                          'DD-MM-YYYY'
+                                      )
+                                    : '-'}
+                            </p>
+                        </div>
+                    ) : (
+                        ''
+                    )}
                     <div>
                         <Button
                             btnClass="primary"
