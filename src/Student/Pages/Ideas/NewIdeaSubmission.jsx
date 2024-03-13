@@ -23,6 +23,8 @@ import {
     Input,
     Label
 } from 'reactstrap';
+import moment from 'moment';
+
 import { Button } from '../../../stories/Button';
 import { getCurrentUser, getNormalHeaders } from '../../../helpers/Utils';
 import { encryptGlobal } from '../../../constants/encryptDecrypt';
@@ -546,7 +548,42 @@ function NewIdeaSubmission(props) {
                                                 />
                                             </div>
                                         ) : (
-                                            `Idea initiated by ${props?.submitedData?.initiated_name}`
+                                            <div>
+                                                <p>
+                                                    Idea Initiated by :{' '}
+                                                    {
+                                                        props?.submitedData
+                                                            ?.initiated_name
+                                                    }
+                                                </p>
+                                                {props?.submitedData
+                                                    ?.verified_name !==
+                                                    null && (
+                                                    <p>
+                                                        Mentor Verified by :{' '}
+                                                        {
+                                                            props?.submitedData
+                                                                ?.verified_name
+                                                        }
+                                                    </p>
+                                                )}
+                                                {props?.submitedData
+                                                    ?.verified_at !== null && (
+                                                    <p>
+                                                        Verified At:{' '}
+                                                        {props?.submitedData
+                                                            ?.verified_at
+                                                            ? moment(
+                                                                  props
+                                                                      ?.submitedData
+                                                                      ?.verified_at
+                                                              ).format(
+                                                                  'DD-MM-YYYY'
+                                                              )
+                                                            : '-'}
+                                                    </p>
+                                                )}
+                                            </div>
                                         )}
                                         <Row>
                                             <Row className="card mb-4 my-3 comment-card px-0 px-5 py-3 card">

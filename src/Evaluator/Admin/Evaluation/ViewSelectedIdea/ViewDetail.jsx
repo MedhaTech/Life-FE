@@ -922,30 +922,37 @@ const ViewDetail = (props) => {
                                         )
                                     ) : (
                                         <>
-                                            <button
-                                                className="btn btn-lg px-5 py-2 btn-danger me-3 rounded-pill m-2"
-                                                onClick={() => {
-                                                    setIsreject(true);
-                                                    setReason('');
-                                                    setReasonSec('');
-                                                }}
-                                            >
-                                                <span className="fs-4">
-                                                    Reject
-                                                </span>
-                                            </button>
-                                            <button
-                                                className="btn btn-lg px-5 py-2 btn-success me-3 rounded-pill m-2"
-                                                onClick={() => {
-                                                    handleAlert('accept');
-                                                    setReason('');
-                                                    setReasonSec('');
-                                                }}
-                                            >
-                                                <span className="fs-4">
-                                                    Accept
-                                                </span>
-                                            </button>
+                                            {teamResponse.verified_name !==
+                                                null && (
+                                                <>
+                                                    <button
+                                                        className="btn btn-lg px-5 py-2 btn-danger me-3 rounded-pill m-2"
+                                                        onClick={() => {
+                                                            setIsreject(true);
+                                                            setReason('');
+                                                            setReasonSec('');
+                                                        }}
+                                                    >
+                                                        <span className="fs-4">
+                                                            Reject
+                                                        </span>
+                                                    </button>
+                                                    <button
+                                                        className="btn btn-lg px-5 py-2 btn-success me-3 rounded-pill m-2"
+                                                        onClick={() => {
+                                                            handleAlert(
+                                                                'accept'
+                                                            );
+                                                            setReason('');
+                                                            setReasonSec('');
+                                                        }}
+                                                    >
+                                                        <span className="fs-4">
+                                                            Accept
+                                                        </span>
+                                                    </button>
+                                                </>
+                                            )}
                                         </>
                                     ))}
                             </div>
