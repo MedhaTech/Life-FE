@@ -34,7 +34,12 @@ const InstructionsPage = (props) => {
     const handleStart = () => {
         apiCall();
         localStorage.setItem('condition', false);
-        history.push('/challenges');
+        history.push({
+            pathname: '/challenges',
+            data:{
+                FirstInitia:true
+            }
+        });
     };
     useEffect(() => {
         nextButtonApi();

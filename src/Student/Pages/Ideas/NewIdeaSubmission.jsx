@@ -66,10 +66,11 @@ const LinkComponent = ({ original, item, url, removeFileHandler, i }) => {
 function NewIdeaSubmission(props) {
     const history = useHistory();
     const { t } = useTranslation();
+    const FirstInitiaData =
+        (history && history.location && history.location.data) || false; 
     const currentUser = getCurrentUser('current_user');
     const condition1 = localStorage.getItem('condition') === 'true';
     const [condition, setCondition] = useState(condition1);
-
     const [isDisabled, setIsDisabled] = useState(false);
     const [files, setFiles] = useState([]);
     const showPage = false;
@@ -163,8 +164,10 @@ function NewIdeaSubmission(props) {
             props?.submitedData?.status !== 'SUBMITTED' &&
             props?.submitedData?.initiated_by !== currentUser?.data[0]?.user_id
         ) {
-            console.log('yes');
             setCondition(true);
+        }
+        if(FirstInitiaData){
+            setCondition(false);
         }
     }, [props?.submitedData]);
     const TeamId = currentUser?.data[0]?.team_id;
