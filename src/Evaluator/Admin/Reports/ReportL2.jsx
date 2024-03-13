@@ -128,54 +128,56 @@ const ReportL2 = () => {
     ];
     const teacherDetailsHeaders = [
         {
-            label: 'ATL CODE',
-            key: 'organization_code'
-        },
-        {
             label: 'Institution Unique Code',
-            key: 'unique_code'
+            key: 'institution_code'
         },
         {
-            label: 'State',
-            key: 'state'
+            label: 'Institution Name',
+            key: 'institution_name'
+        },
+
+        {
+            label: 'Place',
+            key: 'place_name'
+        },
+        {
+            label: 'Block',
+            key: 'block_name'
         },
         {
             label: 'District',
-            key: 'district'
+            key: 'district_name'
+        },
+
+        {
+            label: 'State',
+            key: 'state_name'
         },
         {
-            label: 'CID',
-            key: 'challenge_response_id'
+            label: 'Principal Name',
+            key: 'principal_name'
         },
         {
-            label: 'School Name',
-            key: 'organization_name'
+            label: 'Principal Mobile Number',
+            key: 'principal_mobile'
         },
         {
-            label: 'School Type/Category',
-            key: 'category'
-        },
-        {
-            label: 'Pin code',
-            key: 'pin_code'
-        },
-        {
-            label: 'Address',
-            key: 'address'
+            label: 'Principal Email',
+            key: 'principal_email'
         },
 
         {
             label: 'Mentor Name',
-            key: 'full_name'
+            key: 'mentor_name'
         },
         {
-            label: 'Teacher Email',
-            key: 'email'
+            label: 'Email ID',
+            key: 'mentor_email'
         },
 
         {
-            label: 'Teacher Contact',
-            key: 'mobile'
+            label: 'Mentor Mobile Number',
+            key: 'mentor_mobile'
         },
 
         {
@@ -184,44 +186,56 @@ const ReportL2 = () => {
         },
         {
             label: 'Student Name',
-            key: 'Students names'
+            key: 'students_names'
         },
         {
-            label: 'Theme',
-            key: 'sdg'
+            label: 'Which theme are you targeting with your solution ?',
+            key: 'theme_name'
         },
         {
             label: 'Idea Title',
-            key: '1'
+            key: 'idea_title'
         },
         {
-            label: 'Problem Statement',
-            key: 'sub_category'
-        },
-        { label: 'Explain your innovation and working in detail', key: '2' },
-        {
-            label: 'What ATL tools / technologies have you used while developing your project ?',
-            key: '3'
+            label: 'Which problem statement are you targeting with your solution ?',
+            key: 'problem_statement'
         },
         {
-            label: 'Upload Research Document of your project and your team group photo',
-            key: '4'
+            label: 'Description of the Problem Statement ?',
+            key: 'problem_statement_description'
+        },
+        { label: 'Solution Statement', key: 'solution_statement' },
+        {
+            label: 'Detailed Solution',
+            key: 'detailed_solution'
         },
         {
-            label: 'Upload Video of your project (Share Youtube link)',
-            key: '5'
+            label: 'Do you already have a prototype built?',
+            key: 'prototype_available'
+        },
+        {
+            label: 'If yes, Prototype File Upload (Only JPG/PNG)',
+            key: 'Prototype_file'
+        },
+        {
+            label: 'Is this idea submitted by you or your team members in any other Forum or Programs or Publications as on date?',
+            key: 'idea_available'
+        },
+        {
+            label: ' I confirm that the Idea Submitted now submitted is not copied or plagiarized version.',
+            key: 'self_declaration'
         },
         {
             label: 'Overall Score',
-            key: 'Overall score'
+            key: 'overall_score'
         },
         {
             label: 'Quality Score',
-            key: 'Quality score'
+            key: 'quality_score'
         },
         {
             label: 'Feasibility Score',
-            key: 'Feasibility score'
+            key: 'feasibility_score'
         },
         {
             label: 'L2 Status',
@@ -255,7 +269,7 @@ const ReportL2 = () => {
             JSON.stringify({
                 status: 'ACTIVE',
                 // state: RegTeachersState,
-                district: eDistParam
+                district_name: eDistParam
                 // category: category,
                 // sdg: sdg
             })
@@ -274,42 +288,43 @@ const ReportL2 = () => {
         axios(config)
             .then((response) => {
                 if (response.status === 200) {
-                    const transformedData = response.data.data.map((entry) => {
-                        const { response, final_result, ...rest } = entry;
-                        const parsedResponse = JSON.parse(response);
-                        entry['final_result'] =
-                            final_result === null ? 'Not Promoted' : 'Promoted';
-                        entry['Overall score'] = parseFloat(
-                            entry['Overall score']
-                        ).toFixed(2);
-                        entry['Quality score'] = parseFloat(
-                            entry['Quality score']
-                        ).toFixed(2);
-                        entry['Feasibility score'] = parseFloat(
-                            entry['Feasibility score']
-                        ).toFixed(2);
-                        Object.keys(parsedResponse).forEach((key) => {
-                            const { challenge_question_id, selected_option } =
-                                parsedResponse[key];
-                            var newSelectedOption;
-                            const tostringCovert = selected_option.toString();
-                            if (
-                                tostringCovert === null ||
-                                tostringCovert === undefined
-                            ) {
-                                newSelectedOption = selected_option;
-                            } else {
-                                newSelectedOption = tostringCovert
-                                    .replace(/\n/g, ' ')
-                                    .replace(/,/g, ';');
-                            }
-                            entry[challenge_question_id] = newSelectedOption;
-                        });
+                    const transformedData = response.data.data || [];
+                    // const transformedData = response.data.data.map((entry) => {
+                    //     const { response, final_result, ...rest } = entry;
+                    //     const parsedResponse = JSON.parse(response);
+                    //     entry['final_result'] =
+                    //         final_result === null ? 'Not Promoted' : 'Promoted';
+                    //     entry['Overall score'] = parseFloat(
+                    //         entry['Overall score']
+                    //     ).toFixed(2);
+                    //     entry['Quality score'] = parseFloat(
+                    //         entry['Quality score']
+                    //     ).toFixed(2);
+                    //     entry['Feasibility score'] = parseFloat(
+                    //         entry['Feasibility score']
+                    //     ).toFixed(2);
+                    //     Object.keys(parsedResponse).forEach((key) => {
+                    //         const { challenge_question_id, selected_option } =
+                    //             parsedResponse[key];
+                    //         var newSelectedOption;
+                    //         const tostringCovert = selected_option.toString();
+                    //         if (
+                    //             tostringCovert === null ||
+                    //             tostringCovert === undefined
+                    //         ) {
+                    //             newSelectedOption = selected_option;
+                    //         } else {
+                    //             newSelectedOption = tostringCovert
+                    //                 .replace(/\n/g, ' ')
+                    //                 .replace(/,/g, ';');
+                    //         }
+                    //         entry[challenge_question_id] = newSelectedOption;
+                    //     });
 
-                        return {
-                            ...entry
-                        };
-                    });
+                    //     return {
+                    //         ...entry
+                    //     };
+                    // });
 
                     setDownloadData(transformedData);
 

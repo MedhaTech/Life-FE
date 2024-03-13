@@ -34,7 +34,6 @@ const IdeaList = () => {
     const handleNext = () => {
         dispatch(getSubmittedIdeaList('L2'));
     };
-    console.log(ideaDetails, 'ideaDetails');
 
     return (
         <Layout title="L2 Evaluation">
