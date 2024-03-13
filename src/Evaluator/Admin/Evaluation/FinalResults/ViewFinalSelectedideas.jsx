@@ -112,7 +112,7 @@ const ViewSelectedIdea = () => {
         const apiParam = encryptGlobal(
             JSON.stringify({
                 key: title == '0' ? '0' : '1',
-                state: state !== 'All Districts' ? state : ''
+                district: state !== 'All Districts' ? state : ''
                 // sdg : sdg !== 'All Themes' ? sdg : ''
             })
         );
@@ -683,7 +683,7 @@ const ViewSelectedIdea = () => {
                                     <div className="bg-white border card pt-3 mt-5">
                                         <DataTableExtensions
                                             print={false}
-                                            export={true}
+                                            export={false}
                                             {...evaluatedIdeafinal}
                                         >
                                             <DataTable

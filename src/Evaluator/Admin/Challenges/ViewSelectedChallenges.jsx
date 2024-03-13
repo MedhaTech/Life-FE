@@ -427,7 +427,7 @@ const ViewSelectedIdea = () => {
                                     <div className="bg-white border card pt-3 mt-5">
                                         <DataTableExtensions
                                             print={false}
-                                            export={true}
+                                            export={false}
                                             {...evaluatedIdeaforsub}
                                             exportHeaders
                                         >

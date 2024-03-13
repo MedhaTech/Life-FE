@@ -67,7 +67,7 @@ function NewIdeaSubmission(props) {
     const history = useHistory();
     const { t } = useTranslation();
     const FirstInitiaData =
-        (history && history.location && history.location.data) || false; 
+        (history && history.location && history.location.data) || false;
     const currentUser = getCurrentUser('current_user');
     const condition1 = localStorage.getItem('condition') === 'true';
     const [condition, setCondition] = useState(condition1);
@@ -166,7 +166,7 @@ function NewIdeaSubmission(props) {
         ) {
             setCondition(true);
         }
-        if(FirstInitiaData){
+        if (FirstInitiaData) {
             setCondition(false);
         }
     }, [props?.submitedData]);
@@ -574,10 +574,10 @@ function NewIdeaSubmission(props) {
                                                         name="teams"
                                                         id="teams"
                                                     >
-                                                        {/* <option value={''}>
+                                                        <option value={''}>
                                                             Please select the
                                                             Theme
-                                                        </option> */}
+                                                        </option>
                                                         {themesList.map(
                                                             (item, i) => (
                                                                 <option
