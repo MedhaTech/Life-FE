@@ -9,7 +9,6 @@ import { useDispatch } from 'react-redux';
 import { getSubmittedIdeaList } from '../store/evaluator/action';
 
 const RateIdea = (props) => {
-    console.log(props, 'props');
     const currentUser = getCurrentUser('current_user');
     const dispatch = useDispatch();
     const ratingParams = [

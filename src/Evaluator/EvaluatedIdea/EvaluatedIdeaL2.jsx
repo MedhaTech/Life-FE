@@ -65,7 +65,7 @@ const EvaluatedIdea = () => {
         const newQuery = {
             evaluation_status: 'SELECTEDROUND1',
             level: 'L2',
-            state: state !== 'All States' ? state : ''
+            district: state !== 'All Districts' ? state : ''
             // sdg: sdg !== 'All Themes' ? sdg : ''
         };
         setshowspin(true);

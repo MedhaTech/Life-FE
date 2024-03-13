@@ -23,7 +23,7 @@ const IdeaList = () => {
     React.useEffect(() => {
         dispatch(getSubmittedIdeaList('L2'));
     }, []);
-    
+
     React.useEffect(() => {
         if (allIdeaList) {
             setIdeaDetails(allIdeaList);
@@ -34,6 +34,7 @@ const IdeaList = () => {
     const handleNext = () => {
         dispatch(getSubmittedIdeaList('L2'));
     };
+    console.log(ideaDetails, 'ideaDetails');
 
     return (
         <Layout title="L2 Evaluation">
@@ -44,7 +45,7 @@ const IdeaList = () => {
                 <div className="row">
                     {!isNextDiv ? (
                         <div className="col-12">
-                            {ideaDetails ? (
+                            {Object.keys(ideaDetails).length > 0 ? (
                                 <NextLevel
                                     ideaDetails={ideaDetails}
                                     handleSkip={handleNext}
@@ -59,8 +60,8 @@ const IdeaList = () => {
                                                 <br />
                                             </div>
                                             <h2 className="my-auto text-center my-4">
-                                                All idea has been processed, no
-                                                more idea to display.
+                                                All idea has been rated, no more
+                                                idea to display.
                                             </h2>
                                         </div>
                                     </div>

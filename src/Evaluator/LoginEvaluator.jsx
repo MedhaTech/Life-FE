@@ -96,7 +96,7 @@ const LoginEvaluator = (props) => {
 
     const inputUserId = {
         type: 'text',
-        placeholder: 'Enter Evaluator Mobile Number '
+        placeholder: 'Enter Evaluator Email Id'
     };
 
     const inputPassword = {
