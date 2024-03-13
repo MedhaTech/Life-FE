@@ -84,7 +84,7 @@ const EvaluatedIdea = () => {
                         ? 'SELECTEDROUND1'
                         : 'REJECTEDROUND1'
                     : '',
-            state: state !== 'All States' ? state : '',
+            district: state !== 'All Districts' ? state : '',
             // sdg: sdg !== 'All Themes' ? sdg : '',
             rejected_reason: reason
             // rejected_reasonSecond: reason2

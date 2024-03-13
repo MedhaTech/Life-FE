@@ -93,7 +93,7 @@ const ViewSelectedIdea = () => {
     });
     const newQuery = {
         level: level,
-        state: state !== 'All Districts' ? state : '',
+        district: state !== 'All Districts' ? state : '',
         // sdg: sdg !== 'All Themes' ? sdg : '',
         rejected_reason: reason,
         // rejected_reasonSecond: reasonSec,
