@@ -8,6 +8,7 @@ import moment from 'moment';
 import RatedDetailCard from './RatedDetailCard';
 import { Row, Col, Form, Label } from 'reactstrap';
 import { useTranslation } from 'react-i18next';
+import { Card } from 'react-bootstrap';
 
 const EvaluatedIdeaDetail = (props) => {
     const [teamResponse, setTeamResponse] = React.useState({});
@@ -485,18 +486,18 @@ const EvaluatedIdeaDetail = (props) => {
                                     <>
                                         <p className="text-center">
                                             <span className="text-bold">
-                                                Rejected Reason 1:{' '}
+                                                Rejected Reason :{' '}
                                             </span>{' '}
                                             {props?.ideaDetails
                                                 ?.rejected_reason || ''}
                                         </p>
-                                        <p className="text-center">
+                                        {/* <p className="text-center">
                                             <span className="text-bold">
                                                 Rejected Reason 2:{' '}
                                             </span>{' '}
                                             {props?.ideaDetails
                                                 ?.rejected_reasonSecond || ''}
-                                        </p>
+                                        </p> */}
                                     </>
                                 )}
                             </div>
@@ -505,6 +506,7 @@ const EvaluatedIdeaDetail = (props) => {
                             )}
                         </div>
                     </div>
+
                     <div>
                         <Button
                             btnClass="primary"

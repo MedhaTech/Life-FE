@@ -23,6 +23,8 @@ import {
     Input,
     Label
 } from 'reactstrap';
+import moment from 'moment';
+
 import { Button } from '../../../stories/Button';
 import { getCurrentUser, getNormalHeaders } from '../../../helpers/Utils';
 import { encryptGlobal } from '../../../constants/encryptDecrypt';
@@ -67,7 +69,7 @@ function NewIdeaSubmission(props) {
     const history = useHistory();
     const { t } = useTranslation();
     const FirstInitiaData =
-        (history && history.location && history.location.data) || false; 
+        (history && history.location && history.location.data) || false;
     const currentUser = getCurrentUser('current_user');
     const condition1 = localStorage.getItem('condition') === 'true';
     const [condition, setCondition] = useState(condition1);
@@ -127,34 +129,46 @@ function NewIdeaSubmission(props) {
     //setting up initial values
     useEffect(() => {
         themeApi();
-        setThemeProId(props?.submitedData?.theme_problem_id
-            ? props?.submitedData?.theme_problem_id
-            : '0');
+        setThemeProId(
+            props?.submitedData?.theme_problem_id
+                ? props?.submitedData?.theme_problem_id
+                : '0'
+        );
         setTheme(props?.submitedData?.themes_problem?.theme_name);
-        setProbStatment(props?.submitedData?.themes_problem?.problem_statement
-            ? props?.submitedData?.themes_problem?.problem_statement
-            : '');
-        setDescription(props?.submitedData?.themes_problem?.problem_statement_description);
+        setProbStatment(
+            props?.submitedData?.themes_problem?.problem_statement
+                ? props?.submitedData?.themes_problem?.problem_statement
+                : ''
+        );
+        setDescription(
+            props?.submitedData?.themes_problem?.problem_statement_description
+        );
         setIdeaTitle(props?.submitedData?.idea_title);
         setSolStatement(props?.submitedData?.solution_statement);
         setDetailSol(props?.submitedData?.detailed_solution);
         setProtoType(props?.submitedData?.prototype_available);
         setIdeaPublication(props?.submitedData?.idea_available);
-        setSelfCheck(props?.submitedData?.self_declaration === 'YES' ? true : false);
-        setSubmitedFile(props?.submitedData?.Prototype_file
-            ? props?.submitedData?.Prototype_file.split(', ')
-            : []);
+        setSelfCheck(
+            props?.submitedData?.self_declaration === 'YES' ? true : false
+        );
+        setSubmitedFile(
+            props?.submitedData?.Prototype_file
+                ? props?.submitedData?.Prototype_file.split(', ')
+                : []
+        );
     }, [props?.submitedData]);
     useEffect(() => {
         if (props?.submitedData?.status === 'SUBMITTED') {
             setCondition(true);
             localStorage.setItem('condition', true);
         }
-        if (props?.submitedData?.status !==
-            'SUBMITTED' && props?.submitedData?.initiated_by !== currentUser?.data[0]?.user_id) {
+        if (
+            props?.submitedData?.status !== 'SUBMITTED' &&
+            props?.submitedData?.initiated_by !== currentUser?.data[0]?.user_id
+        ) {
             setCondition(true);
         }
-        if(FirstInitiaData){
+        if (FirstInitiaData) {
             setCondition(false);
         }
     }, [props?.submitedData]);
@@ -172,8 +186,6 @@ function NewIdeaSubmission(props) {
     }, [theme]);
     useEffect(() => {
         if (themeProId) {
-
-
             listofproblemsandID.length > 0 &&
                 setProbStatment(
                     listofproblemsandID[themeProId]?.problem_statement
@@ -295,7 +307,8 @@ function NewIdeaSubmission(props) {
             );
             const result = await axios
                 .post(
-                    `${process.env.REACT_APP_API_BASE_URL + '/ideas/fileUpload'
+                    `${
+                        process.env.REACT_APP_API_BASE_URL + '/ideas/fileUpload'
                     }?Data=${subId}`,
                     formData,
                     axiosConfig
@@ -330,8 +343,8 @@ function NewIdeaSubmission(props) {
                 theme === 'Others'
                     ? othersPStatment
                     : probStatment === 'Others'
-                        ? othersPStatment
-                        : probStatment,
+                    ? othersPStatment
+                    : probStatment,
             problem_statement_description: description,
             idea_title: ideaTitle,
             solution_statement: solStatement,
@@ -372,15 +385,20 @@ function NewIdeaSubmission(props) {
                 allques = false;
             }
 
-            if (protoType === 'YES' && (attachmentsList.length === 0 && submitedFile.length === 0)) {
+            if (
+                protoType === 'YES' &&
+                attachmentsList.length === 0 &&
+                submitedFile.length === 0
+            ) {
                 allques = false;
             }
         }
         if (allques || stats === 'DRAFT') {
             var config = {
                 method: 'put',
-                url: `${process.env.REACT_APP_API_BASE_URL + '/ideas/ideaUpdate'
-                    }`,
+                url: `${
+                    process.env.REACT_APP_API_BASE_URL + '/ideas/ideaUpdate'
+                }`,
                 headers: {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${currentUser?.data[0]?.token}`
@@ -497,8 +515,10 @@ function NewIdeaSubmission(props) {
                                         className="form-row row mb-5"
                                         isSubmitting
                                     >
-                                        {(props?.submitedData?.status !==
-                                            'SUBMITTED' && props?.submitedData?.initiated_by === currentUser?.data[0]?.user_id) ? (
+                                        {props?.submitedData?.status !==
+                                            'SUBMITTED' &&
+                                        props?.submitedData?.initiated_by ===
+                                            currentUser?.data[0]?.user_id ? (
                                             <div className="text-right">
                                                 {condition && (
                                                     <Button
@@ -527,7 +547,44 @@ function NewIdeaSubmission(props) {
                                                     )}
                                                 />
                                             </div>
-                                        ) : (`Idea initiated by ${props?.submitedData?.initiated_name}`)}
+                                        ) : (
+                                            <div>
+                                                <p>
+                                                    Idea Initiated by :{' '}
+                                                    {
+                                                        props?.submitedData
+                                                            ?.initiated_name
+                                                    }
+                                                </p>
+                                                {props?.submitedData
+                                                    ?.verified_name !==
+                                                    null && (
+                                                    <p>
+                                                        Mentor Verified by :{' '}
+                                                        {
+                                                            props?.submitedData
+                                                                ?.verified_name
+                                                        }
+                                                    </p>
+                                                )}
+                                                {props?.submitedData
+                                                    ?.verified_at !== null && (
+                                                    <p>
+                                                        Verified At:{' '}
+                                                        {props?.submitedData
+                                                            ?.verified_at
+                                                            ? moment(
+                                                                  props
+                                                                      ?.submitedData
+                                                                      ?.verified_at
+                                                              ).format(
+                                                                  'DD-MM-YYYY'
+                                                              )
+                                                            : '-'}
+                                                    </p>
+                                                )}
+                                            </div>
+                                        )}
                                         <Row>
                                             <Row className="card mb-4 my-3 comment-card px-0 px-5 py-3 card">
                                                 <div className="question quiz mb-0">
@@ -554,6 +611,10 @@ function NewIdeaSubmission(props) {
                                                         name="teams"
                                                         id="teams"
                                                     >
+                                                        <option value={''}>
+                                                            Please select the
+                                                            Theme
+                                                        </option>
                                                         {themesList.map(
                                                             (item, i) => (
                                                                 <option
@@ -635,7 +696,7 @@ function NewIdeaSubmission(props) {
                                                     <Row className="card mb-4 my-3 comment-card px-0 px-5 py-3 card">
                                                         <div className="question quiz mb-0">
                                                             {theme ===
-                                                                'Others' ? (
+                                                            'Others' ? (
                                                                 <b
                                                                     style={{
                                                                         fontSize:
@@ -886,8 +947,8 @@ function NewIdeaSubmission(props) {
                                                             )}
                                                         </b>
                                                     ) : theme !== 'Others' &&
-                                                        probStatment ===
-                                                        'Others' ? (
+                                                      probStatment ===
+                                                          'Others' ? (
                                                         <b
                                                             style={{
                                                                 fontSize:
@@ -929,7 +990,7 @@ function NewIdeaSubmission(props) {
                                                                 (theme !==
                                                                     'Others' &&
                                                                     probStatment !==
-                                                                    'Others')
+                                                                        'Others')
                                                             }
                                                             placeholder="Enter the Problem statement"
                                                             value={description}
@@ -967,7 +1028,7 @@ function NewIdeaSubmission(props) {
                                                             )}
                                                         </b>
                                                     ) : probStatment ===
-                                                        'Others' ? (
+                                                      'Others' ? (
                                                         <b
                                                             style={{
                                                                 fontSize:
@@ -1041,7 +1102,7 @@ function NewIdeaSubmission(props) {
                                                             )}
                                                         </b>
                                                     ) : probStatment ===
-                                                        'Others' ? (
+                                                      'Others' ? (
                                                         <b
                                                             style={{
                                                                 fontSize:
@@ -1115,7 +1176,7 @@ function NewIdeaSubmission(props) {
                                                             )}
                                                         </b>
                                                     ) : probStatment ===
-                                                        'Others' ? (
+                                                      'Others' ? (
                                                         <b
                                                             style={{
                                                                 fontSize:
@@ -1189,7 +1250,7 @@ function NewIdeaSubmission(props) {
                                                             )}
                                                         </b>
                                                     ) : probStatment ===
-                                                        'Others' ? (
+                                                      'Others' ? (
                                                         <b
                                                             style={{
                                                                 fontSize:
@@ -1298,10 +1359,11 @@ function NewIdeaSubmission(props) {
                                                                 {!condition && (
                                                                     <Button
                                                                         type="button"
-                                                                        btnClass={`${condition
-                                                                            ? 'secondary'
-                                                                            : 'primary'
-                                                                            } me-3 pointer `}
+                                                                        btnClass={`${
+                                                                            condition
+                                                                                ? 'secondary'
+                                                                                : 'primary'
+                                                                        } me-3 pointer `}
                                                                         size="small"
                                                                         label={t(
                                                                             'student.upload_file'
@@ -1329,7 +1391,7 @@ function NewIdeaSubmission(props) {
                                                         <div className="mx-4">
                                                             {immediateLink &&
                                                                 immediateLink.length >
-                                                                0 &&
+                                                                    0 &&
                                                                 immediateLink.map(
                                                                     (
                                                                         item,
@@ -1350,7 +1412,7 @@ function NewIdeaSubmission(props) {
                                                                 )}
                                                             {!immediateLink &&
                                                                 files.length >
-                                                                0 &&
+                                                                    0 &&
                                                                 files.map(
                                                                     (
                                                                         item,
@@ -1378,7 +1440,7 @@ function NewIdeaSubmission(props) {
 
                                                             {!immediateLink &&
                                                                 files.length ===
-                                                                0 &&
+                                                                    0 &&
                                                                 submitedFile.map(
                                                                     (
                                                                         item,
@@ -1417,7 +1479,7 @@ function NewIdeaSubmission(props) {
                                                             )}
                                                         </b>
                                                     ) : probStatment ===
-                                                        'Others' ? (
+                                                      'Others' ? (
                                                         <b
                                                             style={{
                                                                 fontSize:
@@ -1587,14 +1649,15 @@ function NewIdeaSubmission(props) {
                                                     handleSubmit(e, 'DRAFT')
                                                 }
                                                 size="small"
-                                                label={`${loading.draft
-                                                    ? t(
-                                                        'teacher_teams.loading'
-                                                    )
-                                                    : t(
-                                                        'teacher_teams.draft'
-                                                    )
-                                                    }`}
+                                                label={`${
+                                                    loading.draft
+                                                        ? t(
+                                                              'teacher_teams.loading'
+                                                          )
+                                                        : t(
+                                                              'teacher_teams.draft'
+                                                          )
+                                                }`}
                                             />
                                         </div>
                                     </Col>

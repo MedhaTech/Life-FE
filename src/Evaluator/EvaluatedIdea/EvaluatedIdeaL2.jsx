@@ -65,7 +65,7 @@ const EvaluatedIdea = () => {
         const newQuery = {
             evaluation_status: 'SELECTEDROUND1',
             level: 'L2',
-            state: state !== 'All States' ? state : ''
+            district: state !== 'All Districts' ? state : ''
             // sdg: sdg !== 'All Themes' ? sdg : ''
         };
         setshowspin(true);
@@ -94,29 +94,62 @@ const EvaluatedIdea = () => {
                     ];
                 },
                 sortable: true,
-                width: '8rem'
+                width: '10rem'
             },
             {
                 name: 'District',
                 selector: (row) => row.district,
-                width: '10rem'
+                width: '13rem'
             },
             // {
             //     name: 'Institution Code',
             //     selector: (row) => row.institution_code,
             //     width: '15rem'
             // },
-            {
-                name: 'Team Name',
-                selector: (row) => row.team_name || '',
-                sortable: true,
-                width: '13rem'
-            },
+            // {
+            //     name: 'Team Name',
+            //     selector: (row) => row.team_name || '',
+            //     sortable: true,
+            //     width: '13rem'
+            // },
             {
                 name: 'CID',
                 selector: (row) => row.idea_id,
-
-                width: '8rem'
+                cell: (params) => {
+                    return [
+                        <div className="d-flex" key={params}>
+                            <a
+                                href="#"
+                                style={{ color: 'black' }}
+                                // className="btn btn-primary btn-lg mr-5 mx-2"
+                                onClick={(e) => {
+                                    e.preventDefault(); // Prevent the default behavior of anchor tag
+                                    setIdeaDetails(params);
+                                    setIsDetail(true);
+                                    let index = 0;
+                                    // tableData?.forEach((item, i) => {
+                                    //     if (
+                                    //         item?.challenge_response_id ==
+                                    //         params?.challenge_response_id
+                                    //     ) {
+                                    //         index = i;
+                                    //     }
+                                    // });
+                                    setCurrentRow(index + 1);
+                                }}
+                            >
+                                {params.idea_id}
+                            </a>
+                            {/* <FaDownload
+                                size={22}
+                                onClick={() => {
+                                    handleDownpdf(params);
+                                }}
+                            /> */}
+                        </div>
+                    ];
+                },
+                width: '10rem'
             },
             {
                 name: 'Theme',
@@ -130,23 +163,23 @@ const EvaluatedIdea = () => {
                         {row?.themes_problem?.theme_name}
                     </div>
                 ),
-                width: '15rem'
+                width: '25rem'
             },
 
-            {
-                name: 'Problem Statement',
-                cell: (row) => (
-                    <div
-                        style={{
-                            whiteSpace: 'pre-wrap',
-                            wordWrap: 'break-word'
-                        }}
-                    >
-                        {row?.themes_problem?.problem_statement}
-                    </div>
-                ),
-                width: '20rem'
-            },
+            // {
+            //     name: 'Problem Statement',
+            //     cell: (row) => (
+            //         <div
+            //             style={{
+            //                 whiteSpace: 'pre-wrap',
+            //                 wordWrap: 'break-word'
+            //             }}
+            //         >
+            //             {row?.themes_problem?.problem_statement}
+            //         </div>
+            //     ),
+            //     width: '20rem'
+            // },
             {
                 name: 'Idea Name',
                 // sortable: true,
@@ -160,13 +193,13 @@ const EvaluatedIdea = () => {
                         {row?.idea_title}
                     </div>
                 ),
-                width: '15rem'
+                width: '22rem'
             },
 
             {
                 name: 'Submitted By',
                 selector: (row) => row.initiated_name,
-                width: '10rem'
+                width: '15rem'
             },
             // {
             //     name: 'Evaluated At',

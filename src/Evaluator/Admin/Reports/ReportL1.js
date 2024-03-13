@@ -85,7 +85,7 @@ const ReportL1 = () => {
     const summaryHeaders = [
         {
             label: 'District Name',
-            key: 'district'
+            key: 'district_name'
         },
         {
             label: 'No of Ideas Evaluated',
@@ -122,54 +122,56 @@ const ReportL1 = () => {
     ];
     const teacherDetailsHeaders = [
         {
-            label: 'ATL CODE',
-            key: 'organization_code'
+            label: 'Institution Unique Code',
+            key: 'institution_code'
         },
         {
-            label: 'Institution Unique Code',
-            key: 'unique_code'
+            label: 'Institution Name',
+            key: 'institution_name'
         },
-        // {
-        //     label: 'State',
-        //     key: 'state'
-        // },
+
+        {
+            label: 'Place',
+            key: 'place_name'
+        },
+        {
+            label: 'Block',
+            key: 'block_name'
+        },
         {
             label: 'District',
-            key: 'district'
+            key: 'district_name'
+        },
+
+        {
+            label: 'State',
+            key: 'state_name'
         },
         {
-            label: 'CID',
-            key: 'challenge_response_id'
+            label: 'Principal Name',
+            key: 'principal_name'
         },
         {
-            label: 'School Name',
-            key: 'organization_name'
+            label: 'Principal Mobile Number',
+            key: 'principal_mobile'
         },
         {
-            label: 'School Type/Category',
-            key: 'category'
-        },
-        {
-            label: 'Pin code',
-            key: 'pin_code'
-        },
-        {
-            label: 'Address',
-            key: 'address'
+            label: 'Principal Email',
+            key: 'principal_email'
         },
 
         {
             label: 'Mentor Name',
-            key: 'full_name'
+            key: 'mentor_name'
         },
         {
-            label: 'Teacher Email',
-            key: 'email'
+            label: 'Email ID',
+            key: 'mentor_email'
         },
-
+       
         {
-            label: 'Teacher Contact',
-            key: 'mobile'
+            label: 'Mentor Mobile Number',
+            key: 'mentor_mobile'
         },
 
         {
@@ -178,32 +180,44 @@ const ReportL1 = () => {
         },
         {
             label: 'Student Name',
-            key: 'Students names'
+            key: 'students_names'
         },
         {
-            label: 'Theme',
-            key: 'sdg'
+            label: 'Which theme are you targeting with your solution ?',
+            key: 'theme_name'
         },
         {
             label: 'Idea Title',
-            key: '1'
+            key: 'idea_title'
         },
         {
-            label: 'Problem Statement',
-            key: 'sub_category'
-        },
-        { label: 'Explain your innovation and working in detail', key: '2' },
-        {
-            label: 'What ATL tools / technologies have you used while developing your project ?',
-            key: '3'
+            label: 'Which problem statement are you targeting with your solution ?',
+            key: 'problem_statement'
         },
         {
-            label: 'Upload Research Document of your project and your team group photo',
-            key: '4'
+            label: 'Description of the Problem Statement ?',
+            key: 'problem_statement_description'
+        },
+        { label: 'Solution Statement', key: 'solution_statement' },
+        {
+            label: 'Detailed Solution',
+            key: 'detailed_solution'
         },
         {
-            label: 'Upload Video of your project (Share Youtube link)',
-            key: '5'
+            label: 'Do you already have a prototype built?',
+            key: 'prototype_available'
+        },
+        {
+            label: 'If yes, Prototype File Upload (Only JPG/PNG)',
+            key: 'Prototype_file'
+        },
+        {
+            label: 'Is this idea submitted by you or your team members in any other Forum or Programs or Publications as on date?',
+            key: 'idea_available'
+        },
+        {
+            label: ' I confirm that the Idea Submitted now submitted is not copied or plagiarized version.',
+            key: 'self_declaration'
         },
         {
             label: 'L1 Status',
@@ -235,7 +249,7 @@ const ReportL1 = () => {
             JSON.stringify({
                 status: 'ACTIVE',
                 // state: RegTeachersState,
-                district: edist
+                district_name: edist
                 // category: category,
                 // sdg: sdg
             })
@@ -254,35 +268,37 @@ const ReportL1 = () => {
         axios(config)
             .then((response) => {
                 if (response.status === 200) {
-                    const transformedData = response.data.data.map((entry) => {
-                        const { response, evaluation_status, ...rest } = entry;
-                        const parsedResponse = JSON.parse(response);
-                        entry['evaluation_status'] =
-                            evaluation_status === 'SELECTEDROUND1'
-                                ? 'Accepted'
-                                : 'Rejected';
-                        Object.keys(parsedResponse).forEach((key) => {
-                            const { challenge_question_id, selected_option } =
-                                parsedResponse[key];
-                            var newSelectedOption;
-                            const tostringCovert = selected_option.toString();
-                            if (
-                                tostringCovert === null ||
-                                tostringCovert === undefined
-                            ) {
-                                newSelectedOption = selected_option;
-                            } else {
-                                newSelectedOption = tostringCovert
-                                    .replace(/\n/g, ' ')
-                                    .replace(/,/g, ';');
-                            }
-                            entry[challenge_question_id] = newSelectedOption;
-                        });
+                    // console.log(response, 'l1');
+                    const transformedData = response.data.data || [];
+                    // const transformedData = response.data.data.map((entry) => {
+                    //     const { response, evaluation_status, ...rest } = entry;
+                    //     const parsedResponse = JSON.parse(response);
+                    //     entry['evaluation_status'] =
+                    //         evaluation_status === 'SELECTEDROUND1'
+                    //             ? 'Accepted'
+                    //             : 'Rejected';
+                    //     Object.keys(parsedResponse).forEach((key) => {
+                    //         const { challenge_question_id, selected_option } =
+                    //             parsedResponse[key];
+                    //         var newSelectedOption;
+                    //         const tostringCovert = selected_option.toString();
+                    //         if (
+                    //             tostringCovert === null ||
+                    //             tostringCovert === undefined
+                    //         ) {
+                    //             newSelectedOption = selected_option;
+                    //         } else {
+                    //             newSelectedOption = tostringCovert
+                    //                 .replace(/\n/g, ' ')
+                    //                 .replace(/,/g, ';');
+                    //         }
+                    //         entry[challenge_question_id] = newSelectedOption;
+                    //     });
 
-                        return {
-                            ...entry
-                        };
-                    });
+                    //     return {
+                    //         ...entry
+                    //     };
+                    // });
                     setDownloadData(transformedData);
 
                     csvLinkRef.current.link.click();
@@ -374,7 +390,7 @@ const ReportL1 = () => {
                     );
 
                     var array = chartTableData;
-                    array.push({ district: 'Total Count', ...total });
+                    array.push({ district_name: 'Total Count', ...total });
                     setChartTableData(array);
                     setDownloadTableData(chartTableData);
                     setTotalCount(total);
@@ -592,7 +608,7 @@ const ReportL1 = () => {
                                                                             </td>
                                                                             <td>
                                                                                 {
-                                                                                    item.district
+                                                                                    item.district_name
                                                                                 }
                                                                             </td>
                                                                             <td>

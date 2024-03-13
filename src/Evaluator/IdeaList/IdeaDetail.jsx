@@ -7,6 +7,8 @@ import { getCurrentUser, openNotificationWithIcon } from '../../helpers/Utils';
 import axios from 'axios';
 import { Row, Col, Form, Label } from 'reactstrap';
 import { useTranslation } from 'react-i18next';
+import { Card } from 'react-bootstrap';
+import moment from 'moment';
 
 import { useDispatch } from 'react-redux';
 import { getSubmittedIdeaList } from '../store/evaluator/action';
@@ -219,8 +221,8 @@ const IdeaDetail = (props) => {
                                         />
                                     </div>
                                 </div>
-                                {/* <div className="col-lg-12 mt-3">
-                                    <Row className="col-lg-12">
+                                <div className="col-lg-12 mt-3">
+                                    {/* <Row className="col-lg-12">
                                         <h2>
                                             <span
                                                 style={{
@@ -234,8 +236,8 @@ const IdeaDetail = (props) => {
                                                     ''}
                                             </span>
                                         </h2>
-                                    </Row>
-                                </div> */}
+                                    </Row> */}
+                                </div>
                             </div>
                         </div>
 

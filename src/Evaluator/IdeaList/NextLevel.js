@@ -7,6 +7,8 @@ import { getCurrentUser } from '../../helpers/Utils';
 import RateIdea from './RateIdea';
 import { Row, Col, Form, Label } from 'reactstrap';
 import { useTranslation } from 'react-i18next';
+import { Card } from 'react-bootstrap';
+import moment from 'moment';
 
 const NextLevel = (props) => {
     // console.log(props);
@@ -95,8 +97,8 @@ const NextLevel = (props) => {
                                         />
                                     </div>
                                 </div>
-                                {/* <div className="col-lg-12 mt-3">
-                                    <Row className="col-lg-12">
+                                <div className="col-lg-12 mt-3">
+                                    {/* <Row className="col-lg-12">
                                         <h2>
                                             <span
                                                 style={{
@@ -110,8 +112,8 @@ const NextLevel = (props) => {
                                                     ''}
                                             </span>
                                         </h2>
-                                    </Row>
-                                </div> */}
+                                    </Row> */}
+                                </div>
                             </div>
                         </div>
 

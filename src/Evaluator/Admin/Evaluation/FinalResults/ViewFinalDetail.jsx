@@ -14,11 +14,14 @@ import DetailToDownload from '../../Challenges/DetailToDownload';
 import html2canvas from 'html2canvas';
 import { useReactToPrint } from 'react-to-print';
 import { Col, Container, Row } from 'reactstrap';
+import { Card } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 
 const ViewDetail = (props) => {
     const { search } = useLocation();
     const level = new URLSearchParams(search).get('level');
     const [teamResponse, setTeamResponse] = React.useState({});
+    const { t } = useTranslation();
 
     // React.useEffect(() => {
     //     if (props?.ideaDetails?.response) {
@@ -68,7 +71,17 @@ const ViewDetail = (props) => {
                 : 'temp'
         }_IdeaSubmission`
     });
-
+    const files = teamResponse?.Prototype_file
+        ? teamResponse?.Prototype_file.split(',')
+        : [];
+    const downloadFile = (item) => {
+        const link = document.createElement('a');
+        link.href = item;
+        link.download = 'upload.pdf';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    };
     return (
         <div>
             {teamResponse ? (
@@ -163,6 +176,158 @@ const ViewDetail = (props) => {
                                     </div>
                                 </div>
                                 <div className="col-lg-12 mt-3">
+                                    <Row className="col-lg-12">
+                                        <Col className="md-6">
+                                            <Card
+                                                bg="light"
+                                                text="dark"
+                                                className="mb-4"
+                                                // style={{ height: '150px' }}
+                                            >
+                                                <Card.Body>
+                                                    <label
+                                                        htmlFor="teams"
+                                                        className=""
+                                                    >
+                                                        Institutions Details
+                                                    </label>
+                                                    <Card.Text
+                                                        style={{
+                                                            // fontSize: '30px',
+                                                            // fontWeight: 'bold',
+                                                            marginTop: '10px',
+                                                            marginBottom: '20px'
+                                                        }}
+                                                    >
+                                                        {/* {regInst} */}
+                                                        <span>
+                                                            Institution Code :
+                                                        </span>
+                                                        <span className=" fs-3">
+                                                            &nbsp;
+                                                            {
+                                                                teamResponse?.institution_code
+                                                            }
+                                                        </span>
+                                                        <br />
+                                                        <span>
+                                                            Institution Name :
+                                                        </span>
+                                                        <span className="fs-3">
+                                                            &nbsp;
+                                                            {
+                                                                teamResponse?.institution_name
+                                                            }
+                                                        </span>
+                                                        <br />
+                                                        <span>Place :</span>
+                                                        <span className="fs-3">
+                                                            &nbsp;
+                                                            {
+                                                                teamResponse?.place_name
+                                                            }
+                                                        </span>
+                                                        <br />
+                                                        <span>Block :</span>
+                                                        <span className="fs-3">
+                                                            &nbsp;
+                                                            {
+                                                                teamResponse?.block_name
+                                                            }
+                                                        </span>{' '}
+                                                        <br />
+                                                        <span>Taluk :</span>
+                                                        <span className="fs-3">
+                                                            &nbsp;
+                                                            {teamResponse?.taluk_name
+                                                                ? teamResponse?.taluk_name
+                                                                : '-'}
+                                                        </span>{' '}
+                                                        <br />
+                                                        <span>District :</span>
+                                                        <span className="fs-3">
+                                                            &nbsp;
+                                                            {
+                                                                teamResponse?.district
+                                                            }
+                                                        </span>
+                                                    </Card.Text>
+                                                </Card.Body>
+                                            </Card>
+                                            {/* <h2>
+                                                <span
+                                                    style={{
+                                                        color: 'blue'
+                                                    }}
+                                                >
+                                                    Institutions Details:{' '}
+                                                </span>
+                                                {/* <span className="text-capitalize fs-3">
+                                                {props?.ideaDetails?.themes_problem?.problem_statement?.toLowerCase() ||
+                                                    ''}
+                                            </span> */}
+                                            {/* </h2>  */}
+                                        </Col>
+                                        <Col className="md-6">
+                                            <Card
+                                                bg="light"
+                                                text="dark"
+                                                className="mb-4"
+                                                style={{ height: '227px' }}
+                                            >
+                                                <Card.Body>
+                                                    <label
+                                                        htmlFor="teams"
+                                                        className=""
+                                                    >
+                                                        Team Details
+                                                    </label>
+                                                    <Card.Text
+                                                        style={{
+                                                            // fontSize: '30px',
+                                                            // fontWeight: 'bold',
+                                                            marginTop: '10px',
+                                                            marginBottom: '20px'
+                                                        }}
+                                                    >
+                                                        {/* {regInst} */}
+                                                        <span>Team Name :</span>
+                                                        <span className=" fs-3">
+                                                            &nbsp;
+                                                            {
+                                                                teamResponse?.team_name
+                                                            }
+                                                        </span>
+                                                        <br />
+                                                        <span>
+                                                            Team Members :
+                                                        </span>
+                                                        <span className=" fs-3">
+                                                            &nbsp;
+                                                            {teamResponse &&
+                                                                teamResponse.team_members &&
+                                                                teamResponse.team_members.join(
+                                                                    ', '
+                                                                )}
+                                                        </span>
+                                                    </Card.Text>
+                                                </Card.Body>
+                                            </Card>
+                                            {/* <h2>
+                                                <span
+                                                    style={{
+                                                        color: 'blue'
+                                                    }}
+                                                >
+                                                    Institutions Details:{' '}
+                                                </span>
+                                                {/* <span className="text-capitalize fs-3">
+                                                {props?.ideaDetails?.themes_problem?.problem_statement?.toLowerCase() ||
+                                                    ''}
+                                            </span> */}
+                                            {/* </h2>  */}
+                                        </Col>
+                                    </Row>
                                     {/* <Row className="col-lg-12">
                                         <h2>
                                             <span
@@ -587,6 +752,51 @@ const ViewDetail = (props) => {
                                     />
                                 )}
                         </div>
+                    </div>
+                    <div style={{ display: 'flex' }}>
+                        <p
+                            style={{ fontSize: '1.5rem', margin: '1rem' }}
+                            className="fw-bold"
+                        >
+                            Submitted By :{' '}
+                            {teamResponse.initiated_name
+                                ? teamResponse.initiated_name
+                                : '-'}
+                        </p>
+                        <p
+                            style={{ fontSize: '1.5rem', margin: '1rem' }}
+                            className="fw-bold"
+                        >
+                            Submitted At :{' '}
+                            {teamResponse.submitted_at
+                                ? moment(teamResponse.submitted_at).format(
+                                      'DD-MM-YYYY'
+                                  )
+                                : '-'}
+                        </p>
+                    </div>
+                    <br />
+                    <div style={{ display: 'flex' }}>
+                        <p
+                            style={{ fontSize: '1.5rem', margin: '1rem' }}
+                            className="fw-bold"
+                        >
+                            Verified By :{' '}
+                            {teamResponse.verified_name
+                                ? teamResponse.verified_name
+                                : '-'}
+                        </p>
+                        <p
+                            style={{ fontSize: '1.5rem', margin: '1rem' }}
+                            className="fw-bold"
+                        >
+                            Verified At :{' '}
+                            {teamResponse.verified_at
+                                ? moment(teamResponse.verified_at).format(
+                                      'DD-MM-YYYY'
+                                  )
+                                : '-'}
+                        </p>
                     </div>
                     <div>
                         <Button

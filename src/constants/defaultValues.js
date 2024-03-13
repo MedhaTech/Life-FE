@@ -168,8 +168,7 @@ export const URL = {
         process.env.REACT_APP_API_BASE_URL +
         '/challenge_response/evaluationResult',
     getFinalEvaluation:
-        process.env.REACT_APP_API_BASE_URL +
-        '/challenge_response/finalEvaluation',
+        process.env.REACT_APP_API_BASE_URL + '/ideas/finalEvaluation',
     gettotalcount:
         process.env.REACT_APP_API_BASE_URL + '/dashboard/evaluatorStats',
     getlogout: process.env.REACT_APP_API_BASE_URL + '/students/logout'
