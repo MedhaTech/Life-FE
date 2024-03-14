@@ -303,7 +303,27 @@ const ReportL3 = () => {
         axios(config)
             .then((response) => {
                 if (response.status === 200) {
-                    const transformedData = response.data.data || [];
+                    // const transformedData = response.data.data || [];
+                    const transformedData = (response.data.data || []).map(
+                        (item) => ({
+                            ...item,
+                            final_result:
+                                item.final_result === '0'
+                                    ? 'Runner-Not Promoted'
+                                    : 'Winner-Promoted',
+
+                            overall_score: parseFloat(
+                                item.overall_score
+                            ).toFixed(2),
+                            quality_score: parseFloat(
+                                item.quality_score
+                            ).toFixed(2),
+
+                            feasibility_score: parseFloat(
+                                item.feasibility_score
+                            ).toFixed(2)
+                        })
+                    );
                     // const transformedData = response.data.data.map((entry) => {
                     //     const { response, final_result, ...rest } = entry;
                     //     const parsedResponse = JSON.parse(response);
@@ -360,20 +380,18 @@ const ReportL3 = () => {
     };
 
     const handleDownload = () => {
-        // alert('hii');
-        // if (
-        //     !RegTeachersState ||
-        //     // !RegTeachersdistrict ||
-        //     // !filterType ||
-        //     // !category ||
-        //     !sdg
-        // ) {
-        //     notification.warning({
-        //         message:
-        //             'Please select a state,category and Theme type before Downloading Reports.'
-        //     });
-        //     return;
-        // }
+        if (
+            // !RegTeachersState ||
+            !RegTeachersdistrict
+            // !filterType ||
+            // !category ||
+            // !sdg
+        ) {
+            notification.warning({
+                message: 'Please select district before Downloading Reports.'
+            });
+            return;
+        }
         setIsDownloading(true);
         fetchData();
     };
@@ -414,8 +432,6 @@ const ReportL3 = () => {
         axios(config)
             .then((response) => {
                 if (response.status === 200) {
-                    // console.log(res, '6');
-
                     const countData = {
                         overall: {
                             '1to3': 0,
@@ -525,8 +541,8 @@ const ReportL3 = () => {
                     const total = chartTableData2.reduce(
                         (acc, item) => {
                             // (acc.shortedlisted += item.shortedlisted),
-                                // (acc.state += item.state);
-                                (acc.winners += item.winners),
+                            // (acc.state += item.state);
+                            (acc.winners += item.winners),
                                 (acc.runners += item.runners);
 
                             return acc;

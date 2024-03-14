@@ -207,7 +207,7 @@ const Evalprocess = () => {
                             {...evalData}
                             exportHeaders
                             print={false}
-                            export={true}
+                            export={false}
                         >
                             <DataTable
                                 data={evalList}

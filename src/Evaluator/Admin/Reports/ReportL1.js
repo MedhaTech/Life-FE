@@ -168,7 +168,7 @@ const ReportL1 = () => {
             label: 'Email ID',
             key: 'mentor_email'
         },
-       
+
         {
             label: 'Mentor Mobile Number',
             key: 'mentor_mobile'
@@ -268,8 +268,16 @@ const ReportL1 = () => {
         axios(config)
             .then((response) => {
                 if (response.status === 200) {
-                    // console.log(response, 'l1');
-                    const transformedData = response.data.data || [];
+                    // const transformedData = response.data.data || [];
+                    const transformedData = (response.data.data || []).map(
+                        (item) => ({
+                            ...item,
+                            evaluation_status:
+                                item.evaluation_status === 'SELECTEDROUND1'
+                                    ? 'Accepted'
+                                    : 'Rejected'
+                        })
+                    );
                     // const transformedData = response.data.data.map((entry) => {
                     //     const { response, evaluation_status, ...rest } = entry;
                     //     const parsedResponse = JSON.parse(response);
@@ -316,20 +324,18 @@ const ReportL1 = () => {
     };
 
     const handleDownload = () => {
-        // alert('hii');
-        // if (
-        //     !RegTeachersState ||
-        //     // !RegTeachersdistrict ||
-        //     // !filterType ||
-        //     !category ||
-        //     !sdg
-        // ) {
-        //     notification.warning({
-        //         message:
-        //             'Please select a state,category and Theme type before Downloading Reports.'
-        //     });
-        //     return;
-        // }
+        if (
+            // !RegTeachersState ||
+            !RegTeachersdistrict
+            // !filterType ||
+            // !category ||
+            // !sdg
+        ) {
+            notification.warning({
+                message: 'Please select district before Downloading Reports.'
+            });
+            return;
+        }
         setIsDownloading(true);
         fetchData();
     };
@@ -370,7 +376,6 @@ const ReportL1 = () => {
         axios(config)
             .then((res) => {
                 if (res.status === 200) {
-                    // console.log(res, '6');
                     const chartTableData = res?.data?.data || [];
                     const total = chartTableData.reduce(
                         (acc, item) => {
