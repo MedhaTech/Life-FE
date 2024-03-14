@@ -34,7 +34,8 @@ const Register = (props) => {
     };
     const inputUserId = {
         type: 'text',
-        placeholder: 'Enter Email Id '
+        placeholder: 'Enter Email Id',
+        className: 'defaultInput'
     };
 
     // const inputCity = {
