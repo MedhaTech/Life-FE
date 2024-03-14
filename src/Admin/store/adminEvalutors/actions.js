@@ -39,7 +39,8 @@ export const getAdminEvalutorsList = () => async (dispatch) => {
                 return err.response;
             });
         if (result && result.status === 200) {
-            const data = result.data?.data[0]?.dataValues || [];
+            // console.log(result, '222');
+            const data = result.data?.data[0]?.rows || [];
             let datamodify =
                 data.length > 0
                     ? data.forEach((item, i) => (item.id = i + 1))

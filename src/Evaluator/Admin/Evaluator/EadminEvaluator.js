@@ -6,6 +6,7 @@ import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Card } from 'reactstrap';
 import { Tabs } from 'antd';
 import Layout from '../Pages/Layout';
+import { Link } from 'react-router-dom';
 
 import { BsUpload } from 'react-icons/bs';
 import { Button } from '../../../stories/Button';
@@ -34,6 +35,7 @@ import dist from 'react-data-table-component-extensions';
 import ClipLoader from 'react-spinners/ClipLoader';
 
 const TicketsPage = (props) => {
+    // console.log(props, 'props');
     const dispatch = useDispatch();
     const history = useHistory();
 
@@ -72,7 +74,7 @@ const TicketsPage = (props) => {
         localStorage.setItem('mentor', JSON.stringify(item));
     };
 
-    const handleStatus = (status, id) => {
+    const handleStatus = (status, id, type, all, item) => {
         // where we can update the status Active to InActive //
         // where id = student id / mentor id  / admin id / evaluator  id//
         // where status = status //
@@ -86,21 +88,19 @@ const TicketsPage = (props) => {
 
         swalWithBootstrapButtons
             .fire({
-                // title: 'You are Changing the status',
                 title: `You are attempting to ${
                     status.toLowerCase() === 'active'
                         ? 'activate'
                         : 'inactivate'
-                } `,
-                // ${
-                //     type && type === 'student'
-                //         ? 'Student'
-                //         : type && type === 'evaluator'
-                //         ? 'evaluator'
-                //         : type && type === 'admin'
-                //         ? 'Admin'
-                //         : 'Mentor'
-                // }.`,
+                } ${
+                    type && type === 'student'
+                        ? 'Student'
+                        : type && type === 'evaluator'
+                        ? 'evaluator'
+                        : type && type === 'admin'
+                        ? 'Admin'
+                        : 'Mentor'
+                }.`,
                 text: 'Are you sure?',
                 imageUrl: `${logout}`,
                 showCloseButton: true,
@@ -111,61 +111,66 @@ const TicketsPage = (props) => {
             })
             .then(async (result) => {
                 if (result.isConfirmed) {
-                    dispatch(updateEvaluator({ status }, id));
-                    setTimeout(() => {
-                        props.getEvaluatorListAction();
-                    }, 500);
                     // if (type && type === 'student') {
                     //     props.studentStatusUpdate({ status }, id);
                     //     setTimeout(() => {
                     //         props.getStudentListAction(studentDist);
                     //     }, 500);
                 }
-                // if (type && type === 'evaluator') {
-                //     console.warn(status, id, type);
-                //     dispatch(updateEvaluator({ status }, id));
-                //     setTimeout(() => {
-                //         props.getEvaluatorListAction();
-                //     }, 500);
-                //     // } else if (type && type === 'admin') {
-                //     //     const obj = {
-                //     //         full_name: all.full_name,
-                //     //         username: all.username,
-                //     //         // mobile: all.mobile,
-                //     //         status
-                //     //     };
-                //     //     await handleStatusUpdateInAdmin({ obj }, id);
+                if (type && type === 'evaluator') {
+                    console.warn(status, id, type);
 
-                //     //     setTimeout(() => {
-                //     //         props.getAdminListAction();
-                //     //     }, 500);
-                //     // } else {
-                //     //     const obj = {
-                //     //         full_name: all.full_name,
-                //     //         username: all.username,
-                //     //         // mobile: all.mobile,
-                //     //         status
-                //     //     };
-                //     //     props.mentorStatusUpdate(obj, id);
-                //     //     setTimeout(() => {
-                //     //         props.getAdminMentorsListAction('ALL', mentorDist);
-                //     //     }, 500);
-                //     // }
-                //     swalWithBootstrapButtons.fire(
-                //         `${
-                //             type && type === 'student'
-                //                 ? 'Student'
-                //                 : type && type === 'evaluator'
-                //                 ? 'evaluator'
-                //                 : type && type === 'admin'
-                //                 ? 'Admin'
-                //                 : 'Mentor'
-                //         } Status has been changed!`,
-                //         'Successfully updated.',
-                //         'success'
-                //     );
-                // }
-                else if (result.dismiss === Swal.DismissReason.cancel) {
+                    dispatch(
+                        updateEvaluator(
+                            {
+                                status,
+                                full_name: all.user.full_name,
+                                username: all.user.username
+                            },
+                            id
+                        )
+                    );
+                    setTimeout(() => {
+                        props.getEvaluatorListAction();
+                    }, 500);
+                    // } else if (type && type === 'admin') {
+                    //     const obj = {
+                    //         full_name: all.full_name,
+                    //         username: all.username,
+                    //         // mobile: all.mobile,
+                    //         status
+                    //     };
+                    //     await handleStatusUpdateInAdmin({ obj }, id);
+
+                    //     setTimeout(() => {
+                    //         props.getAdminListAction();
+                    //     }, 500);
+                    // } else {
+                    //     const obj = {
+                    //         full_name: all.full_name,
+                    //         username: all.username,
+                    //         // mobile: all.mobile,
+                    //         status
+                    //     };
+                    //     props.mentorStatusUpdate(obj, id);
+                    //     setTimeout(() => {
+                    //         props.getAdminMentorsListAction('ALL', mentorDist);
+                    //     }, 500);
+                    // }
+                    swalWithBootstrapButtons.fire(
+                        `${
+                            type && type === 'student'
+                                ? 'Student'
+                                : type && type === 'evaluator'
+                                ? 'evaluator'
+                                : type && type === 'admin'
+                                ? 'Admin'
+                                : 'Mentor'
+                        } Status has been changed!`,
+                        'Successfully updated.',
+                        'success'
+                    );
+                } else if (result.dismiss === Swal.DismissReason.cancel) {
                     swalWithBootstrapButtons.fire(
                         'Cancelled',
                         'Not updated successfully',
@@ -174,7 +179,6 @@ const TicketsPage = (props) => {
                 }
             });
     };
-
     const evaluatorsData = {
         data: props.evalutorsList,
         columns: [
@@ -238,6 +242,7 @@ const TicketsPage = (props) => {
                         <div className="btn btn-primary btn-lg">EDIT</div>
                     </div>,
                     <div
+                        // exact="true"
                         key={record.id}
                         className="mr-5"
                         onClick={() => {
@@ -245,15 +250,39 @@ const TicketsPage = (props) => {
                                 record?.status === 'ACTIVE'
                                     ? 'INACTIVE'
                                     : 'ACTIVE';
-                            handleStatus(status, record?.evaluator_id);
+                            handleStatus(
+                                status,
+                                record?.evaluator_id,
+                                'evaluator',
+                                record
+                            );
                         }}
                     >
                         {record?.status === 'ACTIVE' ? (
-                            <div className="btn btn-danger ">INACTIVE</div>
+                            <div className="btn btn-danger btn-lg">
+                                INACTIVE
+                            </div>
                         ) : (
-                            <div className="btn btn-warning ">ACTIVE</div>
+                            <div className="btn btn-warning btn-lg">ACTIVE</div>
                         )}
                     </div>
+                    // <div
+                    //     key={record.id}
+                    //     className="mr-5"
+                    //     onClick={() => {
+                    //         let status =
+                    //             record?.status === 'ACTIVE'
+                    //                 ? 'INACTIVE'
+                    //                 : 'ACTIVE';
+                    //         handleStatus(status, record?.evaluator_id, record);
+                    //     }}
+                    // >
+                    //     {record?.status === 'ACTIVE' ? (
+                    //         <div className="btn btn-danger ">INACTIVE</div>
+                    //     ) : (
+                    //         <div className="btn btn-warning ">ACTIVE</div>
+                    //     )}
+                    // </div>
                 ]
             }
         ]

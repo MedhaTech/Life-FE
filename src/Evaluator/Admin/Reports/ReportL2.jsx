@@ -288,7 +288,27 @@ const ReportL2 = () => {
         axios(config)
             .then((response) => {
                 if (response.status === 200) {
-                    const transformedData = response.data.data || [];
+                    // const transformedData = response.data.data || [];
+                    const transformedData = (response.data.data || []).map(
+                        (item) => ({
+                            ...item,
+                            final_result:
+                                item.final_result === null
+                                    ? 'Not Promoted'
+                                    : 'Promoted',
+
+                            overall_score: parseFloat(
+                                item.overall_score
+                            ).toFixed(2),
+                            quality_score: parseFloat(
+                                item.quality_score
+                            ).toFixed(2),
+
+                            feasibility_score: parseFloat(
+                                item.feasibility_score
+                            ).toFixed(2)
+                        })
+                    );
                     // const transformedData = response.data.data.map((entry) => {
                     //     const { response, final_result, ...rest } = entry;
                     //     const parsedResponse = JSON.parse(response);
@@ -343,20 +363,18 @@ const ReportL2 = () => {
     };
 
     const handleDownload = () => {
-        // alert('hii');
-        // if (
-        //     !RegTeachersState ||
-        //     // !RegTeachersdistrict ||
-        //     // !filterType ||
-        //     !category ||
-        //     !sdg
-        // ) {
-        //     notification.warning({
-        //         message:
-        //             'Please select a state,category and Theme type before Downloading Reports.'
-        //     });
-        //     return;
-        // }
+        if (
+            // !RegTeachersState ||
+            !RegTeachersdistrict
+            // !filterType ||
+            // !category ||
+            // !sdg
+        ) {
+            notification.warning({
+                message: 'Please select district before Downloading Reports.'
+            });
+            return;
+        }
         setIsDownloading(true);
         fetchData();
     };
