@@ -349,7 +349,7 @@ const TicketsPage = (props) => {
             });
     };
 
-    const handleStatus = (status, id, type = undefined, all = undefined) => {
+    const handleStatus = (status, id, type, all) => {
         // where we can update the status Active to InActive //
         // where id = student id / mentor id  / admin id / evaluator  id//
         // where status = status //
@@ -393,7 +393,16 @@ const TicketsPage = (props) => {
                         }, 500);
                     } else if (type && type === 'evaluator') {
                         console.warn(status, id, type);
-                        dispatch(updateEvaluator({ status }, id));
+                        dispatch(
+                            updateEvaluator(
+                                {
+                                    status,
+                                    full_name: all.user.full_name,
+                                    username: all.user.username
+                                },
+                                id
+                            )
+                        );
                         setTimeout(() => {
                             props.getEvaluatorListAction();
                         }, 500);
@@ -778,7 +787,8 @@ const TicketsPage = (props) => {
                             handleStatus(
                                 status,
                                 record?.evaluator_id,
-                                'evaluator'
+                                'evaluator',
+                                record
                             );
                         }}
                     >
@@ -853,52 +863,52 @@ const TicketsPage = (props) => {
                     </Badge>
                 ],
                 width: '10rem'
-            },
-            {
-                name: 'Actions',
-                sortable: false,
-                width: '25rem',
-                cell: (record) => [
-                    <div
-                        className="mr-5"
-                        key={record?.id}
-                        onClick={() => handleEdit(record)}
-                        style={{ marginRight: '10px' }}
-                    >
-                        <div className="btn btn-primary ">EDIT</div>
-                    </div>,
-                    <div
-                        key={record.id}
-                        style={{ marginRight: '10px' }}
-                        onClick={() => {
-                            let status =
-                                record?.status === 'ACTIVE'
-                                    ? 'INACTIVE'
-                                    : 'ACTIVE';
-                            handleStatus(
-                                status,
-                                record?.admin_id,
-                                'admin',
-                                record
-                            );
-                        }}
-                    >
-                        {record?.status === 'ACTIVE' ? (
-                            <div className="btn btn-danger">INACTIVE</div>
-                        ) : (
-                            <div className="btn btn-secondary ">ACTIVE</div>
-                        )}
-                    </div>
-                    // <div
-                    //     key={record?.id}
-                    //
-                    //     onClick={() => handleSelect(record)}
-                    //     style={{ marginRight: '10px' }}
-                    // >
-                    //     <div className="btn btn-primary btn-lg mr-5">View</div>
-                    // </div>,
-                ]
             }
+            // {
+            //     name: 'Actions',
+            //     sortable: false,
+            //     width: '25rem',
+            //     cell: (record) => [
+            //         <div
+            //             className="mr-5"
+            //             key={record?.id}
+            //             onClick={() => handleEdit(record)}
+            //             style={{ marginRight: '10px' }}
+            //         >
+            //             <div className="btn btn-primary ">EDIT</div>
+            //         </div>,
+            //         <div
+            //             key={record.id}
+            //             style={{ marginRight: '10px' }}
+            //             onClick={() => {
+            //                 let status =
+            //                     record?.status === 'ACTIVE'
+            //                         ? 'INACTIVE'
+            //                         : 'ACTIVE';
+            //                 handleStatus(
+            //                     status,
+            //                     record?.admin_id,
+            //                     'admin',
+            //                     record
+            //                 );
+            //             }}
+            //         >
+            //             {record?.status === 'ACTIVE' ? (
+            //                 <div className="btn btn-danger">INACTIVE</div>
+            //             ) : (
+            //                 <div className="btn btn-secondary ">ACTIVE</div>
+            //             )}
+            //         </div>
+            //         // <div
+            //         //     key={record?.id}
+            //         //
+            //         //     onClick={() => handleSelect(record)}
+            //         //     style={{ marginRight: '10px' }}
+            //         // >
+            //         //     <div className="btn btn-primary btn-lg mr-5">View</div>
+            //         // </div>,
+            //     ]
+            // }
         ]
     };
 
@@ -1043,7 +1053,7 @@ const TicketsPage = (props) => {
                                             {...StudentsData}
                                             exportHeaders
                                             print={false}
-                                            export={true}
+                                            export={false}
                                         >
                                             <DataTable
                                                 data={rows}
@@ -1076,7 +1086,7 @@ const TicketsPage = (props) => {
                                             {...TableMentorsProps}
                                             exportHeaders
                                             print={false}
-                                            export={true}
+                                            export={false}
                                         >
                                             <DataTable
                                                 data={mentorRows}
@@ -1104,7 +1114,7 @@ const TicketsPage = (props) => {
                                         {...evaluatorsData}
                                         exportHeaders
                                         print={false}
-                                        export={true}
+                                        export={false}
                                     >
                                         <DataTable
                                             responsive={true}
@@ -1130,7 +1140,7 @@ const TicketsPage = (props) => {
                                         {...adminData}
                                         exportHeaders
                                         print={false}
-                                        export={true}
+                                        export={false}
                                     >
                                         <DataTable
                                             data={props.adminData}
