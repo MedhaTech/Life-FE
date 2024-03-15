@@ -104,10 +104,10 @@ const InstDetailsReport = () => {
             key: 'principal_whatsapp_mobile'
         }
     ];
-    useEffect(() => {
+    const handleDownload = () => {
         fetchChartTableData();
-    }, []);
-
+        setIsDownloading(true);
+    };
     const fetchChartTableData = () => {
         setFetchData(true);
         const config = {
@@ -128,11 +128,14 @@ const InstDetailsReport = () => {
 
                     setChartTableData(chartTableData);
                     setDownloadTableData(chartTableData);
-                    setFetchData(false);
+                    csvLinkRefTable.current.link.click();
+
+                    setIsDownloading(false);
                 }
             })
             .catch((error) => {
                 console.log('API error:', error);
+                setIsDownloading(false);
             });
     };
 
@@ -154,212 +157,37 @@ const InstDetailsReport = () => {
                             />
                         </Col>
                         <div className="reports-data p-5 mt-4 mb-5 bg-white">
-                            {fetchData ? (
-                                <ClipLoader
-                                    // fetchData={fetchData}
-                                    color={'blue'}
-                                    size={20}
-                                />
-                            ) : (
-                                <div className="chart">
-                                    {chartTableData.length > 0 && (
-                                        <div className="mt-5">
-                                            <div className="d-flex align-items-center mb-3">
-                                                <h3>OVERVIEW</h3>
-                                                <Button
-                                                    label="Download Table"
-                                                    btnClass="primary mx-2"
-                                                    size="small"
-                                                    shape="btn-square"
-                                                    onClick={() => {
-                                                        if (downloadTableData) {
-                                                            // setIsDownloading(true);
-                                                            setDownloadTableData(
-                                                                null
-                                                            );
-                                                            csvLinkRefTable.current.link.click();
-                                                        }
-                                                    }}
-                                                    style={{
-                                                        width: '150px',
-                                                        whiteSpace: 'nowrap'
-                                                    }}
-                                                />
-                                            </div>
+                            <Button
+                                label={
+                                    isDownloading
+                                        ? 'Downloading'
+                                        : 'Download Table '
+                                }
+                                btnClass="primary mx-2"
+                                size="small"
+                                shape="btn-square"
+                                onClick={handleDownload}
+                                style={{
+                                    width: '150px',
+                                    whiteSpace: 'nowrap'
+                                }}
+                                disabled={isDownloading}
+                            />
 
-                                            <div className="row">
-                                                <div className="col-md-12">
-                                                    <div className="table-wrapper bg-white">
-                                                        <Table
-                                                            id="dataTable"
-                                                            className="table table-striped table-bordered responsive"
-                                                        >
-                                                            <thead>
-                                                                <tr>
-                                                                    <th>No</th>
-                                                                    <th>
-                                                                        District
-                                                                        Name
-                                                                    </th>
-                                                                    <th>
-                                                                        Type of
-                                                                        Institution
-                                                                    </th>
-                                                                    <th>
-                                                                        Institution
-                                                                        Code
-                                                                    </th>
-                                                                    <th>
-                                                                        Institution
-                                                                        Name
-                                                                    </th>
-                                                                    <th>
-                                                                        Place
-                                                                    </th>
-                                                                    <th>
-                                                                        Block
-                                                                    </th>
-                                                                    <th>
-                                                                        Principal
-                                                                        Name
-                                                                    </th>
-                                                                    <th>
-                                                                        Principal
-                                                                        Email
-                                                                    </th>
-                                                                    <th>
-                                                                        Principal
-                                                                        Mobile
-                                                                        Number
-                                                                    </th>{' '}
-                                                                    <th>
-                                                                        Principal
-                                                                        Whatsapp
-                                                                        Number
-                                                                    </th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                {chartTableData.map(
-                                                                    (
-                                                                        item,
-                                                                        index
-                                                                    ) => (
-                                                                        <tr
-                                                                            key={
-                                                                                index
-                                                                            }
-                                                                        >
-                                                                            <td>
-                                                                                {index +
-                                                                                    1}
-                                                                            </td>
-                                                                            <td>
-                                                                                {
-                                                                                    item.district_name
-                                                                                }
-                                                                            </td>
-                                                                            <td>
-                                                                                {
-                                                                                    item[
-                                                                                        'Type of Institution'
-                                                                                    ]
-                                                                                }
-                                                                            </td>
-                                                                            <td>
-                                                                                {
-                                                                                    item.institution_code
-                                                                                }
-                                                                            </td>
-
-                                                                            <td>
-                                                                                {
-                                                                                    item.institution_name
-                                                                                }
-                                                                            </td>
-
-                                                                            <td>
-                                                                                {
-                                                                                    item.place_name
-                                                                                }
-                                                                            </td>
-                                                                            <td>
-                                                                                {
-                                                                                    item.block_name
-                                                                                }
-                                                                            </td>
-
-                                                                            <td>
-                                                                                {
-                                                                                    item.principal_name
-                                                                                }
-                                                                            </td>
-                                                                            <td>
-                                                                                {
-                                                                                    item.principal_email
-                                                                                }
-                                                                            </td>
-                                                                            <td>
-                                                                                {
-                                                                                    item.principal_mobile
-                                                                                }
-                                                                            </td>
-                                                                            <td>
-                                                                                {
-                                                                                    item.principal_whatsapp_mobile
-                                                                                }
-                                                                            </td>
-                                                                        </tr>
-                                                                    )
-                                                                )}
-                                                            </tbody>
-                                                        </Table>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    )}
-                                    {/* <div className="mt-5">
-                                    <div
-                                        className="col-md-12 chart-container mt-5"
-                                        style={{
-                                            width: '100%',
-                                            height: '370px'
-                                        }}
-                                    >
-                                        <div className="chart-box">
-                                            <Bar
-                                                data={barChart1Data}
-                                                options={options}
-                                            />
-                                            <div className="chart-title">
-                                                <p>
-                                                    <b>
-                                                        Registered vs Not
-                                                        Registered Institutions
-                                                        As of{newFormat}
-                                                    </b>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> */}
-                                    {downloadTableData && (
-                                        <CSVLink
-                                            data={downloadTableData}
-                                            headers={summaryHeaders}
-                                            filename={`InstitutionSummaryTable_${newFormat}.csv`}
-                                            className="hidden"
-                                            ref={csvLinkRefTable}
-                                            // onDownloaded={() => {
-                                            //     setIsDownloading(false);
-                                            //     setDownloadComplete(true);
-                                            // }}
-                                        >
-                                            Download Table CSV
-                                        </CSVLink>
-                                    )}
-                                </div>
+                            {downloadTableData && (
+                                <CSVLink
+                                    data={downloadTableData}
+                                    headers={summaryHeaders}
+                                    filename={`InstitutionSummaryTable_${newFormat}.csv`}
+                                    className="hidden"
+                                    ref={csvLinkRefTable}
+                                    onDownloaded={() => {
+                                        setIsDownloading(false);
+                                        setDownloadComplete(true);
+                                    }}
+                                >
+                                    Download Table CSV
+                                </CSVLink>
                             )}
                         </div>
                     </Row>
