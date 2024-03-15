@@ -174,7 +174,11 @@ const Register = (props) => {
                                     className={`form-group mt-md-0 mt-5 me-md-3 `}
                                     md={12}
                                 >
-                                    <Label className="mb-2" htmlFor="name">
+                                    <Label
+                                        className="mb-2"
+                                        htmlFor="name"
+                                        style={{ fontSize: '1.5rem' }}
+                                    >
                                         Name
                                     </Label>
 
@@ -201,7 +205,11 @@ const Register = (props) => {
                                     className={`form-group mt-md-0 mt-5 me-md-3 `}
                                     md={12}
                                 >
-                                    <Label className="mb-2" htmlFor="username">
+                                    <Label
+                                        className="mb-2"
+                                        htmlFor="username"
+                                        style={{ fontSize: '1.5rem' }}
+                                    >
                                         Email Id
                                     </Label>
                                     <InputBox
@@ -227,7 +235,11 @@ const Register = (props) => {
                                     className="form-group mt-md-0 mt-5 me-md-3"
                                     md={12}
                                 >
-                                    <Label className="mb-2" htmlFor="mobile">
+                                    <Label
+                                        className="mb-2"
+                                        htmlFor="mobile"
+                                        style={{ fontSize: '1.5rem' }}
+                                    >
                                         Mobile Number
                                     </Label>
                                     {/* <InputWithMobileNoComp {...inputPhone} id='mobile' name='mobile' /> */}

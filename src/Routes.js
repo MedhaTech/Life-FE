@@ -200,6 +200,7 @@ import AddCourse from './School/AddCourse';
 import MentorEdit from './Admin/Dashboard/MentorEdit';
 import AdminMentorReg from './Admin/UserList/MentorReg';
 import AdminMentorSuccess from './Admin/UserList/MentorSuccess';
+import InstDetailsReport from './Admin/Reports/Helpers/InstDetailsReport';
 function MyComponent() {
     window.location.href = `${process.env.REACT_APP_LANDING_PAGE_URL}`;
     return null;
@@ -575,6 +576,12 @@ const Routers = () => {
                         user="ADMIN"
                         path="/admin/successScreen"
                         component={AdminMentorSuccess}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        user="ADMIN"
+                        path="/admin/instituion"
+                        component={InstDetailsReport}
                     />
                     <ProtectedRoute
                         exact={true}
