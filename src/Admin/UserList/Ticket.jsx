@@ -477,6 +477,16 @@ const TicketsPage = (props) => {
             {
                 name: 'District',
                 selector: (row) => row?.district_name,
+                cell: (row) => (
+                    <div
+                        style={{
+                            whiteSpace: 'pre-wrap',
+                            wordWrap: 'break-word'
+                        }}
+                    >
+                        {row?.district_name}
+                    </div>
+                ),
                 cellExport: (row) => row?.district_name,
                 width: '13rem'
             },
@@ -534,7 +544,7 @@ const TicketsPage = (props) => {
             // },
             {
                 name: 'Actions',
-                width: '27rem',
+                width: '10rem',
                 cell: (record) => [
                     // <div
                     //
@@ -608,11 +618,21 @@ const TicketsPage = (props) => {
                 name: 'Institution Code',
                 selector: (row) => row?.institution_code,
                 cellExport: (row) => row?.institution_code,
-                width: '18rem'
+                width: '15rem'
             },
             {
                 name: 'District',
                 selector: (row) => row.district_name,
+                cell: (row) => (
+                    <div
+                        style={{
+                            whiteSpace: 'pre-wrap',
+                            wordWrap: 'break-word'
+                        }}
+                    >
+                        {row.district_name}
+                    </div>
+                ),
                 cellExport: (row) => row.district_name,
                 width: '13rem'
             },
@@ -643,7 +663,7 @@ const TicketsPage = (props) => {
                 name: 'Student Name',
                 selector: (row) => row.student_full_name,
                 cellExport: (row) => row.student_full_name,
-                width: '20rem'
+                width: '18rem'
             },
             {
                 name: 'Age',
@@ -684,7 +704,7 @@ const TicketsPage = (props) => {
             {
                 name: 'Actions',
                 sortable: false,
-                width: '19rem',
+                width: '10rem',
                 cell: (record) => [
                     <div
                         key={record.id}
