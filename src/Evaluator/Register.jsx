@@ -222,9 +222,9 @@ const Register = (props) => {
                                 </FormGroup>
                             </div>
 
-                            <div className="col-md-12p-0">
+                            <div className="col-md-12 p-0">
                                 <FormGroup
-                                    className="form-group mt-md-0 mt-5"
+                                    className="form-group mt-md-0 mt-5 me-md-3"
                                     md={12}
                                 >
                                     <Label className="mb-2" htmlFor="mobile">
