@@ -131,7 +131,11 @@ const Register = (props) => {
                                     className={`form-group mt-md-0 mt-5 `}
                                     md={12}
                                 >
-                                    <Label className="mb-2" htmlFor="name">
+                                    <Label
+                                        className="mb-2"
+                                        htmlFor="name"
+                                        style={{ fontSize: '1.5rem' }}
+                                    >
                                         Name
                                     </Label>
 
@@ -158,7 +162,11 @@ const Register = (props) => {
                                     className={`form-group  w-100`}
                                     md={12}
                                 >
-                                    <Label className="mb-2" htmlFor="username">
+                                    <Label
+                                        className="mb-2"
+                                        htmlFor="username"
+                                        style={{ fontSize: '1.5rem' }}
+                                    >
                                         Email Address
                                     </Label>
 
@@ -184,7 +192,11 @@ const Register = (props) => {
                                     className={`form-group me-md-3 w-100`}
                                     md={12}
                                 >
-                                    <Label className="mb-2" htmlFor="username">
+                                    <Label
+                                        className="mb-2"
+                                        htmlFor="username"
+                                        style={{ fontSize: '1.5rem' }}
+                                    >
                                         Admin Type
                                     </Label>
                                     <select

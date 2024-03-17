@@ -764,7 +764,7 @@ const Dashboard = () => {
                                     >
                                         <Card.Body>
                                             <label htmlFor="teams" className="">
-                                                Total Reg Institutions
+                                                Total Registered Students
                                             </label>
                                             <Card.Text
                                                 style={{
@@ -774,7 +774,7 @@ const Dashboard = () => {
                                                     marginBottom: '20px'
                                                 }}
                                             >
-                                                {regInst}
+                                                {totalStudentCount}
                                             </Card.Text>
                                         </Card.Body>
                                     </Card>
@@ -784,13 +784,17 @@ const Dashboard = () => {
                                         bg="light"
                                         text="dark"
                                         className="mb-4"
-                                        style={{ height: '150px' }}
+                                        style={{
+                                            height: '150px'
+                                        }}
                                     >
                                         <Card.Body>
                                             <label htmlFor="teams" className="">
-                                                Total Reg Mentors
+                                                Total Teams Submitted Ideas
                                             </label>
+
                                             <Card.Text
+                                                className="left-aligned"
                                                 style={{
                                                     fontSize: '30px',
                                                     fontWeight: 'bold',
@@ -798,7 +802,7 @@ const Dashboard = () => {
                                                     marginBottom: '20px'
                                                 }}
                                             >
-                                                {totalMentorCount}
+                                                {totalSubmittedideasCount}
                                             </Card.Text>
                                         </Card.Body>
                                     </Card>
@@ -808,13 +812,17 @@ const Dashboard = () => {
                                         bg="light"
                                         text="dark"
                                         className="mb-4"
-                                        style={{ height: '150px' }}
+                                        style={{
+                                            height: '150px'
+                                        }}
                                     >
                                         <Card.Body>
                                             <label htmlFor="teams" className="">
-                                                Total Teams
+                                                Total Male Mentors
                                             </label>
+
                                             <Card.Text
+                                                className="left-aligned"
                                                 style={{
                                                     fontSize: '30px',
                                                     fontWeight: 'bold',
@@ -822,7 +830,7 @@ const Dashboard = () => {
                                                     marginBottom: '20px'
                                                 }}
                                             >
-                                                {totalteamsCount}
+                                                {totalMentorMaleCount}
                                             </Card.Text>
                                         </Card.Body>
                                     </Card>
@@ -863,17 +871,13 @@ const Dashboard = () => {
                                         bg="light"
                                         text="dark"
                                         className="mb-4"
-                                        style={{
-                                            height: '150px'
-                                        }}
+                                        style={{ height: '150px' }}
                                     >
                                         <Card.Body>
                                             <label htmlFor="teams" className="">
-                                                Total Teams Submitted Ideas
+                                                Total Registered Institutions
                                             </label>
-
                                             <Card.Text
-                                                className="left-aligned"
                                                 style={{
                                                     fontSize: '30px',
                                                     fontWeight: 'bold',
@@ -881,7 +885,31 @@ const Dashboard = () => {
                                                     marginBottom: '20px'
                                                 }}
                                             >
-                                                {totalSubmittedideasCount}
+                                                {regInst}
+                                            </Card.Text>
+                                        </Card.Body>
+                                    </Card>
+                                </Row>
+                                <Row>
+                                    <Card
+                                        bg="light"
+                                        text="dark"
+                                        className="mb-4"
+                                        style={{ height: '150px' }}
+                                    >
+                                        <Card.Body>
+                                            <label htmlFor="teams" className="">
+                                                Total Teams
+                                            </label>
+                                            <Card.Text
+                                                style={{
+                                                    fontSize: '30px',
+                                                    fontWeight: 'bold',
+                                                    marginTop: '10px',
+                                                    marginBottom: '20px'
+                                                }}
+                                            >
+                                                {totalteamsCount}
                                             </Card.Text>
                                         </Card.Body>
                                     </Card>
@@ -897,7 +925,7 @@ const Dashboard = () => {
                                     >
                                         <Card.Body>
                                             <label htmlFor="teams" className="">
-                                                Total Teams Ideas in Draft
+                                                Total Teams Ideas In Draft
                                             </label>
 
                                             <Card.Text
@@ -926,7 +954,7 @@ const Dashboard = () => {
                                     >
                                         <Card.Body>
                                             <label htmlFor="teams" className="">
-                                                Total Teams Not initiated Ideas
+                                                Total Male Students
                                             </label>
 
                                             <Card.Text
@@ -938,32 +966,7 @@ const Dashboard = () => {
                                                     marginBottom: '20px'
                                                 }}
                                             >
-                                                {totalteamsCount -
-                                                    totalideasCount}
-                                            </Card.Text>
-                                        </Card.Body>
-                                    </Card>
-                                </Row>
-                                <Row>
-                                    <Card
-                                        bg="light"
-                                        text="dark"
-                                        className="mb-4"
-                                        style={{ height: '150px' }}
-                                    >
-                                        <Card.Body>
-                                            <label htmlFor="teams" className="">
-                                                Total Students
-                                            </label>
-                                            <Card.Text
-                                                style={{
-                                                    fontSize: '30px',
-                                                    fontWeight: 'bold',
-                                                    marginTop: '10px',
-                                                    marginBottom: '20px'
-                                                }}
-                                            >
-                                                {totalStudentCount}
+                                                {totalStudentMaleCount}
                                             </Card.Text>
                                         </Card.Body>
                                     </Card>
@@ -1076,13 +1079,37 @@ const Dashboard = () => {
                                         bg="light"
                                         text="dark"
                                         className="mb-4"
+                                        style={{ height: '150px' }}
+                                    >
+                                        <Card.Body>
+                                            <label htmlFor="teams" className="">
+                                                Total Registered Mentors
+                                            </label>
+                                            <Card.Text
+                                                style={{
+                                                    fontSize: '30px',
+                                                    fontWeight: 'bold',
+                                                    marginTop: '10px',
+                                                    marginBottom: '20px'
+                                                }}
+                                            >
+                                                {totalMentorCount}
+                                            </Card.Text>
+                                        </Card.Body>
+                                    </Card>
+                                </Row>
+                                <Row>
+                                    <Card
+                                        bg="light"
+                                        text="dark"
+                                        className="mb-4"
                                         style={{
                                             height: '150px'
                                         }}
                                     >
                                         <Card.Body>
                                             <label htmlFor="teams" className="">
-                                                Total Male Mentors
+                                                Total Teams Not Initiated Ideas
                                             </label>
 
                                             <Card.Text
@@ -1094,11 +1121,13 @@ const Dashboard = () => {
                                                     marginBottom: '20px'
                                                 }}
                                             >
-                                                {totalMentorMaleCount}
+                                                {totalteamsCount -
+                                                    totalideasCount}
                                             </Card.Text>
                                         </Card.Body>
                                     </Card>
                                 </Row>
+
                                 <Row>
                                     <Card
                                         bg="light"
@@ -1124,35 +1153,6 @@ const Dashboard = () => {
                                             >
                                                 {totalMentorCount -
                                                     totalMentorMaleCount}
-                                            </Card.Text>
-                                        </Card.Body>
-                                    </Card>
-                                </Row>
-
-                                <Row>
-                                    <Card
-                                        bg="light"
-                                        text="dark"
-                                        className="mb-4"
-                                        style={{
-                                            height: '150px'
-                                        }}
-                                    >
-                                        <Card.Body>
-                                            <label htmlFor="teams" className="">
-                                                Total Male Students
-                                            </label>
-
-                                            <Card.Text
-                                                className="left-aligned"
-                                                style={{
-                                                    fontSize: '30px',
-                                                    fontWeight: 'bold',
-                                                    marginTop: '10px',
-                                                    marginBottom: '20px'
-                                                }}
-                                            >
-                                                {totalStudentMaleCount}
                                             </Card.Text>
                                         </Card.Body>
                                     </Card>

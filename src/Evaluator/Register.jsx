@@ -34,7 +34,8 @@ const Register = (props) => {
     };
     const inputUserId = {
         type: 'text',
-        placeholder: 'Enter Email Id '
+        placeholder: 'Enter Email Id',
+        className: 'defaultInput'
     };
 
     // const inputCity = {
@@ -173,7 +174,11 @@ const Register = (props) => {
                                     className={`form-group mt-md-0 mt-5 me-md-3 `}
                                     md={12}
                                 >
-                                    <Label className="mb-2" htmlFor="name">
+                                    <Label
+                                        className="mb-2"
+                                        htmlFor="name"
+                                        style={{ fontSize: '1.5rem' }}
+                                    >
                                         Name
                                     </Label>
 
@@ -200,7 +205,11 @@ const Register = (props) => {
                                     className={`form-group mt-md-0 mt-5 me-md-3 `}
                                     md={12}
                                 >
-                                    <Label className="mb-2" htmlFor="username">
+                                    <Label
+                                        className="mb-2"
+                                        htmlFor="username"
+                                        style={{ fontSize: '1.5rem' }}
+                                    >
                                         Email Id
                                     </Label>
                                     <InputBox
@@ -221,12 +230,16 @@ const Register = (props) => {
                                 </FormGroup>
                             </div>
 
-                            <div className="col-md-12p-0">
+                            <div className="col-md-12 p-0">
                                 <FormGroup
-                                    className="form-group mt-md-0 mt-5"
+                                    className="form-group mt-md-0 mt-5 me-md-3"
                                     md={12}
                                 >
-                                    <Label className="mb-2" htmlFor="mobile">
+                                    <Label
+                                        className="mb-2"
+                                        htmlFor="mobile"
+                                        style={{ fontSize: '1.5rem' }}
+                                    >
                                         Mobile Number
                                     </Label>
                                     {/* <InputWithMobileNoComp {...inputPhone} id='mobile' name='mobile' /> */}
