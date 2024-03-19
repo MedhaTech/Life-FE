@@ -82,6 +82,28 @@ const Reports = () => {
                                 </Link>
                             </Col>
                         </Row>
+                        <Row className="mb-3">
+                            <Col lg={6} md={6}>
+                                <Link to="/admin/ideaSubmitted">
+                                    <Card className="p-4 text-center card-effect mb-4">
+                                        <b className="text-secondary">
+                                            IDEA SUBMITTED DETAILS REPORT
+                                        </b>
+                                    </Card>
+                                </Link>
+                            </Col>
+                        </Row>
+                        <Row className="mb-3">
+                            <Col lg={6} md={6}>
+                                <Link to="/admin/ideaEvaluation">
+                                    <Card className="p-4 text-center card-effect mb-4">
+                                        <b className="text-secondary">
+                                            IDEA EVALUATION DETAILS REPORT
+                                        </b>
+                                    </Card>
+                                </Link>
+                            </Col>
+                        </Row>
                     </div>
                 </Container>
             ) : (
