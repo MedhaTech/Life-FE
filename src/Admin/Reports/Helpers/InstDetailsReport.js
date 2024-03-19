@@ -159,9 +159,7 @@ const InstDetailsReport = () => {
                         <div className="reports-data p-5 mt-4 mb-5 bg-white">
                             <Button
                                 label={
-                                    isDownloading
-                                        ? 'Downloading'
-                                        : 'Download Table '
+                                    isDownloading ? 'Downloading' : 'Download '
                                 }
                                 btnClass="primary mx-2"
                                 size="small"
