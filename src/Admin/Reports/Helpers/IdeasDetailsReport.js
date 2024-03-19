@@ -430,7 +430,7 @@ const ReportsRegistration = () => {
                                       .replace(/,/g, ';')}`
                                 : '',
                             idea_title: entry.idea_title
-                                ? `${entry.detailed_solution
+                                ? `${entry.idea_title
 
                                       .replace(/"/g, '""')
                                       .replace(/\n/g, ' ')
