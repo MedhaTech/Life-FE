@@ -418,21 +418,21 @@ const ReportsRegistration = () => {
 
                             solution_statement: entry.solution_statement
                                 ? `${entry.solution_statement
-                                      //   .replace(/"/g, '""')
+                                      .replace(/"/g, '""')
                                       .replace(/\n/g, ' ')
                                       .replace(/,/g, ';')}`
                                 : '',
                             detailed_solution: entry.solution_statement
                                 ? `${entry.detailed_solution
 
-                                      //   .replace(/"/g, '""')
+                                      .replace(/"/g, '""')
                                       .replace(/\n/g, ' ')
                                       .replace(/,/g, ';')}`
                                 : '',
                             idea_title: entry.idea_title
                                 ? `${entry.detailed_solution
 
-                                      //   .replace(/"/g, '""')
+                                      .replace(/"/g, '""')
                                       .replace(/\n/g, ' ')
                                       .replace(/,/g, ';')}`
                                 : ''
