@@ -417,24 +417,24 @@ const ReportsRegistration = () => {
                             ...entry,
 
                             solution_statement: entry.solution_statement
-                                ? `"${entry.solution_statement
-                                    //   .replace(/"/g, '""')
+                                ? `${entry.solution_statement
+                                      //   .replace(/"/g, '""')
                                       .replace(/\n/g, ' ')
-                                      .replace(/,/g, ';')}"`
+                                      .replace(/,/g, ';')}`
                                 : '',
                             detailed_solution: entry.solution_statement
-                                ? `"${entry.detailed_solution
+                                ? `${entry.detailed_solution
 
-                                    //   .replace(/"/g, '""')
+                                      //   .replace(/"/g, '""')
                                       .replace(/\n/g, ' ')
-                                      .replace(/,/g, ';')}"`
+                                      .replace(/,/g, ';')}`
                                 : '',
                             idea_title: entry.idea_title
-                                ? `"${entry.detailed_solution
+                                ? `${entry.detailed_solution
 
-                                    //   .replace(/"/g, '""')
+                                      //   .replace(/"/g, '""')
                                       .replace(/\n/g, ' ')
-                                      .replace(/,/g, ';')}"`
+                                      .replace(/,/g, ';')}`
                                 : ''
                         }));
                         setDownloadData(IdeaFormData);
