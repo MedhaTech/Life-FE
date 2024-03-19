@@ -170,7 +170,7 @@ const ReportsRegistration = () => {
             label: 'Principal Email',
             key: 'principal_email'
         },
-        
+
         // {
         //     label: 'Address',
         //     key: 'address'
@@ -411,39 +411,54 @@ const ReportsRegistration = () => {
         axios(config)
             .then((response) => {
                 if (response.status === 200) {
-                    const IdeaFormData = response?.data?.data || [];
-                    // const transformedData = response.data.data.map((entry) => {
-                    //     const { response, ...rest } = entry;
-                    //     const parsedResponse = JSON.parse(response);
+                    const responseData = response?.data?.data || [];
+                    if (Array.isArray(responseData)) {
+                        const IdeaFormData = responseData.map((entry) => ({
+                            ...entry,
 
-                    //     Object.keys(parsedResponse).forEach((key) => {
-                    //         const { challenge_question_id, selected_option } =
-                    //             parsedResponse[key];
-                    //         var newSelectedOption;
-                    //         const tostringCovert = selected_option.toString();
-                    //         if (
-                    //             tostringCovert === null ||
-                    //             tostringCovert === undefined
-                    //         ) {
-                    //             newSelectedOption = selected_option;
-                    //         } else {
-                    //             newSelectedOption = tostringCovert
-                    //                 .replace(/\n/g, ' ')
-                    //                 .replace(/,/g, ';');
-                    //         }
-                    //         entry[challenge_question_id] = newSelectedOption;
-                    //     });
+                            solution_statement: entry.solution_statement
+                                ? `${entry.solution_statement
+                                      .replace(/"/g, '""')
+                                      .replace(/\n/g, ' ')
+                                      .replace(/,/g, ';')}`
+                                : '',
+                            detailed_solution: entry.solution_statement
+                                ? `${entry.detailed_solution
 
-                    //     return {
-                    //         ...entry
-                    //     };
-                    // });
-                    setDownloadData(IdeaFormData);
-                    csvLinkRef.current.link.click();
-                    openNotificationWithIcon(
-                        'success',
-                        `Ideas Detailed Reports Downloaded Successfully`
-                    );
+                                      .replace(/"/g, '""')
+                                      .replace(/\n/g, ' ')
+                                      .replace(/,/g, ';')}`
+                                : '',
+                            idea_title: entry.idea_title
+                                ? `${entry.idea_title
+
+                                      .replace(/"/g, '""')
+                                      .replace(/\n/g, ' ')
+                                      .replace(/,/g, ';')}`
+                                : ''
+                        }));
+                        setDownloadData(IdeaFormData);
+                        csvLinkRef.current.link.click();
+                        openNotificationWithIcon(
+                            'success',
+                            `Ideas Detailed Reports Downloaded Successfully`
+                        );
+                    }
+                    // const IdeaFormData = response.data.data.map((entry) => ({
+                    //     // const { response, ...rest } = entry;
+                    //     ...entry,
+                    //     solution_statement: `"${entry.solution_statement
+                    //         .replace(/"/g, '""')
+                    //         .replace(/\n/g, ' ')
+                    //         .replace(/,/g, ';')}"`
+                    // }));
+                    // setDownloadData(IdeaFormData);
+                    // console.log(downloadData, '222');
+                    // csvLinkRef.current.link.click();
+                    // openNotificationWithIcon(
+                    //     'success',
+                    //     `Ideas Detailed Reports Downloaded Successfully`
+                    // );
                     setIsDownloading(false);
                 }
             })
