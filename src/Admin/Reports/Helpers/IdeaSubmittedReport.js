@@ -92,17 +92,18 @@ const IdeaSubmittedReport = () => {
             key: 'block_name'
         },
         {
-            label: 'No of ideas draft',
+            label: 'Number of teams formed',
+            key: 'numberOfTeamsFormed'
+        },
+        {
+            label: 'No of ideas drafted',
             key: 'No of ideas draft'
         },
         {
             label: 'No of ideas submitted',
             key: 'No of ideas submitted'
         },
-        {
-            label: 'Number of teams formed',
-            key: 'numberOfTeamsFormed'
-        }
+      
     ];
 
     useEffect(() => {
