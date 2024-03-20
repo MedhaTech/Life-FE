@@ -268,16 +268,72 @@ const ReportL1 = () => {
         axios(config)
             .then((response) => {
                 if (response.status === 200) {
-                    // const transformedData = response.data.data || [];
-                    const transformedData = (response.data.data || []).map(
-                        (item) => ({
-                            ...item,
+                    const responseData = response?.data?.data || [];
+                    if (Array.isArray(responseData)) {
+                        const IdeaFormData = responseData.map((entry) => ({
+                            ...entry,
                             evaluation_status:
-                                item.evaluation_status === 'SELECTEDROUND1'
+                                entry.evaluation_status === 'SELECTEDROUND1'
                                     ? 'Accepted'
-                                    : 'Rejected'
-                        })
-                    );
+                                    : 'Rejected',
+                            theme_name: entry.theme_name
+                                ? `${entry.theme_name
+                                      .replace(/"/g, '""')
+                                      .replace(/\n/g, ' ')
+                                      .replace(/,/g, ';')}`
+                                : '',
+                            problem_statement: entry.problem_statement
+                                ? `${entry.problem_statement
+                                      .replace(/"/g, '""')
+                                      .replace(/\n/g, ' ')
+                                      .replace(/,/g, ';')}`
+                                : '',
+
+                            problem_statement_description:
+                                entry.problem_statement_description
+                                    ? `${entry.problem_statement_description
+                                          .replace(/"/g, '""')
+                                          .replace(/\n/g, ' ')
+                                          .replace(/,/g, ';')}`
+                                    : '',
+                            solution_statement: entry.solution_statement
+                                ? `${entry.solution_statement
+                                      .replace(/"/g, '""')
+                                      .replace(/\n/g, ' ')
+                                      .replace(/,/g, ';')}`
+                                : '',
+                            detailed_solution: entry.detailed_solution
+                                ? `${entry.detailed_solution
+
+                                      .replace(/"/g, '""')
+                                      .replace(/\n/g, ' ')
+                                      .replace(/,/g, ';')}`
+                                : '',
+                            idea_title: entry.idea_title
+                                ? `${entry.idea_title
+
+                                      .replace(/"/g, '""')
+                                      .replace(/\n/g, ' ')
+                                      .replace(/,/g, ';')}`
+                                : ''
+                        }));
+                        setDownloadData(IdeaFormData);
+                        csvLinkRef.current.link.click();
+                        openNotificationWithIcon(
+                            'success',
+                            `L1 Status Detailed Reports Downloaded Successfully`
+                        );
+                        setIsDownloading(false);
+                    }
+                    // const transformedData = (response.data.data || []).map(
+                    //     (item) => ({
+                    //         ...item,
+                    //         evaluation_status:
+                    //             item.evaluation_status === 'SELECTEDROUND1'
+                    //                 ? 'Accepted'
+                    //                 : 'Rejected'
+                    //     })
+                    // );
                     // const transformedData = response.data.data.map((entry) => {
                     //     const { response, evaluation_status, ...rest } = entry;
                     //     const parsedResponse = JSON.parse(response);
@@ -307,14 +363,6 @@ const ReportL1 = () => {
                     //         ...entry
                     //     };
                     // });
-                    setDownloadData(transformedData);
-
-                    csvLinkRef.current.link.click();
-                    openNotificationWithIcon(
-                        'success',
-                        `L1 Status Detailed Reports Downloaded Successfully`
-                    );
-                    setIsDownloading(false);
                 }
             })
             .catch((error) => {
