@@ -865,7 +865,7 @@ const ViewDetail = (props) => {
                                         </span>{' '}
                                         {moment(
                                             props?.ideaDetails?.evaluated_at
-                                        ).format('DD-MM-YYYY') || ''}
+                                        ).format('DD-MM-YYYY HH:mm:ss') || ''}
                                     </p>
                                 ) : (
                                     ''
@@ -1005,7 +1005,7 @@ const ViewDetail = (props) => {
                             Verified At :{' '}
                             {teamResponse.verified_at
                                 ? moment(teamResponse.verified_at).format(
-                                      'DD-MM-YYYY'
+                                      'DD-MM-YYYY '
                                   )
                                 : '-'}
                         </p>

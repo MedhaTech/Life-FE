@@ -332,7 +332,7 @@ const ViewDetail = (props) => {
                                         </span>{' '}
                                         {moment(
                                             props?.ideaDetails?.evaluated_at
-                                        ).format('DD-MM-YYYY') || ''}
+                                        ).format('DD-MM-YYYY HH:mm:ss') || ''}
                                     </p>
                                 ) : (
                                     ''

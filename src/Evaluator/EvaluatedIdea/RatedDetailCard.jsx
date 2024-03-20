@@ -39,7 +39,7 @@ const RatedDetailCard = (props) => {
                             <span className="text-bold">Evaluated At: </span>{' '}
                             {moment(
                                 props?.details?.evaluator_ratings[0]?.created_at
-                            ).format('DD-MM-YYYY') || ''}
+                            ).format('DD-MM-YYYY HH:mm:ss') || ''}
                         </p>
                     </div>
                     <p className="text-muted my-3 text-center">
