@@ -96,12 +96,12 @@ const IdeaEvaluationReport = () => {
             key: 'No of ideas submitted'
         },
         {
-            label: 'L1',
+            label: 'No of Ideas Level - 1 Evaluation Completed',
             key: 'L1'
         },
 
         {
-            label: 'L2',
+            label: 'No of Ideas Level - 2 Evaluation Completed',
             key: 'L2'
         }
     ];

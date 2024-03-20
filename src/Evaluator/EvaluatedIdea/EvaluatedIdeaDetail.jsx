@@ -479,7 +479,7 @@ const EvaluatedIdeaDetail = (props) => {
                                     </span>{' '}
                                     {moment(
                                         props?.ideaDetails?.evaluated_at
-                                    ).format('DD-MM-YY h:mm:ss a') || ''}
+                                    ).format('DD-MM-YYYY') || ''}
                                 </p>
                                 {props?.ideaDetails?.evaluation_status ==
                                     'REJECTEDROUND1' && (
