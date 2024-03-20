@@ -415,14 +415,33 @@ const ReportsRegistration = () => {
                     if (Array.isArray(responseData)) {
                         const IdeaFormData = responseData.map((entry) => ({
                             ...entry,
+                            theme_name: entry.theme_name
+                                ? `${entry.theme_name
+                                      .replace(/"/g, '""')
+                                      .replace(/\n/g, ' ')
+                                      .replace(/,/g, ';')}`
+                                : '',
+                            problem_statement: entry.problem_statement
+                                ? `${entry.problem_statement
+                                      .replace(/"/g, '""')
+                                      .replace(/\n/g, ' ')
+                                      .replace(/,/g, ';')}`
+                                : '',
 
+                            problem_statement_description:
+                                entry.problem_statement_description
+                                    ? `${entry.problem_statement_description
+                                          .replace(/"/g, '""')
+                                          .replace(/\n/g, ' ')
+                                          .replace(/,/g, ';')}`
+                                    : '',
                             solution_statement: entry.solution_statement
                                 ? `${entry.solution_statement
                                       .replace(/"/g, '""')
                                       .replace(/\n/g, ' ')
                                       .replace(/,/g, ';')}`
                                 : '',
-                            detailed_solution: entry.solution_statement
+                            detailed_solution: entry.detailed_solution
                                 ? `${entry.detailed_solution
 
                                       .replace(/"/g, '""')
