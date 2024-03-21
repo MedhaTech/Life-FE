@@ -45,11 +45,11 @@ function LoginSchool(props) {
 
     const inputUserId = {
         type: 'text',
-        placeholder: 'Enter Institution Unique Code Code  '
+        placeholder: 'Enter Institution Unique Code  '
     };
 
     const inputPassword = {
-        placeholder: 'Enter password',
+        placeholder: 'Enter Password',
         showEyeIcon: true
     };
     // const handleShowPassword = (e, type) => {
