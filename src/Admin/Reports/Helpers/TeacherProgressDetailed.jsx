@@ -224,7 +224,7 @@ const TeacherDetailed = () => {
             key: 'submittedcout'
         },
         {
-            label: 'No.of Teams Idea in Draft',
+            label: 'No.of Teams Idea in Drafted',
             key: 'draftcout'
         },
         {

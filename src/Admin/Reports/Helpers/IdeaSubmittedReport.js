@@ -142,7 +142,7 @@ const IdeaSubmittedReport = () => {
             });
     };
 
-    const handleDownload = (institution_type_id) => {
+    const handleDownload = (institution_type_id, institution_type) => {
         const newparam = encryptGlobal(
             JSON.stringify({
                 institution_type_id: institution_type_id
@@ -167,6 +167,8 @@ const IdeaSubmittedReport = () => {
                         response.data.data[0].ideaCountsSUBDRAFT;
 
                     const combinedArray = summary.map((summaryItem) => {
+                        const institution_id = summaryItem.institution_id;
+
                         const district_name = summaryItem.district_name;
                         const block_name = summaryItem.block_name;
                         const institution_code = summaryItem.institution_code;
@@ -175,7 +177,6 @@ const IdeaSubmittedReport = () => {
                         const numberOfTeamsFormed =
                             summaryItem['Number of teams formed'];
 
-                        const institution_id = summaryItem.institution_id;
                         const ideasCountItem = ideaCountsSUBDRAFT.find(
                             (item) => item.institution_id === institution_id
                         );
@@ -205,6 +206,11 @@ const IdeaSubmittedReport = () => {
                     var array = combinedArray;
                     setCombinedArray(array);
                     setDownloadTableData(combinedArray);
+                    const filename = `${institution_type}_Idea submitted details Report_${newFormat}.csv`;
+                    csvLinkRefTable.current.link.setAttribute(
+                        'download',
+                        filename
+                    );
                     csvLinkRefTable.current.link.click();
                 }
             })
@@ -343,7 +349,8 @@ const IdeaSubmittedReport = () => {
                                                                         }
                                                                         onClick={() => {
                                                                             handleDownload(
-                                                                                institution_type_id
+                                                                                institution_type_id,
+                                                                                institution_type
                                                                             );
                                                                         }}
                                                                     />

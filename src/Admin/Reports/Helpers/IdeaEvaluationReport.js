@@ -139,7 +139,7 @@ const IdeaEvaluationReport = () => {
             });
     };
 
-    const handleDownload = (institution_type_id) => {
+    const handleDownload = (institution_type_id, institution_type) => {
         const newparam = encryptGlobal(
             JSON.stringify({
                 institution_type_id: institution_type_id
@@ -188,15 +188,22 @@ const IdeaEvaluationReport = () => {
                             place_name,
                             'No of ideas submitted': ideasCountItem
                                 ? ideasCountItem['No of ideas submitted']
-                                : "0",
-                            L1: ideasCountItem ? ideasCountItem.L1 : "0",
-                            L2: ideasCountItem ? ideasCountItem.L2 : "0"
+                                : '0',
+                            L1: ideasCountItem ? ideasCountItem.L1 : '0',
+                            L2: ideasCountItem ? ideasCountItem.L2 : '0'
                         };
                     });
                     var array = combinedArray;
-                    const filteredData = array.filter(entry => entry["No of ideas submitted"] !== "0");
+                    const filteredData = array.filter(
+                        (entry) => entry['No of ideas submitted'] !== '0'
+                    );
                     setCombinedArray(filteredData);
                     setDownloadTableData(filteredData);
+                    const filename = `${institution_type}_Idea evaluation details Report_${newFormat}.csv`;
+                    csvLinkRefTable.current.link.setAttribute(
+                        'download',
+                        filename
+                    );
                     csvLinkRefTable.current.link.click();
                 }
             })
@@ -335,7 +342,8 @@ const IdeaEvaluationReport = () => {
                                                                         }
                                                                         onClick={() => {
                                                                             handleDownload(
-                                                                                institution_type_id
+                                                                                institution_type_id,
+                                                                                institution_type
                                                                             );
                                                                         }}
                                                                     />
