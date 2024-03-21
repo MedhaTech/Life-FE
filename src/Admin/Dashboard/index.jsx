@@ -141,10 +141,6 @@ const Dashboard = () => {
                     }
                     if (response?.data?.count === 0) {
                         setError('Entered Invalid Institution Unique Code');
-                    } else if (response?.data?.count === 1) {
-                        setError('Still No Teacher Registered');
-                    } else if (response?.data?.count > 1) {
-                        setError('');
                     }
                     // setMultiOrgData(response?.data?.data);
                     // setOrgData(response?.data?.data[0]);
@@ -1847,6 +1843,14 @@ const Dashboard = () => {
                                         {/* </div> */}
                                     </>
                                 ) : (
+                                    multiOrgData[0]?.mentor === null && (
+                                        // <Card className="mt-3 p-4">
+                                        <div className="text-success fs-highlight d-flex justify-content-center align-items-center">
+                                            <span>
+                                                Still No Teacher Registered
+                                            </span>
+                                        </div>
+                                    )
                                     // ) : (
                                     // count != 0 && (
                                     //     <div className="text-success fs-highlight d-flex justify-content-center align-items-center">
@@ -1856,7 +1860,6 @@ const Dashboard = () => {
                                     //     </div>
                                     // )
                                     // )
-                                    ''
                                 )}
                                 {error && diesCode && (
                                     <div className="text-danger mt-3 p-4 fs-highlight d-flex justify-content-center align-items-center">
