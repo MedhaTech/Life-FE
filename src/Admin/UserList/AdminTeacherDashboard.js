@@ -347,6 +347,17 @@ const Dashboard = () => {
                 selector: (row) => row.ideaStatus,
                 center: true,
                 width: '25%'
+            },
+            {
+                name: 'Mentor Approval',
+                selector: (row) =>
+                    row.PFAStatus === null
+                        ? ''
+                        : row.PFAStatus === 'Pending'
+                        ? 'PENDING'
+                        : 'APPROVED',
+                center: true,
+                width: '20%'
             }
             // {
             //     name: 'Actions',

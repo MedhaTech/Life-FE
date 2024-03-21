@@ -224,7 +224,6 @@ function LoginSchool(props) {
                                                 htmlFor="discecode"
                                             >
                                                 Enter Institution Unique Code
-                                                Code
                                             </Label>
                                             <InputBox
                                                 {...inputUserId}
