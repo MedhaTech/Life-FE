@@ -141,10 +141,6 @@ const Dashboard = () => {
                     }
                     if (response?.data?.count === 0) {
                         setError('Entered Invalid Institution Unique Code');
-                    } else if (response?.data?.count === 1) {
-                        setError('Still No Teacher Registered');
-                    } else if (response?.data?.count > 1) {
-                        setError('');
                     }
                     // setMultiOrgData(response?.data?.data);
                     // setOrgData(response?.data?.data[0]);
@@ -377,8 +373,18 @@ const Dashboard = () => {
                 selector: (row) => row.ideaStatus,
                 center: true,
                 width: '25%'
+            },
+            {
+                name: 'Mentor Approval',
+                selector: (row) =>
+                    row.PFAStatus === null 
+                        ? ''
+                        : row.PFAStatus === 'Pending'
+                        ? 'PENDING'
+                        : 'APPROVED',
+                center: true,
+                width: '20%'
             }
-            // {
             //     name: 'Actions',
             //     cell: (params) => {
             //         return [
@@ -497,6 +503,8 @@ const Dashboard = () => {
     const [totalteamsCount, setTotalteamsCount] = useState('-');
     const [totalStudentCount, setTotalStudentCount] = useState('-');
     const [totalideasCount, setTotalideasCount] = useState('-');
+    const [totalPfa, setTotalPfa] = useState('-');
+
     const [totalSubmittedideasCount, setTotalSubmittedideasCount] =
         useState('-');
     const [totalMentorCount, setTotalMentorCount] = useState('-');
@@ -590,7 +598,9 @@ const Dashboard = () => {
         axios(config)
             .then(function (response) {
                 if (response.status === 200) {
+                    // console.log(response, '1');
                     setTotalideasCount(response.data.data[0].initiated_ideas);
+                    setTotalPfa(response.data.data[0].PFACount);
                     setTotalSubmittedideasCount(
                         response.data.data[0].submitted_ideas
                     );
@@ -938,7 +948,8 @@ const Dashboard = () => {
                                                 }}
                                             >
                                                 {totalideasCount -
-                                                    totalSubmittedideasCount}
+                                                    totalSubmittedideasCount -
+                                                    totalPfa}
                                             </Card.Text>
                                         </Card.Body>
                                     </Card>
@@ -1109,7 +1120,7 @@ const Dashboard = () => {
                                     >
                                         <Card.Body>
                                             <label htmlFor="teams" className="">
-                                                Total Teams Not Initiated Ideas
+                                                Total Ideas Pending For Approval
                                             </label>
 
                                             <Card.Text
@@ -1121,8 +1132,7 @@ const Dashboard = () => {
                                                     marginBottom: '20px'
                                                 }}
                                             >
-                                                {totalteamsCount -
-                                                    totalideasCount}
+                                                {totalPfa}
                                             </Card.Text>
                                         </Card.Body>
                                     </Card>
@@ -1843,6 +1853,14 @@ const Dashboard = () => {
                                         {/* </div> */}
                                     </>
                                 ) : (
+                                    multiOrgData[0]?.mentor === null && (
+                                        // <Card className="mt-3 p-4">
+                                        <div className="text-success fs-highlight d-flex justify-content-center align-items-center">
+                                            <span>
+                                                Still No Teacher Registered
+                                            </span>
+                                        </div>
+                                    )
                                     // ) : (
                                     // count != 0 && (
                                     //     <div className="text-success fs-highlight d-flex justify-content-center align-items-center">
@@ -1852,7 +1870,6 @@ const Dashboard = () => {
                                     //     </div>
                                     // )
                                     // )
-                                    ''
                                 )}
                                 {error && diesCode && (
                                     <div className="text-danger mt-3 p-4 fs-highlight d-flex justify-content-center align-items-center">

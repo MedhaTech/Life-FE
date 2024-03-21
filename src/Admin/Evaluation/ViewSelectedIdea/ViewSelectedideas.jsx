@@ -210,7 +210,7 @@ const ViewSelectedIdea = () => {
                 name: 'Evaluated At',
                 selector: (row) =>
                     row.evaluated_at
-                        ? moment(row.evaluated_at).format('DD-MM-YY h:mm:ss a')
+                        ? moment(row.evaluated_at).format('DD-MM-YYYY')
                         : row.evaluated_at,
                 width: '15%'
             },

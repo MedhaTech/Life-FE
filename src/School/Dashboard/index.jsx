@@ -44,6 +44,7 @@ const DashboardSchool = (props) => {
     const [multiOrgData, setMultiOrgData] = useState({});
     const [teamsCount, setTeamsCount] = useState('-');
     const [ideaCount, setIdeaCount] = useState('-');
+    const [approval, setApproval] = useState('-');
     const [studentCount, setStudentCount] = useState('-');
     const [coursepercentage, setCoursepercentage] = useState('-');
     const [score, setScore] = useState('-');
@@ -196,6 +197,7 @@ const DashboardSchool = (props) => {
             .then(function (response) {
                 if (response.status === 200) {
                     setIdeaCount(response.data.data[0].idea_count);
+                    setApproval(response.data.data[0].PendingForApproval);
                 }
             })
             .catch(function (error) {
@@ -487,6 +489,17 @@ const DashboardSchool = (props) => {
 
                 center: true,
                 width: '25%'
+            },
+            {
+                name: 'Mentor Approval',
+                selector: (row) =>
+                    row.PFAStatus === null
+                        ? ''
+                        : row.PFAStatus === 'Pending'
+                        ? 'PENDING'
+                        : 'APPROVED',
+                center: true,
+                width: '20%'
             }
             // {
             //     name: 'Actions',
@@ -551,7 +564,7 @@ const DashboardSchool = (props) => {
                 <div className=" row  col-xs-12 col-md-12 ">
                     <Row className="md-12">
                         <Row>
-                            <Col md={4}>
+                            <Col md={3}>
                                 <Card
                                     bg="light"
                                     text="dark"
@@ -578,7 +591,7 @@ const DashboardSchool = (props) => {
                                     </Card.Body>
                                 </Card>
                             </Col>
-                            <Col md={4}>
+                            <Col md={3}>
                                 <Card
                                     bg="light"
                                     text="dark"
@@ -604,7 +617,34 @@ const DashboardSchool = (props) => {
                                     </Card.Body>
                                 </Card>
                             </Col>
-                            <Col md={4}>
+
+                            <Col md={3}>
+                                <Card
+                                    bg="light"
+                                    text="dark"
+                                    className="p-2"
+                                    // style={{ height: '200px' }}
+                                    // className="md-3 xs-12 mb-4 "
+                                    style={{ height: '16rem' }}
+                                >
+                                    <Card.Body>
+                                        <label htmlFor="teams" className="">
+                                            Pending For Approval
+                                        </label>
+                                        <Card.Text
+                                            style={{
+                                                fontSize: '48px',
+                                                fontWeight: 'bold',
+                                                marginTop: '10px',
+                                                marginBottom: '20px'
+                                            }}
+                                        >
+                                            {approval}
+                                        </Card.Text>
+                                    </Card.Body>
+                                </Card>
+                            </Col>
+                            <Col md={3}>
                                 <Card
                                     bg="light"
                                     text="dark"

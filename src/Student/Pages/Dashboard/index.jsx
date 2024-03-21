@@ -200,6 +200,31 @@ const Dashboard = () => {
                     record.student_full_name
                 )
         },
+        {
+            title: ' Send For Approval',
+            dataIndex: 'PendingForApproval',
+            render: (_, record) =>
+                record?.PendingForApproval === 1 ? (
+                    <FaCheckCircle size={20} color="green" />
+                ) : (
+                    <FaTimesCircle size={20} color="red" />
+                ),
+            width: '15rem'
+        },
+        // {
+        //     title: 'Send for Approval',
+        //     dataIndex: 'PendingForApproval',
+        //     width: '15%',
+        //     render: (_, record) =>
+        //         record.PendingForApproval ===
+        //         currentUser?.data[0]?.PendingForApproval ? (
+        //             <div className="self-decor">
+        //                 {record.PendingForApproval}
+        //             </div>
+        //         ) : (
+        //             record.PendingForApproval
+        //         )
+        // },
         // {
         //     title: 'Pre Survey',
         //     dataIndex: 'pre_survey_status',
@@ -258,7 +283,7 @@ const Dashboard = () => {
             align: 'center',
             width: '10%',
             render: (_, record) =>
-                record?.idea_submission ? (
+                record?.idea_submission === 1 ? (
                     <FaCheckCircle size={20} color="green" />
                 ) : (
                     <FaTimesCircle size={20} color="red" />

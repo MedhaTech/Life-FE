@@ -224,12 +224,16 @@ const TeacherDetailed = () => {
             key: 'submittedcout'
         },
         {
-            label: 'No.of Teams Idea in Draft',
+            label: 'No.of Teams Idea in Drafted',
             key: 'draftcout'
         },
         {
             label: 'No.of Teams Idea NOt Initiated',
             key: 'ideanotIN'
+        },
+        {
+            label: 'Pending For Approval',
+            key: 'PFACount'
         }
     ];
 
