@@ -159,7 +159,6 @@ const IdeaEvaluationReport = () => {
         axios(config)
             .then((response) => {
                 if (response.status === 200) {
-                    console.log(response, 'iii');
                     const summary = response.data.data[0].summary;
                     const ideaCountsSUBDRAFT =
                         response.data.data[0].ideaCountsSUBDRAFT;
@@ -187,9 +186,6 @@ const IdeaEvaluationReport = () => {
                             institution_name,
 
                             place_name,
-                            'No of ideas draft': ideasCountItem
-                                ? ideasCountItem['No of ideas draft']
-                                : 0,
                             'No of ideas submitted': ideasCountItem
                                 ? ideasCountItem['No of ideas submitted']
                                 : 0,
@@ -198,8 +194,9 @@ const IdeaEvaluationReport = () => {
                         };
                     });
                     var array = combinedArray;
-                    setCombinedArray(array);
-                    setDownloadTableData(combinedArray);
+                    const filteredData = array.filter(entry => entry["No of ideas submitted"] !== "0");
+                    setCombinedArray(filteredData);
+                    setDownloadTableData(filteredData);
                     csvLinkRefTable.current.link.click();
                 }
             })
