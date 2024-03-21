@@ -103,7 +103,10 @@ const IdeaSubmittedReport = () => {
             label: 'No of ideas submitted',
             key: 'No of ideas submitted'
         },
-      
+        {
+            label: 'No of ideas Pending For Approval',
+            key: 'No of ideas Pending For Approval'
+        }
     ];
 
     useEffect(() => {
@@ -189,6 +192,11 @@ const IdeaSubmittedReport = () => {
                             'No of ideas draft': ideasCountItem
                                 ? ideasCountItem['No of ideas draft']
                                 : 0,
+                            'No of ideas Pending For Approval': ideasCountItem
+                                ? ideasCountItem[
+                                      'No of ideas Pending For Approval'
+                                  ]
+                                : 0,
                             'No of ideas submitted': ideasCountItem
                                 ? ideasCountItem['No of ideas submitted']
                                 : 0
@@ -256,7 +264,7 @@ const IdeaSubmittedReport = () => {
                                                                     'center'
                                                             }}
                                                         >
-                                                            Id
+                                                            S.no
                                                         </th>
                                                         <th
                                                             style={{

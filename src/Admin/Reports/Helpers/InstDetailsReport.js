@@ -67,10 +67,7 @@ const InstDetailsReport = () => {
         //     label: 'Total Eligible ATL Schools',
         //     key: 'ATL_Count'
         // },
-        {
-            label: 'Type of institution',
-            key: 'Type of Institution'
-        },
+
         {
             label: ' Institution code',
             key: 'institution_code'
@@ -79,6 +76,7 @@ const InstDetailsReport = () => {
             label: 'Institution Name',
             key: 'institution_name'
         },
+
         {
             label: 'Place',
             key: 'place_name'
@@ -86,6 +84,10 @@ const InstDetailsReport = () => {
         {
             label: 'Block',
             key: 'block_name'
+        },
+        {
+            label: 'Type of institution',
+            key: 'Type of Institution'
         },
         {
             label: 'Principal Name',
