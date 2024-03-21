@@ -497,6 +497,8 @@ const Dashboard = () => {
     const [totalteamsCount, setTotalteamsCount] = useState('-');
     const [totalStudentCount, setTotalStudentCount] = useState('-');
     const [totalideasCount, setTotalideasCount] = useState('-');
+    const [totalPfa, setTotalPfa] = useState('-');
+
     const [totalSubmittedideasCount, setTotalSubmittedideasCount] =
         useState('-');
     const [totalMentorCount, setTotalMentorCount] = useState('-');
@@ -590,7 +592,9 @@ const Dashboard = () => {
         axios(config)
             .then(function (response) {
                 if (response.status === 200) {
+                    // console.log(response, '1');
                     setTotalideasCount(response.data.data[0].initiated_ideas);
+                    setTotalPfa(response.data.data[0].PFACount);
                     setTotalSubmittedideasCount(
                         response.data.data[0].submitted_ideas
                     );
@@ -938,7 +942,8 @@ const Dashboard = () => {
                                                 }}
                                             >
                                                 {totalideasCount -
-                                                    totalSubmittedideasCount}
+                                                    totalSubmittedideasCount -
+                                                    totalPfa}
                                             </Card.Text>
                                         </Card.Body>
                                     </Card>
@@ -1109,7 +1114,7 @@ const Dashboard = () => {
                                     >
                                         <Card.Body>
                                             <label htmlFor="teams" className="">
-                                                Total Teams Not Initiated Ideas
+                                                Total Ideas Pending For Approval
                                             </label>
 
                                             <Card.Text
@@ -1121,8 +1126,7 @@ const Dashboard = () => {
                                                     marginBottom: '20px'
                                                 }}
                                             >
-                                                {totalteamsCount -
-                                                    totalideasCount}
+                                                {totalPfa}
                                             </Card.Text>
                                         </Card.Body>
                                     </Card>

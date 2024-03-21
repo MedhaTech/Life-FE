@@ -259,7 +259,7 @@ const IdeaEvaluationReport = () => {
                                                                     'center'
                                                             }}
                                                         >
-                                                            Id
+                                                            S.no
                                                         </th>
                                                         <th
                                                             style={{

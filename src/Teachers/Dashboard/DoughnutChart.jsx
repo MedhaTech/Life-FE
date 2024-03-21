@@ -32,6 +32,7 @@ export default function DoughnutChart({ user }) {
     const { teamsMembersStatus, teamsMembersStatusErr } = useSelector(
         (state) => state.teams
     );
+    console.log(teamsMembersStatus, 'stats');
     const [teamId, setTeamId] = useState(null);
     const [showDefault, setshowDefault] = useState(true);
     const [ideaShow, setIdeaShow] = useState(false);
@@ -222,6 +223,17 @@ export default function DoughnutChart({ user }) {
             dataIndex: 'student_full_name',
             width: '15rem'
         },
+        {
+            title: 'Student Idea Send For Approval',
+            dataIndex: 'PendingForApproval',
+            render: (_, record) =>
+                record?.PendingForApproval === 1 ? (
+                    <FaCheckCircle size={20} color="green" />
+                ) : (
+                    <FaTimesCircle size={20} color="red" />
+                ),
+            width: '15rem'
+        },
         // {
         //     title: 'Pre Survey',
         //     dataIndex: 'pre_survey_status',
@@ -275,12 +287,12 @@ export default function DoughnutChart({ user }) {
         //     }
         // },
         {
-            title: 'Idea Submission',
+            title: 'Mentor Approval',
             dataIndex: 'idea_submission',
             align: 'center',
             width: '20rem',
             render: (_, record) =>
-                record?.idea_submission ? (
+                record?.idea_submission === 1 ? (
                     <FaCheckCircle size={20} color="green" />
                 ) : (
                     <FaTimesCircle size={20} color="red" />

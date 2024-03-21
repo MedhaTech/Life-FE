@@ -41,7 +41,17 @@ const Eadmindashboard = () => {
                 <div className="dashboard">
                     <Container>
                         <Row className="mb-5">
-                            <Col lg={6} md={6}>
+                            <Col lg={4} md={4}>
+                                <Card className="p-4 text-center  mb-3">
+                                    <b className="text-warning">
+                                        PENDING FOR APPROVAL
+                                    </b>
+                                    <h3 className="display-5 bold m-2">
+                                        {dateCount?.PendingForApproval}
+                                    </h3>
+                                </Card>
+                            </Col>
+                            <Col lg={4} md={4}>
                                 <Card className="p-4 text-center  mb-3">
                                     <b className="text-primary">
                                         SUBMITTED CHALLENGES
@@ -51,7 +61,7 @@ const Eadmindashboard = () => {
                                     </h3>
                                 </Card>
                             </Col>
-                            <Col lg={6} md={6}>
+                            <Col lg={4} md={4}>
                                 <Card className="p-4 text-center  mb-3">
                                     <b className="text-secondary">
                                         DRAFT CHALLENGES

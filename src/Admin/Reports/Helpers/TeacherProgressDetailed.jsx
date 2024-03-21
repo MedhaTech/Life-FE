@@ -230,6 +230,10 @@ const TeacherDetailed = () => {
         {
             label: 'No.of Teams Idea NOt Initiated',
             key: 'ideanotIN'
+        },
+        {
+            label: 'Pending For Approval',
+            key: 'PFACount'
         }
     ];
 
