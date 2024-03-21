@@ -188,9 +188,9 @@ const IdeaEvaluationReport = () => {
                             place_name,
                             'No of ideas submitted': ideasCountItem
                                 ? ideasCountItem['No of ideas submitted']
-                                : 0,
-                            L1: ideasCountItem ? ideasCountItem.L1 : 0,
-                            L2: ideasCountItem ? ideasCountItem.L2 : 0
+                                : "0",
+                            L1: ideasCountItem ? ideasCountItem.L1 : "0",
+                            L2: ideasCountItem ? ideasCountItem.L2 : "0"
                         };
                     });
                     var array = combinedArray;
