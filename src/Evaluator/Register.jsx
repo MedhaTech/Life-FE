@@ -272,7 +272,7 @@ const Register = (props) => {
                                         ? 'default'
                                         : 'primary'
                                 }
-                                size="large "
+                                size="large"
                                 type="submit"
                                 disabled={!(formik.dirty && formik.isValid)}
                             />
