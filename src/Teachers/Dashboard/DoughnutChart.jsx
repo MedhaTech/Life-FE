@@ -32,7 +32,6 @@ export default function DoughnutChart({ user }) {
     const { teamsMembersStatus, teamsMembersStatusErr } = useSelector(
         (state) => state.teams
     );
-    console.log(teamsMembersStatus, 'stats');
     const [teamId, setTeamId] = useState(null);
     const [showDefault, setshowDefault] = useState(true);
     const [ideaShow, setIdeaShow] = useState(false);

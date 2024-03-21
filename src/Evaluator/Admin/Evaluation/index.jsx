@@ -13,7 +13,6 @@ const Eadmindashboard = () => {
     // here we can see all  the Challenges  and count //
 
     const [dateCount, setdateCount] = useState({});
-    console.log(dateCount, '1');
     useEffect(async () => {
         await handlecountvalue();
     }, []);
