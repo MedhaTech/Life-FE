@@ -463,7 +463,7 @@ const Dashboard = () => {
                 show={showPopup}
                 imgUrl={imgUrl}
             ></GreetingModal>
-            <Container>
+            <Container style={{ paddingBottom: '18rem' }}>
                 <div
                     className="d-flex justify-content-between align-items-center"
                     style={{ margin: '3rem 0' }}
@@ -486,7 +486,7 @@ const Dashboard = () => {
                     > */}
                     <Col md={6} className="flex-2 team-progress">
                         <label htmlFor="teams" className="">
-                            Team Progress:
+                            Team Progres:
                         </label>
                         <div
                             className="bg-white team-progress rounded  p-3"

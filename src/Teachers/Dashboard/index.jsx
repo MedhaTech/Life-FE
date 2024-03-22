@@ -220,7 +220,7 @@ const Dashboard = () => {
                 show={showsPopup}
                 imgUrl={imgUrl}
             ></GreetingModal>
-            <Container>
+            <Container style={{ paddingBottom: '3rem' }}>
                 <h2 className="mb-5 ">
                     <strong>Dashboard</strong>
                 </h2>
@@ -235,17 +235,18 @@ const Dashboard = () => {
                                     className="mb-4"
                                     style={{ height: '170px' }}
                                 >
-                                    <Card.Body>
-                                        <label htmlFor="teams" className="">
+                                    <Card.Body className="text-center m-5 p-3">
+                                        <label htmlFor="teams">
                                             Number of Teams
                                         </label>
 
                                         <Card.Text
                                             style={{
-                                                fontSize: '48px',
+                                                fontSize: '60px',
                                                 fontWeight: 'bold',
-                                                marginTop: '10px',
-                                                marginBottom: '20px'
+                                                marginTop: '20px',
+                                                textAlign: 'center',
+                                                marginBottom: '10px'
                                             }}
                                         >
                                             {teamsCount}
@@ -261,16 +262,17 @@ const Dashboard = () => {
                                     style={{ height: '170px' }}
                                     // style={{ width: '350px' }}
                                 >
-                                    <Card.Body>
+                                    <Card.Body className="text-center m-5 p-3">
                                         <label htmlFor="teams" className="">
                                             Total Students
                                         </label>
                                         <Card.Text
                                             style={{
-                                                fontSize: '48px',
+                                                fontSize: '60px',
                                                 fontWeight: 'bold',
-                                                marginTop: '10px',
-                                                marginBottom: '20px'
+                                                marginTop: '20px',
+                                                textAlign: 'center',
+                                                marginBottom: '10px'
                                             }}
                                         >
                                             {studentCount}
@@ -288,7 +290,7 @@ const Dashboard = () => {
                                     style={{ height: '170px' }}
                                     // style={{ width: '350px' }}
                                 >
-                                    <Card.Body>
+                                    <Card.Body className="text-center m-5 p-3">
                                         <label htmlFor="teams" className="">
                                             Pending For Approval
                                         </label>
@@ -296,10 +298,11 @@ const Dashboard = () => {
                                         <Card.Text
                                             className="left-aligned"
                                             style={{
-                                                fontSize: '48px',
+                                                fontSize: '60px',
                                                 fontWeight: 'bold',
-                                                marginTop: '10px',
-                                                marginBottom: '20px'
+                                                marginTop: '20px',
+                                                textAlign: 'center',
+                                                marginBottom: '10px'
                                             }}
                                         >
                                             {approval}
@@ -315,7 +318,7 @@ const Dashboard = () => {
                                     style={{ height: '170px' }}
                                     // style={{ width: '350px' }}
                                 >
-                                    <Card.Body>
+                                    <Card.Body className="text-center m-5 p-3">
                                         <label htmlFor="teams" className="">
                                             Number of Ideas
                                         </label>
@@ -323,10 +326,11 @@ const Dashboard = () => {
                                         <Card.Text
                                             className="left-aligned"
                                             style={{
-                                                fontSize: '48px',
+                                                fontSize: '60px',
                                                 fontWeight: 'bold',
-                                                marginTop: '10px',
-                                                marginBottom: '20px'
+                                                marginTop: '20px',
+                                                textAlign: 'center',
+                                                marginBottom: '10px'
                                             }}
                                         >
                                             {ideaCount}

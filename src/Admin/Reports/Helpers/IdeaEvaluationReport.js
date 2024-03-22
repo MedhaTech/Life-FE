@@ -302,22 +302,17 @@ const IdeaEvaluationReport = () => {
                                                     {instType.map(
                                                         ({
                                                             institution_type_id,
+                                                            index,
                                                             institution_type
                                                         }) => (
-                                                            <tr
-                                                                key={
-                                                                    institution_type_id
-                                                                }
-                                                            >
+                                                            <tr key={index}>
                                                                 <td
                                                                     style={{
                                                                         textAlign:
                                                                             'center'
                                                                     }}
                                                                 >
-                                                                    {
-                                                                        institution_type_id
-                                                                    }
+                                                                    {index + 1}
                                                                 </td>
                                                                 <td
                                                                     style={{

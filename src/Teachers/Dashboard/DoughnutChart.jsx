@@ -507,8 +507,8 @@ export default function DoughnutChart({ user }) {
                 /> */}
             </div>
             <Card
-                className="select-team p-5 w-100"
-                style={{ overflowX: 'auto' }}
+                className="select-team w-100"
+                style={{ overflowX: 'auto', padding: '30px' }}
             >
                 <div className="d-flex justify-content-between">
                     <label htmlFor="teams" className="">
