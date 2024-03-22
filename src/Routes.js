@@ -203,6 +203,7 @@ import AdminMentorSuccess from './Admin/UserList/MentorSuccess';
 import InstDetailsReport from './Admin/Reports/Helpers/InstDetailsReport';
 import IdeaSubmittedReport from './Admin/Reports/Helpers/IdeaSubmittedReport';
 import IdeaEvaluationReport from './Admin/Reports/Helpers/IdeaEvaluationReport';
+import SubIdeasTableReports from './Admin/Reports/Helpers/SubIdeasTableReports';
 function MyComponent() {
     window.location.href = `${process.env.REACT_APP_LANDING_PAGE_URL}`;
     return null;
@@ -913,11 +914,17 @@ const Routers = () => {
                         path="/admin/StudentsProgressReport"
                         component={StudentsProgressReport}
                     />
-                    <ProtectedRoute
+                    {/* <ProtectedRoute
                         exact={true}
                         user="ADMIN"
                         path="/admin/IdeaDetailsReport"
                         component={IdeasDetailsReport}
+                    /> */}
+                    <ProtectedRoute
+                        exact={true}
+                        user="ADMIN"
+                        path="/admin/IdeaDetailsReport"
+                        component={SubIdeasTableReports}
                     />
                     <ProtectedRoute
                         exact={true}
