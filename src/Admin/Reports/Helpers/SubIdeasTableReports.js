@@ -200,7 +200,6 @@ const SubIdeasTableReports = () => {
     }, []);
 
     const handleDownload = (item) => {
-        console.log(item, '111');
         setIsDownloading(true);
 
         const IdeaPram = encryptGlobal(
@@ -285,10 +284,15 @@ const SubIdeasTableReports = () => {
                                 : ''
                         }));
                         setDownloadData(IdeaFormData);
+                        const filename = `${item}_Submitted Ideas Report_${newFormat}.csv`;
+                        csvLinkRef.current.link.setAttribute(
+                            'download',
+                            filename
+                        );
                         csvLinkRef.current.link.click();
                         openNotificationWithIcon(
                             'success',
-                            `Ideas Detailed Reports Downloaded Successfully`
+                            `Submitted Ideas Report Downloaded Successfully`
                         );
                     }
 
@@ -515,7 +519,7 @@ const SubIdeasTableReports = () => {
                                     <CSVLink
                                         data={downloadData}
                                         headers={teacherDetailsHeaders}
-                                        filename={`${distEx}_IdeasDetails_Report_${newFormat}.csv`}
+                                        filename={`Submitted Ideas Report${newFormat}.csv`}
                                         className="hidden"
                                         ref={csvLinkRef}
                                     >
