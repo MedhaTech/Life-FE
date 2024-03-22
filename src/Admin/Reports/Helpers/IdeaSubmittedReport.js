@@ -360,167 +360,174 @@ const IdeaSubmittedReport = () => {
                                 onClick={() => history.push('/admin/reports')}
                             />
                         </Col>
-                        <div className="chart">
-                            {instType.length > 0 && (
-                                <div className="row">
-                                    <div
-                                        className="col-md-12 mx-10 px-10"
-                                        style={{
-                                            display: 'flex',
-                                            justifyContent: 'left',
-                                            marginTop: '2rem'
-                                        }}
-                                    >
+                        <div className="reports-data p-5 mt-4 mb-5 bg-white">
+                            <div className="chart">
+                                {instType.length > 0 && (
+                                    <div className="row">
                                         <div
-                                            className="bg-white "
-                                            style={{ maxWidth: '1300px' }}
+                                            className="col-md-12 mx-10 px-10"
+                                            style={{
+                                                display: 'flex',
+                                                justifyContent: 'left',
+                                                marginTop: '2rem'
+                                            }}
                                         >
-                                            <Table
-                                                id="dataTable"
-                                                className="table table-striped table-bordered responsive just"
+                                            <div
+                                                className="bg-white "
+                                                style={{ maxWidth: '1300px' }}
                                             >
-                                                <thead
-                                                    style={{
-                                                        height: '40px'
-                                                        // marginBottom: '30px'
-                                                    }}
+                                                <Table
+                                                    id="dataTable"
+                                                    className="table table-striped table-bordered responsive just"
                                                 >
-                                                    <tr>
+                                                    <thead
+                                                        style={{
+                                                            height: '40px'
+                                                            // marginBottom: '30px'
+                                                        }}
+                                                    >
+                                                        <tr>
+                                                            {' '}
+                                                            <th
+                                                                style={{
+                                                                    whiteSpace:
+                                                                        'nowrap',
+                                                                    marginLeft:
+                                                                        '10px',
+                                                                    marginRight:
+                                                                        '10px',
+                                                                    width: '40rem',
+                                                                    textAlign:
+                                                                        'left'
+                                                                }}
+                                                            >
+                                                                S.No
+                                                            </th>
+                                                            <th
+                                                                style={{
+                                                                    whiteSpace:
+                                                                        'nowrap',
+                                                                    marginLeft:
+                                                                        '10px',
+                                                                    marginRight:
+                                                                        '10px',
+                                                                    width: '200rem',
+                                                                    textAlign:
+                                                                        'left'
+                                                                }}
+                                                            >
+                                                                Institution Type
+                                                            </th>
+                                                            <th
+                                                                style={{
+                                                                    whiteSpace:
+                                                                        'nowrap',
+                                                                    marginLeft:
+                                                                        '10px',
+                                                                    marginRight:
+                                                                        '10px',
+                                                                    width: '100rem',
+                                                                    textAlign:
+                                                                        'left'
+                                                                }}
+                                                            >
+                                                                Ideas Submitted
+                                                                Report
+                                                            </th>
+                                                            <th
+                                                                style={{
+                                                                    whiteSpace:
+                                                                        'nowrap',
+                                                                    marginLeft:
+                                                                        '10px',
+                                                                    marginRight:
+                                                                        '10px',
+                                                                    width: '100rem',
+                                                                    textAlign:
+                                                                        'left'
+                                                                }}
+                                                            >
+                                                                Ideas Evaluated
+                                                                Report
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
                                                         {' '}
-                                                        <th
-                                                            style={{
-                                                                whiteSpace:
-                                                                    'nowrap',
-                                                                marginLeft:
-                                                                    '10px',
-                                                                marginRight:
-                                                                    '10px',
-                                                                width: '40rem',
-                                                                textAlign:
-                                                                    'left'
-                                                            }}
-                                                        >
-                                                            S.No
-                                                        </th>
-                                                        <th
-                                                            style={{
-                                                                whiteSpace:
-                                                                    'nowrap',
-                                                                marginLeft:
-                                                                    '10px',
-                                                                marginRight:
-                                                                    '10px',
-                                                                width: '200rem',
-                                                                textAlign:
-                                                                    'left'
-                                                            }}
-                                                        >
-                                                            Institution Type
-                                                        </th>
-                                                        <th
-                                                            style={{
-                                                                whiteSpace:
-                                                                    'nowrap',
-                                                                marginLeft:
-                                                                    '10px',
-                                                                marginRight:
-                                                                    '10px',
-                                                                width: '100rem',
-                                                                textAlign:
-                                                                    'left'
-                                                            }}
-                                                        >
-                                                            Ideas Submitted
-                                                            Report
-                                                        </th>
-                                                        <th
-                                                            style={{
-                                                                whiteSpace:
-                                                                    'nowrap',
-                                                                marginLeft:
-                                                                    '10px',
-                                                                marginRight:
-                                                                    '10px',
-                                                                width: '100rem',
-                                                                textAlign:
-                                                                    'left'
-                                                            }}
-                                                        >
-                                                            Ideas Evaluated
-                                                            Report
-                                                        </th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    {' '}
-                                                    {instType.map(
-                                                        (
-                                                            {
-                                                                institution_type_id,
-                                                                institution_type
-                                                            },
-                                                            index
-                                                        ) => (
-                                                            <tr key={index}>
-                                                                <td
-                                                                    style={{
-                                                                        textAlign:
-                                                                            'left'
-                                                                    }}
-                                                                >
-                                                                    {typeof index ===
-                                                                    'number'
-                                                                        ? index +
-                                                                          1
-                                                                        : ''}
-                                                                </td>
-                                                                <td
-                                                                    style={{
-                                                                        textAlign:
-                                                                            'left'
-                                                                    }}
-                                                                >
-                                                                    {
-                                                                        institution_type
-                                                                    }
-                                                                </td>
-                                                                <td
-                                                                    style={{
-                                                                        textAlign:
-                                                                            'left'
-                                                                    }}
-                                                                >
-                                                                    {' '}
-                                                                    <button
-                                                                        onClick={() =>
-                                                                            handleDownload(
-                                                                                institution_type_id,
-                                                                                institution_type
-                                                                            )
-                                                                        }
+                                                        {instType.map(
+                                                            (
+                                                                {
+                                                                    institution_type_id,
+                                                                    institution_type
+                                                                },
+                                                                index
+                                                            ) => (
+                                                                <tr key={index}>
+                                                                    <td
                                                                         style={{
-                                                                            // padding:
-                                                                            //     '1rem',
-                                                                            backgroundColor:
-                                                                                'blue',
-                                                                            color: 'white',
-                                                                            padding:
-                                                                                '2px 3px',
-                                                                            border: 'none',
-                                                                            borderRadius:
-                                                                                '5px',
-                                                                            cursor: 'pointer'
+                                                                            textAlign:
+                                                                                'left'
                                                                         }}
                                                                     >
-                                                                        Download
-                                                                        &nbsp;
-                                                                        <FaDownload
-                                                                            size={
-                                                                                22
+                                                                        {typeof index ===
+                                                                        'number'
+                                                                            ? index +
+                                                                              1
+                                                                            : ''}
+                                                                    </td>
+                                                                    <td
+                                                                        style={{
+                                                                            textAlign:
+                                                                                'left'
+                                                                        }}
+                                                                    >
+                                                                        {
+                                                                            institution_type
+                                                                        }
+                                                                    </td>
+                                                                    <td
+                                                                        style={{
+                                                                            textAlign:
+                                                                                'left'
+                                                                        }}
+                                                                    >
+                                                                        {' '}
+                                                                        <button
+                                                                            onClick={() =>
+                                                                                handleDownload(
+                                                                                    institution_type_id,
+                                                                                    institution_type
+                                                                                )
                                                                             }
-                                                                        />{' '}
-                                                                    </button>
-                                                                    {/* <FaDownload
+                                                                            className="btn btn-info"
+                                                                            style={{
+                                                                                // padding:
+                                                                                //     '1rem',
+                                                                                // backgroundColor:
+                                                                                //     'success',
+                                                                                fontSize:
+                                                                                    '14px',
+                                                                                color: 'white',
+                                                                                padding:
+                                                                                    '2px 3px',
+                                                                                border: 'none',
+                                                                                borderRadius:
+                                                                                    '5px',
+                                                                                cursor: 'pointer'
+                                                                            }}
+                                                                        >
+                                                                            Download
+                                                                            &nbsp;
+                                                                            <FaDownload
+                                                                                size={
+                                                                                    22
+                                                                                }
+                                                                                style={{
+                                                                                    color: 'red'
+                                                                                }}
+                                                                            />{' '}
+                                                                        </button>
+                                                                        {/* <FaDownload
                                                                         size={
                                                                             22
                                                                         }
@@ -531,44 +538,48 @@ const IdeaSubmittedReport = () => {
                                                                             );
                                                                         }}
                                                                     /> */}
-                                                                </td>
-                                                                <td
-                                                                    style={{
-                                                                        textAlign:
-                                                                            'left'
-                                                                    }}
-                                                                >
-                                                                    {' '}
-                                                                    <button
-                                                                        onClick={() =>
-                                                                            handleDownloadEval(
-                                                                                institution_type_id,
-                                                                                institution_type
-                                                                            )
-                                                                        }
+                                                                    </td>
+                                                                    <td
                                                                         style={{
-                                                                            // padding:
-                                                                            //     '1rem',
-                                                                            backgroundColor:
-                                                                                'blue',
-                                                                            color: 'white',
-                                                                            padding:
-                                                                                '2px 3px',
-                                                                            border: 'none',
-                                                                            borderRadius:
-                                                                                '5px',
-                                                                            cursor: 'pointer'
+                                                                            textAlign:
+                                                                                'left'
                                                                         }}
                                                                     >
-                                                                        Download
-                                                                        &nbsp;
-                                                                        <FaDownload
-                                                                            size={
-                                                                                22
+                                                                        {' '}
+                                                                        <button
+                                                                            onClick={() =>
+                                                                                handleDownloadEval(
+                                                                                    institution_type_id,
+                                                                                    institution_type
+                                                                                )
                                                                             }
-                                                                        />{' '}
-                                                                    </button>
-                                                                    {/* <FaDownload
+                                                                            className="btn btn-info"
+                                                                            style={{
+                                                                                // padding:
+                                                                                //     '1rem',
+                                                                                fontSize:
+                                                                                    '14px',
+                                                                                color: 'white',
+                                                                                padding:
+                                                                                    '2px 3px',
+                                                                                border: 'none',
+                                                                                borderRadius:
+                                                                                    '5px',
+                                                                                cursor: 'pointer'
+                                                                            }}
+                                                                        >
+                                                                            Download
+                                                                            &nbsp;
+                                                                            <FaDownload
+                                                                                size={
+                                                                                    22
+                                                                                }
+                                                                                style={{
+                                                                                    color: 'red'
+                                                                                }}
+                                                                            />{' '}
+                                                                        </button>
+                                                                        {/* <FaDownload
                                                                         size={
                                                                             22
                                                                         }
@@ -579,40 +590,41 @@ const IdeaSubmittedReport = () => {
                                                                             );
                                                                         }}
                                                                     /> */}
-                                                                </td>
-                                                            </tr>
-                                                        )
-                                                    )}
-                                                </tbody>
-                                            </Table>
-                                            {/* </div> */}
+                                                                    </td>
+                                                                </tr>
+                                                            )
+                                                        )}
+                                                    </tbody>
+                                                </Table>
+                                                {/* </div> */}
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                )}
+                            </div>
+                            {downloadTableData && (
+                                <CSVLink
+                                    data={downloadTableData}
+                                    headers={summaryHeaders}
+                                    filename={`IdeaSubmittedDetailedSummaryReport_${newFormat}.csv`}
+                                    className="hidden"
+                                    ref={csvLinkRefTable}
+                                >
+                                    Download Table CSV
+                                </CSVLink>
+                            )}
+                            {downloadTableData1 && (
+                                <CSVLink
+                                    data={downloadTableData1}
+                                    headers={summaryHeaders1}
+                                    filename={`IdeaEvaluationDetailedSummaryReport_${newFormat}.csv`}
+                                    className="hidden"
+                                    ref={csvLinkRefTable1}
+                                >
+                                    Download Table CSV
+                                </CSVLink>
                             )}
                         </div>
-                        {downloadTableData && (
-                            <CSVLink
-                                data={downloadTableData}
-                                headers={summaryHeaders}
-                                filename={`IdeaSubmittedDetailedSummaryReport_${newFormat}.csv`}
-                                className="hidden"
-                                ref={csvLinkRefTable}
-                            >
-                                Download Table CSV
-                            </CSVLink>
-                        )}
-                        {downloadTableData1 && (
-                            <CSVLink
-                                data={downloadTableData1}
-                                headers={summaryHeaders1}
-                                filename={`IdeaEvaluationDetailedSummaryReport_${newFormat}.csv`}
-                                className="hidden"
-                                ref={csvLinkRefTable1}
-                            >
-                                Download Table CSV
-                            </CSVLink>
-                        )}
                     </Row>
                 </Container>
             </Layout>

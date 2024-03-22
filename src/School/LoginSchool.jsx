@@ -45,7 +45,7 @@ function LoginSchool(props) {
 
     const inputUserId = {
         type: 'text',
-        placeholder: 'Enter Institution Unique Code Code  '
+        placeholder: 'Enter Institution Unique Code'
     };
 
     const inputPassword = {
