@@ -471,11 +471,13 @@ const SubIdeasTableReports = () => {
                                                                                     item
                                                                                 )
                                                                             }
+                                                                            className="btn btn-info"
                                                                             style={{
                                                                                 // padding:
                                                                                 //     '1rem',
-                                                                                backgroundColor:
-                                                                                    'blue',
+                                                                                fontSize:
+                                                                                    '14px',
+
                                                                                 color: 'white',
                                                                                 padding:
                                                                                     '2px 3px',
@@ -491,6 +493,9 @@ const SubIdeasTableReports = () => {
                                                                                 size={
                                                                                     22
                                                                                 }
+                                                                                style={{
+                                                                                    color: 'red'
+                                                                                }}
                                                                             />{' '}
                                                                         </button>
                                                                         {/* <FaDownload

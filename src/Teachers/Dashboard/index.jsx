@@ -230,7 +230,7 @@ const Dashboard = () => {
                         <Row>
                             <Col className="md-2">
                                 <Card
-                                    bg="light"
+                                    bg="white"
                                     text="dark"
                                     className="mb-4"
                                     style={{ height: '170px' }}
@@ -256,7 +256,7 @@ const Dashboard = () => {
                             </Col>
                             <Col className="md-2">
                                 <Card
-                                    bg="light"
+                                    bg="white"
                                     text="dark"
                                     className="mb-4"
                                     style={{ height: '170px' }}
@@ -284,7 +284,7 @@ const Dashboard = () => {
                         <Row>
                             <Col className="md-2">
                                 <Card
-                                    bg="light"
+                                    bg="white"
                                     text="dark"
                                     className="mb-4"
                                     style={{ height: '170px' }}
@@ -312,7 +312,7 @@ const Dashboard = () => {
                             </Col>
                             <Col className="md-2">
                                 <Card
-                                    bg="light"
+                                    bg="white"
                                     text="dark"
                                     className="mb-4"
                                     style={{ height: '170px' }}
@@ -343,7 +343,7 @@ const Dashboard = () => {
 
                     <Col className="md-6">
                         <Card
-                            bg="light"
+                            bg="white"
                             text="dark"
                             className=" md-3 xs-12 "
                             style={{ height: '350px' }}
