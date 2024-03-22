@@ -46,6 +46,8 @@ const IdeaSubmittedReport = () => {
         useState(null);
     const [chartTableData, setChartTableData] = useState([]);
     const csvLinkRefTable = useRef();
+    const csvLinkRefTable1 = useRef();
+
     const csvLinkRef = useRef();
     const csvLinkRefNotRegistered = useRef();
     const dispatch = useDispatch();
@@ -58,9 +60,12 @@ const IdeaSubmittedReport = () => {
     const [downloadComplete, setDownloadComplete] = useState(false);
     const [newFormat, setNewFormat] = useState('');
     const [downloadTableData, setDownloadTableData] = useState(null);
+    const [downloadTableData1, setDownloadTableData1] = useState(null);
+
     const [fetchData, setFetchData] = useState(false);
     const [instType, setInstType] = useState([]);
     const [combinedArray, setCombinedArray] = useState([]);
+    const [combinedArray1, setCombinedArray1] = useState([]);
 
     const summaryHeaders = [
         {
@@ -92,20 +97,63 @@ const IdeaSubmittedReport = () => {
             key: 'block_name'
         },
         {
-            label: 'Number of teams formed',
+            label: 'Number Of Teams Formed',
             key: 'numberOfTeamsFormed'
         },
         {
-            label: 'No of ideas drafted',
+            label: 'No Of Ideas Drafted',
             key: 'No of ideas draft'
         },
         {
-            label: 'No of ideas submitted',
+            label: 'No Of Ideas Submitted',
             key: 'No of ideas submitted'
         },
         {
-            label: 'No of ideas Pending For Approval',
+            label: 'No Of Ideas Pending For Approval',
             key: 'No of ideas Pending For Approval'
+        }
+    ];
+    const summaryHeaders1 = [
+        {
+            label: 'District Name',
+            key: 'district_name'
+        },
+        // {
+        //     label: 'Total Eligible ATL Schools',
+        //     key: 'ATL_Count'
+        // },
+        // {
+        //     label: 'Type of institution',
+        //     key: 'Type of Institution'
+        // },
+        {
+            label: 'Institution code',
+            key: 'institution_code'
+        },
+        {
+            label: 'Institution Name',
+            key: 'institution_name'
+        },
+        {
+            label: 'Place',
+            key: 'place_name'
+        },
+        {
+            label: 'Block',
+            key: 'block_name'
+        },
+        {
+            label: 'No Of Ideas Submitted',
+            key: 'No of ideas submitted'
+        },
+        {
+            label: 'No Of Ideas Level - 1 Evaluation Completed',
+            key: 'L1'
+        },
+
+        {
+            label: 'No Of Ideas Level - 2 Evaluation Completed',
+            key: 'L2'
         }
     ];
 
@@ -206,7 +254,7 @@ const IdeaSubmittedReport = () => {
                     var array = combinedArray;
                     setCombinedArray(array);
                     setDownloadTableData(combinedArray);
-                    const filename = `${institution_type}_Idea submitted details Report_${newFormat}.csv`;
+                    const filename = `${institution_type}_Ideas Submitted Report_${newFormat}.csv`;
                     csvLinkRefTable.current.link.setAttribute(
                         'download',
                         filename
@@ -218,13 +266,90 @@ const IdeaSubmittedReport = () => {
                 console.log('API error:', error);
             });
     };
+    const handleDownloadEval = (institution_type_id, institution_type) => {
+        const newparam = encryptGlobal(
+            JSON.stringify({
+                institution_type_id: institution_type_id
+            })
+        );
+        const config = {
+            method: 'get',
+            url:
+                process.env.REACT_APP_API_BASE_URL +
+                `/reports/ideaEvaluationReport?Data=${newparam}`,
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${currentUser?.data[0]?.token}`
+            }
+        };
+
+        axios(config)
+            .then((response) => {
+                if (response.status === 200) {
+                    const summary = response.data.data[0].summary;
+                    const ideaCountsSUBDRAFT =
+                        response.data.data[0].ideaCountsSUBDRAFT;
+
+                    const combinedArray1 = summary.map((summaryItem) => {
+                        const district_name = summaryItem.district_name;
+                        const block_name = summaryItem.block_name;
+                        const institution_code = summaryItem.institution_code;
+                        const institution_name = summaryItem.institution_name;
+                        const place_name = summaryItem.place_name;
+                        // const numberOfTeamsFormed =
+                        //     summaryItem['Number of teams formed'];
+
+                        const institution_id = summaryItem.institution_id;
+                        const ideasCountItem = ideaCountsSUBDRAFT.find(
+                            (item) => item.institution_id === institution_id
+                        );
+
+                        return {
+                            institution_id,
+                            block_name,
+                            // numberOfTeamsFormed,
+                            district_name,
+                            institution_code,
+                            institution_name,
+
+                            place_name,
+                            'No of ideas submitted': ideasCountItem
+                                ? ideasCountItem['No of ideas submitted']
+                                : '0',
+                            L1: ideasCountItem ? ideasCountItem.L1 : '0',
+                            L2: ideasCountItem ? ideasCountItem.L2 : '0'
+                        };
+                    });
+                    var array = combinedArray1;
+                    const filteredData = array.filter(
+                        (entry) => entry['No of ideas submitted'] !== '0'
+                    );
+                    setCombinedArray1(filteredData);
+                    setDownloadTableData1(filteredData);
+                    const filename = `${institution_type}_Ideas Evaluated Report_${newFormat}.csv`;
+                    csvLinkRefTable1.current.link.setAttribute(
+                        'download',
+                        filename
+                    );
+                    csvLinkRefTable1.current.link.click();
+                }
+            })
+            .catch((error) => {
+                console.log('API error:', error);
+            });
+    };
     return (
         <>
             <Layout title="Reports">
-                <Container className="RegReports mt-4 mb-30 userlist">
+                <Container
+                    className="RegReports mt-4 mb-30 userlist "
+                    style={{
+                        height: '650px'
+                    }}
+                >
                     <Row className="mt-0 pt-2">
                         <Col>
-                            <h2>Idea Submitted Details Report</h2>
+                            <h2>Institution Type Wise Ideas Report</h2>
                         </Col>
                         <Col className="text-right mb-1">
                             <Button
@@ -254,7 +379,12 @@ const IdeaSubmittedReport = () => {
                                                 id="dataTable"
                                                 className="table table-striped table-bordered responsive just"
                                             >
-                                                <thead>
+                                                <thead
+                                                    style={{
+                                                        height: '40px'
+                                                        // marginBottom: '30px'
+                                                    }}
+                                                >
                                                     <tr>
                                                         {' '}
                                                         <th
@@ -265,12 +395,12 @@ const IdeaSubmittedReport = () => {
                                                                     '10px',
                                                                 marginRight:
                                                                     '10px',
-                                                                width: '300rem',
+                                                                width: '40rem',
                                                                 textAlign:
-                                                                    'center'
+                                                                    'left'
                                                             }}
                                                         >
-                                                            S.no
+                                                            S.No
                                                         </th>
                                                         <th
                                                             style={{
@@ -280,9 +410,9 @@ const IdeaSubmittedReport = () => {
                                                                     '10px',
                                                                 marginRight:
                                                                     '10px',
-                                                                width: '700rem',
+                                                                width: '200rem',
                                                                 textAlign:
-                                                                    'center'
+                                                                    'left'
                                                             }}
                                                         >
                                                             Institution Type
@@ -295,41 +425,59 @@ const IdeaSubmittedReport = () => {
                                                                     '10px',
                                                                 marginRight:
                                                                     '10px',
-                                                                width: '500rem',
+                                                                width: '100rem',
                                                                 textAlign:
-                                                                    'center'
+                                                                    'left'
                                                             }}
                                                         >
-                                                            Download
+                                                            Ideas Submitted
+                                                            Report
+                                                        </th>
+                                                        <th
+                                                            style={{
+                                                                whiteSpace:
+                                                                    'nowrap',
+                                                                marginLeft:
+                                                                    '10px',
+                                                                marginRight:
+                                                                    '10px',
+                                                                width: '100rem',
+                                                                textAlign:
+                                                                    'left'
+                                                            }}
+                                                        >
+                                                            Ideas Evaluated
+                                                            Report
                                                         </th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     {' '}
                                                     {instType.map(
-                                                        ({
-                                                            institution_type_id,
-                                                            institution_type
-                                                        }) => (
-                                                            <tr
-                                                                key={
-                                                                    institution_type_id
-                                                                }
-                                                            >
+                                                        (
+                                                            {
+                                                                institution_type_id,
+                                                                institution_type
+                                                            },
+                                                            index
+                                                        ) => (
+                                                            <tr key={index}>
                                                                 <td
                                                                     style={{
                                                                         textAlign:
-                                                                            'center'
+                                                                            'left'
                                                                     }}
                                                                 >
-                                                                    {
-                                                                        institution_type_id
-                                                                    }
+                                                                    {typeof index ===
+                                                                    'number'
+                                                                        ? index +
+                                                                          1
+                                                                        : ''}
                                                                 </td>
                                                                 <td
                                                                     style={{
                                                                         textAlign:
-                                                                            'center'
+                                                                            'left'
                                                                     }}
                                                                 >
                                                                     {
@@ -339,11 +487,40 @@ const IdeaSubmittedReport = () => {
                                                                 <td
                                                                     style={{
                                                                         textAlign:
-                                                                            'center'
+                                                                            'left'
                                                                     }}
                                                                 >
                                                                     {' '}
-                                                                    <FaDownload
+                                                                    <button
+                                                                        onClick={() =>
+                                                                            handleDownload(
+                                                                                institution_type_id,
+                                                                                institution_type
+                                                                            )
+                                                                        }
+                                                                        style={{
+                                                                            // padding:
+                                                                            //     '1rem',
+                                                                            backgroundColor:
+                                                                                'blue',
+                                                                            color: 'white',
+                                                                            padding:
+                                                                                '2px 3px',
+                                                                            border: 'none',
+                                                                            borderRadius:
+                                                                                '5px',
+                                                                            cursor: 'pointer'
+                                                                        }}
+                                                                    >
+                                                                        Download
+                                                                        &nbsp;
+                                                                        <FaDownload
+                                                                            size={
+                                                                                22
+                                                                            }
+                                                                        />{' '}
+                                                                    </button>
+                                                                    {/* <FaDownload
                                                                         size={
                                                                             22
                                                                         }
@@ -353,7 +530,55 @@ const IdeaSubmittedReport = () => {
                                                                                 institution_type
                                                                             );
                                                                         }}
-                                                                    />
+                                                                    /> */}
+                                                                </td>
+                                                                <td
+                                                                    style={{
+                                                                        textAlign:
+                                                                            'left'
+                                                                    }}
+                                                                >
+                                                                    {' '}
+                                                                    <button
+                                                                        onClick={() =>
+                                                                            handleDownloadEval(
+                                                                                institution_type_id,
+                                                                                institution_type
+                                                                            )
+                                                                        }
+                                                                        style={{
+                                                                            // padding:
+                                                                            //     '1rem',
+                                                                            backgroundColor:
+                                                                                'blue',
+                                                                            color: 'white',
+                                                                            padding:
+                                                                                '2px 3px',
+                                                                            border: 'none',
+                                                                            borderRadius:
+                                                                                '5px',
+                                                                            cursor: 'pointer'
+                                                                        }}
+                                                                    >
+                                                                        Download
+                                                                        &nbsp;
+                                                                        <FaDownload
+                                                                            size={
+                                                                                22
+                                                                            }
+                                                                        />{' '}
+                                                                    </button>
+                                                                    {/* <FaDownload
+                                                                        size={
+                                                                            22
+                                                                        }
+                                                                        onClick={() => {
+                                                                            handleDownload(
+                                                                                institution_type_id,
+                                                                                institution_type
+                                                                            );
+                                                                        }}
+                                                                    /> */}
                                                                 </td>
                                                             </tr>
                                                         )
@@ -373,6 +598,17 @@ const IdeaSubmittedReport = () => {
                                 filename={`IdeaSubmittedDetailedSummaryReport_${newFormat}.csv`}
                                 className="hidden"
                                 ref={csvLinkRefTable}
+                            >
+                                Download Table CSV
+                            </CSVLink>
+                        )}
+                        {downloadTableData1 && (
+                            <CSVLink
+                                data={downloadTableData1}
+                                headers={summaryHeaders1}
+                                filename={`IdeaEvaluationDetailedSummaryReport_${newFormat}.csv`}
+                                className="hidden"
+                                ref={csvLinkRefTable1}
                             >
                                 Download Table CSV
                             </CSVLink>

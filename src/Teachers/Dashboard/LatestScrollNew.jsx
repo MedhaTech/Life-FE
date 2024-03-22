@@ -89,7 +89,9 @@ function LatestScrollNew({ usersdata }) {
                 <Col md={12}>
                     <Row>
                         <Col md={8} className="border-right my-auto">
-                            <h2 style={{ color: 'black' }}>Latest News</h2>
+                            <label style={{ color: 'black', fontSize: '20px' }}>
+                                Latest News
+                            </label>
                             <div
                                 // id="boxflow"
                                 // ref={containerRef}
