@@ -9,6 +9,7 @@ import { getCurrentUser } from '../helpers/Utils';
 //import { useDispatch} from 'react-redux';
 //import i18next from 'i18next';
 //import {getStudentGlobalLanguage } from '../redux/studentRegistration/actions';
+import './header.css';
 
 const Header = (props) => {
     //const dispatch= useDispatch();
@@ -50,24 +51,36 @@ const Header = (props) => {
                         </div>
                         <Navbar>
                             <Row className="justify-content-between w-100">
-                                <Col md={12} className="d-flex profile-section">
-                                    <p className="m-0">
-                                        <b>Menu :</b> {props.title}
-                                    </p>
-                                    <p className="m-0">
-                                        <b>Institution : </b>{' '}
-                                        {currentUser?.data[0].institution_name}
-                                    </p>
-                                    <div className="d-flex align-items-center profile">
-                                        <img src={AvatarImg} />
-                                        <span className="header-name-size">
-                                            Welcome Student{' '}
-                                            {currentUser?.data[0].full_name}
-                                        </span>
-
-                                        {/* {window.location.pathname === '/student/pre-survey' && presuveyStatusGl && presuveyStatusGl !=="COMPLETED" && <span className="common-language-selc">
-                                            <LanguageSelectorComp module="student" />
-                                        </span>} */}
+                                <Col
+                                    md={12}
+                                    className="d-flex profile-section text-left"
+                                >
+                                    <div>
+                                        <p>
+                                            <b className="menu-text">Menu :</b>{' '}
+                                            <span className="dynamic-text">
+                                                {props.title}
+                                            </span>
+                                            &nbsp;
+                                            {/* </p> */}
+                                            {/* <p > */}
+                                            <b className="institution-text">
+                                                Institution :{' '}
+                                            </b>{' '}
+                                            <span className="dynamic-text">
+                                                {
+                                                    currentUser?.data[0]
+                                                        .institution_name
+                                                }
+                                            </span>{' '}
+                                            &nbsp;
+                                            <img src={AvatarImg} />
+                                            &nbsp;
+                                            <span className="header-name-size">
+                                                Welcome Student{' '}
+                                                {currentUser?.data[0].full_name}
+                                            </span>
+                                        </p>
                                     </div>
                                 </Col>
                             </Row>

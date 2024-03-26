@@ -1,0 +1,16 @@
+.menu-text,
+.institution-text {
+    font-size: 16px;
+}
+.dynamic-text {
+    font-size: 14px; /* Adjust the font size for dynamic text */
+}
+@media (max-width: 767px) {
+    .menu-text,
+    .institution-text {
+        font-size: 10px; /* Adjust the font size for mobile */
+    }
+    .dynamic-text {
+        font-size: 10px; /* Adjust the font size for dynamic text on mobile */
+    }
+}
