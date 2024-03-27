@@ -103,8 +103,8 @@ export const schoolLoginUserLogOut = (history) => async () => {
             });
         if (result && result.status === 200) {
             setCurrentUser();
-            localStorage.removeItem('headerOption');
-            history.push('/school');
+            // localStorage.removeItem('headerOption');
+            history.push('/institution');
         }
     } catch (error) {
         console.log('error');

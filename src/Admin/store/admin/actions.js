@@ -173,7 +173,7 @@ export const adminLoginUserLogOut = (history) => async () => {
             // alert('hii');
             history.push('/admin');
             setCurrentUser();
-            localStorage.removeItem('headerOption');
+            // localStorage.removeItem('headerOption');
         }
     } catch (error) {
         console.log(error);

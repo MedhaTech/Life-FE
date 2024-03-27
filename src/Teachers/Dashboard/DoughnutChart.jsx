@@ -26,12 +26,13 @@ import { Row, Col } from 'reactstrap';
 import { useReactToPrint } from 'react-to-print';
 import Schoolpdf from '../../School/SchoolPdf';
 import { encryptGlobal } from '../../constants/encryptDecrypt';
-export default function DoughnutChart({ user }) {
+export default function DoughnutChart({ user, setApproval, setIdeaCount }) {
     const dispatch = useDispatch();
     const currentUser = getCurrentUser('current_user');
     const { teamsMembersStatus, teamsMembersStatusErr } = useSelector(
         (state) => state.teams
     );
+    // console.log(teamsMembersStatus, 'teamsMembersStatus');
     const [teamId, setTeamId] = useState(null);
     const [showDefault, setshowDefault] = useState(true);
     const [ideaShow, setIdeaShow] = useState(false);
@@ -689,6 +690,8 @@ export default function DoughnutChart({ user }) {
                     show={ideaShow}
                     handleClose={() => setIdeaShow(false)}
                     response={challengesSubmittedResponse}
+                    setIdeaCount={setIdeaCount}
+                    setApproval={setApproval}
                 />
             )}
             {ChangeShow && (

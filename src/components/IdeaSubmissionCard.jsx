@@ -2,6 +2,9 @@
 /* eslint-disable no-undef */
 /* eslint-disable indent */
 import moment from 'moment/moment';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+
 import React, { useEffect, useState, useRef } from 'react';
 import { Modal } from 'react-bootstrap';
 import { Card, CardBody, CardTitle, CardText } from 'reactstrap';
@@ -14,6 +17,7 @@ import axios from 'axios';
 import { encryptGlobal } from '../constants/encryptDecrypt';
 import { getCurrentUser } from '../helpers/Utils';
 import { openNotificationWithIcon } from '../helpers/Utils';
+import { getTeamMemberStatus } from '../Teachers/store/teams/actions';
 
 const LinkComponent = ({ item }) => {
     return (
@@ -38,15 +42,27 @@ const LinkComponent = ({ item }) => {
         </>
     );
 };
-const IdeaSubmissionCard = ({ handleClose, show, response, props }) => {
+const IdeaSubmissionCard = ({
+    handleClose,
+    show,
+    response,
+    props,
+    setIdeaCount,
+    setApproval
+}) => {
     const submitted = response;
     const [acceptBtn, setAcceptBtn] = useState('');
+    const dispatch = useDispatch();
+
     // const AcceptButton = submittedResponse?.verified_by;
     const currentUser = getCurrentUser('current_user');
     const mentorId = currentUser?.data[0]?.user_id;
     const teamId = submitted.team_id;
     const [submittedResponse, setIdeaSubmittedData] = React.useState(submitted);
-
+    const [showDefault, setshowDefault] = useState(true);
+    const { teamsMembersStatus, teamsMembersStatusErr } = useSelector(
+        (state) => state.teams
+    );
     const componentRef = useRef();
     const [teamResponse, setTeamResponse] = React.useState([]);
     const [answers, setAnswers] = useState([]);
@@ -54,6 +70,10 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props }) => {
     useEffect(async () => {
         await ideaSubmittedApi();
     }, []);
+    // useEffect(async () => {
+    //     await mentorIdeaCount();
+    // }, []);
+
     const handleAccept = () => {
         const currentTime = new Date().toLocaleString();
 
@@ -80,9 +100,10 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props }) => {
                         'success',
                         'Approve the Idea successfully'
                     );
-
                     setHide(false);
                     handleClose();
+                    dispatch(getTeamMemberStatus(teamId, setshowDefault));
+                    mentorIdeaCount();
                     await ideaSubmittedApi();
                 }
             })
@@ -92,7 +113,35 @@ const IdeaSubmissionCard = ({ handleClose, show, response, props }) => {
             });
     };
     // useEffect(() => {
-
+    const mentorIdeaCount = async () => {
+        const ideaApi = encryptGlobal(
+            JSON.stringify({
+                mentor_id: currentUser?.data[0]?.mentor_id
+            })
+        );
+        var config = {
+            method: 'get',
+            url:
+                process.env.REACT_APP_API_BASE_URL +
+                `/dashboard/ideaCount?Data=${ideaApi}`,
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${currentUser.data[0]?.token}`
+            }
+        };
+        axios(config)
+            .then(function (response) {
+                if (response.status === 200) {
+                    // console.log(response, 'ideasubmission page');
+                    setIdeaCount(response.data.data[0].idea_count);
+                    setApproval(response.data.data[0].PendingForApproval);
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
     async function ideaSubmittedApi() {
         const Param = encryptGlobal(
             JSON.stringify({
