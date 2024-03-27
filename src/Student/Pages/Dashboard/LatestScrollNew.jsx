@@ -102,9 +102,9 @@ function LatestScrollNew({ usersdata }) {
                                 }}
                             >
                                 <div
-                                    className={`scrolling-container ${
-                                        isPaused ? 'paused' : ''
-                                    }`}
+                                // className={`scrolling-container ${
+                                //     isPaused ? 'paused' : ''
+                                // }`}
                                 >
                                     <ul>
                                         {news?.map((item, index) => (

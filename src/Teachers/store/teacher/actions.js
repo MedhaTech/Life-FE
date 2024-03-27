@@ -157,7 +157,7 @@ export const teacherLoginUserLogOut = (history) => async () => {
             });
         if (result && result.status === 200) {
             setCurrentUser();
-            localStorage.removeItem('headerOption');
+            // localStorage.removeItem('headerOption');
             history.push('/mentor');
         }
     } catch (error) {

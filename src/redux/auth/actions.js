@@ -79,7 +79,7 @@ export const loginUserLogOut = (history) => async () => {
             });
         if (result && result.status === 200) {
             setCurrentUser();
-            localStorage.removeItem('headerOption');
+            // localStorage.removeItem('headerOption');
             history.push('/login');
         }
     } catch (error) {
