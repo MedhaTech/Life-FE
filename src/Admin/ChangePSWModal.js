@@ -7,7 +7,7 @@ import { InputBox } from '../stories/InputBox/InputBox';
 import CryptoJS from 'crypto-js';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { getCurrentUser } from '../helpers/Utils';
+import { getCurrentUser, openNotificationWithIcon } from '../helpers/Utils';
 import { useTranslation } from 'react-i18next';
 import 'sweetalert2/src/sweetalert2.scss';
 import { FaEyeSlash, FaEye } from 'react-icons/fa';
@@ -82,6 +82,10 @@ const ChangePSWModal = (props) => {
                         }
                     })
                     .catch(function (error) {
+                        openNotificationWithIcon(
+                            'error',
+                            'Enter the correct current password'
+                        );
                         console.log(error);
                     });
             }

@@ -201,7 +201,7 @@ const Dashboard = () => {
                 )
         },
         {
-            title: ' Send For Approval',
+            title: 'Idea Submission',
             dataIndex: 'PendingForApproval',
             render: (_, record) =>
                 record?.PendingForApproval === 1 ? (
@@ -278,7 +278,7 @@ const Dashboard = () => {
         //     }
         // },
         {
-            title: 'Idea Submission',
+            title: 'Mentor Approval',
             dataIndex: 'idea_submission',
             align: 'center',
             width: '10%',

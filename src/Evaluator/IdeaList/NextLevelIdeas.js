@@ -34,6 +34,7 @@ const IdeaList = () => {
     const handleNext = () => {
         dispatch(getSubmittedIdeaList('L2'));
     };
+    // console.log(Object.keys(ideaDetails).length, 'ideaDetails');
 
     return (
         <Layout title="L2 Evaluation">
@@ -44,7 +45,7 @@ const IdeaList = () => {
                 <div className="row">
                     {!isNextDiv ? (
                         <div className="col-12">
-                            {Object.keys(ideaDetails).length > 0 ? (
+                            {Object.keys(ideaDetails).length > 2 ? (
                                 <NextLevel
                                     ideaDetails={ideaDetails}
                                     handleSkip={handleNext}
