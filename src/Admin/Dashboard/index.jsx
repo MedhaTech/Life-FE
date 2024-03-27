@@ -1053,7 +1053,9 @@ const Dashboard = () => {
                                                 No.of Teams
                                             </label>
                                         </Card.Body> */}
-                                        <Card.Body>
+                                        <Card.Body
+                                            style={{ textAlign: 'center' }}
+                                        >
                                             <Card.Text
                                                 style={{
                                                     fontSize: '24px',
