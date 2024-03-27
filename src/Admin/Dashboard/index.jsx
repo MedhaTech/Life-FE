@@ -2096,7 +2096,7 @@ const Dashboard = () => {
                         </div>
                         <div
                             className=" row  col-xs-12 col-md-5 "
-                            style={{ marginTop: '65px' }}
+                            style={{ marginTop: '46px' }}
                         >
                             <div
                                 style={{
