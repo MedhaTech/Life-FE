@@ -563,7 +563,7 @@ const Dashboard = () => {
         axios(config)
             .then(function (response) {
                 if (response.status === 200) {
-                    console.log(response, 'Reg');
+                    // console.log(response, 'Reg');
                     setRegInst(response.data.data[0].RegSchools);
                 }
             })
@@ -657,7 +657,6 @@ const Dashboard = () => {
         axios(config)
             .then(function (response) {
                 if (response.status === 200) {
-                    // console.log(response, '1');
                     setTotalideasCount(response.data.data[0].initiated_ideas);
                     setTotalPfa(response.data.data[0].PFACount);
                     setTotalSubmittedideasCount(
@@ -800,7 +799,6 @@ const Dashboard = () => {
     };
     const [districtName, setDistrictName] = useState('TAMIL NADU STATE');
     const getDetails = () => {
-        // alert('hiii');
         if (!RegTeachersdistrict) {
             openNotificationWithIcon('error', 'Please select district', '');
             return;
@@ -822,6 +820,7 @@ const Dashboard = () => {
         adminInvalidInst(RegTeachersdistrict);
         return dist;
     };
+
     // const dist =
     //     RegTeachersdistrict === 'All Districts'
     //         ? 'TAMIL NADU STATE'
@@ -856,7 +855,6 @@ const Dashboard = () => {
     //             console.log(error);
     //         });
     // };
-
     return (
         <Layout title="Dashboard">
             <div className="dashboard-wrapper pb-5 my-5 px-5">
@@ -1998,7 +1996,8 @@ const Dashboard = () => {
                                                     marginBottom: '20px'
                                                 }}
                                             >
-                                                {totalSubmittedideasCount}
+                                                {totalteamsCount -
+                                                    totalideasCount}
                                             </Card.Text>
                                             <label
                                                 htmlFor="teams"

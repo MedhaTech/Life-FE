@@ -32,7 +32,7 @@ const IdeaList = () => {
     const handleNext = () => {
         dispatch(getSubmittedIdeaList('L1'));
     };
-    console.log(ideaDetails, 'ideaDetails');
+    // console.log(ideaDetails, 'ideaDetails');
 
     return (
         <Layout title="L1 Evaluation">
@@ -43,7 +43,7 @@ const IdeaList = () => {
                 <div className="row">
                     {!isNextDiv ? (
                         <div className="col-12">
-                            {Object.keys(ideaDetails).length > 0 ? (
+                            {Object.keys(ideaDetails).length > 2 ? (
                                 <IdeaDetail
                                     ideaDetails={ideaDetails}
                                     handleSkip={handleNext}

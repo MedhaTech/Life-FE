@@ -201,7 +201,19 @@ const Dashboard = () => {
                 )
         },
         {
-            title: ' Send For Approval',
+            title: 'Idea Submission',
+            dataIndex: 'idea_submission',
+            align: 'center',
+            width: '10%',
+            render: (_, record) =>
+                record?.idea_submission === 1 ? (
+                    <FaCheckCircle size={20} color="green" />
+                ) : (
+                    <FaTimesCircle size={20} color="red" />
+                )
+        },
+        {
+            title: 'Mentor Approval',
             dataIndex: 'PendingForApproval',
             render: (_, record) =>
                 record?.PendingForApproval === 1 ? (
@@ -210,7 +222,7 @@ const Dashboard = () => {
                     <FaTimesCircle size={20} color="red" />
                 ),
             width: '15rem'
-        },
+        }
         // {
         //     title: 'Send for Approval',
         //     dataIndex: 'PendingForApproval',
@@ -277,18 +289,7 @@ const Dashboard = () => {
         //         );
         //     }
         // },
-        {
-            title: 'Idea Submission',
-            dataIndex: 'idea_submission',
-            align: 'center',
-            width: '10%',
-            render: (_, record) =>
-                record?.idea_submission === 1 ? (
-                    <FaCheckCircle size={20} color="green" />
-                ) : (
-                    <FaTimesCircle size={20} color="red" />
-                )
-        }
+
         // {
         //     title: 'Post Survey',
         //     dataIndex: 'post_survey_status',
