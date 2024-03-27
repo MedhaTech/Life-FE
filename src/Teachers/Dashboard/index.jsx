@@ -13,6 +13,8 @@ import { Modal } from 'react-bootstrap';
 // import LatestNewsNew from './LatestNewsNew';
 import { encryptGlobal } from '../../constants/encryptDecrypt';
 import LatestScrollNew from './LatestScrollNew';
+import { getTeamMemberStatus } from '../store/teams/actions';
+import { useDispatch } from 'react-redux';
 
 import { Card } from 'react-bootstrap';
 import axios from 'axios';
@@ -43,7 +45,7 @@ const GreetingModal = (props) => {
 const Dashboard = () => {
     const [showsPopup, setShowsPopup] = useState(false);
     const [imgUrl, setImgUrl] = useState('');
-
+    const dispatch = useDispatch();
     // here we can see teacher details //
     // details like school name ,district ,no of ideas , no of teams //
     const currentUser = getCurrentUser('current_user');
@@ -81,11 +83,15 @@ const Dashboard = () => {
     useEffect(() => {
         if (currentUser?.data[0]?.user_id) {
             mentorTeamsCount();
-            mentorIdeaCount();
             mentorStudentCount();
+
             // mentorcoursepercentage();
         }
     }, [currentUser?.data[0]?.user_id]);
+    useEffect(() => {
+        mentorIdeaCount();
+    }, []);
+
     // here in  Dashboard we can see all details of teacher //
     // like  school name , district , no of ideas , no of teams //
     const [teamsCount, setTeamsCount] = useState('-');
@@ -142,6 +148,7 @@ const Dashboard = () => {
         axios(config)
             .then(function (response) {
                 if (response.status === 200) {
+                    console.log(response, 'idea');
                     setIdeaCount(response.data.data[0].idea_count);
                     setApproval(response.data.data[0].PendingForApproval);
                 }
@@ -363,7 +370,11 @@ const Dashboard = () => {
                     <Row className="">
                         <Col>
                             <div className="d-flex flex-wrap">
-                                <DoughnutChart user={currentUser?.data} />
+                                <DoughnutChart
+                                    user={currentUser?.data}
+                                    setIdeaCount={setIdeaCount}
+                                    setApproval={setApproval}
+                                />
                             </div>
                         </Col>
                     </Row>

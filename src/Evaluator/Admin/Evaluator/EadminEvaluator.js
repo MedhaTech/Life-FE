@@ -111,28 +111,42 @@ const TicketsPage = (props) => {
             })
             .then(async (result) => {
                 if (result.isConfirmed) {
-                    // if (type && type === 'student') {
-                    //     props.studentStatusUpdate({ status }, id);
-                    //     setTimeout(() => {
-                    //         props.getStudentListAction(studentDist);
-                    //     }, 500);
-                }
-                if (type && type === 'evaluator') {
-                    console.warn(status, id, type);
+                    if (type && type === 'evaluator') {
+                        console.warn(status, id, type);
 
-                    dispatch(
-                        updateEvaluator(
-                            {
-                                status,
-                                full_name: all.user.full_name,
-                                username: all.user.username
-                            },
-                            id
-                        )
-                    );
-                    setTimeout(() => {
-                        props.getEvaluatorListAction();
-                    }, 500);
+                        dispatch(
+                            updateEvaluator(
+                                {
+                                    status,
+                                    full_name: all.user.full_name,
+                                    username: all.user.username
+                                },
+                                id
+                            )
+                        );
+                        setTimeout(() => {
+                            props.getEvaluatorListAction();
+                        }, 500);
+                        swalWithBootstrapButtons.fire(
+                            `${
+                                type && type === 'student'
+                                    ? 'Student'
+                                    : type && type === 'evaluator'
+                                    ? 'evaluator'
+                                    : type && type === 'admin'
+                                    ? 'Admin'
+                                    : 'Mentor'
+                            } Status has been changed!`,
+                            'Successfully updated.',
+                            'success'
+                        );
+                        // if (type && type === 'student') {
+                        //     props.studentStatusUpdate({ status }, id);
+                        //     setTimeout(() => {
+                        //         props.getStudentListAction(studentDist);
+                        //     }, 500);
+                    }
+
                     // } else if (type && type === 'admin') {
                     //     const obj = {
                     //         full_name: all.full_name,
@@ -157,19 +171,6 @@ const TicketsPage = (props) => {
                     //         props.getAdminMentorsListAction('ALL', mentorDist);
                     //     }, 500);
                     // }
-                    swalWithBootstrapButtons.fire(
-                        `${
-                            type && type === 'student'
-                                ? 'Student'
-                                : type && type === 'evaluator'
-                                ? 'evaluator'
-                                : type && type === 'admin'
-                                ? 'Admin'
-                                : 'Mentor'
-                        } Status has been changed!`,
-                        'Successfully updated.',
-                        'success'
-                    );
                 } else if (result.dismiss === Swal.DismissReason.cancel) {
                     swalWithBootstrapButtons.fire(
                         'Cancelled',

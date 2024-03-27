@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable indent */
 /* eslint-disable no-constant-condition */
 /* eslint-disable react/jsx-no-target-blank */
@@ -14,7 +15,7 @@ function LatestNewsNew({ usersdata }) {
 
     const [newsRes, setNewRes] = useState({});
     const [news, setNews] = useState([]);
-    const containerRef = useRef(null);
+    // const containerRef = useRef(null);
     useEffect(() => {
         const container = containerRef.current;
         let scrollInterval;

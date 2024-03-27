@@ -3,7 +3,7 @@ import { FaBars } from 'react-icons/fa';
 import { Row, Col, Navbar } from 'reactstrap';
 // import AvatarImg from '../assets/media/img/teacher.png';
 import AvatarImg from '../assets/media/img/Avatar.png';
-
+import './header.css';
 import { getAdminNotificationsList } from '../redux/actions';
 import { connect } from 'react-redux';
 import { getCurrentUser } from '../helpers/Utils';
@@ -27,7 +27,7 @@ const Header = (props) => {
     return (
         <header>
             <div
-                className="header-comp sticky-top py-3"
+                className="header-comp sticky-top py-2"
                 style={{ height: '7.3rem' }}
             >
                 <div className="header-container">
@@ -39,27 +39,44 @@ const Header = (props) => {
                             <FaBars />
                         </div>
                         <Navbar>
-                            <Row className="justify-content-between w-100">
+                            <Row className=" w-100">
                                 <Col
                                     md={12}
-                                    className="d-flex profile-section text-right"
+                                    className="d-flex profile-section text-left"
                                 >
-                                    <p className="m-0">
-                                        <b>Menu :</b> {props.title}
-                                    </p>
-                                    <p className="m-0">
-                                        <b>Institution : </b>{' '}
-                                        {currentUser?.data[0].institution_name}
-                                    </p>
-
-                                    <div className="d-flex align-items-center profile">
-                                        <img src={AvatarImg} />
-                                        <span className="header-name-size col-sm-12">
-                                            Welcome Mentor{' '}
-                                            {currentUser?.data[0].full_name}
-                                        </span>
-
-                                        <span className="common-language-selc"></span>
+                                    <div>
+                                        <p>
+                                            <b className="menu-text">Menu :</b>{' '}
+                                            <span className="dynamic-text">
+                                                {props.title}
+                                            </span>
+                                            &nbsp;
+                                            {/* </p>
+                                    <p className="m-0"> */}
+                                            <b className="institution-text">
+                                                Institution :{' '}
+                                            </b>{' '}
+                                            <span className="dynamic-text">
+                                                {
+                                                    currentUser?.data[0]
+                                                        .institution_name
+                                                }
+                                            </span>{' '}
+                                            &nbsp;
+                                            <img src={AvatarImg} />
+                                            &nbsp;
+                                            <span className="dynamic-text">
+                                                Welcome Mentor{' '}
+                                                {currentUser?.data[0].full_name}
+                                            </span>
+                                        </p>
+                                        {/* <div>
+                                            <img src={AvatarImg} />
+                                            <span className="dynamic-text">
+                                                Welcome Mentor{' '}
+                                                {currentUser?.data[0].full_name}
+                                            </span>
+                                        </div> */}
                                     </div>
                                 </Col>
                             </Row>

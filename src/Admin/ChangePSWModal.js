@@ -7,7 +7,7 @@ import { InputBox } from '../stories/InputBox/InputBox';
 import CryptoJS from 'crypto-js';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { getCurrentUser } from '../helpers/Utils';
+import { getCurrentUser, openNotificationWithIcon } from '../helpers/Utils';
 import { useTranslation } from 'react-i18next';
 import 'sweetalert2/src/sweetalert2.scss';
 import { FaEyeSlash, FaEye } from 'react-icons/fa';
@@ -35,7 +35,7 @@ const ChangePSWModal = (props) => {
             if (values.newPassword.length < 8) {
                 SetError('New Password must be 8-character minimum');
             } else if (values.oldPassword === values.newPassword) {
-                SetError('Old Password and New Passwordare same');
+                SetError('Old Password and New Password are same');
             } else if (values.newPassword !== values.confirmPassword) {
                 SetError('New Password and Confirm Password not same');
             } else {
@@ -82,6 +82,10 @@ const ChangePSWModal = (props) => {
                         }
                     })
                     .catch(function (error) {
+                        openNotificationWithIcon(
+                            'error',
+                            'Enter the correct current password'
+                        );
                         console.log(error);
                     });
             }
