@@ -1232,7 +1232,7 @@ const CreateTeamMember = (props) => {
                     'Please enter only alphanumeric characters'
                 )
                 .trim(),
-            age: Yup.number().lessThan(30).moreThan(16),
+            age: Yup.number().lessThan(31).moreThan(15),
             // .test(
             //     'age-validation',
             //     'Age must be between 14 and 25',
