@@ -47,11 +47,23 @@ const ChangePSWModal = () => {
 
         onSubmit: async (values) => {
             if (values.newPassword.length < 8) {
-                SetError('New Password must be 8-character minimum');
+                SetError(
+                    <span style={{ color: 'red' }}>
+                        New Password must be 8-character minimum
+                    </span>
+                );
             } else if (values.oldPassword === values.newPassword) {
-                SetError('Old Password and New Passwordare same');
+                SetError(
+                    <span style={{ color: 'red' }}>
+                        Old Password and New Password are same
+                    </span>
+                );
             } else if (values.newPassword !== values.confirmPassword) {
-                SetError('New Password and Confirm Password not same');
+                SetError(
+                    <span style={{ color: 'red' }}>
+                        New Password and Confirm Password not same
+                    </span>
+                );
             } else {
                 const key = CryptoJS.enc.Hex.parse(
                     '253D3FB468A0E24677C28A624BE0F939'
@@ -158,7 +170,7 @@ const ChangePSWModal = () => {
         }
     };
     return (
-        <Layout>
+        <Layout title="Change Password">
             <div className="container ChangePSWModal mt-5 mb-50 ">
                 <Row className="mt-5 bg-white rounded p-md-5 p-3">
                     <Col md={12}>

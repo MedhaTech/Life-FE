@@ -93,11 +93,11 @@ const LoginAdminEvaluator = (props) => {
 
     const inputUserId = {
         type: 'text',
-        placeholder: 'Enter admin evaluator email id'
+        placeholder: 'Enter Admin Evaluator Email Id'
     };
 
     const inputPassword = {
-        placeholder: 'Enter password',
+        placeholder: 'Enter Password',
         showEyeIcon: true
     };
 

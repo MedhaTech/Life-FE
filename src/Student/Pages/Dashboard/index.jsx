@@ -633,7 +633,7 @@ const Dashboard = () => {
 
                     <Col md={6}>
                         <Card
-                            bg="light"
+                            bg="white"
                             text="dark"
                             className="mt-5 md-3 xs-12 "
                             style={{ height: '300px' }}
