@@ -135,7 +135,7 @@ const ViewDetail = (props) => {
                         : response?.data?.message
                 );
                 history.push({
-                    pathname: '/admin/evaluationStatus'
+                    pathname: '/eadmin/evaluationStatus'
                 });
             })
             .catch(function (error) {
