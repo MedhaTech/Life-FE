@@ -331,12 +331,12 @@ const CreateMultipleMembers = ({ id }) => {
                             selectedDate.getFullYear();
                         newItem[i]['age'] = age;
                         studentData[i]['Age'] = age;
-                        if (age < 14 || age > 25) {
+                        if (age < 16 || age > 30) {
                             // const { index } = newItem[i]['age'];
                             // if (index) {
                             const foo = { ...errCopy[i] };
 
-                            foo['age'] = 'Age must be between 14 to 25';
+                            foo['age'] = 'Age must be between 16 to 30';
                             errCopy[i] = { ...foo };
                             setItemDataErrors(errCopy);
                             return;
@@ -394,11 +394,11 @@ const CreateMultipleMembers = ({ id }) => {
                     currentDate.getFullYear() - selectedDate.getFullYear();
 
                 // Validate age
-                if (age < 14 || age > 25) {
-                    err['Age'] = 'Age must be between 14 to 25';
+                if (age < 16 || age > 30) {
+                    err['Age'] = 'Age must be between 16 to 30';
                     openNotificationWithIcon(
                         'error',
-                        'Age must be between 14 to 25'
+                        'Age must be between 16 to 30'
                     );
                 } else {
                     // err['Age'] = '';
@@ -1232,7 +1232,7 @@ const CreateTeamMember = (props) => {
                     'Please enter only alphanumeric characters'
                 )
                 .trim(),
-            age: Yup.number().lessThan(26).moreThan(13),
+            age: Yup.number().lessThan(30).moreThan(16),
             // .test(
             //     'age-validation',
             //     'Age must be between 14 and 25',
@@ -1278,7 +1278,7 @@ const CreateTeamMember = (props) => {
                 .min(10, 'Please enter valid number')
                 .max(10, 'Please enter valid number'),
             date_of_birth: Yup.string().required(
-                'Please select Date of Birth / Age Must be 14 to 25'
+                'Please select Date of Birth / Age Must be 16 to 30'
             )
         }),
 

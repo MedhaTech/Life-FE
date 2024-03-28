@@ -195,13 +195,13 @@ const MySchoolProfile = () => {
             date_of_birth: Yup.date()
                 .required('Date of Birth is required')
                 .min(
-                    new Date(new Date().getFullYear() - 50, 0, 1),
-                    'Age cannot exceed 50 years'
+                    new Date(new Date().getFullYear() - 65, 0, 1),
+                    'Age cannot exceed 65 years'
                 )
                 .max(
-                    new Date(new Date().getFullYear() - 20, 11, 31),
+                    new Date(new Date().getFullYear() - 21, 11, 31),
 
-                    'Age must be at least 20 years'
+                    'Age must be at least 21 years'
                 ),
             // date_of_birth: Yup.string()
             //     .required('Please select DOB')
