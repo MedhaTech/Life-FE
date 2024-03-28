@@ -60,7 +60,7 @@ const EditTeamMember = (props) => {
             age: Yup.number()
                 .test(
                     'age-validation',
-                    'Age must be between 14 to 25',
+                    'Age must be between 16 to 30',
                     function (value) {
                         const currentDate = new Date();
                         const selectedDate = new Date(
@@ -76,7 +76,7 @@ const EditTeamMember = (props) => {
                         if (isNaN(age) || age < 0) {
                             return false;
                         }
-                        return age >= 14 && age <= 25;
+                        return age >= 16 && age <= 30;
                     }
                 )
                 .default(0),
