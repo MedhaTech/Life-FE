@@ -736,9 +736,11 @@ const ViewDetail = (props) => {
                                         <span className="text-bold">
                                             Evaluated At:{' '}
                                         </span>{' '}
-                                        {moment.utc(
-                                            props?.ideaDetails?.evaluated_at
-                                        ).format('DD-MM-YYYY HH:mm:ss') || ''}
+                                        {moment
+                                            .utc(
+                                                props?.ideaDetails?.evaluated_at
+                                            )
+                                            .format('DD-MM-YYYY ') || ''}
                                     </p>
                                 ) : (
                                     ''
