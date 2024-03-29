@@ -693,17 +693,24 @@ const ReportsRegistration = () => {
                                         </div>
 
                                         <div className="row">
-                                            <div className="col-md-7">
-                                                <div className="table-wrapper bg-white">
+                                            <div className="col-md-12">
+                                                <div className=" bg-white">
                                                     <Table
                                                         id="dataTable"
-                                                        className="table table-striped table-bordered responsive"
+                                                        className="table table-striped table-bordered responsive "
                                                     >
-                                                        <thead>
+                                                        <thead
+                                                            style={{
+                                                                textAlign:
+                                                                    'center',
+                                                                margin: '20px'
+                                                            }}
+                                                        >
                                                             <tr>
                                                                 <th>No</th>
                                                                 <th>
                                                                     District
+                                                                    <br />
                                                                     Name
                                                                 </th>
                                                                 <th>
@@ -744,7 +751,13 @@ const ReportsRegistration = () => {
                                                                 </th>
                                                             </tr>
                                                         </thead>
-                                                        <tbody>
+                                                        <tbody
+                                                            style={{
+                                                                textAlign:
+                                                                    'center'
+                                                                // margin: '20px'
+                                                            }}
+                                                        >
                                                             {chartTableData.map(
                                                                 (
                                                                     item,
@@ -813,9 +826,9 @@ const ReportsRegistration = () => {
                                                     </Table>
                                                 </div>
                                             </div>
-                                            <div className="col-md-5">
+                                            <div className="col-md-12 mt-5">
                                                 <div className="row">
-                                                    <div className="col-md-12 text-center mt-3">
+                                                    {/* <div className="col-md-6 text-center mt-3">
                                                         <p>
                                                             <b>
                                                                 Overall
@@ -825,21 +838,33 @@ const ReportsRegistration = () => {
                                                                 of {newFormat}
                                                             </b>
                                                         </p>
-                                                    </div>
-                                                    <div className="col-md-12 doughnut-chart-container">
-                                                        {registeredChartData && (
-                                                            <Doughnut
-                                                                data={
-                                                                    registeredChartData
-                                                                }
-                                                                options={
-                                                                    chartOption
-                                                                }
-                                                            />
-                                                        )}
-                                                    </div>
-                                                    <div className="col-md-12 text-center mt-3">
-                                                        <p>
+                                                    </div> */}
+                                                    <Col className="md-6">
+                                                        <p className="text-center">
+                                                            <b>
+                                                                Overall
+                                                                Registered vs
+                                                                Not Registered
+                                                                Institutions As
+                                                                of {newFormat}
+                                                            </b>
+                                                        </p>
+                                                        <div className="col-md-6 doughnut-chart-container">
+                                                            {registeredChartData && (
+                                                                <Doughnut
+                                                                    data={
+                                                                        registeredChartData
+                                                                    }
+                                                                    options={
+                                                                        chartOption
+                                                                    }
+                                                                />
+                                                            )}
+                                                        </div>
+                                                    </Col>
+                                                    <Col className="md-6">
+                                                        {/* <div className="col-md-6 text-center mt-3 doughnut-chart-container"> */}
+                                                        <p className="text-center">
                                                             <b>
                                                                 Overall
                                                                 Registered
@@ -848,19 +873,20 @@ const ReportsRegistration = () => {
                                                                 {newFormat}
                                                             </b>
                                                         </p>
-                                                    </div>
-                                                    <div className="col-md-12 doughnut-chart-container">
-                                                        {registeredGenderChartData && (
-                                                            <Doughnut
-                                                                data={
-                                                                    registeredGenderChartData
-                                                                }
-                                                                options={
-                                                                    chartOptions
-                                                                }
-                                                            />
-                                                        )}
-                                                    </div>
+                                                        {/* </div> */}
+                                                        <div className="col-md-6 doughnut-chart-container">
+                                                            {registeredGenderChartData && (
+                                                                <Doughnut
+                                                                    data={
+                                                                        registeredGenderChartData
+                                                                    }
+                                                                    options={
+                                                                        chartOptions
+                                                                    }
+                                                                />
+                                                            )}
+                                                        </div>
+                                                    </Col>
                                                 </div>
                                             </div>
                                         </div>

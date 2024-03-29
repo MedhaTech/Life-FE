@@ -334,8 +334,7 @@ const ViewDetail = (props) => {
                                             .utc(
                                                 props?.ideaDetails?.evaluated_at
                                             )
-                                            .format('DD-MM-YYYY HH:mm:ss') ||
-                                            ''}
+                                            .format('DD-MM-YYYY ') || ''}
                                     </p>
                                 ) : (
                                     ''
