@@ -16,6 +16,7 @@ import { Card, CardBody, CardTitle } from 'reactstrap';
 import Layout from '../../Layout';
 import { getCurrentUser } from '../../../helpers/Utils';
 import { openNotificationWithIcon } from '../../../helpers/Utils';
+import CommonPage from '../../../components/CommonPage';
 
 const InstructionsPage = (props) => {
     const currentUser = getCurrentUser('current_user');
@@ -36,8 +37,8 @@ const InstructionsPage = (props) => {
         localStorage.setItem('condition', false);
         history.push({
             pathname: '/challenges',
-            data:{
-                FirstInitia:true
+            data: {
+                FirstInitia: true
             }
         });
     };
@@ -103,9 +104,11 @@ const InstructionsPage = (props) => {
                 console.log(error);
             });
     };
+    const commonPageText = t('student.idea_submitted_desc');
+
     const pdfFileURL =
         'https://s3.ap-south-1.amazonaws.com/aim1.0-bkt-cba6e2a/resources/stage/Final_Themes_AIM.pdf';
-    return (
+    return ideaIntiation ? (
         <Layout title="Idea Submission">
             <div className="courses-page">
                 <div
@@ -184,7 +187,15 @@ const InstructionsPage = (props) => {
                 </div>
             </div>
         </Layout>
+    ) : (
+        <Layout title="Idea Submission">
+            <CommonPage
+                text={t('student_course.idea_submission_date_com_desc')}
+                ideaSubmissionComButton={true}
+            />
+        </Layout>
     );
+    // )
 };
 
 export default InstructionsPage;

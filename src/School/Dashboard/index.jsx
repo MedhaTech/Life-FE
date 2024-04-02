@@ -547,18 +547,17 @@ const DashboardSchool = (props) => {
                     <h2 className="mt-5  text-center ">
                         <strong> Institution Dashboard</strong>
                     </h2>
-                    <div className="d-flex justify-content-end">
+                    {/* <div className="d-flex justify-content-end">
                         <Button
                             label="Register Mentor "
                             btnClass="m-5 btn btn-success"
                             size="small"
                             shape="btn-square"
-                            // Icon={BsPlusLg}
                             onClick={() =>
                                 history.push('/institution/register')
                             }
                         />
-                    </div>
+                    </div> */}
                 </Row>
                 {/* <Row className="m-5"> */}
                 <div className=" row  col-xs-12 col-md-12 ">

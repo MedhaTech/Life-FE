@@ -486,6 +486,7 @@ function AtlPage() {
     }, [formik.values.mentor_mobile.length == 0]);
     const dateRegex = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/;
     // console.log(orgData, '1');
+    const [hide, setHide] = useState(false);
     return (
         <div className="container-fluid  SignUp Login">
             <Row className="row-flex  ">
@@ -551,95 +552,12 @@ function AtlPage() {
                         </h4>
                     </Row>
 
-                    <Row className="mt-5">
-                        <Col md={12}>
-                            <Form onSubmit={formik.handleSubmit}>
-                                {diceBtn && (
-                                    <div className="form-row row mb-5">
-                                        <Col
-                                            className="form-group"
-                                            xs={12}
-                                            sm={12}
-                                            md={12}
-                                            xl={12}
-                                        >
-                                            <Label
-                                                className="mb-2"
-                                                htmlFor="institution_code"
-                                            >
-                                                {/* {t('teacehr_red.UDISE')} */}
-                                                Institution Unique Code / EDII's
-                                                Unique Code
-                                            </Label>
-                                            <Input
-                                                {...inputField}
-                                                id="institution_code"
-                                                onChange={(e) =>
-                                                    handleOnChange(e)
-                                                }
-                                                value={diesCode}
-                                                maxLength={11}
-                                                minLength={11}
-                                                name="institution_code"
-                                                placeholder="Enter Institution Unique Code / EDII's Unique Code "
-                                                className="w-100 mb-3 mb-md-0"
-                                                style={{
-                                                    borderRadius: '0px',
-                                                    padding: '9px 11px'
-                                                    // color: 'red'
-                                                }}
-                                            />
-                                            {error ? (
-                                                <p
-                                                    style={{
-                                                        color: 'red'
-                                                    }}
-                                                >
-                                                    {error}
-                                                </p>
-                                            ) : null}
-
-                                            {diceBtn && (
-                                                <div className="mt-4">
-                                                    <Button
-                                                        label={t(
-                                                            'teacehr_red.continue'
-                                                        )}
-                                                        btnClass={
-                                                            !diesCode.length
-                                                                ? 'default rounded-0'
-                                                                : 'primary rounded-0'
-                                                        }
-                                                        size="small"
-                                                        onClick={(e) =>
-                                                            handleRegister(e)
-                                                        }
-                                                    />
-                                                </div>
-                                            )}
-                                            <div className="form-row row mb-5 mt-5">
-                                                <p>
-                                                    {' '}
-                                                    Already a member ?
-                                                    <Link
-                                                        to={'/mentor'}
-                                                        exact
-                                                        className=" m-3 text-center"
-                                                        style={{
-                                                            color: 'blue'
-                                                        }}
-                                                    >
-                                                        Login Here
-                                                    </Link>
-                                                </p>
-                                            </div>
-                                        </Col>
-                                    </div>
-                                )}
-                                <div className="w-100 clearfix" />
-                                {schoolBtn && (
-                                    <div className="form-row row mb-5">
-                                        <Col className="form-row row mb-5">
+                    {hide ? (
+                        <Row className="mt-5">
+                            <Col md={12}>
+                                <Form onSubmit={formik.handleSubmit}>
+                                    {diceBtn && (
+                                        <div className="form-row row mb-5">
                                             <Col
                                                 className="form-group"
                                                 xs={12}
@@ -647,20 +565,106 @@ function AtlPage() {
                                                 md={12}
                                                 xl={12}
                                             >
-                                                <Label className="mb-3 w-100 mt-4">
-                                                    <UncontrolledAlert
-                                                        color="primary"
-                                                        toggle={false}
+                                                <Label
+                                                    className="mb-2"
+                                                    htmlFor="institution_code"
+                                                >
+                                                    {/* {t('teacehr_red.UDISE')} */}
+                                                    Institution Unique Code /
+                                                    EDII's Unique Code
+                                                </Label>
+                                                <Input
+                                                    {...inputField}
+                                                    id="institution_code"
+                                                    onChange={(e) =>
+                                                        handleOnChange(e)
+                                                    }
+                                                    value={diesCode}
+                                                    maxLength={11}
+                                                    minLength={11}
+                                                    name="institution_code"
+                                                    placeholder="Enter Institution Unique Code / EDII's Unique Code "
+                                                    className="w-100 mb-3 mb-md-0"
+                                                    style={{
+                                                        borderRadius: '0px',
+                                                        padding: '9px 11px'
+                                                        // color: 'red'
+                                                    }}
+                                                />
+                                                {error ? (
+                                                    <p
+                                                        style={{
+                                                            color: 'red'
+                                                        }}
                                                     >
-                                                        {/* {t(
+                                                        {error}
+                                                    </p>
+                                                ) : null}
+
+                                                {diceBtn && (
+                                                    <div className="mt-4">
+                                                        <Button
+                                                            label={t(
+                                                                'teacehr_red.continue'
+                                                            )}
+                                                            btnClass={
+                                                                !diesCode.length
+                                                                    ? 'default rounded-0'
+                                                                    : 'primary rounded-0'
+                                                            }
+                                                            size="small"
+                                                            onClick={(e) =>
+                                                                handleRegister(
+                                                                    e
+                                                                )
+                                                            }
+                                                        />
+                                                    </div>
+                                                )}
+                                                <div className="form-row row mb-5 mt-5">
+                                                    <p>
+                                                        {' '}
+                                                        Already a member ?
+                                                        <Link
+                                                            to={'/mentor'}
+                                                            exact
+                                                            className=" m-3 text-center"
+                                                            style={{
+                                                                color: 'blue'
+                                                            }}
+                                                        >
+                                                            Login Here
+                                                        </Link>
+                                                    </p>
+                                                </div>
+                                            </Col>
+                                        </div>
+                                    )}
+                                    <div className="w-100 clearfix" />
+                                    {schoolBtn && (
+                                        <div className="form-row row mb-5">
+                                            <Col className="form-row row mb-5">
+                                                <Col
+                                                    className="form-group"
+                                                    xs={12}
+                                                    sm={12}
+                                                    md={12}
+                                                    xl={12}
+                                                >
+                                                    <Label className="mb-3 w-100 mt-4">
+                                                        <UncontrolledAlert
+                                                            color="primary"
+                                                            toggle={false}
+                                                        >
+                                                            {/* {t(
                                                             'teacehr_red.school'
                                                         )} */}
-                                                        Institution Name :{' '}
-                                                        {
-                                                            orgData?.institution_name
-                                                        }{' '}
-                                                        <br />
-                                                        {/* Institution Type:{' '}
+                                                            Institution Name :{' '}
+                                                            {
+                                                                orgData?.institution_name
+                                                            }{' '}
+                                                            <br />
+                                                            {/* Institution Type:{' '}
                                                         {orgData
                                                             ?.institution_type
                                                             ?.institution_type
@@ -669,466 +673,79 @@ function AtlPage() {
                                                                   ?.institution_type
                                                             : ' N/A'}{' '}
                                                         <br /> */}
-                                                        Place :{' '}
-                                                        {orgData?.place
-                                                            ?.place_name
-                                                            ? orgData?.place
-                                                                  ?.place_name
-                                                            : ' N/A'}
-                                                        <br />
-                                                        Block :{' '}
-                                                        {orgData?.place?.block
-                                                            ?.block_name
-                                                            ? orgData?.place
-                                                                  ?.block
-                                                                  ?.block_name
-                                                            : ' N/A'}{' '}
-                                                        <br />
-                                                        Taluk :{' '}
-                                                        {orgData?.place?.taluk
-                                                            ?.taluk_name
-                                                            ? orgData?.place
-                                                                  ?.taluk
-                                                                  ?.taluk_name
-                                                            : ' N/A'}
-                                                        <br />
-                                                        District :{' '}
-                                                        {orgData?.place?.block
-                                                            ?.district
-                                                            ?.district_name
-                                                            ? orgData?.place
-                                                                  ?.block
-                                                                  ?.district
-                                                                  ?.district_name
-                                                            : ' N/A'}{' '}
-                                                        <br />
-                                                        State :{' '}
-                                                        {orgData?.place?.block
-                                                            ?.district?.state
-                                                            ?.state_name
-                                                            ? orgData?.place
-                                                                  ?.block
-                                                                  ?.district
-                                                                  ?.state
-                                                                  ?.state_name
-                                                            : ' N/A'}{' '}
-                                                        <br />
-                                                    </UncontrolledAlert>
-                                                </Label>
-                                            </Col>
-                                            <Row
-                                                className="form-group"
-                                                xs={12}
-                                                sm={12}
-                                                md={12}
-                                                xl={12}
-                                            >
-                                                <Col
-                                                    className="form-group"
-                                                    xs={12}
-                                                    sm={12}
-                                                    md={12}
-                                                    xl={3}
-                                                >
-                                                    <Label
-                                                        className="mb-2"
-                                                        htmlFor="mentor_title"
-                                                    >
-                                                        {t('teacehr_red.title')}
-                                                        <span
-                                                            className="m-2"
-                                                            style={{
-                                                                color: 'red'
-                                                            }}
-                                                            required
-                                                        >
-                                                            *
-                                                        </span>
+                                                            Place :{' '}
+                                                            {orgData?.place
+                                                                ?.place_name
+                                                                ? orgData?.place
+                                                                      ?.place_name
+                                                                : ' N/A'}
+                                                            <br />
+                                                            Block :{' '}
+                                                            {orgData?.place
+                                                                ?.block
+                                                                ?.block_name
+                                                                ? orgData?.place
+                                                                      ?.block
+                                                                      ?.block_name
+                                                                : ' N/A'}{' '}
+                                                            <br />
+                                                            Taluk :{' '}
+                                                            {orgData?.place
+                                                                ?.taluk
+                                                                ?.taluk_name
+                                                                ? orgData?.place
+                                                                      ?.taluk
+                                                                      ?.taluk_name
+                                                                : ' N/A'}
+                                                            <br />
+                                                            District :{' '}
+                                                            {orgData?.place
+                                                                ?.block
+                                                                ?.district
+                                                                ?.district_name
+                                                                ? orgData?.place
+                                                                      ?.block
+                                                                      ?.district
+                                                                      ?.district_name
+                                                                : ' N/A'}{' '}
+                                                            <br />
+                                                            State :{' '}
+                                                            {orgData?.place
+                                                                ?.block
+                                                                ?.district
+                                                                ?.state
+                                                                ?.state_name
+                                                                ? orgData?.place
+                                                                      ?.block
+                                                                      ?.district
+                                                                      ?.state
+                                                                      ?.state_name
+                                                                : ' N/A'}{' '}
+                                                            <br />
+                                                        </UncontrolledAlert>
                                                     </Label>
-                                                    <select
-                                                        disabled={
-                                                            holdKey
-                                                                ? true
-                                                                : false
-                                                        }
-                                                        name="mentor_title"
-                                                        // id="gender"
-                                                        className=" col-8 selectDropdown"
-                                                        style={{
-                                                            borderRadius: '0'
-                                                        }}
-                                                        value={
-                                                            formik.values
-                                                                .mentor_title
-                                                        }
-                                                        onBlur={
-                                                            formik.handleBlur
-                                                        }
-                                                        onChange={
-                                                            formik.handleChange
-                                                        }
-                                                    >
-                                                        <option value="">
-                                                            {t(
-                                                                'teacehr_red.teacher_title'
-                                                            )}
-                                                        </option>
-                                                        <option value="Dr">
-                                                            {t(
-                                                                'teacehr_red.teacher_title_drs'
-                                                            )}
-                                                        </option>
-                                                        <option value="Mr">
-                                                            {t(
-                                                                'teacehr_red.teacher_title_mrs'
-                                                            )}
-                                                        </option>
-                                                        <option value="Miss">
-                                                            {t(
-                                                                'teacehr_red.teacher_title_misss'
-                                                            )}
-                                                        </option>
-                                                        <option value="Mrs">
-                                                            {t(
-                                                                'teacehr_red.teacher_title_mrss'
-                                                            )}
-                                                        </option>
-                                                    </select>
-                                                    {formik.touched
-                                                        .mentor_title &&
-                                                    formik.errors
-                                                        .mentor_title ? (
-                                                        <small className="error-cls">
-                                                            {
-                                                                formik.errors
-                                                                    .mentor_title
-                                                            }
-                                                        </small>
-                                                    ) : null}
                                                 </Col>
-                                                <Col
+                                                <Row
                                                     className="form-group"
                                                     xs={12}
                                                     sm={12}
                                                     md={12}
-                                                    xl={9}
+                                                    xl={12}
                                                 >
-                                                    <Label
-                                                        className="mb-2"
-                                                        htmlFor="name"
+                                                    <Col
+                                                        className="form-group"
+                                                        xs={12}
+                                                        sm={12}
+                                                        md={12}
+                                                        xl={3}
                                                     >
-                                                        Mentor Name
-                                                        <span
-                                                            className="m-2"
-                                                            style={{
-                                                                color: 'red'
-                                                            }}
-                                                            required
-                                                        >
-                                                            *
-                                                        </span>
-                                                    </Label>
-                                                    <InputBox
-                                                        {...inputName}
-                                                        id="mentor_name"
-                                                        isDisabled={
-                                                            holdKey
-                                                                ? true
-                                                                : false
-                                                        }
-                                                        name="mentor_name"
-                                                        onChange={
-                                                            formik.handleChange
-                                                        }
-                                                        onBlur={
-                                                            formik.handleBlur
-                                                        }
-                                                        value={
-                                                            formik.values
-                                                                .mentor_name
-                                                        }
-                                                    />
-
-                                                    {formik.touched
-                                                        .mentor_name &&
-                                                    formik.errors
-                                                        .mentor_name ? (
-                                                        <small className="error-cls">
-                                                            {
-                                                                formik.errors
-                                                                    .mentor_name
-                                                            }
-                                                        </small>
-                                                    ) : null}
-                                                </Col>
-                                            </Row>
-
-                                            <Row
-                                                className="form-group"
-                                                xs={12}
-                                                sm={12}
-                                                md={12}
-                                                xl={12}
-                                            >
-                                                <Col
-                                                    className="form-group"
-                                                    xs={12}
-                                                    sm={12}
-                                                    md={12}
-                                                    xl={6}
-                                                >
-                                                    <Label
-                                                        className="mb-2"
-                                                        htmlFor="mentor_email"
-                                                    >
-                                                        Email Address
-                                                        <span
-                                                            className="m-2"
-                                                            style={{
-                                                                color: 'red'
-                                                            }}
-                                                            required
-                                                        >
-                                                            *
-                                                        </span>
-                                                    </Label>
-                                                    <InputBox
-                                                        {...inputmentor_Email}
-                                                        id="mentor_email"
-                                                        isDisabled={
-                                                            holdKey
-                                                                ? true
-                                                                : false
-                                                        }
-                                                        name="mentor_email"
-                                                        onChange={
-                                                            formik.handleChange
-                                                        }
-                                                        onBlur={
-                                                            formik.handleBlur
-                                                        }
-                                                        value={
-                                                            formik.values
-                                                                .mentor_email
-                                                        }
-                                                    />
-
-                                                    {formik.touched
-                                                        .mentor_email &&
-                                                    formik.errors
-                                                        .mentor_email ? (
-                                                        <small className="error-cls">
-                                                            {
-                                                                formik.errors
-                                                                    .mentor_email
-                                                            }
-                                                        </small>
-                                                    ) : null}
-                                                </Col>
-
-                                                <Col
-                                                    className="form-group"
-                                                    xs={12}
-                                                    sm={12}
-                                                    md={12}
-                                                    xl={3}
-                                                >
-                                                    <Label
-                                                        className="mb-2"
-                                                        htmlFor="gender"
-                                                    >
-                                                        {t(
-                                                            'teacehr_red.gender'
-                                                        )}
-                                                        <span
-                                                            className="m-2"
-                                                            style={{
-                                                                color: 'red'
-                                                            }}
-                                                            required
-                                                        >
-                                                            *
-                                                        </span>
-                                                    </Label>
-                                                    <select
-                                                        disabled={
-                                                            holdKey
-                                                                ? true
-                                                                : false
-                                                        }
-                                                        name="gender"
-                                                        // id="gender"
-                                                        className="col-8 selectDropdown"
-                                                        value={
-                                                            formik.values.gender
-                                                        }
-                                                        onBlur={
-                                                            formik.handleBlur
-                                                        }
-                                                        onChange={
-                                                            formik.handleChange
-                                                        }
-                                                    >
-                                                        <option value="">
-                                                            {t(
-                                                                'teacehr_red.teacher_gender'
-                                                            )}
-                                                        </option>
-                                                        <option value="Male">
-                                                            {t(
-                                                                'teacehr_red.teacher_gender_male'
-                                                            )}
-                                                        </option>
-                                                        <option value="Female">
-                                                            {t(
-                                                                'teacehr_red.teacher_gender_female'
-                                                            )}
-                                                        </option>
-                                                    </select>
-                                                    {formik.touched.gender &&
-                                                    formik.errors.gender ? (
-                                                        <small className="error-cls">
-                                                            {
-                                                                formik.errors
-                                                                    .gender
-                                                            }
-                                                        </small>
-                                                    ) : null}
-                                                </Col>
-                                                <Col
-                                                    className="form-group"
-                                                    xs={12}
-                                                    sm={12}
-                                                    md={12}
-                                                    xl={3}
-                                                >
-                                                    <Label
-                                                        className="mb-2"
-                                                        htmlFor="date_of_birth"
-                                                    >
-                                                        Date of Birth
-                                                        <span
-                                                            className="m-2"
-                                                            style={{
-                                                                color: 'red'
-                                                            }}
-                                                            required
-                                                        >
-                                                            *
-                                                        </span>
-                                                    </Label>
-                                                    <InputBox
-                                                        {...inputDate}
-                                                        id="date_of_birth"
-                                                        isDisabled={
-                                                            holdKey
-                                                                ? true
-                                                                : false
-                                                        }
-                                                        pattern={
-                                                            dateRegex.source
-                                                        }
-                                                        name="date_of_birth"
-                                                        onChange={
-                                                            formik.handleChange
-                                                        }
-                                                        onBlur={
-                                                            formik.handleBlur
-                                                        }
-                                                        value={
-                                                            formik.values
-                                                                .date_of_birth
-                                                        }
-                                                    />
-
-                                                    {formik.touched
-                                                        .date_of_birth &&
-                                                    formik.errors
-                                                        .date_of_birth ? (
-                                                        <small className="error-cls">
-                                                            {
-                                                                formik.errors
-                                                                    .date_of_birth
-                                                            }
-                                                        </small>
-                                                    ) : null}
-                                                </Col>
-                                            </Row>
-                                            <Row
-                                                className="form-group"
-                                                xs={12}
-                                                sm={12}
-                                                md={12}
-                                                xl={12}
-                                            >
-                                                <Col
-                                                    className="form-group"
-                                                    xs={12}
-                                                    sm={12}
-                                                    md={12}
-                                                    xl={6}
-                                                >
-                                                    <Label
-                                                        className="mb-2 mt-3"
-                                                        htmlFor="mentor_mobile"
-                                                    >
-                                                        Your Mobile Number
-                                                        <span
-                                                            className="m-2"
-                                                            style={{
-                                                                color: 'red'
-                                                            }}
-                                                            required
-                                                        >
-                                                            *
-                                                        </span>
-                                                    </Label>
-                                                    <InputBox
-                                                        {...inputUsername}
-                                                        id="mentor_mobile"
-                                                        isDisabled={
-                                                            holdKey
-                                                                ? true
-                                                                : false
-                                                        }
-                                                        name="mentor_mobile"
-                                                        onChange={
-                                                            formik.handleChange
-                                                        }
-                                                        onBlur={
-                                                            formik.handleBlur
-                                                        }
-                                                        value={
-                                                            formik.values
-                                                                .mentor_mobile
-                                                        }
-                                                    />
-
-                                                    {formik.touched
-                                                        .mentor_mobile &&
-                                                    formik.errors
-                                                        .mentor_mobile ? (
-                                                        <small className="error-cls">
-                                                            {
-                                                                formik.errors
-                                                                    .mentor_mobile
-                                                            }
-                                                        </small>
-                                                    ) : null}
-                                                </Col>
-                                                <Col
-                                                    className="form-group"
-                                                    xs={12}
-                                                    sm={12}
-                                                    md={12}
-                                                    xl={6}
-                                                >
-                                                    <div className="d-flex align-items-center justify-content-between">
                                                         <Label
-                                                            className="mb-2 mt-3"
-                                                            htmlFor="phone"
+                                                            className="mb-2"
+                                                            htmlFor="mentor_title"
                                                         >
-                                                            Your WhatsApp Number
+                                                            {t(
+                                                                'teacehr_red.title'
+                                                            )}
                                                             <span
                                                                 className="m-2"
                                                                 style={{
@@ -1139,93 +756,501 @@ function AtlPage() {
                                                                 *
                                                             </span>
                                                         </Label>
-                                                        <div
-                                                            className="my-10 checkbox-right"
+                                                        <select
+                                                            disabled={
+                                                                holdKey
+                                                                    ? true
+                                                                    : false
+                                                            }
+                                                            name="mentor_title"
+                                                            // id="gender"
+                                                            className=" col-8 selectDropdown"
                                                             style={{
-                                                                display: 'flex'
+                                                                borderRadius:
+                                                                    '0'
                                                             }}
+                                                            value={
+                                                                formik.values
+                                                                    .mentor_title
+                                                            }
+                                                            onBlur={
+                                                                formik.handleBlur
+                                                            }
+                                                            onChange={
+                                                                formik.handleChange
+                                                            }
                                                         >
-                                                            <b
+                                                            <option value="">
+                                                                {t(
+                                                                    'teacehr_red.teacher_title'
+                                                                )}
+                                                            </option>
+                                                            <option value="Dr">
+                                                                {t(
+                                                                    'teacehr_red.teacher_title_drs'
+                                                                )}
+                                                            </option>
+                                                            <option value="Mr">
+                                                                {t(
+                                                                    'teacehr_red.teacher_title_mrs'
+                                                                )}
+                                                            </option>
+                                                            <option value="Miss">
+                                                                {t(
+                                                                    'teacehr_red.teacher_title_misss'
+                                                                )}
+                                                            </option>
+                                                            <option value="Mrs">
+                                                                {t(
+                                                                    'teacehr_red.teacher_title_mrss'
+                                                                )}
+                                                            </option>
+                                                        </select>
+                                                        {formik.touched
+                                                            .mentor_title &&
+                                                        formik.errors
+                                                            .mentor_title ? (
+                                                            <small className="error-cls">
+                                                                {
+                                                                    formik
+                                                                        .errors
+                                                                        .mentor_title
+                                                                }
+                                                            </small>
+                                                        ) : null}
+                                                    </Col>
+                                                    <Col
+                                                        className="form-group"
+                                                        xs={12}
+                                                        sm={12}
+                                                        md={12}
+                                                        xl={9}
+                                                    >
+                                                        <Label
+                                                            className="mb-2"
+                                                            htmlFor="name"
+                                                        >
+                                                            Mentor Name
+                                                            <span
+                                                                className="m-2"
                                                                 style={{
-                                                                    marginRight:
-                                                                        '0.5rem',
-                                                                    marginTop:
-                                                                        '1rem',
-                                                                    fontSize:
-                                                                        '1.5rem'
+                                                                    color: 'red'
+                                                                }}
+                                                                required
+                                                            >
+                                                                *
+                                                            </span>
+                                                        </Label>
+                                                        <InputBox
+                                                            {...inputName}
+                                                            id="mentor_name"
+                                                            isDisabled={
+                                                                holdKey
+                                                                    ? true
+                                                                    : false
+                                                            }
+                                                            name="mentor_name"
+                                                            onChange={
+                                                                formik.handleChange
+                                                            }
+                                                            onBlur={
+                                                                formik.handleBlur
+                                                            }
+                                                            value={
+                                                                formik.values
+                                                                    .mentor_name
+                                                            }
+                                                        />
+
+                                                        {formik.touched
+                                                            .mentor_name &&
+                                                        formik.errors
+                                                            .mentor_name ? (
+                                                            <small className="error-cls">
+                                                                {
+                                                                    formik
+                                                                        .errors
+                                                                        .mentor_name
+                                                                }
+                                                            </small>
+                                                        ) : null}
+                                                    </Col>
+                                                </Row>
+
+                                                <Row
+                                                    className="form-group"
+                                                    xs={12}
+                                                    sm={12}
+                                                    md={12}
+                                                    xl={12}
+                                                >
+                                                    <Col
+                                                        className="form-group"
+                                                        xs={12}
+                                                        sm={12}
+                                                        md={12}
+                                                        xl={6}
+                                                    >
+                                                        <Label
+                                                            className="mb-2"
+                                                            htmlFor="mentor_email"
+                                                        >
+                                                            Email Address
+                                                            <span
+                                                                className="m-2"
+                                                                style={{
+                                                                    color: 'red'
+                                                                }}
+                                                                required
+                                                            >
+                                                                *
+                                                            </span>
+                                                        </Label>
+                                                        <InputBox
+                                                            {...inputmentor_Email}
+                                                            id="mentor_email"
+                                                            isDisabled={
+                                                                holdKey
+                                                                    ? true
+                                                                    : false
+                                                            }
+                                                            name="mentor_email"
+                                                            onChange={
+                                                                formik.handleChange
+                                                            }
+                                                            onBlur={
+                                                                formik.handleBlur
+                                                            }
+                                                            value={
+                                                                formik.values
+                                                                    .mentor_email
+                                                            }
+                                                        />
+
+                                                        {formik.touched
+                                                            .mentor_email &&
+                                                        formik.errors
+                                                            .mentor_email ? (
+                                                            <small className="error-cls">
+                                                                {
+                                                                    formik
+                                                                        .errors
+                                                                        .mentor_email
+                                                                }
+                                                            </small>
+                                                        ) : null}
+                                                    </Col>
+
+                                                    <Col
+                                                        className="form-group"
+                                                        xs={12}
+                                                        sm={12}
+                                                        md={12}
+                                                        xl={3}
+                                                    >
+                                                        <Label
+                                                            className="mb-2"
+                                                            htmlFor="gender"
+                                                        >
+                                                            {t(
+                                                                'teacehr_red.gender'
+                                                            )}
+                                                            <span
+                                                                className="m-2"
+                                                                style={{
+                                                                    color: 'red'
+                                                                }}
+                                                                required
+                                                            >
+                                                                *
+                                                            </span>
+                                                        </Label>
+                                                        <select
+                                                            disabled={
+                                                                holdKey
+                                                                    ? true
+                                                                    : false
+                                                            }
+                                                            name="gender"
+                                                            // id="gender"
+                                                            className="col-8 selectDropdown"
+                                                            value={
+                                                                formik.values
+                                                                    .gender
+                                                            }
+                                                            onBlur={
+                                                                formik.handleBlur
+                                                            }
+                                                            onChange={
+                                                                formik.handleChange
+                                                            }
+                                                        >
+                                                            <option value="">
+                                                                {t(
+                                                                    'teacehr_red.teacher_gender'
+                                                                )}
+                                                            </option>
+                                                            <option value="Male">
+                                                                {t(
+                                                                    'teacehr_red.teacher_gender_male'
+                                                                )}
+                                                            </option>
+                                                            <option value="Female">
+                                                                {t(
+                                                                    'teacehr_red.teacher_gender_female'
+                                                                )}
+                                                            </option>
+                                                        </select>
+                                                        {formik.touched
+                                                            .gender &&
+                                                        formik.errors.gender ? (
+                                                            <small className="error-cls">
+                                                                {
+                                                                    formik
+                                                                        .errors
+                                                                        .gender
+                                                                }
+                                                            </small>
+                                                        ) : null}
+                                                    </Col>
+                                                    <Col
+                                                        className="form-group"
+                                                        xs={12}
+                                                        sm={12}
+                                                        md={12}
+                                                        xl={3}
+                                                    >
+                                                        <Label
+                                                            className="mb-2"
+                                                            htmlFor="date_of_birth"
+                                                        >
+                                                            Date of Birth
+                                                            <span
+                                                                className="m-2"
+                                                                style={{
+                                                                    color: 'red'
+                                                                }}
+                                                                required
+                                                            >
+                                                                *
+                                                            </span>
+                                                        </Label>
+                                                        <InputBox
+                                                            {...inputDate}
+                                                            id="date_of_birth"
+                                                            isDisabled={
+                                                                holdKey
+                                                                    ? true
+                                                                    : false
+                                                            }
+                                                            pattern={
+                                                                dateRegex.source
+                                                            }
+                                                            name="date_of_birth"
+                                                            onChange={
+                                                                formik.handleChange
+                                                            }
+                                                            onBlur={
+                                                                formik.handleBlur
+                                                            }
+                                                            value={
+                                                                formik.values
+                                                                    .date_of_birth
+                                                            }
+                                                        />
+
+                                                        {formik.touched
+                                                            .date_of_birth &&
+                                                        formik.errors
+                                                            .date_of_birth ? (
+                                                            <small className="error-cls">
+                                                                {
+                                                                    formik
+                                                                        .errors
+                                                                        .date_of_birth
+                                                                }
+                                                            </small>
+                                                        ) : null}
+                                                    </Col>
+                                                </Row>
+                                                <Row
+                                                    className="form-group"
+                                                    xs={12}
+                                                    sm={12}
+                                                    md={12}
+                                                    xl={12}
+                                                >
+                                                    <Col
+                                                        className="form-group"
+                                                        xs={12}
+                                                        sm={12}
+                                                        md={12}
+                                                        xl={6}
+                                                    >
+                                                        <Label
+                                                            className="mb-2 mt-3"
+                                                            htmlFor="mentor_mobile"
+                                                        >
+                                                            Your Mobile Number
+                                                            <span
+                                                                className="m-2"
+                                                                style={{
+                                                                    color: 'red'
+                                                                }}
+                                                                required
+                                                            >
+                                                                *
+                                                            </span>
+                                                        </Label>
+                                                        <InputBox
+                                                            {...inputUsername}
+                                                            id="mentor_mobile"
+                                                            isDisabled={
+                                                                holdKey
+                                                                    ? true
+                                                                    : false
+                                                            }
+                                                            name="mentor_mobile"
+                                                            onChange={
+                                                                formik.handleChange
+                                                            }
+                                                            onBlur={
+                                                                formik.handleBlur
+                                                            }
+                                                            value={
+                                                                formik.values
+                                                                    .mentor_mobile
+                                                            }
+                                                        />
+
+                                                        {formik.touched
+                                                            .mentor_mobile &&
+                                                        formik.errors
+                                                            .mentor_mobile ? (
+                                                            <small className="error-cls">
+                                                                {
+                                                                    formik
+                                                                        .errors
+                                                                        .mentor_mobile
+                                                                }
+                                                            </small>
+                                                        ) : null}
+                                                    </Col>
+                                                    <Col
+                                                        className="form-group"
+                                                        xs={12}
+                                                        sm={12}
+                                                        md={12}
+                                                        xl={6}
+                                                    >
+                                                        <div className="d-flex align-items-center justify-content-between">
+                                                            <Label
+                                                                className="mb-2 mt-3"
+                                                                htmlFor="phone"
+                                                            >
+                                                                Your WhatsApp
+                                                                Number
+                                                                <span
+                                                                    className="m-2"
+                                                                    style={{
+                                                                        color: 'red'
+                                                                    }}
+                                                                    required
+                                                                >
+                                                                    *
+                                                                </span>
+                                                            </Label>
+                                                            <div
+                                                                className="my-10 checkbox-right"
+                                                                style={{
+                                                                    display:
+                                                                        'flex'
                                                                 }}
                                                             >
-                                                                Same
-                                                            </b>
-                                                            <Input
-                                                                type="checkbox"
-                                                                className="mt-3 mb-8 my-10 pb-4 pt-3"
-                                                                name="click"
-                                                                disabled={
-                                                                    (formik
-                                                                        .values
-                                                                        .mentor_mobile
-                                                                        .length >
-                                                                    0
-                                                                        ? false
-                                                                        : true) ||
-                                                                    (holdKey
-                                                                        ? true
-                                                                        : false)
-                                                                }
-                                                                id="click"
-                                                                checked={
-                                                                    checkBox
-                                                                }
-                                                                onClick={(e) =>
-                                                                    handleCheckbox(
-                                                                        e,
-                                                                        !checkBox
-                                                                    )
-                                                                }
-                                                            />
+                                                                <b
+                                                                    style={{
+                                                                        marginRight:
+                                                                            '0.5rem',
+                                                                        marginTop:
+                                                                            '1rem',
+                                                                        fontSize:
+                                                                            '1.5rem'
+                                                                    }}
+                                                                >
+                                                                    Same
+                                                                </b>
+                                                                <Input
+                                                                    type="checkbox"
+                                                                    className="mt-3 mb-8 my-10 pb-4 pt-3"
+                                                                    name="click"
+                                                                    disabled={
+                                                                        (formik
+                                                                            .values
+                                                                            .mentor_mobile
+                                                                            .length >
+                                                                        0
+                                                                            ? false
+                                                                            : true) ||
+                                                                        (holdKey
+                                                                            ? true
+                                                                            : false)
+                                                                    }
+                                                                    id="click"
+                                                                    checked={
+                                                                        checkBox
+                                                                    }
+                                                                    onClick={(
+                                                                        e
+                                                                    ) =>
+                                                                        handleCheckbox(
+                                                                            e,
+                                                                            !checkBox
+                                                                        )
+                                                                    }
+                                                                />
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <InputBox
-                                                        {...inputMobile}
-                                                        id="mentor_whatapp_mobile"
-                                                        isDisabled={
-                                                            (formik.values
-                                                                .mentor_mobile
-                                                                .length > 0
-                                                                ? false
-                                                                : true) ||
-                                                            (holdKey
-                                                                ? true
-                                                                : false) ||
-                                                            checkBox
-                                                        }
-                                                        name="mentor_whatapp_mobile"
-                                                        onChange={
-                                                            formik.handleChange
-                                                        }
-                                                        onBlur={
-                                                            formik.handleBlur
-                                                        }
-                                                        value={
-                                                            formik.values
-                                                                .mentor_whatapp_mobile
-                                                        }
-                                                    />
-
-                                                    {formik.touched
-                                                        .mentor_whatapp_mobile &&
-                                                    formik.errors
-                                                        .mentor_whatapp_mobile ? (
-                                                        <small className="error-cls">
-                                                            {
-                                                                formik.errors
+                                                        <InputBox
+                                                            {...inputMobile}
+                                                            id="mentor_whatapp_mobile"
+                                                            isDisabled={
+                                                                (formik.values
+                                                                    .mentor_mobile
+                                                                    .length > 0
+                                                                    ? false
+                                                                    : true) ||
+                                                                (holdKey
+                                                                    ? true
+                                                                    : false) ||
+                                                                checkBox
+                                                            }
+                                                            name="mentor_whatapp_mobile"
+                                                            onChange={
+                                                                formik.handleChange
+                                                            }
+                                                            onBlur={
+                                                                formik.handleBlur
+                                                            }
+                                                            value={
+                                                                formik.values
                                                                     .mentor_whatapp_mobile
                                                             }
-                                                        </small>
-                                                    ) : null}
-                                                </Col>
-                                                {/* <Row
+                                                        />
+
+                                                        {formik.touched
+                                                            .mentor_whatapp_mobile &&
+                                                        formik.errors
+                                                            .mentor_whatapp_mobile ? (
+                                                            <small className="error-cls">
+                                                                {
+                                                                    formik
+                                                                        .errors
+                                                                        .mentor_whatapp_mobile
+                                                                }
+                                                            </small>
+                                                        ) : null}
+                                                    </Col>
+                                                    {/* <Row
                                                     className="form-group"
                                                     xs={12}
                                                     sm={12}
@@ -1281,7 +1306,7 @@ function AtlPage() {
                                                         ) : null}
                                                     </Col>
                                                 </Row> */}
-                                                {/* <div className="mt-3">
+                                                    {/* <div className="mt-3">
                                                     <span
                                                         required
                                                         className="p-1 "
@@ -1295,8 +1320,8 @@ function AtlPage() {
                                                         Password : “abcd.98”
                                                     </span>
                                                 </div> */}
-                                            </Row>
-                                            {/* <Row
+                                                </Row>
+                                                {/* <Row
                                                 className="form-group"
                                                 xs={12}
                                                 sm={12}
@@ -1350,134 +1375,130 @@ function AtlPage() {
                                                     ) : null}
                                                 </Col>
                                             </Row> */}
-                                            <div className="mt-5 d-flex align-items-center">
-                                                <Button
-                                                    label={change}
-                                                    btnClass={
-                                                        !disable
-                                                            ? 'default rounded-0'
-                                                            : 'primary rounded-0 '
-                                                    }
-                                                    onClick={(e) =>
-                                                        handleSendOtp(e)
-                                                    }
-                                                    size="small"
-                                                    disabled={
-                                                        (timer == 0
-                                                            ? false
-                                                            : true) || !disable
-                                                    }
-                                                />
-                                            </div>
-                                            {btnOtp && (
-                                                <div>
-                                                    <h3>
-                                                        {time}:
-                                                        {counter < 59
-                                                            ? counter - '0'
-                                                            : counter}
-                                                    </h3>
+                                                <div className="mt-5 d-flex align-items-center">
+                                                    <Button
+                                                        label={change}
+                                                        btnClass={
+                                                            !disable
+                                                                ? 'default rounded-0'
+                                                                : 'primary rounded-0 '
+                                                        }
+                                                        onClick={(e) =>
+                                                            handleSendOtp(e)
+                                                        }
+                                                        size="small"
+                                                        disabled={
+                                                            (timer == 0
+                                                                ? false
+                                                                : true) ||
+                                                            !disable
+                                                        }
+                                                    />
+                                                </div>
+                                                {btnOtp && (
+                                                    <div>
+                                                        <h3>
+                                                            {time}:
+                                                            {counter < 59
+                                                                ? counter - '0'
+                                                                : counter}
+                                                        </h3>
 
-                                                    <div
-                                                        className="w-100 d-block text-left"
-                                                        // className="form-row row mb-5 col-md-3 text-centered"
-                                                    >
-                                                        <Label
-                                                            className="mb-2 mt-4  text-left"
-                                                            htmlFor="otp"
-                                                        >
-                                                            Enter OTP
-                                                        </Label>
                                                         <div
-                                                            // className="form-row row mb-6"
-                                                            className="d-flex justify-content-left "
+                                                            className="w-100 d-block text-left"
+                                                            // className="form-row row mb-5 col-md-3 text-centered"
                                                         >
-                                                            <OtpInput
-                                                                numInputs={6}
-                                                                isDisabled={
-                                                                    false
-                                                                }
-                                                                errorStyle="error"
-                                                                onChange={
-                                                                    handleOtpChange
-                                                                }
-                                                                separator={
-                                                                    <span>
-                                                                        {'-'}
-                                                                    </span>
-                                                                }
-                                                                isInputNum={
-                                                                    true
-                                                                }
-                                                                isInputSecure={
-                                                                    false
-                                                                }
-                                                                shouldAutoFocus
-                                                                value={
-                                                                    formik
-                                                                        .values
-                                                                        .otp
-                                                                }
-                                                                placeholder={''}
-                                                                inputStyle={{
-                                                                    border: '1px solid var(--color-grey-light-3)',
-                                                                    borderRadius:
-                                                                        '8px',
-                                                                    width: '5.4rem',
-                                                                    height: '5.4rem',
-                                                                    fontSize:
-                                                                        '2.2rem',
-                                                                    color: '#000',
-                                                                    fontWeight:
-                                                                        '400',
-                                                                    caretColor:
-                                                                        'blue'
-                                                                }}
-                                                                focusStyle={{
-                                                                    border: '1px solid #CFD3DB',
-                                                                    outline:
-                                                                        'none'
-                                                                }}
-                                                            />
+                                                            <Label
+                                                                className="mb-2 mt-4  text-left"
+                                                                htmlFor="otp"
+                                                            >
+                                                                Enter OTP
+                                                            </Label>
+                                                            <div
+                                                                // className="form-row row mb-6"
+                                                                className="d-flex justify-content-left "
+                                                            >
+                                                                <OtpInput
+                                                                    numInputs={
+                                                                        6
+                                                                    }
+                                                                    isDisabled={
+                                                                        false
+                                                                    }
+                                                                    errorStyle="error"
+                                                                    onChange={
+                                                                        handleOtpChange
+                                                                    }
+                                                                    separator={
+                                                                        <span>
+                                                                            {
+                                                                                '-'
+                                                                            }
+                                                                        </span>
+                                                                    }
+                                                                    isInputNum={
+                                                                        true
+                                                                    }
+                                                                    isInputSecure={
+                                                                        false
+                                                                    }
+                                                                    shouldAutoFocus
+                                                                    value={
+                                                                        formik
+                                                                            .values
+                                                                            .otp
+                                                                    }
+                                                                    placeholder={
+                                                                        ''
+                                                                    }
+                                                                    inputStyle={{
+                                                                        border: '1px solid var(--color-grey-light-3)',
+                                                                        borderRadius:
+                                                                            '8px',
+                                                                        width: '5.4rem',
+                                                                        height: '5.4rem',
+                                                                        fontSize:
+                                                                            '2.2rem',
+                                                                        color: '#000',
+                                                                        fontWeight:
+                                                                            '400',
+                                                                        caretColor:
+                                                                            'blue'
+                                                                    }}
+                                                                    focusStyle={{
+                                                                        border: '1px solid #CFD3DB',
+                                                                        outline:
+                                                                            'none'
+                                                                    }}
+                                                                />
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            )}
-                                            {formik.values.otp.length > 5 &&
-                                                otpRes != formik.values.otp && (
-                                                    <div
-                                                        className="form-row row mb-5 text-center"
-                                                        // className=" w-50 d-flex justify-content-center"
-                                                    >
-                                                        <span
-                                                            className=" w-100 mt-3 d-flex justify-content-center"
-                                                            style={{
-                                                                color: 'red'
-                                                            }}
-                                                        >
-                                                            Invalid OTP
-                                                        </span>
-                                                    </div>
                                                 )}
-                                            {btnOtp && (
-                                                <div className="mt-5">
-                                                    <Button
-                                                        label={
-                                                            'VERIFY & REGISTER'
-                                                        }
-                                                        btnClass={
-                                                            formik.values.otp
-                                                                .length > 5 &&
-                                                            otpRes ==
-                                                                formik.values
-                                                                    .otp
-                                                                ? 'primary rounded-0'
-                                                                : 'default rounded-0'
-                                                        }
-                                                        size="small w-50"
-                                                        type="submit"
-                                                        disabled={
-                                                            !(
+                                                {formik.values.otp.length > 5 &&
+                                                    otpRes !=
+                                                        formik.values.otp && (
+                                                        <div
+                                                            className="form-row row mb-5 text-center"
+                                                            // className=" w-50 d-flex justify-content-center"
+                                                        >
+                                                            <span
+                                                                className=" w-100 mt-3 d-flex justify-content-center"
+                                                                style={{
+                                                                    color: 'red'
+                                                                }}
+                                                            >
+                                                                Invalid OTP
+                                                            </span>
+                                                        </div>
+                                                    )}
+                                                {btnOtp && (
+                                                    <div className="mt-5">
+                                                        <Button
+                                                            label={
+                                                                'VERIFY & REGISTER'
+                                                            }
+                                                            btnClass={
                                                                 formik.values
                                                                     .otp
                                                                     .length >
@@ -1486,17 +1507,39 @@ function AtlPage() {
                                                                     formik
                                                                         .values
                                                                         .otp
-                                                            )
-                                                        }
-                                                    />
-                                                </div>
-                                            )}
-                                        </Col>
-                                    </div>
-                                )}
-                            </Form>
-                        </Col>
-                    </Row>
+                                                                    ? 'primary rounded-0'
+                                                                    : 'default rounded-0'
+                                                            }
+                                                            size="small w-50"
+                                                            type="submit"
+                                                            disabled={
+                                                                !(
+                                                                    formik
+                                                                        .values
+                                                                        .otp
+                                                                        .length >
+                                                                        5 &&
+                                                                    otpRes ==
+                                                                        formik
+                                                                            .values
+                                                                            .otp
+                                                                )
+                                                            }
+                                                        />
+                                                    </div>
+                                                )}
+                                            </Col>
+                                        </div>
+                                    )}
+                                </Form>
+                            </Col>
+                        </Row>
+                    ) : (
+                        <h2 className="text-center" style={{ color: 'red' }}>
+                            {' '}
+                            Registrations Are Closed
+                        </h2>
+                    )}
                 </Col>
             </Row>
         </div>
