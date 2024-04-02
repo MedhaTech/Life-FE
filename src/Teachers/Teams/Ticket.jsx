@@ -132,16 +132,15 @@ const TicketsPage = () => {
                 name: t('teacher_teams.actions'),
                 cell: (params) => {
                     return [
-                        <div key={params} onClick={() => handleCreate(params)}>
-                            {process.env.REACT_APP_TEAM_LENGTH >
-                                params.StudentCount &&
-                                totalCount?.StudentsCount < 50 && (
-                                    <div className="btn btn-success  mr-5 mx-2">
-                                        Add Team Members
-                                        {/* {t('teacher_teams.create')} */}
-                                    </div>
-                                )}
-                        </div>,
+                        // <div key={params} onClick={() => handleCreate(params)}>
+                        //     {process.env.REACT_APP_TEAM_LENGTH >
+                        //         params.StudentCount &&
+                        //         totalCount?.StudentsCount < 50 && (
+                        //             <div className="btn btn-success  mr-5 mx-2">
+                        //                 Add Team Members
+                        //             </div>
+                        //         )}
+                        // </div>,
                         <div key={params} onClick={() => handleView(params)}>
                             {!params.StudentCount < 4 && (
                                 <div className="btn btn-primary  mr-5">
@@ -161,8 +160,9 @@ const TicketsPage = () => {
         // where item = team name //
         // where we can add team member details //
         history.push({
-            pathname: `/mentor/create-team-member/${item.team_id}/${item.StudentCount ? item.StudentCount : 'new'
-                }`
+            pathname: `/mentor/create-team-member/${item.team_id}/${
+                item.StudentCount ? item.StudentCount : 'new'
+            }`
         });
     };
     const handleEditTeam = (item) => {
@@ -193,7 +193,7 @@ const TicketsPage = () => {
     };
 
     return (
-        <Layout title="Teams">
+        <Layout title="Teams ">
             <Container className="ticket-page mt-5 mb-50 userlist">
                 <Row className="pt-5">
                     <Row className="mb-2 mb-sm-5 mb-md-5 mb-lg-0">
@@ -206,9 +206,13 @@ const TicketsPage = () => {
                                 Total Students : {totalCount?.StudentsCount}
                             </h2>
                         </Col>
+
+                        <span style={{ color: 'red', fontSize: '16px' }}>
+                            Students Registrations Are Closed
+                        </span>
                         <Col className="ticket-btn col ml-auto ">
                             <div className="d-flex justify-content-end">
-                                {totalCount?.StudentsCount < 47 && (
+                                {/* {totalCount?.StudentsCount < 47 && (
                                     <Button
                                         label={t('teacher_teams.create_team')}
                                         btnClass="primary ml-2"
@@ -219,7 +223,7 @@ const TicketsPage = () => {
                                             history.push('/mentor/create-team')
                                         }
                                     />
-                                )}
+                                )} */}
                             </div>
                         </Col>
                     </Row>
@@ -259,38 +263,56 @@ const TicketsPage = () => {
                             Instructions for adding teams :
                         </Label>
                         <p>
-                            Adding student teams is the first and most important step as part of the project. Please ensure you are ready with the list of students and their details (team name, student full name,age,gender, Email, mobile number, course,year of study and date of birth) before you start creating teams. Please ensure you are selecting students who are interested and will benefit out of this program irrespective of their communication skills or academic performance.
+                            Adding student teams is the first and most important
+                            step as part of the project. Please ensure you are
+                            ready with the list of students and their details
+                            (team name, student full name,age,gender, Email,
+                            mobile number, course,year of study and date of
+                            birth) before you start creating teams. Please
+                            ensure you are selecting students who are interested
+                            and will benefit out of this program irrespective of
+                            their communication skills or academic performance.
                         </p>
                         <List>
                             <li>
-                                Go through the Team creation process video available in the resource section before creating teams.
+                                Go through the Team creation process video
+                                available in the resource section before
+                                creating teams.
                             </li>
                             <li>Email id has to be unique for each student.</li>
                             <li>
-                                Mentor email cannot be used for mentor & student.
+                                Mentor email cannot be used for mentor &
+                                student.
                             </li>
                             <li>
-                                Each team should have a minimum of 3 and maximum of 5 students.
+                                Each team should have a minimum of 3 and maximum
+                                of 5 students.
                             </li>
                             <li>
-                                Team name cannot be edited whereas student details can be edited and they allow only alphanumeric characters.
+                                Team name cannot be edited whereas student
+                                details can be edited and they allow only
+                                alphanumeric characters.
                             </li>
                             <li>
-                                Special characters (!,@,#,$...etc) are not allowed in team name & student name.
+                                Special characters (!,@,#,$...etc) are not
+                                allowed in team name & student name.
                             </li>
                             <li>
-                                Student delete button will be active only if the team has 3 students.
+                                Student delete button will be active only if the
+                                team has 3 students.
                             </li>
 
                             <li>
-                                Change team option can be used only before initiating an idea.
+                                Change team option can be used only before
+                                initiating an idea.
                             </li>
                             <li>
                                 If Idea is initiated by a team then
                                 <ul>
                                     <li>Students & Team cannot be deleted</li>
                                     <li>
-                                        Students cannot be changed / shifted to other teams
+                                        Students cannot be changed / shifted to
+                                        other teams
                                     </li>
                                 </ul>
                             </li>

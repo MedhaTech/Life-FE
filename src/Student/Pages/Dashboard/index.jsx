@@ -201,10 +201,10 @@ const Dashboard = () => {
                 )
         },
         {
-            title: 'Idea Submission',
+            title: 'Mentor Approval',
             dataIndex: 'idea_submission',
             align: 'center',
-            width: '10%',
+            width: '15%',
             render: (_, record) =>
                 record?.idea_submission === 1 ? (
                     <FaCheckCircle size={20} color="green" />
@@ -213,15 +213,16 @@ const Dashboard = () => {
                 )
         },
         {
-            title: 'Mentor Approval',
+            title: 'Idea Submission',
             dataIndex: 'PendingForApproval',
+            align: 'center',
             render: (_, record) =>
                 record?.PendingForApproval === 1 ? (
                     <FaCheckCircle size={20} color="green" />
                 ) : (
                     <FaTimesCircle size={20} color="red" />
                 ),
-            width: '15rem'
+            width: '15%'
         }
         // {
         //     title: 'Send for Approval',
