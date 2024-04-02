@@ -118,7 +118,7 @@ export const logout = (history, t, module, dispatch) => {
                         case 'REPORT':
                             history.push('/report');
                             break;
-                        case 'teacher':
+                        case 'mentor':
                             history.push('/mentor');
                             break;
                         case 'student':

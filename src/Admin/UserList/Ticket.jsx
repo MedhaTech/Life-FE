@@ -1001,9 +1001,8 @@ const TicketsPage = (props) => {
                                         </div> */}
                                     </>
                                 )}
-                                {tab && tab == 2 && (
+                                {/* {tab && tab == 2 && (
                                     <>
-                                        {/* <div className="m-5 "> */}
                                         <Col className="ticket-btn col ml-auto ">
                                             <div className="d-flex justify-content-end">
                                                 <Button
@@ -1011,7 +1010,6 @@ const TicketsPage = (props) => {
                                                     btnClass="m-5 btn btn-success"
                                                     size="small"
                                                     shape="btn-square"
-                                                    // Icon={BsPlusLg}
                                                     onClick={() =>
                                                         history.push(
                                                             '/admin/mentor/register'
@@ -1021,7 +1019,7 @@ const TicketsPage = (props) => {
                                             </div>
                                         </Col>
                                     </>
-                                )}
+                                )} */}
 
                                 {tab && (tab == 3 || tab == 4) && (
                                     <Button

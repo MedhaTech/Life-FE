@@ -799,17 +799,23 @@ const TeacherDetailed = () => {
                                             />
                                         </div>
                                         <div className="row">
-                                            <div className="col-md-8">
-                                                <div className="table-wrapper bg-white">
+                                            <div className="col-md-12">
+                                                <div className=" bg-white">
                                                     <Table
                                                         id="dataTable"
                                                         className="table table-striped table-bordered responsive"
                                                     >
-                                                        <thead>
+                                                        <thead
+                                                            style={{
+                                                                textAlign:
+                                                                    'center'
+                                                            }}
+                                                        >
                                                             <tr>
                                                                 <th>No</th>
                                                                 <th>
                                                                     District
+                                                                    <br />
                                                                     Name
                                                                 </th>
                                                                 <th>
@@ -843,7 +849,12 @@ const TeacherDetailed = () => {
                                                                 </th>
                                                             </tr>
                                                         </thead>
-                                                        <tbody>
+                                                        <tbody
+                                                            style={{
+                                                                textAlign:
+                                                                    'center'
+                                                            }}
+                                                        >
                                                             {combinedArray.map(
                                                                 (
                                                                     item,
@@ -954,63 +965,67 @@ const TeacherDetailed = () => {
                                                     </Table>
                                                 </div>
                                             </div>
-                                            <div className="col-md-3">
-                                                <div className="row">
-                                                    <div className="col-md-12 text-center mt-1">
-                                                        <p
-                                                            style={{
-                                                                whiteSpace:
-                                                                    'nowrap',
-                                                                paddingLeft:
-                                                                    '10px'
-                                                            }}
-                                                        >
-                                                            <b>
-                                                                Students Male vs
-                                                                Female As of{' '}
-                                                                {newFormat}
-                                                            </b>
-                                                        </p>
+                                            <div className="row">
+                                                <div className="col-md-3">
+                                                    <div className="row">
+                                                        <div className="col-md-3 text-center mt-1">
+                                                            <p
+                                                                style={{
+                                                                    whiteSpace:
+                                                                        'nowrap',
+                                                                    paddingLeft:
+                                                                        '10px'
+                                                                }}
+                                                            >
+                                                                <b>
+                                                                    Students
+                                                                    Male vs
+                                                                    Female As of{' '}
+                                                                    {newFormat}
+                                                                </b>
+                                                            </p>
+                                                        </div>
+                                                        <div className="col-md-3 doughnut-chart-container">
+                                                            {doughnutChartData && (
+                                                                <Doughnut
+                                                                    data={
+                                                                        doughnutChartData
+                                                                    }
+                                                                    options={
+                                                                        chartOption
+                                                                    }
+                                                                />
+                                                            )}
+                                                        </div>
                                                     </div>
-                                                    <div className="col-md-5 doughnut-chart-container">
-                                                        {doughnutChartData && (
-                                                            <Doughnut
-                                                                data={
-                                                                    doughnutChartData
-                                                                }
-                                                                options={
-                                                                    chartOption
-                                                                }
-                                                            />
-                                                        )}
+                                                </div>
+
+                                                <div
+                                                    className="col-md-9 chart-container mt-5"
+                                                    style={{
+                                                        // width: '100%',
+                                                        height: '370px'
+                                                    }}
+                                                >
+                                                    <div className="chart-box">
+                                                        <Bar
+                                                            data={barChart1Data}
+                                                            options={options}
+                                                        />
+                                                        <div className="chart-title">
+                                                            <p>
+                                                                <b>
+                                                                    Teams,
+                                                                    Students
+                                                                    Enrolled As
+                                                                    of{' '}
+                                                                    {newFormat}
+                                                                </b>
+                                                            </p>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-
-                                            <div
-                                                className="col-md-6 chart-container mt-5"
-                                                style={{
-                                                    width: '100%',
-                                                    height: '370px'
-                                                }}
-                                            >
-                                                <div className="chart-box">
-                                                    <Bar
-                                                        data={barChart1Data}
-                                                        options={options}
-                                                    />
-                                                    <div className="chart-title">
-                                                        <p>
-                                                            <b>
-                                                                Teams, Students
-                                                                Enrolled As of{' '}
-                                                                {newFormat}
-                                                            </b>
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-
                                             {/* <div
                                                 className="col-md-6 chart-container mt-3"
                                                 style={{

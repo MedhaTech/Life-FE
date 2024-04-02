@@ -48,6 +48,15 @@ const EvaluatedIdeaDetail = (props) => {
                                 </div> */}
                                 <div className="col-lg-6 d-flex justify-content-end">
                                     <div className="ms-auto me-sm-3 p-0">
+                                        <h2 className="mb-md-4 mb-3">
+                                            CID :
+                                            <span className="text-capitalize fs-3">
+                                                {props?.ideaDetails?.idea_id ||
+                                                    ''}
+                                            </span>
+                                        </h2>
+                                    </div>
+                                    <div className="ms-auto me-sm-3 p-0">
                                         <Button
                                             btnClass="primary"
                                             size="small"
@@ -479,7 +488,7 @@ const EvaluatedIdeaDetail = (props) => {
                                     </span>{' '}
                                     {moment
                                         .utc(props?.ideaDetails?.evaluated_at)
-                                        .format('DD-MM-YYYY HH:mm:ss') || ''}
+                                        .format('DD-MM-YYYY ') || ''}
                                 </p>
                                 {props?.ideaDetails?.evaluation_status ==
                                     'REJECTEDROUND1' && (

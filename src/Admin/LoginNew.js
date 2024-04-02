@@ -88,11 +88,11 @@ const LoginNew = (props) => {
 
     const inputUserId = {
         type: 'text',
-        placeholder: 'Enter admin email '
+        placeholder: 'Enter Admin Email '
     };
 
     const inputPassword = {
-        placeholder: 'Enter password',
+        placeholder: 'Enter Password',
         showEyeIcon: true
     };
 
@@ -236,7 +236,7 @@ const LoginNew = (props) => {
                                             ) : null}
                                         </Col>
 
-                                        <Col
+                                        {/* <Col
                                             className="form-group"
                                             xs={12}
                                             sm={12}
@@ -254,7 +254,7 @@ const LoginNew = (props) => {
                                                     </Link>
                                                 </Col>
                                             </Row>
-                                        </Col>
+                                        </Col> */}
                                     </div>
                                     <div className="form-row row mb-5">
                                         <Col

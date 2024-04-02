@@ -599,7 +599,7 @@ const AdminLatestNews = () => {
                         <div className="my-2">
                             <DataTableExtensions
                                 print={false}
-                                export={true}
+                                export={false}
                                 {...stuNewsData}
                                 exportHeaders
                             >
