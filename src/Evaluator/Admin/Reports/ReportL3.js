@@ -926,7 +926,7 @@ const ReportL3 = () => {
 
                                         <div className="row">
                                             <div className="col-md-7">
-                                                <div className="table-wrapper bg-white">
+                                                <div className=" bg-white">
                                                     <Table
                                                         id="dataTable"
                                                         className="table table-striped table-bordered responsive"
