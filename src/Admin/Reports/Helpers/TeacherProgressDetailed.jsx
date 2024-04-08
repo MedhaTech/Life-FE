@@ -1117,7 +1117,16 @@ const TeacherDetailed = () => {
                                         </div>
                                     </>
                                 ) : (
-                                    dataCount == '0' && 'No Data'
+                                    dataCount == '0' && (
+                                        <span
+                                            style={{
+                                                fontSize: '20px',
+                                                color: 'red'
+                                            }}
+                                        >
+                                            No Data
+                                        </span>
+                                    )
                                 )}
                                 {combinedArray.length > 0 && (
                                     <div className="mt-5">
