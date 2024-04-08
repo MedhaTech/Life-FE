@@ -259,9 +259,10 @@ const DistAbstractReport = () => {
         axios(config)
             .then((response) => {
                 if (response.status === 200) {
-                    // console.log(response, 'f');
+                    console.log(response, 'f');
                     if (item === 'Registered') {
                         setDataCount(response?.data?.count);
+                        setDataC('');
                         setFilteredData(response?.data?.data || []);
                         setDownloadData(response?.data?.data || []);
 
@@ -271,7 +272,9 @@ const DistAbstractReport = () => {
                         setDownloadNotRegisteredData(
                             response?.data?.data || []
                         );
+
                         setDataC(response?.data?.count);
+                        setDataCount('');
 
                         // csvLinkRefNotRegistered.current.link.click();
                     }
@@ -376,7 +379,7 @@ const DistAbstractReport = () => {
             key: 'mentor_name'
         },
         {
-            label: 'Email ID',
+            label: 'Mentor Email ID',
             key: 'mentor_email'
         },
         {
@@ -696,6 +699,7 @@ const DistAbstractReport = () => {
                 console.log('API error:', error);
             });
     };
+    // console.log(filterType, '111');
     return (
         <>
             <Layout title="Reports">
@@ -831,7 +835,8 @@ const DistAbstractReport = () => {
                                 </Col>
                             </Row>
                             <div className="chart">
-                                {filteredData.length > 0 ? (
+                                {filterType === 'Registered' &&
+                                filteredData.length > 0 ? (
                                     <>
                                         <h2> {distName} Status</h2>
                                         <div className="mt-5">
@@ -876,16 +881,20 @@ const DistAbstractReport = () => {
                                                                         Name
                                                                     </th>
                                                                     <th>
+                                                                        Mentor
                                                                         Email Id
                                                                     </th>{' '}
                                                                     <th>
+                                                                        Mentor
                                                                         Gender
                                                                     </th>{' '}
                                                                     <th>
+                                                                        Mentor
                                                                         Mobile
                                                                         Number
                                                                     </th>
                                                                     <th>
+                                                                        Mentor
                                                                         WhatsApp
                                                                         Number
                                                                     </th>
@@ -983,9 +992,19 @@ const DistAbstractReport = () => {
                                         </div>
                                     </>
                                 ) : (
-                                    dataCount == '0' && 'No Data'
+                                    dataCount == '0' && (
+                                        <span
+                                            style={{
+                                                fontSize: '20px',
+                                                color: 'red'
+                                            }}
+                                        >
+                                            No Data
+                                        </span>
+                                    )
                                 )}
-                                {notfilteredData.length > 0 ? (
+                                {filterType === 'Not Registered' &&
+                                notfilteredData.length > 0 ? (
                                     <>
                                         <h2> {distName} Status</h2>
                                         <div className="mt-5">
@@ -1034,10 +1053,12 @@ const DistAbstractReport = () => {
                                                                         Email Id
                                                                     </th>{' '}
                                                                     <th>
+                                                                        Principal
                                                                         Mobile
                                                                         Number
                                                                     </th>
                                                                     <th>
+                                                                        Principal
                                                                         WhatsApp
                                                                         Number
                                                                     </th>
@@ -1125,7 +1146,16 @@ const DistAbstractReport = () => {
                                         </div>
                                     </>
                                 ) : (
-                                    dataC == '0' && 'No Data'
+                                    dataC == '0' && (
+                                        <span
+                                            style={{
+                                                fontSize: '20px',
+                                                color: 'red'
+                                            }}
+                                        >
+                                            No Data
+                                        </span>
+                                    )
                                 )}
                                 {combinedArray.length > 0 && (
                                     <div className="mt-5">
