@@ -34,7 +34,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
     };
 
     const handleLogout = (e) => {
-        logout(history, t, 'school');
+        logout(history, t, 'institution');
         e.preventDefault();
     };
 
