@@ -1274,7 +1274,16 @@ const ReportsRegistration = () => {
                                             </div>
                                         </div>
                                     ) : (
-                                        dataCount == '0' && 'No Data'
+                                        dataCount == '0' && (
+                                            <span
+                                                style={{
+                                                    fontSize: '20px',
+                                                    color: 'red'
+                                                }}
+                                            >
+                                                No Data
+                                            </span>
+                                        )
                                     )}
                                 </div>
                                 {combinedArray.length > 0 && (
