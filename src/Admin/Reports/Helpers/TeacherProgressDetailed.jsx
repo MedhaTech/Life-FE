@@ -550,7 +550,9 @@ const TeacherDetailed = () => {
                         //     (item['countop'] + item['courseinprogess']);
                         dataList['ideanotIN'] =
                             item['team_count'] -
-                            (item['submittedcout'] + item['draftcout']);
+                            (item['submittedcout'] +
+                                item['draftcout'] +
+                                item['PFACount']);
                         return dataList;
                     });
 

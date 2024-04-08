@@ -953,6 +953,17 @@ const ReportsRegistration = () => {
                                                                         Title
                                                                     </th>
                                                                     <th>
+                                                                        Which
+                                                                        problem
+                                                                        statement
+                                                                        are you
+                                                                        targeting
+                                                                        with
+                                                                        your
+                                                                        solution
+                                                                        ?
+                                                                    </th>
+                                                                    <th>
                                                                         Description
                                                                         of the
                                                                         Problem
@@ -1111,8 +1122,7 @@ const ReportsRegistration = () => {
                                                                                     whiteSpace:
                                                                                         'pre-wrap',
                                                                                     wordWrap:
-                                                                                        'break-word',
-                                                                                  
+                                                                                        'break-word'
                                                                                 }}
                                                                             >
                                                                                 {
