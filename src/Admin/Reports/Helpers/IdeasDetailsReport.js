@@ -1112,8 +1112,7 @@ const ReportsRegistration = () => {
                                                                                         'pre-wrap',
                                                                                     wordWrap:
                                                                                         'break-word',
-                                                                                    width: '30px'
-                                                                                    // word-wrap: break-word;
+                                                                                  
                                                                                 }}
                                                                             >
                                                                                 {
