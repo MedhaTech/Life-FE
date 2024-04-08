@@ -42,7 +42,7 @@ const ReportsRegistration = () => {
     const [category, setCategory] = useState('');
     const [filteredData, setFilteredData] = useState([]);
     const filterOptions = ['Registered', 'Not Registered'];
-    const categoryData = ['All Categorys', 'ATL', 'Non ATL'];
+    const categoryData = ['Draft', 'Submitted', 'Pending for Approval', 'All'];
     // const categoryData =
     //     categoryValue[process.env.REACT_APP_LOCAL_LANGUAGE_CODE];
 
@@ -63,10 +63,16 @@ const ReportsRegistration = () => {
     const [downloadComplete, setDownloadComplete] = useState(false);
     const [newFormat, setNewFormat] = useState('');
     const [responseData, setResponseData] = useState(null);
+    const [combinedArray, setCombinedArray] = useState([]);
+
     const [barChart1Data, setBarChart1Data] = useState({
         labels: [],
         datasets: []
     });
+    const [isDownload, setIsDownload] = useState(false);
+    const [data, setData] = useState([]);
+    const [dataCount, setDataCount] = useState('');
+
     const fullStatesNames = useSelector(
         (state) => state?.studentRegistration?.regstate
     );
@@ -76,6 +82,7 @@ const ReportsRegistration = () => {
     const fullDistrictsNames = useSelector(
         (state) => state?.studentRegistration?.dists
     );
+    const [getData, setGetData] = useState([]);
     const [downloadTableData, setDownloadTableData] = useState(null);
     const summaryHeaders = [
         {
@@ -83,48 +90,16 @@ const ReportsRegistration = () => {
             key: 'district_name'
         },
         {
-            label: 'No of Ideas Submitted',
-            key: 'totalSubmited'
+            label: 'Pending For Approval Ideas',
+            key: 'PFACount'
         },
         {
-            label: 'No of ATL Ideas',
-            key: 'ATL_Count'
+            label: 'Submitted Ideas',
+            key: 'submittedCount'
         },
         {
-            label: 'No of Non ATL Ideas',
-            key: 'NonATL_Count'
-        },
-        {
-            label: 'Agriculture',
-            key: 'Agriculture'
-        },
-        {
-            label: 'Disaster Management',
-            key: 'DisasterManagement'
-        },
-        {
-            label: 'Education Skill Development',
-            key: 'EducationSkillDevelopment'
-        },
-        {
-            label: 'Health',
-            key: 'Health'
-        },
-        {
-            label: 'Inclusivity',
-            key: 'Inclusivity'
-        },
-        {
-            label: 'Mobility',
-            key: 'Mobility'
-        },
-        {
-            label: 'OTHERS',
-            key: 'OTHERS'
-        },
-        {
-            label: 'Space',
-            key: 'Space'
+            label: 'Draft Ideas',
+            key: 'draftCount'
         }
     ];
     const teacherDetailsHeaders = [
@@ -260,22 +235,12 @@ const ReportsRegistration = () => {
         }
     ];
 
-    // useEffect(() => {
-    //     dispatch(getStateData());
-    // }, []);
-    // useEffect(() => {
-    //     if (RegTeachersState !== '') {
-    //         dispatch(getFetchDistData(RegTeachersState));
-    //     }
-    //     setRegTeachersdistrict('');
-    //     fetchChartTableData();
-    // }, [RegTeachersState]);
     useEffect(() => {
         // if (RegTeachersState !== '') {
         dispatch(getFetchDistData());
         // }
         // setRegTeachersdistrict('');
-        // fetchChartTableData();
+        fetchChartTableData();
     }, []);
 
     // useEffect(() => {
@@ -374,7 +339,7 @@ const ReportsRegistration = () => {
     const fetchData = () => {
         const IdeaPram = encryptGlobal(
             JSON.stringify({
-                status: 'ACTIVE',
+                status: category,
                 // state: RegTeachersState,
                 district_name:
                     RegTeachersdistrict === ''
@@ -412,6 +377,9 @@ const ReportsRegistration = () => {
             .then((response) => {
                 if (response.status === 200) {
                     const responseData = response?.data?.data || [];
+                    setData(responseData);
+                    // setData(response.data.count);
+
                     if (Array.isArray(responseData)) {
                         const IdeaFormData = responseData.map((entry) => ({
                             ...entry,
@@ -457,6 +425,7 @@ const ReportsRegistration = () => {
                                 : ''
                         }));
                         setDownloadData(IdeaFormData);
+                        setGetData(IdeaFormData);
                         csvLinkRef.current.link.click();
                         openNotificationWithIcon(
                             'success',
@@ -486,32 +455,168 @@ const ReportsRegistration = () => {
                 setIsDownloading(false);
             });
     };
+    // console.log(getData, 'data');
     const distEx =
         RegTeachersdistrict === '' ? 'All Districts' : RegTeachersdistrict;
     const handleDownload = () => {
         // alert('hii');
-        // if (
-        //     !RegTeachersState ||
-        //     // !RegTeachersdistrict ||
-        //     // !filterType ||
-        //     !category ||
-        //     !sdg
-        // ) {
-        //     notification.warning({
-        //         message:
-        //             'Please select a state,category and Theme type before Downloading Reports.'
-        //     });
-        //     return;
-        // }
+        if (
+            // !RegTeachersState ||
+            !RegTeachersdistrict ||
+            // !filterType ||
+            !category
+            // !sdg
+        ) {
+            notification.warning({
+                message:
+                    'Please select district type and category before Downloading Reports.'
+            });
+            return;
+        }
         setIsDownloading(true);
         fetchData();
     };
+    const handleDownloadView = () => {
+        // alert('hii');
+        if (
+            // !RegTeachersState ||
+            !RegTeachersdistrict ||
+            // !filterType ||
+            !category
+            // !sdg
+        ) {
+            notification.warning({
+                message:
+                    'Please select district type and category before Downloading Reports.'
+            });
+            return;
+        }
+        setIsDownloading(true);
+        fetchDataView();
+    };
+    const distName =
+        RegTeachersdistrict === '' ? 'All Districts' : RegTeachersdistrict;
+    const fetchDataView = () => {
+        setDataCount();
+        const IdeaPram = encryptGlobal(
+            JSON.stringify({
+                status: category,
+                // state: RegTeachersState,
+                district_name:
+                    RegTeachersdistrict === ''
+                        ? 'All Districts'
+                        : RegTeachersdistrict
+                // category: category,
+                // sdg: sdg
+            })
+        );
+        // alert('hi');
+        const config = {
+            method: 'get',
+            url:
+                process.env.REACT_APP_API_BASE_URL +
+                `/reports/ideadeatilreport?Data=${IdeaPram}`,
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${currentUser?.data[0]?.token}`
+            }
+        };
+        // const url = `/reports/ideadeatilreport?status=ACTIVE&state=${RegTeachersState}&district=${
+        //     RegTeachersdistrict === '' ? 'All Districts' : RegTeachersdistrict
+        // }&category=${category}&sdg=${sdg}`;
 
-    // useEffect(() => {
-    //     if (filteredData.length > 0) {
-    //         setDownloadData(filteredData);
-    //     }
-    // }, [filteredData, downloadNotRegisteredData]);
+        // const config = {
+        //     method: 'get',
+        //     url: process.env.REACT_APP_API_BASE_URL + url,
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //         Authorization: `Bearer ${currentUser?.data[0]?.token}`
+        //     }
+        // };
+
+        axios(config)
+            .then((response) => {
+                if (response.status === 200) {
+                    // console.log(response, '11');
+                    const responseData = response?.data?.data;
+
+                    setDataCount(response?.data?.count);
+                    // console.log(data, 'qqqqq')
+                    if (Array.isArray(responseData)) {
+                        const IdeaFormData = responseData.map((entry) => ({
+                            ...entry,
+                            theme_name: entry.theme_name
+                                ? `${entry.theme_name
+                                      .replace(/"/g, '""')
+                                      .replace(/\n/g, ' ')
+                                      .replace(/,/g, ';')}`
+                                : '',
+                            problem_statement: entry.problem_statement
+                                ? `${entry.problem_statement
+                                      .replace(/"/g, '""')
+                                      .replace(/\n/g, ' ')
+                                      .replace(/,/g, ';')}`
+                                : '',
+
+                            problem_statement_description:
+                                entry.problem_statement_description
+                                    ? `${entry.problem_statement_description
+                                          .replace(/"/g, '""')
+                                          .replace(/\n/g, ' ')
+                                          .replace(/,/g, ';')}`
+                                    : '',
+                            solution_statement: entry.solution_statement
+                                ? `${entry.solution_statement
+                                      .replace(/"/g, '""')
+                                      .replace(/\n/g, ' ')
+                                      .replace(/,/g, ';')}`
+                                : '',
+                            detailed_solution: entry.detailed_solution
+                                ? `${entry.detailed_solution
+
+                                      .replace(/"/g, '""')
+                                      .replace(/\n/g, ' ')
+                                      .replace(/,/g, ';')}`
+                                : '',
+                            idea_title: entry.idea_title
+                                ? `${entry.idea_title
+
+                                      .replace(/"/g, '""')
+                                      .replace(/\n/g, ' ')
+                                      .replace(/,/g, ';')}`
+                                : ''
+                        }));
+                        setDownloadData(IdeaFormData);
+                        setGetData(IdeaFormData);
+                        // csvLinkRef.current.link.click();
+                        // openNotificationWithIcon(
+                        //     'success',
+                        //     `Ideas Detailed Reports Downloaded Successfully`
+                        // );
+                    }
+                    // const IdeaFormData = response.data.data.map((entry) => ({
+                    //     // const { response, ...rest } = entry;
+                    //     ...entry,
+                    //     solution_statement: `"${entry.solution_statement
+                    //         .replace(/"/g, '""')
+                    //         .replace(/\n/g, ' ')
+                    //         .replace(/,/g, ';')}"`
+                    // }));
+                    // setDownloadData(IdeaFormData);
+                    // console.log(downloadData, '222');
+                    // csvLinkRef.current.link.click();
+                    // openNotificationWithIcon(
+                    //     'success',
+                    //     `Ideas Detailed Reports Downloaded Successfully`
+                    // );
+                    setIsDownloading(false);
+                }
+            })
+            .catch((error) => {
+                console.log('API error:', error);
+                setIsDownloading(false);
+            });
+    };
 
     useEffect(() => {
         if (downloadComplete) {
@@ -534,7 +639,8 @@ const ReportsRegistration = () => {
         const config = {
             method: 'get',
             url:
-                process.env.REACT_APP_API_BASE_URL + '/reports/ideaReportTable',
+                process.env.REACT_APP_API_BASE_URL +
+                '/reports/ideaDeatailsTable',
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${currentUser?.data[0]?.token}`
@@ -542,103 +648,59 @@ const ReportsRegistration = () => {
         };
 
         axios(config)
-            .then((res) => {
-                if (res.status === 200) {
-                    const chartTableData = res?.data?.data || [];
+            .then((response) => {
+                if (response.status === 200) {
+                    const summary = response.data.data[0].summary;
+                    const PFACount = response.data.data[0].PFACount;
+                    const submittedCount = response.data.data[0].submittedCount;
 
-                    const total = chartTableData.reduce(
+                    const combinedArray = summary.map((summaryItem) => {
+                        const district_name = summaryItem.district_name;
+                        const draftCount = summaryItem.draftCount;
+
+                        const PFACountItem = PFACount.find(
+                            (item) => item.district_name === district_name
+                        );
+                        const submittedCountItem = submittedCount.find(
+                            (item) => item.district_name === district_name
+                        );
+
+                        return {
+                            draftCount,
+                            PFACount: PFACountItem
+                                ? PFACountItem.PFACount
+                                : '0',
+                            submittedCount: submittedCountItem
+                                ? submittedCountItem.submittedCount
+                                : '0',
+                            district_name
+                        };
+                    });
+                    const total = combinedArray.reduce(
                         (acc, item) => {
-                            (acc.totalSubmited += item.totalSubmited),
-                                (acc.ATL_Count += item.ATL_Count);
-                            acc.NonATL_Count += item.NonATL_Count;
-                            acc.Agriculture += item.Agriculture;
-                            acc.DisasterManagement += item.DisasterManagement;
-                            acc.EducationSkillDevelopment +=
-                                item.EducationSkillDevelopment;
-                            acc.Health += item.Health;
-                            acc.Inclusivity += item.Inclusivity;
-                            acc.Mobility += item.Mobility;
+                            acc.draftCount += item.draftCount;
+                            // acc.PFACount += item.PFACount;
+                            // acc.submittedCount += item.submittedCount;
+                            acc.PFACount += parseInt(item.PFACount, 10);
+                            acc.submittedCount += parseInt(
+                                item.submittedCount,
+                                10
+                            );
 
-                            acc.OTHERS += item.OTHERS;
-
-                            acc.Space += item.Space;
                             return acc;
                         },
                         {
-                            totalSubmited: 0,
-                            ATL_Count: 0,
-                            NonATL_Count: 0,
-                            Agriculture: 0,
-                            DisasterManagement: 0,
-                            EducationSkillDevelopment: 0,
-                            Health: 0,
-                            Inclusivity: 0,
-                            Mobility: 0,
-                            OTHERS: 0,
-                            Space: 0
+                            draftCount: 0,
+                            PFACount: 0,
+                            submittedCount: 0
                         }
                     );
-                    setRegisteredGenderChartData({
-                        labels: [
-                            'Agriculture',
-                            'Disaster Management',
-                            'Education Skill Development',
-                            'Health',
-                            'Inclusivity',
-                            'Mobility',
-                            'OTHERS',
-                            ' Space'
-                        ],
-                        datasets: [
-                            {
-                                data: [
-                                    total.Agriculture,
-                                    total.DisasterManagement,
-                                    total.EducationSkillDevelopment,
-                                    total.Health,
-                                    total.Inclusivity,
-                                    total.Mobility,
-                                    total.OTHERS,
-                                    total.Space
-                                ],
-                                backgroundColor: [
-                                    '#36A2EB',
-                                    '#FF6384',
-                                    '#33FF00',
-                                    '#993300',
-                                    '#CCFF00',
-                                    '#FF9900',
-                                    '#FF0099',
-                                    '#FFA07A'
-                                ],
-                                hoverBackgroundColor: [
-                                    '#36A2EB',
-                                    '#FF6384',
-                                    '#33FF00',
-                                    '#993300',
-                                    '#CCFF00',
-                                    '#FF9900',
-                                    '#FF0099',
-                                    '#FFA07A'
-                                ]
-                            }
-                        ]
-                    });
 
-                    setRegisteredChartData({
-                        labels: ['ATL Ideas', 'NON ATL Ideas'],
-                        datasets: [
-                            {
-                                data: [total.ATL_Count, total.NonATL_Count],
-                                backgroundColor: ['#36A2EB', '#FF6384'],
-                                hoverBackgroundColor: ['#36A2EB', '#FF6384']
-                            }
-                        ]
-                    });
-                    var array = chartTableData;
-                    array.push({ state: 'Total Count', ...total });
-                    setChartTableData(array);
-                    setDownloadTableData(chartTableData);
+                    var array = combinedArray;
+
+                    array.push({ district_name: 'Total Count', ...total });
+                    setCombinedArray(array);
+                    setDownloadTableData(combinedArray);
                     setTotalCount(total);
                 }
             })
@@ -653,7 +715,7 @@ const ReportsRegistration = () => {
                 <Container className="RegReports mt-4 mb-30 userlist">
                     <Row className="mt-0 pt-2">
                         <Col>
-                            <h2>Ideas Details Status</h2>
+                            <h2>Submitted Ideas Report</h2>
                         </Col>
                         <Col className="text-right mb-1">
                             <Button
@@ -664,9 +726,549 @@ const ReportsRegistration = () => {
                                 onClick={() => history.push('/admin/reports')}
                             />
                         </Col>
+
                         <div className="reports-data p-5 mt-4 mb-5 bg-white">
+                            <Row className="align-items-center">
+                                {/* <Col md={3}>
+                                    <div className="my-3 d-md-block d-flex justify-content-center">
+                                        <Select
+                                            list={fullStatesNames}
+                                            setValue={setState}
+                                            placeHolder={'Select State'}
+                                            value={state}
+                                        />
+                                    </div>
+                                </Col> */}
+                                <Col md={3}>
+                                    <div className="my-3 d-md-block d-flex justify-content-center">
+                                        <Select
+                                            list={fiterDistData}
+                                            setValue={setRegTeachersdistrict}
+                                            placeHolder={'Select District'}
+                                            value={RegTeachersdistrict}
+                                        />
+                                    </div>
+                                </Col>
+                                <Col md={3}>
+                                    <div className="my-3 d-md-block d-flex justify-content-center">
+                                        <Select
+                                            list={categoryData}
+                                            setValue={setCategory}
+                                            placeHolder={'Select Category'}
+                                            value={category}
+                                        />
+                                    </div>
+                                </Col>
+                                <Col
+                                    md={2}
+                                    className="d-flex align-items-center justify-content-center"
+                                >
+                                    {/* <Button
+                                        label="View Details"
+                                        btnClass="primary mx-6"
+                                        size="small"
+                                        shape="btn-square"
+                                        onClick={handleViewDetails}
+                                        style={{
+                                            width: '150px',
+                                            whiteSpace: 'nowrap'
+                                        }}
+                                    /> */}
+                                    <Button
+                                        onClick={handleDownloadView}
+                                        label={'Get Details'}
+                                        btnClass="primary mx-3"
+                                        size="small"
+                                        shape="btn-square"
+                                        type="submit"
+                                    />
+                                </Col>
+                                {/* <Col md={3}>
+                                    <div className="my-3 d-md-block d-flex justify-content-center">
+                                        <Select
+                                            list={categoryData}
+                                            setValue={setCategory}
+                                            placeHolder={'Select Category'}
+                                            value={category}
+                                        />
+                                    </div>
+                                </Col> */}
+                                <Col
+                                    md={3}
+                                    className="d-flex align-items-center justify-content-center"
+                                >
+                                    {/* <Button
+                                        label="View Details"
+                                        btnClass="primary mx-3"
+                                        size="small"
+                                        shape="btn-square"
+                                        onClick={() =>
+                                            fetchData(
+                                                'Teachers Course Completion List'
+                                            )
+                                        }
+                                        style={{
+                                            width: '150px',
+                                            whiteSpace: 'nowrap'
+                                        }}
+                                    /> */}
+
+                                    <Button
+                                        onClick={handleDownload}
+                                        label={'Download Report'}
+                                        // label={
+
+                                        //     isDownload
+                                        //         ? 'Downloading'
+                                        //         : 'Download Report'
+                                        // }
+                                        btnClass="primary mx-3"
+                                        size={'small'}
+                                        shape="btn-square"
+                                        type="submit"
+                                        style={{
+                                            width: '150px',
+                                            whiteSpace: 'nowrap'
+                                        }}
+                                        // disabled={isDownload}
+                                    />
+                                </Col>
+                            </Row>
                             <div className="chart">
-                                {chartTableData.length > 0 && (
+                                <div>
+                                    {getData.length > 0 ? (
+                                        <div className="mt-5">
+                                            <div className="d-flex align-items-center mb-3">
+                                                {/* <h3>OVERVIEW</h3> */}
+                                                <h2>{distName} </h2>
+                                                {/* <Button
+                                                    label="Download Table"
+                                                    btnClass="primary mx-2"
+                                                    size="small"
+                                                    shape="btn-square"
+                                                    onClick={() => {
+                                                        if (downloadTableData) {
+                                                            // setIsDownloading(true);
+                                                            setDownloadTableData(
+                                                                null
+                                                            );
+                                                            csvLinkRefTable.current.link.click();
+                                                        }
+                                                    }}
+                                                    style={{
+                                                        width: '150px',
+                                                        whiteSpace: 'nowrap'
+                                                    }}
+                                                /> */}
+                                            </div>
+
+                                            <div className="row">
+                                                <div className="col-md-12 mx-10 px-10">
+                                                    <div
+                                                        className="bg-white"
+                                                        style={{
+                                                            overflowX: 'auto'
+                                                        }}
+                                                    >
+                                                        {/* <div
+                                                        className="table-wrapper bg-white "
+                                                        style={{
+                                                            overflowX: 'auto'
+                                                        }}
+                                                    > */}
+                                                        <Table
+                                                            id="dataTable"
+                                                            className="table table-striped table-bordered responsive"
+                                                        >
+                                                            <thead
+                                                                style={{
+                                                                    textAlign:
+                                                                        'center'
+                                                                }}
+                                                            >
+                                                                <tr>
+                                                                    <th>No</th>
+                                                                    <th>
+                                                                        Institution
+                                                                        Code
+                                                                    </th>
+                                                                    <th>
+                                                                        Institution
+                                                                        Name
+                                                                    </th>
+                                                                    <th>
+                                                                        Place
+                                                                    </th>
+                                                                    <th>
+                                                                        Block
+                                                                    </th>
+                                                                    <th>
+                                                                        District
+                                                                    </th>
+                                                                    <th>
+                                                                        Principal
+                                                                        Name
+                                                                    </th>
+                                                                    <th>
+                                                                        Principal
+                                                                        Mobile
+                                                                    </th>
+                                                                    <th>
+                                                                        {' '}
+                                                                        Principal
+                                                                        Email
+                                                                    </th>
+                                                                    <th>
+                                                                        Mentor
+                                                                        Name
+                                                                    </th>
+                                                                    <th>
+                                                                        Mentor
+                                                                        Email
+                                                                    </th>
+                                                                    <th>
+                                                                        Mentor
+                                                                        Mobile
+                                                                    </th>
+                                                                    <th>
+                                                                        Team
+                                                                        Name
+                                                                    </th>
+                                                                    <th>
+                                                                        Student
+                                                                        Name
+                                                                    </th>
+                                                                    <th>
+                                                                        Which
+                                                                        theme
+                                                                        are you
+                                                                        targeting
+                                                                        with
+                                                                        your
+                                                                        solution
+                                                                        ?
+                                                                    </th>
+                                                                    <th>
+                                                                        Idea
+                                                                        Title
+                                                                    </th>
+                                                                    <th>
+                                                                        Description
+                                                                        of the
+                                                                        Problem
+                                                                        Statement
+                                                                        ?
+                                                                    </th>
+                                                                    <th>
+                                                                        Solution
+                                                                        Statement
+                                                                    </th>
+                                                                    <th>
+                                                                        Detailed
+                                                                        Solution
+                                                                    </th>
+                                                                    <th>
+                                                                        Do you
+                                                                        already
+                                                                        have a
+                                                                        prototype
+                                                                        built?
+                                                                    </th>
+                                                                    <th>
+                                                                        If yes,
+                                                                        Prototype
+                                                                        File
+                                                                        Upload
+                                                                        (Only
+                                                                        JPG/PNG)
+                                                                    </th>
+                                                                    <th
+                                                                        style={{
+                                                                            whiteSpace:
+                                                                                'pre-wrap',
+                                                                            wordWrap:
+                                                                                'break-word'
+                                                                        }}
+                                                                    >
+                                                                        Is this
+                                                                        idea
+                                                                        submitted
+                                                                        by you
+                                                                        or your
+                                                                        team
+                                                                        members
+                                                                        in any
+                                                                        other
+                                                                        Forum or
+                                                                        Programs
+                                                                        or
+                                                                        Publications
+                                                                        as on
+                                                                        date?
+                                                                    </th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody
+                                                                style={{
+                                                                    textAlign:
+                                                                        'center'
+                                                                }}
+                                                            >
+                                                                {getData.map(
+                                                                    (
+                                                                        item,
+                                                                        index
+                                                                    ) => (
+                                                                        <tr
+                                                                            key={
+                                                                                index
+                                                                            }
+                                                                        >
+                                                                            <td>
+                                                                                {index +
+                                                                                    1}
+                                                                            </td>
+                                                                            <td>
+                                                                                {
+                                                                                    item.institution_code
+                                                                                }
+                                                                            </td>
+                                                                            <td>
+                                                                                {
+                                                                                    item.institution_name
+                                                                                }
+                                                                            </td>
+                                                                            <td>
+                                                                                {
+                                                                                    item.place_name
+                                                                                }
+                                                                            </td>
+                                                                            <td>
+                                                                                {
+                                                                                    item.block_name
+                                                                                }
+                                                                            </td>
+                                                                            <td>
+                                                                                {
+                                                                                    item.district_name
+                                                                                }
+                                                                            </td>
+                                                                            <td>
+                                                                                {
+                                                                                    item.principal_name
+                                                                                }
+                                                                            </td>
+                                                                            <td>
+                                                                                {
+                                                                                    item.principal_mobile
+                                                                                }
+                                                                            </td>
+                                                                            <td>
+                                                                                {
+                                                                                    item.principal_email
+                                                                                }
+                                                                            </td>
+                                                                            <td>
+                                                                                {
+                                                                                    item.mentor_name
+                                                                                }
+                                                                            </td>
+                                                                            <td>
+                                                                                {
+                                                                                    item.mentor_email
+                                                                                }
+                                                                            </td>
+                                                                            <td>
+                                                                                {
+                                                                                    item.mentor_mobile
+                                                                                }
+                                                                            </td>
+                                                                            <td>
+                                                                                {
+                                                                                    item.team_name
+                                                                                }
+                                                                            </td>
+                                                                            <td>
+                                                                                {
+                                                                                    item.students_names
+                                                                                }
+                                                                            </td>{' '}
+                                                                            <td
+                                                                                style={{
+                                                                                    whiteSpace:
+                                                                                        'pre-wrap',
+                                                                                    wordWrap:
+                                                                                        'break-word',
+                                                                                    width: '30px'
+                                                                                }}
+                                                                            >
+                                                                                {
+                                                                                    item.theme_name
+                                                                                }
+                                                                            </td>{' '}
+                                                                            <td
+                                                                                style={{
+                                                                                    whiteSpace:
+                                                                                        'pre-wrap',
+                                                                                    wordWrap:
+                                                                                        'break-word',
+                                                                                    width: '30px'
+                                                                                    // word-wrap: break-word;
+                                                                                }}
+                                                                            >
+                                                                                {
+                                                                                    item.idea_title
+                                                                                }
+                                                                            </td>{' '}
+                                                                            <td
+                                                                                style={{
+                                                                                    whiteSpace:
+                                                                                        'pre-wrap',
+                                                                                    wordWrap:
+                                                                                        'break-word'
+                                                                                }}
+                                                                            >
+                                                                                {
+                                                                                    item.problem_statement
+                                                                                }
+                                                                            </td>{' '}
+                                                                            <td
+                                                                                style={{
+                                                                                    whiteSpace:
+                                                                                        'pre-wrap',
+                                                                                    wordWrap:
+                                                                                        'break-word'
+                                                                                }}
+                                                                            >
+                                                                                {
+                                                                                    item.problem_statement_description
+                                                                                }
+                                                                            </td>{' '}
+                                                                            <td
+                                                                                style={{
+                                                                                    whiteSpace:
+                                                                                        'pre-wrap',
+                                                                                    wordWrap:
+                                                                                        'break-word'
+                                                                                }}
+                                                                            >
+                                                                                {
+                                                                                    item.solution_statement
+                                                                                }
+                                                                            </td>{' '}
+                                                                            <td
+                                                                                style={{
+                                                                                    whiteSpace:
+                                                                                        'pre-wrap',
+                                                                                    wordWrap:
+                                                                                        'break-word'
+                                                                                }}
+                                                                            >
+                                                                                {
+                                                                                    item.detailed_solution
+                                                                                }
+                                                                            </td>{' '}
+                                                                            <td>
+                                                                                {
+                                                                                    item.prototype_available
+                                                                                }
+                                                                            </td>{' '}
+                                                                            <td
+                                                                                style={{
+                                                                                    whiteSpace:
+                                                                                        'pre-wrap',
+                                                                                    wordWrap:
+                                                                                        'break-word'
+                                                                                }}
+                                                                            >
+                                                                                {
+                                                                                    item.Prototype_file
+                                                                                }
+                                                                            </td>{' '}
+                                                                            <td>
+                                                                                {
+                                                                                    item.idea_available
+                                                                                }
+                                                                            </td>
+                                                                        </tr>
+                                                                    )
+                                                                )}
+                                                                {/* <tr>
+                                                                <td>{}</td>
+                                                                <td>
+                                                                    {
+                                                                        'Total Count'
+                                                                    }
+                                                                </td>
+                                                                <td>
+                                                                    {
+                                                                        totalCount.totalSubmited
+                                                                    }
+                                                                </td>
+                                                                <td>
+                                                                    {
+                                                                        totalCount.ATL_Count
+                                                                    }
+                                                                </td>
+                                                                <td>
+                                                                    {
+                                                                        totalCount.NonATL_Count
+                                                                    }
+                                                                </td>
+
+                                                                <td>
+                                                                    {
+                                                                        totalCount.Agriculture
+                                                                    }
+                                                                </td>
+                                                                <td>
+                                                                    {
+                                                                        totalCount.DisasterManagement
+                                                                    }
+                                                                </td>
+                                                                <td>
+                                                                    {
+                                                                        totalCount.EducationSkillDevelopment
+                                                                    }
+                                                                </td>
+                                                                <td>
+                                                                    {
+                                                                        totalCount.Health
+                                                                    }
+                                                                </td>
+                                                                <td>
+                                                                    {
+                                                                        totalCount.Inclusivity
+                                                                    }
+                                                                </td>
+                                                                <td>
+                                                                    {
+                                                                        totalCount.Mobility
+                                                                    }
+                                                                </td>
+                                                                <td>
+                                                                    {
+                                                                        totalCount.OTHERS
+                                                                    }
+                                                                </td>
+                                                                <td>
+                                                                    {
+                                                                        totalCount.Space
+                                                                    }
+                                                                </td>
+                                                            </tr> */}
+                                                            </tbody>
+                                                        </Table>
+                                                        {/* </div> */}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ) : (
+                                        dataCount == '0' && 'No Data'
+                                    )}
+                                </div>
+                                {combinedArray.length > 0 && (
                                     <div className="mt-5">
                                         <div className="d-flex align-items-center mb-3">
                                             <h3>OVERVIEW</h3>
@@ -693,7 +1295,7 @@ const ReportsRegistration = () => {
 
                                         <div className="row">
                                             <div className="col-md-12 mx-10 px-10">
-                                                <div className="table-wrapper bg-white">
+                                                <div className=" bg-white">
                                                     {/* <div
                                                         className="table-wrapper bg-white "
                                                         style={{
@@ -704,49 +1306,42 @@ const ReportsRegistration = () => {
                                                         id="dataTable"
                                                         className="table table-striped table-bordered responsive"
                                                     >
-                                                        <thead>
+                                                        <thead
+                                                            style={{
+                                                                textAlign:
+                                                                    'center'
+                                                            }}
+                                                        >
                                                             <tr>
                                                                 <th>No</th>
                                                                 <th>
-                                                                    State Name
+                                                                    District
+                                                                    Name
                                                                 </th>
                                                                 <th>
-                                                                    No of Ideas
-                                                                    Submitted
-                                                                </th>
-                                                                <th>
-                                                                    No of ATL
+                                                                    Pending For
+                                                                    <br />
+                                                                    Approval
                                                                     Ideas
                                                                 </th>
                                                                 <th>
-                                                                    No of Non
-                                                                    ATL Ideas
+                                                                    Submitted
+                                                                    <br />
+                                                                    Ideas
                                                                 </th>
                                                                 <th>
-                                                                    Agriculture
+                                                                    Draft <br />{' '}
+                                                                    Ideas
                                                                 </th>
-                                                                <th>
-                                                                    Disaster
-                                                                    Management
-                                                                </th>
-                                                                <th>
-                                                                    Education
-                                                                    Skill
-                                                                    Development
-                                                                </th>
-                                                                <th>Health</th>
-                                                                <th>
-                                                                    Inclusivity
-                                                                </th>
-                                                                <th>
-                                                                    Mobility
-                                                                </th>
-                                                                <th>OTHERS</th>
-                                                                <th>Space</th>
                                                             </tr>
                                                         </thead>
-                                                        <tbody>
-                                                            {chartTableData.map(
+                                                        <tbody
+                                                            style={{
+                                                                textAlign:
+                                                                    'center'
+                                                            }}
+                                                        >
+                                                            {combinedArray.map(
                                                                 (
                                                                     item,
                                                                     index
@@ -767,59 +1362,19 @@ const ReportsRegistration = () => {
                                                                         </td>
                                                                         <td>
                                                                             {
-                                                                                item.totalSubmited
+                                                                                item.PFACount
                                                                             }
                                                                         </td>
 
                                                                         <td>
                                                                             {
-                                                                                item.ATL_Count
+                                                                                item.submittedCount
                                                                             }
                                                                         </td>
 
                                                                         <td>
                                                                             {
-                                                                                item.NonATL_Count
-                                                                            }
-                                                                        </td>
-                                                                        <td>
-                                                                            {
-                                                                                item.Agriculture
-                                                                            }
-                                                                        </td>
-                                                                        <td>
-                                                                            {
-                                                                                item.DisasterManagement
-                                                                            }
-                                                                        </td>
-                                                                        <td>
-                                                                            {
-                                                                                item.EducationSkillDevelopment
-                                                                            }
-                                                                        </td>
-                                                                        <td>
-                                                                            {
-                                                                                item.Health
-                                                                            }
-                                                                        </td>
-                                                                        <td>
-                                                                            {
-                                                                                item.Inclusivity
-                                                                            }
-                                                                        </td>
-                                                                        <td>
-                                                                            {
-                                                                                item.Mobility
-                                                                            }
-                                                                        </td>
-                                                                        <td>
-                                                                            {
-                                                                                item.OTHERS
-                                                                            }
-                                                                        </td>
-                                                                        <td>
-                                                                            {
-                                                                                item.Space
+                                                                                item.draftCount
                                                                             }
                                                                         </td>
                                                                     </tr>
@@ -987,7 +1542,7 @@ const ReportsRegistration = () => {
                                     <CSVLink
                                         data={downloadTableData}
                                         headers={summaryHeaders}
-                                        filename={`IdeasSummaryTable_${newFormat}.csv`}
+                                        filename={`Submitted Ideas_SummaryTable_${newFormat}.csv`}
                                         className="hidden"
                                         ref={csvLinkRefTable}
                                         // onDownloaded={() => {

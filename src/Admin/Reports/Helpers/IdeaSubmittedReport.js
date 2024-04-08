@@ -383,7 +383,6 @@ const IdeaSubmittedReport = () => {
                                                     <thead
                                                         style={{
                                                             height: '40px'
-                                                            // marginBottom: '30px'
                                                         }}
                                                     >
                                                         <tr>
@@ -501,10 +500,6 @@ const IdeaSubmittedReport = () => {
                                                                             }
                                                                             className="btn btn-info"
                                                                             style={{
-                                                                                // padding:
-                                                                                //     '1rem',
-                                                                                // backgroundColor:
-                                                                                //     'success',
                                                                                 fontSize:
                                                                                     '14px',
                                                                                 color: 'white',
@@ -527,17 +522,6 @@ const IdeaSubmittedReport = () => {
                                                                                 }}
                                                                             />{' '}
                                                                         </button>
-                                                                        {/* <FaDownload
-                                                                        size={
-                                                                            22
-                                                                        }
-                                                                        onClick={() => {
-                                                                            handleDownload(
-                                                                                institution_type_id,
-                                                                                institution_type
-                                                                            );
-                                                                        }}
-                                                                    /> */}
                                                                     </td>
                                                                     <td
                                                                         style={{
@@ -555,8 +539,6 @@ const IdeaSubmittedReport = () => {
                                                                             }
                                                                             className="btn btn-info"
                                                                             style={{
-                                                                                // padding:
-                                                                                //     '1rem',
                                                                                 fontSize:
                                                                                     '14px',
                                                                                 color: 'white',
@@ -579,17 +561,6 @@ const IdeaSubmittedReport = () => {
                                                                                 }}
                                                                             />{' '}
                                                                         </button>
-                                                                        {/* <FaDownload
-                                                                        size={
-                                                                            22
-                                                                        }
-                                                                        onClick={() => {
-                                                                            handleDownload(
-                                                                                institution_type_id,
-                                                                                institution_type
-                                                                            );
-                                                                        }}
-                                                                    /> */}
                                                                     </td>
                                                                 </tr>
                                                             )

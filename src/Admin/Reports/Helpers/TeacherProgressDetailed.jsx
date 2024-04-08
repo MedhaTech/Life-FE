@@ -33,6 +33,7 @@ const TeacherDetailed = () => {
     const [mentorDetailedReportsData, setmentorDetailedReportsData] = useState(
         []
     );
+    const [dataCount, setDataCount] = useState('');
     const [doughnutChartData, setDoughnutChartData] = useState(null);
     const currentUser = getCurrentUser('current_user');
     const history = useHistory();
@@ -44,6 +45,7 @@ const TeacherDetailed = () => {
     const [newFormat, setNewFormat] = useState('');
     const [atl, setAtl] = useState('');
     const [nonAtl, setNonAtl] = useState('');
+    const [getData, setGetData] = useState([]);
     const [barChart1Data, setBarChart1Data] = useState({
         labels: [],
         datasets: []
@@ -91,6 +93,7 @@ const TeacherDetailed = () => {
     const fullDistrictsNames = useSelector(
         (state) => state?.studentRegistration?.dists
     );
+    const [fecDist, setFecDist] = useState('');
     const tableHeaders = [
         {
             label: 'District Name',
@@ -439,16 +442,16 @@ const TeacherDetailed = () => {
             });
     };
     const handleDownload = () => {
-        // if (
-        //     // !state ||
-        //     !district
-        //     // !category
-        // ) {
-        //     notification.warning({
-        //         message: 'Please select a district before Downloading Reports.'
-        //     });
-        //     return;
-        // }
+        if (
+            // !state ||
+            !district
+            // !category
+        ) {
+            notification.warning({
+                message: 'Please select a district before Downloading Reports.'
+            });
+            return;
+        }
         // csvLinkRef.current.link.click();
 
         setIsDownload(true);
@@ -498,7 +501,70 @@ const TeacherDetailed = () => {
                 setIsDownload(false);
             });
     };
+    const distName = district === '' ? 'All Districts' : district;
+    const handleDownloadView = () => {
+        if (
+            // !state ||
+            !district
+            // !category
+        ) {
+            notification.warning({
+                message: 'Please select a district before Downloading Reports.'
+            });
+            return;
+        }
+        // csvLinkRef.current.link.click();
 
+        setIsDownload(true);
+        fetchDataView();
+    };
+    const fetchDataView = () => {
+        setDataCount();
+        const apiRes = encryptGlobal(
+            JSON.stringify({
+                // state: state,
+                district_name: district === '' ? 'All Districts' : district
+                // category: category
+            })
+        );
+        const config = {
+            method: 'get',
+            url:
+                process.env.REACT_APP_API_BASE_URL +
+                `/reports/mentordetailsreport?Data=${apiRes}`,
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${currentUser?.data[0]?.token}`
+            }
+        };
+        axios(config)
+            .then(function (response) {
+                if (response.status === 200) {
+                    setDataCount(response?.data?.count);
+                    const newdatalist = response.data.data.map((item) => {
+                        const dataList = { ...item };
+                        // dataList['presurveyNotStarted'] =
+                        //     item['student_count'] - item['preSur_cmp'];
+                        // dataList['courseNotStarted'] =
+                        //     item['student_count'] -
+                        //     (item['countop'] + item['courseinprogess']);
+                        dataList['ideanotIN'] =
+                            item['team_count'] -
+                            (item['submittedcout'] + item['draftcout']);
+                        return dataList;
+                    });
+
+                    setmentorDetailedReportsData(newdatalist);
+                    setGetData(newdatalist);
+                    // csvLinkRef.current.link.click();
+                    setIsDownload(false);
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+                setIsDownload(false);
+            });
+    };
     const fetchChartTableData = () => {
         const config = {
             method: 'get',
@@ -725,6 +791,30 @@ const TeacherDetailed = () => {
                                         />
                                     </div>
                                 </Col>
+                                <Col
+                                    md={2}
+                                    className="d-flex align-items-center justify-content-center"
+                                >
+                                    {/* <Button
+                                        label="View Details"
+                                        btnClass="primary mx-6"
+                                        size="small"
+                                        shape="btn-square"
+                                        onClick={handleViewDetails}
+                                        style={{
+                                            width: '150px',
+                                            whiteSpace: 'nowrap'
+                                        }}
+                                    /> */}
+                                    <Button
+                                        onClick={handleDownloadView}
+                                        label={'Get Details'}
+                                        btnClass="primary mx-3"
+                                        size="small"
+                                        shape="btn-square"
+                                        type="submit"
+                                    />
+                                </Col>
                                 {/* <Col md={3}>
                                     <div className="my-3 d-md-block d-flex justify-content-center">
                                         <Select
@@ -757,11 +847,12 @@ const TeacherDetailed = () => {
 
                                     <Button
                                         onClick={handleDownload}
-                                        label={
-                                            isDownload
-                                                ? 'Downloading'
-                                                : 'Download Report'
-                                        }
+                                        label={'Download Report'}
+                                        // label={
+                                        //     isDownload
+                                        //         ? 'Downloading'
+                                        //         : 'Download Report'
+                                        // }
                                         btnClass="primary mx-3"
                                         size={'small'}
                                         shape="btn-square"
@@ -770,11 +861,262 @@ const TeacherDetailed = () => {
                                             width: '150px',
                                             whiteSpace: 'nowrap'
                                         }}
-                                        disabled={isDownload}
+                                        // disabled={isDownload}
                                     />
                                 </Col>
                             </Row>
                             <div className="chart">
+                                {getData.length > 0 ? (
+                                    <>
+                                        <h2> {distName} Status</h2>
+                                        <div className="mt-5">
+                                            <div className="row">
+                                                <div className="col-md-12">
+                                                    <div
+                                                        className=" bg-white"
+                                                        style={{
+                                                            overflowX: 'auto'
+                                                        }}
+                                                    >
+                                                        <Table
+                                                            id="dataTable"
+                                                            className="table table-striped table-bordered responsive"
+                                                        >
+                                                            <thead
+                                                                style={{
+                                                                    textAlign:
+                                                                        'center',
+                                                                    margin: '20px'
+                                                                }}
+                                                            >
+                                                                <tr>
+                                                                    <th>No</th>
+                                                                    <th>
+                                                                        Institution
+                                                                        Code
+                                                                    </th>
+                                                                    <th>
+                                                                        Institution
+                                                                        Name
+                                                                    </th>
+                                                                    <th>
+                                                                        Place
+                                                                    </th>
+                                                                    <th>
+                                                                        Block
+                                                                    </th>
+                                                                    <th>
+                                                                        District
+                                                                    </th>
+                                                                    <th>
+                                                                        Principal
+                                                                        Name
+                                                                    </th>
+                                                                    <th>
+                                                                        Principal
+                                                                        Mobile
+                                                                    </th>
+                                                                    <th>
+                                                                        Principal
+                                                                        Whatsapp
+                                                                    </th>
+                                                                    <th>
+                                                                        Principal
+                                                                        Email
+                                                                    </th>
+                                                                    <th>
+                                                                        Mentor
+                                                                        Name
+                                                                    </th>
+                                                                    <th>
+                                                                        Email Id
+                                                                    </th>{' '}
+                                                                    <th>
+                                                                        Gender
+                                                                    </th>{' '}
+                                                                    <th>
+                                                                        Mobile
+                                                                        Number
+                                                                    </th>
+                                                                    <th>
+                                                                        WhatsApp
+                                                                        Number
+                                                                    </th>
+                                                                    <th>
+                                                                        Number
+                                                                        Of Teams
+                                                                        Created
+                                                                    </th>{' '}
+                                                                    <th>
+                                                                        Number
+                                                                        Of
+                                                                        Students
+                                                                        Enrolled
+                                                                    </th>{' '}
+                                                                    <th>
+                                                                        Number
+                                                                        Of Teams
+                                                                        Ideas
+                                                                        Submitted
+                                                                    </th>{' '}
+                                                                    <th>
+                                                                        Number
+                                                                        Of Teams
+                                                                        Idea in
+                                                                        Drafted
+                                                                    </th>{' '}
+                                                                    <th>
+                                                                        Number
+                                                                        of Teams
+                                                                        Idea NOt
+                                                                        Initiated
+                                                                    </th>
+                                                                    <th>
+                                                                        Pending
+                                                                        For
+                                                                        Approval
+                                                                    </th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody
+                                                                style={{
+                                                                    textAlign:
+                                                                        'center',
+                                                                    margin: '20px'
+                                                                }}
+                                                            >
+                                                                {getData.map(
+                                                                    (
+                                                                        item,
+                                                                        index
+                                                                    ) => (
+                                                                        <tr
+                                                                            key={
+                                                                                index
+                                                                            }
+                                                                        >
+                                                                            <td>
+                                                                                {index +
+                                                                                    1}
+                                                                            </td>
+                                                                            <td>
+                                                                                {
+                                                                                    item.institution_code
+                                                                                }
+                                                                            </td>
+                                                                            <td>
+                                                                                {
+                                                                                    item.institution_name
+                                                                                }
+                                                                            </td>
+                                                                            <td>
+                                                                                {
+                                                                                    item.place_name
+                                                                                }
+                                                                            </td>
+                                                                            <td>
+                                                                                {
+                                                                                    item.block_name
+                                                                                }
+                                                                            </td>
+                                                                            <td>
+                                                                                {
+                                                                                    item.district_name
+                                                                                }
+                                                                            </td>
+                                                                            <td>
+                                                                                {
+                                                                                    item.principal_name
+                                                                                }
+                                                                            </td>
+                                                                            <td>
+                                                                                {
+                                                                                    item.principal_mobile
+                                                                                }
+                                                                            </td>
+                                                                            <td>
+                                                                                {
+                                                                                    item.principal_whatsapp_mobile
+                                                                                }
+                                                                            </td>{' '}
+                                                                            <td>
+                                                                                {
+                                                                                    item.principal_email
+                                                                                }
+                                                                            </td>{' '}
+                                                                            <td>
+                                                                                {
+                                                                                    item.mentor_title
+                                                                                }
+
+                                                                                .{' '}
+                                                                                {
+                                                                                    item.mentor_name
+                                                                                }
+                                                                            </td>{' '}
+                                                                            <td>
+                                                                                {
+                                                                                    item.mentor_email
+                                                                                }
+                                                                            </td>
+                                                                            <td>
+                                                                                {
+                                                                                    item.gender
+                                                                                }
+                                                                            </td>{' '}
+                                                                            <td>
+                                                                                {
+                                                                                    item.mentor_mobile
+                                                                                }
+                                                                            </td>
+                                                                            <td>
+                                                                                {
+                                                                                    item.mentor_whatapp_mobile
+                                                                                }
+                                                                            </td>{' '}
+                                                                            <td>
+                                                                                {
+                                                                                    item.team_count
+                                                                                }
+                                                                            </td>{' '}
+                                                                            <td>
+                                                                                {
+                                                                                    item.student_count
+                                                                                }
+                                                                            </td>{' '}
+                                                                            <td>
+                                                                                {
+                                                                                    item.submittedcout
+                                                                                }
+                                                                            </td>{' '}
+                                                                            <td>
+                                                                                {
+                                                                                    item.draftcout
+                                                                                }
+                                                                            </td>{' '}
+                                                                            <td>
+                                                                                {
+                                                                                    item.ideanotIN
+                                                                                }
+                                                                            </td>
+                                                                            <td>
+                                                                                {
+                                                                                    item.PFACount
+                                                                                }
+                                                                            </td>
+                                                                        </tr>
+                                                                    )
+                                                                )}
+                                                            </tbody>
+                                                        </Table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </>
+                                ) : (
+                                    dataCount == '0' && 'No Data'
+                                )}
                                 {combinedArray.length > 0 && (
                                     <div className="mt-5">
                                         <div className="d-flex align-items-center mb-3">

@@ -15,13 +15,25 @@ const Reports = () => {
                     <Row className="md-12">
                         <Col className="md-6">
                             <div className="reports-data p-5 bg-gray">
-                                <Row className="mb-3">
+                                {/* <Row className="mb-3">
                                     <Col lg={12} md={12}>
                                         <Link to="/admin/reports-registration">
                                             <Card className="p-4 text-center card-effect mb-4">
                                                 <b className="text-secondary">
                                                     INSTITUTION/ MENTOR
                                                     REGISTRATION REPORTS
+                                                </b>
+                                            </Card>
+                                        </Link>
+                                    </Col>
+                                </Row> */}
+                                <Row className="mb-3">
+                                    <Col lg={12} md={12}>
+                                        <Link to="/admin/district_report">
+                                            <Card className="p-4 text-center card-effect mb-4">
+                                                <b className="text-secondary">
+                                                    DISTRICT WISE ABSTRACT
+                                                    REPORTS
                                                 </b>
                                             </Card>
                                         </Link>
@@ -112,7 +124,7 @@ const Reports = () => {
                         </Col>
                         <Col className="md-6">
                             <div className="reports-data p-5 bg-gray">
-                                <Row className="mb-3">
+                                {/* <Row className="mb-3">
                                     <Col lg={12} md={12}>
                                         <Link to="/admin/district_report">
                                             <Card className="p-4 text-center card-effect mb-4">
@@ -123,7 +135,7 @@ const Reports = () => {
                                             </Card>
                                         </Link>
                                     </Col>
-                                </Row>
+                                </Row> */}
                                 {/* <Row className="mb-3">
                             <Col lg={6} md={6}>
                                 <Link to="/admin/SurveyStatus">
@@ -137,7 +149,7 @@ const Reports = () => {
                         </Row> */}
                                 <Row className="mb-3">
                                     <Col lg={12} md={12}>
-                                        {/* <Link to="/admin/TeacherProgressDetailed"> */}
+                                        {/* <Link to="/admin/Institution-performance"> */}
                                         <Card className="p-4 text-center card-effect mb-4">
                                             <b className="text-secondary">
                                                 INSTITUTION TYPE WISE
@@ -173,7 +185,7 @@ const Reports = () => {
                                 </Row>
                                 <Row className="mb-3">
                                     <Col lg={12} md={12}>
-                                        {/* <Link to="/admin/instituion"> */}
+                                        {/* <Link to="/admin/instituionType"> */}
                                         <Card className="p-4 text-center card-effect mb-4">
                                             <b className="text-secondary">
                                                 INSTITUTIONS TYPE WISE REPORT
@@ -184,7 +196,7 @@ const Reports = () => {
                                 </Row>
                                 <Row className="mb-3">
                                     <Col lg={12} md={12}>
-                                        {/* <Link to="/admin/ideaSubmitted"> */}
+                                        {/* <Link to="/admin/instituion-yearwise"> */}
                                         <Card className="p-4 text-center card-effect mb-4">
                                             <b className="text-secondary">
                                                 YEAR WISE REPORT

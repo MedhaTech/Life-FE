@@ -205,6 +205,9 @@ import IdeaSubmittedReport from './Admin/Reports/Helpers/IdeaSubmittedReport';
 import IdeaEvaluationReport from './Admin/Reports/Helpers/IdeaEvaluationReport';
 import SubIdeasTableReports from './Admin/Reports/Helpers/SubIdeasTableReports';
 import DistAbstractReport from './Admin/Reports/Helpers/DistAbstractReport';
+import InstTypePerformanceReport from './Admin/Reports/Helpers/InstTypePerformance';
+import InstWiseReport from './Admin/Reports/Helpers/InstWiseReport';
+import YearWiseReport from './Admin/Reports/Helpers/YearWiseReport';
 function MyComponent() {
     window.location.href = `${process.env.REACT_APP_LANDING_PAGE_URL}`;
     return null;
@@ -882,6 +885,24 @@ const Routers = () => {
                     <ProtectedRoute
                         exact={true}
                         user="ADMIN"
+                        path="/admin/Institution-performance"
+                        component={InstTypePerformanceReport}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        user="ADMIN"
+                        path="/admin/instituion-yearwise"
+                        component={YearWiseReport}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        user="ADMIN"
+                        path="/admin/instituionType"
+                        component={InstWiseReport}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        user="ADMIN"
                         path="/admin/reports-registration"
                         component={ReportsRegistration}
                     />
@@ -921,18 +942,18 @@ const Routers = () => {
                         path="/admin/StudentsProgressReport"
                         component={StudentsProgressReport}
                     />
-                    {/* <ProtectedRoute
-                        exact={true}
-                        user="ADMIN"
-                        path="/admin/IdeaDetailsReport"
-                        component={IdeasDetailsReport}
-                    /> */}
                     <ProtectedRoute
                         exact={true}
                         user="ADMIN"
                         path="/admin/IdeaDetailsReport"
-                        component={SubIdeasTableReports}
+                        component={IdeasDetailsReport}
                     />
+                    {/* <ProtectedRoute
+                        exact={true}
+                        user="ADMIN"
+                        path="/admin/IdeaDetailsReport"
+                        component={SubIdeasTableReports}
+                    /> */}
                     <ProtectedRoute
                         exact={true}
                         user="ADMIN"
