@@ -26,7 +26,16 @@ const Register = (props) => {
         placeholder: 'Enter Mobile Number',
         className: 'defaultInput'
     };
-
+    // const inputPassword = {
+    //     type: 'text',
+    //     placeholder: 'Enter Password',
+    //     className: 'defaultInput'
+    // };
+    const inputPassword = {
+        placeholder: 'Enter Password',
+        showEyeIcon: true
+        // className: 'defaultInput'
+    };
     const inputName = {
         type: 'text',
         placeholder: 'Enter Full Name',
@@ -83,7 +92,7 @@ const Register = (props) => {
         onSubmit: async (values) => {
             // const axiosConfig = getNormalHeaders(KEY.User_API_Key);
 
-            var pass = values.mobile.trim();
+            var pass = values.password.trim();
 
             const key = CryptoJS.enc.Hex.parse(
                 '253D3FB468A0E24677C28A624BE0F939'
@@ -242,7 +251,6 @@ const Register = (props) => {
                                     >
                                         Mobile Number
                                     </Label>
-                                    {/* <InputWithMobileNoComp {...inputPhone} id='mobile' name='mobile' /> */}
                                     <InputBox
                                         {...inputPhone}
                                         id="mobile"
@@ -258,6 +266,38 @@ const Register = (props) => {
                                     formik.errors.mobile ? (
                                         <small className="error-cls">
                                             {formik.errors.mobile}
+                                        </small>
+                                    ) : null}
+                                </FormGroup>
+                            </div>
+                            <div className="col-md-12 p-0">
+                                <FormGroup
+                                    className="form-group mt-md-0 mt-5 me-md-3"
+                                    md={12}
+                                >
+                                    <Label
+                                        className="mb-2"
+                                        htmlFor="password"
+                                        style={{ fontSize: '1.5rem' }}
+                                    >
+                                        Password
+                                    </Label>
+                                    <InputBox
+                                        {...inputPassword}
+                                        id="reg-password"
+                                        type="password"
+                                        name="password"
+                                        onChange={formik.handleChange}
+                                        onBlur={formik.handleBlur}
+                                        value={formik.values.password}
+                                        // maxLength={10}
+                                        // minLength={10}
+                                    />
+
+                                    {formik.touched.password &&
+                                    formik.errors.password ? (
+                                        <small className="error-cls">
+                                            {formik.errors.password}
                                         </small>
                                     ) : null}
                                 </FormGroup>
