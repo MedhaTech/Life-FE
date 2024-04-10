@@ -36,7 +36,14 @@ const EditProfile = (props) => {
     useEffect(() => {
         dispatch(getDistrictData());
     }, []);
+    const inputPassword = {
+        placeholder: 'Enter Password',
+        showEyeIcon: true
+        // className: 'defaultInput'
+    };
 
+    const passwordRegex =
+        /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
     const getValidationSchema = (data) => {
         // where data = mentorData //
         const adminValidation = Yup.object({
@@ -46,7 +53,14 @@ const EditProfile = (props) => {
                 .required('Name is Required'),
             email: Yup.string()
                 .email('Must be a valid email')
-                .required('required')
+                .required('required'),
+            password: Yup.string()
+                .trim()
+                .required('Please enter Password')
+                .matches(
+                    passwordRegex,
+                    'Password must contains  8 characters, including one letter, one number, and one special character.'
+                )
             // .matches(/[A-Za-z0-9/-/]\.com$/, 'Email must end with .com')
             // .trim()
             // .matches(
@@ -87,7 +101,7 @@ const EditProfile = (props) => {
         onSubmit: (values) => {
             const full_name = values.name;
             const email = values.email;
-            // const mobile = values.phone;
+            const password = values.password;
             const district = values.district;
             const tecParam = encryptGlobal(
                 JSON.stringify(mentorData.mentor_id)
@@ -95,8 +109,8 @@ const EditProfile = (props) => {
             const body = mentorData?.evaluator_id
                 ? JSON.stringify({
                       full_name: full_name,
-                      username: email
-                      //   district: district
+                      username: email,
+                      password: password
                   })
                 : mentorData?.admin_id
                 ? JSON.stringify({
@@ -176,7 +190,7 @@ const EditProfile = (props) => {
                                 <div className="create-ticket register-block">
                                     <Row className="justify-content-center">
                                         <Row>
-                                            <Col md={6}>
+                                            <Col md={12}>
                                                 <Label
                                                     className="name-req"
                                                     htmlFor="name"
@@ -204,7 +218,7 @@ const EditProfile = (props) => {
                                             </Col>
                                         </Row>
                                         <Row>
-                                            <Col md={6}>
+                                            <Col md={12}>
                                                 <Label
                                                     className="name-req "
                                                     htmlFor="email"
@@ -225,6 +239,41 @@ const EditProfile = (props) => {
                                                 formik.errors.email ? (
                                                     <small className="error-cls">
                                                         {formik.errors.email}
+                                                    </small>
+                                                ) : null}
+                                            </Col>
+                                        </Row>
+                                        <Row>
+                                            <Col md={12}>
+                                                <Label
+                                                    className="mb-2"
+                                                    htmlFor="password"
+                                                    style={{
+                                                        fontSize: '1.5rem'
+                                                    }}
+                                                >
+                                                    Password
+                                                </Label>
+                                                <InputBox
+                                                    {...inputPassword}
+                                                    id="reg-password"
+                                                    type="password"
+                                                    name="password"
+                                                    onChange={
+                                                        formik.handleChange
+                                                    }
+                                                    onBlur={formik.handleBlur}
+                                                    value={
+                                                        formik.values.password
+                                                    }
+                                                    maxLength={8}
+                                                    minLength={8}
+                                                />
+
+                                                {formik.touched.password &&
+                                                formik.errors.password ? (
+                                                    <small className="error-cls">
+                                                        {formik.errors.password}
                                                     </small>
                                                 ) : null}
                                             </Col>
