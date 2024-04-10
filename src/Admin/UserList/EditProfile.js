@@ -21,6 +21,7 @@ import { getDistrictData } from '../../redux/studentRegistration/actions';
 import { encryptGlobal } from '../../constants/encryptDecrypt';
 import { useSelector } from 'react-redux';
 const EditProfile = (props) => {
+
     // here we can edit the users details //
     const history = useHistory();
     const currentUser = getCurrentUser('current_user');
