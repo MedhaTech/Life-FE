@@ -8,6 +8,7 @@ import { withRouter } from 'react-router-dom';
 import Layout from '../Pages/Layout';
 import { Button } from '../../../stories/Button';
 import axios from 'axios';
+import CryptoJS from 'crypto-js';
 
 import { InputBox } from '../../../stories/InputBox/InputBox';
 import * as Yup from 'yup';
@@ -59,7 +60,14 @@ const EditProfile = (props) => {
             email: Yup.string()
                 .required('required')
                 .trim()
-                .email('Please Enter Valid Email Id')
+                .email('Please Enter Valid Email Id'),
+            password: Yup.string()
+                .trim()
+                .required('Please enter Password')
+                .matches(
+                    passwordRegex,
+                    'Password must contains  8 characters, including one letter, one number, and one special character.'
+                )
             // .matches(
             //     /^\d+$/,
             //     'Mobile number is not valid (Enter only digits)'
@@ -83,7 +91,8 @@ const EditProfile = (props) => {
     const getInitialValues = (data) => {
         const commonInitialValues = {
             name: mentorData.full_name || mentorData.user.full_name,
-            email: mentorData.username || mentorData.user.username
+            email: mentorData.username || mentorData.user.username,
+            password: mentorData.password || mentorData.user.password
         };
         if (!data?.admin_id) {
             commonInitialValues['phone'] = mentorData.mobile;
@@ -96,9 +105,22 @@ const EditProfile = (props) => {
         initialValues: getInitialValues(mentorData),
         validationSchema: getValidationSchema(mentorData),
         onSubmit: (values) => {
+            var pass = values.password.trim();
+
+            const key = CryptoJS.enc.Hex.parse(
+                '253D3FB468A0E24677C28A624BE0F939'
+            );
+            const iv = CryptoJS.enc.Hex.parse(
+                '00000000000000000000000000000000'
+            );
+            const encrypted = CryptoJS.AES.encrypt(pass, key, {
+                iv: iv,
+                padding: CryptoJS.pad.NoPadding
+            }).toString();
+            values.password = encrypted;
             const full_name = values.name;
             const email = values.email;
-            const password = values.password;
+            // const password = values.password;
 
             // const mobile = values.phone;
             const district = values.district;
@@ -111,7 +133,7 @@ const EditProfile = (props) => {
                 ? JSON.stringify({
                       full_name: full_name,
                       username: email,
-                      password: password
+                      password: encrypted
                       //   district: district
                   })
                 : mentorData?.admin_id
