@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React, { useEffect } from 'react';
@@ -7,6 +8,7 @@ import './style.scss';
 import Layout from '../../Admin/Layout';
 import { Button } from '../../stories/Button';
 import axios from 'axios';
+import CryptoJS from 'crypto-js';
 
 import { InputBox } from '../../stories/InputBox/InputBox';
 import * as Yup from 'yup';
@@ -21,7 +23,6 @@ import { getDistrictData } from '../../redux/studentRegistration/actions';
 import { encryptGlobal } from '../../constants/encryptDecrypt';
 import { useSelector } from 'react-redux';
 const EditProfile = (props) => {
-
     // here we can edit the users details //
     const history = useHistory();
     const currentUser = getCurrentUser('current_user');
@@ -87,7 +88,8 @@ const EditProfile = (props) => {
     const getInitialValues = (data) => {
         const commonInitialValues = {
             name: mentorData.full_name || mentorData.user.full_name,
-            email: mentorData.username || mentorData.user.username
+            email: mentorData.username || mentorData.user.username,
+            password: mentorData.password || mentorData.user.password
         };
         if (!data?.admin_id) {
             commonInitialValues['phone'] = mentorData.mobile;
@@ -100,9 +102,22 @@ const EditProfile = (props) => {
         initialValues: getInitialValues(mentorData),
         validationSchema: getValidationSchema(mentorData),
         onSubmit: (values) => {
+            var pass = values.password.trim();
+
+            const key = CryptoJS.enc.Hex.parse(
+                '253D3FB468A0E24677C28A624BE0F939'
+            );
+            const iv = CryptoJS.enc.Hex.parse(
+                '00000000000000000000000000000000'
+            );
+            const encrypted = CryptoJS.AES.encrypt(pass, key, {
+                iv: iv,
+                padding: CryptoJS.pad.NoPadding
+            }).toString();
+            values.password = encrypted;
             const full_name = values.name;
             const email = values.email;
-            const password = values.password;
+            // const password = values.password;
             const district = values.district;
             const tecParam = encryptGlobal(
                 JSON.stringify(mentorData.mentor_id)
@@ -111,7 +126,7 @@ const EditProfile = (props) => {
                 ? JSON.stringify({
                       full_name: full_name,
                       username: email,
-                      password: password
+                      password: encrypted
                   })
                 : mentorData?.admin_id
                 ? JSON.stringify({
