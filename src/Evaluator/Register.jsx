@@ -46,7 +46,8 @@ const Register = (props) => {
         placeholder: 'Enter Email Id',
         className: 'defaultInput'
     };
-
+    const passwordRegex =
+        /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
     // const inputCity = {
     //     type: 'text',
     //     placeholder: 'District Name',
@@ -73,8 +74,14 @@ const Register = (props) => {
         username: Yup.string()
             .trim()
             .email('Invalid email id')
-            .required('Please enter email id')
-        // district: Yup.string().trim().required('Required')
+            .required('Please enter email id'),
+        password: Yup.string()
+            .trim()
+            .required('Please enter Password')
+            .matches(
+                passwordRegex,
+                'Password must contains  8 characters, including one letter, one number, and one special character.'
+            )
     });
 
     const formik = useFormik({
@@ -290,8 +297,8 @@ const Register = (props) => {
                                         onChange={formik.handleChange}
                                         onBlur={formik.handleBlur}
                                         value={formik.values.password}
-                                        // maxLength={10}
-                                        // minLength={10}
+                                        maxLength={8}
+                                        minLength={8}
                                     />
 
                                     {formik.touched.password &&

@@ -35,7 +35,6 @@ import dist from 'react-data-table-component-extensions';
 import ClipLoader from 'react-spinners/ClipLoader';
 
 const TicketsPage = (props) => {
-    // console.log(props, 'props');
     const dispatch = useDispatch();
     const history = useHistory();
 
