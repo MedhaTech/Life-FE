@@ -18,6 +18,8 @@ const ChangePSWModal = (props) => {
     const { t } = useTranslation();
     const [error, SetError] = useState('');
     const [responce, SetResponce] = useState('');
+    const passwordRegex =
+        /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{8,}$/;
     const formik = useFormik({
         initialValues: {
             oldPassword: '',
@@ -27,8 +29,18 @@ const ChangePSWModal = (props) => {
 
         validationSchema: Yup.object({
             oldPassword: Yup.string().required(t('login.error_required')),
-            newPassword: Yup.string().required(t('login.error_required')),
-            confirmPassword: Yup.string().required(t('login.error_required'))
+            newPassword: Yup.string()
+                .required(t('login.error_required'))
+                .matches(
+                    passwordRegex,
+                    'Password must contains minimum 8 characters, including one letter, one number, and one special character.'
+                ),
+            confirmPassword: Yup.string()
+                .required(t('login.error_required'))
+                .matches(
+                    passwordRegex,
+                    'Password must contains minimum 8 characters, including one letter, one number, and one special character.'
+                )
         }),
 
         onSubmit: async (values) => {

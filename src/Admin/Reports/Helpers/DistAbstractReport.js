@@ -36,6 +36,7 @@ const DistAbstractReport = () => {
     const [notfilteredData, setNotFilteredData] = useState([]);
 
     const filterOptions = ['Registered', 'Not Registered'];
+    const [fetchreport, setFetchReport] = useState('');
     const categoryData = ['All Categorys', 'ATL', 'Non ATL'];
     // const categoryData =
     //     categoryValue[process.env.REACT_APP_LOCAL_LANGUAGE_CODE];
@@ -75,6 +76,8 @@ const DistAbstractReport = () => {
     const [dataCount, setDataCount] = useState('');
     const [dataC, setDataC] = useState('');
     const [downloadTableData, setDownloadTableData] = useState(null);
+    const [statusData, setStatusData] = useState('');
+    const [buttonClicked, setButtonClicked] = useState(false);
     useEffect(() => {
         dispatch(getFetchDistData());
     }, []);
@@ -218,6 +221,7 @@ const DistAbstractReport = () => {
     const fetchDataView = (item) => {
         setDataCount();
         setDataC();
+
         const param = encryptGlobal(
             JSON.stringify({
                 // state: RegTeachersState,
@@ -240,6 +244,9 @@ const DistAbstractReport = () => {
                 // category: category
             })
         );
+        const distName =
+            RegTeachersdistrict === '' ? 'All Districts' : RegTeachersdistrict;
+        setStatusData(distName);
         const url =
             item === 'Registered'
                 ? `/reports/mentorRegList?Data=${param}`
@@ -259,7 +266,7 @@ const DistAbstractReport = () => {
         axios(config)
             .then((response) => {
                 if (response.status === 200) {
-                    console.log(response, 'f');
+                    // console.log(response, 'f');
                     if (item === 'Registered') {
                         setDataCount(response?.data?.count);
                         setDataC('');
@@ -498,8 +505,8 @@ const DistAbstractReport = () => {
         setIsDownloading(true);
         fetchData(filterType);
     };
-    const distName =
-        RegTeachersdistrict === '' ? 'All Districts' : RegTeachersdistrict;
+    // const distName =
+    //     RegTeachersdistrict === '' ? 'All Districts' : RegTeachersdistrict;
     const handleDownloadView = () => {
         if (
             // !RegTeachersState ||
@@ -513,8 +520,14 @@ const DistAbstractReport = () => {
             });
             return;
         }
-        setIsDownloading(true);
-        fetchDataView(filterType);
+
+        setButtonClicked(true);
+        if (filterType === 'Registered' || filterType === 'Not Registered') {
+            setButtonClicked(true);
+            fetchDataView(filterType);
+        }
+        // setIsDownloading(true);
+        // fetchDataView(filterType);
     };
     const fetchChartTableData = () => {
         const config = {
@@ -835,10 +848,11 @@ const DistAbstractReport = () => {
                                 </Col>
                             </Row>
                             <div className="chart">
-                                {filterType === 'Registered' &&
+                                {buttonClicked &&
+                                filterType === 'Registered' &&
                                 filteredData.length > 0 ? (
                                     <>
-                                        <h2> {distName} Status</h2>
+                                        <h2> {statusData} Status</h2>
                                         <div className="mt-5">
                                             <div className="row">
                                                 <div className="col-md-12">
@@ -996,6 +1010,7 @@ const DistAbstractReport = () => {
                                         <span
                                             style={{
                                                 fontSize: '20px',
+
                                                 color: 'red'
                                             }}
                                         >
@@ -1003,10 +1018,11 @@ const DistAbstractReport = () => {
                                         </span>
                                     )
                                 )}
-                                {filterType === 'Not Registered' &&
+                                {buttonClicked &&
+                                filterType === 'Not Registered' &&
                                 notfilteredData.length > 0 ? (
                                     <>
-                                        <h2> {distName} Status</h2>
+                                        <h2> {statusData} Status</h2>
                                         <div className="mt-5">
                                             <div className="row">
                                                 <div className="col-md-12">

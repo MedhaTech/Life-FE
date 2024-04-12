@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React, { useEffect } from 'react';
@@ -7,6 +8,7 @@ import './style.scss';
 import Layout from '../../Admin/Layout';
 import { Button } from '../../stories/Button';
 import axios from 'axios';
+import CryptoJS from 'crypto-js';
 
 import { InputBox } from '../../stories/InputBox/InputBox';
 import * as Yup from 'yup';
@@ -28,7 +30,7 @@ const EditProfile = (props) => {
     const mentorData =
         // where  mentorData = mentor details //
         (history && history.location && history.location.data) || {};
-
+    // console.log(mentorData, '111');
     // const phoneRegExp = /^[0-9\s]+$/;
     const fullDistrictsNames = useSelector(
         (state) => state?.studentRegistration?.dists
@@ -36,8 +38,15 @@ const EditProfile = (props) => {
     useEffect(() => {
         dispatch(getDistrictData());
     }, []);
+    const inputPassword = {
+        placeholder: 'Enter Password',
+        showEyeIcon: true
+        // className: 'defaultInput'
+    };
 
-    const getValidationSchema = (data) => {
+    const passwordRegex =
+        /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{8,}$/;
+    const getValidationSchema = (mentorData) => {
         // where data = mentorData //
         const adminValidation = Yup.object({
             name: Yup.string()
@@ -46,7 +55,14 @@ const EditProfile = (props) => {
                 .required('Name is Required'),
             email: Yup.string()
                 .email('Must be a valid email')
-                .required('required')
+                .required('required'),
+            password: Yup.string()
+                .trim()
+                // .required('Please enter Password')
+                .matches(
+                    passwordRegex,
+                    'Password must contains minimum 8 characters, including one letter, one number, and one special character.'
+                )
             // .matches(/[A-Za-z0-9/-/]\.com$/, 'Email must end with .com')
             // .trim()
             // .matches(
@@ -56,8 +72,8 @@ const EditProfile = (props) => {
             // .max(10, 'Please enter only 10 digit valid number')
             // .min(10, 'Number is less than 10 digits')
         });
-        if (data?.mentor_id)
-            if (data?.evaluator_id)
+        if (mentorData?.mentor_id)
+            if (mentorData?.evaluator_id)
                 // adminValidation['phone'] = Yup.string()
                 //     .matches(phoneRegExp, 'Mobile number is not valid')
                 //     .min(10, 'Enter a valid mobile number')
@@ -69,14 +85,16 @@ const EditProfile = (props) => {
                     .required('District is Required');
         return adminValidation;
     };
-    const getInitialValues = (data) => {
+    const getInitialValues = (mentorData) => {
+        // console.log(data, '222');
         const commonInitialValues = {
-            name: mentorData.full_name || mentorData.user.full_name,
-            email: mentorData.username || mentorData.user.username
+            name: mentorData?.full_name || mentorData?.user?.full_name,
+            email: mentorData?.username || mentorData?.user?.username,
+            password: mentorData?.password || mentorData?.user?.password
         };
-        if (!data?.admin_id) {
+        if (!mentorData?.admin_id) {
             commonInitialValues['phone'] = mentorData.mobile;
-            if (!data?.mentor_id)
+            if (!mentorData?.mentor_id)
                 commonInitialValues['district'] = mentorData.district;
         }
         return commonInitialValues;
@@ -85,19 +103,32 @@ const EditProfile = (props) => {
         initialValues: getInitialValues(mentorData),
         validationSchema: getValidationSchema(mentorData),
         onSubmit: (values) => {
+            var pass = values.password ? values.password.trim() : '';
+
+            const key = CryptoJS.enc.Hex.parse(
+                '253D3FB468A0E24677C28A624BE0F939'
+            );
+            const iv = CryptoJS.enc.Hex.parse(
+                '00000000000000000000000000000000'
+            );
+            const encrypted = CryptoJS.AES.encrypt(pass, key, {
+                iv: iv,
+                padding: CryptoJS.pad.NoPadding
+            }).toString();
+            // values.password = encrypted;
             const full_name = values.name;
             const email = values.email;
-            // const mobile = values.phone;
+            const password = values.password;
             const district = values.district;
             const tecParam = encryptGlobal(
                 JSON.stringify(mentorData.mentor_id)
             );
             const body = mentorData?.evaluator_id
-                ? JSON.stringify({
+                ? {
                       full_name: full_name,
                       username: email
-                      //   district: district
-                  })
+                      //   password: encrypted
+                  }
                 : mentorData?.admin_id
                 ? JSON.stringify({
                       full_name: full_name,
@@ -108,6 +139,11 @@ const EditProfile = (props) => {
                       username: email
                       //   mobile: email
                   });
+
+            if (mentorData && mentorData.password !== password) {
+                body['password'] = encrypted;
+            }
+
             const EvlId = encryptGlobal(
                 JSON.stringify(mentorData.evaluator_id)
             );
@@ -176,7 +212,7 @@ const EditProfile = (props) => {
                                 <div className="create-ticket register-block">
                                     <Row className="justify-content-center">
                                         <Row>
-                                            <Col md={6}>
+                                            <Col md={12}>
                                                 <Label
                                                     className="name-req"
                                                     htmlFor="name"
@@ -204,7 +240,7 @@ const EditProfile = (props) => {
                                             </Col>
                                         </Row>
                                         <Row>
-                                            <Col md={6}>
+                                            <Col md={12}>
                                                 <Label
                                                     className="name-req "
                                                     htmlFor="email"
@@ -225,6 +261,41 @@ const EditProfile = (props) => {
                                                 formik.errors.email ? (
                                                     <small className="error-cls">
                                                         {formik.errors.email}
+                                                    </small>
+                                                ) : null}
+                                            </Col>
+                                        </Row>
+                                        <Row>
+                                            <Col md={12}>
+                                                <Label
+                                                    className="mb-2"
+                                                    htmlFor="password"
+                                                    style={{
+                                                        fontSize: '1.5rem'
+                                                    }}
+                                                >
+                                                    Password
+                                                </Label>
+                                                <InputBox
+                                                    {...inputPassword}
+                                                    id="reg-password"
+                                                    type="password"
+                                                    name="password"
+                                                    onChange={
+                                                        formik.handleChange
+                                                    }
+                                                    onBlur={formik.handleBlur}
+                                                    value={
+                                                        formik.values.password
+                                                    }
+                                                    // maxLength={8}
+                                                    minLength={8}
+                                                />
+
+                                                {formik.touched.password &&
+                                                formik.errors.password ? (
+                                                    <small className="error-cls">
+                                                        {formik.errors.password}
                                                     </small>
                                                 ) : null}
                                             </Col>

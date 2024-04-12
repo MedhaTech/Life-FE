@@ -8,6 +8,7 @@ import { withRouter } from 'react-router-dom';
 import Layout from '../Pages/Layout';
 import { Button } from '../../../stories/Button';
 import axios from 'axios';
+import CryptoJS from 'crypto-js';
 
 import { InputBox } from '../../../stories/InputBox/InputBox';
 import * as Yup from 'yup';
@@ -41,6 +42,14 @@ const EditProfile = (props) => {
     // useEffect(() => {
     //     dispatch(getDistrictData());
     // }, []);
+    const inputPassword = {
+        placeholder: 'Enter Password',
+        showEyeIcon: true
+        // className: 'defaultInput'
+    };
+
+    const passwordRegex =
+        /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{8,}$/;
 
     const getValidationSchema = (data) => {
         // where data = mentorData //
@@ -52,7 +61,14 @@ const EditProfile = (props) => {
             email: Yup.string()
                 .required('required')
                 .trim()
-                .email('Please Enter Valid Email Id')
+                .email('Please Enter Valid Email Id'),
+            password: Yup.string()
+                .trim()
+                // .required('Please enter Password')
+                .matches(
+                    passwordRegex,
+                    'Password must contains minimum 8 characters, including one letter, one number, and one special character.'
+                )
             // .matches(
             //     /^\d+$/,
             //     'Mobile number is not valid (Enter only digits)'
@@ -75,8 +91,9 @@ const EditProfile = (props) => {
     };
     const getInitialValues = (data) => {
         const commonInitialValues = {
-            name: mentorData.full_name || mentorData.user.full_name,
-            email: mentorData.username || mentorData.user.username
+            name: mentorData?.full_name || mentorData?.user?.full_name,
+            email: mentorData?.username || mentorData?.user?.username,
+            password: mentorData?.password || mentorData?.user?.password
         };
         if (!data?.admin_id) {
             commonInitialValues['phone'] = mentorData.mobile;
@@ -89,8 +106,22 @@ const EditProfile = (props) => {
         initialValues: getInitialValues(mentorData),
         validationSchema: getValidationSchema(mentorData),
         onSubmit: (values) => {
+            var pass = values.password ? values.password.trim() : '';
+            const key = CryptoJS.enc.Hex.parse(
+                '253D3FB468A0E24677C28A624BE0F939'
+            );
+            const iv = CryptoJS.enc.Hex.parse(
+                '00000000000000000000000000000000'
+            );
+            const encrypted = CryptoJS.AES.encrypt(pass, key, {
+                iv: iv,
+                padding: CryptoJS.pad.NoPadding
+            }).toString();
+            // values.password = encrypted;
             const full_name = values.name;
             const email = values.email;
+            const password = values.password;
+
             // const mobile = values.phone;
             const district = values.district;
             const evlId = encryptGlobal(
@@ -99,11 +130,12 @@ const EditProfile = (props) => {
             const admId = encryptGlobal(JSON.stringify(mentorData.admin_id));
             const mentId = encryptGlobal(JSON.stringify(mentorData.mentor_id));
             const body = mentorData?.evaluator_id
-                ? JSON.stringify({
+                ? {
                       full_name: full_name,
                       username: email
+                      //   password: encrypted
                       //   district: district
-                  })
+                  }
                 : mentorData?.admin_id
                 ? JSON.stringify({
                       full_name: full_name,
@@ -114,6 +146,9 @@ const EditProfile = (props) => {
                       username: email,
                       mobile: email
                   });
+            if (mentorData && mentorData.password !== password) {
+                body['password'] = encrypted;
+            }
 
             const url = mentorData?.evaluator_id
                 ? process.env.REACT_APP_API_BASE_URL + '/evaluators/' + evlId
@@ -170,7 +205,7 @@ const EditProfile = (props) => {
                             <Form onSubmit={formik.handleSubmit} isSubmitting>
                                 <div className="create-ticket register-block">
                                     <Row className="justify-content-center">
-                                        <Col md={6} className="mb-5 mb-xl-0">
+                                        <Col md={12}>
                                             <Label
                                                 className="name-req"
                                                 htmlFor="name"
@@ -194,10 +229,10 @@ const EditProfile = (props) => {
                                                 </small>
                                             ) : null}
                                         </Col>
-                                        <div className="w-100" />
-                                        <Col md={6}>
+                                        {/* <div className="w-100" /> */}
+                                        <Col md={12}>
                                             <Label
-                                                className="name-req mt-5"
+                                                className="name-req "
                                                 htmlFor="email"
                                             >
                                                 Email Id
@@ -214,6 +249,35 @@ const EditProfile = (props) => {
                                             formik.errors.email ? (
                                                 <small className="error-cls">
                                                     {formik.errors.email}
+                                                </small>
+                                            ) : null}
+                                        </Col>
+                                        <Col md={12}>
+                                            <Label
+                                                className="name-req "
+                                                htmlFor="password"
+                                                // style={{
+                                                //     fontSize: '1.5rem'
+                                                // }}
+                                            >
+                                                Password
+                                            </Label>
+                                            <InputBox
+                                                {...inputPassword}
+                                                id="reg-password"
+                                                type="password"
+                                                name="password"
+                                                onChange={formik.handleChange}
+                                                onBlur={formik.handleBlur}
+                                                value={formik.values.password}
+                                                // maxLength={8}
+                                                minLength={8}
+                                            />
+
+                                            {formik.touched.password &&
+                                            formik.errors.password ? (
+                                                <small className="error-cls">
+                                                    {formik.errors.password}
                                                 </small>
                                             ) : null}
                                         </Col>
