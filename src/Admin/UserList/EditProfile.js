@@ -142,7 +142,6 @@ const EditProfile = (props) => {
             if (mentorData && mentorData.password !== password) {
                 body['password'] = encrypted;
             }
-            console.log(body, 'bb');
 
             const EvlId = encryptGlobal(
                 JSON.stringify(mentorData.evaluator_id)

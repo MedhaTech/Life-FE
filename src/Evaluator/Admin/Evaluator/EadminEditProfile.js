@@ -149,7 +149,6 @@ const EditProfile = (props) => {
             if (mentorData && mentorData.password !== password) {
                 body['password'] = encrypted;
             }
-            console.log(body, 'bb');
 
             const url = mentorData?.evaluator_id
                 ? process.env.REACT_APP_API_BASE_URL + '/evaluators/' + evlId
