@@ -26,6 +26,8 @@ const ChangePSWModal = () => {
     const [error, SetError] = useState('');
     // eslint-disable-next-line no-unused-vars
     const [responce, SetResponce] = useState('');
+    const passwordRegex =
+        /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{8,}$/;
     const formik = useFormik({
         initialValues: {
             oldPassword: '',
@@ -39,10 +41,18 @@ const ChangePSWModal = () => {
                 .min(8, 'Minimum 8 characters required'),
             newPassword: Yup.string()
                 .required(t('login.error_required'))
-                .min(8, 'Minimum 8 characters required'),
+                .min(8, 'Minimum 8 characters required')
+                .matches(
+                    passwordRegex,
+                    'Password must contains minimum 8 characters, including one letter, one number, and one special character.'
+                ),
             confirmPassword: Yup.string()
                 .required(t('login.error_required'))
                 .min(8, 'Minimum 8 characters required')
+                .matches(
+                    passwordRegex,
+                    'Password must contains minimum 8 characters, including one letter, one number, and one special character.'
+                )
         }),
 
         onSubmit: async (values) => {

@@ -91,9 +91,9 @@ const EditProfile = (props) => {
     };
     const getInitialValues = (data) => {
         const commonInitialValues = {
-            name: mentorData.full_name || mentorData.user.full_name,
-            email: mentorData.username || mentorData.user.username,
-            password: mentorData.password || mentorData.user.password
+            name: mentorData?.full_name || mentorData?.user?.full_name,
+            email: mentorData?.username || mentorData?.user?.username,
+            password: mentorData?.password || mentorData?.user?.password
         };
         if (!data?.admin_id) {
             commonInitialValues['phone'] = mentorData.mobile;
