@@ -47,7 +47,7 @@ const Register = (props) => {
         className: 'defaultInput'
     };
     const passwordRegex =
-        /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+        /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{8,}$/;
     // const inputCity = {
     //     type: 'text',
     //     placeholder: 'District Name',
@@ -297,7 +297,7 @@ const Register = (props) => {
                                         onChange={formik.handleChange}
                                         onBlur={formik.handleBlur}
                                         value={formik.values.password}
-                                        maxLength={8}
+                                        // maxLength={8}
                                         minLength={8}
                                     />
 

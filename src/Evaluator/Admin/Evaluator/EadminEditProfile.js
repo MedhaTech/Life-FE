@@ -49,7 +49,8 @@ const EditProfile = (props) => {
     };
 
     const passwordRegex =
-        /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+        /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{8,}$/;
+
     const getValidationSchema = (data) => {
         // where data = mentorData //
         const adminValidation = Yup.object({
@@ -63,10 +64,10 @@ const EditProfile = (props) => {
                 .email('Please Enter Valid Email Id'),
             password: Yup.string()
                 .trim()
-                .required('Please enter Password')
+                // .required('Please enter Password')
                 .matches(
                     passwordRegex,
-                    'Password must contains  8 characters, including one letter, one number, and one special character.'
+                    'Password must contains minimum 8 characters, including one letter, one number, and one special character.'
                 )
             // .matches(
             //     /^\d+$/,
@@ -105,8 +106,7 @@ const EditProfile = (props) => {
         initialValues: getInitialValues(mentorData),
         validationSchema: getValidationSchema(mentorData),
         onSubmit: (values) => {
-            var pass = values.password.trim();
-
+            var pass = values.password ? values.password.trim() : '';
             const key = CryptoJS.enc.Hex.parse(
                 '253D3FB468A0E24677C28A624BE0F939'
             );
@@ -117,10 +117,10 @@ const EditProfile = (props) => {
                 iv: iv,
                 padding: CryptoJS.pad.NoPadding
             }).toString();
-            values.password = encrypted;
+            // values.password = encrypted;
             const full_name = values.name;
             const email = values.email;
-            // const password = values.password;
+            const password = values.password;
 
             // const mobile = values.phone;
             const district = values.district;
@@ -130,12 +130,12 @@ const EditProfile = (props) => {
             const admId = encryptGlobal(JSON.stringify(mentorData.admin_id));
             const mentId = encryptGlobal(JSON.stringify(mentorData.mentor_id));
             const body = mentorData?.evaluator_id
-                ? JSON.stringify({
+                ? {
                       full_name: full_name,
-                      username: email,
-                      password: encrypted
+                      username: email
+                      //   password: encrypted
                       //   district: district
-                  })
+                  }
                 : mentorData?.admin_id
                 ? JSON.stringify({
                       full_name: full_name,
@@ -146,6 +146,9 @@ const EditProfile = (props) => {
                       username: email,
                       mobile: email
                   });
+            if (mentorData && mentorData.password !== password) {
+                body['password'] = encrypted;
+            }
 
             const url = mentorData?.evaluator_id
                 ? process.env.REACT_APP_API_BASE_URL + '/evaluators/' + evlId
@@ -267,7 +270,7 @@ const EditProfile = (props) => {
                                                 onChange={formik.handleChange}
                                                 onBlur={formik.handleBlur}
                                                 value={formik.values.password}
-                                                maxLength={8}
+                                                // maxLength={8}
                                                 minLength={8}
                                             />
 
