@@ -30,7 +30,7 @@ const EditProfile = (props) => {
     const mentorData =
         // where  mentorData = mentor details //
         (history && history.location && history.location.data) || {};
-
+    // console.log(mentorData, '111');
     // const phoneRegExp = /^[0-9\s]+$/;
     const fullDistrictsNames = useSelector(
         (state) => state?.studentRegistration?.dists
@@ -46,7 +46,7 @@ const EditProfile = (props) => {
 
     const passwordRegex =
         /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{8,}$/;
-    const getValidationSchema = (data) => {
+    const getValidationSchema = (mentorData) => {
         // where data = mentorData //
         const adminValidation = Yup.object({
             name: Yup.string()
@@ -72,8 +72,8 @@ const EditProfile = (props) => {
             // .max(10, 'Please enter only 10 digit valid number')
             // .min(10, 'Number is less than 10 digits')
         });
-        if (data?.mentor_id)
-            if (data?.evaluator_id)
+        if (mentorData?.mentor_id)
+            if (mentorData?.evaluator_id)
                 // adminValidation['phone'] = Yup.string()
                 //     .matches(phoneRegExp, 'Mobile number is not valid')
                 //     .min(10, 'Enter a valid mobile number')
@@ -85,15 +85,16 @@ const EditProfile = (props) => {
                     .required('District is Required');
         return adminValidation;
     };
-    const getInitialValues = (data) => {
+    const getInitialValues = (mentorData) => {
+        // console.log(data, '222');
         const commonInitialValues = {
-            name: mentorData.full_name || mentorData.user.full_name,
-            email: mentorData.username || mentorData.user.username,
-            password: mentorData.password || mentorData.user.password
+            name: mentorData?.full_name || mentorData?.user?.full_name,
+            email: mentorData?.username || mentorData?.user?.username,
+            password: mentorData?.password || mentorData?.user?.password
         };
-        if (!data?.admin_id) {
+        if (!mentorData?.admin_id) {
             commonInitialValues['phone'] = mentorData.mobile;
-            if (!data?.mentor_id)
+            if (!mentorData?.mentor_id)
                 commonInitialValues['district'] = mentorData.district;
         }
         return commonInitialValues;
