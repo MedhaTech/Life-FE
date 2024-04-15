@@ -150,12 +150,31 @@ const IdeaDetail = (props) => {
         ? teamResponse?.Prototype_file.split(',')
         : [];
     const downloadFile = (item) => {
-        const link = document.createElement('a');
-        link.href = item;
-        link.download = 'upload.pdf';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+        // const link = document.createElement('a');
+        // link.href = item;
+        // link.download = 'upload.pdf';
+        // document.body.appendChild(link);
+        // link.click();
+        // document.body.removeChild(link);
+        fetch(item)
+            .then((response) => {
+                // Convert the response to a blob
+                return response.blob();
+            })
+            .then((blob) => {
+                // Create a download link
+                const url = window.URL.createObjectURL(new Blob([blob]));
+                const link = document.createElement('a');
+                link.href = url;
+                const parts = item.split('/');
+                link.setAttribute('download', parts[parts.length - 1]);
+                document.body.appendChild(link);
+                link.click();
+                link.parentNode.removeChild(link);
+            })
+            .catch((error) => {
+                console.error('Error downloading file:', error);
+            });
     };
     const handleReject = () => {
         if (reason) {
@@ -494,7 +513,9 @@ const IdeaDetail = (props) => {
                                                                     )
                                                                 }
                                                             >
-                                                                {item}
+                                                                {item
+                                                                    .split('/')
+                                                                    .pop()}
                                                             </a>
                                                             {/* </CardBody> */}
                                                         </div>
