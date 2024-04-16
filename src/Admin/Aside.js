@@ -262,7 +262,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                             </span>
                         </NavLink>
                     </MenuItem> */}
-                    <MenuItem
+                    {/* <MenuItem
                         icon={<img src={PopupIcon} style={{ width: '20px' }} />}
                         className={
                             location.pathname === '/admin/popup' &&
@@ -281,8 +281,8 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                                 PopUp
                             </span>
                         </NavLink>
-                    </MenuItem>
-                    <MenuItem
+                    </MenuItem> */}
+                    {/* <MenuItem
                         icon={
                             <img
                                 src={LatestNewsIcon}
@@ -308,7 +308,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                                 LatestNews
                             </span>
                         </NavLink>
-                    </MenuItem>
+                    </MenuItem> */}
                     <MenuItem
                         icon={
                             <img src={UsersIcon1} style={{ width: '20px' }} />
