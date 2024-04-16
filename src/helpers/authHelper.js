@@ -27,7 +27,7 @@ const ProtectedRoute = ({ component: Component, user: user, ...rest }) => {
             //     return <Component {...props} />;
             // }
 
-            if (difference > 3600000) {
+            if (difference > 300000) {
                 localStorage.clear();
                 if (user.includes('ADMIN')) {
                     return <Redirect to="/admin" />;
