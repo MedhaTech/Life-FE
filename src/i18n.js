@@ -10,8 +10,7 @@ i18n.use(LanguageDetector)
         supportedLngs: ['en', 'tn', 'te', 'ka', 'hi'],
         fallbackLng: 'en',
         detection: {
-            order: ['htmlTag', 'cookie', 'localStorage', 'path', 'subdomain'],
-            caches: ['cookie']
+            order: ['htmlTag', 'localStorage', 'path', 'subdomain']
         },
         backend: {
             loadPath: '/assets/locales/{{lng}}/translation.json'
