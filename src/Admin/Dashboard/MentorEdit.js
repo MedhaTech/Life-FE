@@ -33,19 +33,21 @@ const EditTeacherProfileDetails = (props) => {
             mentor_whatapp_mobile: Yup.string()
                 .required('required')
                 .trim()
-                .matches(
-                    /^\d+$/,
-                    'Mobile number is not valid (Enter only digits)'
-                )
+                // .matches(
+                //     /^\d+$/,
+                //     'Mobile number is not valid (Enter only digits)'
+                // )
+                .matches(/^[0-9]+$/, 'Mobile number must contain only numbers')
                 .min(10, 'Please enter valid number')
                 .max(10, 'Please enter valid number'),
             mentor_mobile: Yup.string()
                 .required('required')
                 .trim()
-                .matches(
-                    /^\d+$/,
-                    'Mobile number is not valid (Enter only digits)'
-                )
+                // .matches(
+                //     /^\d+$/,
+                //     'Mobile number is not valid (Enter only digits)'
+                // )
+                .matches(/^[0-9]+$/, 'Mobile number must contain only numbers')
                 .min(10, 'Please enter valid number')
                 .max(10, 'Please enter valid number'),
             mentor_email: Yup.string()
@@ -55,16 +57,16 @@ const EditTeacherProfileDetails = (props) => {
             mentor_title: Yup.string().required('Please select Title'),
             // date_of_birth: Yup.string().required('Please Select DOb'),
             date_of_birth: Yup.date()
-            .required('Date of Birth is required')
-            .min(
-                new Date(new Date().getFullYear() - 65, 0, 1),
-                'Age cannot exceed 65 years'
-            )
-            .max(
-                new Date(new Date().getFullYear() - 21, 11, 31),
+                .required('Date of Birth is required')
+                .min(
+                    new Date(new Date().getFullYear() - 65, 0, 1),
+                    'Age cannot exceed 65 years'
+                )
+                .max(
+                    new Date(new Date().getFullYear() - 21, 11, 31),
 
-                'Age must be at least 21 years'
-            ),
+                    'Age must be at least 21 years'
+                ),
             mentor_name: Yup.string()
 
                 .trim()
@@ -372,7 +374,23 @@ const EditTeacherProfileDetails = (props) => {
                                                 className={'defaultInput'}
                                                 id="mentor_mobile"
                                                 name="mentor_mobile"
-                                                onChange={formik.handleChange}
+                                                type="tel"
+                                                onChange={(e) => {
+                                                    const inputValue =
+                                                        e.target.value;
+                                                    const numericValue =
+                                                        inputValue.replace(
+                                                            /\D/g,
+                                                            ''
+                                                        );
+                                                    formik.setFieldValue(
+                                                        'mentor_mobile',
+                                                        numericValue
+                                                    );
+                                                }}
+                                                maxLength={10}
+                                                minLength={10}
+                                                // onChange={formik.handleChange}
                                                 onBlur={formik.handleBlur}
                                                 value={
                                                     formik.values.mentor_mobile
@@ -402,7 +420,21 @@ const EditTeacherProfileDetails = (props) => {
                                                 className={'defaultInput'}
                                                 id="mentor_whatapp_mobile"
                                                 name="mentor_whatapp_mobile"
-                                                onChange={formik.handleChange}
+                                                type="tel"
+                                                onChange={(e) => {
+                                                    const inputValue =
+                                                        e.target.value;
+                                                    const numericValue =
+                                                        inputValue.replace(
+                                                            /\D/g,
+                                                            ''
+                                                        );
+                                                    formik.setFieldValue(
+                                                        'mentor_whatapp_mobile',
+                                                        numericValue
+                                                    );
+                                                }}
+                                                // onChange={formik.handleChange}
                                                 onBlur={formik.handleBlur}
                                                 value={
                                                     formik.values
