@@ -92,10 +92,11 @@ const EditTeamMember = (props) => {
             mobile: Yup.string()
                 .required('required')
                 .trim()
-                .matches(
-                    /^\d+$/,
-                    'Mobile number is not valid (Enter only digits)'
-                )
+                // .matches(
+                //     /^\d+$/,
+                //     'Mobile number is not valid (Enter only digits)'
+                // )
+                .matches(/^[0-9]+$/, 'Mobile number must contain only numbers')
                 .min(10, 'Please enter valid number')
                 .max(10, 'Please enter valid number'),
             date_of_birth: Yup.string().required('Please select DOB')
@@ -671,9 +672,27 @@ const EditTeamMember = (props) => {
                                                     placeholder="Enter Mobile Number"
                                                     id="mobile"
                                                     name="mobile"
-                                                    onChange={
-                                                        formik.handleChange
-                                                    }
+                                                    type="tel"
+                                                    // onChange={formik.handleChange}
+
+                                                    onChange={(e) => {
+                                                        const inputValue =
+                                                            e.target.value;
+                                                        const numericValue =
+                                                            inputValue.replace(
+                                                                /\D/g,
+                                                                ''
+                                                            );
+                                                        formik.setFieldValue(
+                                                            'mobile',
+                                                            numericValue
+                                                        );
+                                                    }}
+                                                    maxLength={10}
+                                                    minLength={10}
+                                                    // onChange={
+                                                    //     formik.handleChange
+                                                    // }
                                                     onBlur={formik.handleBlur}
                                                     value={formik.values.mobile}
                                                 />
