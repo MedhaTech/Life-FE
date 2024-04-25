@@ -104,37 +104,31 @@ const EditSchool = (props) => {
         },
 
         validationSchema: Yup.object({
-            principal_email: Yup
-                .string()
-                .trim()
-                .nullable()
-                .email({
-                    message: 'Invalid email address format',
-                    excludeEmptyString: true,
-                }),
-            principal_name: Yup
-                .string()
+            principal_email: Yup.string().trim().nullable().email({
+                message: 'Invalid email address format',
+                excludeEmptyString: true
+            }),
+            principal_name: Yup.string()
                 .trim()
                 .nullable()
                 .matches(/^[aA-zZ\s/^.*$/]+$/, {
                     message: 'Invalid Name',
-                    excludeEmptyString: true,
+                    excludeEmptyString: true
                 }),
-            principal_mobile: Yup
-                .string()
+            principal_mobile: Yup.string()
                 .trim()
                 .nullable()
                 .matches(/^[0-9\s]+$/, {
                     message: 'Please Enter Valid Number',
-                    excludeEmptyString: true,
+                    excludeEmptyString: true
                 }),
             principal_whatsapp_mobile: Yup.string()
                 .trim()
                 .nullable()
                 .matches(/^[0-9\s]+$/, {
                     message: 'Please Enter Valid Number',
-                    excludeEmptyString: true,
-                }),
+                    excludeEmptyString: true
+                })
         }),
 
         onSubmit: async (values) => {
@@ -151,7 +145,8 @@ const EditSchool = (props) => {
                 body['principal_email'] = values.principal_email;
             }
             if (values.principal_whatsapp_mobile !== null) {
-                body['principal_whatsapp_mobile'] = values.principal_whatsapp_mobile;
+                body['principal_whatsapp_mobile'] =
+                    values.principal_whatsapp_mobile;
             }
             const editId = encryptGlobal(
                 JSON.stringify(currentUser?.data[0]?.institution_id)
@@ -242,8 +237,8 @@ const EditSchool = (props) => {
                                                 />
                                                 {formik.touched
                                                     .institution_name &&
-                                                    formik.errors
-                                                        .institution_name ? (
+                                                formik.errors
+                                                    .institution_name ? (
                                                     <small className="error-cls">
                                                         {
                                                             formik.errors
@@ -277,7 +272,7 @@ const EditSchool = (props) => {
                                                 />
                                                 {formik.touched
                                                     .principal_name &&
-                                                    formik.errors.principal_name ? (
+                                                formik.errors.principal_name ? (
                                                     <small className="error-cls">
                                                         {
                                                             formik.errors
@@ -300,9 +295,25 @@ const EditSchool = (props) => {
                                                     // isDisabled={true}
                                                     className="code"
                                                     placeholder="Please enter Principal Mobile"
-                                                    onChange={
-                                                        formik.handleChange
-                                                    }
+                                                    type="tel"
+                                                    onChange={(e) => {
+                                                        const inputValue =
+                                                            e.target.value;
+                                                        const numericValue =
+                                                            inputValue.replace(
+                                                                /\D/g,
+                                                                ''
+                                                            );
+                                                        formik.setFieldValue(
+                                                            'principal_mobile',
+                                                            numericValue
+                                                        );
+                                                    }}
+                                                    maxLength={10}
+                                                    minLength={10}
+                                                    // onChange={
+                                                    //     formik.handleChange
+                                                    // }
                                                     onBlur={formik.handleBlur}
                                                     value={
                                                         formik.values
@@ -312,8 +323,8 @@ const EditSchool = (props) => {
 
                                                 {formik.touched
                                                     .principal_mobile &&
-                                                    formik.errors
-                                                        .principal_mobile ? (
+                                                formik.errors
+                                                    .principal_mobile ? (
                                                     <small className="error-cls">
                                                         {
                                                             formik.errors
@@ -349,8 +360,8 @@ const EditSchool = (props) => {
                                                 />
                                                 {formik.touched
                                                     .principal_email &&
-                                                    formik.errors
-                                                        .principal_email ? (
+                                                formik.errors
+                                                    .principal_email ? (
                                                     <small className="error-cls">
                                                         {
                                                             formik.errors
@@ -371,9 +382,25 @@ const EditSchool = (props) => {
                                                     id="principal_whatsapp_mobile"
                                                     name="principal_whatsapp_mobile"
                                                     placeholder="Please enter principal whatsapp number"
-                                                    onChange={
-                                                        formik.handleChange
-                                                    }
+                                                    type="tel"
+                                                    // onChange={
+                                                    //     formik.handleChange
+                                                    // }
+                                                    onChange={(e) => {
+                                                        const inputValue =
+                                                            e.target.value;
+                                                        const numericValue =
+                                                            inputValue.replace(
+                                                                /\D/g,
+                                                                ''
+                                                            );
+                                                        formik.setFieldValue(
+                                                            'principal_whatsapp_mobile',
+                                                            numericValue
+                                                        );
+                                                    }}
+                                                    maxLength={10}
+                                                    minLength={10}
                                                     onBlur={formik.handleBlur}
                                                     value={
                                                         formik.values
@@ -382,8 +409,8 @@ const EditSchool = (props) => {
                                                 />
                                                 {formik.touched
                                                     .principal_whatsapp_mobile &&
-                                                    formik.errors
-                                                        .principal_whatsapp_mobile ? (
+                                                formik.errors
+                                                    .principal_whatsapp_mobile ? (
                                                     <small className="error-cls">
                                                         {
                                                             formik.errors
@@ -468,7 +495,7 @@ const EditSchool = (props) => {
                                                         placeHolder={
                                                             'Select District'
                                                         }
-                                                    // value={district}
+                                                        // value={district}
                                                     />
                                                 </div>
                                             </Col>
@@ -566,7 +593,7 @@ const EditSchool = (props) => {
                                                     />
                                                     {formik.touched
                                                         .place_name &&
-                                                        formik.errors.place_name ? (
+                                                    formik.errors.place_name ? (
                                                         <small className="error-cls">
                                                             {
                                                                 formik.errors

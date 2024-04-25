@@ -51,10 +51,11 @@ const LoginNew = (props) => {
             email: Yup.string()
                 .required('required')
                 .trim()
-                .matches(
-                    /^\d+$/,
-                    'Mobile number is not valid (Enter only digits)'
-                )
+                // .matches(
+                //     /^\d+$/,
+                //     'Mobile number is not valid (Enter only digits)'
+                // )
+                .matches(/^[0-9]+$/, 'Mobile number must contain only numbers')
                 .max(10, 'Please enter only 10 digit valid number')
                 .min(10, 'Number is less than 10 digits'),
             password: Yup.string().required('Required Password')
@@ -97,7 +98,7 @@ const LoginNew = (props) => {
     });
 
     const inputUserId = {
-        type: 'text',
+        type: 'tel',
         placeholder: 'Enter Your Mobile Number'
     };
 
@@ -232,9 +233,24 @@ const LoginNew = (props) => {
                                                     {...inputUserId}
                                                     id="email"
                                                     name="email"
-                                                    onChange={
-                                                        formik.handleChange
-                                                    }
+                                                    onChange={(e) => {
+                                                        const inputValue =
+                                                            e.target.value;
+                                                        const numericValue =
+                                                            inputValue.replace(
+                                                                /\D/g,
+                                                                ''
+                                                            );
+                                                        formik.setFieldValue(
+                                                            'email',
+                                                            numericValue
+                                                        );
+                                                    }}
+                                                    maxLength={10}
+                                                    minLength={10}
+                                                    // onChange={
+                                                    //     formik.handleChange
+                                                    // }
                                                     onBlur={formik.handleBlur}
                                                     value={formik.values.email}
                                                 />

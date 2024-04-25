@@ -67,10 +67,11 @@ const LoginNew = (props) => {
             //     .max(10, 'Please enter only 10 digit valid number')
             //     .min(10, 'Number is less than 10 digits'),
             phone: Yup.string()
-                .matches(
-                    /^\d+$/,
-                    'Mobile number is not valid (Enter only digits)'
-                )
+                // .matches(
+                //     /^\d+$/,
+                //     'Mobile number is not valid (Enter only digits)'
+                // )
+                .matches(/^[0-9]+$/, 'Mobile number must contain only numbers')
                 .max(10, 'Please enter only 10 digit valid number')
                 .min(10, 'Number is less than 10 digits')
                 .required('required')
@@ -245,9 +246,23 @@ const LoginNew = (props) => {
                                                 {...inputUserId}
                                                 id="phone"
                                                 name="phone"
-                                                // maxLength={10}
-                                                // minLength={10}
-                                                onChange={formik.handleChange}
+                                                type="tel"
+                                                onChange={(e) => {
+                                                    const inputValue =
+                                                        e.target.value;
+                                                    const numericValue =
+                                                        inputValue.replace(
+                                                            /\D/g,
+                                                            ''
+                                                        );
+                                                    formik.setFieldValue(
+                                                        'phone',
+                                                        numericValue
+                                                    );
+                                                }}
+                                                maxLength={10}
+                                                minLength={10}
+                                                // onChange={formik.handleChange}
                                                 onBlur={formik.handleBlur}
                                                 value={formik.values.phone}
                                                 // type="number"

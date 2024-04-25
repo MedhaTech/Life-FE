@@ -68,7 +68,8 @@ const Register = (props) => {
             // .min(10, 'Number is less than 10 digits'),
             .required('Please enter mobile number')
             .trim()
-            .matches(phoneRegExp, 'Contact number is not valid')
+            // .matches(phoneRegExp, 'Contact number is not valid')
+            .matches(/^[0-9]+$/, 'Mobile number must contain only numbers')
             .min(10, 'Number is less than 10 digits')
             .max(10, 'Please enter valid number'),
         username: Yup.string()
@@ -262,9 +263,19 @@ const Register = (props) => {
                                         {...inputPhone}
                                         id="mobile"
                                         name="mobile"
-                                        onChange={formik.handleChange}
+                                        type="tel"
+                                        // onChange={formik.handleChange}
                                         onBlur={formik.handleBlur}
                                         value={formik.values.mobile}
+                                        onChange={(e) => {
+                                            const inputValue = e.target.value;
+                                            const numericValue =
+                                                inputValue.replace(/\D/g, '');
+                                            formik.setFieldValue(
+                                                'mobile',
+                                                numericValue
+                                            );
+                                        }}
                                         maxLength={10}
                                         minLength={10}
                                     />

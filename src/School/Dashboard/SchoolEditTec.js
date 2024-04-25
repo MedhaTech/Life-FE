@@ -34,19 +34,21 @@ const EditTeacherProfileDetails = (props) => {
             mentor_whatapp_mobile: Yup.string()
                 .required('required')
                 .trim()
-                .matches(
-                    /^\d+$/,
-                    'Mobile number is not valid (Enter only digits)'
-                )
+                // .matches(
+                //     /^\d+$/,
+                //     'Mobile number is not valid (Enter only digits)'
+                // )
+                .matches(/^[0-9]+$/, 'Mobile number must contain only numbers')
                 .min(10, 'Please enter valid number')
                 .max(10, 'Please enter valid number'),
             mentor_mobile: Yup.string()
                 .required('required')
                 .trim()
-                .matches(
-                    /^\d+$/,
-                    'Mobile number is not valid (Enter only digits)'
-                )
+                // .matches(
+                //     /^\d+$/,
+                //     'Mobile number is not valid (Enter only digits)'
+                // )
+                .matches(/^[0-9]+$/, 'Mobile number must contain only numbers')
                 .min(10, 'Please enter valid number')
                 .max(10, 'Please enter valid number'),
             mentor_email: Yup.string()
@@ -377,9 +379,25 @@ const EditTeacherProfileDetails = (props) => {
                                                     className={'defaultInput'}
                                                     id="mentor_whatapp_mobile"
                                                     name="mentor_whatapp_mobile"
-                                                    onChange={
-                                                        formik.handleChange
-                                                    }
+                                                    type="tel"
+                                                    onChange={(e) => {
+                                                        const inputValue =
+                                                            e.target.value;
+                                                        const numericValue =
+                                                            inputValue.replace(
+                                                                /\D/g,
+                                                                ''
+                                                            );
+                                                        formik.setFieldValue(
+                                                            'mentor_whatapp_mobile',
+                                                            numericValue
+                                                        );
+                                                    }}
+                                                    maxLength={10}
+                                                    minLength={10}
+                                                    // onChange={
+                                                    //     formik.handleChange
+                                                    // }
                                                     onBlur={formik.handleBlur}
                                                     value={
                                                         formik.values
@@ -408,12 +426,27 @@ const EditTeacherProfileDetails = (props) => {
                                                 </Label>
                                                 <InputBox
                                                     className={'defaultInput'}
-                                                    type="text"
+                                                    type="tel"
                                                     id="mentor_mobile"
                                                     name="mentor_mobile"
-                                                    onChange={
-                                                        formik.handleChange
-                                                    }
+                                                    onChange={(e) => {
+                                                        const inputValue =
+                                                            e.target.value;
+                                                        const numericValue =
+                                                            inputValue.replace(
+                                                                /\D/g,
+                                                                ''
+                                                            );
+                                                        formik.setFieldValue(
+                                                            'mentor_mobile',
+                                                            numericValue
+                                                        );
+                                                    }}
+                                                    maxLength={10}
+                                                    minLength={10}
+                                                    // onChange={
+                                                    //     formik.handleChange
+                                                    // }
                                                     onBlur={formik.handleBlur}
                                                     value={
                                                         formik.values
