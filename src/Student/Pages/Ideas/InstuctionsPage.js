@@ -108,7 +108,7 @@ const InstructionsPage = (props) => {
 
     const pdfFileURL =
         'https://s3.ap-south-1.amazonaws.com/aim1.0-bkt-cba6e2a/resources/stage/Final_Themes_AIM.pdf';
-    return ideaIntiation ? (
+    return (
         <Layout title="Idea Submission">
             <div className="courses-page">
                 <div
@@ -187,14 +187,15 @@ const InstructionsPage = (props) => {
                 </div>
             </div>
         </Layout>
-    ) : (
-        <Layout title="Idea Submission">
-            <CommonPage
-                text={t('student_course.idea_submission_date_com_desc')}
-                ideaSubmissionComButton={true}
-            />
-        </Layout>
-    );
+    ) ;
+    // : (
+    //     <Layout title="Idea Submission">
+    //         <CommonPage
+    //             text={t('student_course.idea_submission_date_com_desc')}
+    //             ideaSubmissionComButton={true}
+    //         />
+    //     </Layout>
+    // );
     // )
 };
 

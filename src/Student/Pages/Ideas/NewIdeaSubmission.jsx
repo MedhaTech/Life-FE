@@ -515,81 +515,76 @@ function NewIdeaSubmission(props) {
                                         className="form-row row mb-5"
                                         isSubmitting
                                     >
-                                        {/* {props?.submitedData?.status !==
+                                        {props?.submitedData?.status !==
                                             'SUBMITTED' &&
                                         props?.submitedData?.initiated_by ===
                                             currentUser?.data[0]?.user_id ? (
-                                            ''
-                                        ) : (
-                                            <>
-                                                <div className="text-right">
-                                                    {condition && (
-                                                        <Button
-                                                            type="button"
-                                                            btnClass="me-3 text-white"
-                                                            backgroundColor="#067DE1"
-                                                            onClick={handleEdit}
-                                                            size="small"
-                                                            label={t(
-                                                                'teacher_teams.edit_idea'
-                                                            )}
-                                                        />
-                                                    )}
+                                            <div className="text-right">
+                                                {condition && (
                                                     <Button
                                                         type="button"
-                                                        btnClass="primary"
-                                                        onClick={(e) =>
-                                                            handleSubmit(
-                                                                e,
-                                                                'SUBMITTED'
-                                                            )
-                                                        }
+                                                        btnClass="me-3 text-white"
+                                                        backgroundColor="#067DE1"
+                                                        onClick={handleEdit}
                                                         size="small"
                                                         label={t(
-                                                            'teacher_teams.submit'
+                                                            'teacher_teams.edit_idea'
                                                         )}
                                                     />
-                                                </div>
-                                                <div>
+                                                )}
+                                                <Button
+                                                    type="button"
+                                                    btnClass="primary"
+                                                    onClick={(e) =>
+                                                        handleSubmit(
+                                                            e,
+                                                            'SUBMITTED'
+                                                        )
+                                                    }
+                                                    size="small"
+                                                    label={t(
+                                                        'teacher_teams.submit'
+                                                    )}
+                                                />
+                                            </div>
+                                        ) : (
+                                            <div>
+                                                <p>
+                                                    Idea Initiated by :{' '}
+                                                    {
+                                                        props?.submitedData
+                                                            ?.initiated_name
+                                                    }
+                                                </p>
+                                                {props?.submitedData
+                                                    ?.verified_name !==
+                                                    null && (
                                                     <p>
-                                                        Idea Initiated by :{' '}
+                                                        Mentor Verified by :{' '}
                                                         {
                                                             props?.submitedData
-                                                                ?.initiated_name
+                                                                ?.verified_name
                                                         }
                                                     </p>
-                                                    {props?.submitedData
-                                                        ?.verified_name !==
-                                                        null && (
-                                                        <p>
-                                                            Mentor Verified by :{' '}
-                                                            {
-                                                                props
-                                                                    ?.submitedData
-                                                                    ?.verified_name
-                                                            }
-                                                        </p>
-                                                    )}
-                                                    {props?.submitedData
-                                                        ?.verified_at !==
-                                                        null && (
-                                                        <p>
-                                                            Verified At:{' '}
-                                                            {props?.submitedData
-                                                                ?.verified_at
-                                                                ? moment(
-                                                                      props
-                                                                          ?.submitedData
-                                                                          ?.verified_at
-                                                                  ).format(
-                                                                      'DD-MM-YYYY'
-                                                                  )
-                                                                : '-'}
-                                                        </p>
-                                                    )}
-                                                </div>
-                                            </>
-                                        )} */}
+                                                )}
+                                                {props?.submitedData
+                                                    ?.verified_at !== null && (
+                                                    <p>
+                                                        Verified At:{' '}
+                                                        {props?.submitedData
+                                                            ?.verified_at
+                                                            ? moment(
+                                                                  props
+                                                                      ?.submitedData
+                                                                      ?.verified_at
+                                                              ).format(
+                                                                  'DD-MM-YYYY'
+                                                              )
+                                                            : '-'}
+                                                    </p>
+                                                )}
+                                            </div>
+                                        )}
                                         <Row>
                                             <Row className="card mb-4 my-3 comment-card px-0 px-5 py-3 card">
                                                 <div className="question quiz mb-0">
@@ -1641,7 +1636,7 @@ function NewIdeaSubmission(props) {
                                 </CardBody>
                             </div>
                         </Row>
-                        {/* {!condition &&
+                        {!condition &&
                             props?.submitedData?.status !== 'SUBMITTED' && (
                                 <Row>
                                     <Col className="d-flex justify-content-between">
@@ -1667,7 +1662,7 @@ function NewIdeaSubmission(props) {
                                         </div>
                                     </Col>
                                 </Row>
-                            )} */}
+                            )}
                     </Col>
                 </Container>
             )}
