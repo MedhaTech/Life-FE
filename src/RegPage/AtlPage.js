@@ -486,7 +486,7 @@ function AtlPage() {
     }, [formik.values.mentor_mobile.length == 0]);
     const dateRegex = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/;
     // console.log(orgData, '1');
-    const [hide, setHide] = useState(false);
+    const [hide, setHide] = useState(true);
     return (
         <div className="container-fluid  SignUp Login">
             <Row className="row-flex  ">

@@ -132,15 +132,15 @@ const TicketsPage = () => {
                 name: t('teacher_teams.actions'),
                 cell: (params) => {
                     return [
-                        // <div key={params} onClick={() => handleCreate(params)}>
-                        //     {process.env.REACT_APP_TEAM_LENGTH >
-                        //         params.StudentCount &&
-                        //         totalCount?.StudentsCount < 50 && (
-                        //             <div className="btn btn-success  mr-5 mx-2">
-                        //                 Add Team Members
-                        //             </div>
-                        //         )}
-                        // </div>,
+                        <div key={params} onClick={() => handleCreate(params)}>
+                            {process.env.REACT_APP_TEAM_LENGTH >
+                                params.StudentCount &&
+                                totalCount?.StudentsCount < 50 && (
+                                    <div className="btn btn-success  mr-5 mx-2">
+                                        Add Team Members
+                                    </div>
+                                )}
+                        </div>,
                         <div key={params} onClick={() => handleView(params)}>
                             {!params.StudentCount < 4 && (
                                 <div className="btn btn-primary  mr-5">
@@ -207,12 +207,12 @@ const TicketsPage = () => {
                             </h2>
                         </Col>
 
-                        <span style={{ color: 'red', fontSize: '16px' }}>
+                        {/* <span style={{ color: 'red', fontSize: '16px' }}>
                             Students Registrations Are Closed
-                        </span>
+                        </span> */}
                         <Col className="ticket-btn col ml-auto ">
                             <div className="d-flex justify-content-end">
-                                {/* {totalCount?.StudentsCount < 47 && (
+                                {totalCount?.StudentsCount < 47 && (
                                     <Button
                                         label={t('teacher_teams.create_team')}
                                         btnClass="primary ml-2"
@@ -223,7 +223,7 @@ const TicketsPage = () => {
                                             history.push('/mentor/create-team')
                                         }
                                     />
-                                )} */}
+                                )}
                             </div>
                         </Col>
                     </Row>
