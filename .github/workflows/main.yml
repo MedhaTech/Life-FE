@@ -3,7 +3,7 @@ name: Deployment1
 
 on:
   push:
-    branches: master
+    branches: development
 jobs:
   
   Build:
@@ -35,6 +35,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: build
+          path: build
 
       - name: Deploy to Development
         if: github.ref == 'refs/heads/development'
@@ -43,10 +51,10 @@ jobs:
           HOSTNAME: ${{ secrets.LIFE_HOSTNAME }}
         run: |
           echo "$PRIVATE_KEY" > private_key && chmod 400 private_key
-          #scp -o StrictHostKeyChecking=no -i private_key -r ./build ubuntu@${{ secrets.LIFE_HOSTNAME }}:/tmp/Life_fe_build
+          scp -o StrictHostKeyChecking=no -i private_key -r ./build ubuntu@${{ secrets.LIFE_HOSTNAME }}:/tmp/Life_fe_build
           ssh -o StrictHostKeyChecking=no -i private_key ubuntu@${{ secrets.LIFE_HOSTNAME }} '
-            #sudo rm -rf /var/www/html/a_fe/build &&
-            #sudo mv /tmp/aim_fe_build /var/www/html/Life_fe/build &&
+            sudo rm -rf /var/www/html/a_fe/build &&
+            sudo mv /tmp/aim_fe_build /var/www/html/Life_fe/build &&
             cd /var/www/html/Life_fe &&
             sudo git fetch origin &&
             sudo git checkout development &&
