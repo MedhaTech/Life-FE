@@ -13,7 +13,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Install NPM
-        run: sudo npm install -g npm@8.15.1
+        run: sudo npm install -g npm@10.2.3
         
       - name: Set legacy-peer-deps
         run: sudo npm config set legacy-peer-deps true
