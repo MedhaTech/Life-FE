@@ -34,18 +34,11 @@ jobs:
           path: build
 
   Deploy:
-    needs: Build
+    
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
 
-      - name: Download build artifacts
-        uses: actions/download-artifact@v3
-        with:
-          name: build
-          path: build
       - name: Deploy to Development
         if: github.ref == 'refs/heads/development'
         env:
@@ -62,5 +55,9 @@ jobs:
             sudo git checkout development &&
             sudo git pull origin development
             '
+
+
+
+          
 
             
