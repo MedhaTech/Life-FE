@@ -47,7 +47,7 @@ jobs:
         run: |
           echo "$PRIVATE_KEY" > private_key && chmod 400 private_key
           // scp -o StrictHostKeyChecking=no -i private_key -r ./build ubuntu@${{ secrets.LIFE_HOSTNAME }}:/tmp/Life_fe_build
-          ssh -o StrictHostKeyChecking=no -i private_key ubuntu@${{ secrets.ATL2_HOSTNAME }} '
+          ssh -o StrictHostKeyChecking=no -i private_key ubuntu@${{ secrets.LIFE_HOSTNAME }} '
             // sudo rm -rf /var/www/html/a_fe/build &&
             // sudo mv /tmp/aim_fe_build /var/www/html/Life_fe/build &&
             cd /var/www/html/Life_fe &&
