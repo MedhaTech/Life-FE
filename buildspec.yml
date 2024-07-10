@@ -6,7 +6,7 @@ phases:
             nodejs: 18
     pre_build:
         commands:
-            - npm install -g npm@8.15.1
+            - npm install -g npm@10.2.3
             - npm config set legacy-peer-deps true
             - echo Installing source NPM dependencies...
             - npm install --force
