@@ -23,7 +23,7 @@ const InstructionsPage = (props) => {
     const { t } = useTranslation();
     const history = useHistory();
     const [ideaIntiation, setIdeaIntiation] = useState('');
-    const TeamId = currentUser?.data[0]?.team_id;
+    const StudentId = currentUser?.data[0]?.student_id;
     const userId = currentUser?.data[0]?.user_id;
     const district = currentUser?.data[0]?.district;
     const [button, setButton] = useState('');
@@ -48,7 +48,7 @@ const InstructionsPage = (props) => {
     async function apiCall() {
         // Dice code list API //
         const body = JSON.stringify({
-            team_id: TeamId,
+            student_id: StudentId,
             initiated_by: userId,
             district: district
         });
@@ -80,7 +80,7 @@ const InstructionsPage = (props) => {
     const nextButtonApi = () => {
         const Param = encryptGlobal(
             JSON.stringify({
-                team_id: TeamId
+                student_id: StudentId
             })
         );
         var config = {

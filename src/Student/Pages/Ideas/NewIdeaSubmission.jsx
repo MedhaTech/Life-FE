@@ -11,7 +11,7 @@ import CommonPage from '../../../components/CommonPage';
 import IdeaSubmission from '../../Pages/Ideas/IdeaSubmission';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
-
+import  "./style.scss";
 import {
     Container,
     Row,
@@ -24,6 +24,16 @@ import {
     Label
 } from 'reactstrap';
 import moment from 'moment';
+import a from "../../../assets/media/Themes/1.png";
+import b from "../../../assets/media/Themes/2.png";
+import c from "../../../assets/media/Themes/3.png";
+import d from "../../../assets/media/Themes/4.png";
+import e from "../../../assets/media/Themes/5.png";
+import f from "../../../assets/media/Themes/6.png";
+import g from "../../../assets/media/Themes/7.png";
+import h from "../../../assets/media/Themes/8.png";
+
+
 
 import { Button } from '../../../stories/Button';
 import { getCurrentUser, getNormalHeaders } from '../../../helpers/Utils';
@@ -75,6 +85,7 @@ function NewIdeaSubmission(props) {
     const [condition, setCondition] = useState(condition1);
     const [isDisabled, setIsDisabled] = useState(false);
     const [files, setFiles] = useState([]);
+    //const [currentStep, setCurrentStep] = useState(1);
     const showPage = false;
     const comingSoonText = t('dummytext.student_idea_sub');
     const initialLoadingStatus = { draft: false, submit: false };
@@ -126,6 +137,14 @@ function NewIdeaSubmission(props) {
             : '0'
     );
 
+    const imagesList = [
+        a,b,c,d,e,f,g,h
+    ];
+    const leftThemes = themesList.slice(0, 4);
+    const leftImages = imagesList.slice(0, 4);
+    const rightThemes = themesList.slice(4);
+    const rightImages = imagesList.slice(4);
+
     //setting up initial values
     useEffect(() => {
         themeApi();
@@ -172,7 +191,7 @@ function NewIdeaSubmission(props) {
             setCondition(false);
         }
     }, [props?.submitedData]);
-    const TeamId = currentUser?.data[0]?.team_id;
+    const StudentId = currentUser?.data[0]?.student_id;
     useEffect(() => {
         setIsDisabled(true);
     }, []);
@@ -210,6 +229,7 @@ function NewIdeaSubmission(props) {
         axios(config)
             .then(function (response) {
                 if (response.status === 200) {
+                    console.log(response);
                     setThemesList([...response.data.data, 'Others']);
                     if (
                         props?.submitedData?.themes_problem &&
@@ -241,6 +261,7 @@ function NewIdeaSubmission(props) {
                 console.log(error);
             });
     };
+    
     const statemtsApi = () => {
         const Param = encryptGlobal(
             JSON.stringify({
@@ -303,7 +324,7 @@ function NewIdeaSubmission(props) {
             }
             const axiosConfig = getNormalHeaders(KEY.User_API_Key);
             const subId = encryptGlobal(
-                JSON.stringify({ team_id: currentUser?.data[0]?.team_id })
+                JSON.stringify({ student_id: currentUser?.data[0]?.student_id })
             );
             const result = await axios
                 .post(
@@ -336,7 +357,7 @@ function NewIdeaSubmission(props) {
             attachmentsList = file.join(', ');
         }
         const body = {
-            team_id: TeamId,
+            student_id: StudentId,
             theme_name: theme === 'Others' ? othersTheme : theme,
             problem_statement_id: themeProId,
             problem_statement:
@@ -410,6 +431,7 @@ function NewIdeaSubmission(props) {
                     if (response.status === 200) {
                         localStorage.setItem('condition', true);
                         setCondition(true);
+                        setCurrentStep(1);
                         if (stats === 'SUBMITTED') {
                             openNotificationWithIcon(
                                 'success',
@@ -495,6 +517,9 @@ function NewIdeaSubmission(props) {
             return;
         }
         handleUploadFiles(choosenFiles);
+    };
+    const handleNextStep = () => {
+        setCurrentStep(currentStep + 1);
     };
 
     return (
@@ -586,6 +611,7 @@ function NewIdeaSubmission(props) {
                                             </div>
                                         )}
                                         <Row>
+                                        
                                             <Row className="card mb-4 my-3 comment-card px-0 px-5 py-3 card">
                                                 <div className="question quiz mb-0">
                                                     <b
@@ -601,7 +627,133 @@ function NewIdeaSubmission(props) {
                                                 </div>
 
                                                 <div className=" answers row flex-column p-4">
-                                                    <select
+                                                    {/* <fieldset disabled={condition}>
+                                                        {themesList.map((item, i) => (
+                                                            <div key={i} style={{ // Adjust this padding value
+                                                                lineHeight : "3rem"
+                                                            }} >
+                                                                
+                                                                <label htmlFor={`theme-${i}`}
+                                                                    style={{
+                                                                        fontSize:
+                                                                            '1.4rem',
+                                                                        display:
+                                                                            'flex', 
+                                                                        alignItems:
+                                                                            'center'
+                                                                     }} 
+                                                                >
+                                                                <input
+                                                                    type="radio"
+                                                                    id={`theme-${i}`}
+                                                                    name="theme"
+                                                                    value={item}
+                                                                    checked={item === theme}
+                                                                    onChange={() => setTheme(item)}
+                                                                    style={{
+                                                                        marginRight: '1rem', 
+                                                                        lineHeight : "1rem"
+                                                                    }} 
+                                                                />
+                                                                <img
+                                                                    src={imagesList[i]}
+                                                                    alt={`${item} theme`}
+                                                                    className="theme-image"
+                                                                    style={{
+                                                                        width : "10%",
+                                                                        height : "10%"
+                                                                    }} 
+                                                                />
+                                                                    {item}
+                                                                </label>
+                                                            </div>
+                                                        ))}
+                                                    </fieldset> */}
+                                                    <div className="theme-container row">
+                                                        <div className="theme-column col-6">
+                                                            {leftThemes.map((item, i) => (
+                                                                <div key={i} className="theme-option">
+                                                                    <label htmlFor={`theme-left-${i}`}
+                                                                        style={{
+                                                                            fontSize:
+                                                                                '1.4rem',
+                                                                            display:
+                                                                                'flex', 
+                                                                            alignItems:
+                                                                                'center'
+                                                                         }} 
+                                                                    >
+                                                                    <input
+                                                                        type="radio"
+                                                                        id={`theme-left-${i}`}
+                                                                        name="theme"
+                                                                        value={item}
+                                                                        checked={item === theme}
+                                                                        onChange={() => {setTheme(item);handleNextStep();}}
+                                                                        style={{
+                                                                            marginRight: '1rem', 
+                                                                            lineHeight : "1rem"
+                                                                        }} 
+                                                                    />
+                                                                    
+                                                                        <img
+                                                                            src={leftImages[i]}
+                                                                            alt={`${item} theme`}
+                                                                            className="theme-image"
+                                                                            style={{
+                                                                                width : "15%",
+                                                                                height : "15%"
+                                                                            }} 
+                                                                        />
+                                                                        {item}
+                                                                    </label>
+                                                                </div>
+                                                            ))}
+                                                        </div>
+                                                        <div className="theme-column col-6">
+                                                            {rightThemes.map((item, i) => (
+                                                                <div key={i} className="theme-option">
+                                                                    <label htmlFor={`theme-right-${i}`}
+                                                                        style={{
+                                                                            fontSize:
+                                                                                '1.4rem',
+                                                                            display:
+                                                                                'flex', 
+                                                                            alignItems:
+                                                                                'center'
+                                                                         }} 
+                                                                    >
+                                                                    
+                                                                    <input
+                                                                        type="radio"
+                                                                        id={`theme-right-${i}`}
+                                                                        name="theme"
+                                                                        value={item}
+                                                                        checked={item === theme}
+                                                                        onChange={() => {setTheme(item); handleNextStep();}}
+                                                                        //onClick={handleNextStep()}
+                                                                        style={{
+                                                                            marginRight: '1rem', 
+                                                                            lineHeight : "1rem"
+                                                                        }} 
+                                                                    />
+                                                                    
+                                                                        <img
+                                                                            src={rightImages[i]}
+                                                                            alt={`${item} theme`}
+                                                                            className="theme-image"
+                                                                            style={{
+                                                                                width : "15%",
+                                                                                height : "15%"
+                                                                            }} 
+                                                                        />
+                                                                        {item}
+                                                                    </label>
+                                                                </div>
+                                                            ))}
+                                                        </div>
+                                                    </div>
+                                                    {/* <select
                                                         disabled={condition}
                                                         onChange={(e) =>
                                                             setTheme(
@@ -629,12 +781,14 @@ function NewIdeaSubmission(props) {
                                                                 </option>
                                                             )
                                                         )}
-                                                    </select>
+                                                    </select> */}
                                                 </div>
                                             </Row>
+                                        
 
                                             {theme === 'Others' && (
                                                 <>
+                                                
                                                     <Row className="card mb-4 my-3 comment-card px-0 px-5 py-3 card">
                                                         <div className="question quiz mb-0">
                                                             <b
@@ -670,14 +824,7 @@ function NewIdeaSubmission(props) {
                                                                     maxLength={
                                                                         100
                                                                     }
-                                                                    onChange={(
-                                                                        e
-                                                                    ) =>
-                                                                        setOthersTheme(
-                                                                            e
-                                                                                .target
-                                                                                .value
-                                                                        )
+                                                                    onChange={(e) =>{setOthersTheme(e.target.value); handleNextStep();}
                                                                     }
                                                                 />
                                                             </Label>
@@ -693,6 +840,7 @@ function NewIdeaSubmission(props) {
                                                                     : 0)}
                                                         </div>
                                                     </Row>
+                                               
                                                     <Row className="card mb-4 my-3 comment-card px-0 px-5 py-3 card">
                                                         <div className="question quiz mb-0">
                                                             {theme ===
@@ -746,11 +894,11 @@ function NewIdeaSubmission(props) {
                                                                     onChange={(
                                                                         e
                                                                     ) =>
-                                                                        setOthersPStatment(
+                                                                        {setOthersPStatment(
                                                                             e
                                                                                 .target
                                                                                 .value
-                                                                        )
+                                                                        ); handleNextStep();}
                                                                     }
                                                                 />
                                                             </Label>
@@ -766,113 +914,120 @@ function NewIdeaSubmission(props) {
                                                                     : 0)}
                                                         </div>
                                                     </Row>
+                                                
                                                 </>
                                             )}
                                             {theme !== 'Others' && (
-                                                <Row className="card mb-4 my-3 comment-card px-0 px-5 py-3 card">
-                                                    <div className="question quiz mb-0">
-                                                        <b
-                                                            style={{
-                                                                fontSize:
-                                                                    '1.6rem'
-                                                            }}
-                                                        >
-                                                            {2}.{' '}
-                                                            {t(
-                                                                'student_course.ques2'
-                                                            )}
-                                                        </b>
-                                                    </div>
-
-                                                    <div className=" answers row flex-column p-4">
-                                                        {/* <select
-                                                            disabled={condition}
-                                                            onChange={(e) =>
-                                                                setThemeProId(
-                                                                    e.target
-                                                                        .value
-                                                                )
-                                                            }
-                                                            // value={probStatment}
-                                                            name="teams"
-                                                            id="teams"
-                                                        >
-                                                            {/* <option
-                                                                // disabled
-                                                                value=""
+                                                <>
+                                                
+                                                    <Row className="card mb-4 my-3 comment-card px-0 px-5 py-3 card">
+                                                        <div className="question quiz mb-0">
+                                                            <b
+                                                                style={{
+                                                                    fontSize:
+                                                                        '1.6rem'
+                                                                }}
                                                             >
-                                                                Please select a
-                                                                Problem
-                                                                statement
-                                                            </option> */}
-                                                        {/* {statementList.map(
-                                                            (item, i) => (
-                                                                <option
-                                                                    key={i}
-                                                                    value={
-                                                                        item.theme_problem_id
-                                                                    }
-                                                                    selected={
-                                                                        item.problem_statement ===
-                                                                        probStatment
-                                                                    }
+                                                                {2}.{' '}
+                                                                {t(
+                                                                    'student_course.ques2'
+                                                                )}
+                                                            </b>
+                                                        </div>
+
+                                                        <div className=" answers row flex-column p-4">
+                                                            {/* <select
+                                                                disabled={condition}
+                                                                onChange={(e) =>
+                                                                    setThemeProId(
+                                                                        e.target
+                                                                            .value
+                                                                    )
+                                                                }
+                                                                // value={probStatment}
+                                                                name="teams"
+                                                                id="teams"
+                                                            >
+                                                                {/* <option
+                                                                    // disabled
+                                                                    value=""
                                                                 >
-                                                                    {
-                                                                        item.problem_statement
-                                                                    }
-                                                                </option>
-                                                            )
-                                                        )} */}
-                                                        {/* </select> */}
-                                                        {statementList.map(
-                                                            (item, i) => (
-                                                                <>
-                                                                    <label
+                                                                    Please select a
+                                                                    Problem
+                                                                    statement
+                                                                </option> */}
+                                                            {/* {statementList.map(
+                                                                (item, i) => (
+                                                                    <option
                                                                         key={i}
-                                                                        style={{
-                                                                            margin: '1rem',
-                                                                            fontSize:
-                                                                                '1.6rem'
-                                                                        }}
+                                                                        value={
+                                                                            item.theme_problem_id
+                                                                        }
+                                                                        selected={
+                                                                            item.problem_statement ===
+                                                                            probStatment
+                                                                        }
                                                                     >
-                                                                        <input
-                                                                            disabled={
-                                                                                condition
-                                                                            }
-                                                                            type="radio"
-                                                                            // value={
-                                                                            //     item
-                                                                            // }
-                                                                            value={
-                                                                                item.theme_problem_id
-                                                                            }
-                                                                            checked={
-                                                                                item.problem_statement ===
-                                                                                probStatment
-                                                                            }
-                                                                            onChange={(
-                                                                                e
-                                                                            ) =>
-                                                                                setThemeProId(
-                                                                                    e
-                                                                                        .target
-                                                                                        .value
-                                                                                )
-                                                                            }
-                                                                        />{' '}
                                                                         {
                                                                             item.problem_statement
                                                                         }
-                                                                    </label>
-                                                                    <br />
-                                                                </>
-                                                            )
-                                                        )}
-                                                    </div>
-                                                </Row>
+                                                                    </option>
+                                                                )
+                                                            )} */}
+                                                            {/* </select> */}
+                                                            {statementList.map(
+                                                                (item, i) => (
+                                                                    <>
+                                                                        <label
+                                                                            key={i}
+                                                                            style={{
+                                                                                margin: '1rem',
+                                                                                fontSize:
+                                                                                    '1.6rem'
+                                                                            }}
+                                                                        >
+                                                                            <input
+                                                                                disabled={
+                                                                                    condition
+                                                                                }
+                                                                                type="radio"
+                                                                                // value={
+                                                                                //     item
+                                                                                // }
+                                                                                value={
+                                                                                    item.theme_problem_id
+                                                                                }
+                                                                                checked={
+                                                                                    item.problem_statement ===
+                                                                                    probStatment
+                                                                                }
+                                                                                onChange={(
+                                                                                    e
+                                                                                ) =>
+                                                                                    setThemeProId(
+                                                                                        e
+                                                                                            .target
+                                                                                            .value
+                                                                                    )
+                                                                                }
+                                                                            />{' '}
+                                                                            {
+                                                                                item.problem_statement
+                                                                            }
+                                                                        </label>
+                                                                        <br />
+                                                                    </>
+                                                                )
+                                                            )}
+                                                        </div>
+                                                    </Row>
+                                               
+                                                </>
                                             )}
                                             {theme !== 'Others' &&
                                                 probStatment === 'Others' && (
+                                                    <>
+                                                    
                                                     <Row className="card mb-4 my-3 comment-card px-0 px-5 py-3 card">
                                                         <div className="question quiz mb-0">
                                                             <b
@@ -931,162 +1086,169 @@ function NewIdeaSubmission(props) {
                                                                     : 0)}
                                                         </div>
                                                     </Row>
+                                                    
+                                                    </>
                                                 )}
-                                            <Row className="card mb-4 my-3 comment-card px-0 px-5 py-3 card">
-                                                <div className="question quiz mb-0">
-                                                    {theme === 'Others' ? (
-                                                        <b
-                                                            style={{
-                                                                fontSize:
-                                                                    '1.6rem'
-                                                            }}
-                                                        >
-                                                            {4}.{' '}
-                                                            {t(
-                                                                'student_course.ques3description'
-                                                            )}
-                                                        </b>
-                                                    ) : theme !== 'Others' &&
-                                                      probStatment ===
-                                                          'Others' ? (
-                                                        <b
-                                                            style={{
-                                                                fontSize:
-                                                                    '1.6rem'
-                                                            }}
-                                                        >
-                                                            {4}.{' '}
-                                                            {t(
-                                                                'student_course.ques3description'
-                                                            )}
-                                                        </b>
-                                                    ) : (
-                                                        <b
-                                                            style={{
-                                                                fontSize:
-                                                                    '1.6rem'
-                                                            }}
-                                                        >
-                                                            {3}.{' '}
-                                                            {t(
-                                                                'student_course.ques3description'
-                                                            )}
-                                                        </b>
-                                                    )}
-                                                </div>
-                                                <FormGroup
-                                                    check
-                                                    className="answers"
-                                                >
-                                                    <Label
+                                            
+                                                <Row className="card mb-4 my-3 comment-card px-0 px-5 py-3 card">
+                                                    <div className="question quiz mb-0">
+                                                        {theme === 'Others' ? (
+                                                            <b
+                                                                style={{
+                                                                    fontSize:
+                                                                        '1.6rem'
+                                                                }}
+                                                            >
+                                                                {4}.{' '}
+                                                                {t(
+                                                                    'student_course.ques3description'
+                                                                )}
+                                                            </b>
+                                                        ) : theme !== 'Others' &&
+                                                        probStatment ===
+                                                            'Others' ? (
+                                                            <b
+                                                                style={{
+                                                                    fontSize:
+                                                                        '1.6rem'
+                                                                }}
+                                                            >
+                                                                {4}.{' '}
+                                                                {t(
+                                                                    'student_course.ques3description'
+                                                                )}
+                                                            </b>
+                                                        ) : (
+                                                            <b
+                                                                style={{
+                                                                    fontSize:
+                                                                        '1.6rem'
+                                                                }}
+                                                            >
+                                                                {3}.{' '}
+                                                                {t(
+                                                                    'student_course.ques3description'
+                                                                )}
+                                                            </b>
+                                                        )}
+                                                    </div>
+                                                    <FormGroup
                                                         check
-                                                        style={{
-                                                            width: '100%'
-                                                        }}
+                                                        className="answers"
                                                     >
-                                                        <TextArea
-                                                            disabled={
-                                                                condition ||
-                                                                (theme !==
-                                                                    'Others' &&
-                                                                    probStatment !==
-                                                                        'Others')
-                                                            }
-                                                            placeholder="Enter the Problem statement"
-                                                            value={description}
-                                                            maxLength={1000}
-                                                            onChange={(e) =>
-                                                                setDescription(
-                                                                    e.target
-                                                                        .value
-                                                                )
-                                                            }
-                                                        />
-                                                    </Label>
-                                                </FormGroup>
-                                                <div className="text-end">
-                                                    {t('student_course.chars')}{' '}
-                                                    :
-                                                    {1000 -
-                                                        (description
-                                                            ? description.length
-                                                            : 0)}
-                                                </div>
-                                            </Row>
-                                            <Row className="card mb-4 my-3 comment-card px-0 px-5 py-3 card">
-                                                <div className="question quiz mb-0">
-                                                    {theme === 'Others' ? (
-                                                        <b
+                                                        <Label
+                                                            check
                                                             style={{
-                                                                fontSize:
-                                                                    '1.6rem'
+                                                                width: '100%'
                                                             }}
                                                         >
-                                                            {5}.{' '}
-                                                            {t(
-                                                                'student_course.ques4ideatitile'
-                                                            )}
-                                                        </b>
-                                                    ) : probStatment ===
-                                                      'Others' ? (
-                                                        <b
-                                                            style={{
-                                                                fontSize:
-                                                                    '1.6rem'
-                                                            }}
-                                                        >
-                                                            {5}.{' '}
-                                                            {t(
-                                                                'student_course.ques4ideatitile'
-                                                            )}
-                                                        </b>
-                                                    ) : (
-                                                        <b
-                                                            style={{
-                                                                fontSize:
-                                                                    '1.6rem'
-                                                            }}
-                                                        >
-                                                            {4}.{' '}
-                                                            {t(
-                                                                'student_course.ques4ideatitile'
-                                                            )}
-                                                        </b>
-                                                    )}
-                                                </div>
-                                                <FormGroup
-                                                    check
-                                                    className="answers"
-                                                >
-                                                    <Label
+                                                            <TextArea
+                                                                disabled={
+                                                                    condition ||
+                                                                    (theme !==
+                                                                        'Others' &&
+                                                                        probStatment !==
+                                                                            'Others')
+                                                                }
+                                                                placeholder="Enter the Problem statement"
+                                                                value={description}
+                                                                maxLength={1000}
+                                                                onChange={(e) =>
+                                                                    setDescription(
+                                                                        e.target
+                                                                            .value
+                                                                    )
+                                                                }
+                                                            />
+                                                        </Label>
+                                                    </FormGroup>
+                                                    <div className="text-end">
+                                                        {t('student_course.chars')}{' '}
+                                                        :
+                                                        {1000 -
+                                                            (description
+                                                                ? description.length
+                                                                : 0)}
+                                                    </div>
+                                                </Row>
+                                            
+                                            
+                                                <Row className="card mb-4 my-3 comment-card px-0 px-5 py-3 card">
+                                                    <div className="question quiz mb-0">
+                                                        {theme === 'Others' ? (
+                                                            <b
+                                                                style={{
+                                                                    fontSize:
+                                                                        '1.6rem'
+                                                                }}
+                                                            >
+                                                                {5}.{' '}
+                                                                {t(
+                                                                    'student_course.ques4ideatitile'
+                                                                )}
+                                                            </b>
+                                                        ) : probStatment ===
+                                                        'Others' ? (
+                                                            <b
+                                                                style={{
+                                                                    fontSize:
+                                                                        '1.6rem'
+                                                                }}
+                                                            >
+                                                                {5}.{' '}
+                                                                {t(
+                                                                    'student_course.ques4ideatitile'
+                                                                )}
+                                                            </b>
+                                                        ) : (
+                                                            <b
+                                                                style={{
+                                                                    fontSize:
+                                                                        '1.6rem'
+                                                                }}
+                                                            >
+                                                                {4}.{' '}
+                                                                {t(
+                                                                    'student_course.ques4ideatitile'
+                                                                )}
+                                                            </b>
+                                                        )}
+                                                    </div>
+                                                    <FormGroup
                                                         check
-                                                        style={{
-                                                            width: '100%'
-                                                        }}
+                                                        className="answers"
                                                     >
-                                                        <TextArea
-                                                            disabled={condition}
-                                                            placeholder="Enter your Idea Title Name"
-                                                            value={ideaTitle}
-                                                            maxLength={200}
-                                                            onChange={(e) =>
-                                                                setIdeaTitle(
-                                                                    e.target
-                                                                        .value
-                                                                )
-                                                            }
-                                                        />
-                                                    </Label>
-                                                </FormGroup>
-                                                <div className="text-end">
-                                                    {t('student_course.chars')}{' '}
-                                                    :
-                                                    {200 -
-                                                        (ideaTitle
-                                                            ? ideaTitle.length
-                                                            : 0)}
-                                                </div>
-                                            </Row>
+                                                        <Label
+                                                            check
+                                                            style={{
+                                                                width: '100%'
+                                                            }}
+                                                        >
+                                                            <TextArea
+                                                                disabled={condition}
+                                                                placeholder="Enter your Idea Title Name"
+                                                                value={ideaTitle}
+                                                                maxLength={200}
+                                                                onChange={(e) =>
+                                                                    setIdeaTitle(
+                                                                        e.target
+                                                                            .value
+                                                                    )
+                                                                }
+                                                            />
+                                                        </Label>
+                                                    </FormGroup>
+                                                    <div className="text-end">
+                                                        {t('student_course.chars')}{' '}
+                                                        :
+                                                        {200 -
+                                                            (ideaTitle
+                                                                ? ideaTitle.length
+                                                                : 0)}
+                                                    </div>
+                                                </Row>
+                                            
+                                            
                                             <Row className="card mb-4 my-3 comment-card px-0 px-5 py-3 card">
                                                 <div className="question quiz mb-0">
                                                     {theme === 'Others' ? (
@@ -1161,6 +1323,8 @@ function NewIdeaSubmission(props) {
                                                             : 0)}
                                                 </div>
                                             </Row>
+                                            
+                                           
                                             <Row className="card mb-4 my-3 comment-card px-0 px-5 py-3 card">
                                                 <div className="question quiz mb-0">
                                                     {theme === 'Others' ? (
@@ -1235,6 +1399,7 @@ function NewIdeaSubmission(props) {
                                                             : 0)}
                                                 </div>
                                             </Row>
+                                           
                                             <Row className="card mb-4 my-3 comment-card px-0 px-5 py-3 card">
                                                 <div className="question quiz mb-0">
                                                     {theme === 'Others' ? (
@@ -1321,7 +1486,10 @@ function NewIdeaSubmission(props) {
                                                     </div>
                                                 </div>
                                             </Row>
+                                            
                                             {protoType === 'YES' && (
+                                                <>
+                                                
                                                 <Row className="card mb-4 my-3 comment-card px-0 px-5 py-3 card">
                                                     <div className="question quiz mb-0">
                                                         {/* {theme === 'Others' ? ( */}
@@ -1462,175 +1630,181 @@ function NewIdeaSubmission(props) {
                                                         </div>
                                                     </div>
                                                 </Row>
+                                                
+                                                </>
                                             )}
-                                            <Row className="card mb-4 my-3 comment-card px-0 px-5 py-3 card">
-                                                <div className="question quiz mb-0">
-                                                    {/* {protoType === 'YES' ? ( */}
-                                                    {theme === 'Others' ? (
-                                                        <b
-                                                            style={{
-                                                                fontSize:
-                                                                    '1.6rem'
-                                                            }}
-                                                        >
-                                                            {9}.{' '}
-                                                            {t(
-                                                                'student_course.ques9publication'
-                                                            )}
-                                                        </b>
-                                                    ) : probStatment ===
-                                                      'Others' ? (
-                                                        <b
-                                                            style={{
-                                                                fontSize:
-                                                                    '1.6rem'
-                                                            }}
-                                                        >
-                                                            {9}.{' '}
-                                                            {t(
-                                                                'student_course.ques9publication'
-                                                            )}
-                                                        </b>
-                                                    ) : (
-                                                        <b
-                                                            style={{
-                                                                fontSize:
-                                                                    '1.6rem'
-                                                            }}
-                                                        >
-                                                            {8}.{' '}
-                                                            {t(
-                                                                'student_course.ques9publication'
-                                                            )}
-                                                        </b>
-                                                    )}
-                                                    {/* ) : theme === 'Others' &&
-                                                      protoType === 'YES' ? (
-                                                        <b
-                                                            style={{
-                                                                fontSize:
-                                                                    '1.6rem'
-                                                            }}
-                                                        >
-                                                            {10}.{' '}
-                                                            {t(
-                                                                'student_course.ques9publication'
-                                                            )}
-                                                        </b>
-                                                    ) : theme === 'Others' &&
-                                                      protoType !== 'YES' ? (
-                                                        <b
-                                                            style={{
-                                                                fontSize:
-                                                                    '1.6rem'
-                                                            }}
-                                                        >
-                                                            {9}.{' '}
-                                                            {t(
-                                                                'student_course.ques9publication'
-                                                            )}
-                                                        </b>
-                                                    ) : theme === 'Others' &&
-                                                      protoType === 'NO' ? (
-                                                        <b
-                                                            style={{
-                                                                fontSize:
-                                                                    '1.6rem'
-                                                            }}
-                                                        >
-                                                            {9}.{' '}
-                                                            {t(
-                                                                'student_course.ques9publication'
-                                                            )}
-                                                        </b>
-                                                    ) : (
-                                                        <b
-                                                            style={{
-                                                                fontSize:
-                                                                    '1.6rem'
-                                                            }}
-                                                        >
-                                                            {8}.{' '}
-                                                            {t(
-                                                                'student_course.ques9publication'
-                                                            )}
-                                                        </b>
-                                                    )} */}
-                                                </div>
-
-                                                <div className=" answers row flex-column p-4">
-                                                    <div>
-                                                        {ideaSubmitted.map(
-                                                            (item, i) => (
-                                                                <>
-                                                                    <label
-                                                                        key={i}
-                                                                        style={{
-                                                                            margin: '1rem',
-                                                                            fontSize:
-                                                                                '1.6rem'
-                                                                        }}
-                                                                    >
-                                                                        <input
-                                                                            disabled={
-                                                                                condition
-                                                                            }
-                                                                            type="radio"
-                                                                            value={
-                                                                                item
-                                                                            }
-                                                                            checked={
-                                                                                item ===
-                                                                                ideaPublication
-                                                                            }
-                                                                            onChange={(
-                                                                                e
-                                                                            ) =>
-                                                                                setIdeaPublication(
-                                                                                    e
-                                                                                        .target
-                                                                                        .value
-                                                                                )
-                                                                            }
-                                                                        />{' '}
-                                                                        {item}
-                                                                    </label>
-                                                                    <br />
-                                                                </>
-                                                            )
+                                            
+                                                <Row className="card mb-4 my-3 comment-card px-0 px-5 py-3 card">
+                                                    <div className="question quiz mb-0">
+                                                        {/* {protoType === 'YES' ? ( */}
+                                                        {theme === 'Others' ? (
+                                                            <b
+                                                                style={{
+                                                                    fontSize:
+                                                                        '1.6rem'
+                                                                }}
+                                                            >
+                                                                {9}.{' '}
+                                                                {t(
+                                                                    'student_course.ques9publication'
+                                                                )}
+                                                            </b>
+                                                        ) : probStatment ===
+                                                        'Others' ? (
+                                                            <b
+                                                                style={{
+                                                                    fontSize:
+                                                                        '1.6rem'
+                                                                }}
+                                                            >
+                                                                {9}.{' '}
+                                                                {t(
+                                                                    'student_course.ques9publication'
+                                                                )}
+                                                            </b>
+                                                        ) : (
+                                                            <b
+                                                                style={{
+                                                                    fontSize:
+                                                                        '1.6rem'
+                                                                }}
+                                                            >
+                                                                {8}.{' '}
+                                                                {t(
+                                                                    'student_course.ques9publication'
+                                                                )}
+                                                            </b>
                                                         )}
+                                                        {/* ) : theme === 'Others' &&
+                                                        protoType === 'YES' ? (
+                                                            <b
+                                                                style={{
+                                                                    fontSize:
+                                                                        '1.6rem'
+                                                                }}
+                                                            >
+                                                                {10}.{' '}
+                                                                {t(
+                                                                    'student_course.ques9publication'
+                                                                )}
+                                                            </b>
+                                                        ) : theme === 'Others' &&
+                                                        protoType !== 'YES' ? (
+                                                            <b
+                                                                style={{
+                                                                    fontSize:
+                                                                        '1.6rem'
+                                                                }}
+                                                            >
+                                                                {9}.{' '}
+                                                                {t(
+                                                                    'student_course.ques9publication'
+                                                                )}
+                                                            </b>
+                                                        ) : theme === 'Others' &&
+                                                        protoType === 'NO' ? (
+                                                            <b
+                                                                style={{
+                                                                    fontSize:
+                                                                        '1.6rem'
+                                                                }}
+                                                            >
+                                                                {9}.{' '}
+                                                                {t(
+                                                                    'student_course.ques9publication'
+                                                                )}
+                                                            </b>
+                                                        ) : (
+                                                            <b
+                                                                style={{
+                                                                    fontSize:
+                                                                        '1.6rem'
+                                                                }}
+                                                            >
+                                                                {8}.{' '}
+                                                                {t(
+                                                                    'student_course.ques9publication'
+                                                                )}
+                                                            </b>
+                                                        )} */}
                                                     </div>
-                                                </div>
-                                            </Row>
-                                            <Row className="card mb-4 my-3 comment-card px-0 px-5 py-3 card">
-                                                <Label
-                                                    check
-                                                    style={{
-                                                        fontSize: '1.8rem'
-                                                        // margin: '1rem'
-                                                    }}
-                                                >
-                                                    <Input
+
+                                                    <div className=" answers row flex-column p-4">
+                                                        <div>
+                                                            {ideaSubmitted.map(
+                                                                (item, i) => (
+                                                                    <>
+                                                                        <label
+                                                                            key={i}
+                                                                            style={{
+                                                                                margin: '1rem',
+                                                                                fontSize:
+                                                                                    '1.6rem'
+                                                                            }}
+                                                                        >
+                                                                            <input
+                                                                                disabled={
+                                                                                    condition
+                                                                                }
+                                                                                type="radio"
+                                                                                value={
+                                                                                    item
+                                                                                }
+                                                                                checked={
+                                                                                    item ===
+                                                                                    ideaPublication
+                                                                                }
+                                                                                onChange={(
+                                                                                    e
+                                                                                ) =>
+                                                                                    setIdeaPublication(
+                                                                                        e
+                                                                                            .target
+                                                                                            .value
+                                                                                    )
+                                                                                }
+                                                                            />{' '}
+                                                                            {item}
+                                                                        </label>
+                                                                        <br />
+                                                                    </>
+                                                                )
+                                                            )}
+                                                        </div>
+                                                    </div>
+                                                </Row>
+                                          
+                                            
+                                                <Row className="card mb-4 my-3 comment-card px-0 px-5 py-3 card">
+                                                    <Label
+                                                        check
                                                         style={{
-                                                            // fontSize: '1.8rem',
-                                                            margin: '1rem'
+                                                            fontSize: '1.8rem'
+                                                            // margin: '1rem'
                                                         }}
-                                                        type="checkbox"
-                                                        name="self confirm"
-                                                        disabled={condition}
-                                                        id="self confirm"
-                                                        checked={selfCheck}
-                                                        onChange={(e) =>
-                                                            setSelfCheck(
-                                                                e.target.checked
-                                                            )
+                                                    >
+                                                        <Input
+                                                            style={{
+                                                                // fontSize: '1.8rem',
+                                                                margin: '1rem'
+                                                            }}
+                                                            type="checkbox"
+                                                            name="self confirm"
+                                                            disabled={condition}
+                                                            id="self confirm"
+                                                            checked={selfCheck}
+                                                            onChange={(e) =>
+                                                                setSelfCheck(
+                                                                    e.target.checked
+                                                                )
+                                                            }
+                                                        />
+                                                        {
+                                                            ' I confirm that the Idea Submitted now submitted is not copied or plagiarized version.'
                                                         }
-                                                    />
-                                                    {
-                                                        ' I confirm that the Idea Submitted now submitted is not copied or plagiarized version.'
-                                                    }
-                                                </Label>
-                                            </Row>
+                                                    </Label>
+                                                </Row>
+                                           
                                         </Row>
                                     </Form>
                                 </CardBody>

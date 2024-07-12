@@ -247,3 +247,23 @@
 .selectbtn{
     margin-left: 1rem;
 }
+
+.theme-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.theme-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.theme-option {
+    margin-bottom: 10px;
+}
+
+.theme-image {
+    width: 50px; /* Adjust as necessary */
+    height: 50px; /* Adjust as necessary */
+    margin-right: 10px;
+}

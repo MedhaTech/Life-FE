@@ -219,14 +219,14 @@ const IdeasPageNew = () => {
         if (challengesSubmittedResponse.length === 0)
             dispatch(
                 getStudentChallengeSubmittedResponse(
-                    currentUser?.data[0]?.team_id,
+                    currentUser?.data[0]?.student_id,
                     language
                 )
             );
     }, [
         language,
         dispatch,
-        currentUser?.data[0]?.team_id,
+        currentUser?.data[0]?.student_id,
         challengesSubmittedResponse
     ]);
     const handleWordCount = (e, i, max) => {
@@ -308,7 +308,7 @@ const IdeasPageNew = () => {
         // where list = diescode //
         const body = JSON.stringify({
             mentor_id: currentUser?.data[0]?.mentor_id,
-            team_id: currentUser?.data[0]?.team_id,
+            student_id: currentUser?.data[0]?.student_id,
             team_name: currentUser?.data[0]?.team_name,
             title: submittedResponse[1]?.selected_option[0]
         });
@@ -372,7 +372,7 @@ const IdeasPageNew = () => {
 
                     dispatch(
                         getStudentChallengeSubmittedResponse(
-                            currentUser?.data[0]?.team_id,
+                            currentUser?.data[0]?.student_id,
                             language
                         )
                     );
@@ -519,7 +519,7 @@ const IdeasPageNew = () => {
         const subId = encryptGlobal(
             JSON.stringify({
                 challenge_id: '1',
-                team_id: currentUser?.data[0]?.team_id,
+                student_id: currentUser?.data[0]?.student_id,
                 locale
             })
         );
@@ -560,7 +560,7 @@ const IdeasPageNew = () => {
                     setTimeout(() => {
                         dispatch(
                             getStudentChallengeSubmittedResponse(
-                                currentUser?.data[0]?.team_id,
+                                currentUser?.data[0]?.student_id,
                                 language
                             )
                         );
@@ -588,7 +588,7 @@ const IdeasPageNew = () => {
             }
             const axiosConfig = getNormalHeaders(KEY.User_API_Key);
             const subId = encryptGlobal(
-                JSON.stringify({ team_id: currentUser?.data[0]?.team_id })
+                JSON.stringify({ student_id: currentUser?.data[0]?.student_id })
             );
             const result = await axios
                 .post(`${URL.uploadFile}?Data=${subId}`, formData, axiosConfig)
@@ -606,7 +606,7 @@ const IdeasPageNew = () => {
                 setTimeout(() => {
                     dispatch(
                         getStudentChallengeSubmittedResponse(
-                            currentUser?.data[0]?.team_id,
+                            currentUser?.data[0]?.student_id,
                             language
                         )
                     );
