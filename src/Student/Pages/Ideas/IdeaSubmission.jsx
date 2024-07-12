@@ -28,12 +28,12 @@ const IdeaSubmission = () => {
     const [showCompleted, setShowCompleted] = useState(false);
     const [view, setView] = useState(false);
     const [isideadisable, setIsideadisable] = useState(false);
-    const TeamId = currentUser?.data[0]?.team_id;
+    const StudentId = currentUser?.data[0]?.student_id;
     const [ideaSubmittedData, setIdeaSubmittedData] = useState({});
     useEffect(() => {
         const Param = encryptGlobal(
             JSON.stringify({
-                team_id: TeamId
+                student_id: StudentId
             })
         );
         var configidea = {
@@ -50,6 +50,7 @@ const IdeaSubmission = () => {
         axios(configidea)
             .then(function (response) {
                 if (response.status === 200) {
+                    console.log(response);
                     if (response.data.data !== null) {
                         setIdeaSubmittedData(response.data.data);
                         // setIsideadisable(true);
@@ -88,11 +89,11 @@ const IdeaSubmission = () => {
     useLayoutEffect(() => {
         dispatch(
             getStudentChallengeSubmittedResponse(
-                currentUser?.data[0]?.team_id,
+                currentUser?.data[0]?.student_id,
                 language
             )
         );
-    }, [dispatch, language, currentUser?.data[0]?.team_id]);
+    }, [dispatch, language, currentUser?.data[0]?.student_id]);
     useLayoutEffect(() => {
         if (ideaSubmittedData && ideaSubmittedData.length > 0) {
             ideaSubmittedData[0].status === 'DRAFT'

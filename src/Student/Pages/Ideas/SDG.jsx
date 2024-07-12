@@ -51,7 +51,7 @@ const SDG = ({ setShowChallenges }) => {
         };
         dispatch(
             initiateIdea(
-                currentUser?.data[0]?.team_id,
+                currentUser?.data[0]?.student_id,
                 language,
                 history,
                 initialSizeData,
