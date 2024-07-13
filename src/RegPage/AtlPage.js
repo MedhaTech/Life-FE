@@ -30,7 +30,6 @@ import OtpInput from 'react-otp-input-rc-17';
 import { useHistory } from 'react-router-dom';
 import { isDisabled } from '@testing-library/user-event/dist/utils';
 import { decryptGlobal } from '../constants/encryptDecrypt';
-
 function AtlPage() {
     const { t } = useTranslation();
     const history = useHistory();

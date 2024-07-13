@@ -18,7 +18,7 @@ import {
     FaHouseUser,
     FaCertificate
 } from 'react-icons/fa';
-import { RiSurveyFill, RiLockPasswordFill } from 'react-icons/ri';
+import { RiSurveyFill, RiLockPasswordFill, RiTeamFill } from 'react-icons/ri';
 import axios from 'axios';
 
 import 'react-pro-sidebar/dist/css/styles.css';
@@ -175,6 +175,20 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                         >
                             {/* Dashboard */}
                             {t('home.dashboard')}
+                        </NavLink>
+                    </MenuItem>
+                    <MenuItem
+                        icon={<RiTeamFill />}
+                        className={
+                            location.pathname === '/teams' && 'sidebar-active'
+                        }
+                    >
+                        <NavLink
+                            exact={true}
+                            // onClick={(e) => handleClick(e, '')}
+                            to={'/teams'}
+                        >
+                            {t('teacher.team')}
                         </NavLink>
                     </MenuItem>
                     <MenuItem
