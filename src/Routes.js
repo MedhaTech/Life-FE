@@ -165,6 +165,8 @@ import EAdminSelectedfinallist from './Evaluator/Admin/Evaluation/FinalResults/V
 import EadminEditProfile from './Evaluator/Admin/Evaluator/EadminEditProfile';
 import EadminSelDistricts from './Evaluator/Admin/EvalProcess/SelectingDistricts';
 import AtlPage from './RegPage/AtlPage';
+import SingleReg from './RegPage/SingleReg';
+
 import NonAtlPage from './RegPage/NonAtlPage';
 import EditMentor from './Teachers/Teams/EditMentor';
 import AddMentor from './Teachers/Teams/AddMentorDetails';
@@ -208,6 +210,9 @@ import DistAbstractReport from './Admin/Reports/Helpers/DistAbstractReport';
 import InstTypePerformanceReport from './Admin/Reports/Helpers/InstTypePerformance';
 import InstWiseReport from './Admin/Reports/Helpers/InstWiseReport';
 import YearWiseReport from './Admin/Reports/Helpers/YearWiseReport';
+import CreateTeam from './Student/Pages/Teams/CreateTeam';
+import TeamsStu from './Student/Pages/Teams/index';
+
 function MyComponent() {
     window.location.href = `${process.env.REACT_APP_LANDING_PAGE_URL}`;
     return null;
@@ -234,8 +239,13 @@ const Routers = () => {
                     <Route
                         exact={true}
                         path="/registration"
-                        render={() => <AtlPage />}
+                        render={() => <SingleReg />}
                     />
+                    {/* <Route
+                        exact={true}
+                        path="/registration"
+                        render={() => <AtlPage />}
+                    /> */}
                     <Route
                         exact={true}
                         path="/register/atl"
@@ -564,6 +574,18 @@ const Routers = () => {
                         path="/faq"
                         user="STUDENT"
                         component={FaqPage}
+                    />
+                    <ProtectedRoute
+                        exact
+                        path="/team-creation"
+                        user="STUDENT"
+                        component={CreateTeam}
+                    />
+                    <ProtectedRoute
+                        exact
+                        path="/teams"
+                        user="STUDENT"
+                        component={TeamsStu}
                     />
                     <ProtectedRoute
                         exact
