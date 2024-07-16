@@ -26,6 +26,8 @@ const InstructionsPage = (props) => {
     const StudentId = currentUser?.data[0]?.student_id;
     const userId = currentUser?.data[0]?.user_id;
     const district = currentUser?.data[0]?.district;
+    const state = currentUser?.data[0]?.state;
+
     const [button, setButton] = useState('');
     const [pageEnable, setPageEnable] = useState(true);
 
@@ -45,12 +47,14 @@ const InstructionsPage = (props) => {
     useEffect(() => {
         nextButtonApi();
     }, []);
+
     async function apiCall() {
         // Dice code list API //
         const body = JSON.stringify({
             student_id: StudentId,
             initiated_by: userId,
-            district: district
+            district: district,
+            state: state
         });
         var config = {
             method: 'post',
@@ -97,7 +101,7 @@ const InstructionsPage = (props) => {
         axios(config)
             .then(function (response) {
                 if (response.status === 200) {
-                    setButton(response.data.data === null);
+                    setButton(response.data.count);
                 }
             })
             .catch(function (error) {
@@ -162,21 +166,21 @@ const InstructionsPage = (props) => {
                                             </a> */}
                                             {/* </div> */}
                                             {/* <div className="mx-5"> */}
-                                            {button ? (
-                                                <Button
-                                                    label={t('idea_page.start')}
-                                                    btnClass="primary mt-4 mx-4"
-                                                    size="small"
-                                                    onClick={handleStart}
-                                                />
-                                            ) : (
+                                            {/* {button === 0 ? ( */}
+                                            <Button
+                                                label={t('idea_page.start')}
+                                                btnClass="primary mt-4 mx-4"
+                                                size="small"
+                                                onClick={handleStart}
+                                            />
+                                            {/* ) : (
                                                 <Button
                                                     label={t('idea_page.next')}
                                                     btnClass="primary mt-4 mx-4"
                                                     size="small"
                                                     onClick={handleNext}
                                                 />
-                                            )}
+                                            )} */}
                                             {/* </div> */}
                                         </div>
                                     </CardBody>
@@ -187,7 +191,7 @@ const InstructionsPage = (props) => {
                 </div>
             </div>
         </Layout>
-    ) ;
+    );
     // : (
     //     <Layout title="Idea Submission">
     //         <CommonPage

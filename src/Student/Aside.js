@@ -42,7 +42,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
     const dispatch = useDispatch();
     const [ideaSubmittedData, setIdeaSubmittedData] = useState({});
     const currentUser = getCurrentUser('current_user');
-    const TeamId = currentUser?.data[0]?.team_id;
+    const StudentId = currentUser?.data[0]?.student_id;
 
     // const presuveyStatusGl = useSelector(
     //     (state) => state?.studentRegistration.presuveyStatusGl
@@ -68,7 +68,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
         }
         const Param = encryptGlobal(
             JSON.stringify({
-                team_id: TeamId
+                student_id: StudentId
             })
         );
         var configidea = {
@@ -85,8 +85,9 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
         axios(configidea)
             .then(function (response) {
                 if (response.status === 200) {
+                    // console.log(response, 'button');
                     // if (response.data.data !== null) {
-                    setIdeaSubmittedData(response.data.data[0]);
+                    setIdeaSubmittedData(response.data.count);
                     // }
                 }
             })
@@ -203,11 +204,11 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                         <NavLink
                             exact={true}
                             // onClick={handleClick}
+                            // to={'/instructions'}
                             to={
-                                ideaSubmittedData.status == 'SUBMITTED' ||
-                                ideaSubmittedData.status == 'DRAFT'
-                                    ? '/challenges'
-                                    : '/instructions'
+                                ideaSubmittedData == 0
+                                    ? '/instructions'
+                                    : '/List'
                             }
                         >
                             {t('home.idea_submission')}

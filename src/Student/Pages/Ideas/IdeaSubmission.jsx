@@ -94,17 +94,17 @@ const IdeaSubmission = () => {
             )
         );
     }, [dispatch, language, currentUser?.data[0]?.student_id]);
-    useLayoutEffect(() => {
-        if (ideaSubmittedData && ideaSubmittedData.length > 0) {
-            ideaSubmittedData[0].status === 'DRAFT'
-                ? setShowChallenges(true)
-                : view
-                ? setShowChallenges(true)
-                : setShowCompleted(true);
-        } else {
-            setShowChallenges(false);
-        }
-    }, [ideaSubmittedData, view]);
+    // useLayoutEffect(() => {
+    //     if (ideaSubmittedData && ideaSubmittedData.length > 0) {
+    //         ideaSubmittedData[0].status === 'DRAFT'
+    //             ? setShowChallenges(true)
+    //             : view
+    //             ? setShowChallenges(true)
+    //             : setShowCompleted(true);
+    //     } else {
+    //         setShowChallenges(false);
+    //     }
+    // }, [ideaSubmittedData, view]);
     const commonPageText = t('student.idea_submitted_desc');
     const handleView = () => {
         // here we can see the idea submission //
@@ -118,15 +118,16 @@ const IdeaSubmission = () => {
         setShowCompleted(true);
         // setView(true);
     };
-    return showCompleted ? (
-        <Layout title="Idea Submission">
-            <CommonPage
-                text={commonPageText}
-                showButton={true}
-                showChallenges={handleView}
-            />
-        </Layout>
-    ) : (
+    return (
+        // return showCompleted ? (
+        //     <Layout title="Idea Submission">
+        //         <CommonPage
+        //             text={commonPageText}
+        //             showButton={true}
+        //             showChallenges={handleView}
+        //         />
+        //     </Layout>
+        // ) : (
         // isideadisable ?
         // <IdeasPageNew />
         <NewIdeaSubmission

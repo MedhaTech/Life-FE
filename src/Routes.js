@@ -212,7 +212,7 @@ import InstWiseReport from './Admin/Reports/Helpers/InstWiseReport';
 import YearWiseReport from './Admin/Reports/Helpers/YearWiseReport';
 import CreateTeam from './Student/Pages/Teams/CreateTeam';
 import TeamsStu from './Student/Pages/Teams/index';
-
+import MultiIdeasList from './Student/Pages/Ideas/MultiIdeasList';
 function MyComponent() {
     window.location.href = `${process.env.REACT_APP_LANDING_PAGE_URL}`;
     return null;
@@ -538,6 +538,12 @@ const Routers = () => {
                         path="/instructions"
                         user="STUDENT"
                         component={InstructionsPage}
+                    />
+                    <ProtectedRoute
+                        exact
+                        path="/List"
+                        user="STUDENT"
+                        component={MultiIdeasList}
                     />
                     <ProtectedRoute
                         exact
@@ -1030,11 +1036,11 @@ const Routers = () => {
                     />
 
                     {/* TEACHERS ROUTES */}
-                    <Route
+                    {/* <Route
                         exact={true}
                         path="/mentor"
                         render={() => <TeacherLogin />}
-                    />
+                    /> */}
                     <ProtectedRoute
                         exact={true}
                         path="/mentor/dashboard"
