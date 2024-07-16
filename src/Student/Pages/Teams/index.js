@@ -34,23 +34,22 @@ const TicketsPage = () => {
     const [btn, setBtn] = useState('');
     const [stuList, setStuList] = useState([]);
     const [totalCount, setTotalCount] = useState({});
-    // useEffect(() => {
-    //     if (currentUser?.data[0]?.mentor_id) {
-    //         teamListbymentorid(currentUser?.data[0]?.mentor_id);
-    //     }
-    // }, [currentUser?.data[0]?.mentor_id]);
+    useEffect(() => {
+        if (currentUser?.data[0]?.student_id) {
+            teamListbymentorid(currentUser?.data[0]?.student_id);
+        }
+    }, [currentUser?.data[0]?.student_id]);
 
-    const teamListbymentorid = (mentorid) => {
+    const teamListbymentorid = (student_id) => {
         const teamparam = encryptGlobal(
             JSON.stringify({
-                mentor_id: mentorid
+                student_id: student_id
             })
         );
         var config = {
             method: 'get',
             url:
-                process.env.REACT_APP_API_BASE_URL +
-                `/teams/list?Data=${teamparam}`,
+                process.env.REACT_APP_API_BASE_URL + `/teams?Data=${teamparam}`,
             headers: {
                 'Content-Type': 'application/json',
                 Accept: 'application/json',
@@ -72,6 +71,8 @@ const TicketsPage = () => {
                 );
                 setTotalCount(total);
                 if (response.status === 200) {
+                    console.log(response, 'aaaaa');
+
                     setTeamsList(response.data.data);
                 }
             })
@@ -105,11 +106,21 @@ const TicketsPage = () => {
                 // maxlength: '5',
                 width: '20rem'
             },
-            // {
-            //     name: 'MentorName',
-            //     selector: 'moc_name',
-            //     width: '20rem'
-            // },
+            {
+                name: 'Student Name',
+                selector: (row) => row.student_name,
+                width: '20rem'
+            },
+            {
+                name: 'Student Email',
+                selector: (row) => row.student_email,
+                width: '20rem'
+            },
+            {
+                name: 'Student Mobile Number',
+                selector: (row) => row.student_mobile,
+                width: '30rem'
+            }
             // {
             //     name: 'Gender',
             //     selector: 'moc_gender',
@@ -125,36 +136,6 @@ const TicketsPage = () => {
             //     selector: 'moc_email',
             //     width: '20rem'
             // },
-            {
-                name: 'Team Count',
-                selector: (row) => row.StudentCount,
-                width: '15rem'
-            },
-            {
-                name: t('teacher_teams.actions'),
-                cell: (params) => {
-                    return [
-                        <div key={params} onClick={() => handleCreate(params)}>
-                            {process.env.REACT_APP_TEAM_LENGTH >
-                                params.StudentCount &&
-                                totalCount?.StudentsCount < 50 && (
-                                    <div className="btn btn-success  mr-5 mx-2">
-                                        Add Team Members
-                                    </div>
-                                )}
-                        </div>,
-                        <div key={params} onClick={() => handleView(params)}>
-                            {!params.StudentCount < 4 && (
-                                <div className="btn btn-primary  mr-5">
-                                    {t('teacher_teams.view')}
-                                </div>
-                            )}
-                        </div>
-                    ];
-                },
-                width: '22rem',
-                left: true
-            }
         ]
     };
 

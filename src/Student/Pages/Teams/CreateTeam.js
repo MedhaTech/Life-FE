@@ -95,7 +95,6 @@ const AddMentor = (props) => {
             axios(config)
                 .then(function (response) {
                     if (response.status === 201) {
-                        console.log(response, 'ress');
                         openNotificationWithIcon(
                             'success',
                             'Updated Successfully'

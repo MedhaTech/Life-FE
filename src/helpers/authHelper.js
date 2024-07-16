@@ -31,8 +31,8 @@ const ProtectedRoute = ({ component: Component, user: user, ...rest }) => {
                 localStorage.clear();
                 if (user.includes('ADMIN')) {
                     return <Redirect to="/admin" />;
-                } else if (user.includes('MENTOR')) {
-                    return <Redirect to="/mentor" />;
+                // } else if (user.includes('MENTOR')) {
+                //     return <Redirect to="/mentor" />;
                 } else if (user.includes('EADMIN')) {
                     return <Redirect to="/eadmin" />;
                 } else if (user.includes('INSTITUTION')) {
