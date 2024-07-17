@@ -35,7 +35,7 @@ const InstructionsPage = (props) => {
         history.push('/challenges');
     };
     const handleStart = () => {
-        apiCall();
+        //apiCall();
         localStorage.setItem('condition', false);
         history.push({
             pathname: '/challenges',

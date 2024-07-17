@@ -14,7 +14,7 @@ import SDG from './SDG';
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 import { encryptGlobal } from '../../../constants/encryptDecrypt';
-const IdeaSubmission = () => {
+const IdeaSubmission = (props) => {
     const { t } = useTranslation();
     const dispatch = useDispatch();
     const language = useSelector(
@@ -30,10 +30,13 @@ const IdeaSubmission = () => {
     const [isideadisable, setIsideadisable] = useState(false);
     const StudentId = currentUser?.data[0]?.student_id;
     const [ideaSubmittedData, setIdeaSubmittedData] = useState({});
+    //setIdeaSubmittedData(props?.location);
+    const ideaSubmittedData1 = props?.location.data.submitedData;
+    console.log("in Ideasub page" , ideaSubmittedData1);
     useEffect(() => {
         const Param = encryptGlobal(
             JSON.stringify({
-                student_id: StudentId
+                student_id: StudentId,
             })
         );
         var configidea = {
@@ -131,7 +134,7 @@ const IdeaSubmission = () => {
         // isideadisable ?
         // <IdeasPageNew />
         <NewIdeaSubmission
-            submitedData={ideaSubmittedData[0]}
+            submitedData={ideaSubmittedData1}
             showChallenges={handleShow}
         />
         // )

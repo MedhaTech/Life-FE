@@ -78,7 +78,14 @@ function NewIdeaSubmission(props) {
     const { t } = useTranslation();
     const FirstInitiaData =
         (history && history.location && history.location.data) || false;
+    // const NewIdeaid =
+    //     (history && history.location && history.location.data.idea);
+    console.log(props,history);
     const currentUser = getCurrentUser('current_user');
+    const StudentId = currentUser?.data[0]?.student_id;
+    const userId = currentUser?.data[0]?.user_id;
+    const district = currentUser?.data[0]?.district;
+    const state = currentUser?.data[0]?.state;
     const condition1 = localStorage.getItem('condition') === 'true';
     const [condition, setCondition] = useState(condition1);
     const [isDisabled, setIsDisabled] = useState(false);
@@ -88,50 +95,54 @@ function NewIdeaSubmission(props) {
     const comingSoonText = t('dummytext.student_idea_sub');
     const initialLoadingStatus = { draft: false, submit: false };
     const [loading, setLoading] = useState(initialLoadingStatus);
+    const [submitedData, setSubmittedData] = useState({});
     const [theme, setTheme] = useState(
-        props?.submitedData?.themes_problem?.theme_name
+        submitedData?.themes_problem?.theme_name
     );
     const [finalPage, setFinalPage] = useState(false);
     const [othersTheme, setOthersTheme] = useState('');
     const [othersPStatment, setOthersPStatment] = useState('');
+    
+    const [ideaIntiation, setIdeaIntiation] = useState('');
 
     const [probStatment, setProbStatment] = useState(
-        props?.submitedData?.themes_problem?.problem_statement
-            ? props?.submitedData?.themes_problem?.problem_statement
+        submitedData?.themes_problem?.problem_statement
+            ? submitedData?.themes_problem?.problem_statement
             : ''
     );
     // const [description, setDescription] = useState(
-    //     props?.submitedData?.themes_problem?.problem_statement_description
+    //     submitedData?.themes_problem?.problem_statement_description
     // );
-    const [ideaTitle, setIdeaTitle] = useState(props?.submitedData?.idea_title);
+    console.log(history.location.data);
+    const [ideaTitle, setIdeaTitle] = useState(submitedData?.idea_title);
     // const [solStatement, setSolStatement] = useState(
-    //     props?.submitedData?.solution_statement
+    //     submitedData?.solution_statement
     // );
     const [detailSol, setDetailSol] = useState(
-        props?.submitedData?.detailed_solution
+        submitedData?.detailed_solution
     );
     const [protoType, setProtoType] = useState(
-        props?.submitedData?.prototype_available
+        submitedData?.prototype_available
     );
     const question = ['YES', 'NO'];
     const ideaSubmitted = ['YES', 'NO'];
     const [ideaPublication, setIdeaPublication] = useState(
-        props?.submitedData?.idea_available
+        submitedData?.idea_available
     );
     const [selfCheck, setSelfCheck] = useState(
-        props?.submitedData?.self_declaration === 'YES' ? true : false
+        submitedData?.self_declaration === 'YES' ? true : false
     );
     const [themesList, setThemesList] = useState([]);
     const [submitedFile, setSubmitedFile] = useState(
-        props?.submitedData?.Prototype_file
-            ? props?.submitedData?.Prototype_file.split(', ')
+        submitedData?.Prototype_file
+            ? submitedData?.Prototype_file.split(', ')
             : []
     );
     const [statementList, setStatementList] = useState([]);
     const [listofproblemsandID, setListofproblemsandID] = useState([]);
     const [themeProId, setThemeProId] = useState(
-        props?.submitedData?.theme_problem_id
-            ? props?.submitedData?.theme_problem_id
+        submitedData?.theme_problem_id
+            ? submitedData?.theme_problem_id
             : '0'
     );
 
@@ -140,50 +151,52 @@ function NewIdeaSubmission(props) {
     const leftImages = imagesList.slice(0, 4);
     const rightThemes = themesList.slice(4);
     const rightImages = imagesList.slice(4);
+    let idea_id=0;
+
 
     // useEffect(() => {
     //     themeApi();
     //     setThemeProId(
-    //         props?.submitedData?.theme_problem_id
-    //             ? props?.submitedData?.theme_problem_id
+    //         submitedData?.theme_problem_id
+    //             ? submitedData?.theme_problem_id
     //             : '0'
     //     );
-    //     setTheme(props?.submitedData?.themes_problem?.theme_name);
+    //     setTheme(submitedData?.themes_problem?.theme_name);
     //     setProbStatment(
-    //         props?.submitedData?.themes_problem?.problem_statement
-    //             ? props?.submitedData?.themes_problem?.problem_statement
+    //         submitedData?.themes_problem?.problem_statement
+    //             ? submitedData?.themes_problem?.problem_statement
     //             : ''
     //     );
 
-    //     setIdeaTitle(props?.submitedData?.idea_title);
-    //     setDetailSol(props?.submitedData?.detailed_solution);
-    //     setProtoType(props?.submitedData?.prototype_available);
-    //     setIdeaPublication(props?.submitedData?.idea_available);
+    //     setIdeaTitle(submitedData?.idea_title);
+    //     setDetailSol(submitedData?.detailed_solution);
+    //     setProtoType(submitedData?.prototype_available);
+    //     setIdeaPublication(submitedData?.idea_available);
     //     setSelfCheck(
-    //         props?.submitedData?.self_declaration === 'YES' ? true : false
+    //         submitedData?.self_declaration === 'YES' ? true : false
     //     );
     //     setSubmitedFile(
-    //         props?.submitedData?.Prototype_file
-    //             ? props?.submitedData?.Prototype_file.split(', ')
+    //         submitedData?.Prototype_file
+    //             ? submitedData?.Prototype_file.split(', ')
     //             : []
     //     );
-    // }, [props?.submitedData]);
+    // }, [submitedData]);
     useEffect(() => {
-        if (props?.submitedData?.status === 'SUBMITTED') {
+        console.log(submitedData);
+        if (submitedData?.status === 'SUBMITTED') {
             setCondition(true);
             localStorage.setItem('condition', true);
         }
         if (
-            props?.submitedData?.status !== 'SUBMITTED' &&
-            props?.submitedData?.initiated_by !== currentUser?.data[0]?.user_id
+            submitedData?.status !== 'SUBMITTED' &&
+            submitedData?.initiated_by !== currentUser?.data[0]?.user_id
         ) {
             setCondition(true);
         }
         if (FirstInitiaData) {
             setCondition(false);
         }
-    }, [props?.submitedData]);
-    const StudentId = currentUser?.data[0]?.student_id;
+    }, [submitedData]);
     useEffect(() => {
         setIsDisabled(true);
     }, []);
@@ -223,26 +236,26 @@ function NewIdeaSubmission(props) {
                 if (response.status === 200) {
                     setThemesList([...response.data.data, 'Others']);
                     if (
-                        props?.submitedData?.themes_problem &&
-                        props?.submitedData?.themes_problem?.status === 'MANUAL'
+                        submitedData?.themes_problem &&
+                        submitedData?.themes_problem?.status === 'MANUAL'
                     ) {
                         if (
                             response.data.data.includes(
-                                props?.submitedData?.themes_problem?.theme_name
+                                submitedData?.themes_problem?.theme_name
                             )
                         ) {
                             setTheme(
-                                props?.submitedData?.themes_problem?.theme_name
+                                submitedData?.themes_problem?.theme_name
                             );
                         } else {
                             setTheme('Others');
                             setOthersTheme(
-                                props?.submitedData?.themes_problem?.theme_name
+                                submitedData?.themes_problem?.theme_name
                             );
                         }
                         setProbStatment('Others');
                         setOthersPStatment(
-                            props?.submitedData?.themes_problem
+                            submitedData?.themes_problem
                                 ?.problem_statement
                         );
                     }
@@ -296,17 +309,97 @@ function NewIdeaSubmission(props) {
             });
     };
 
-    const scroll = () => {
-        const section = document.querySelector('#start');
-        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    };
+    // const scroll = () => {
+    //     const section = document.querySelector('#start');
+    //     section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    // };
     const handleEdit = () => {
         setIsDisabled(false);
-        scroll();
+        //scroll();
         localStorage.setItem('condition', false);
         setCondition(false);
     };
+
+    async function apiCall() {
+        // Dice code list API //
+        const body = JSON.stringify({
+            student_id: StudentId,
+            initiated_by: userId,
+            district: district,
+            state: state,
+            theme_name: theme === 'Others' ? othersTheme : theme,
+            problem_statement_id: themeProId,
+            problem_statement:
+                theme === 'Others'
+                    ? othersPStatment
+                    : probStatment === 'Others'
+                    ? othersPStatment
+                    : probStatment,
+            // problem_statement_description: description,
+            idea_title: ideaTitle,
+            // solution_statement: solStatement,
+            detailed_solution: detailSol,
+            prototype_available: protoType,
+            idea_available: ideaPublication,
+            self_declaration: selfCheck ? 'YES' : 'NO',
+            status: "DRAFT"
+
+        });
+        
+        var config = {
+            method: 'post',
+            url: process.env.REACT_APP_API_BASE_URL + '/ideas/initiate',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${currentUser?.data[0]?.token}`
+            },
+            data: body
+        };
+
+        await axios(config)
+            .then(async function (response) {
+                if (response.status == 200) {
+                    console.log(condition  , "condition 1");
+
+                    setIdeaIntiation(response?.data.data[0].initiated_by);
+                    idea_id=(response?.data.data[0].idea_id);
+                    setSubmittedData(response?.data.data[0]);
+                    console.log(submitedData);
+                    openNotificationWithIcon(
+                        'success',
+                        'Idea Initiated Successfully'
+                    );
+                    localStorage.setItem('condition', true);
+                    setCondition(true);
+                    setIsDisabled(true);
+                    console.log(condition  , "condition 2");
+
+
+                    setPageEnable(false);
+                    history.push({
+                        data: {
+                            idea :idea_id,
+                            submitedData : response?.data.data[0]
+                        }
+                    });
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+    
     const handleSubmit = async (item, stats) => {
+        console.log(submitedData, "before api call condition");
+        if(!Object.keys(submitedData).length){
+            console.log("Api Call");
+            await apiCall();
+            setCondition(true);
+            console.log(condition  , "condition 3");
+            //scroll();
+        }
+        else{
+        console.log(submitedData, "After api call condition");
         if (files.length > 0) {
             const formData = new FormData();
             for (let i = 0; i < files.length; i++) {
@@ -340,6 +433,7 @@ function NewIdeaSubmission(props) {
         } else {
             handleSubmitAll(item, stats);
         }
+    }
     };
 
     const handleSubmitAll = async (item, stats, file) => {
@@ -349,6 +443,8 @@ function NewIdeaSubmission(props) {
         }
         const body = {
             student_id: StudentId,
+            idea_id : submitedData?.idea_id,
+           // idea_id : NewIdeaid,
             theme_name: theme === 'Others' ? othersTheme : theme,
             problem_statement_id: themeProId,
             problem_statement:
@@ -437,7 +533,7 @@ function NewIdeaSubmission(props) {
                                 'Save as Draft success'
                             );
                             setIsDisabled(true);
-                            scroll();
+                            //scroll();
                         }
                     }
                 })
@@ -449,7 +545,7 @@ function NewIdeaSubmission(props) {
                     console.log(error);
                 });
         } else {
-            openNotificationWithIcon('error', 'Plese fill all the questions');
+            openNotificationWithIcon('error', 'Please fill all the questions');
         }
     };
 
@@ -532,49 +628,7 @@ function NewIdeaSubmission(props) {
                                         className="form-row row mb-5"
                                         isSubmitting
                                     >
-                                        {props?.submitedData?.status !==
-                                            'SUBMITTED' &&
-                                        props?.submitedData?.initiated_by ===
-                                            currentUser?.data[0]?.user_id ? (
-                                            <div className="text-right">
-                                                {condition && (
-                                                    <Button
-                                                        type="button"
-                                                        btnClass="me-3 text-white"
-                                                        backgroundColor="#067DE1"
-                                                        onClick={handleEdit}
-                                                        size="small"
-                                                        label={t(
-                                                            'teacher_teams.edit_idea'
-                                                        )}
-                                                    />
-                                                )}
-                                                <Button
-                                                    type="button"
-                                                    btnClass="primary"
-                                                    onClick={(e) =>
-                                                        handleSubmit(
-                                                            e,
-                                                            'SUBMITTED'
-                                                        )
-                                                    }
-                                                    size="small"
-                                                    label={t(
-                                                        'teacher_teams.submit'
-                                                    )}
-                                                />
-                                            </div>
-                                        ) : (
-                                            <div>
-                                                <p>
-                                                    Idea Initiated by :{' '}
-                                                    {
-                                                        props?.submitedData
-                                                            ?.initiated_name
-                                                    }
-                                                </p>
-                                            </div>
-                                        )}
+                                        
                                         <Row>
                                             <Row className="card mb-4 my-3 comment-card px-0 px-5 py-3 card">
                                                 <div className="question quiz mb-0">
@@ -1825,7 +1879,7 @@ function NewIdeaSubmission(props) {
                             </div>
                         </Row>
                         {!condition &&
-                            props?.submitedData?.status !== 'SUBMITTED' && (
+                            submitedData?.status !== 'SUBMITTED' && (
                                 <Row>
                                     <Col className="d-flex justify-content-between">
                                         <div>
@@ -1851,6 +1905,45 @@ function NewIdeaSubmission(props) {
                                     </Col>
                                 </Row>
                             )}
+                        
+                        {submitedData?.status !==
+                                            'SUBMITTED' &&
+                                        submitedData?.initiated_by ===
+                                            currentUser?.data[0]?.user_id ? (
+                                            <div className="text-right">
+                                                {condition && (
+                                                    <>
+                                                    <Button
+                                                        type="button"
+                                                        btnClass="me-3 text-white"
+                                                        backgroundColor="#067DE1"
+                                                        onClick={handleEdit}
+                                                        size="small"
+                                                        label={t(
+                                                            'teacher_teams.edit_idea'
+                                                        )}
+                                                    />
+                                                    <Button
+                                                    type="button"
+                                                    btnClass="primary"
+                                                    onClick={(e) =>
+                                                        handleSubmit(
+                                                            e,
+                                                            'SUBMITTED'
+                                                        )
+                                                    }
+                                                    size="small"
+                                                    label={t(
+                                                        'teacher_teams.submit'
+                                                    )}
+                                                    />
+                                                    </>
+                                                )}
+                                                
+                                            </div>
+                                        ) : (
+                                            null
+                                        )}
                     </Col>
                 </Container>
             )}
