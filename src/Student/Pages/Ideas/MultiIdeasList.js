@@ -30,18 +30,20 @@ const InstructionsPage = (props) => {
     const [showModal, setShowModal] = useState(false);
     const [selectedIdea, setSelectedIdea] = useState(null);
     const [ideaIntiation, setIdeaIntiation] = useState('');
+    const [ideaID, setIdeaID] = useState();
     const userId = currentUser?.data[0]?.user_id;
     const district = currentUser?.data[0]?.district;
     const state = currentUser?.data[0]?.state;
     const [pageEnable, setPageEnable] = useState(true);
     const [selectedRecord, setSelectedRecord] = useState(null);
+    let idea_id =0;
     const handleStart = () => {
-        apiCall();
+        //apiCall();
         localStorage.setItem('condition', false);
         history.push({
             pathname: '/challenges',
             data: {
-                FirstInitia: true
+                FirstInitia: true,
             }
         });
     };
@@ -66,12 +68,21 @@ const InstructionsPage = (props) => {
         await axios(config)
             .then(async function (response) {
                 if (response.status == 200) {
-                    setIdeaIntiation(response?.data?.data[0]?.initiated_by);
+                    
+                    setIdeaIntiation(response?.data.data[0].initiated_by);
+                    idea_id=(response?.data.data[0].idea_id);
                     openNotificationWithIcon(
                         'success',
                         'Idea Initiated Successfully'
                     );
+
                     setPageEnable(false);
+                    history.push({
+                        data: {
+                            idea :idea_id,
+                            submitedData : response?.data.data[0]
+                        }
+                    });
                 }
             })
             .catch(function (error) {
@@ -108,9 +119,25 @@ const InstructionsPage = (props) => {
                 console.log(error);
             });
     };
+    
     const handleView = (record) => {
-        setSelectedRecord(record);
-        setShowModal(true);
+        console.log(record.status , "record");
+        if(record.status==="SUBMITTED"){
+            setSelectedRecord(record);
+            setShowModal(true);
+        }
+        else{
+            history.push({
+                pathname: '/challenges',
+                data: {
+                    submitedData : record
+                }
+            });
+            console.log(record , "record");
+            console.log(history , "histiry");
+
+        }
+       
     };
 
     const handleClose = () => {
@@ -171,6 +198,11 @@ const InstructionsPage = (props) => {
                 width: '20rem'
             },
             {
+                name: 'Status',
+                selector: (row) => row.status,
+                width: '20rem'
+            },
+            {
                 name: 'Submitted on',
                 selector: (row) =>
                     row.submitted_at
@@ -190,9 +222,12 @@ const InstructionsPage = (props) => {
                             onClick={() => handleView(record)}
                             style={{ marginRight: '12px' }}
                         >
+                            {record.status==="SUBMITTED"? (
                             <div className="btn btn-primary btn-lg mx-2">
                                 View
-                            </div>
+                            </div>):(<div className="btn btn-warning btn-lg mx-2">
+                                Proceed
+                            </div>)}
                         </div>
                     </>
                 ]
