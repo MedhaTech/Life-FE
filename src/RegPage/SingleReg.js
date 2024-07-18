@@ -178,7 +178,7 @@ function AtlPage() {
                 .max(10, 'enter only 10 digit valid number')
                 .min(10, 'Number is less than 10 digits'),
 
-            Age: Yup.string().required('Enter Age'),
+            Age: Yup.number(),
 
             Gender: Yup.string().required('select valid Gender'),
             date_of_birth: Yup.date().required('Date of Birth is required')
@@ -194,7 +194,6 @@ function AtlPage() {
         }),
 
         onSubmit: async (values) => {
-            alert('hi');
             if (values.otp.length < 5) {
                 setErrorMsg(true);
             } else {
@@ -346,7 +345,7 @@ function AtlPage() {
             formik.values.mobile.length > 0 &&
             formik.values.Gender.length > 0 &&
             formik.values.email.length > 0 &&
-            formik.values.Age.length > 0 &&
+            // formik.values.Age.length > 0 &&
             formik.values.state.length > 0 &&
             formik.values.district.length > 0 &&
             formik.values.city.length > 0 &&
@@ -362,7 +361,7 @@ function AtlPage() {
         formik.values.mobile,
         formik.values.Gender,
         formik.values.email,
-        formik.values.Age,
+        // formik.values.Age,
         formik.values.state,
         formik.values.district,
         formik.values.city,
@@ -373,7 +372,18 @@ function AtlPage() {
         formik.setFieldValue('otp', e);
         setErrorMsg(false);
     };
+    useEffect(() => {
+        const currentDate = new Date();
+        const selectedDate = new Date(formik.values.date_of_birth);
 
+        if (!isNaN(selectedDate.getTime())) {
+            const Age = currentDate.getFullYear() - selectedDate.getFullYear();
+            formik.setFieldValue('Age', JSON.stringify(Age));
+        }
+        // else {
+        //     formik.setFieldValue('age', 0);
+        // }
+    }, [formik.values.date_of_birth]);
     const dateRegex = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/;
     const [hide, setHide] = useState(true);
     return (
@@ -404,7 +414,6 @@ function AtlPage() {
                             </div>
                         </Carousel.Item>
                         <Carousel.Item>
-
                             <div className="mobile_tab-hide">
                                 <figure>
                                     <img
@@ -584,8 +593,8 @@ function AtlPage() {
 
                                                     {formik.touched
                                                         .student_full_name &&
-                                                        formik.errors
-                                                            .student_full_name ? (
+                                                    formik.errors
+                                                        .student_full_name ? (
                                                         <small className="error-cls">
                                                             {
                                                                 formik.errors
@@ -636,7 +645,7 @@ function AtlPage() {
                                                     />
 
                                                     {formik.touched.email &&
-                                                        formik.errors.email ? (
+                                                    formik.errors.email ? (
                                                         <small className="error-cls">
                                                             {
                                                                 formik.errors
@@ -695,7 +704,7 @@ function AtlPage() {
                                                     />
 
                                                     {formik.touched.mobile &&
-                                                        formik.errors.mobile ? (
+                                                    formik.errors.mobile ? (
                                                         <small className="error-cls">
                                                             {
                                                                 formik.errors
@@ -754,8 +763,8 @@ function AtlPage() {
 
                                                     {formik.touched
                                                         .date_of_birth &&
-                                                        formik.errors
-                                                            .date_of_birth ? (
+                                                    formik.errors
+                                                        .date_of_birth ? (
                                                         <small className="error-cls">
                                                             {
                                                                 formik.errors
@@ -787,38 +796,41 @@ function AtlPage() {
                                                         </span>
                                                     </Label>
                                                     <InputBox
+                                                        // isDisabled={
+                                                        //     holdKey
+                                                        //         ? true
+                                                        //         : false
+                                                        // }
+                                                        isDisabled={true}
+                                                        placeholder="Age"
+                                                        id="age"
+                                                        name="age"
                                                         type="text"
-                                                        placeholder="Enter Age"
-                                                        className="defaultInput"
-                                                        id="Age"
-                                                        isDisabled={
-                                                            holdKey
-                                                                ? true
-                                                                : false
-                                                        }
-                                                        pattern={
-                                                            dateRegex.source
-                                                        }
-                                                        name="Age"
-                                                        onChange={
-                                                            formik.handleChange
-                                                        }
-                                                        onBlur={
-                                                            formik.handleBlur
-                                                        }
-                                                        value={
+                                                        value={String(
                                                             formik.values.Age
-                                                        }
+                                                        )}
+                                                        // pattern={
+                                                        //     dateRegex.source
+                                                        // }
+                                                        // name="Age"
+                                                        // onChange={
+                                                        //     formik.handleChange
+                                                        // }
+                                                        // onBlur={
+                                                        //     formik.handleBlur
+                                                        // }
+                                                        // value={
+                                                        //     formik.values.Age
+                                                        // }
                                                     />
 
                                                     {formik.touched.Age &&
-                                                        formik.errors.Age ? (
+                                                    formik.errors.Age ? (
                                                         <small className="error-cls">
                                                             {formik.errors.Age}
                                                         </small>
                                                     ) : null}
                                                 </Col>
-
                                             </Row>
 
                                             <Row
@@ -877,7 +889,7 @@ function AtlPage() {
                                                             ); // Reset district value
                                                             setDistricts(
                                                                 districtList[
-                                                                selectedState
+                                                                    selectedState
                                                                 ] || []
                                                             );
                                                         }}
@@ -899,7 +911,7 @@ function AtlPage() {
                                                         )}
                                                     </select>
                                                     {formik.touched.state &&
-                                                        formik.errors.state ? (
+                                                    formik.errors.state ? (
                                                         <small className="error-cls">
                                                             {
                                                                 formik.errors
@@ -955,8 +967,7 @@ function AtlPage() {
                                                         }}
                                                     >
                                                         <option value="">
-                                                            Select
-                                                            District
+                                                            Select District
                                                         </option>
                                                         {districts.map(
                                                             (district) => (
@@ -974,7 +985,7 @@ function AtlPage() {
                                                         )}
                                                     </select>
                                                     {formik.touched.district &&
-                                                        formik.errors.district ? (
+                                                    formik.errors.district ? (
                                                         <small className="error-cls">
                                                             {
                                                                 formik.errors
@@ -1039,8 +1050,8 @@ function AtlPage() {
 
                                                     {formik.touched
                                                         .institution_name &&
-                                                        formik.errors
-                                                            .institution_name ? (
+                                                    formik.errors
+                                                        .institution_name ? (
                                                         <small className="error-cls">
                                                             {
                                                                 formik.errors
@@ -1094,7 +1105,7 @@ function AtlPage() {
                                                     />
 
                                                     {formik.touched.city &&
-                                                        formik.errors.city ? (
+                                                    formik.errors.city ? (
                                                         <small className="error-cls">
                                                             {formik.errors.city}
                                                         </small>
@@ -1142,7 +1153,7 @@ function AtlPage() {
                                                     />
 
                                                     {formik.touched.group &&
-                                                        formik.errors.group ? (
+                                                    formik.errors.group ? (
                                                         <small className="error-cls">
                                                             {
                                                                 formik.errors
@@ -1199,8 +1210,8 @@ function AtlPage() {
                                                     </select>
                                                     {formik.touched
                                                         .year_of_study &&
-                                                        formik.errors
-                                                            .year_of_study ? (
+                                                    formik.errors
+                                                        .year_of_study ? (
                                                         <small className="error-cls">
                                                             {
                                                                 formik.errors
@@ -1266,7 +1277,7 @@ function AtlPage() {
                                                         </option>
                                                     </select>
                                                     {formik.touched.Gender &&
-                                                        formik.errors.Gender ? (
+                                                    formik.errors.Gender ? (
                                                         <small className="error-cls">
                                                             {
                                                                 formik.errors
@@ -1275,7 +1286,6 @@ function AtlPage() {
                                                         </small>
                                                     ) : null}
                                                 </Col>
-
                                             </Row>
 
                                             <div className="mt-5 d-flex align-items-center">
@@ -1308,7 +1318,7 @@ function AtlPage() {
 
                                                     <div
                                                         className="w-100 d-block text-left"
-                                                    // className="form-row row mb-5 col-md-3 text-centered"
+                                                        // className="form-row row mb-5 col-md-3 text-centered"
                                                     >
                                                         <Label
                                                             className="mb-2 mt-4  text-left"
@@ -1375,7 +1385,7 @@ function AtlPage() {
                                                 otpRes != formik.values.otp && (
                                                     <div
                                                         className="form-row row mb-5 text-center"
-                                                    // className=" w-50 d-flex justify-content-center"
+                                                        // className=" w-50 d-flex justify-content-center"
                                                     >
                                                         <span
                                                             className=" w-100 mt-3 d-flex justify-content-center"
@@ -1396,7 +1406,7 @@ function AtlPage() {
                                                         btnClass={
                                                             formik.values.otp
                                                                 .length > 5 &&
-                                                                otpRes ==
+                                                            otpRes ==
                                                                 formik.values
                                                                     .otp
                                                                 ? 'primary rounded-0'
@@ -1409,11 +1419,11 @@ function AtlPage() {
                                                                 formik.values
                                                                     .otp
                                                                     .length >
-                                                                5 &&
+                                                                    5 &&
                                                                 otpRes ==
-                                                                formik
-                                                                    .values
-                                                                    .otp
+                                                                    formik
+                                                                        .values
+                                                                        .otp
                                                             )
                                                         }
                                                     />
