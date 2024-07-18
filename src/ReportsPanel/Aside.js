@@ -9,7 +9,7 @@ import {
 } from 'react-pro-sidebar';
 import { FaBars } from 'react-icons/fa';
 import DashboardIcon1 from '../assets/media/DashboardIcon1.png';
-import SmallLogo from '../assets/media/logo192.png';
+import SmallLogo from '../assets/media/favicon.png';
 import 'react-pro-sidebar/dist/css/styles.css';
 
 import Logo from '../assets/media/tn-brands/UPSHIFT_BLACK.png';

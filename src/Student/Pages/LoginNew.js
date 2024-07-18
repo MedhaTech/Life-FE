@@ -11,7 +11,7 @@ import { connect } from 'react-redux';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useTranslation } from 'react-i18next';
-import logo from '../../assets/media/tn-brands/EDII.png';
+import logo from '../../assets/media/Life_logo.jpg';
 import studentIcon from '../../assets/media/student_login_icon.png';
 // import teacherIcon from '../../assets/media/teacher_login_icon.png';
 import image_9 from '../../assets/media/unisolve_slider1.png';

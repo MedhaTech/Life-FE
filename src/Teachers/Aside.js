@@ -28,7 +28,7 @@ import {
 import 'react-pro-sidebar/dist/css/styles.css';
 import { useLocation } from 'react-router-dom';
 import Logo from '../assets/media/tn-brands/EDII_LOGO.png';
-import SmallLogo from '../assets/media/logo192.png';
+import SmallLogo from '../assets/media/favicon.png';
 import { compareDates, logout } from '../helpers/Utils';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';

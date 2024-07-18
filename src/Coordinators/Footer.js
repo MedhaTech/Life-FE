@@ -14,7 +14,7 @@ const Footer = () => {
                             Reserved.
                         </p> */}
                         <p className="p-0 my-auto text-center">
-                            &copy; EDI's Hackathon 2023-24
+                            &copy; Ideas4Life Hackathon 2024
                             {/* {new Date().getFullYear()}{' '} */}
                             <span className="my-auto">&reg;</span> All Rights
                             Reserved.

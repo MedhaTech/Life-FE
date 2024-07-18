@@ -8,7 +8,7 @@ import {
     SidebarContent
 } from 'react-pro-sidebar';
 import { FaBars, FaLightbulb, FaInfo } from 'react-icons/fa';
-import SmallLogo from '../assets/media/logo192.png';
+import SmallLogo from '../assets/media/favicon.png';
 
 import 'react-pro-sidebar/dist/css/styles.css';
 import { useLocation } from 'react-router-dom';

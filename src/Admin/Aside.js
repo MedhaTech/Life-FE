@@ -16,7 +16,7 @@ import LatestNewsIcon from '../assets/media/latestNewsIcon.png';
 import ResourceIcon from '../assets/media/resourceIcon.png';
 import PopupIcon from '../assets/media/popupIcon.png';
 //import EvalConifIcon from '../assets/media/EvalConifIcon.png';
-import SmallLogo from '../assets/media/logo192.png';
+import SmallLogo from '../assets/media/favicon.png';
 import {
     ProSidebar,
     Menu,

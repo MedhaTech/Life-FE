@@ -32,7 +32,7 @@ import { RiLogoutBoxRFill } from 'react-icons/ri';
 import { logout } from '../helpers/Utils';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import SmallLogo from '../assets/media/logo192.png';
+import SmallLogo from '../assets/media/favicon.png';
 import { encryptGlobal } from '../constants/encryptDecrypt';
 import { getCurrentUser } from '../helpers/Utils';
 

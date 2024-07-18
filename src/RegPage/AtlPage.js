@@ -570,7 +570,7 @@ function AtlPage() {
                                                 >
                                                     {/* {t('teacehr_red.UDISE')} */}
                                                     Institution Unique Code /
-                                                    EDII's Unique Code
+                                                    Unique Code
                                                 </Label>
                                                 <Input
                                                     {...inputField}
@@ -582,7 +582,7 @@ function AtlPage() {
                                                     maxLength={11}
                                                     minLength={11}
                                                     name="institution_code"
-                                                    placeholder="Enter Institution Unique Code / EDII's Unique Code "
+                                                    placeholder="Enter Institution Unique Code / Unique Code "
                                                     className="w-100 mb-3 mb-md-0"
                                                     style={{
                                                         borderRadius: '0px',

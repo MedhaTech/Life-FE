@@ -10,9 +10,10 @@ import { Link } from 'react-router-dom';
 import { Input, Radio } from 'antd';
 
 import successIcon from '../assets/media/img/rocket.gif';
-import signuplogo from '../assets/media/tn-brands/EDII.png';
+import signuplogo from '../assets/media/Life_logo.jpg';
 import image_1 from '../assets/media/unisolve_slider1.png';
-import image_2 from '../assets/media/aim_Slider.png';
+import image_2 from '../assets/media/unisolve_slider2.png';
+import image_3 from '../assets/media/LIFE_Slider.png';
 import { useFormik } from 'formik';
 import { Carousel } from 'react-bootstrap';
 import { InputBox } from '../stories/InputBox/InputBox';
@@ -138,48 +139,48 @@ function AtlPage() {
         },
 
         validationSchema: Yup.object({
-            state: Yup.string().required('Please select state'),
-            district: Yup.string().required('Please select district'),
+            state: Yup.string().required('select state'),
+            district: Yup.string().required('select district'),
             institution_name: Yup.string()
                 .trim()
-                .required('Please Enter Institution Name')
+                .required('Enter Institution Name')
                 .min(2, 'Enter Institution Name')
                 .matches(name, 'Special Characters are not allowed'),
             city: Yup.string()
                 .trim()
-                .required('Please Enter City Name')
+                .required('Enter City Name')
                 .min(2, 'Enter City Name')
                 .matches(name, 'Special Characters are not allowed'),
             email: Yup.string().email('Must be a valid Email Id').max(255),
             student_full_name: Yup.string()
                 .trim()
-                .required('Please Enter Full Name')
+                .required('Enter Full Name')
 
                 .min(2, 'Enter Full Name')
                 .matches(name, 'Special Characters are not allowed'),
             Group: Yup.string()
                 .trim()
                 .optional()
-                .min(2, 'Please Enter Group')
+                .min(2, 'Enter Group')
                 .matches(name, 'Special Characters are not allowed'),
             year_of_study: Yup.string()
                 .trim()
                 .optional()
-                .min(2, 'Please Select Year Of Study'),
+                .min(2, 'Select Year Of Study'),
 
             mobile: Yup.string()
-                .required('Please Enter MObile Number')
+                .required('Enter MObile Number')
                 .trim()
                 .matches(
                     /^\d+$/,
                     'Mobile number is not valid (Enter only digits)'
                 )
-                .max(10, 'Please enter only 10 digit valid number')
+                .max(10, 'enter only 10 digit valid number')
                 .min(10, 'Number is less than 10 digits'),
 
-            Age: Yup.string().required('Please select Age'),
+            Age: Yup.string().required('Enter Age'),
 
-            Gender: Yup.string().required('Please select valid Gender'),
+            Gender: Yup.string().required('select valid Gender'),
             date_of_birth: Yup.date().required('Date of Birth is required')
             // .min(
             //     new Date(new Date().getFullYear() - 65, 0, 1),
@@ -402,18 +403,18 @@ function AtlPage() {
                                 </figure>
                             </div>
                         </Carousel.Item>
-                        {/* <Carousel.Item>
-                            
+                        <Carousel.Item>
+
                             <div className="mobile_tab-hide">
                                 <figure>
                                     <img
-                                        src={ellipse_1}
-                                        alt="ellipse_1"
+                                        src={image_3}
+                                        alt="image_3"
                                         className="img-fluid img-1"
                                     />
                                 </figure>
                             </div>
-                        </Carousel.Item> */}
+                        </Carousel.Item>
                     </Carousel>
                 </div>
 
@@ -433,11 +434,11 @@ function AtlPage() {
                     </div>
 
                     <Row className="article-header mb-4 mt-4 text-center">
-                        <h4 className="mb-4">
+                        <h5 className="mb-4">
                             <span className="color-black">
-                                Student Registration
+                                STUDENT REGISTRATION
                             </span>
-                        </h4>
+                        </h5>
                     </Row>
 
                     {hide ? (
@@ -458,7 +459,7 @@ function AtlPage() {
                                                     htmlFor="institution_code"
                                                 >
                                                     Institution Unique Code /
-                                                    EDII's Unique Code
+                                                    Unique Code
                                                 </Label>
                                                 <Input
                                                     {...inputField}
@@ -470,7 +471,7 @@ function AtlPage() {
                                                     maxLength={11}
                                                     minLength={11}
                                                     name="institution_code"
-                                                    placeholder="Enter Institution Unique Code / EDII's Unique Code "
+                                                    placeholder="Enter Institution Unique Code / Unique Code "
                                                     className="w-100 mb-3 mb-md-0"
                                                     style={{
                                                         borderRadius: '0px',
@@ -545,6 +546,297 @@ function AtlPage() {
                                                 >
                                                     <Label
                                                         className="mb-2"
+                                                        htmlFor="name"
+                                                    >
+                                                        Student Name
+                                                        <span
+                                                            className="m-2"
+                                                            style={{
+                                                                color: 'red'
+                                                            }}
+                                                            required
+                                                        >
+                                                            *
+                                                        </span>
+                                                    </Label>
+                                                    <InputBox
+                                                        type="text"
+                                                        placeholder="Enter Student Name"
+                                                        className="defaultInput"
+                                                        id="student_full_name"
+                                                        isDisabled={
+                                                            holdKey
+                                                                ? true
+                                                                : false
+                                                        }
+                                                        name="student_full_name"
+                                                        onChange={
+                                                            formik.handleChange
+                                                        }
+                                                        onBlur={
+                                                            formik.handleBlur
+                                                        }
+                                                        value={
+                                                            formik.values
+                                                                .student_full_name
+                                                        }
+                                                    />
+
+                                                    {formik.touched
+                                                        .student_full_name &&
+                                                        formik.errors
+                                                            .student_full_name ? (
+                                                        <small className="error-cls">
+                                                            {
+                                                                formik.errors
+                                                                    .student_full_name
+                                                            }
+                                                        </small>
+                                                    ) : null}
+                                                </Col>
+                                                <Col
+                                                    className="form-group"
+                                                    xs={12}
+                                                    sm={12}
+                                                    md={12}
+                                                    xl={6}
+                                                >
+                                                    <Label className="mb-2">
+                                                        Email Address
+                                                        <span
+                                                            className="m-2"
+                                                            style={{
+                                                                color: 'red'
+                                                            }}
+                                                            required
+                                                        >
+                                                            *
+                                                        </span>
+                                                    </Label>
+                                                    <InputBox
+                                                        type="text"
+                                                        placeholder="Enter Email Address"
+                                                        className="defaultInput"
+                                                        id="email"
+                                                        isDisabled={
+                                                            holdKey
+                                                                ? true
+                                                                : false
+                                                        }
+                                                        name="email"
+                                                        onChange={
+                                                            formik.handleChange
+                                                        }
+                                                        onBlur={
+                                                            formik.handleBlur
+                                                        }
+                                                        value={
+                                                            formik.values.email
+                                                        }
+                                                    />
+
+                                                    {formik.touched.email &&
+                                                        formik.errors.email ? (
+                                                        <small className="error-cls">
+                                                            {
+                                                                formik.errors
+                                                                    .email
+                                                            }
+                                                        </small>
+                                                    ) : null}
+                                                </Col>
+                                            </Row>
+                                            <Row
+                                                className="form-group"
+                                                xs={12}
+                                                sm={12}
+                                                md={12}
+                                                xl={12}
+                                            >
+                                                <Col
+                                                    className="form-group"
+                                                    xs={12}
+                                                    sm={12}
+                                                    md={12}
+                                                    xl={6}
+                                                >
+                                                    <Label htmlFor="mobile">
+                                                        Mobile Number
+                                                        <span
+                                                            className="m-2"
+                                                            style={{
+                                                                color: 'red'
+                                                            }}
+                                                            required
+                                                        >
+                                                            *
+                                                        </span>
+                                                    </Label>
+                                                    <InputBox
+                                                        type="text"
+                                                        placeholder="Enter Mobile Number"
+                                                        className="defaultInput"
+                                                        id="mobile"
+                                                        isDisabled={
+                                                            holdKey
+                                                                ? true
+                                                                : false
+                                                        }
+                                                        name="mobile"
+                                                        onChange={
+                                                            formik.handleChange
+                                                        }
+                                                        onBlur={
+                                                            formik.handleBlur
+                                                        }
+                                                        value={
+                                                            formik.values.mobile
+                                                        }
+                                                    />
+
+                                                    {formik.touched.mobile &&
+                                                        formik.errors.mobile ? (
+                                                        <small className="error-cls">
+                                                            {
+                                                                formik.errors
+                                                                    .mobile
+                                                            }
+                                                        </small>
+                                                    ) : null}
+                                                </Col>
+                                                <Col
+                                                    className="form-group"
+                                                    xs={12}
+                                                    sm={12}
+                                                    md={12}
+                                                    xl={3}
+                                                >
+                                                    <Label
+                                                        className="mb-2"
+                                                        htmlFor="date_of_birth"
+                                                    >
+                                                        Date of Birth
+                                                        <span
+                                                            className="m-2"
+                                                            style={{
+                                                                color: 'red'
+                                                            }}
+                                                            required
+                                                        >
+                                                            *
+                                                        </span>
+                                                    </Label>
+                                                    <InputBox
+                                                        type="date"
+                                                        placeholder="DD/MM/YYYY"
+                                                        className="defaultInput"
+                                                        id="date_of_birth"
+                                                        isDisabled={
+                                                            holdKey
+                                                                ? true
+                                                                : false
+                                                        }
+                                                        pattern={
+                                                            dateRegex.source
+                                                        }
+                                                        name="date_of_birth"
+                                                        onChange={
+                                                            formik.handleChange
+                                                        }
+                                                        onBlur={
+                                                            formik.handleBlur
+                                                        }
+                                                        value={
+                                                            formik.values
+                                                                .date_of_birth
+                                                        }
+                                                    />
+
+                                                    {formik.touched
+                                                        .date_of_birth &&
+                                                        formik.errors
+                                                            .date_of_birth ? (
+                                                        <small className="error-cls">
+                                                            {
+                                                                formik.errors
+                                                                    .date_of_birth
+                                                            }
+                                                        </small>
+                                                    ) : null}
+                                                </Col>
+                                                <Col
+                                                    className="form-group"
+                                                    xs={12}
+                                                    sm={12}
+                                                    md={12}
+                                                    xl={3}
+                                                >
+                                                    <Label
+                                                        className="mb-2"
+                                                        htmlFor="date_of_birth"
+                                                    >
+                                                        Age
+                                                        <span
+                                                            className="m-2"
+                                                            style={{
+                                                                color: 'red'
+                                                            }}
+                                                            required
+                                                        >
+                                                            *
+                                                        </span>
+                                                    </Label>
+                                                    <InputBox
+                                                        type="text"
+                                                        placeholder="Enter Age"
+                                                        className="defaultInput"
+                                                        id="Age"
+                                                        isDisabled={
+                                                            holdKey
+                                                                ? true
+                                                                : false
+                                                        }
+                                                        pattern={
+                                                            dateRegex.source
+                                                        }
+                                                        name="Age"
+                                                        onChange={
+                                                            formik.handleChange
+                                                        }
+                                                        onBlur={
+                                                            formik.handleBlur
+                                                        }
+                                                        value={
+                                                            formik.values.Age
+                                                        }
+                                                    />
+
+                                                    {formik.touched.Age &&
+                                                        formik.errors.Age ? (
+                                                        <small className="error-cls">
+                                                            {formik.errors.Age}
+                                                        </small>
+                                                    ) : null}
+                                                </Col>
+
+                                            </Row>
+
+                                            <Row
+                                                className="form-group"
+                                                xs={12}
+                                                sm={12}
+                                                md={12}
+                                                xl={12}
+                                            >
+                                                <Col
+                                                    className="form-group"
+                                                    xs={12}
+                                                    sm={12}
+                                                    md={12}
+                                                    xl={6}
+                                                >
+                                                    <Label
+                                                        className="mb-2"
                                                         htmlFor="state"
                                                     >
                                                         Select State
@@ -585,13 +877,13 @@ function AtlPage() {
                                                             ); // Reset district value
                                                             setDistricts(
                                                                 districtList[
-                                                                    selectedState
+                                                                selectedState
                                                                 ] || []
                                                             );
                                                         }}
                                                     >
                                                         <option value="">
-                                                            Please Select State
+                                                            Select State
                                                         </option>
                                                         {stateList.map(
                                                             (state) => (
@@ -607,7 +899,7 @@ function AtlPage() {
                                                         )}
                                                     </select>
                                                     {formik.touched.state &&
-                                                    formik.errors.state ? (
+                                                        formik.errors.state ? (
                                                         <small className="error-cls">
                                                             {
                                                                 formik.errors
@@ -663,7 +955,7 @@ function AtlPage() {
                                                         }}
                                                     >
                                                         <option value="">
-                                                            Please Select
+                                                            Select
                                                             District
                                                         </option>
                                                         {districts.map(
@@ -682,7 +974,7 @@ function AtlPage() {
                                                         )}
                                                     </select>
                                                     {formik.touched.district &&
-                                                    formik.errors.district ? (
+                                                        formik.errors.district ? (
                                                         <small className="error-cls">
                                                             {
                                                                 formik.errors
@@ -747,8 +1039,8 @@ function AtlPage() {
 
                                                     {formik.touched
                                                         .institution_name &&
-                                                    formik.errors
-                                                        .institution_name ? (
+                                                        formik.errors
+                                                            .institution_name ? (
                                                         <small className="error-cls">
                                                             {
                                                                 formik.errors
@@ -802,13 +1094,14 @@ function AtlPage() {
                                                     />
 
                                                     {formik.touched.city &&
-                                                    formik.errors.city ? (
+                                                        formik.errors.city ? (
                                                         <small className="error-cls">
                                                             {formik.errors.city}
                                                         </small>
                                                     ) : null}
                                                 </Col>
                                             </Row>
+
                                             <Row
                                                 className="form-group"
                                                 xs={12}
@@ -821,34 +1114,22 @@ function AtlPage() {
                                                     xs={12}
                                                     sm={12}
                                                     md={12}
-                                                    xl={6}
+                                                    xl={5}
                                                 >
-                                                    <Label
-                                                        className="mb-2"
-                                                        htmlFor="name"
-                                                    >
-                                                        Student Name
-                                                        <span
-                                                            className="m-2"
-                                                            style={{
-                                                                color: 'red'
-                                                            }}
-                                                            required
-                                                        >
-                                                            *
-                                                        </span>
+                                                    <Label htmlFor="group">
+                                                        Group
                                                     </Label>
                                                     <InputBox
                                                         type="text"
-                                                        placeholder="Enter Student Name"
+                                                        placeholder="Enter Group"
                                                         className="defaultInput"
-                                                        id="student_full_name"
+                                                        id="group"
                                                         isDisabled={
                                                             holdKey
                                                                 ? true
                                                                 : false
                                                         }
-                                                        name="student_full_name"
+                                                        name="group"
                                                         onChange={
                                                             formik.handleChange
                                                         }
@@ -856,83 +1137,20 @@ function AtlPage() {
                                                             formik.handleBlur
                                                         }
                                                         value={
-                                                            formik.values
-                                                                .student_full_name
+                                                            formik.values.group
                                                         }
                                                     />
 
-                                                    {formik.touched
-                                                        .student_full_name &&
-                                                    formik.errors
-                                                        .student_full_name ? (
+                                                    {formik.touched.group &&
+                                                        formik.errors.group ? (
                                                         <small className="error-cls">
                                                             {
                                                                 formik.errors
-                                                                    .student_full_name
+                                                                    .group
                                                             }
                                                         </small>
                                                     ) : null}
                                                 </Col>
-                                                <Col
-                                                    className="form-group"
-                                                    xs={12}
-                                                    sm={12}
-                                                    md={12}
-                                                    xl={6}
-                                                >
-                                                    <Label className="mb-2">
-                                                        Email Address
-                                                        <span
-                                                            className="m-2"
-                                                            style={{
-                                                                color: 'red'
-                                                            }}
-                                                            required
-                                                        >
-                                                            *
-                                                        </span>
-                                                    </Label>
-                                                    <InputBox
-                                                        type="text"
-                                                        placeholder="Enter Email Address"
-                                                        className="defaultInput"
-                                                        id="email"
-                                                        isDisabled={
-                                                            holdKey
-                                                                ? true
-                                                                : false
-                                                        }
-                                                        name="email"
-                                                        onChange={
-                                                            formik.handleChange
-                                                        }
-                                                        onBlur={
-                                                            formik.handleBlur
-                                                        }
-                                                        value={
-                                                            formik.values.email
-                                                        }
-                                                    />
-
-                                                    {formik.touched.email &&
-                                                    formik.errors.email ? (
-                                                        <small className="error-cls">
-                                                            {
-                                                                formik.errors
-                                                                    .email
-                                                            }
-                                                        </small>
-                                                    ) : null}
-                                                </Col>
-                                            </Row>
-
-                                            <Row
-                                                className="form-group"
-                                                xs={12}
-                                                sm={12}
-                                                md={12}
-                                                xl={12}
-                                            >
                                                 <Col
                                                     className="form-group"
                                                     xs={12}
@@ -981,8 +1199,8 @@ function AtlPage() {
                                                     </select>
                                                     {formik.touched
                                                         .year_of_study &&
-                                                    formik.errors
-                                                        .year_of_study ? (
+                                                        formik.errors
+                                                            .year_of_study ? (
                                                         <small className="error-cls">
                                                             {
                                                                 formik.errors
@@ -1048,7 +1266,7 @@ function AtlPage() {
                                                         </option>
                                                     </select>
                                                     {formik.touched.Gender &&
-                                                    formik.errors.Gender ? (
+                                                        formik.errors.Gender ? (
                                                         <small className="error-cls">
                                                             {
                                                                 formik.errors
@@ -1057,222 +1275,9 @@ function AtlPage() {
                                                         </small>
                                                     ) : null}
                                                 </Col>
-                                                <Col
-                                                    className="form-group"
-                                                    xs={12}
-                                                    sm={12}
-                                                    md={12}
-                                                    xl={5}
-                                                >
-                                                    <Label htmlFor="group">
-                                                        Group
-                                                    </Label>
-                                                    <InputBox
-                                                        type="text"
-                                                        placeholder="Please Enter Group"
-                                                        className="defaultInput"
-                                                        id="group"
-                                                        isDisabled={
-                                                            holdKey
-                                                                ? true
-                                                                : false
-                                                        }
-                                                        name="group"
-                                                        onChange={
-                                                            formik.handleChange
-                                                        }
-                                                        onBlur={
-                                                            formik.handleBlur
-                                                        }
-                                                        value={
-                                                            formik.values.group
-                                                        }
-                                                    />
 
-                                                    {formik.touched.group &&
-                                                    formik.errors.group ? (
-                                                        <small className="error-cls">
-                                                            {
-                                                                formik.errors
-                                                                    .group
-                                                            }
-                                                        </small>
-                                                    ) : null}
-                                                </Col>
                                             </Row>
-                                            <Row
-                                                className="form-group"
-                                                xs={12}
-                                                sm={12}
-                                                md={12}
-                                                xl={12}
-                                            >
-                                                <Col
-                                                    className="form-group"
-                                                    xs={12}
-                                                    sm={12}
-                                                    md={12}
-                                                    xl={3}
-                                                >
-                                                    <Label
-                                                        className="mb-2"
-                                                        htmlFor="date_of_birth"
-                                                    >
-                                                        Date of Birth
-                                                        <span
-                                                            className="m-2"
-                                                            style={{
-                                                                color: 'red'
-                                                            }}
-                                                            required
-                                                        >
-                                                            *
-                                                        </span>
-                                                    </Label>
-                                                    <InputBox
-                                                        type="date"
-                                                        placeholder="DD/MM/YYYY"
-                                                        className="defaultInput"
-                                                        id="date_of_birth"
-                                                        isDisabled={
-                                                            holdKey
-                                                                ? true
-                                                                : false
-                                                        }
-                                                        pattern={
-                                                            dateRegex.source
-                                                        }
-                                                        name="date_of_birth"
-                                                        onChange={
-                                                            formik.handleChange
-                                                        }
-                                                        onBlur={
-                                                            formik.handleBlur
-                                                        }
-                                                        value={
-                                                            formik.values
-                                                                .date_of_birth
-                                                        }
-                                                    />
 
-                                                    {formik.touched
-                                                        .date_of_birth &&
-                                                    formik.errors
-                                                        .date_of_birth ? (
-                                                        <small className="error-cls">
-                                                            {
-                                                                formik.errors
-                                                                    .date_of_birth
-                                                            }
-                                                        </small>
-                                                    ) : null}
-                                                </Col>
-                                                <Col
-                                                    className="form-group"
-                                                    xs={12}
-                                                    sm={12}
-                                                    md={12}
-                                                    xl={3}
-                                                >
-                                                    <Label
-                                                        className="mb-2"
-                                                        htmlFor="date_of_birth"
-                                                    >
-                                                        Age
-                                                        <span
-                                                            className="m-2"
-                                                            style={{
-                                                                color: 'red'
-                                                            }}
-                                                            required
-                                                        >
-                                                            *
-                                                        </span>
-                                                    </Label>
-                                                    <InputBox
-                                                        type="text"
-                                                        placeholder="Please Enter Age"
-                                                        className="defaultInput"
-                                                        id="Age"
-                                                        isDisabled={
-                                                            holdKey
-                                                                ? true
-                                                                : false
-                                                        }
-                                                        pattern={
-                                                            dateRegex.source
-                                                        }
-                                                        name="Age"
-                                                        onChange={
-                                                            formik.handleChange
-                                                        }
-                                                        onBlur={
-                                                            formik.handleBlur
-                                                        }
-                                                        value={
-                                                            formik.values.Age
-                                                        }
-                                                    />
-
-                                                    {formik.touched.Age &&
-                                                    formik.errors.Age ? (
-                                                        <small className="error-cls">
-                                                            {formik.errors.Age}
-                                                        </small>
-                                                    ) : null}
-                                                </Col>
-                                                <Col
-                                                    className="form-group"
-                                                    xs={12}
-                                                    sm={12}
-                                                    md={12}
-                                                    xl={6}
-                                                >
-                                                    <Label htmlFor="mobile">
-                                                        Your Mobile Number
-                                                        <span
-                                                            className="m-2"
-                                                            style={{
-                                                                color: 'red'
-                                                            }}
-                                                            required
-                                                        >
-                                                            *
-                                                        </span>
-                                                    </Label>
-                                                    <InputBox
-                                                        type="text"
-                                                        placeholder="Enter Mobile Number"
-                                                        className="defaultInput"
-                                                        id="mobile"
-                                                        isDisabled={
-                                                            holdKey
-                                                                ? true
-                                                                : false
-                                                        }
-                                                        name="mobile"
-                                                        onChange={
-                                                            formik.handleChange
-                                                        }
-                                                        onBlur={
-                                                            formik.handleBlur
-                                                        }
-                                                        value={
-                                                            formik.values.mobile
-                                                        }
-                                                    />
-
-                                                    {formik.touched.mobile &&
-                                                    formik.errors.mobile ? (
-                                                        <small className="error-cls">
-                                                            {
-                                                                formik.errors
-                                                                    .mobile
-                                                            }
-                                                        </small>
-                                                    ) : null}
-                                                </Col>
-                                            </Row>
                                             <div className="mt-5 d-flex align-items-center">
                                                 <Button
                                                     label={change}
@@ -1303,7 +1308,7 @@ function AtlPage() {
 
                                                     <div
                                                         className="w-100 d-block text-left"
-                                                        // className="form-row row mb-5 col-md-3 text-centered"
+                                                    // className="form-row row mb-5 col-md-3 text-centered"
                                                     >
                                                         <Label
                                                             className="mb-2 mt-4  text-left"
@@ -1370,7 +1375,7 @@ function AtlPage() {
                                                 otpRes != formik.values.otp && (
                                                     <div
                                                         className="form-row row mb-5 text-center"
-                                                        // className=" w-50 d-flex justify-content-center"
+                                                    // className=" w-50 d-flex justify-content-center"
                                                     >
                                                         <span
                                                             className=" w-100 mt-3 d-flex justify-content-center"
@@ -1391,7 +1396,7 @@ function AtlPage() {
                                                         btnClass={
                                                             formik.values.otp
                                                                 .length > 5 &&
-                                                            otpRes ==
+                                                                otpRes ==
                                                                 formik.values
                                                                     .otp
                                                                 ? 'primary rounded-0'
@@ -1404,11 +1409,11 @@ function AtlPage() {
                                                                 formik.values
                                                                     .otp
                                                                     .length >
-                                                                    5 &&
+                                                                5 &&
                                                                 otpRes ==
-                                                                    formik
-                                                                        .values
-                                                                        .otp
+                                                                formik
+                                                                    .values
+                                                                    .otp
                                                             )
                                                         }
                                                     />
