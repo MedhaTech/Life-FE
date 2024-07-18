@@ -11,9 +11,9 @@ import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import logo from '../assets/media/tn-brands/EDII.png';
+import logo from '../assets/media/Life_logo.jpg';
 import image_1 from '../assets/media/unisolve_slider1.png';
-import image_2 from '../assets/media/aim_Slider.png';
+import image_2 from '../assets/media/LIFE_Slider.png';
 import { adminLoginUser } from '../redux/actions';
 // import { useTranslation } from 'react-i18next';
 import CryptoJS from 'crypto-js';
@@ -164,9 +164,9 @@ const LoginNew = (props) => {
                             </a>
                         </Row>
                         <Row className=" article-header mb-4">
-                            <h4 className="mb-4 d-flex justify-content-center align-elements-center">
+                            <h5 className="mb-4 d-flex justify-content-center align-elements-center">
                                 Super Admin Login
-                            </h4>
+                            </h5>
                         </Row>
                         <Row className="mt-5">
                             <Col md={12}>

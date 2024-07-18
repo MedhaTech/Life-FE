@@ -100,25 +100,26 @@ const TicketsPage = () => {
                 width: '6rem'
             },
             {
-                name: t('teacher_teams.team_name'),
+                name: 'Course/Class',
+                // name: t('teacher_teams.team_name'),
                 selector: (row) => row.team_name,
                 sortable: true,
                 // maxlength: '5',
                 width: '20rem'
             },
             {
-                name: 'Student Name',
+                name: 'Member Name',
                 selector: (row) => row.student_name,
                 width: '20rem'
             },
             {
-                name: 'Student Email',
-                selector: (row) => row.student_email,
+                name: 'Mobile Number',
+                selector: (row) => row.student_mobile,
                 width: '20rem'
             },
             {
-                name: 'Student Mobile Number',
-                selector: (row) => row.student_mobile,
+                name: 'Email',
+                selector: (row) => row.student_email,
                 width: '30rem'
             }
             // {
@@ -181,13 +182,13 @@ const TicketsPage = () => {
                 <Row className="pt-5">
                     <Row className="mb-2 mb-sm-5 mb-md-5 mb-lg-0">
                         <Col className="col-auto" style={centerTitleMobile}>
-                            <h2>Team List</h2>
+                            <h2>Team Members</h2>
                         </Col>
 
                         <Col className="ticket-btn col ml-auto ">
                             <div className="d-flex justify-content-end">
                                 <Button
-                                    label={t('teacher_teams.create_team')}
+                                    label="ADD MEMBER"
                                     btnClass="primary ml-2"
                                     size="small"
                                     shape="btn-square"

@@ -23,7 +23,7 @@ import axios from 'axios';
 
 import 'react-pro-sidebar/dist/css/styles.css';
 import { useLocation } from 'react-router-dom';
-import Logo from '../assets/media/tn-brands/EDII_LOGO.png';
+import Logo from '../assets/media/Life_logo.jpg';
 
 import TicketIcon from '../assets/media/ticket.png';
 import FaqIcon from '../assets/media/faq.png';
