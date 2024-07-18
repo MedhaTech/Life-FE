@@ -120,37 +120,12 @@ const AddMentor = (props) => {
             <div className="EditPersonalDetails new-member-page">
                 <Row>
                     <Col className="col-xl-10 offset-xl-1 offset-md-0">
-                        <h3 className="mb-5">Create Team</h3>
+                        <h3 className="mb-5">Create Member</h3>
                         <div>
                             <Form onSubmit={formik.handleSubmit} isSubmitting>
                                 <div className="create-ticket register-block">
                                     <Row className="justify-content-center">
-                                        <Col md={6}>
-                                            <Label
-                                                className="name-req"
-                                                htmlFor="team_name"
-                                            >
-                                                Team Name
-                                            </Label>
-                                            <InputBox
-                                                className={'defaultInput'}
-                                                placeholder={
-                                                    'Please Enter Team Name'
-                                                }
-                                                id="team_name"
-                                                name="team_name"
-                                                onChange={formik.handleChange}
-                                                onBlur={formik.handleBlur}
-                                                value={formik.values.team_name}
-                                            />
 
-                                            {formik.touched.team_name &&
-                                            formik.errors.team_name ? (
-                                                <small className="error-cls">
-                                                    {formik.errors.team_name}
-                                                </small>
-                                            ) : null}
-                                        </Col>
                                         <Col md={6}>
                                             <Label
                                                 className="name-req"
@@ -171,13 +146,38 @@ const AddMentor = (props) => {
                                             />
 
                                             {formik.touched.name &&
-                                            formik.errors.name ? (
+                                                formik.errors.name ? (
                                                 <small className="error-cls">
                                                     {formik.errors.name}
                                                 </small>
                                             ) : null}
                                         </Col>
+                                        <Col md={6}>
+                                            <Label
+                                                className="name-req"
+                                                htmlFor="team_name"
+                                            >
+                                                Course / Class
+                                            </Label>
+                                            <InputBox
+                                                className={'defaultInput'}
+                                                placeholder={
+                                                    'Please Enter Course/Class'
+                                                }
+                                                id="team_name"
+                                                name="team_name"
+                                                onChange={formik.handleChange}
+                                                onBlur={formik.handleBlur}
+                                                value={formik.values.team_name}
+                                            />
 
+                                            {formik.touched.team_name &&
+                                                formik.errors.team_name ? (
+                                                <small className="error-cls">
+                                                    {formik.errors.team_name}
+                                                </small>
+                                            ) : null}
+                                        </Col>
                                         <Col md={6}>
                                             <Label
                                                 className="name-req"
@@ -198,7 +198,7 @@ const AddMentor = (props) => {
                                             />
 
                                             {formik.touched.email &&
-                                            formik.errors.email ? (
+                                                formik.errors.email ? (
                                                 <small className="error-cls">
                                                     {formik.errors.email}
                                                 </small>
@@ -224,7 +224,7 @@ const AddMentor = (props) => {
                                             />
 
                                             {formik.touched.mobile &&
-                                            formik.errors.mobile ? (
+                                                formik.errors.mobile ? (
                                                 <small className="error-cls">
                                                     {formik.errors.mobile}
                                                 </small>

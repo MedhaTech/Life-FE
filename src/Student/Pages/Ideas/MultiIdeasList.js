@@ -36,7 +36,7 @@ const InstructionsPage = (props) => {
     const state = currentUser?.data[0]?.state;
     const [pageEnable, setPageEnable] = useState(true);
     const [selectedRecord, setSelectedRecord] = useState(null);
-    let idea_id =0;
+    let idea_id = 0;
     const handleStart = () => {
         //apiCall();
         localStorage.setItem('condition', false);
@@ -68,9 +68,9 @@ const InstructionsPage = (props) => {
         await axios(config)
             .then(async function (response) {
                 if (response.status == 200) {
-                    
+
                     setIdeaIntiation(response?.data.data[0].initiated_by);
-                    idea_id=(response?.data.data[0].idea_id);
+                    idea_id = (response?.data.data[0].idea_id);
                     openNotificationWithIcon(
                         'success',
                         'Idea Initiated Successfully'
@@ -79,8 +79,8 @@ const InstructionsPage = (props) => {
                     setPageEnable(false);
                     history.push({
                         data: {
-                            idea :idea_id,
-                            submitedData : response?.data.data[0]
+                            idea: idea_id,
+                            submitedData: response?.data.data[0]
                         }
                     });
                 }
@@ -119,25 +119,25 @@ const InstructionsPage = (props) => {
                 console.log(error);
             });
     };
-    
+
     const handleView = (record) => {
-        console.log(record.status , "record");
-        if(record.status==="SUBMITTED"){
+        console.log(record.status, "record");
+        if (record.status === "SUBMITTED") {
             setSelectedRecord(record);
             setShowModal(true);
         }
-        else{
+        else {
             history.push({
                 pathname: '/challenges',
                 data: {
-                    submitedData : record
+                    submitedData: record
                 }
             });
-            console.log(record , "record");
-            console.log(history , "histiry");
+            console.log(record, "record");
+            console.log(history, "histiry");
 
         }
-       
+
     };
 
     const handleClose = () => {
@@ -145,8 +145,8 @@ const InstructionsPage = (props) => {
         setSelectedRecord(null);
     };
     const files = selectedRecord?.Prototype_file
-    ? selectedRecord.Prototype_file.split(',')
-    : [];
+        ? selectedRecord.Prototype_file.split(',')
+        : [];
     const downloadFile = (item) => {
         // const link = document.createElement('a');
         // link.href = item;
@@ -179,7 +179,7 @@ const InstructionsPage = (props) => {
         // data: staticData,
         columns: [
             {
-                name: 'No',
+                name: 'NO',
                 selector: (row, key) => key + 1,
                 sortable: true,
                 width: '10%'
@@ -187,34 +187,34 @@ const InstructionsPage = (props) => {
             },
 
             {
-                name: 'Theme',
+                name: 'THEME',
                 selector: (row) => row.themes_problem?.theme_name,
-                width: '30rem'
+                width: '25%'
                 // center: true,
             },
             {
-                name: 'Idea Title',
+                name: 'IDEA TITLE',
                 selector: (row) => row.idea_title,
-                width: '20rem'
+                width: '25%'
             },
             {
-                name: 'Status',
+                name: 'STATUS',
                 selector: (row) => row.status,
-                width: '20rem'
+                width: '10%'
             },
             {
-                name: 'Submitted on',
+                name: 'SUBMITTED ON',
                 selector: (row) =>
                     row.submitted_at
                         ? moment(row.submitted_at).format('DD-MM-YYYY')
                         : row.submitted_at,
-                width: '20rem'
+                width: '15%'
             },
 
             {
-                name: 'Actions',
+                name: 'ACTIONS',
                 center: true,
-                width: '30rem',
+                width: '15%',
                 cell: (record) => [
                     <>
                         <div
@@ -222,36 +222,47 @@ const InstructionsPage = (props) => {
                             onClick={() => handleView(record)}
                             style={{ marginRight: '12px' }}
                         >
-                            {record.status==="SUBMITTED"? (
-                            <div className="btn btn-primary btn-lg mx-2">
-                                View
-                            </div>):(<div className="btn btn-warning btn-lg mx-2">
-                                Proceed
-                            </div>)}
+                            {record.status === "SUBMITTED" ? (
+                                <div className="btn btn-primary btn-lg mx-2">
+                                    View
+                                </div>) : (<div className="btn btn-warning btn-lg mx-2">
+                                    Proceed
+                                </div>)}
                         </div>
                     </>
                 ]
             }
         ]
     };
+    const centerTitleMobile = {
+        '@media (max-width: 768px)': {
+            marginLeft: '2rem'
+        }
+    };
     return (
         <Layout title="Idea Submission">
             <div className="courses-page">
                 <div
                     className="pb-5 my-5 px-5 container-fluid"
-                    // style={{ minHeight: '72vh' }}
+                // style={{ minHeight: '72vh' }}
                 >
-                    <Row>
-                        <h3>Ideas List</h3>
+                    <Row className="mb-2 mb-sm-5 mb-md-5 mb-lg-0">
+                        <Col className="col-auto" style={centerTitleMobile}>
+                            <h2>Ideas List</h2>
+                        </Col>
+
+                        <Col className="ticket-btn col ml-auto ">
+                            <div className="d-flex justify-content-end">
+                                <Button
+                                    label="NEW  IDEA"
+                                    btnClass="primary mt-4 mx-4"
+                                    size="small"
+                                    onClick={handleStart}
+                                />
+                            </div>
+                        </Col>
                     </Row>
-                    <Col>
-                        <Button
-                            label="NEW  Idea"
-                            btnClass="primary mt-4 mx-4"
-                            size="small"
-                            onClick={handleStart}
-                        />
-                    </Col>
+
                     <div className="my-2">
                         <DataTableExtensions
                             print={false}
@@ -419,7 +430,7 @@ const InstructionsPage = (props) => {
                                     {selectedRecord.prototype_available !==
                                         'NO' &&
                                         selectedRecord.prototype_available !==
-                                            '' && (
+                                        '' && (
                                             <Card className="m-3 p-3">
                                                 <CardBody>
                                                     <label
