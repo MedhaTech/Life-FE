@@ -31,7 +31,7 @@ import OtpInput from 'react-otp-input-rc-17';
 import { useHistory } from 'react-router-dom';
 import { isDisabled } from '@testing-library/user-event/dist/utils';
 import { decryptGlobal } from '../constants/encryptDecrypt';
-import { stateList, districtList } from './OrgData';
+import { stateList, districtList, collegesList } from './OrgData';
 
 function AtlPage() {
     const { t } = useTranslation();
@@ -593,8 +593,8 @@ function AtlPage() {
 
                                                     {formik.touched
                                                         .student_full_name &&
-                                                    formik.errors
-                                                        .student_full_name ? (
+                                                        formik.errors
+                                                            .student_full_name ? (
                                                         <small className="error-cls">
                                                             {
                                                                 formik.errors
@@ -645,7 +645,7 @@ function AtlPage() {
                                                     />
 
                                                     {formik.touched.email &&
-                                                    formik.errors.email ? (
+                                                        formik.errors.email ? (
                                                         <small className="error-cls">
                                                             {
                                                                 formik.errors
@@ -704,7 +704,7 @@ function AtlPage() {
                                                     />
 
                                                     {formik.touched.mobile &&
-                                                    formik.errors.mobile ? (
+                                                        formik.errors.mobile ? (
                                                         <small className="error-cls">
                                                             {
                                                                 formik.errors
@@ -763,8 +763,8 @@ function AtlPage() {
 
                                                     {formik.touched
                                                         .date_of_birth &&
-                                                    formik.errors
-                                                        .date_of_birth ? (
+                                                        formik.errors
+                                                            .date_of_birth ? (
                                                         <small className="error-cls">
                                                             {
                                                                 formik.errors
@@ -809,23 +809,23 @@ function AtlPage() {
                                                         value={String(
                                                             formik.values.Age
                                                         )}
-                                                        // pattern={
-                                                        //     dateRegex.source
-                                                        // }
-                                                        // name="Age"
-                                                        // onChange={
-                                                        //     formik.handleChange
-                                                        // }
-                                                        // onBlur={
-                                                        //     formik.handleBlur
-                                                        // }
-                                                        // value={
-                                                        //     formik.values.Age
-                                                        // }
+                                                    // pattern={
+                                                    //     dateRegex.source
+                                                    // }
+                                                    // name="Age"
+                                                    // onChange={
+                                                    //     formik.handleChange
+                                                    // }
+                                                    // onBlur={
+                                                    //     formik.handleBlur
+                                                    // }
+                                                    // value={
+                                                    //     formik.values.Age
+                                                    // }
                                                     />
 
                                                     {formik.touched.Age &&
-                                                    formik.errors.Age ? (
+                                                        formik.errors.Age ? (
                                                         <small className="error-cls">
                                                             {formik.errors.Age}
                                                         </small>
@@ -889,7 +889,7 @@ function AtlPage() {
                                                             ); // Reset district value
                                                             setDistricts(
                                                                 districtList[
-                                                                    selectedState
+                                                                selectedState
                                                                 ] || []
                                                             );
                                                         }}
@@ -911,7 +911,7 @@ function AtlPage() {
                                                         )}
                                                     </select>
                                                     {formik.touched.state &&
-                                                    formik.errors.state ? (
+                                                        formik.errors.state ? (
                                                         <small className="error-cls">
                                                             {
                                                                 formik.errors
@@ -985,7 +985,7 @@ function AtlPage() {
                                                         )}
                                                     </select>
                                                     {formik.touched.district &&
-                                                    formik.errors.district ? (
+                                                        formik.errors.district ? (
                                                         <small className="error-cls">
                                                             {
                                                                 formik.errors
@@ -1025,7 +1025,55 @@ function AtlPage() {
                                                             *
                                                         </span>
                                                     </Label>
-                                                    <InputBox
+                                                    <select
+                                                        disabled={
+                                                            holdKey
+                                                                ? true
+                                                                : false
+                                                        }
+                                                        name="state"
+                                                        className="col-8 selectDropdown"
+                                                        onBlur={
+                                                            formik.handleBlur
+                                                        }
+                                                        value={
+                                                            formik.values.state
+                                                        }
+                                                        onChange={(e) => {
+                                                            const selectedState =
+                                                                e.target.value;
+                                                            formik.setFieldValue(
+                                                                'state',
+                                                                selectedState
+                                                            );
+                                                            formik.setFieldValue(
+                                                                'district',
+                                                                ''
+                                                            ); // Reset district value
+                                                            setDistricts(
+                                                                districtList[
+                                                                selectedState
+                                                                ] || []
+                                                            );
+                                                        }}
+                                                    >
+                                                        <option value="">
+                                                            Select Instituion
+                                                        </option>
+                                                        {collegesList.map(
+                                                            (college) => (
+                                                                <option
+                                                                    key={college}
+                                                                    value={
+                                                                        college
+                                                                    }
+                                                                >
+                                                                    {college}
+                                                                </option>
+                                                            )
+                                                        )}
+                                                    </select>
+                                                    {/* <InputBox
                                                         type="text"
                                                         placeholder="Enter Institution Name"
                                                         className="defaultInput"
@@ -1046,12 +1094,12 @@ function AtlPage() {
                                                             formik.values
                                                                 .institution_name
                                                         }
-                                                    />
+                                                    /> */}
 
                                                     {formik.touched
                                                         .institution_name &&
-                                                    formik.errors
-                                                        .institution_name ? (
+                                                        formik.errors
+                                                            .institution_name ? (
                                                         <small className="error-cls">
                                                             {
                                                                 formik.errors
@@ -1105,7 +1153,7 @@ function AtlPage() {
                                                     />
 
                                                     {formik.touched.city &&
-                                                    formik.errors.city ? (
+                                                        formik.errors.city ? (
                                                         <small className="error-cls">
                                                             {formik.errors.city}
                                                         </small>
@@ -1128,11 +1176,11 @@ function AtlPage() {
                                                     xl={5}
                                                 >
                                                     <Label htmlFor="group">
-                                                        Group
+                                                        Stream
                                                     </Label>
                                                     <InputBox
                                                         type="text"
-                                                        placeholder="Enter Group"
+                                                        placeholder="Enter Stream"
                                                         className="defaultInput"
                                                         id="group"
                                                         isDisabled={
@@ -1153,7 +1201,7 @@ function AtlPage() {
                                                     />
 
                                                     {formik.touched.group &&
-                                                    formik.errors.group ? (
+                                                        formik.errors.group ? (
                                                         <small className="error-cls">
                                                             {
                                                                 formik.errors
@@ -1210,8 +1258,8 @@ function AtlPage() {
                                                     </select>
                                                     {formik.touched
                                                         .year_of_study &&
-                                                    formik.errors
-                                                        .year_of_study ? (
+                                                        formik.errors
+                                                            .year_of_study ? (
                                                         <small className="error-cls">
                                                             {
                                                                 formik.errors
@@ -1277,7 +1325,43 @@ function AtlPage() {
                                                         </option>
                                                     </select>
                                                     {formik.touched.Gender &&
-                                                    formik.errors.Gender ? (
+                                                        formik.errors.Gender ? (
+                                                        <small className="error-cls">
+                                                            {
+                                                                formik.errors
+                                                                    .Gender
+                                                            }
+                                                        </small>
+                                                    ) : null}
+                                                </Col>
+                                                <Col
+                                                    className="form-group"
+                                                    xs={12}
+                                                    sm={12}
+                                                    md={12}
+                                                    xl={3}
+                                                >
+                                                    <Label
+                                                        className="mb-2"
+                                                        htmlFor="Gender"
+                                                    >
+                                                        Colleg ID Card
+                                                    </Label>
+                                                    <div className="wrapper">
+                                                        <div className="btnimg">
+                                                            Upload File
+                                                        </div>
+                                                        <input
+                                                            type="file"
+                                                            name="file"
+                                                            accept={'.pdf,.csv'}
+                                                            onChange={(e) =>
+                                                                changeHandler(e)
+                                                            }
+                                                        />
+                                                    </div>
+                                                    {formik.touched.Gender &&
+                                                        formik.errors.Gender ? (
                                                         <small className="error-cls">
                                                             {
                                                                 formik.errors
@@ -1318,7 +1402,7 @@ function AtlPage() {
 
                                                     <div
                                                         className="w-100 d-block text-left"
-                                                        // className="form-row row mb-5 col-md-3 text-centered"
+                                                    // className="form-row row mb-5 col-md-3 text-centered"
                                                     >
                                                         <Label
                                                             className="mb-2 mt-4  text-left"
@@ -1385,7 +1469,7 @@ function AtlPage() {
                                                 otpRes != formik.values.otp && (
                                                     <div
                                                         className="form-row row mb-5 text-center"
-                                                        // className=" w-50 d-flex justify-content-center"
+                                                    // className=" w-50 d-flex justify-content-center"
                                                     >
                                                         <span
                                                             className=" w-100 mt-3 d-flex justify-content-center"
@@ -1406,7 +1490,7 @@ function AtlPage() {
                                                         btnClass={
                                                             formik.values.otp
                                                                 .length > 5 &&
-                                                            otpRes ==
+                                                                otpRes ==
                                                                 formik.values
                                                                     .otp
                                                                 ? 'primary rounded-0'
@@ -1419,11 +1503,11 @@ function AtlPage() {
                                                                 formik.values
                                                                     .otp
                                                                     .length >
-                                                                    5 &&
+                                                                5 &&
                                                                 otpRes ==
-                                                                    formik
-                                                                        .values
-                                                                        .otp
+                                                                formik
+                                                                    .values
+                                                                    .otp
                                                             )
                                                         }
                                                     />
