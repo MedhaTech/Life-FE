@@ -166,7 +166,7 @@ function AtlPage() {
             year_of_study: Yup.string()
                 .trim()
                 .optional()
-                .min(2, 'Select Year Of Study'),
+                .min(2, 'Select Year of Passed'),
 
             mobile: Yup.string()
                 .required('Enter MObile Number')
@@ -1221,7 +1221,7 @@ function AtlPage() {
                                                         className="mb-2"
                                                         htmlFor="year_of_study"
                                                     >
-                                                        Year Of Study
+                                                        Year of Passed
                                                     </Label>
                                                     <select
                                                         disabled={
@@ -1243,7 +1243,7 @@ function AtlPage() {
                                                         }
                                                     >
                                                         <option value="">
-                                                            Select Year of Study
+                                                            Select Year of Passed
                                                         </option>
                                                         {yearList.map(
                                                             (year) => (
