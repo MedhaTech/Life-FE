@@ -157,12 +157,12 @@ const AddMentor = (props) => {
                                                 className="name-req"
                                                 htmlFor="team_name"
                                             >
-                                                Course / Class
+                                                Stream
                                             </Label>
                                             <InputBox
                                                 className={'defaultInput'}
                                                 placeholder={
-                                                    'Please Enter Course/Class'
+                                                    'Please Enter Stream'
                                                 }
                                                 id="team_name"
                                                 name="team_name"
@@ -229,6 +229,31 @@ const AddMentor = (props) => {
                                                     {formik.errors.mobile}
                                                 </small>
                                             ) : null}
+                                        </Col>
+
+                                        <Col md={6}>
+                                        <Label
+                                                        className="mb-2"
+                                                        htmlFor="CollegeIDCard"
+                                                    >
+                                                        Colleg ID Card
+                                                    </Label>
+                                                    <div className="wrapper">
+                                                        <div className="btnimg">
+                                                            Upload File
+                                                        </div>
+                                                        <input
+                                                            type="file"
+                                                            name="file"
+                                                            accept={'.pdf,.csv'}
+                                                        />
+                                                    </div>                                          
+                                        </Col>
+                                        <Col
+                                            className="form-group"
+                                            md={6}
+                                        >
+                                             
                                         </Col>
                                     </Row>
                                 </div>

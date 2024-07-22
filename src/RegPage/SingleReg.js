@@ -169,7 +169,7 @@ function AtlPage() {
                 .min(2, 'Select Year of Passed'),
 
             mobile: Yup.string()
-                .required('Enter MObile Number')
+                .required('Enter Mobile Number')
                 .trim()
                 .matches(
                     /^\d+$/,
@@ -305,7 +305,7 @@ function AtlPage() {
                     setOtpRes(JSON.parse(UNhashedPassword));
                     openNotificationWithIcon(
                         'success',
-                        'Otp send to Mobile Number'
+                        'Otp send to registered email id'
                     );
                     setBtnOtp(true);
                     setTimeout(() => {
@@ -1012,7 +1012,7 @@ function AtlPage() {
                                                 >
                                                     <Label
                                                         className="mb-2"
-                                                        htmlFor="name"
+                                                        htmlFor="institution_name"
                                                     >
                                                         Institution Name
                                                         <span
@@ -1031,31 +1031,17 @@ function AtlPage() {
                                                                 ? true
                                                                 : false
                                                         }
-                                                        name="state"
+                                                        name="institution_name"
                                                         className="col-8 selectDropdown"
                                                         onBlur={
                                                             formik.handleBlur
                                                         }
                                                         value={
-                                                            formik.values.state
+                                                            formik.values.college
                                                         }
-                                                        onChange={(e) => {
-                                                            const selectedState =
-                                                                e.target.value;
-                                                            formik.setFieldValue(
-                                                                'state',
-                                                                selectedState
-                                                            );
-                                                            formik.setFieldValue(
-                                                                'district',
-                                                                ''
-                                                            ); // Reset district value
-                                                            setDistricts(
-                                                                districtList[
-                                                                selectedState
-                                                                ] || []
-                                                            );
-                                                        }}
+                                                        onChange={
+                                                            formik.handleChange
+                                                        }
                                                     >
                                                         <option value="">
                                                             Select Instituion
@@ -1343,7 +1329,7 @@ function AtlPage() {
                                                 >
                                                     <Label
                                                         className="mb-2"
-                                                        htmlFor="Gender"
+                                                        htmlFor="CollegeIDCard"
                                                     >
                                                         Colleg ID Card
                                                     </Label>
@@ -1355,20 +1341,8 @@ function AtlPage() {
                                                             type="file"
                                                             name="file"
                                                             accept={'.pdf,.csv'}
-                                                            onChange={(e) =>
-                                                                changeHandler(e)
-                                                            }
                                                         />
                                                     </div>
-                                                    {formik.touched.Gender &&
-                                                        formik.errors.Gender ? (
-                                                        <small className="error-cls">
-                                                            {
-                                                                formik.errors
-                                                                    .Gender
-                                                            }
-                                                        </small>
-                                                    ) : null}
                                                 </Col>
                                             </Row>
 
