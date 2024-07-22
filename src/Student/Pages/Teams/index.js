@@ -100,7 +100,7 @@ const TicketsPage = () => {
                 width: '6rem'
             },
             {
-                name: 'Course/Class',
+                name: 'Stream',
                 // name: t('teacher_teams.team_name'),
                 selector: (row) => row.team_name,
                 sortable: true,
@@ -121,6 +121,12 @@ const TicketsPage = () => {
                 name: 'Email',
                 selector: (row) => row.student_email,
                 width: '30rem'
+            }
+            ,
+            {
+                name: 'ID Card',
+                selector: (row) => '',
+                width: '10rem'
             }
             // {
             //     name: 'Gender',
