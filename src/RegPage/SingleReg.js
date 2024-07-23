@@ -31,7 +31,13 @@ import OtpInput from 'react-otp-input-rc-17';
 import { useHistory } from 'react-router-dom';
 import { isDisabled } from '@testing-library/user-event/dist/utils';
 import { decryptGlobal } from '../constants/encryptDecrypt';
-import { stateList, districtList, collegesList } from './OrgData';
+import {
+    stateList,
+    districtList,
+    collegesList,
+    institutionType,
+    istitutionNameList
+} from './OrgData';
 
 function AtlPage() {
     const { t } = useTranslation();
@@ -61,6 +67,8 @@ function AtlPage() {
     const [or, setOr] = useState('');
     const [instId, setInstId] = useState('');
     const [districts, setDistricts] = useState([]);
+    const [instNames, setInstNames] = useState([]);
+
     const yearList = Array.from(
         { length: 2024 - 2000 + 1 },
         (_, index) => 2000 + index
@@ -85,7 +93,50 @@ function AtlPage() {
         placeholder: 'Enter Full Name',
         className: 'defaultInput'
     };
+    const fileHandler = (e) => {
+        let file = e.target.files[0];
 
+        if (!file) {
+            return;
+        }
+
+        let pattern = /^[a-zA-Z0-9_-\s]{0,}$/;
+        const fileName = file.name.split('.').slice(0, -1).join('.');
+        const isValidFileName = pattern.test(fileName);
+
+        const maxFileSize = 10000000;
+        const isOverMaxSize = file.size > maxFileSize;
+
+        const allowedTypes = [
+            'image/jpeg',
+            'image/png',
+            'application/msword',
+            'application/pdf',
+            'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+        ];
+        if (!allowedTypes.includes(file.type)) {
+            openNotificationWithIcon(
+                'error',
+                t('Accepting only png,jpg,jpeg,pdf,doc,docx Only')
+            );
+            return;
+        }
+
+        if (isOverMaxSize) {
+            openNotificationWithIcon('error', t('student.less_10MB'));
+            return;
+        }
+
+        if (!isValidFileName) {
+            openNotificationWithIcon(
+                'error',
+                "Only alphanumeric and '_' are allowed"
+            );
+            return;
+        }
+
+        formik.setFieldValue('id_card', file);
+    };
     const inputUsername = {
         type: 'text',
         placeholder: 'Enter Mobile Number',
@@ -126,6 +177,7 @@ function AtlPage() {
             city: '',
             student_full_name: '',
             mobile: '',
+            // inst_type: '',
             role: 'STUDENT',
             reg_status: false,
             otp: '',
@@ -135,17 +187,20 @@ function AtlPage() {
             group: '',
             Age: '',
             year_of_study: '',
-            date_of_birth: ''
+            date_of_birth: '',
+            reg_no: '',
+            id_card: ''
         },
 
         validationSchema: Yup.object({
             state: Yup.string().required('select state'),
             district: Yup.string().required('select district'),
+            group: Yup.string().required('select Institution Type'),
             institution_name: Yup.string()
                 .trim()
                 .required('Enter Institution Name')
-                .min(2, 'Enter Institution Name')
-                .matches(name, 'Special Characters are not allowed'),
+                .min(2, 'Enter Institution Name'),
+            // .matches(name, 'Special Characters are not allowed'),
             city: Yup.string()
                 .trim()
                 .required('Enter City Name')
@@ -158,11 +213,7 @@ function AtlPage() {
 
                 .min(2, 'Enter Full Name')
                 .matches(name, 'Special Characters are not allowed'),
-            Group: Yup.string()
-                .trim()
-                .optional()
-                .min(2, 'Enter Group')
-                .matches(name, 'Special Characters are not allowed'),
+            reg_no: Yup.string().trim().optional().min(2, 'Enter Register No'),
             year_of_study: Yup.string()
                 .trim()
                 .optional()
@@ -179,6 +230,7 @@ function AtlPage() {
                 .min(10, 'Number is less than 10 digits'),
 
             Age: Yup.number(),
+            id_card: Yup.mixed(),
 
             Gender: Yup.string().required('select valid Gender'),
             date_of_birth: Yup.date().required('Date of Birth is required')
@@ -194,80 +246,103 @@ function AtlPage() {
         }),
 
         onSubmit: async (values) => {
-            if (values.otp.length < 5) {
-                setErrorMsg(true);
-            } else {
-                const axiosConfig = getNormalHeaders(KEY.User_API_Key);
-                var pass = values.mobile.trim();
+            if (values.id_card !== '') {
+                const fileData = new FormData();
+                fileData.append('file', values.id_card);
 
-                const key = CryptoJS.enc.Hex.parse(
-                    '253D3FB468A0E24677C28A624BE0F939'
-                );
-                const iv = CryptoJS.enc.Hex.parse(
-                    '00000000000000000000000000000000'
-                );
-                const encrypted = CryptoJS.AES.encrypt(pass, key, {
-                    iv: iv,
-                    padding: CryptoJS.pad.NoPadding
-                }).toString();
-                const body = JSON.stringify({
-                    student_full_name: values.student_full_name.trim(),
-                    date_of_birth: values.date_of_birth,
-                    email: values.email.trim(),
-                    mobile: values.mobile.trim(),
-                    institution_name: values.institution_name.trim(),
-                    city: values.city.trim(),
-                    // group: values.group.trim(),
-                    Gender: values.Gender,
-                    Age: values.Age,
-                    state: values.state,
-                    district: values.district,
-                    role: values.role.trim(),
-                    reg_status: values.reg_status,
-                    password: encrypted,
-                    ...(values.year_of_study && {
-                        year_of_study: values.year_of_study.trim()
-                    }),
-                    ...(values.group && { group: values.group.trim() })
-                });
-                var config = {
-                    method: 'post',
-                    url:
-                        process.env.REACT_APP_API_BASE_URL +
-                        '/students/register',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        Authorization:
-                            'O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870'
-                    },
-
-                    data: body
-                };
-                await axios(config)
-                    .then((mentorRegRes) => {
-                        if (mentorRegRes?.data?.status == 201) {
-                            setMentorData(mentorRegRes?.data?.data[0]);
-
-                            history.push({
-                                pathname: '/successScreen'
-                            });
+                const response = await axios.post(
+                    `${process.env.REACT_APP_API_BASE_URL}/students/idcardUpload`,
+                    fileData,
+                    {
+                        headers: {
+                            'Content-Type': 'multipart/form-data',
+                            Authorization:
+                                'O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870'
                         }
-                    })
-                    .catch((err) => {
-                        openNotificationWithIcon(
-                            'error',
-                            err.response.data?.message
-                        );
-                        // setBtn(false);
-                        formik.setErrors({
-                            check: err.response && err?.response?.data?.message
-                        });
-                        return err.response;
+                    }
+                );
+                values.id_card = response?.data?.data[0].attachments[0];
+                // }
+                if (values.otp.length < 5) {
+                    setErrorMsg(true);
+                } else {
+                    console.log('data', 'data');
+                    const axiosConfig = getNormalHeaders(KEY.User_API_Key);
+                    var pass = values.mobile.trim();
+
+                    const key = CryptoJS.enc.Hex.parse(
+                        '253D3FB468A0E24677C28A624BE0F939'
+                    );
+                    const iv = CryptoJS.enc.Hex.parse(
+                        '00000000000000000000000000000000'
+                    );
+                    const encrypted = CryptoJS.AES.encrypt(pass, key, {
+                        iv: iv,
+                        padding: CryptoJS.pad.NoPadding
+                    }).toString();
+                    const body = JSON.stringify({
+                        student_full_name: values.student_full_name.trim(),
+                        date_of_birth: values.date_of_birth,
+                        email: values.email.trim(),
+                        mobile: values.mobile.trim(),
+                        institution_name: values.institution_name.trim(),
+                        city: values.city.trim(),
+                        Gender: values.Gender,
+                        Age: values.Age,
+                        state: values.state,
+                        district: values.district,
+                        group: values.group,
+                        role: values.role.trim(),
+                        reg_status: values.reg_status,
+                        password: encrypted,
+                        id_card: values.id_card,
+                        ...(values.year_of_study && {
+                            year_of_study: values.year_of_study.trim()
+                        }),
+                        ...(values.reg_no && { reg_no: values.reg_no.trim() })
                     });
+                    // if (values.id_card !== '') {
+                    //     body['id_card'] = values.id_card;
+                    // }
+                    var config = {
+                        method: 'post',
+                        url:
+                            process.env.REACT_APP_API_BASE_URL +
+                            '/students/register',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            Authorization:
+                                'O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870'
+                        },
+
+                        data: body
+                    };
+                    await axios(config)
+                        .then((mentorRegRes) => {
+                            if (mentorRegRes?.data?.status == 201) {
+                                setMentorData(mentorRegRes?.data?.data[0]);
+
+                                history.push({
+                                    pathname: '/successScreen'
+                                });
+                            }
+                        })
+                        .catch((err) => {
+                            openNotificationWithIcon(
+                                'error',
+                                err.response.data?.message
+                            );
+                            // setBtn(false);
+                            formik.setErrors({
+                                check:
+                                    err.response && err?.response?.data?.message
+                            });
+                            return err.response;
+                        });
+                }
             }
         }
     });
-
     const handleSendOtp = async (e) => {
         setHoldKey(true);
         setDisable(false);
@@ -345,10 +420,11 @@ function AtlPage() {
             formik.values.mobile.length > 0 &&
             formik.values.Gender.length > 0 &&
             formik.values.email.length > 0 &&
-            // formik.values.Age.length > 0 &&
+            // formik.values.id_card.length > 0 &&
             formik.values.state.length > 0 &&
             formik.values.district.length > 0 &&
             formik.values.city.length > 0 &&
+            formik.values.group.length > 0 &&
             formik.values.institution_name.length > 0
         ) {
             setDisable(true);
@@ -361,9 +437,10 @@ function AtlPage() {
         formik.values.mobile,
         formik.values.Gender,
         formik.values.email,
-        // formik.values.Age,
+        // formik.values.id_card,
         formik.values.state,
         formik.values.district,
+        formik.values.group,
         formik.values.city,
         formik.values.institution_name
     ]);
@@ -593,8 +670,8 @@ function AtlPage() {
 
                                                     {formik.touched
                                                         .student_full_name &&
-                                                        formik.errors
-                                                            .student_full_name ? (
+                                                    formik.errors
+                                                        .student_full_name ? (
                                                         <small className="error-cls">
                                                             {
                                                                 formik.errors
@@ -645,7 +722,7 @@ function AtlPage() {
                                                     />
 
                                                     {formik.touched.email &&
-                                                        formik.errors.email ? (
+                                                    formik.errors.email ? (
                                                         <small className="error-cls">
                                                             {
                                                                 formik.errors
@@ -704,7 +781,7 @@ function AtlPage() {
                                                     />
 
                                                     {formik.touched.mobile &&
-                                                        formik.errors.mobile ? (
+                                                    formik.errors.mobile ? (
                                                         <small className="error-cls">
                                                             {
                                                                 formik.errors
@@ -763,8 +840,8 @@ function AtlPage() {
 
                                                     {formik.touched
                                                         .date_of_birth &&
-                                                        formik.errors
-                                                            .date_of_birth ? (
+                                                    formik.errors
+                                                        .date_of_birth ? (
                                                         <small className="error-cls">
                                                             {
                                                                 formik.errors
@@ -809,23 +886,23 @@ function AtlPage() {
                                                         value={String(
                                                             formik.values.Age
                                                         )}
-                                                    // pattern={
-                                                    //     dateRegex.source
-                                                    // }
-                                                    // name="Age"
-                                                    // onChange={
-                                                    //     formik.handleChange
-                                                    // }
-                                                    // onBlur={
-                                                    //     formik.handleBlur
-                                                    // }
-                                                    // value={
-                                                    //     formik.values.Age
-                                                    // }
+                                                        // pattern={
+                                                        //     dateRegex.source
+                                                        // }
+                                                        // name="Age"
+                                                        // onChange={
+                                                        //     formik.handleChange
+                                                        // }
+                                                        // onBlur={
+                                                        //     formik.handleBlur
+                                                        // }
+                                                        // value={
+                                                        //     formik.values.Age
+                                                        // }
                                                     />
 
                                                     {formik.touched.Age &&
-                                                        formik.errors.Age ? (
+                                                    formik.errors.Age ? (
                                                         <small className="error-cls">
                                                             {formik.errors.Age}
                                                         </small>
@@ -889,7 +966,7 @@ function AtlPage() {
                                                             ); // Reset district value
                                                             setDistricts(
                                                                 districtList[
-                                                                selectedState
+                                                                    selectedState
                                                                 ] || []
                                                             );
                                                         }}
@@ -911,7 +988,7 @@ function AtlPage() {
                                                         )}
                                                     </select>
                                                     {formik.touched.state &&
-                                                        formik.errors.state ? (
+                                                    formik.errors.state ? (
                                                         <small className="error-cls">
                                                             {
                                                                 formik.errors
@@ -985,7 +1062,7 @@ function AtlPage() {
                                                         )}
                                                     </select>
                                                     {formik.touched.district &&
-                                                        formik.errors.district ? (
+                                                    formik.errors.district ? (
                                                         <small className="error-cls">
                                                             {
                                                                 formik.errors
@@ -1014,7 +1091,7 @@ function AtlPage() {
                                                         className="mb-2"
                                                         htmlFor="institution_name"
                                                     >
-                                                        Institution Name
+                                                        Institution type
                                                         <span
                                                             className="m-2"
                                                             style={{
@@ -1031,30 +1108,45 @@ function AtlPage() {
                                                                 ? true
                                                                 : false
                                                         }
-                                                        name="institution_name"
+                                                        name="group"
                                                         className="col-8 selectDropdown"
                                                         onBlur={
                                                             formik.handleBlur
                                                         }
                                                         value={
-                                                            formik.values.college
+                                                            formik.values.group
                                                         }
-                                                        onChange={
-                                                            formik.handleChange
-                                                        }
+                                                        onChange={(e) => {
+                                                            const selectedInstType =
+                                                                e.target.value;
+                                                            formik.setFieldValue(
+                                                                'group',
+                                                                selectedInstType
+                                                            );
+                                                            formik.setFieldValue(
+                                                                'institution_name',
+                                                                ''
+                                                            );
+                                                            setInstNames(
+                                                                istitutionNameList[
+                                                                    selectedInstType
+                                                                ] || []
+                                                            );
+                                                        }}
                                                     >
                                                         <option value="">
-                                                            Select Instituion
+                                                            Select Institution
+                                                            Type
                                                         </option>
-                                                        {collegesList.map(
-                                                            (college) => (
+                                                        {institutionType.map(
+                                                            (group) => (
                                                                 <option
-                                                                    key={college}
+                                                                    key={group}
                                                                     value={
-                                                                        college
+                                                                        group
                                                                     }
                                                                 >
-                                                                    {college}
+                                                                    {group}
                                                                 </option>
                                                             )
                                                         )}
@@ -1082,10 +1174,87 @@ function AtlPage() {
                                                         }
                                                     /> */}
 
+                                                    {formik.touched.group &&
+                                                    formik.errors.group ? (
+                                                        <small className="error-cls">
+                                                            {
+                                                                formik.errors
+                                                                    .group
+                                                            }
+                                                        </small>
+                                                    ) : null}
+                                                </Col>
+                                                <Col
+                                                    className="form-group"
+                                                    xs={12}
+                                                    sm={12}
+                                                    md={12}
+                                                    xl={6}
+                                                >
+                                                    <Label htmlFor="institution_name">
+                                                        Institution Name
+                                                        <span
+                                                            className="m-2"
+                                                            style={{
+                                                                color: 'red'
+                                                            }}
+                                                            required
+                                                        >
+                                                            *
+                                                        </span>
+                                                    </Label>
+                                                    <select
+                                                        disabled={
+                                                            holdKey
+                                                                ? true
+                                                                : false
+                                                        }
+                                                        name="institution_name"
+                                                        className="col-8 selectDropdown"
+                                                        onBlur={
+                                                            formik.handleBlur
+                                                        }
+                                                        value={
+                                                            formik.values
+                                                                .institution_name
+                                                        }
+                                                        onChange={(e) => {
+                                                            const selectedInstName =
+                                                                e.target.value;
+                                                            formik.setFieldValue(
+                                                                'institution_name',
+                                                                selectedInstName
+                                                            );
+                                                        }}
+                                                    >
+                                                        <option value="">
+                                                            Select Institution
+                                                            Name
+                                                        </option>
+                                                        {instNames.map(
+                                                            (
+                                                                institution_name
+                                                            ) => (
+                                                                <option
+                                                                    key={
+                                                                        institution_name
+                                                                    }
+                                                                    value={
+                                                                        institution_name
+                                                                    }
+                                                                >
+                                                                    {
+                                                                        institution_name
+                                                                    }
+                                                                </option>
+                                                            )
+                                                        )}
+                                                    </select>
+
                                                     {formik.touched
                                                         .institution_name &&
-                                                        formik.errors
-                                                            .institution_name ? (
+                                                    formik.errors
+                                                        .institution_name ? (
                                                         <small className="error-cls">
                                                             {
                                                                 formik.errors
@@ -1099,7 +1268,7 @@ function AtlPage() {
                                                     xs={12}
                                                     sm={12}
                                                     md={12}
-                                                    xl={6}
+                                                    xl={12}
                                                 >
                                                     <Label
                                                         className="mb-2"
@@ -1139,7 +1308,7 @@ function AtlPage() {
                                                     />
 
                                                     {formik.touched.city &&
-                                                        formik.errors.city ? (
+                                                    formik.errors.city ? (
                                                         <small className="error-cls">
                                                             {formik.errors.city}
                                                         </small>
@@ -1162,19 +1331,21 @@ function AtlPage() {
                                                     xl={5}
                                                 >
                                                     <Label htmlFor="group">
-                                                        Stream
+                                                        Reg. Number as per ID
+                                                        Card
                                                     </Label>
                                                     <InputBox
                                                         type="text"
-                                                        placeholder="Enter Stream"
+                                                        placeholder="Enter Reg. Number as per ID
+                                                        Card"
                                                         className="defaultInput"
-                                                        id="group"
+                                                        id="reg_no"
                                                         isDisabled={
                                                             holdKey
                                                                 ? true
                                                                 : false
                                                         }
-                                                        name="group"
+                                                        name="reg_no"
                                                         onChange={
                                                             formik.handleChange
                                                         }
@@ -1182,16 +1353,16 @@ function AtlPage() {
                                                             formik.handleBlur
                                                         }
                                                         value={
-                                                            formik.values.group
+                                                            formik.values.reg_no
                                                         }
                                                     />
 
-                                                    {formik.touched.group &&
-                                                        formik.errors.group ? (
+                                                    {formik.touched.reg_no &&
+                                                    formik.errors.reg_no ? (
                                                         <small className="error-cls">
                                                             {
                                                                 formik.errors
-                                                                    .group
+                                                                    .reg_no
                                                             }
                                                         </small>
                                                     ) : null}
@@ -1229,7 +1400,8 @@ function AtlPage() {
                                                         }
                                                     >
                                                         <option value="">
-                                                            Select Year of Passed
+                                                            Select Year of
+                                                            Passed
                                                         </option>
                                                         {yearList.map(
                                                             (year) => (
@@ -1244,8 +1416,8 @@ function AtlPage() {
                                                     </select>
                                                     {formik.touched
                                                         .year_of_study &&
-                                                        formik.errors
-                                                            .year_of_study ? (
+                                                    formik.errors
+                                                        .year_of_study ? (
                                                         <small className="error-cls">
                                                             {
                                                                 formik.errors
@@ -1311,7 +1483,7 @@ function AtlPage() {
                                                         </option>
                                                     </select>
                                                     {formik.touched.Gender &&
-                                                        formik.errors.Gender ? (
+                                                    formik.errors.Gender ? (
                                                         <small className="error-cls">
                                                             {
                                                                 formik.errors
@@ -1329,20 +1501,73 @@ function AtlPage() {
                                                 >
                                                     <Label
                                                         className="mb-2"
-                                                        htmlFor="CollegeIDCard"
+                                                        htmlFor="id_card"
                                                     >
-                                                        Colleg ID Card
+                                                        College ID Card
                                                     </Label>
-                                                    <div className="wrapper">
-                                                        <div className="btnimg">
-                                                            Upload File
-                                                        </div>
+                                                    <div className="d-flex align-items-center">
                                                         <input
                                                             type="file"
-                                                            name="file"
-                                                            accept={'.pdf,.csv'}
+                                                            id="id_card"
+                                                            name="id_card"
+                                                            style={{
+                                                                display: 'none'
+                                                            }}
+                                                            accept="image/jpeg,image/png,application/msword,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                                                            onChange={(e) =>
+                                                                fileHandler(e)
+                                                            }
+                                                            onBlur={
+                                                                formik.handleBlur
+                                                            }
                                                         />
+                                                        <Button
+                                                            label="Upload File "
+                                                            btnClass="primary"
+                                                            size="small"
+                                                            onClick={() => {
+                                                                document
+                                                                    .getElementById(
+                                                                        'id_card'
+                                                                    )
+                                                                    .click();
+                                                            }}
+                                                        />
+                                                        {formik.values
+                                                            .id_card &&
+                                                        formik.values.id_card
+                                                            .name ? (
+                                                            <span className="ml-2">
+                                                                {
+                                                                    formik
+                                                                        .values
+                                                                        .id_card
+                                                                        .name
+                                                                }
+                                                            </span>
+                                                        ) : (
+                                                            <span className="ml-2">
+                                                                {formik
+                                                                    .initialValues
+                                                                    .id_card &&
+                                                                    formik
+                                                                        .initialValues
+                                                                        .id_card
+                                                                        .name}
+                                                            </span>
+                                                        )}
                                                     </div>
+                                                    {formik.touched.id_card &&
+                                                        formik.errors
+                                                            .id_card && (
+                                                            <small className="error-cls">
+                                                                {
+                                                                    formik
+                                                                        .errors
+                                                                        .id_card
+                                                                }
+                                                            </small>
+                                                        )}
                                                 </Col>
                                             </Row>
 
@@ -1376,7 +1601,7 @@ function AtlPage() {
 
                                                     <div
                                                         className="w-100 d-block text-left"
-                                                    // className="form-row row mb-5 col-md-3 text-centered"
+                                                        // className="form-row row mb-5 col-md-3 text-centered"
                                                     >
                                                         <Label
                                                             className="mb-2 mt-4  text-left"
@@ -1443,7 +1668,7 @@ function AtlPage() {
                                                 otpRes != formik.values.otp && (
                                                     <div
                                                         className="form-row row mb-5 text-center"
-                                                    // className=" w-50 d-flex justify-content-center"
+                                                        // className=" w-50 d-flex justify-content-center"
                                                     >
                                                         <span
                                                             className=" w-100 mt-3 d-flex justify-content-center"
@@ -1464,7 +1689,7 @@ function AtlPage() {
                                                         btnClass={
                                                             formik.values.otp
                                                                 .length > 5 &&
-                                                                otpRes ==
+                                                            otpRes ==
                                                                 formik.values
                                                                     .otp
                                                                 ? 'primary rounded-0'
@@ -1477,11 +1702,11 @@ function AtlPage() {
                                                                 formik.values
                                                                     .otp
                                                                     .length >
-                                                                5 &&
+                                                                    5 &&
                                                                 otpRes ==
-                                                                formik
-                                                                    .values
-                                                                    .otp
+                                                                    formik
+                                                                        .values
+                                                                        .otp
                                                             )
                                                         }
                                                     />

@@ -112,9 +112,9 @@ function NewIdeaSubmission(props) {
             ? props?.submitedData?.themes_problem?.problem_statement
             : ''
     );
-    // const [description, setDescription] = useState(
-    //     submitedData?.themes_problem?.problem_statement_description
-    // );
+    const [description, setDescription] = useState(
+        props?.submitedData?.themes_problem?.problem_statement_description
+    );
     console.log(history.location.data);
     const [ideaTitle, setIdeaTitle] = useState(props?.submitedData?.idea_title);
     // const [solStatement, setSolStatement] = useState(
@@ -155,13 +155,19 @@ function NewIdeaSubmission(props) {
     const rightImages = imagesList.slice(4);
     let idea_id = 0;
     const [page, setPage] = useState(false);
+    const [que1, setQue1] = useState(false);
+    const [que2, setQue2] = useState(false);
+
     useEffect(() => {
         if (theme === '') {
+            setPage(true);
+        } else if (probStatment !== '') {
             setPage(true);
         } else {
             setPage(false);
         }
     }, [theme]);
+
     useEffect(() => {
         themeApi();
         setThemeProId(
@@ -194,7 +200,7 @@ function NewIdeaSubmission(props) {
         );
     }, [props?.submitedData]);
     useEffect(() => {
-        console.log(submitedData);
+        // console.log(submitedData);
         if (props?.submitedData?.status === 'SUBMITTED') {
             setCondition(true);
             localStorage.setItem('condition', true);
@@ -226,9 +232,9 @@ function NewIdeaSubmission(props) {
                 setProbStatment(
                     listofproblemsandID[themeProId]?.problem_statement
                 );
-            // setDescription(
-            //     listofproblemsandID[themeProId]?.problem_statement_description
-            // );
+            setDescription(
+                listofproblemsandID[themeProId]?.problem_statement_description
+            );
         }
     }, [themeProId]);
     const themeApi = () => {
@@ -347,7 +353,7 @@ function NewIdeaSubmission(props) {
                     : probStatment === 'Others'
                     ? othersPStatment
                     : probStatment,
-            // problem_statement_description: description,
+            problem_statement_description: description,
             idea_title: ideaTitle,
             // solution_statement: solStatement,
             detailed_solution: detailSol,
@@ -400,7 +406,7 @@ function NewIdeaSubmission(props) {
     }
 
     const handleSubmit = async (item, stats) => {
-        console.log(submitedData, 'before api call condition');
+        // console.log(submitedData, 'before api call condition');
         if (!Object.keys(submitedData).length) {
             console.log('Api Call');
             await apiCall();
@@ -472,7 +478,7 @@ function NewIdeaSubmission(props) {
                     : probStatment === 'Others'
                     ? othersPStatment
                     : probStatment,
-            // problem_statement_description: description,
+            problem_statement_description: description,
             idea_title: ideaTitle,
             // solution_statement: solStatement,
             detailed_solution: detailSol,
@@ -501,7 +507,7 @@ function NewIdeaSubmission(props) {
                 themeProId === '' ||
                 probStatment === '' ||
                 typeof probStatment === 'undefined' ||
-                // description === '' ||
+                description === '' ||
                 ideaTitle === '' ||
                 // solStatement === '' ||
                 detailSol === '' ||
@@ -655,7 +661,7 @@ function NewIdeaSubmission(props) {
                                                             fontSize: '1.6rem'
                                                         }}
                                                     >
-                                                        {1}.{' '}
+                                                        {/* {1}.{' '} */}
                                                         {t(
                                                             'student_course.ques1'
                                                         )}
@@ -885,7 +891,7 @@ function NewIdeaSubmission(props) {
                                                                                 '1.6rem'
                                                                         }}
                                                                     >
-                                                                        {2}.{' '}
+                                                                        {/* {2}.{' '} */}
                                                                         {t(
                                                                             'student_course.ques1other'
                                                                         )}
@@ -947,7 +953,7 @@ function NewIdeaSubmission(props) {
                                                                                     '1.6rem'
                                                                             }}
                                                                         >
-                                                                            {3}.{' '}
+                                                                            {/* {3}.{' '} */}
                                                                             {t(
                                                                                 'student_course.ques2others'
                                                                             )}
@@ -959,7 +965,7 @@ function NewIdeaSubmission(props) {
                                                                                     '1.6rem'
                                                                             }}
                                                                         >
-                                                                            {2}.{' '}
+                                                                            {/* {2}.{' '} */}
                                                                             {t(
                                                                                 'student_course.ques2others'
                                                                             )}
@@ -1023,7 +1029,7 @@ function NewIdeaSubmission(props) {
                                                                                 '1.6rem'
                                                                         }}
                                                                     >
-                                                                        {2}.{' '}
+                                                                        {/* {2}.{' '} */}
                                                                         {t(
                                                                             'student_course.ques2'
                                                                         )}
@@ -1135,7 +1141,7 @@ function NewIdeaSubmission(props) {
                                                                                     '1.6rem'
                                                                             }}
                                                                         >
-                                                                            {3}.{' '}
+                                                                            {/* {3}.{' '} */}
                                                                             {t(
                                                                                 'student_course.ques2others'
                                                                             )}
@@ -1188,87 +1194,98 @@ function NewIdeaSubmission(props) {
                                                             </>
                                                         )}
 
-                                                    {/* <Row className="card mb-4 my-3 comment-card px-0 px-5 py-3 card">
-                                                <div className="question quiz mb-0">
-                                                    {theme === 'Others' ? (
-                                                        <b
-                                                            style={{
-                                                                fontSize:
-                                                                    '1.6rem'
-                                                            }}
-                                                        >
-                                                            {4}.{' '}
-                                                            {t(
-                                                                'student_course.ques3description'
+                                                    <Row className="card mb-4 my-3 comment-card px-0 px-5 py-3 card">
+                                                        <div className="question quiz mb-0">
+                                                            {theme ===
+                                                            'Others' ? (
+                                                                <b
+                                                                    style={{
+                                                                        fontSize:
+                                                                            '1.6rem'
+                                                                    }}
+                                                                >
+                                                                    {/* {4}.{' '} */}
+                                                                    {t(
+                                                                        'student_course.ques3description'
+                                                                    )}
+                                                                </b>
+                                                            ) : theme !==
+                                                                  'Others' &&
+                                                              probStatment ===
+                                                                  'Others' ? (
+                                                                <b
+                                                                    style={{
+                                                                        fontSize:
+                                                                            '1.6rem'
+                                                                    }}
+                                                                >
+                                                                    {/* {4}.{' '} */}
+                                                                    {t(
+                                                                        'student_course.ques3description'
+                                                                    )}
+                                                                </b>
+                                                            ) : (
+                                                                <b
+                                                                    style={{
+                                                                        fontSize:
+                                                                            '1.6rem'
+                                                                    }}
+                                                                >
+                                                                    {/* {3}.{' '} */}
+                                                                    {t(
+                                                                        'student_course.ques3description'
+                                                                    )}
+                                                                </b>
                                                             )}
-                                                        </b>
-                                                    ) : theme !== 'Others' &&
-                                                      probStatment ===
-                                                          'Others' ? (
-                                                        <b
-                                                            style={{
-                                                                fontSize:
-                                                                    '1.6rem'
-                                                            }}
+                                                        </div>
+                                                        <FormGroup
+                                                            check
+                                                            className="answers"
                                                         >
-                                                            {4}.{' '}
+                                                            <Label
+                                                                check
+                                                                style={{
+                                                                    width: '100%'
+                                                                }}
+                                                            >
+                                                                <TextArea
+                                                                    disabled={
+                                                                        condition ||
+                                                                        (theme !==
+                                                                            'Others' &&
+                                                                            probStatment !==
+                                                                                'Others')
+                                                                    }
+                                                                    placeholder="Enter the Problem statement"
+                                                                    value={
+                                                                        description
+                                                                    }
+                                                                    maxLength={
+                                                                        1000
+                                                                    }
+                                                                    onChange={(
+                                                                        e
+                                                                    ) =>
+                                                                        setDescription(
+                                                                            e
+                                                                                .target
+                                                                                .value
+                                                                        )
+                                                                    }
+                                                                />
+                                                            </Label>
+                                                        </FormGroup>
+                                                        <div className="text-end">
                                                             {t(
-                                                                'student_course.ques3description'
-                                                            )}
-                                                        </b>
-                                                    ) : (
-                                                        <b
-                                                            style={{
-                                                                fontSize:
-                                                                    '1.6rem'
-                                                            }}
-                                                        >
-                                                            {3}.{' '}
-                                                            {t(
-                                                                'student_course.ques3description'
-                                                            )}
-                                                        </b>
-                                                    )}
-                                                </div>
-                                                <FormGroup
-                                                    check
-                                                    className="answers"
-                                                >
-                                                    <Label
-                                                        check
-                                                        style={{
-                                                            width: '100%'
-                                                        }}
-                                                    >
-                                                        <TextArea
-                                                            disabled={
-                                                                condition ||
-                                                                (theme !==
-                                                                    'Others' &&
-                                                                    probStatment !==
-                                                                        'Others')
-                                                            }
-                                                            placeholder="Enter the Problem statement"
-                                                            value={description}
-                                                            maxLength={1000}
-                                                            onChange={(e) =>
-                                                                setDescription(
-                                                                    e.target
-                                                                        .value
-                                                                )
-                                                            }
-                                                        />
-                                                    </Label>
-                                                </FormGroup>
-                                                <div className="text-end">
-                                                    {t('student_course.chars')}{' '}
-                                                    :
-                                                    {1000 -
-                                                        (description
-                                                            ? description.length
-                                                            : 0)}
-                                                </div>
-                                            </Row> */}
+                                                                'student_course.chars'
+                                                            )}{' '}
+                                                            :
+                                                            {1000 -
+                                                                (description
+                                                                    ? description.length
+                                                                    : 0)}
+                                                        </div>
+                                                    </Row>
 
                                                     <Row className="card mb-4 my-3 comment-card px-0 px-5 py-3 card">
                                                         <div className="question quiz mb-0">
@@ -1280,7 +1297,7 @@ function NewIdeaSubmission(props) {
                                                                             '1.6rem'
                                                                     }}
                                                                 >
-                                                                    {5}.{' '}
+                                                                    {/* {5}.{' '} */}
                                                                     {t(
                                                                         'student_course.ques4ideatitile'
                                                                     )}
@@ -1293,7 +1310,7 @@ function NewIdeaSubmission(props) {
                                                                             '1.6rem'
                                                                     }}
                                                                 >
-                                                                    {5}.{' '}
+                                                                    {/* {5}.{' '} */}
                                                                     {t(
                                                                         'student_course.ques4ideatitile'
                                                                     )}
@@ -1305,7 +1322,7 @@ function NewIdeaSubmission(props) {
                                                                             '1.6rem'
                                                                     }}
                                                                 >
-                                                                    {4}.{' '}
+                                                                    {/* {4}.{' '} */}
                                                                     {t(
                                                                         'student_course.ques4ideatitile'
                                                                     )}
@@ -1529,7 +1546,7 @@ function NewIdeaSubmission(props) {
                                                                             '1.6rem'
                                                                     }}
                                                                 >
-                                                                    {8}.{' '}
+                                                                    {/* {8}.{' '} */}
                                                                     {t(
                                                                         'student_course.ques7Prototype'
                                                                     )}
@@ -1542,7 +1559,7 @@ function NewIdeaSubmission(props) {
                                                                             '1.6rem'
                                                                     }}
                                                                 >
-                                                                    {8}.{' '}
+                                                                    {/* {8}.{' '} */}
                                                                     {t(
                                                                         'student_course.ques7Prototype'
                                                                     )}
@@ -1554,7 +1571,7 @@ function NewIdeaSubmission(props) {
                                                                             '1.6rem'
                                                                     }}
                                                                 >
-                                                                    {7}.{' '}
+                                                                    {/* {7}.{' '} */}
                                                                     {t(
                                                                         'student_course.ques7Prototype'
                                                                     )}
@@ -1703,31 +1720,15 @@ function NewIdeaSubmission(props) {
                                                     <>
                                                         <Row className="card mb-4 my-3 comment-card px-0 px-5 py-3 card">
                                                             <div className="question quiz mb-0">
-                                                                {/* {theme === 'Others' ? ( */}
                                                                 <b
                                                                     style={{
                                                                         fontSize:
                                                                             '1.6rem'
                                                                     }}
                                                                 >
-                                                                    {/* {9}.{' '} */}
-                                                                    {t(
-                                                                        'student_course.ques8file'
-                                                                    )}
+                                                                    Please
+                                                                    Upload File
                                                                 </b>
-                                                                {/* ) : ( */}
-                                                                {/* <b
-                                                            style={{
-                                                                fontSize:
-                                                                    '1.6rem'
-                                                            }}
-                                                        >
-                                                            {8}.{' '}
-                                                            {t(
-                                                                'student_course.ques8file'
-                                                            )}
-                                                        </b> */}
-                                                                {/* )} */}
                                                             </div>
                                                             <div className=" answers row flex-column p-4">
                                                                 <FormGroup
@@ -1895,8 +1896,8 @@ function NewIdeaSubmission(props) {
                                                             )}{' '}
                                                             :
                                                             {5000 -
-                                                                (detailSol
-                                                                    ? detailSol.length
+                                                                (youtubeLink
+                                                                    ? youtubeLink.length
                                                                     : 0)}
                                                         </div>
                                                     </Row>
@@ -1924,7 +1925,7 @@ function NewIdeaSubmission(props) {
                                                                             '1.6rem'
                                                                     }}
                                                                 >
-                                                                    {9}.{' '}
+                                                                    {/* {9}.{' '} */}
                                                                     {t(
                                                                         'student_course.ques9publication'
                                                                     )}
@@ -1936,7 +1937,7 @@ function NewIdeaSubmission(props) {
                                                                             '1.6rem'
                                                                     }}
                                                                 >
-                                                                    {8}.{' '}
+                                                                    {/* {8}.{' '} */}
                                                                     {t(
                                                                         'student_course.ques9publication'
                                                                     )}
@@ -2084,8 +2085,6 @@ function NewIdeaSubmission(props) {
                                                         </Label>
                                                     </Row>
                                                 </div>
-                                                // ) : (
-                                                //     ''
                                             )}
                                         </Row>
                                     </Form>
