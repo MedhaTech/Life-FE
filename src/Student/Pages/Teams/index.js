@@ -8,6 +8,8 @@ import { BsPlusLg } from 'react-icons/bs';
 import { Button } from '../../../stories/Button';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
+import { Badge } from 'react-bootstrap';
+
 import {
     openNotificationWithIcon,
     getCurrentUser
@@ -34,6 +36,7 @@ const TicketsPage = () => {
     const [btn, setBtn] = useState('');
     const [stuList, setStuList] = useState([]);
     const [totalCount, setTotalCount] = useState({});
+    const [stuCont, setStuCount] = useState('');
     useEffect(() => {
         if (currentUser?.data[0]?.student_id) {
             teamListbymentorid(currentUser?.data[0]?.student_id);
@@ -71,8 +74,8 @@ const TicketsPage = () => {
                 );
                 setTotalCount(total);
                 if (response.status === 200) {
-                    console.log(response, 'aaaaa');
-
+                    // console.log(response, 'aaaaa');
+                    setStuCount(response.data.count);
                     setTeamsList(response.data.data);
                 }
             })
@@ -91,6 +94,9 @@ const TicketsPage = () => {
         setTeamsArray(teamsArrays);
         setLoading(false);
     }, [teamsList]);
+    const getFileName = (url) => {
+        return url.substring(url.lastIndexOf('/') + 1);
+    };
     const adminTeamsList = {
         data: teamsArray,
         columns: [
@@ -100,9 +106,9 @@ const TicketsPage = () => {
                 width: '6rem'
             },
             {
-                name: 'Stream',
+                name: 'Reg id',
                 // name: t('teacher_teams.team_name'),
-                selector: (row) => row.team_name,
+                selector: (row) => row.reg_no,
                 sortable: true,
                 // maxlength: '5',
                 width: '20rem'
@@ -121,13 +127,36 @@ const TicketsPage = () => {
                 name: 'Email',
                 selector: (row) => row.student_email,
                 width: '30rem'
-            }
-            ,
+            },
             {
                 name: 'ID Card',
-                selector: (row) => '',
+                selector: (row) => 'row.id_card',
+                cell: (row) => [
+                    <Badge
+                        key={row.id_card}
+                        bg={`${
+                            row.id_card === row.id_card ? 'primary' : 'danger'
+                        }`}
+                    >
+                        {getFileName(row.id_card)}
+                    </Badge>
+                ],
                 width: '10rem'
             }
+            // {
+            //     name: 'Status',
+            //     cell: (row) => [
+            //         <Badge
+            //             key={row.mentor_id}
+            //             bg={`${
+            //                 row.status === 'ACTIVE' ? 'secondary' : 'danger'
+            //             }`}
+            //         >
+            //             {row.status}
+            //         </Badge>
+            //     ],
+            //     width: '9rem'
+            // },
             // {
             //     name: 'Gender',
             //     selector: 'moc_gender',
@@ -193,16 +222,18 @@ const TicketsPage = () => {
 
                         <Col className="ticket-btn col ml-auto ">
                             <div className="d-flex justify-content-end">
-                                <Button
-                                    label="ADD MEMBER"
-                                    btnClass="primary ml-2"
-                                    size="small"
-                                    shape="btn-square"
-                                    Icon={BsPlusLg}
-                                    onClick={() =>
-                                        history.push('/team-creation')
-                                    }
-                                />
+                                {stuCont < 5 && (
+                                    <Button
+                                        label="ADD MEMBER"
+                                        btnClass="primary ml-2"
+                                        size="small"
+                                        shape="btn-square"
+                                        Icon={BsPlusLg}
+                                        onClick={() =>
+                                            history.push('/team-creation')
+                                        }
+                                    />
+                                )}
                             </div>
                         </Col>
                     </Row>

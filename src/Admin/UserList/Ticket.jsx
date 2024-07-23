@@ -43,10 +43,11 @@ import dist from 'react-data-table-component-extensions';
 import AddADmins from './AddAdmins';
 import ClipLoader from 'react-spinners/ClipLoader';
 import { encryptGlobal } from '../../constants/encryptDecrypt.js';
-
+import { stateList } from '../../RegPage/OrgData.js';
 const { TabPane } = Tabs;
 
 const SelectDists = ({
+    // stateList,
     getDistrictsListAction,
     getStateDataListAction,
     dists,
@@ -56,11 +57,11 @@ const SelectDists = ({
     drop
 }) => {
     const [loading, setLoading] = useState(false);
-
-    useEffect(() => {
-        if (tab && (tab == 1 || tab == 2)) getDistrictsListAction();
-    }, [tab]);
-    console.log();
+    console.log(stateList, 'id');
+    // useEffect(() => {
+    //     if (tab && (tab == 1 || tab == 2)) getDistrictsListAction();
+    // }, [tab]);
+    // console.log();
     const handleDists = (e) => {
         // setNewDist(e.target.value);
         setLoading(true);
@@ -79,10 +80,10 @@ const SelectDists = ({
             value={newDist}
             className="text-capitalize"
         >
-            <option value="">Select District</option>
+            <option value="">Select State</option>
 
-            {dists && dists.length > 0 ? (
-                dists.map((item, i) => (
+            {stateList && stateList.length > 0 ? (
+                stateList.map((item, i) => (
                     <option key={i} value={item}>
                         {item}
                     </option>
@@ -468,15 +469,15 @@ const TicketsPage = (props) => {
 
                 width: '6rem'
             },
-            {
-                name: 'Institution Code',
-                selector: (row) => row?.institution_code,
-                cellExport: (row) => row?.institution_code,
-                width: '19rem'
-            },
+            // {
+            //     name: 'Institution Code',
+            //     selector: (row) => row?.institution_code,
+            //     cellExport: (row) => row?.institution_code,
+            //     width: '19rem'
+            // },
             {
                 name: 'District',
-                selector: (row) => row?.district_name,
+                selector: (row) => row?.district,
                 cell: (row) => (
                     <div
                         style={{
@@ -484,10 +485,10 @@ const TicketsPage = (props) => {
                             wordWrap: 'break-word'
                         }}
                     >
-                        {row?.district_name}
+                        {row?.district}
                     </div>
                 ),
-                cellExport: (row) => row?.district_name,
+                cellExport: (row) => row?.district,
                 width: '13rem'
             },
             // {
@@ -514,17 +515,17 @@ const TicketsPage = (props) => {
                 width: '23rem'
             },
 
-            {
-                name: 'Mentor Name',
-                selector: (row) => row.mentor_name,
-                cellExport: (row) => row.mentor_name,
-                width: '18rem'
-            },
+            // {
+            //     name: 'Mentor Name',
+            //     selector: (row) => row.mentor_name,
+            //     cellExport: (row) => row.mentor_name,
+            //     width: '18rem'
+            // },
 
             {
                 name: 'Mobile No',
-                selector: (row) => row.mentor_mobile,
-                cellExport: (row) => row.mentor_mobile,
+                selector: (row) => row.mobile,
+                cellExport: (row) => row.mobile,
                 width: '15rem'
             },
 
@@ -614,15 +615,10 @@ const TicketsPage = (props) => {
                 cellExport: (row) => row.index,
                 width: '6rem'
             },
-            {
-                name: 'Institution Code',
-                selector: (row) => row?.institution_code,
-                cellExport: (row) => row?.institution_code,
-                width: '15rem'
-            },
+
             {
                 name: 'District',
-                selector: (row) => row.district_name,
+                selector: (row) => row.district,
                 cell: (row) => (
                     <div
                         style={{
@@ -630,11 +626,17 @@ const TicketsPage = (props) => {
                             wordWrap: 'break-word'
                         }}
                     >
-                        {row.district_name}
+                        {row.district}
                     </div>
                 ),
-                cellExport: (row) => row.district_name,
-                width: '13rem'
+                cellExport: (row) => row.district,
+                width: '10rem'
+            },
+            {
+                name: 'Inst Type',
+                selector: (row) => row?.group,
+                cellExport: (row) => row?.group,
+                width: '15rem'
             },
             // {
             //     name: 'Category',
@@ -663,7 +665,7 @@ const TicketsPage = (props) => {
                 name: 'Student Name',
                 selector: (row) => row.student_full_name,
                 cellExport: (row) => row.student_full_name,
-                width: '18rem'
+                width: '15rem'
             },
             {
                 name: 'Age',
@@ -672,20 +674,20 @@ const TicketsPage = (props) => {
             },
 
             {
-                name: 'Mentor Name',
-                selector: (row) => row.mentor_name,
-                width: '15rem'
+                name: 'Gender',
+                selector: (row) => row.Gender,
+                width: '10rem'
             },
             {
-                name: 'Team Name',
-                selector: (row) => row.team_name,
-                width: '13rem'
+                name: 'Email Id',
+                selector: (row) => row.email,
+                width: '16rem'
             },
 
             {
                 name: 'Mobile No',
                 selector: (row) => row.mobile,
-                width: '15rem'
+                width: '16rem'
             },
             // {
             //     name: 'Status',
@@ -950,8 +952,9 @@ const TicketsPage = (props) => {
                                     <>
                                         <SelectDists
                                             getDistrictsListAction={
-                                                props.getDistrictsListAction
+                                                props.stateList
                                             }
+                                            list={stateList}
                                             setDist={setstudentDist}
                                             newDist={studentDist}
                                             dists={props.dists}
@@ -1088,7 +1091,7 @@ const TicketsPage = (props) => {
                                     </div>
                                 )}
                             </TabPane>
-                            <TabPane
+                            {/* <TabPane
                                 tab="Mentors"
                                 key="2"
                                 className="bg-white p-3 mt-2 sub-tab"
@@ -1120,8 +1123,8 @@ const TicketsPage = (props) => {
                                         </DataTableExtensions>
                                     </div>
                                 )}
-                            </TabPane>
-                            <TabPane
+                            </TabPane> */}
+                            {/* <TabPane
                                 tab="Evaluators"
                                 key="3"
                                 className="bg-white p-3 mt-2 sub-tab"
@@ -1146,8 +1149,8 @@ const TicketsPage = (props) => {
                                         />
                                     </DataTableExtensions>
                                 </div>
-                            </TabPane>
-                            <TabPane
+                            </TabPane> */}
+                            {/* <TabPane
                                 tab="Admins"
                                 key="4"
                                 className="bg-white p-3 mt-2 sub-tab"
@@ -1171,7 +1174,7 @@ const TicketsPage = (props) => {
                                         />
                                     </DataTableExtensions>
                                 </div>
-                            </TabPane>
+                            </TabPane> */}
                         </Tabs>
                     </div>
                 </Row>
