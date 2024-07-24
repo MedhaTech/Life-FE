@@ -138,7 +138,7 @@ const TicketsPage = () => {
                             row.id_card === row.id_card ? 'primary' : 'danger'
                         }`}
                     >
-                        {getFileName(row.id_card)}
+                        {row.id_card && getFileName(row.id_card)}
                     </Badge>
                 ],
                 width: '10rem'

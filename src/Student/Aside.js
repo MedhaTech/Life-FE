@@ -162,7 +162,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                     {/* {t('home.pre_survey')} */}
                     {/* </NavLink> */}
                     {/* </MenuItem> */}
-                    <MenuItem
+                    {/* <MenuItem
                         icon={<FaThLarge />}
                         className={
                             location.pathname === '/dashboard' &&
@@ -171,13 +171,11 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                     >
                         <NavLink
                             exact={true}
-                            // onClick={handleClick}
                             to={'/dashboard'}
                         >
-                            {/* Dashboard */}
                             {t('home.dashboard')}
                         </NavLink>
-                    </MenuItem>
+                    </MenuItem> */}
                     <MenuItem
                         icon={<RiTeamFill />}
                         className={
