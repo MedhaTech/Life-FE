@@ -70,8 +70,8 @@ function AtlPage() {
     const [instNames, setInstNames] = useState([]);
 
     const yearList = Array.from(
-        { length: 2024 - 2000 + 1 },
-        (_, index) => 2000 + index
+        { length: 5 - 1 + 1 },
+        (_, index) => 1 + index
     );
     const handleOnChange = (e) => {
         setDiesCode(e.target.value.trim());
@@ -217,7 +217,7 @@ function AtlPage() {
             year_of_study: Yup.string()
                 .trim()
                 .optional()
-                .min(2, 'Select Year of Passed'),
+                .min(1, 'Select Year of Study'),
 
             mobile: Yup.string()
                 .required('Enter Mobile Number')
@@ -512,7 +512,8 @@ function AtlPage() {
                                     <img
                                         src={signuplogo}
                                         alt="Signup logo"
-                                        className="img-fluid w-50"
+                                        className="img-fluid"
+                                        style={{ 'width': '150px' }}
                                     />
                                 </h2>
                             </Col>
@@ -520,11 +521,7 @@ function AtlPage() {
                     </div>
 
                     <Row className="article-header mb-4 mt-4 text-center">
-                        <h5 className="mb-4">
-                            <span className="color-black">
-                                STUDENT REGISTRATION
-                            </span>
-                        </h5>
+                        <h6 className="mb-4">STUDENT REGISTRATION</h6>
                     </Row>
 
                     {hide ? (
@@ -617,7 +614,7 @@ function AtlPage() {
                                     {schoolBtn && (
                                         <div className="form-row row mb-5">
                                             <Row
-                                                className="form-group"
+                                                className="form-group mb-3"
                                                 xs={12}
                                                 sm={12}
                                                 md={12}
@@ -648,7 +645,7 @@ function AtlPage() {
                                                     <InputBox
                                                         type="text"
                                                         placeholder="Enter Student Name"
-                                                        className="defaultInput"
+                                                        className="defaultInput mb-3"
                                                         id="student_full_name"
                                                         isDisabled={
                                                             holdKey
@@ -670,8 +667,8 @@ function AtlPage() {
 
                                                     {formik.touched
                                                         .student_full_name &&
-                                                    formik.errors
-                                                        .student_full_name ? (
+                                                        formik.errors
+                                                            .student_full_name ? (
                                                         <small className="error-cls">
                                                             {
                                                                 formik.errors
@@ -681,7 +678,7 @@ function AtlPage() {
                                                     ) : null}
                                                 </Col>
                                                 <Col
-                                                    className="form-group"
+                                                    className="form-group mb-3"
                                                     xs={12}
                                                     sm={12}
                                                     md={12}
@@ -722,7 +719,7 @@ function AtlPage() {
                                                     />
 
                                                     {formik.touched.email &&
-                                                    formik.errors.email ? (
+                                                        formik.errors.email ? (
                                                         <small className="error-cls">
                                                             {
                                                                 formik.errors
@@ -761,7 +758,7 @@ function AtlPage() {
                                                     <InputBox
                                                         type="text"
                                                         placeholder="Enter Mobile Number"
-                                                        className="defaultInput"
+                                                        className="defaultInput mb-3"
                                                         id="mobile"
                                                         isDisabled={
                                                             holdKey
@@ -781,7 +778,7 @@ function AtlPage() {
                                                     />
 
                                                     {formik.touched.mobile &&
-                                                    formik.errors.mobile ? (
+                                                        formik.errors.mobile ? (
                                                         <small className="error-cls">
                                                             {
                                                                 formik.errors
@@ -815,7 +812,7 @@ function AtlPage() {
                                                     <InputBox
                                                         type="date"
                                                         placeholder="DD/MM/YYYY"
-                                                        className="defaultInput"
+                                                        className="defaultInput mb-3"
                                                         id="date_of_birth"
                                                         isDisabled={
                                                             holdKey
@@ -840,8 +837,8 @@ function AtlPage() {
 
                                                     {formik.touched
                                                         .date_of_birth &&
-                                                    formik.errors
-                                                        .date_of_birth ? (
+                                                        formik.errors
+                                                            .date_of_birth ? (
                                                         <small className="error-cls">
                                                             {
                                                                 formik.errors
@@ -886,23 +883,23 @@ function AtlPage() {
                                                         value={String(
                                                             formik.values.Age
                                                         )}
-                                                        // pattern={
-                                                        //     dateRegex.source
-                                                        // }
-                                                        // name="Age"
-                                                        // onChange={
-                                                        //     formik.handleChange
-                                                        // }
-                                                        // onBlur={
-                                                        //     formik.handleBlur
-                                                        // }
-                                                        // value={
-                                                        //     formik.values.Age
-                                                        // }
+                                                    // pattern={
+                                                    //     dateRegex.source
+                                                    // }
+                                                    // name="Age"
+                                                    // onChange={
+                                                    //     formik.handleChange
+                                                    // }
+                                                    // onBlur={
+                                                    //     formik.handleBlur
+                                                    // }
+                                                    // value={
+                                                    //     formik.values.Age
+                                                    // }
                                                     />
 
                                                     {formik.touched.Age &&
-                                                    formik.errors.Age ? (
+                                                        formik.errors.Age ? (
                                                         <small className="error-cls">
                                                             {formik.errors.Age}
                                                         </small>
@@ -930,7 +927,7 @@ function AtlPage() {
                                                     >
                                                         Select State
                                                         <span
-                                                            className="m-2"
+                                                            className="mt-2 mb-3"
                                                             style={{
                                                                 color: 'red'
                                                             }}
@@ -946,7 +943,7 @@ function AtlPage() {
                                                                 : false
                                                         }
                                                         name="state"
-                                                        className="col-8 selectDropdown"
+                                                        className="col-8 selectDropdown mb-3"
                                                         onBlur={
                                                             formik.handleBlur
                                                         }
@@ -966,7 +963,7 @@ function AtlPage() {
                                                             ); // Reset district value
                                                             setDistricts(
                                                                 districtList[
-                                                                    selectedState
+                                                                selectedState
                                                                 ] || []
                                                             );
                                                         }}
@@ -988,7 +985,7 @@ function AtlPage() {
                                                         )}
                                                     </select>
                                                     {formik.touched.state &&
-                                                    formik.errors.state ? (
+                                                        formik.errors.state ? (
                                                         <small className="error-cls">
                                                             {
                                                                 formik.errors
@@ -1010,7 +1007,7 @@ function AtlPage() {
                                                     >
                                                         Select District
                                                         <span
-                                                            className="m-2"
+                                                            className="m-2 mb-3"
                                                             style={{
                                                                 color: 'red'
                                                             }}
@@ -1062,7 +1059,7 @@ function AtlPage() {
                                                         )}
                                                     </select>
                                                     {formik.touched.district &&
-                                                    formik.errors.district ? (
+                                                        formik.errors.district ? (
                                                         <small className="error-cls">
                                                             {
                                                                 formik.errors
@@ -1089,189 +1086,6 @@ function AtlPage() {
                                                 >
                                                     <Label
                                                         className="mb-2"
-                                                        htmlFor="institution_name"
-                                                    >
-                                                        Institution type
-                                                        <span
-                                                            className="m-2"
-                                                            style={{
-                                                                color: 'red'
-                                                            }}
-                                                            required
-                                                        >
-                                                            *
-                                                        </span>
-                                                    </Label>
-                                                    <select
-                                                        disabled={
-                                                            holdKey
-                                                                ? true
-                                                                : false
-                                                        }
-                                                        name="group"
-                                                        className="col-8 selectDropdown"
-                                                        onBlur={
-                                                            formik.handleBlur
-                                                        }
-                                                        value={
-                                                            formik.values.group
-                                                        }
-                                                        onChange={(e) => {
-                                                            const selectedInstType =
-                                                                e.target.value;
-                                                            formik.setFieldValue(
-                                                                'group',
-                                                                selectedInstType
-                                                            );
-                                                            formik.setFieldValue(
-                                                                'institution_name',
-                                                                ''
-                                                            );
-                                                            setInstNames(
-                                                                istitutionNameList[
-                                                                    selectedInstType
-                                                                ] || []
-                                                            );
-                                                        }}
-                                                    >
-                                                        <option value="">
-                                                            Select Institution
-                                                            Type
-                                                        </option>
-                                                        {institutionType.map(
-                                                            (group) => (
-                                                                <option
-                                                                    key={group}
-                                                                    value={
-                                                                        group
-                                                                    }
-                                                                >
-                                                                    {group}
-                                                                </option>
-                                                            )
-                                                        )}
-                                                    </select>
-                                                    {/* <InputBox
-                                                        type="text"
-                                                        placeholder="Enter Institution Name"
-                                                        className="defaultInput"
-                                                        id="institution_name"
-                                                        isDisabled={
-                                                            holdKey
-                                                                ? true
-                                                                : false
-                                                        }
-                                                        name="institution_name"
-                                                        onChange={
-                                                            formik.handleChange
-                                                        }
-                                                        onBlur={
-                                                            formik.handleBlur
-                                                        }
-                                                        value={
-                                                            formik.values
-                                                                .institution_name
-                                                        }
-                                                    /> */}
-
-                                                    {formik.touched.group &&
-                                                    formik.errors.group ? (
-                                                        <small className="error-cls">
-                                                            {
-                                                                formik.errors
-                                                                    .group
-                                                            }
-                                                        </small>
-                                                    ) : null}
-                                                </Col>
-                                                <Col
-                                                    className="form-group"
-                                                    xs={12}
-                                                    sm={12}
-                                                    md={12}
-                                                    xl={6}
-                                                >
-                                                    <Label htmlFor="institution_name">
-                                                        Institution Name
-                                                        <span
-                                                            className="m-2"
-                                                            style={{
-                                                                color: 'red'
-                                                            }}
-                                                            required
-                                                        >
-                                                            *
-                                                        </span>
-                                                    </Label>
-                                                    <select
-                                                        disabled={
-                                                            holdKey
-                                                                ? true
-                                                                : false
-                                                        }
-                                                        name="institution_name"
-                                                        className="col-8 selectDropdown"
-                                                        onBlur={
-                                                            formik.handleBlur
-                                                        }
-                                                        value={
-                                                            formik.values
-                                                                .institution_name
-                                                        }
-                                                        onChange={(e) => {
-                                                            const selectedInstName =
-                                                                e.target.value;
-                                                            formik.setFieldValue(
-                                                                'institution_name',
-                                                                selectedInstName
-                                                            );
-                                                        }}
-                                                    >
-                                                        <option value="">
-                                                            Select Institution
-                                                            Name
-                                                        </option>
-                                                        {instNames.map(
-                                                            (
-                                                                institution_name
-                                                            ) => (
-                                                                <option
-                                                                    key={
-                                                                        institution_name
-                                                                    }
-                                                                    value={
-                                                                        institution_name
-                                                                    }
-                                                                >
-                                                                    {
-                                                                        institution_name
-                                                                    }
-                                                                </option>
-                                                            )
-                                                        )}
-                                                    </select>
-
-                                                    {formik.touched
-                                                        .institution_name &&
-                                                    formik.errors
-                                                        .institution_name ? (
-                                                        <small className="error-cls">
-                                                            {
-                                                                formik.errors
-                                                                    .institution_name
-                                                            }
-                                                        </small>
-                                                    ) : null}
-                                                </Col>
-                                                <Col
-                                                    className="form-group"
-                                                    xs={12}
-                                                    sm={12}
-                                                    md={12}
-                                                    xl={12}
-                                                >
-                                                    <Label
-                                                        className="mb-2"
                                                         htmlFor="name"
                                                     >
                                                         City Name
@@ -1288,7 +1102,7 @@ function AtlPage() {
                                                     <InputBox
                                                         type="text"
                                                         placeholder="Enter City Name"
-                                                        className="defaultInput"
+                                                        className="defaultInput mb-3"
                                                         id="city"
                                                         isDisabled={
                                                             holdKey
@@ -1308,12 +1122,147 @@ function AtlPage() {
                                                     />
 
                                                     {formik.touched.city &&
-                                                    formik.errors.city ? (
+                                                        formik.errors.city ? (
                                                         <small className="error-cls">
                                                             {formik.errors.city}
                                                         </small>
                                                     ) : null}
                                                 </Col>
+                                                <Col
+                                                    className="form-group"
+                                                    xs={12}
+                                                    sm={12}
+                                                    md={12}
+                                                    xl={6}
+                                                >
+                                                    <Label
+                                                        className="mb-2"
+                                                        htmlFor="institution_name"
+                                                    >
+                                                        Institution Type
+                                                        <span
+                                                            className="m-2"
+                                                            style={{
+                                                                color: 'red'
+                                                            }}
+                                                            required
+                                                        >
+                                                            *
+                                                        </span>
+                                                    </Label>
+                                                    <select
+                                                        disabled={
+                                                            holdKey
+                                                                ? true
+                                                                : false
+                                                        }
+                                                        name="group"
+                                                        className="col-8 selectDropdown mb-3"
+                                                        onBlur={
+                                                            formik.handleBlur
+                                                        }
+                                                        value={
+                                                            formik.values.group
+                                                        }
+                                                        onChange={(e) => {
+                                                            const selectedInstType =
+                                                                e.target.value;
+                                                            formik.setFieldValue(
+                                                                'group',
+                                                                selectedInstType
+                                                            );
+                                                            formik.setFieldValue(
+                                                                'institution_name',
+                                                                ''
+                                                            );
+                                                            // setInstNames(
+                                                            //     istitutionNameList[
+                                                            //     selectedInstType
+                                                            //     ] || []
+                                                            // );
+                                                        }}
+                                                    >
+                                                        <option value="">
+                                                            Select Institution
+                                                            Type
+                                                        </option>
+                                                        {institutionType.map(
+                                                            (group) => (
+                                                                <option
+                                                                    key={group}
+                                                                    value={
+                                                                        group
+                                                                    }
+                                                                >
+                                                                    {group}
+                                                                </option>
+                                                            )
+                                                        )}
+                                                    </select>
+                                                    {formik.touched.group &&
+                                                        formik.errors.group ? (
+                                                        <small className="error-cls">
+                                                            {
+                                                                formik.errors
+                                                                    .group
+                                                            }
+                                                        </small>
+                                                    ) : null}
+                                                </Col>
+                                                <Col
+                                                    className="form-group"
+                                                    xs={12}
+                                                    sm={12}
+                                                    md={12}
+                                                    xl={12}
+                                                >
+                                                    <Label htmlFor="institution_name">
+                                                        Institution Name
+                                                        <span
+                                                            className="m-2"
+                                                            style={{
+                                                                color: 'red'
+                                                            }}
+                                                            required
+                                                        >
+                                                            *
+                                                        </span>
+                                                    </Label>
+                                                    <InputBox
+                                                        type="text"
+                                                        placeholder="Enter Institution Name"
+                                                        className="defaultInput mb-3"
+                                                        id="institution_name"
+                                                        isDisabled={
+                                                            holdKey
+                                                                ? true
+                                                                : false
+                                                        }
+                                                        name="institution_name"
+                                                        onChange={
+                                                            formik.handleChange
+                                                        }
+                                                        onBlur={
+                                                            formik.handleBlur
+                                                        }
+                                                        value={
+                                                            formik.values
+                                                                .institution_name
+                                                        }
+                                                    />
+                                                    {formik.touched
+                                                        .institution_name &&
+                                                        formik.errors
+                                                            .institution_name ? (
+                                                        <small className="error-cls">
+                                                            {
+                                                                formik.errors
+                                                                    .institution_name
+                                                            }
+                                                        </small>
+                                                    ) : null}
+                                                </Col>
+
                                             </Row>
 
                                             <Row
@@ -1323,50 +1272,7 @@ function AtlPage() {
                                                 md={12}
                                                 xl={12}
                                             >
-                                                <Col
-                                                    className="form-group"
-                                                    xs={12}
-                                                    sm={12}
-                                                    md={12}
-                                                    xl={5}
-                                                >
-                                                    <Label htmlFor="group">
-                                                        Reg. Number as per ID
-                                                        Card
-                                                    </Label>
-                                                    <InputBox
-                                                        type="text"
-                                                        placeholder="Enter Reg. Number as per ID
-                                                        Card"
-                                                        className="defaultInput"
-                                                        id="reg_no"
-                                                        isDisabled={
-                                                            holdKey
-                                                                ? true
-                                                                : false
-                                                        }
-                                                        name="reg_no"
-                                                        onChange={
-                                                            formik.handleChange
-                                                        }
-                                                        onBlur={
-                                                            formik.handleBlur
-                                                        }
-                                                        value={
-                                                            formik.values.reg_no
-                                                        }
-                                                    />
 
-                                                    {formik.touched.reg_no &&
-                                                    formik.errors.reg_no ? (
-                                                        <small className="error-cls">
-                                                            {
-                                                                formik.errors
-                                                                    .reg_no
-                                                            }
-                                                        </small>
-                                                    ) : null}
-                                                </Col>
                                                 <Col
                                                     className="form-group"
                                                     xs={12}
@@ -1378,7 +1284,7 @@ function AtlPage() {
                                                         className="mb-2"
                                                         htmlFor="year_of_study"
                                                     >
-                                                        Year of Passed
+                                                        Year of Study
                                                     </Label>
                                                     <select
                                                         disabled={
@@ -1387,7 +1293,7 @@ function AtlPage() {
                                                                 : false
                                                         }
                                                         name="year_of_study"
-                                                        className="col-8 selectDropdown"
+                                                        className="col-8 selectDropdown mb-3"
                                                         value={
                                                             formik.values
                                                                 .year_of_study
@@ -1401,7 +1307,7 @@ function AtlPage() {
                                                     >
                                                         <option value="">
                                                             Select Year of
-                                                            Passed
+                                                            Study
                                                         </option>
                                                         {yearList.map(
                                                             (year) => (
@@ -1416,8 +1322,8 @@ function AtlPage() {
                                                     </select>
                                                     {formik.touched
                                                         .year_of_study &&
-                                                    formik.errors
-                                                        .year_of_study ? (
+                                                        formik.errors
+                                                            .year_of_study ? (
                                                         <small className="error-cls">
                                                             {
                                                                 formik.errors
@@ -1455,7 +1361,7 @@ function AtlPage() {
                                                                 : false
                                                         }
                                                         name="Gender"
-                                                        className="col-8 selectDropdown"
+                                                        className="col-8 selectDropdown mb-3"
                                                         value={
                                                             formik.values.Gender
                                                         }
@@ -1483,11 +1389,55 @@ function AtlPage() {
                                                         </option>
                                                     </select>
                                                     {formik.touched.Gender &&
-                                                    formik.errors.Gender ? (
+                                                        formik.errors.Gender ? (
                                                         <small className="error-cls">
                                                             {
                                                                 formik.errors
                                                                     .Gender
+                                                            }
+                                                        </small>
+                                                    ) : null}
+                                                </Col>
+                                                <Col
+                                                    className="form-group"
+                                                    xs={12}
+                                                    sm={12}
+                                                    md={12}
+                                                    xl={5}
+                                                >
+                                                    <Label htmlFor="group">
+                                                        Reg. Number as per ID
+                                                        Card
+                                                    </Label>
+                                                    <InputBox
+                                                        type="text"
+                                                        placeholder="Enter Reg. Number as per ID
+                                                        Card"
+                                                        className="defaultInput"
+                                                        id="reg_no"
+                                                        isDisabled={
+                                                            holdKey
+                                                                ? true
+                                                                : false
+                                                        }
+                                                        name="reg_no"
+                                                        onChange={
+                                                            formik.handleChange
+                                                        }
+                                                        onBlur={
+                                                            formik.handleBlur
+                                                        }
+                                                        value={
+                                                            formik.values.reg_no
+                                                        }
+                                                    />
+
+                                                    {formik.touched.reg_no &&
+                                                        formik.errors.reg_no ? (
+                                                        <small className="error-cls">
+                                                            {
+                                                                formik.errors
+                                                                    .reg_no
                                                             }
                                                         </small>
                                                     ) : null}
@@ -1535,8 +1485,8 @@ function AtlPage() {
                                                         />
                                                         {formik.values
                                                             .id_card &&
-                                                        formik.values.id_card
-                                                            .name ? (
+                                                            formik.values.id_card
+                                                                .name ? (
                                                             <span className="ml-2">
                                                                 {
                                                                     formik
@@ -1601,7 +1551,7 @@ function AtlPage() {
 
                                                     <div
                                                         className="w-100 d-block text-left"
-                                                        // className="form-row row mb-5 col-md-3 text-centered"
+                                                    // className="form-row row mb-5 col-md-3 text-centered"
                                                     >
                                                         <Label
                                                             className="mb-2 mt-4  text-left"
@@ -1668,7 +1618,7 @@ function AtlPage() {
                                                 otpRes != formik.values.otp && (
                                                     <div
                                                         className="form-row row mb-5 text-center"
-                                                        // className=" w-50 d-flex justify-content-center"
+                                                    // className=" w-50 d-flex justify-content-center"
                                                     >
                                                         <span
                                                             className=" w-100 mt-3 d-flex justify-content-center"
@@ -1689,7 +1639,7 @@ function AtlPage() {
                                                         btnClass={
                                                             formik.values.otp
                                                                 .length > 5 &&
-                                                            otpRes ==
+                                                                otpRes ==
                                                                 formik.values
                                                                     .otp
                                                                 ? 'primary rounded-0'
@@ -1702,11 +1652,11 @@ function AtlPage() {
                                                                 formik.values
                                                                     .otp
                                                                     .length >
-                                                                    5 &&
+                                                                5 &&
                                                                 otpRes ==
-                                                                    formik
-                                                                        .values
-                                                                        .otp
+                                                                formik
+                                                                    .values
+                                                                    .otp
                                                             )
                                                         }
                                                     />

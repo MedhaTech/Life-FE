@@ -37,7 +37,7 @@ export const stateList = [
     'Uttarakhand',
     'West Bengal'
 ];
-export const institutionType = ['Engineering', 'Commerce', 'CSE', 'ECE'];
+export const institutionType = ['Engineering', 'Law', 'Life Sciences', 'Medical','Ayurveda'];
 export const istitutionNameList = {
     Engineering: [
         'Aligarh Muslim University',
