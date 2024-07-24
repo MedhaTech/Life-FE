@@ -348,6 +348,7 @@ function NewIdeaSubmission(props) {
                     : probStatment,
             problem_statement_description: description,
             idea_title: ideaTitle,
+            Prototype_file:youtubeLink,
             // solution_statement: solStatement,
             detailed_solution: detailSol,
             prototype_available: protoType,
@@ -472,6 +473,7 @@ function NewIdeaSubmission(props) {
                     ? othersPStatment
                     : probStatment,
             problem_statement_description: description,
+            Prototype_file:youtubeLink,
             idea_title: ideaTitle,
             // solution_statement: solStatement,
             detailed_solution: detailSol,
@@ -1128,7 +1130,7 @@ function NewIdeaSubmission(props) {
                                                         </>
                                                     )}
 
-                                                {probStatment &&
+                                                {/* {probStatment &&
                                                     probStatment !=
                                                         'Others' && (
                                                         <Row className="card mb-4 my-3 comment-card px-0 px-5 py-3 card">
@@ -1220,7 +1222,7 @@ function NewIdeaSubmission(props) {
                                                                         : 0)}
                                                             </div>
                                                         </Row>
-                                                    )}
+                                                    )} */}
 
                                                 {(probStatment ||
                                                     othersTheme.length > 2) && (
@@ -1282,10 +1284,10 @@ function NewIdeaSubmission(props) {
                                                         </div>
                                                     </Row>
                                                 )}
-
-                                                {/* <Row className="card mb-4 my-3 comment-card px-0 px-5 py-3 card">
+                                                {(probStatment ||
+                                                    othersTheme.length > 2) && (<Row className="card mb-4 my-3 comment-card px-0 px-5 py-3 card">
                                                         <div className="question quiz mb-0">
-                                                            {theme ===
+                                                            {/* {theme ===
                                                             'Others' ? (
                                                                 <b
                                                                     style={{
@@ -1323,7 +1325,17 @@ function NewIdeaSubmission(props) {
                                                                         'student_course.ques6detailsol'
                                                                     )}
                                                                 </b>
-                                                            )}
+                                                            )} */}
+                                                             <b
+                                                                    style={{
+                                                                        fontSize:
+                                                                            '1.6rem'
+                                                                    }}
+                                                                >
+                                                                    {t(
+                                                                        'student_course.ques6detailsol'
+                                                                    )}
+                                                                </b>
                                                         </div>
                                                         <FormGroup
                                                             check
@@ -1368,7 +1380,8 @@ function NewIdeaSubmission(props) {
                                                                     ? detailSol.length
                                                                     : 0)}
                                                         </div>
-                                                    </Row> */}
+                                                    </Row>)}
+                                                
 
                                                 {(probStatment ||
                                                     othersTheme.length > 2) && (
@@ -1524,11 +1537,9 @@ function NewIdeaSubmission(props) {
                                                                     : 0)}
                                                         </div>
                                                     </Row> */}
-                                                {/* {protoType === 'YES' && ( */}
-                                                <>
-                                                    {(probStatment ||
-                                                        othersTheme.length >
-                                                            2) && (
+                                                
+                                                
+                                                {(protoType === 'YES') && (
                                                         <Row className="card mb-4 my-3 comment-card px-0 px-5 py-3 card">
                                                             <div className="question quiz mb-0">
                                                                 <b
@@ -1653,11 +1664,8 @@ function NewIdeaSubmission(props) {
                                                                 </div>
                                                             </div>
                                                         </Row>
-                                                    )}
-                                                </>
-                                                {/* )} */}
-                                                {(probStatment ||
-                                                    othersTheme.length > 2) && (
+                                                )}
+                                               {(protoType === 'YES') && (
                                                     <Row className="card mb-4 my-3 comment-card px-0 px-5 py-3 card">
                                                         <div className="question quiz mb-0">
                                                             <b
@@ -1716,6 +1724,7 @@ function NewIdeaSubmission(props) {
                                                         </div>
                                                     </Row>
                                                 )}
+
                                                 {(probStatment ||
                                                     othersTheme.length > 2) && (
                                                     <Row className="card mb-4 my-3 comment-card px-0 px-5 py-3 card">

@@ -171,6 +171,12 @@ const AddMentor = (props) => {
                         }
                     })
                     .catch(function (error) {
+                        if (error.message === "Request failed with status code 400") {
+                            openNotificationWithIcon(
+                                'error',
+                                'Email already exists'
+                            );
+                        }
                         console.log(error);
                     });
             }
