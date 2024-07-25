@@ -302,7 +302,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                     {/* {t('home.post_survey')} */}
                     {/* </NavLink> */}
                     {/* </MenuItem>  */}
-                    {/* <MenuItem
+                    <MenuItem
                         icon={<FaCertificate />}
                         className={
                             location.pathname === '/student/my-certificate' &&
@@ -314,9 +314,9 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                             // onClick={(e) => handleClick(e)}
                             to={'/student/my-certificate'}
                         >
-                            {t('teacher.certificate')}
+                            {'Certificate'}
                         </NavLink>
-                    </MenuItem> */}
+                    </MenuItem>
 
                     <MenuItem
                         icon={<RiLockPasswordFill />}
