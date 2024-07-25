@@ -84,7 +84,7 @@ const ChangePSW = (props) => {
                         SetResponce('Password updated successfully');
                         setTimeout(() => {
                             SetResponce('');
-                            history.push('/dashboard');
+                            history.push('/teams');
                         }, 1000);
                     })
                     .catch(function (error) {
@@ -120,7 +120,7 @@ const ChangePSW = (props) => {
     };
     const handleOnCancel = () => {
         // here we can cancel the changes //
-        history.push('/dashboard');
+        history.push('/teams');
     };
     const handleShowPassword = (name) => {
         // here we can see the password //

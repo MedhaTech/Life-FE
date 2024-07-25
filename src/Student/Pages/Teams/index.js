@@ -23,7 +23,34 @@ import 'react-data-table-component-extensions/dist/index.css';
 import { useTranslation } from 'react-i18next';
 import DoubleBounce from '../../../components/Loaders/DoubleBounce';
 import { encryptGlobal } from '../../../constants/encryptDecrypt';
-const TicketsPage = () => {
+import { Modal } from 'react-bootstrap';
+import { Link } from 'react-router-dom/cjs/react-router-dom.min';
+const GreetingModal = (props) => {
+    return (
+        <Modal
+            show={props.show}
+            size="lg"
+            centered
+            className="modal-popup text-center"
+            onHide={props.handleClose}
+            backdrop={true}
+        >
+            <Modal.Header closeButton></Modal.Header>
+
+            <Modal.Body>
+                <figure>
+                    <img
+                        src={props.imgUrl}
+                        alt="popup image"
+                        className="img-fluid"
+                    />
+                </figure>
+            </Modal.Body>
+        </Modal>
+    );
+};
+const TicketsPage = (props) => {
+    console.log(props.location.ideasCout,"props");
     const history = useHistory();
     const { t } = useTranslation();
     localStorage.setItem('teamId', JSON.stringify(''));
@@ -37,6 +64,11 @@ const TicketsPage = () => {
     const [stuList, setStuList] = useState([]);
     const [totalCount, setTotalCount] = useState({});
     const [stuCont, setStuCount] = useState('');
+    const [showsPopup, setShowsPopup] = useState(false);
+    const [imgUrl, setImgUrl] = useState('');
+    const handleClose = () => {
+        setShowsPopup(false);
+    };
     useEffect(() => {
         if (currentUser?.data[0]?.student_id) {
             teamListbymentorid(currentUser?.data[0]?.student_id);
@@ -137,6 +169,10 @@ const TicketsPage = () => {
                         bg={`${
                             row.id_card === row.id_card ? 'primary' : 'danger'
                         }`}
+                        onClick={()=>{
+                            setImgUrl(row.id_card);
+                            setShowsPopup(true);
+                        }}
                     >
                         {row.id_card && getFileName(row.id_card)}
                     </Badge>
@@ -213,16 +249,21 @@ const TicketsPage = () => {
 
     return (
         <Layout title="Teams ">
+            <GreetingModal
+                handleClose={handleClose}
+                show={showsPopup}
+                imgUrl={imgUrl}
+            ></GreetingModal>
             <Container className="ticket-page mt-5 mb-50 userlist">
                 <Row className="pt-5">
                     <Row className="mb-2 mb-sm-5 mb-md-5 mb-lg-0">
                         <Col className="col-auto" style={centerTitleMobile}>
-                            <h2>Team Members</h2>
+                            <h2>Team Members  (Add up to 4 team members to your dream team)</h2>
                         </Col>
 
                         <Col className="ticket-btn col ml-auto ">
                             <div className="d-flex justify-content-end">
-                                {stuCont < 5 && (
+                                {stuCont < 4 && (
                                     <Button
                                         label="ADD MEMBER"
                                         btnClass="primary ml-2"
@@ -262,6 +303,7 @@ const TicketsPage = () => {
                                             paginationPerPage={25}
                                         />
                                     </DataTableExtensions>
+                                    {/* //<Link to="/challenges">Click here to proceed and submit your solution</Link> */}
                                 </div>
                             )}
                         </Tabs>
