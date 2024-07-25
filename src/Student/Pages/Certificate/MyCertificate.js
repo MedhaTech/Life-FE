@@ -132,15 +132,13 @@ const Certificate = ({
                 <div className="text-center">
                     <Button
                         button="submit"
-                        disabled={!postSurveyStatus}
+                        //disabled={!postSurveyStatus}
                         label={
                             type
                                 ? t('teacher_certificate.download_participate')
                                 : t('teacher_certificate.download')
                         }
-                        btnClass={`${
-                            postSurveyStatus ? 'primary' : 'default'
-                        } mt-4`}
+                        btnClass={`${'primary'} mt-4`}
                         size="small"
                         style={{ marginRight: '2rem' }}
                         onClick={handleCertificateDownload}
@@ -169,9 +167,9 @@ const MyCertificate = () => {
     const ideaSubmissionsSubmittedAt = useSelector(
         (state) => state?.studentRegistration?.challengesSubmittedResponse[0]
     );
-    let { all_topics_count, topics_completed_count } = dashboardStatus
-        ? dashboardStatus
-        : { all_topics_count: null, topics_completed_count: null };
+    // let { all_topics_count, topics_completed_count } = dashboardStatus
+    //     ? dashboardStatus
+    //     : { all_topics_count: null, topics_completed_count: null };
     const currentUser = getCurrentUser('current_user');
     const dispatch = useDispatch();
     useLayoutEffect(() => {
@@ -221,10 +219,10 @@ const MyCertificate = () => {
                                     type={'participate'}
                                     currentUser={currentUser}
                                     postSurveyStatus={enablePostSurvey}
-                                    ideaDate={ideaSubmissionsSubmittedAt}
+                                    ideaDate={true}
                                     language={language}
                                 />
-                                <Certificate
+                                {/* <Certificate
                                     language={language}
                                     currentUser={currentUser}
                                     certDate={dashboardStatus}
@@ -232,7 +230,7 @@ const MyCertificate = () => {
                                         all_topics_count ===
                                         topics_completed_count
                                     }
-                                />
+                                /> */}
                             </Col>
                         </Row>
                     ) : (

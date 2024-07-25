@@ -36,6 +36,7 @@ const InstructionsPage = (props) => {
     const state = currentUser?.data[0]?.state;
     const [pageEnable, setPageEnable] = useState(true);
     const [selectedRecord, setSelectedRecord] = useState(null);
+    const [totalideasinitited,setTotalideasinitited] = useState(15);
     let idea_id = 0;
     const handleStart = () => {
         //apiCall();
@@ -112,6 +113,7 @@ const InstructionsPage = (props) => {
         axios(config)
             .then(function (response) {
                 if (response.status === 200) {
+                    setTotalideasinitited(response?.data?.count);
                     setTableData(response.data.data);
                 }
             })
@@ -250,8 +252,7 @@ const InstructionsPage = (props) => {
                         <Col className="col-auto" style={centerTitleMobile}>
                             <h2>Ideas List</h2>
                         </Col>
-
-                        <Col className="ticket-btn col ml-auto ">
+                        {totalideasinitited < 15 && <Col className="ticket-btn col ml-auto ">
                             <div className="d-flex justify-content-end">
                                 <Button
                                     label="NEW  IDEA"
@@ -260,7 +261,8 @@ const InstructionsPage = (props) => {
                                     onClick={handleStart}
                                 />
                             </div>
-                        </Col>
+                        </Col>}
+                        
                     </Row>
 
                     <div className="my-2">
