@@ -106,7 +106,7 @@ function NewIdeaSubmission(props) {
     const [othersPStatment, setOthersPStatment] = useState('');
 
     const [ideaIntiation, setIdeaIntiation] = useState('');
-
+    console.log(props?.submitedData?.idea_id,"props?.submitedData");
     const [probStatment, setProbStatment] = useState(
         props?.submitedData?.themes_problem?.problem_statement
             ? props?.submitedData?.themes_problem?.problem_statement
@@ -148,6 +148,7 @@ function NewIdeaSubmission(props) {
             : '0'
     );
     const [youtubeLink, setYoutubeLink] = useState('');
+    const [fppdetails, setFppdetails] = useState('');
     const imagesList = [a, b, c, d, e, f, g, h];
     const leftThemes = themesList.slice(0, 4);
     const leftImages = imagesList.slice(0, 4);
@@ -245,7 +246,7 @@ function NewIdeaSubmission(props) {
         axios(config)
             .then(function (response) {
                 if (response.status === 200) {
-                    setThemesList([...response.data.data, 'Others']);
+                    setThemesList([...response.data.data]);
                     if (
                         props?.submitedData?.themes_problem &&
                         props?.submitedData?.themes_problem?.status === 'MANUAL'
@@ -331,9 +332,13 @@ function NewIdeaSubmission(props) {
         setCondition(false);
     };
 
-    async function apiCall() {
+    async function apiCall(file) {
+        let attachmentsList = '';
+        if (file) {
+            attachmentsList = file.join(', ');
+        }
         // Dice code list API //
-        const body = JSON.stringify({
+        const body = {
             student_id: StudentId,
             initiated_by: userId,
             district: district,
@@ -348,14 +353,18 @@ function NewIdeaSubmission(props) {
                     : probStatment,
             problem_statement_description: description,
             idea_title: ideaTitle,
-            Prototype_file:youtubeLink,
+            youtubelink:youtubeLink,
+            fpp:fppdetails,
             // solution_statement: solStatement,
             detailed_solution: detailSol,
             prototype_available: protoType,
             idea_available: ideaPublication,
             self_declaration: selfCheck ? 'YES' : 'NO',
             status: 'DRAFT'
-        });
+        };
+        if (attachmentsList !== '') {
+            body['Prototype_file'] = attachmentsList;
+        }
 
         var config = {
             method: 'post',
@@ -364,7 +373,7 @@ function NewIdeaSubmission(props) {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${currentUser?.data[0]?.token}`
             },
-            data: body
+            data: JSON.stringify(body)
         };
 
         await axios(config)
@@ -401,13 +410,54 @@ function NewIdeaSubmission(props) {
 
     const handleSubmit = async (item, stats) => {
         // console.log(submitedData, 'before api call condition');
-        if (!Object.keys(submitedData).length) {
+        if (!Object.keys(submitedData).length && props?.submitedData?.idea_id === undefined) {
             console.log('Api Call');
-            await apiCall();
+            if (files.length > 0) {
+                const formData = new FormData();
+                for (let i = 0; i < files.length; i++) {
+                    let fieldName = 'file' + i ? i : '';
+                    formData.append(fieldName, files[i]);
+                }
+                const axiosConfig = getNormalHeaders(KEY.User_API_Key);
+                const subId = encryptGlobal(
+                    JSON.stringify({
+                        student_id: currentUser?.data[0]?.student_id
+                    })
+                );
+                const result = await axios
+                    .post(
+                        `${
+                            process.env.REACT_APP_API_BASE_URL +
+                            '/ideas/fileUpload'
+                        }?Data=${subId}`,
+                        formData,
+                        axiosConfig
+                    )
+                    .then((res) => res)
+                    .catch((err) => {
+                        return err.response;
+                    });
+                if (result && result.status === 200) {
+                    setImmediateLink(result.data?.data[0]?.attachments);
+                    setSubmitedFile(result.data?.data[0]?.attachments);
+                    await apiCall(result.data?.data[0]?.attachments);
+                } else {
+                    openNotificationWithIcon(
+                        'error',
+                        `${result?.data?.message}`
+                    );
+                    return;
+                }
+
+            } else {
+                await apiCall();
+            }
+            
             setCondition(true);
             console.log(condition, 'condition 3');
             //scroll();
         } else {
+            setSubmittedData(props?.submitedData);
             console.log(submitedData, 'After api call condition');
             if (files.length > 0) {
                 const formData = new FormData();
@@ -462,7 +512,7 @@ function NewIdeaSubmission(props) {
         }
         const body = {
             student_id: StudentId,
-            idea_id: submitedData?.idea_id,
+            idea_id: props?.submitedData?.idea_id === undefined ? submitedData?.idea_id : props?.submitedData?.idea_id,
             // idea_id : NewIdeaid,
             theme_name: theme === 'Others' ? othersTheme : theme,
             problem_statement_id: themeProId,
@@ -473,7 +523,8 @@ function NewIdeaSubmission(props) {
                     ? othersPStatment
                     : probStatment,
             problem_statement_description: description,
-            Prototype_file:youtubeLink,
+            youtubelink:youtubeLink,
+            fpp: fppdetails,
             idea_title: ideaTitle,
             // solution_statement: solStatement,
             detailed_solution: detailSol,
@@ -1790,6 +1841,65 @@ function NewIdeaSubmission(props) {
                                                                     )
                                                                 )}
                                                             </div>
+                                                        </div>
+                                                    </Row>
+                                                )}
+                                                {(ideaPublication === 'YES') && (
+                                                    <Row className="card mb-4 my-3 comment-card px-0 px-5 py-3 card">
+                                                        <div className="question quiz mb-0">
+                                                            <b
+                                                                style={{
+                                                                    fontSize:
+                                                                        '1.6rem'
+                                                                }}
+                                                            >
+                                                                {t(
+                                                                    'student_course.FPP_details'
+                                                                )}
+                                                            </b>
+                                                        </div>
+                                                        <FormGroup
+                                                            check
+                                                            className="answers"
+                                                        >
+                                                            <Label
+                                                                check
+                                                                style={{
+                                                                    width: '100%'
+                                                                }}
+                                                            >
+                                                                <TextArea
+                                                                    disabled={
+                                                                        condition
+                                                                    }
+                                                                    placeholder="Please Enter Forum/Programs/Publications Details"
+                                                                    value={
+                                                                        fppdetails
+                                                                    }
+                                                                    maxLength={
+                                                                        5000
+                                                                    }
+                                                                    onChange={(
+                                                                        e
+                                                                    ) =>
+                                                                        setFppdetails(
+                                                                            e
+                                                                                .target
+                                                                                .value
+                                                                        )
+                                                                    }
+                                                                />
+                                                            </Label>
+                                                        </FormGroup>
+                                                        <div className="text-end">
+                                                            {t(
+                                                                'student_course.chars'
+                                                            )}{' '}
+                                                            :
+                                                            {5000 -
+                                                                (fppdetails
+                                                                    ? fppdetails.length
+                                                                    : 0)}
                                                         </div>
                                                     </Row>
                                                 )}

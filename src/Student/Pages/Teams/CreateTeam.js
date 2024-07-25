@@ -40,10 +40,7 @@ const AddMentor = (props) => {
 
         const allowedTypes = [
             'image/jpeg',
-            'image/png',
-            'application/msword',
-            'application/pdf',
-            'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+            'image/png'
         ];
         if (!allowedTypes.includes(file.type)) {
             openNotificationWithIcon(
@@ -165,9 +162,10 @@ const AddMentor = (props) => {
                                 'success',
                                 'Updated Successfully'
                             );
-                            setTimeout(() => {
-                                history.push('/teams');
-                            }, 2000);
+                            history.push('/teams');
+                            // setTimeout(() => {
+                                
+                            // }, 2000);
                         }
                     })
                     .catch(function (error) {
@@ -226,30 +224,42 @@ const AddMentor = (props) => {
                                         </Col>
                                         <Col md={6}>
                                             <Label
-                                                className="name-req"
-                                                htmlFor="team_name"
+                                                className="mb-2"
+                                                htmlFor="gender"
                                             >
-                                                Reg. Number as per ID Card
+                                                Gender
                                             </Label>
-                                            <InputBox
-                                                className={'defaultInput'}
-                                                placeholder={
-                                                    'Please Reg. Number as per ID Card'
-                                                }
-                                                id="team_name"
-                                                name="team_name"
-                                                onChange={formik.handleChange}
+                                            <select
+                                                name="gender"
+                                                className="col-8 selectDropdown"
+                                                value={formik.values.gender}
                                                 onBlur={formik.handleBlur}
-                                                value={formik.values.team_name}
-                                            />
-
-                                            {formik.touched.team_name &&
-                                            formik.errors.team_name ? (
+                                                onChange={formik.handleChange}
+                                            >
+                                                <option value="">
+                                                    {t(
+                                                        'teacehr_red.teacher_gender'
+                                                    )}
+                                                </option>
+                                                <option value="MALE">
+                                                    {t(
+                                                        'teacehr_red.teacher_gender_male'
+                                                    )}
+                                                </option>
+                                                <option value="FEMALE">
+                                                    {t(
+                                                        'teacehr_red.teacher_gender_female'
+                                                    )}
+                                                </option>
+                                            </select>
+                                            {formik.touched.gender &&
+                                            formik.errors.gender ? (
                                                 <small className="error-cls">
-                                                    {formik.errors.team_name}
+                                                    {formik.errors.gender}
                                                 </small>
                                             ) : null}
                                         </Col>
+                                        
                                         <Col md={6}>
                                             <Label
                                                 className="name-req"
@@ -304,38 +314,27 @@ const AddMentor = (props) => {
                                         </Col>
                                         <Col md={6}>
                                             <Label
-                                                className="mb-2"
-                                                htmlFor="gender"
+                                                className="name-req"
+                                                htmlFor="team_name"
                                             >
-                                                Gender
+                                                Reg. Number as per ID Card
                                             </Label>
-                                            <select
-                                                name="gender"
-                                                className="col-8 selectDropdown"
-                                                value={formik.values.gender}
-                                                onBlur={formik.handleBlur}
+                                            <InputBox
+                                                className={'defaultInput'}
+                                                placeholder={
+                                                    'Please Reg. Number as per ID Card'
+                                                }
+                                                id="team_name"
+                                                name="team_name"
                                                 onChange={formik.handleChange}
-                                            >
-                                                <option value="">
-                                                    {t(
-                                                        'teacehr_red.teacher_gender'
-                                                    )}
-                                                </option>
-                                                <option value="MALE">
-                                                    {t(
-                                                        'teacehr_red.teacher_gender_male'
-                                                    )}
-                                                </option>
-                                                <option value="FEMALE">
-                                                    {t(
-                                                        'teacehr_red.teacher_gender_female'
-                                                    )}
-                                                </option>
-                                            </select>
-                                            {formik.touched.gender &&
-                                            formik.errors.gender ? (
+                                                onBlur={formik.handleBlur}
+                                                value={formik.values.team_name}
+                                            />
+
+                                            {formik.touched.team_name &&
+                                            formik.errors.team_name ? (
                                                 <small className="error-cls">
-                                                    {formik.errors.gender}
+                                                    {formik.errors.team_name}
                                                 </small>
                                             ) : null}
                                         </Col>

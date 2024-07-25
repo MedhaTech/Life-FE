@@ -88,6 +88,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                     // console.log(response, 'button');
                     // if (response.data.data !== null) {
                     setIdeaSubmittedData(response.data.count);
+                    location.ideasCout=response.data.count;
                     // }
                 }
             })
@@ -179,7 +180,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                     <MenuItem
                         icon={<RiTeamFill />}
                         className={
-                            location.pathname === '/teams' && 'sidebar-active'
+                            location.pathname === '/teams' && 'sidebar-active' 
                         }
                     >
                         <NavLink

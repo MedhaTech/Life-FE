@@ -286,7 +286,7 @@ const TicketsPage = () => {
                             </li>
                             <li>
                                 Each team should have a minimum of 3 and maximum
-                                of 5 students.
+                                of 4 students.
                             </li>
                             <li>
                                 Team name cannot be edited whereas student

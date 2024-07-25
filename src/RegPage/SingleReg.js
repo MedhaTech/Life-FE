@@ -69,10 +69,7 @@ function AtlPage() {
     const [districts, setDistricts] = useState([]);
     const [instNames, setInstNames] = useState([]);
 
-    const yearList = Array.from(
-        { length: 5 - 1 + 1 },
-        (_, index) => 1 + index
-    );
+    const yearList = ["1st Year","2nd Year","3rd Year","4th Year","5th Year"];
     const handleOnChange = (e) => {
         setDiesCode(e.target.value.trim());
         setOrgData();
@@ -109,10 +106,7 @@ function AtlPage() {
 
         const allowedTypes = [
             'image/jpeg',
-            'image/png',
-            'application/msword',
-            'application/pdf',
-            'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+            'image/png'
         ];
         if (!allowedTypes.includes(file.type)) {
             openNotificationWithIcon(
@@ -206,18 +200,18 @@ function AtlPage() {
                 .required('Enter City Name')
                 .min(2, 'Enter City Name')
                 .matches(name, 'Special Characters are not allowed'),
-            email: Yup.string().email('Must be a valid Email Id').max(255),
+            email: Yup.string().email('Must be a valid Email Id').max(255).required("Enter Email Id"),
             student_full_name: Yup.string()
                 .trim()
                 .required('Enter Full Name')
 
                 .min(2, 'Enter Full Name')
                 .matches(name, 'Special Characters are not allowed'),
-            reg_no: Yup.string().trim().optional().min(2, 'Enter Register No'),
+            reg_no: Yup.string().trim().optional().min(2, 'Enter Register No').required("Enter Register No"),
             year_of_study: Yup.string()
                 .trim()
                 .optional()
-                .min(1, 'Select Year of Study'),
+                .min(1, 'Select Year of Study').required("Enter Year of Study"),
 
             mobile: Yup.string()
                 .required('Enter Mobile Number')
@@ -230,7 +224,7 @@ function AtlPage() {
                 .min(10, 'Number is less than 10 digits'),
 
             Age: Yup.number(),
-            id_card: Yup.mixed(),
+            id_card: Yup.mixed().required("Upload Id Card"),
 
             Gender: Yup.string().required('select valid Gender'),
             date_of_birth: Yup.date().required('Date of Birth is required')
@@ -420,11 +414,13 @@ function AtlPage() {
             formik.values.mobile.length > 0 &&
             formik.values.Gender.length > 0 &&
             formik.values.email.length > 0 &&
-            // formik.values.id_card.length > 0 &&
+            typeof(formik.values.id_card) === "object" &&
             formik.values.state.length > 0 &&
             formik.values.district.length > 0 &&
             formik.values.city.length > 0 &&
             formik.values.group.length > 0 &&
+            formik.values.year_of_study.length > 0 &&
+            formik.values.reg_no.length > 0 &&
             formik.values.institution_name.length > 0
         ) {
             setDisable(true);
@@ -437,11 +433,13 @@ function AtlPage() {
         formik.values.mobile,
         formik.values.Gender,
         formik.values.email,
-        // formik.values.id_card,
+        formik.values.id_card,
         formik.values.state,
         formik.values.district,
         formik.values.group,
         formik.values.city,
+        formik.values.year_of_study,
+        formik.values.reg_no,
         formik.values.institution_name
     ]);
 
@@ -1285,6 +1283,15 @@ function AtlPage() {
                                                         htmlFor="year_of_study"
                                                     >
                                                         Year of Study
+                                                        <span
+                                                            className="m-2"
+                                                            style={{
+                                                                color: 'red'
+                                                            }}
+                                                            required
+                                                        >
+                                                            *
+                                                        </span>
                                                     </Label>
                                                     <select
                                                         disabled={
@@ -1408,6 +1415,15 @@ function AtlPage() {
                                                     <Label htmlFor="group">
                                                         Reg. Number as per ID
                                                         Card
+                                                        <span
+                                                            className="m-2"
+                                                            style={{
+                                                                color: 'red'
+                                                            }}
+                                                            required
+                                                        >
+                                                            *
+                                                        </span>
                                                     </Label>
                                                     <InputBox
                                                         type="text"
@@ -1454,6 +1470,15 @@ function AtlPage() {
                                                         htmlFor="id_card"
                                                     >
                                                         College ID Card
+                                                        <span
+                                                            className="m-2"
+                                                            style={{
+                                                                color: 'red'
+                                                            }}
+                                                            required
+                                                        >
+                                                            *
+                                                        </span>
                                                     </Label>
                                                     <div className="d-flex align-items-center">
                                                         <input
