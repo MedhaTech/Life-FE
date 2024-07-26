@@ -11,23 +11,18 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        
       - name: Install NPM
-        run: sudo npm install -g npm@8.15.1
-
-      - name: Set legacy-peer-deps
-        run: sudo npm config set legacy-peer-deps true
-
+        run: sudo npm install -g npm@10.2.3
+        
       - name: Install dependencies
         run: |
           echo Installing source NPM dependencies...
           sudo npm install --force
 
-      - name: Build the application
+      - name: Buid the application
         env:
           CI: false
-        run: npm run build:dev
-        
+        run: sudo npm run build:dev
       - name: Upload build artifacts
         uses: actions/upload-artifact@v3
         with:
@@ -40,23 +35,18 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        
       - name: Install NPM
-        run: sudo npm install -g npm@8.15.1
-
-      - name: Set legacy-peer-deps
-        run: sudo npm config set legacy-peer-deps true
-
+        run: sudo npm install -g npm@10.2.3
+        
       - name: Install dependencies
         run: |
           echo Installing source NPM dependencies...
           sudo npm install --force
 
-      - name: Build the application
+      - name: Buid the application
         env:
           CI: false
-        run: npm run build:prod
-        
+        run: sudo npm run build:prod
       - name: Upload build artifacts
         uses: actions/upload-artifact@v3
         with:
@@ -111,11 +101,11 @@ jobs:
           HOSTNAME: ${{ secrets.LIFE_PROD_HOSTNAME }}
         run: |
           echo "$PRIVATE_KEY" > private_key && chmod 400 private_key
-          scp -o StrictHostKeyChecking=no -i private_key -r ./build ubuntu@${{ secrets.LIFE_PROD_HOSTNAME }}:/tmp/Life_fe_build
+          scp -o StrictHostKeyChecking=no -i private_key -r ./build ubuntu@${{ secrets.LIFE_PROD_HOSTNAME }}:/tmp/life_fe_build
           ssh -o StrictHostKeyChecking=no -i private_key ubuntu@${{ secrets.LIFE_PROD_HOSTNAME }} '
-            sudo rm -rf /var/www/html/Life_fe/build &&
-            sudo mv /tmp/Life_fe_build /var/www/html/Life_fe/build &&
-            cd /var/www/html/Life_fe &&
+            sudo rm -rf /var/www/html/life_fe/build &&
+            sudo mv /tmp/Life_fe_build /var/www/html/life_fe/build &&
+            cd /var/www/html/life_fe &&
             sudo git fetch origin &&
             sudo git checkout master &&
             sudo git pull origin master
