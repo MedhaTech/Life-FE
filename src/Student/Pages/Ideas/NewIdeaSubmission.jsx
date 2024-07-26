@@ -80,7 +80,7 @@ function NewIdeaSubmission(props) {
         (history && history.location && history.location.data) || false;
     // const NewIdeaid =
     //     (history && history.location && history.location.data.idea);
-    console.log(props, history);
+    
     const currentUser = getCurrentUser('current_user');
     const StudentId = currentUser?.data[0]?.student_id;
     const userId = currentUser?.data[0]?.user_id;
@@ -106,7 +106,7 @@ function NewIdeaSubmission(props) {
     const [othersPStatment, setOthersPStatment] = useState('');
 
     const [ideaIntiation, setIdeaIntiation] = useState('');
-    console.log(props?.submitedData?.idea_id,"props?.submitedData");
+
     const [probStatment, setProbStatment] = useState(
         props?.submitedData?.themes_problem?.problem_statement
             ? props?.submitedData?.themes_problem?.problem_statement
@@ -115,7 +115,7 @@ function NewIdeaSubmission(props) {
     const [description, setDescription] = useState(
         props?.submitedData?.themes_problem?.problem_statement_description
     );
-    console.log(history.location.data);
+
     const [ideaTitle, setIdeaTitle] = useState(props?.submitedData?.idea_title);
     // const [solStatement, setSolStatement] = useState(
     //     submitedData?.solution_statement
@@ -231,6 +231,7 @@ function NewIdeaSubmission(props) {
             );
         }
     }, [themeProId]);
+
     const themeApi = () => {
         var config = {
             method: 'get',
@@ -313,6 +314,8 @@ function NewIdeaSubmission(props) {
                             problem_statement: itea.problem_statement
                         };
                     });
+                    setThemeProId(response?.data?.data[0]?.theme_problem_id);
+                    setProbStatment(response?.data?.data[0]?.theme_problem_id);
                     setListofproblemsandID(decandId);
                 }
             })
@@ -379,12 +382,12 @@ function NewIdeaSubmission(props) {
         await axios(config)
             .then(async function (response) {
                 if (response.status == 200) {
-                    console.log(condition, 'condition 1');
+                    
 
                     setIdeaIntiation(response?.data.data[0].initiated_by);
                     idea_id = response?.data.data[0].idea_id;
                     setSubmittedData(response?.data.data[0]);
-                    console.log(submitedData);
+                
                     openNotificationWithIcon(
                         'success',
                         'Idea Initiated Successfully'
@@ -392,7 +395,7 @@ function NewIdeaSubmission(props) {
                     localStorage.setItem('condition', true);
                     setCondition(true);
                     setIsDisabled(true);
-                    console.log(condition, 'condition 2');
+                    
 
                     setPageEnable(false);
                     history.push({
@@ -411,7 +414,7 @@ function NewIdeaSubmission(props) {
     const handleSubmit = async (item, stats) => {
         // console.log(submitedData, 'before api call condition');
         if (!Object.keys(submitedData).length && props?.submitedData?.idea_id === undefined) {
-            console.log('Api Call');
+        
             if (files.length > 0) {
                 const formData = new FormData();
                 for (let i = 0; i < files.length; i++) {
@@ -454,11 +457,11 @@ function NewIdeaSubmission(props) {
             }
             
             setCondition(true);
-            console.log(condition, 'condition 3');
+    
             //scroll();
         } else {
             setSubmittedData(props?.submitedData);
-            console.log(submitedData, 'After api call condition');
+    
             if (files.length > 0) {
                 const formData = new FormData();
                 for (let i = 0; i < files.length; i++) {
@@ -1050,7 +1053,7 @@ function NewIdeaSubmission(props) {
                                                         )}
                                                     </>
                                                 )}
-                                                {theme && theme !== 'Others' && (
+                                                {/* {theme && theme !== 'Others' && (
                                                     <>
                                                         <Row className="card mb-4 my-3 comment-card px-0 px-5 py-3 card">
                                                             <div className="question quiz mb-0">
@@ -1116,7 +1119,7 @@ function NewIdeaSubmission(props) {
                                                             </div>
                                                         </Row>
                                                     </>
-                                                )}
+                                                )} */}
                                                 {probStatment &&
                                                     probStatment ===
                                                         'Others' && (
