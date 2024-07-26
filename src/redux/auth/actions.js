@@ -53,7 +53,7 @@ export const loginUser = (data, history, module) => async (dispatch) => {
             localStorage.setItem('module', module);
             localStorage.setItem('time', new Date().toString());
             dispatch(loginUserSuccess(result));
-            history.push('/dashboard');
+            history.push('/teams');
         } else {
             dispatch(loginUserError(result.statusText));
             openNotificationWithIcon('error', 'Invalid Username or Password');

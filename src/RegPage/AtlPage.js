@@ -30,7 +30,6 @@ import OtpInput from 'react-otp-input-rc-17';
 import { useHistory } from 'react-router-dom';
 import { isDisabled } from '@testing-library/user-event/dist/utils';
 import { decryptGlobal } from '../constants/encryptDecrypt';
-
 function AtlPage() {
     const { t } = useTranslation();
     const history = useHistory();
@@ -571,7 +570,7 @@ function AtlPage() {
                                                 >
                                                     {/* {t('teacehr_red.UDISE')} */}
                                                     Institution Unique Code /
-                                                    EDII's Unique Code
+                                                    Unique Code
                                                 </Label>
                                                 <Input
                                                     {...inputField}
@@ -583,7 +582,7 @@ function AtlPage() {
                                                     maxLength={11}
                                                     minLength={11}
                                                     name="institution_code"
-                                                    placeholder="Enter Institution Unique Code / EDII's Unique Code "
+                                                    placeholder="Enter Institution Unique Code / Unique Code "
                                                     className="w-100 mb-3 mb-md-0"
                                                     style={{
                                                         borderRadius: '0px',

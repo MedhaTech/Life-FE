@@ -11,11 +11,11 @@ import { connect } from 'react-redux';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useTranslation } from 'react-i18next';
-import logo from '../../assets/media/tn-brands/EDII.png';
+import logo from '../../assets/media/Life_logo.jpg';
 import studentIcon from '../../assets/media/student_login_icon.png';
-import teacherIcon from '../../assets/media/teacher_login_icon.png';
+// import teacherIcon from '../../assets/media/teacher_login_icon.png';
 import image_9 from '../../assets/media/unisolve_slider1.png';
-import image_10 from '../../assets/media/aim_Slider.png';
+import image_10 from '../../assets/media/LIFE_Slider.png';
 import { loginUser } from '../../redux/actions.js';
 import CryptoJS from 'crypto-js';
 import { openNotificationWithIcon } from '../../helpers/Utils';
@@ -49,16 +49,17 @@ const LoginNew = (props) => {
 
         validationSchema: Yup.object({
             email: Yup.string()
-                .required('required')
+                .required('Please Enter Email Address')
                 .trim()
-                // .matches(
-                //     /^\d+$/,
-                //     'Mobile number is not valid (Enter only digits)'
-                // )
-                .matches(/^[0-9]+$/, 'Mobile number must contain only numbers')
-                .max(10, 'Please enter only 10 digit valid number')
-                .min(10, 'Number is less than 10 digits'),
-            password: Yup.string().required('Required Password')
+                .email(),
+            // .matches(
+            //     /^\d+$/,
+            //     'Mobile number is not valid (Enter only digits)'
+            // )
+            // .matches(/^[0-9]+$/, 'Mobile number must contain only numbers')
+            // .max(10, 'Please enter only 10 digit valid number')
+            // .min(10, 'Number is less than 10 digits'),
+            password: Yup.string().required('Please Enter Password')
         }),
         // STIDENT ROLE
         onSubmit: (values) => {
@@ -99,7 +100,7 @@ const LoginNew = (props) => {
 
     const inputUserId = {
         type: 'tel',
-        placeholder: 'Enter Your Mobile Number'
+        placeholder: 'Enter Your Email Address'
     };
 
     const inputPassword = {
@@ -179,7 +180,7 @@ const LoginNew = (props) => {
                         </Row>
                         <Row className=" article-header mb-4 d-flex ">
                             <div className="d-flex mt-4 login-div justify-content-center align-items-center">
-                                <Link
+                                {/* <Link
                                     className="landing-page-actions "
                                     exact="true"
                                     to="/mentor"
@@ -191,9 +192,8 @@ const LoginNew = (props) => {
                                             className="img-fluid"
                                         />{' '}
                                         Mentor Login
-                                        {/* {t('loginPage.teacher_login')} */}
                                     </button>
-                                </Link>
+                                </Link> */}
                                 <Link
                                     className="landing-page-actions"
                                     exact="true"
@@ -227,27 +227,15 @@ const LoginNew = (props) => {
                                                     className="mb-2"
                                                     htmlFor="email"
                                                 >
-                                                    Mobile Number
+                                                    Email Address
                                                 </Label>
                                                 <InputBox
                                                     {...inputUserId}
                                                     id="email"
                                                     name="email"
-                                                    onChange={(e) => {
-                                                        const inputValue =
-                                                            e.target.value;
-                                                        const numericValue =
-                                                            inputValue.replace(
-                                                                /\D/g,
-                                                                ''
-                                                            );
-                                                        formik.setFieldValue(
-                                                            'email',
-                                                            numericValue
-                                                        );
-                                                    }}
-                                                    maxLength={10}
-                                                    minLength={10}
+                                                    onChange={
+                                                        formik.handleChange
+                                                    }
                                                     // onChange={
                                                     //     formik.handleChange
                                                     // }

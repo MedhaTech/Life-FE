@@ -892,7 +892,7 @@ const Dashboard = () => {
                                 {/* {dist} / SPECIFIC DISTRICT NAME OVERALL
                                 EDII-HACKATHON 2024 STATS{' '} */}
                                 <span>
-                                    {districtName} EDII-HACKATHON 2024 Stats
+                                     Ideas4Life Hackathon 2024 Stats
                                 </span>
                             </h2>
                             <Row

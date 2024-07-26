@@ -16,6 +16,7 @@ import image_1 from '../assets/media/unisolve_slider1.png';
 import image_2 from '../assets/media/aim_Slider.png';
 import { URL, KEY } from '../constants/defaultValues';
 import axios from 'axios';
+import moment from 'moment';
 
 import { getNormalHeaders, openNotificationWithIcon } from '../helpers/Utils';
 import { useHistory } from 'react-router-dom';
@@ -24,55 +25,20 @@ const SuccessPage = () => {
     const history = useHistory();
     const { t } = useTranslation();
     const mentorDaTa = JSON.parse(localStorage.getItem('mentorData'));
-    const orgDaTa = JSON.parse(localStorage.getItem('orgData'));
+    console.log(mentorDaTa, 'ment');
+    const date = mentorDaTa.date_of_birth;
+    const formattedDate = moment(date).format('MM/DD/YYYY');
+    // const orgDaTa = JSON.parse(localStorage.getItem('orgData'));
     const user = mentorDaTa.username;
-    const myArray = user.split('@');
-    const word = myArray[0];
+    // const myArray = user.split('@');
+    // const word = myArray[0];
     const [buttonData, setButtonData] = useState('');
 
     // const handleButton = () => {
     //     // alert('hii');
     //     apiCall();
     // };
-    async function apiCall() {
-        // Dice code list API //
-        // where list = diescode //
-        const body = JSON.stringify({
-            school_name: orgDaTa.organization_name,
-            udise_code: orgDaTa.unique_code,
-            atl_code: mentorDaTa.organization_code,
-            district: orgDaTa.district,
-            state: orgDaTa.state,
-            pin_code: orgDaTa.pin_code,
-            email: mentorDaTa.username,
-            mobile: mentorDaTa.mobile
-        });
-        var config = {
-            method: 'post',
-            url:
-                process.env.REACT_APP_API_BASE_URL +
-                '/mentors/triggerWelcomeEmail',
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: 'O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870'
-            },
-            data: body
-        };
 
-        await axios(config)
-            .then(async function (response) {
-                if (response.status == 200) {
-                    setButtonData(response?.data?.data[0]?.data);
-                    openNotificationWithIcon(
-                        'success',
-                        'Email sent successfully'
-                    );
-                }
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-    }
     const successData = history && history.location && history.location.data;
     return (
         <React.Fragment>
@@ -195,16 +161,15 @@ const SuccessPage = () => {
                                         successData.organization_code} */}
                                 {/* {mentorDaTa.organization_code} */}
                                 {/* </p>  */}
+
                                 <p
                                     style={{
                                         color: '#404040',
                                         marginBottom: '1rem'
                                     }}
                                 >
-                                    Institution Unique Code:{' '}
-                                    {orgDaTa.institution_code
-                                        ? orgDaTa.institution_code
-                                        : '-'}
+                                    Institution Name:{' '}
+                                    {mentorDaTa.institution_name}
                                 </p>
                                 <p
                                     style={{
@@ -212,8 +177,7 @@ const SuccessPage = () => {
                                         marginBottom: '1rem'
                                     }}
                                 >
-                                    Institution Name: {orgDaTa.institution_name}
-                                    {/* {mentorDaTa.organization_code} */}
+                                    State: {mentorDaTa?.state}
                                 </p>
                                 <p
                                     style={{
@@ -221,25 +185,16 @@ const SuccessPage = () => {
                                         marginBottom: '1rem'
                                     }}
                                 >
-                                    District:{' '}
-                                    {
-                                        orgDaTa?.place?.block?.district
-                                            ?.district_name
-                                    }
-                                    {/* {mentorDaTa.organization_code} */}
+                                    District: {mentorDaTa?.district}
                                 </p>
+
                                 <p
                                     style={{
                                         color: '#404040',
                                         marginBottom: '1rem'
                                     }}
                                 >
-                                    State:{' '}
-                                    {
-                                        orgDaTa?.place?.block?.district?.state
-                                            ?.state_name
-                                    }
-                                    {/* {mentorDaTa.organization_code} */}
+                                    City: {mentorDaTa?.city}
                                 </p>
                                 {/* <p
                                     style={{
@@ -256,8 +211,8 @@ const SuccessPage = () => {
                                         marginBottom: '1rem'
                                     }}
                                 >
-                                    Mentor Name: {mentorDaTa.mentor_title}.{' '}
-                                    {mentorDaTa.mentor_name}
+                                    Student Name:
+                                    {mentorDaTa.student_full_name}
                                 </p>
 
                                 <p
@@ -266,7 +221,7 @@ const SuccessPage = () => {
                                         marginBottom: '1rem'
                                     }}
                                 >
-                                    Login ID: {mentorDaTa.username}
+                                    Login ID: {mentorDaTa.email}
                                 </p>
                                 {/* <p
                                     style={{
@@ -282,7 +237,15 @@ const SuccessPage = () => {
                                         marginBottom: '1rem'
                                     }}
                                 >
-                                    Mobile Number: {mentorDaTa.mentor_mobile}
+                                    Mobile Number: {mentorDaTa.mobile}
+                                </p>
+                                <p
+                                    style={{
+                                        color: '#404040',
+                                        marginBottom: '2rem'
+                                    }}
+                                >
+                                    Gender: {mentorDaTa.Gender}
                                 </p>
                                 <p
                                     style={{
@@ -290,18 +253,37 @@ const SuccessPage = () => {
                                         marginBottom: '1rem'
                                     }}
                                 >
-                                    Whatsapp Number:{' '}
-                                    {mentorDaTa.mentor_whatapp_mobile}
+                                    Date of Birth: {formattedDate}
                                 </p>
-
                                 <p
                                     style={{
                                         color: '#404040',
-                                        marginBottom: '2rem'
+                                        marginBottom: '1rem'
                                     }}
                                 >
-                                    Gender: {mentorDaTa.gender}
+                                    Age: {mentorDaTa.Age}
                                 </p>
+                                <p
+                                    style={{
+                                        color: '#404040',
+                                        marginBottom: '1rem'
+                                    }}
+                                >
+                                    Year of Study:{' '}
+                                    {mentorDaTa.year_of_study
+                                        ? mentorDaTa.year_of_study
+                                        : '-'}
+                                </p>
+                                <p
+                                    style={{
+                                        color: '#404040',
+                                        marginBottom: '1rem'
+                                    }}
+                                >
+                                    Group:{' '}
+                                    {mentorDaTa.group ? mentorDaTa.group : '-'}
+                                </p>
+
                                 <>
                                     {/* <Button
                                         label="Send Login Details to mail"
@@ -325,10 +307,10 @@ const SuccessPage = () => {
                                 </p>
 
                                 <h3>
-                                    To login into Mentor account
+                                    To login into Student account
                                     <Link
                                         exact="true"
-                                        to="/mentor"
+                                        to="/login"
                                         className="p-0 blue text-link w-100 mt-3"
                                     >
                                         {t(' click here')}

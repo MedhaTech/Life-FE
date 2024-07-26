@@ -12,8 +12,8 @@ import { FaBars } from 'react-icons/fa';
 import DashboardIcon1 from '../assets/media/DashboardIcon1.png';
 import { FaHouseUser } from 'react-icons/fa';
 import 'react-pro-sidebar/dist/css/styles.css';
-import SmallLogo from '../assets/media/logo192.png';
-import Logo from '../assets/media/tn-brands/EDII_LOGO.png';
+import SmallLogo from '../assets/media/favicon.png';
+import Logo from '../assets/media/Life_logo.jpg';
 import { RiLockPasswordFill } from 'react-icons/ri';
 import logoutIcon from '../assets/media/logoutIcon.png';
 

@@ -18,12 +18,12 @@ import {
     FaHouseUser,
     FaCertificate
 } from 'react-icons/fa';
-import { RiSurveyFill, RiLockPasswordFill } from 'react-icons/ri';
+import { RiSurveyFill, RiLockPasswordFill, RiTeamFill } from 'react-icons/ri';
 import axios from 'axios';
 
 import 'react-pro-sidebar/dist/css/styles.css';
 import { useLocation } from 'react-router-dom';
-import Logo from '../assets/media/tn-brands/EDII_LOGO.png';
+import Logo from '../assets/media/Life_logo.jpg';
 
 import TicketIcon from '../assets/media/ticket.png';
 import FaqIcon from '../assets/media/faq.png';
@@ -32,7 +32,7 @@ import { RiLogoutBoxRFill } from 'react-icons/ri';
 import { logout } from '../helpers/Utils';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import SmallLogo from '../assets/media/logo192.png';
+import SmallLogo from '../assets/media/favicon.png';
 import { encryptGlobal } from '../constants/encryptDecrypt';
 import { getCurrentUser } from '../helpers/Utils';
 
@@ -42,7 +42,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
     const dispatch = useDispatch();
     const [ideaSubmittedData, setIdeaSubmittedData] = useState({});
     const currentUser = getCurrentUser('current_user');
-    const TeamId = currentUser?.data[0]?.team_id;
+    const StudentId = currentUser?.data[0]?.student_id;
 
     // const presuveyStatusGl = useSelector(
     //     (state) => state?.studentRegistration.presuveyStatusGl
@@ -68,7 +68,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
         }
         const Param = encryptGlobal(
             JSON.stringify({
-                team_id: TeamId
+                student_id: StudentId
             })
         );
         var configidea = {
@@ -85,8 +85,10 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
         axios(configidea)
             .then(function (response) {
                 if (response.status === 200) {
+                    // console.log(response, 'button');
                     // if (response.data.data !== null) {
-                    setIdeaSubmittedData(response.data.data[0]);
+                    setIdeaSubmittedData(response.data.count);
+                    location.ideasCout=response.data.count;
                     // }
                 }
             })
@@ -161,7 +163,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                     {/* {t('home.pre_survey')} */}
                     {/* </NavLink> */}
                     {/* </MenuItem> */}
-                    <MenuItem
+                    {/* <MenuItem
                         icon={<FaThLarge />}
                         className={
                             location.pathname === '/dashboard' &&
@@ -170,11 +172,23 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                     >
                         <NavLink
                             exact={true}
-                            // onClick={handleClick}
                             to={'/dashboard'}
                         >
-                            {/* Dashboard */}
                             {t('home.dashboard')}
+                        </NavLink>
+                    </MenuItem> */}
+                    <MenuItem
+                        icon={<RiTeamFill />}
+                        className={
+                            location.pathname === '/teams' && 'sidebar-active' 
+                        }
+                    >
+                        <NavLink
+                            exact={true}
+                            // onClick={(e) => handleClick(e, '')}
+                            to={'/teams'}
+                        >
+                            {t('teacher.team')}
                         </NavLink>
                     </MenuItem>
                     <MenuItem
@@ -189,11 +203,11 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                         <NavLink
                             exact={true}
                             // onClick={handleClick}
+                            // to={'/instructions'}
                             to={
-                                ideaSubmittedData.status == 'SUBMITTED' ||
-                                ideaSubmittedData.status == 'DRAFT'
-                                    ? '/challenges'
-                                    : '/instructions'
+                                ideaSubmittedData == 0
+                                    ? '/instructions'
+                                    : '/List'
                             }
                         >
                             {t('home.idea_submission')}
@@ -288,7 +302,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                     {/* {t('home.post_survey')} */}
                     {/* </NavLink> */}
                     {/* </MenuItem>  */}
-                    {/* <MenuItem
+                    <MenuItem
                         icon={<FaCertificate />}
                         className={
                             location.pathname === '/student/my-certificate' &&
@@ -300,9 +314,9 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                             // onClick={(e) => handleClick(e)}
                             to={'/student/my-certificate'}
                         >
-                            {t('teacher.certificate')}
+                            {'Certificate'}
                         </NavLink>
-                    </MenuItem> */}
+                    </MenuItem>
 
                     <MenuItem
                         icon={<RiLockPasswordFill />}

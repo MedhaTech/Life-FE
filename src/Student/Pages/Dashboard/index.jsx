@@ -475,10 +475,10 @@ const Dashboard = () => {
                         className="bg-white rounded p-3 d-flex align-items-center"
                         style={{ width: 'max-content' }}
                     >
-                        <p style={{ marginBottom: '0' }}>
+                        {/* <p style={{ marginBottom: '0' }}>
                             Preferred Language :{' '}
                         </p>
-                        <LanguageSelectorComp module="student" />
+                        <LanguageSelectorComp module="student" /> */}
                     </div>
                 </div>
                 <Row>
@@ -486,7 +486,7 @@ const Dashboard = () => {
                         className="course-team flex-start mb-5"
                         style={{ gap: '1rem' }}
                     > */}
-                    <Col md={6} className="flex-2 team-progress">
+                    {/* <Col md={6} className="flex-2 team-progress">
                         <label htmlFor="teams" className="">
                             Team Progres:
                         </label>
@@ -511,7 +511,7 @@ const Dashboard = () => {
                                 columns={columns}
                             />
                         </div>
-                    </Col>
+                    </Col> */}
                     {/* </Row> */}
                     {/* <Col style={{ paddingRight: '15px', marginBottom: '20px' }}>
                         <Row>

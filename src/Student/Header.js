@@ -57,13 +57,11 @@ const Header = (props) => {
                                 >
                                     <div>
                                         <p>
-                                            <b className="menu-text">Menu :</b>{' '}
+                                            {/* <b className="menu-text">Menu :</b>{' '} 
                                             <span className="dynamic-text">
                                                 {props.title}
                                             </span>
                                             &nbsp;
-                                            {/* </p> */}
-                                            {/* <p > */}
                                             <b className="institution-text">
                                                 Institution :{' '}
                                             </b>{' '}
@@ -73,7 +71,7 @@ const Header = (props) => {
                                                         .institution_name
                                                 }
                                             </span>{' '}
-                                            &nbsp;
+                                            &nbsp;*/}
                                             <img src={AvatarImg} />
                                             &nbsp;
                                             <span className="header-name-size">

@@ -13,7 +13,7 @@ import EvalConifIcon from '../../../assets/media/EvalConifIcon.png';
 import ChallengesIcon from '../../../assets/media/ChallengesIcon.png';
 import logoutIcon from '../../../assets/media/logoutIcon.png';
 import { FaBars } from 'react-icons/fa';
-import SmallLogo from '../../../assets/media/logo192.png';
+import SmallLogo from '../../../assets/media/favicon.png';
 import 'react-pro-sidebar/dist/css/styles.css';
 import { useLocation } from 'react-router-dom';
 import Logo from '../../../assets/media/tn-brands/EDII.png';

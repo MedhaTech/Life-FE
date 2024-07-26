@@ -16,7 +16,7 @@ import LatestNewsIcon from '../assets/media/latestNewsIcon.png';
 import ResourceIcon from '../assets/media/resourceIcon.png';
 import PopupIcon from '../assets/media/popupIcon.png';
 //import EvalConifIcon from '../assets/media/EvalConifIcon.png';
-import SmallLogo from '../assets/media/logo192.png';
+import SmallLogo from '../assets/media/favicon.png';
 import {
     ProSidebar,
     Menu,
@@ -27,7 +27,7 @@ import {
 import { FaBars } from 'react-icons/fa';
 import 'react-pro-sidebar/dist/css/styles.css';
 import { useLocation } from 'react-router-dom';
-import Logo from '../assets/media/tn-brands/EDII_LOGO.png';
+import Logo from '../assets/media/Life_logo.jpg';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { logout } from '../helpers/Utils';
