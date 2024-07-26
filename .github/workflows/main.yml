@@ -104,7 +104,7 @@ jobs:
           scp -o StrictHostKeyChecking=no -i private_key -r ./build ubuntu@${{ secrets.LIFE_PROD_HOSTNAME }}:/tmp/life_fe_build
           ssh -o StrictHostKeyChecking=no -i private_key ubuntu@${{ secrets.LIFE_PROD_HOSTNAME }} '
             sudo rm -rf /var/www/html/life_fe/build &&
-            sudo mv /tmp/Life_fe_build /var/www/html/life_fe/build &&
+            sudo mv /tmp/life_fe_build /var/www/html/life_fe/build &&
             cd /var/www/html/life_fe &&
             sudo git fetch origin &&
             sudo git checkout master &&
