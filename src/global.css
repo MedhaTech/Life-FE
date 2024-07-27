@@ -5,21 +5,30 @@ input[type='radio'] {
     min-width: 2rem;
     min-height: 2rem;
 }
+
 .common-flex {
     display: flex;
     justify-content: center;
     align-items: center;
 }
+
 .header-name-size {
     font-size: 1.4rem;
     font-weight: 400;
     margin-left: 1rem;
 }
+
 .change-password {
     background-color: white;
     padding: 3rem;
     border-radius: 1rem;
 }
-.default-vh{
+
+.default-vh {
     min-height: 81vh !important;
+}
+
+.title-head {
+    font-size: 22px !important;
+    font-weight: 600;
 }
