@@ -5,9 +5,16 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React, { useState, useEffect } from 'react';
-import { Row, Col, Form, Label, UncontrolledAlert } from 'reactstrap';
+import { Row, Col, Form, Label, UncontrolledAlert, Tooltip } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { Input, Radio } from 'antd';
+import {
+    FaCheckCircleO,
+    FaInfoCircle,
+    FaDownload,
+    FaHourglassHalf,
+    FaTimesCircle
+} from 'react-icons/fa';
 
 import successIcon from '../assets/media/img/rocket.gif';
 import signuplogo from '../assets/media/Life_logo.jpg';
@@ -35,6 +42,7 @@ import {
     stateList,
     districtList,
     collegesList,
+    applicant_categories,
     institutionType,
     istitutionNameList
 } from './OrgData';
@@ -54,7 +62,7 @@ function AtlPage() {
     const [diceBtn, setDiceBtn] = useState(true);
     const [btn, setBtn] = useState(false);
     const [checkBox, setCheckBox] = useState(false);
-    const [change, setChange] = useState('Send OTP');
+    const [change, setChange] = useState('Proceed');
     const [wtsNum, setWtsNum] = useState('');
     const [mobNum, setMobNum] = useState('');
     const [holdKey, setHoldKey] = useState(false);
@@ -68,8 +76,16 @@ function AtlPage() {
     const [instId, setInstId] = useState('');
     const [districts, setDistricts] = useState([]);
     const [instNames, setInstNames] = useState([]);
+    const [isOtherSelected, setIsOtherSelected] = useState(false);
 
-    const yearList = ["1st Year","2nd Year","3rd Year","4th Year","5th Year"];
+
+    const [tooltipOpen1, setTooltipOpen1] = useState(false);
+    const toggleTooltip1 = () => setTooltipOpen1(!tooltipOpen1);
+
+    const [tooltipOpen2, setTooltipOpen2] = useState(false);
+    const toggleTooltip2 = () => setTooltipOpen2(!tooltipOpen2);
+
+    const yearList = ["1st Year", "2nd Year", "3rd Year", "4th Year", "5th Year"];
     const handleOnChange = (e) => {
         setDiesCode(e.target.value.trim());
         setOrgData();
@@ -87,7 +103,7 @@ function AtlPage() {
     };
     const inputName = {
         type: 'text',
-        placeholder: 'Enter Full Name',
+        placeholder: 'Enter Applicant Name',
         className: 'defaultInput'
     };
     const fileHandler = (e) => {
@@ -129,7 +145,7 @@ function AtlPage() {
             return;
         }
 
-        formik.setFieldValue('id_card', file);
+        // formik.setFieldValue('id_card', file);
     };
     const inputUsername = {
         type: 'text',
@@ -183,13 +199,13 @@ function AtlPage() {
             year_of_study: '',
             date_of_birth: '',
             reg_no: '',
-            id_card: ''
+            // id_card: ''
         },
 
         validationSchema: Yup.object({
-            state: Yup.string().required('select state'),
-            district: Yup.string().required('select district'),
-            group: Yup.string().required('select Institution Type'),
+            state: Yup.string().required('Select State/UT'),
+            district: Yup.string().required('Select District'),
+            group: Yup.string().required('Select Institution Type'),
             institution_name: Yup.string()
                 .trim()
                 .required('Enter Institution Name')
@@ -200,18 +216,18 @@ function AtlPage() {
                 .required('Enter City Name')
                 .min(2, 'Enter City Name')
                 .matches(name, 'Special Characters are not allowed'),
-            email: Yup.string().email('Must be a valid Email Id').max(255).required("Enter Email Id"),
+            email: Yup.string().email('Must be a valid Email Id').max(255).required("Enter Email Address"),
             student_full_name: Yup.string()
                 .trim()
-                .required('Enter Full Name')
+                .required('Enter Applicant Name')
 
-                .min(2, 'Enter Full Name')
+                .min(2, 'Enter Applicant Name')
                 .matches(name, 'Special Characters are not allowed'),
             reg_no: Yup.string().trim().optional().min(2, 'Enter Register No').required("Enter Register No"),
             year_of_study: Yup.string()
                 .trim()
                 .optional()
-                .min(1, 'Select Year of Study').required("Enter Year of Study"),
+                .min(1, 'Select Applicant Category').required("Enter Applicant Category"),
 
             mobile: Yup.string()
                 .required('Enter Mobile Number')
@@ -220,13 +236,13 @@ function AtlPage() {
                     /^\d+$/,
                     'Mobile number is not valid (Enter only digits)'
                 )
-                .max(10, 'enter only 10 digit valid number')
+                .max(10, 'Enter only 10 digit valid number')
                 .min(10, 'Number is less than 10 digits'),
 
             Age: Yup.number(),
-            id_card: Yup.mixed().required("Upload Id Card"),
+            // id_card: Yup.mixed().required("Upload Id Card"),
 
-            Gender: Yup.string().required('select valid Gender'),
+            Gender: Yup.string().required('Select Gender'),
             date_of_birth: Yup.date().required('Date of Birth is required')
             // .min(
             //     new Date(new Date().getFullYear() - 65, 0, 1),
@@ -240,101 +256,195 @@ function AtlPage() {
         }),
 
         onSubmit: async (values) => {
-            if (values.id_card !== '') {
-                const fileData = new FormData();
-                fileData.append('file', values.id_card);
+            // const fileData = new FormData();
+            // fileData.append('file', values.id_card);
 
-                const response = await axios.post(
-                    `${process.env.REACT_APP_API_BASE_URL}/students/idcardUpload`,
-                    fileData,
-                    {
-                        headers: {
-                            'Content-Type': 'multipart/form-data',
-                            Authorization:
-                                'O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870'
-                        }
-                    }
+            // const response = await axios.post(
+            //     `${process.env.REACT_APP_API_BASE_URL}/students/idcardUpload`,
+            //     fileData,
+            //     {
+            //         headers: {
+            //             'Content-Type': 'multipart/form-data',
+            //             Authorization:
+            //                 'O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870'
+            //         }
+            //     }
+            // );
+            // values.id_card = response?.data?.data[0].attachments[0];
+            // }
+            if (values.otp.length < 5) {
+                setErrorMsg(true);
+            } else {
+                console.log('data', 'data');
+                const axiosConfig = getNormalHeaders(KEY.User_API_Key);
+                var pass = values.mobile.trim();
+
+                const key = CryptoJS.enc.Hex.parse(
+                    '253D3FB468A0E24677C28A624BE0F939'
                 );
-                values.id_card = response?.data?.data[0].attachments[0];
+                const iv = CryptoJS.enc.Hex.parse(
+                    '00000000000000000000000000000000'
+                );
+                const encrypted = CryptoJS.AES.encrypt(pass, key, {
+                    iv: iv,
+                    padding: CryptoJS.pad.NoPadding
+                }).toString();
+                const body = JSON.stringify({
+                    student_full_name: values.student_full_name.trim(),
+                    date_of_birth: values.date_of_birth,
+                    email: values.email.trim(),
+                    mobile: values.mobile.trim(),
+                    institution_name: values.institution_name.trim(),
+                    city: values.city.trim(),
+                    Gender: values.Gender,
+                    Age: values.Age,
+                    state: values.state,
+                    district: values.district,
+                    group: values.group,
+                    role: values.role.trim(),
+                    reg_status: values.reg_status,
+                    password: encrypted,
+                    // id_card: values.id_card,
+                    ...(values.year_of_study && {
+                        year_of_study: values.year_of_study.trim()
+                    }),
+                    ...(values.reg_no && { reg_no: values.reg_no.trim() })
+                });
+                // if (values.id_card !== '') {
+                //     body['id_card'] = values.id_card;
                 // }
-                if (values.otp.length < 5) {
-                    setErrorMsg(true);
-                } else {
-                    console.log('data', 'data');
-                    const axiosConfig = getNormalHeaders(KEY.User_API_Key);
-                    var pass = values.mobile.trim();
+                var config = {
+                    method: 'post',
+                    url:
+                        process.env.REACT_APP_API_BASE_URL +
+                        '/students/register',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization:
+                            'O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870'
+                    },
 
-                    const key = CryptoJS.enc.Hex.parse(
-                        '253D3FB468A0E24677C28A624BE0F939'
-                    );
-                    const iv = CryptoJS.enc.Hex.parse(
-                        '00000000000000000000000000000000'
-                    );
-                    const encrypted = CryptoJS.AES.encrypt(pass, key, {
-                        iv: iv,
-                        padding: CryptoJS.pad.NoPadding
-                    }).toString();
-                    const body = JSON.stringify({
-                        student_full_name: values.student_full_name.trim(),
-                        date_of_birth: values.date_of_birth,
-                        email: values.email.trim(),
-                        mobile: values.mobile.trim(),
-                        institution_name: values.institution_name.trim(),
-                        city: values.city.trim(),
-                        Gender: values.Gender,
-                        Age: values.Age,
-                        state: values.state,
-                        district: values.district,
-                        group: values.group,
-                        role: values.role.trim(),
-                        reg_status: values.reg_status,
-                        password: encrypted,
-                        id_card: values.id_card,
-                        ...(values.year_of_study && {
-                            year_of_study: values.year_of_study.trim()
-                        }),
-                        ...(values.reg_no && { reg_no: values.reg_no.trim() })
-                    });
-                    // if (values.id_card !== '') {
-                    //     body['id_card'] = values.id_card;
-                    // }
-                    var config = {
-                        method: 'post',
-                        url:
-                            process.env.REACT_APP_API_BASE_URL +
-                            '/students/register',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            Authorization:
-                                'O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870'
-                        },
+                    data: body
+                };
+                await axios(config)
+                    .then((mentorRegRes) => {
+                        if (mentorRegRes?.data?.status == 201) {
+                            setMentorData(mentorRegRes?.data?.data[0]);
 
-                        data: body
-                    };
-                    await axios(config)
-                        .then((mentorRegRes) => {
-                            if (mentorRegRes?.data?.status == 201) {
-                                setMentorData(mentorRegRes?.data?.data[0]);
-
-                                history.push({
-                                    pathname: '/successScreen'
-                                });
-                            }
-                        })
-                        .catch((err) => {
-                            openNotificationWithIcon(
-                                'error',
-                                err.response.data?.message
-                            );
-                            // setBtn(false);
-                            formik.setErrors({
-                                check:
-                                    err.response && err?.response?.data?.message
+                            history.push({
+                                pathname: '/successScreen'
                             });
-                            return err.response;
+                        }
+                    })
+                    .catch((err) => {
+                        openNotificationWithIcon(
+                            'error',
+                            err.response.data?.message
+                        );
+                        // setBtn(false);
+                        formik.setErrors({
+                            check:
+                                err.response && err?.response?.data?.message
                         });
-                }
+                        return err.response;
+                    });
             }
+
+            // if (values.id_card !== '') {
+            //     const fileData = new FormData();
+            //     fileData.append('file', values.id_card);
+
+            //     const response = await axios.post(
+            //         `${process.env.REACT_APP_API_BASE_URL}/students/idcardUpload`,
+            //         fileData,
+            //         {
+            //             headers: {
+            //                 'Content-Type': 'multipart/form-data',
+            //                 Authorization:
+            //                     'O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870'
+            //             }
+            //         }
+            //     );
+            //     values.id_card = response?.data?.data[0].attachments[0];
+            //     // }
+            //     if (values.otp.length < 5) {
+            //         setErrorMsg(true);
+            //     } else {
+            //         console.log('data', 'data');
+            //         const axiosConfig = getNormalHeaders(KEY.User_API_Key);
+            //         var pass = values.mobile.trim();
+
+            //         const key = CryptoJS.enc.Hex.parse(
+            //             '253D3FB468A0E24677C28A624BE0F939'
+            //         );
+            //         const iv = CryptoJS.enc.Hex.parse(
+            //             '00000000000000000000000000000000'
+            //         );
+            //         const encrypted = CryptoJS.AES.encrypt(pass, key, {
+            //             iv: iv,
+            //             padding: CryptoJS.pad.NoPadding
+            //         }).toString();
+            //         const body = JSON.stringify({
+            //             student_full_name: values.student_full_name.trim(),
+            //             date_of_birth: values.date_of_birth,
+            //             email: values.email.trim(),
+            //             mobile: values.mobile.trim(),
+            //             institution_name: values.institution_name.trim(),
+            //             city: values.city.trim(),
+            //             Gender: values.Gender,
+            //             Age: values.Age,
+            //             state: values.state,
+            //             district: values.district,
+            //             group: values.group,
+            //             role: values.role.trim(),
+            //             reg_status: values.reg_status,
+            //             password: encrypted,
+            //             id_card: values.id_card,
+            //             ...(values.year_of_study && {
+            //                 year_of_study: values.year_of_study.trim()
+            //             }),
+            //             ...(values.reg_no && { reg_no: values.reg_no.trim() })
+            //         });
+            //         // if (values.id_card !== '') {
+            //         //     body['id_card'] = values.id_card;
+            //         // }
+            //         var config = {
+            //             method: 'post',
+            //             url:
+            //                 process.env.REACT_APP_API_BASE_URL +
+            //                 '/students/register',
+            //             headers: {
+            //                 'Content-Type': 'application/json',
+            //                 Authorization:
+            //                     'O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870'
+            //             },
+
+            //             data: body
+            //         };
+            //         await axios(config)
+            //             .then((mentorRegRes) => {
+            //                 if (mentorRegRes?.data?.status == 201) {
+            //                     setMentorData(mentorRegRes?.data?.data[0]);
+
+            //                     history.push({
+            //                         pathname: '/successScreen'
+            //                     });
+            //                 }
+            //             })
+            //             .catch((err) => {
+            //                 openNotificationWithIcon(
+            //                     'error',
+            //                     err.response.data?.message
+            //                 );
+            //                 // setBtn(false);
+            //                 formik.setErrors({
+            //                     check:
+            //                         err.response && err?.response?.data?.message
+            //                 });
+            //                 return err.response;
+            //             });
+            //     }
+            // }
         }
     });
     const handleSendOtp = async (e) => {
@@ -401,6 +511,11 @@ function AtlPage() {
             });
         e.preventDefault();
     };
+    const handleSchoolChange = (event) => {
+        const value = event.target.value;
+        setIsOtherSelected(value === 'Others');
+        formik.setFieldValue('institution_name', value === 'Others' ? '' : value);
+    };
     useEffect(() => {
         if (!disable) {
             counter > 0 && setTimeout(() => setCounter(counter - 1), 1000);
@@ -414,7 +529,7 @@ function AtlPage() {
             formik.values.mobile.length > 0 &&
             formik.values.Gender.length > 0 &&
             formik.values.email.length > 0 &&
-            typeof(formik.values.id_card) === "object" &&
+            // typeof (formik.values.id_card) === "object" &&
             formik.values.state.length > 0 &&
             formik.values.district.length > 0 &&
             formik.values.city.length > 0 &&
@@ -433,7 +548,7 @@ function AtlPage() {
         formik.values.mobile,
         formik.values.Gender,
         formik.values.email,
-        formik.values.id_card,
+        // formik.values.id_card,
         formik.values.state,
         formik.values.district,
         formik.values.group,
@@ -504,22 +619,22 @@ function AtlPage() {
 
                 <Col xs={12} sm={12} md={12} xl={6} className="article">
                     <div className="row">
-                        <a href={process.env.REACT_APP_LANDING_PAGE_URL}>
-                            <Col md={12} className="mr-auto text-center">
-                                <h2 className="text-white">
-                                    <img
-                                        src={signuplogo}
-                                        alt="Signup logo"
-                                        className="img-fluid"
-                                        style={{ 'width': '150px' }}
-                                    />
-                                </h2>
-                            </Col>
-                        </a>
+                        {/* <a href={process.env.REACT_APP_LANDING_PAGE_URL}> */}
+                        <Col md={12} className="mr-auto text-center">
+                            <h2 className="text-white">
+                                <img
+                                    src={signuplogo}
+                                    alt="Signup logo"
+                                    className="img-fluid"
+                                    style={{ 'width': '150px' }}
+                                />
+                            </h2>
+                        </Col>
+                        {/* </a> */}
                     </div>
 
                     <Row className="article-header mb-4 mt-4 text-center">
-                        <h6 className="mb-4">STUDENT REGISTRATION</h6>
+                        <h6 className="mb-4 title-head">APPLICANT REGISTRATION FORM</h6>
                     </Row>
 
                     {hide ? (
@@ -610,7 +725,7 @@ function AtlPage() {
                                     )} */}
                                     <div className="w-100 clearfix" />
                                     {schoolBtn && (
-                                        <div className="form-row row mb-5">
+                                        <div className="form-row row">
                                             <Row
                                                 className="form-group mb-3"
                                                 xs={12}
@@ -622,14 +737,81 @@ function AtlPage() {
                                                     className="form-group"
                                                     xs={12}
                                                     sm={12}
-                                                    md={12}
+                                                    md={6}
+                                                    xl={6}
+                                                >
+                                                    <Label
+                                                        className="mb-2"
+                                                        htmlFor="year_of_study"
+                                                    >
+                                                        Applicant Category
+                                                        <span
+                                                            className="m-2"
+                                                            style={{
+                                                                color: 'red'
+                                                            }}
+                                                            required
+                                                        >
+                                                            *
+                                                        </span>
+                                                    </Label>
+                                                    <select
+                                                        disabled={
+                                                            holdKey
+                                                                ? true
+                                                                : false
+                                                        }
+                                                        name="year_of_study"
+                                                        className="col-8 selectDropdown"
+                                                        value={
+                                                            formik.values
+                                                                .year_of_study
+                                                        }
+                                                        onBlur={
+                                                            formik.handleBlur
+                                                        }
+                                                        onChange={
+                                                            formik.handleChange
+                                                        }
+                                                    >
+                                                        <option value="">
+                                                            Select Applicant Category
+                                                        </option>
+                                                        {applicant_categories.map(
+                                                            (category) => (
+                                                                <option
+                                                                    key={category}
+                                                                    value={category}
+                                                                >
+                                                                    {category}
+                                                                </option>
+                                                            )
+                                                        )}
+                                                    </select>
+                                                    {formik.touched
+                                                        .year_of_study &&
+                                                        formik.errors
+                                                            .year_of_study ? (
+                                                        <small className="error-cls">
+                                                            {
+                                                                formik.errors
+                                                                    .year_of_study
+                                                            }
+                                                        </small>
+                                                    ) : null}
+                                                </Col>
+                                                <Col
+                                                    className="form-group"
+                                                    xs={12}
+                                                    sm={12}
+                                                    md={6}
                                                     xl={6}
                                                 >
                                                     <Label
                                                         className="mb-2"
                                                         htmlFor="name"
                                                     >
-                                                        Student Name
+                                                        Applicant Name
                                                         <span
                                                             className="m-2"
                                                             style={{
@@ -642,8 +824,8 @@ function AtlPage() {
                                                     </Label>
                                                     <InputBox
                                                         type="text"
-                                                        placeholder="Enter Student Name"
-                                                        className="defaultInput mb-3"
+                                                        placeholder="Enter Applicant Name"
+                                                        className="defaultInput"
                                                         id="student_full_name"
                                                         isDisabled={
                                                             holdKey
@@ -675,13 +857,21 @@ function AtlPage() {
                                                         </small>
                                                     ) : null}
                                                 </Col>
-                                                <Col
-                                                    className="form-group mb-3"
-                                                    xs={12}
-                                                    sm={12}
-                                                    md={12}
-                                                    xl={6}
-                                                >
+
+                                            </Row>
+                                            <Row
+                                                className="form-group mb-3"
+                                                xs={12}
+                                                sm={12}
+                                                md={12}
+                                                xl={12}
+                                            ><Col
+                                                className="form-group"
+                                                xs={12}
+                                                sm={12}
+                                                md={12}
+                                                xl={6}
+                                            >
                                                     <Label className="mb-2">
                                                         Email Address
                                                         <span
@@ -726,14 +916,6 @@ function AtlPage() {
                                                         </small>
                                                     ) : null}
                                                 </Col>
-                                            </Row>
-                                            <Row
-                                                className="form-group"
-                                                xs={12}
-                                                sm={12}
-                                                md={12}
-                                                xl={12}
-                                            >
                                                 <Col
                                                     className="form-group"
                                                     xs={12}
@@ -741,7 +923,7 @@ function AtlPage() {
                                                     md={12}
                                                     xl={6}
                                                 >
-                                                    <Label htmlFor="mobile">
+                                                    <Label htmlFor="mobile" className="mb-2">
                                                         Mobile Number
                                                         <span
                                                             className="m-2"
@@ -753,10 +935,22 @@ function AtlPage() {
                                                             *
                                                         </span>
                                                     </Label>
+                                                    <span href="#" id="TooltipExample1">
+                                                        <FaInfoCircle size={16} className='text-success' />
+                                                    </span>
+
+                                                    <Tooltip
+                                                        placement="right"
+                                                        isOpen={tooltipOpen1}
+                                                        target="TooltipExample1"
+                                                        toggle={toggleTooltip1}
+                                                    >
+                                                        Your default password will be your mobile number only.
+                                                    </Tooltip>
                                                     <InputBox
                                                         type="text"
                                                         placeholder="Enter Mobile Number"
-                                                        className="defaultInput mb-3"
+                                                        className="defaultInput"
                                                         id="mobile"
                                                         isDisabled={
                                                             holdKey
@@ -785,6 +979,15 @@ function AtlPage() {
                                                         </small>
                                                     ) : null}
                                                 </Col>
+                                            </Row>
+                                            <Row
+                                                className="form-group mb-3"
+                                                xs={12}
+                                                sm={12}
+                                                md={12}
+                                                xl={12}
+                                            >
+
                                                 <Col
                                                     className="form-group"
                                                     xs={12}
@@ -810,7 +1013,7 @@ function AtlPage() {
                                                     <InputBox
                                                         type="date"
                                                         placeholder="DD/MM/YYYY"
-                                                        className="defaultInput mb-3"
+                                                        className="defaultInput"
                                                         id="date_of_birth"
                                                         isDisabled={
                                                             holdKey
@@ -903,10 +1106,81 @@ function AtlPage() {
                                                         </small>
                                                     ) : null}
                                                 </Col>
+                                                <Col
+                                                    className="form-group"
+                                                    xs={12}
+                                                    sm={12}
+                                                    md={12}
+                                                    xl={6}
+                                                >
+                                                    <Label
+                                                        className="mb-2"
+                                                        htmlFor="Gender"
+                                                    >
+                                                        Gender
+                                                        <span
+                                                            className="m-2"
+                                                            style={{
+                                                                color: 'red'
+                                                            }}
+                                                            required
+                                                        >
+                                                            *
+                                                        </span>
+                                                    </Label>
+                                                    <select
+                                                        disabled={
+                                                            holdKey
+                                                                ? true
+                                                                : false
+                                                        }
+                                                        name="Gender"
+                                                        className="col-8 selectDropdown"
+                                                        value={
+                                                            formik.values.Gender
+                                                        }
+                                                        onBlur={
+                                                            formik.handleBlur
+                                                        }
+                                                        onChange={
+                                                            formik.handleChange
+                                                        }
+                                                    >
+                                                        <option value="">
+                                                            {t(
+                                                                'Select Gender'
+                                                            )}
+                                                        </option>
+                                                        <option value="MALE">
+                                                            {t(
+                                                                'Male'
+                                                            )}
+                                                        </option>
+                                                        <option value="FEMALE">
+                                                            {t(
+                                                                'Female'
+                                                            )}
+                                                        </option>
+                                                        <option value="OTHERS">
+                                                            {t(
+                                                                'Others'
+                                                            )}
+                                                        </option>
+                                                    </select>
+                                                    {formik.touched.Gender &&
+                                                        formik.errors.Gender ? (
+                                                        <small className="error-cls">
+                                                            {
+                                                                formik.errors
+                                                                    .Gender
+                                                            }
+                                                        </small>
+                                                    ) : null}
+                                                </Col>
                                             </Row>
 
                                             <Row
-                                                className="form-group"
+                                                className="form-group mb-3"
                                                 xs={12}
                                                 sm={12}
                                                 md={12}
@@ -923,15 +1197,14 @@ function AtlPage() {
                                                         className="mb-2"
                                                         htmlFor="state"
                                                     >
-                                                        Select State
+                                                        State/UT
                                                         <span
-                                                            className="mt-2 mb-3"
+                                                            className=""
                                                             style={{
                                                                 color: 'red'
                                                             }}
                                                             required
-                                                        >
-                                                            *
+                                                        > *
                                                         </span>
                                                     </Label>
                                                     <select
@@ -941,7 +1214,7 @@ function AtlPage() {
                                                                 : false
                                                         }
                                                         name="state"
-                                                        className="col-8 selectDropdown mb-3"
+                                                        className="col-8 selectDropdown"
                                                         onBlur={
                                                             formik.handleBlur
                                                         }
@@ -967,7 +1240,7 @@ function AtlPage() {
                                                         }}
                                                     >
                                                         <option value="">
-                                                            Select State
+                                                            Select State/UT
                                                         </option>
                                                         {stateList.map(
                                                             (state) => (
@@ -993,19 +1266,19 @@ function AtlPage() {
                                                     ) : null}
                                                 </Col>
                                                 <Col
-                                                    className="form-group"
+                                                    className="form-group mb-3"
                                                     xs={12}
                                                     sm={12}
                                                     md={12}
                                                     xl={6}
                                                 >
                                                     <Label
-                                                        className="mb-2"
+                                                        className=""
                                                         htmlFor="district"
                                                     >
-                                                        Select District
+                                                        District
                                                         <span
-                                                            className="m-2 mb-3"
+                                                            className="m-2"
                                                             style={{
                                                                 color: 'red'
                                                             }}
@@ -1069,7 +1342,7 @@ function AtlPage() {
                                                 {/* )} */}
                                             </Row>
                                             <Row
-                                                className="form-group"
+                                                className="form-group mb-3"
                                                 xs={12}
                                                 sm={12}
                                                 md={12}
@@ -1080,11 +1353,11 @@ function AtlPage() {
                                                     xs={12}
                                                     sm={12}
                                                     md={12}
-                                                    xl={6}
+                                                    xl={4}
                                                 >
                                                     <Label
                                                         className="mb-2"
-                                                        htmlFor="name"
+                                                        htmlFor="city"
                                                     >
                                                         City Name
                                                         <span
@@ -1100,7 +1373,7 @@ function AtlPage() {
                                                     <InputBox
                                                         type="text"
                                                         placeholder="Enter City Name"
-                                                        className="defaultInput mb-3"
+                                                        className="defaultInput"
                                                         id="city"
                                                         isDisabled={
                                                             holdKey
@@ -1126,6 +1399,128 @@ function AtlPage() {
                                                         </small>
                                                     ) : null}
                                                 </Col>
+                                                <Col className="form-group"
+                                                    xs={12}
+                                                    sm={12}
+                                                    md={12}
+                                                    xl={8}>
+                                                    <Label
+                                                        className="mb-2 name-req"
+                                                        htmlFor="institution_name"
+                                                    >
+                                                        Institution Name
+                                                        <span
+                                                            className="m-2"
+                                                            style={{
+                                                                color: 'red'
+                                                            }}
+                                                            required
+                                                        >
+                                                            *
+                                                        </span>
+                                                    </Label>
+                                                    <span href="#" id="TooltipExample2">
+                                                        <FaInfoCircle size={16} className='text-success' />
+                                                    </span>
+
+                                                    <Tooltip
+                                                        placement="right"
+                                                        isOpen={tooltipOpen2}
+                                                        target="TooltipExample2"
+                                                        toggle={toggleTooltip2}
+                                                    >
+                                                        Select "Others" if your institution is not listed.
+                                                    </Tooltip>
+                                                    <select
+                                                        className="col-8 selectDropdown"
+                                                        id="institution_name"
+                                                        name="institution_name"
+                                                        // onChange={formik.handleChange}
+
+                                                        onChange={handleSchoolChange}
+                                                        onBlur={formik.handleBlur}
+                                                        value={isOtherSelected ? 'Others' : formik.values.institution_name}
+                                                    // value={
+                                                    //     formik.values
+                                                    //         .member_category
+                                                    // }
+                                                    >
+                                                        <option value={''}>
+                                                            Select Institution Name
+                                                        </option>
+                                                        {collegesList.map((item) => (
+                                                            <option
+                                                                key={item}
+                                                                value={item}
+                                                            >
+                                                                {item}
+                                                            </option>
+                                                        ))}
+                                                    </select>
+                                                    {/* </div> */}
+                                                    {formik.touched.institution_name &&
+                                                        formik.errors.institution_name ? (
+                                                        <small className="error-cls">
+                                                            {
+                                                                formik.errors
+                                                                    .institution_name
+                                                            }
+                                                        </small>
+                                                    ) : null}
+                                                </Col>
+                                                {isOtherSelected && (<Col className="form-group mt-3"
+                                                    xs={12}
+                                                    sm={12}
+                                                    md={12}
+                                                    xl={12}>
+                                                    <Label
+                                                        className="mb-2 name-req"
+                                                        htmlFor="institution_name"
+                                                    >
+                                                        Enter your Institution Name
+                                                        <span
+                                                            className="m-2"
+                                                            style={{
+                                                                color: 'red'
+                                                            }}
+                                                            required
+                                                        >
+                                                            *
+                                                        </span>
+                                                    </Label>
+                                                    <InputBox
+                                                        className={'defaultInput'}
+                                                        placeholder={
+                                                            'Enter Institution Name'
+                                                        }
+                                                        id="institution_name"
+                                                        name="institution_name"
+                                                        onChange={formik.handleChange}
+                                                        onBlur={formik.handleBlur}
+                                                        value={
+                                                            formik.values
+                                                                .institution_name
+                                                        }
+                                                    />
+
+                                                    {formik.touched.institution_name &&
+                                                        formik.errors.institution_name ? (
+                                                        <small className="error-cls">
+                                                            {
+                                                                formik.errors
+                                                                    .institution_name
+                                                            }
+                                                        </small>
+                                                    ) : null}
+                                                </Col>)}
+                                            </Row>
+                                            <Row
+                                                className="form-group mb-3"
+                                                xs={12}
+                                                sm={12}
+                                                md={12}
+                                                xl={12}
+                                            >
                                                 <Col
                                                     className="form-group"
                                                     xs={12}
@@ -1135,7 +1530,7 @@ function AtlPage() {
                                                 >
                                                     <Label
                                                         className="mb-2"
-                                                        htmlFor="institution_name"
+                                                        htmlFor="group"
                                                     >
                                                         Institution Type
                                                         <span
@@ -1155,30 +1550,16 @@ function AtlPage() {
                                                                 : false
                                                         }
                                                         name="group"
-                                                        className="col-8 selectDropdown mb-3"
+                                                        className="col-8 selectDropdown"
                                                         onBlur={
                                                             formik.handleBlur
                                                         }
                                                         value={
                                                             formik.values.group
                                                         }
-                                                        onChange={(e) => {
-                                                            const selectedInstType =
-                                                                e.target.value;
-                                                            formik.setFieldValue(
-                                                                'group',
-                                                                selectedInstType
-                                                            );
-                                                            formik.setFieldValue(
-                                                                'institution_name',
-                                                                ''
-                                                            );
-                                                            // setInstNames(
-                                                            //     istitutionNameList[
-                                                            //     selectedInstType
-                                                            //     ] || []
-                                                            // );
-                                                        }}
+                                                        onChange={
+                                                            formik.handleChange
+                                                        }
                                                     >
                                                         <option value="">
                                                             Select Institution
@@ -1212,209 +1593,10 @@ function AtlPage() {
                                                     xs={12}
                                                     sm={12}
                                                     md={12}
-                                                    xl={12}
+                                                    xl={6}
                                                 >
-                                                    <Label htmlFor="institution_name">
-                                                        Institution Name
-                                                        <span
-                                                            className="m-2"
-                                                            style={{
-                                                                color: 'red'
-                                                            }}
-                                                            required
-                                                        >
-                                                            *
-                                                        </span>
-                                                    </Label>
-                                                    <InputBox
-                                                        type="text"
-                                                        placeholder="Enter Institution Name"
-                                                        className="defaultInput mb-3"
-                                                        id="institution_name"
-                                                        isDisabled={
-                                                            holdKey
-                                                                ? true
-                                                                : false
-                                                        }
-                                                        name="institution_name"
-                                                        onChange={
-                                                            formik.handleChange
-                                                        }
-                                                        onBlur={
-                                                            formik.handleBlur
-                                                        }
-                                                        value={
-                                                            formik.values
-                                                                .institution_name
-                                                        }
-                                                    />
-                                                    {formik.touched
-                                                        .institution_name &&
-                                                        formik.errors
-                                                            .institution_name ? (
-                                                        <small className="error-cls">
-                                                            {
-                                                                formik.errors
-                                                                    .institution_name
-                                                            }
-                                                        </small>
-                                                    ) : null}
-                                                </Col>
-
-                                            </Row>
-
-                                            <Row
-                                                className="form-group"
-                                                xs={12}
-                                                sm={12}
-                                                md={12}
-                                                xl={12}
-                                            >
-
-                                                <Col
-                                                    className="form-group"
-                                                    xs={12}
-                                                    sm={12}
-                                                    md={12}
-                                                    xl={4}
-                                                >
-                                                    <Label
-                                                        className="mb-2"
-                                                        htmlFor="year_of_study"
-                                                    >
-                                                        Year of Study
-                                                        <span
-                                                            className="m-2"
-                                                            style={{
-                                                                color: 'red'
-                                                            }}
-                                                            required
-                                                        >
-                                                            *
-                                                        </span>
-                                                    </Label>
-                                                    <select
-                                                        disabled={
-                                                            holdKey
-                                                                ? true
-                                                                : false
-                                                        }
-                                                        name="year_of_study"
-                                                        className="col-8 selectDropdown mb-3"
-                                                        value={
-                                                            formik.values
-                                                                .year_of_study
-                                                        }
-                                                        onBlur={
-                                                            formik.handleBlur
-                                                        }
-                                                        onChange={
-                                                            formik.handleChange
-                                                        }
-                                                    >
-                                                        <option value="">
-                                                            Select Year of
-                                                            Study
-                                                        </option>
-                                                        {yearList.map(
-                                                            (year) => (
-                                                                <option
-                                                                    key={year}
-                                                                    value={year}
-                                                                >
-                                                                    {year}
-                                                                </option>
-                                                            )
-                                                        )}
-                                                    </select>
-                                                    {formik.touched
-                                                        .year_of_study &&
-                                                        formik.errors
-                                                            .year_of_study ? (
-                                                        <small className="error-cls">
-                                                            {
-                                                                formik.errors
-                                                                    .year_of_study
-                                                            }
-                                                        </small>
-                                                    ) : null}
-                                                </Col>
-                                                <Col
-                                                    className="form-group"
-                                                    xs={12}
-                                                    sm={12}
-                                                    md={12}
-                                                    xl={3}
-                                                >
-                                                    <Label
-                                                        className="mb-2"
-                                                        htmlFor="Gender"
-                                                    >
-                                                        Gender
-                                                        <span
-                                                            className="m-2"
-                                                            style={{
-                                                                color: 'red'
-                                                            }}
-                                                            required
-                                                        >
-                                                            *
-                                                        </span>
-                                                    </Label>
-                                                    <select
-                                                        disabled={
-                                                            holdKey
-                                                                ? true
-                                                                : false
-                                                        }
-                                                        name="Gender"
-                                                        className="col-8 selectDropdown mb-3"
-                                                        value={
-                                                            formik.values.Gender
-                                                        }
-                                                        onBlur={
-                                                            formik.handleBlur
-                                                        }
-                                                        onChange={
-                                                            formik.handleChange
-                                                        }
-                                                    >
-                                                        <option value="">
-                                                            {t(
-                                                                'teacehr_red.teacher_gender'
-                                                            )}
-                                                        </option>
-                                                        <option value="MALE">
-                                                            {t(
-                                                                'teacehr_red.teacher_gender_male'
-                                                            )}
-                                                        </option>
-                                                        <option value="FEMALE">
-                                                            {t(
-                                                                'teacehr_red.teacher_gender_female'
-                                                            )}
-                                                        </option>
-                                                    </select>
-                                                    {formik.touched.Gender &&
-                                                        formik.errors.Gender ? (
-                                                        <small className="error-cls">
-                                                            {
-                                                                formik.errors
-                                                                    .Gender
-                                                            }
-                                                        </small>
-                                                    ) : null}
-                                                </Col>
-                                                <Col
-                                                    className="form-group"
-                                                    xs={12}
-                                                    sm={12}
-                                                    md={12}
-                                                    xl={5}
-                                                >
-                                                    <Label htmlFor="group">
-                                                        Reg. Number as per ID
-                                                        Card
+                                                    <Label htmlFor="group" className="mb-2">
+                                                        Reg. Number (as per ID Card)
                                                         <span
                                                             className="m-2"
                                                             style={{
@@ -1458,113 +1640,51 @@ function AtlPage() {
                                                         </small>
                                                     ) : null}
                                                 </Col>
-                                                <Col
-                                                    className="form-group"
+                                            </Row>
+                                            <Row>
+                                                <Col className="form-group"
                                                     xs={12}
                                                     sm={12}
                                                     md={12}
-                                                    xl={3}
-                                                >
-                                                    <Label
-                                                        className="mb-2"
-                                                        htmlFor="id_card"
-                                                    >
-                                                        College ID Card
-                                                        <span
-                                                            className="m-2"
-                                                            style={{
-                                                                color: 'red'
-                                                            }}
-                                                            required
-                                                        >
-                                                            *
-                                                        </span>
-                                                    </Label>
-                                                    <div className="d-flex align-items-center">
-                                                        <input
-                                                            type="file"
-                                                            id="id_card"
-                                                            name="id_card"
-                                                            style={{
-                                                                display: 'none'
-                                                            }}
-                                                            accept="image/jpeg,image/png,application/msword,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-                                                            onChange={(e) =>
-                                                                fileHandler(e)
-                                                            }
-                                                            onBlur={
-                                                                formik.handleBlur
-                                                            }
-                                                        />
+                                                    xl={6}>
+                                                    <div className="mt-2 d-flex align-items-center">
                                                         <Button
-                                                            label="Upload File "
-                                                            btnClass="primary"
+                                                            label={change}
+                                                            btnClass={
+                                                                !disable
+                                                                    ? 'default rounded-0'
+                                                                    : 'primary rounded-0 '
+                                                            }
+                                                            onClick={(e) =>
+                                                                handleSendOtp(e)
+                                                            }
                                                             size="small"
-                                                            onClick={() => {
-                                                                document
-                                                                    .getElementById(
-                                                                        'id_card'
-                                                                    )
-                                                                    .click();
-                                                            }}
+                                                            disabled={
+                                                                (timer == 0
+                                                                    ? false
+                                                                    : true) || !disable
+                                                            }
                                                         />
-                                                        {formik.values
-                                                            .id_card &&
-                                                            formik.values.id_card
-                                                                .name ? (
-                                                            <span className="ml-2">
-                                                                {
-                                                                    formik
-                                                                        .values
-                                                                        .id_card
-                                                                        .name
-                                                                }
-                                                            </span>
-                                                        ) : (
-                                                            <span className="ml-2">
-                                                                {formik
-                                                                    .initialValues
-                                                                    .id_card &&
-                                                                    formik
-                                                                        .initialValues
-                                                                        .id_card
-                                                                        .name}
-                                                            </span>
-                                                        )}
                                                     </div>
-                                                    {formik.touched.id_card &&
-                                                        formik.errors
-                                                            .id_card && (
-                                                            <small className="error-cls">
-                                                                {
-                                                                    formik
-                                                                        .errors
-                                                                        .id_card
-                                                                }
-                                                            </small>
-                                                        )}
+                                                </Col>
+                                                <Col className="form-group text-right"
+                                                    xs={12}
+                                                    sm={12}
+                                                    md={12}
+                                                    xl={6}>
+                                                    <p className='mt-2' style={{ 'font-size': '14px', fontWeight: 'bold' }}>
+                                                        {"Already have an account ?"}
+                                                        <Link
+                                                            exact="true"
+                                                            to="/login"
+                                                            className=""
+                                                        >
+                                                            {t(' Login')}
+                                                        </Link>
+                                                    </p>
                                                 </Col>
                                             </Row>
 
-                                            <div className="mt-5 d-flex align-items-center">
-                                                <Button
-                                                    label={change}
-                                                    btnClass={
-                                                        !disable
-                                                            ? 'default rounded-0'
-                                                            : 'primary rounded-0 '
-                                                    }
-                                                    onClick={(e) =>
-                                                        handleSendOtp(e)
-                                                    }
-                                                    size="small"
-                                                    disabled={
-                                                        (timer == 0
-                                                            ? false
-                                                            : true) || !disable
-                                                    }
-                                                />
-                                            </div>
                                             {btnOtp && (
                                                 <div>
                                                     <h3>
@@ -1573,7 +1693,7 @@ function AtlPage() {
                                                             ? counter - '0'
                                                             : counter}
                                                     </h3>
-
+                                                    <p>We have sent an OTP code to your above mentioned email address.</p>
                                                     <div
                                                         className="w-100 d-block text-left"
                                                     // className="form-row row mb-5 col-md-3 text-centered"
@@ -1582,7 +1702,7 @@ function AtlPage() {
                                                             className="mb-2 mt-4  text-left"
                                                             htmlFor="otp"
                                                         >
-                                                            Enter OTP
+                                                            Enter OTP Code
                                                         </Label>
                                                         <div
                                                             // className="form-row row mb-6"
