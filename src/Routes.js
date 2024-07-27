@@ -213,6 +213,7 @@ import YearWiseReport from './Admin/Reports/Helpers/YearWiseReport';
 import CreateTeam from './Student/Pages/Teams/CreateTeam';
 import TeamsStu from './Student/Pages/Teams/index';
 import MultiIdeasList from './Student/Pages/Ideas/MultiIdeasList';
+import UploadFile from './Student/Pages/Ideas/UploadFile';
 function MyComponent() {
     window.location.href = `${process.env.REACT_APP_LANDING_PAGE_URL}`;
     return null;
@@ -532,6 +533,12 @@ const Routers = () => {
                         path="/about"
                         user="STUDENT"
                         component={Dashboard}
+                    />
+                     <ProtectedRoute
+                        exact
+                        path="/upload-file"
+                        user="STUDENT"
+                        component={UploadFile}
                     />
                     <ProtectedRoute
                         exact
