@@ -26,6 +26,7 @@ const LoginNew = (props) => {
     const history = useHistory();
     useLayoutEffect(() => {
         const moduleName = localStorage.getItem('module');
+
         if (
             localStorage.getItem('current_user') &&
             localStorage.getItem('module')

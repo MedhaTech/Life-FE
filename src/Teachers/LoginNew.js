@@ -30,6 +30,7 @@ const LoginNew = (props) => {
     useLayoutEffect(() => {
         i18next.changeLanguage('en');
         const moduleName = localStorage.getItem('module');
+
         const loginTime = localStorage.getItem('time');
         // console.log(loginTime, 'q');
 
