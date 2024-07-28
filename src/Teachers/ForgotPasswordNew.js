@@ -12,7 +12,7 @@ import { useTranslation } from 'react-i18next';
 import { Carousel } from 'react-bootstrap';
 import logo from '../assets/media/tn-brands/EDII.png';
 import image_7 from '../assets/media/unisolve_slider1.png';
-import image_8 from '../assets/media/aim_Slider.png';
+import image_8 from '../assets/media/unisolve_slider2.png';
 import { URL, KEY } from '../constants/defaultValues';
 import axios from 'axios';
 

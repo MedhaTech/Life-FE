@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import Layout from '../../Layout';
 import { Container, Card, Row, List, Label, FormGroup, Input, Col, Form } from 'reactstrap';
 import { getCurrentUser, openNotificationWithIcon, setCurrentUser } from '../../../helpers/Utils';
-
+import { encryptGlobal } from '../../../constants/encryptDecrypt';
 import { Button } from '../../../stories/Button';
 import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
@@ -39,7 +39,7 @@ function UploadFile() {
         if (!allowedTypes.includes(file.type)) {
             openNotificationWithIcon(
                 'error',
-                t('Accepting only png,jpg,jpeg,pdf,doc,docx Only')
+                t('Choose JPEG/JPG/PNG format file only')
             );
             return;
         }
@@ -63,22 +63,19 @@ function UploadFile() {
 
     const formik = useFormik({
         initialValues: {
-
             id_card: ''
         },
-
         validationSchema: Yup.object({
-
-
             id_card: Yup.mixed().required("Upload ID Card"),
-
-
         }),
 
         onSubmit: async (values) => {
+            // console.log(currentUser.data[0].student_id);
+        
             if (values.id_card !== '') {
                 const fileData = new FormData();
                 fileData.append('file', values.id_card);
+                fileData.append('student_id', currentUser.data[0].student_id);
 
                 const response = await axios.post(
                     `${process.env.REACT_APP_API_BASE_URL}/students/idcardUpload`,
@@ -111,7 +108,7 @@ function UploadFile() {
         setIsChecked(e.target.checked);
     };
     const isButtonDisabled = isChecked && formik.values.id_card;
-    console.log(isChecked, "check");
+    // console.log(isChecked, "check");
     return (
         <Layout title="Idea Submission">
             <Container>
@@ -124,7 +121,7 @@ function UploadFile() {
                 </Row>
                 <Row>
                     <Col className='card p-5'>
-                        <h3 className=""> Choose ID Card </h3>
+                        <h3 className=""> Choose ID Card <span style={{ fontSize: "12px" }}>(JPEG/JPG/PNG files only)</span></h3>
                         <Form onSubmit={formik.handleSubmit} isSubmitting>
                             <Row>
                                 <Col>
@@ -208,7 +205,7 @@ function UploadFile() {
                                             onChange={handleCheckboxChange}
                                         />
                                         {
-                                            '  I acknowledge that the statement of uploading the ID card is valid.'
+                                            '  I acknowledge that the ID card I am uploading is same as per the reg no mentioned during registration.'
                                         }
                                     </Label>
                                 </Col>

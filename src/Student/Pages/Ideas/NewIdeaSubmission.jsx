@@ -658,10 +658,8 @@ function NewIdeaSubmission(props) {
         const allowedTypes = [
             'image/jpeg',
             'image/png',
-            'application/msword',
-            'application/pdf',
-            'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-            'application/vnd.openxmlformats-officedocument.presentationml.presentation'
+            'image/jpg',
+            'application/pdf'
         ];
         if (
             choosenFiles.filter(
@@ -670,7 +668,7 @@ function NewIdeaSubmission(props) {
         ) {
             openNotificationWithIcon(
                 'error',
-                t('Accepting only png,jpg,jpeg,pdf,doc,docx Only')
+                t('Choose .png/.jpg/.jpeg/.pdf Only')
             );
             return;
         }
@@ -1631,7 +1629,7 @@ function NewIdeaSubmission(props) {
                                                                             disabled={
                                                                                 condition
                                                                             }
-                                                                            accept="image/jpeg,image/png,application/msword,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.openxmlformats-officedocument.presentationml.presentation"
+                                                                            accept="image/jpeg,image/jpg,image/png,application/pdf"
                                                                             multiple
                                                                             onChange={(
                                                                                 e

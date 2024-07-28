@@ -10,6 +10,7 @@ import { Button } from '../../../stories/Button';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import { Badge } from 'react-bootstrap';
+import { format } from 'date-fns';
 
 import {
     openNotificationWithIcon,
@@ -155,8 +156,7 @@ const TicketsPage = (props) => {
             },
             {
                 name: 'DOB',
-                selector: (row) => row.dob
-                ,
+                selector: (row) => format(new Date(row.dob), 'dd/MM/yyyy'), // Format date
                 width: '20rem'
             },
             {
@@ -268,11 +268,12 @@ const TicketsPage = (props) => {
             <Container>
                 <Row className='my-3'>
                     <Col className="col-auto" style={centerTitleMobile}>
-                        <h3 className='title-head'>Team Members <span className='title-caption'> (Add up to 4 team members to your dream team)</span></h3>
+                        <h3 className='title-head'>Team Members <span className='title-caption'> (You can add up to 4 team members)</span></h3>
                     </Col>
                     <Col className="ticket-btn col ml-auto ">
                         <div className="d-flex justify-content-end">
-                            {idData !== null && stuCont < 4 && (
+                        {/* {idData !== null && stuCont < 4 && ( */}
+                            {stuCont < 4 && (
                                 <Button
                                     label="ADD MEMBER"
                                     btnClass="primary ml-2"
@@ -299,7 +300,7 @@ const TicketsPage = (props) => {
                                         alt="popup image"
                                         className="img-fluid h-300"
                                     />
-                                    <h3 className='font-bold'>No need to worry if you don't have team members; <br /> go ahead and submit your solution.</h3>
+                                    <h3 className='font-bold'>If you don't have any team members; <br /> proceed to submit your solution.</h3>
                                     <Button
                                         label="Proceed"
                                         btnClass="primary ml-2"
