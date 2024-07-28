@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
-import React, { useEffect,useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Row, Col, Form, Label } from 'reactstrap';
 import { withRouter } from 'react-router-dom';
 import Layout from '../../Layout';
@@ -16,13 +16,17 @@ import {
     getCurrentUser
 } from '../../../helpers/Utils';
 
+import {
+    collegesList
+} from '../../../RegPage/OrgData';
+
+
 import { useHistory } from 'react-router-dom';
 import { encryptGlobal } from '../../../constants/encryptDecrypt';
 const AddMentor = (props) => {
     // here we can edit the users details //
     const history = useHistory();
     const category = ['Student', 'Faculty', 'Research Scholar', 'Others'];
-    const names=["School 1","School 2","School 3","School4","Others"];
     const { t } = useTranslation();
     const currentUser = getCurrentUser('current_user');
     const dateRegex = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/;
@@ -92,11 +96,11 @@ const AddMentor = (props) => {
                 .min(2, 'Enter Full Name')
                 .matches(/^[aA-zZ\s]+$/, 'Special Characters are not allowed')
                 .required('Required'),
-                institution_name: Yup.string()
+            institution_name: Yup.string()
 
-               
+
                 .trim()
-               
+
                 .required('Required'),
             dob: Yup.date().required('Date of Birth is required'),
 
@@ -151,7 +155,7 @@ const AddMentor = (props) => {
             // const email = values.email;
             const team_name = values.team_name;
             const gender = values.gender;
-            const institution_name= values.institution_name;
+            const institution_name = values.institution_name;
             // const id_card = values.id_card;
             const body = JSON.stringify({
                 student_name: full_name,
@@ -162,7 +166,7 @@ const AddMentor = (props) => {
                 dob: values.dob,
                 age: values.age,
                 member_category: values.member_category,
-institution_name:institution_name,
+                institution_name: institution_name,
                 student_id: JSON.stringify(currentUser?.data[0]?.student_id)
             });
             // const editParam = encryptGlobal(
@@ -224,7 +228,7 @@ institution_name:institution_name,
         const value = event.target.value;
         setIsOtherSelected(value === 'Others');
         formik.setFieldValue('institution_name', value === 'Others' ? '' : value);
-      };
+    };
     useEffect(() => {
         const currentDate = new Date();
         const selectedDate = new Date(formik.values.dob);
@@ -251,12 +255,21 @@ institution_name:institution_name,
                             <Form onSubmit={formik.handleSubmit} isSubmitting>
                                 <div className="create-ticket register-block">
                                     <Row className="justify-content-center">
-                                        <Col md={6}>
+                                        <Col md={6} className='mb-2'>
                                             <Label
                                                 className="name-req"
                                                 htmlFor="name"
                                             >
                                                 Team Member Category
+                                                <span
+                                                    className="m-2"
+                                                    style={{
+                                                        color: 'red'
+                                                    }}
+                                                    required
+                                                >
+                                                    *
+                                                </span>
                                             </Label>
                                             {/* <div className="dropdown CalendarDropdownComp "> */}
                                             <select
@@ -284,7 +297,7 @@ institution_name:institution_name,
                                             </select>
                                             {/* </div> */}
                                             {formik.touched.member_category &&
-                                            formik.errors.member_category ? (
+                                                formik.errors.member_category ? (
                                                 <small className="error-cls">
                                                     {
                                                         formik.errors
@@ -293,12 +306,21 @@ institution_name:institution_name,
                                                 </small>
                                             ) : null}
                                         </Col>
-                                        <Col md={6}>
+                                        <Col md={6} className='mb-2'>
                                             <Label
                                                 className="name-req"
                                                 htmlFor="name"
                                             >
                                                 Team Member Name
+                                                <span
+                                                    className="m-2"
+                                                    style={{
+                                                        color: 'red'
+                                                    }}
+                                                    required
+                                                >
+                                                    *
+                                                </span>
                                             </Label>
                                             <InputBox
                                                 className={'defaultInput'}
@@ -313,18 +335,27 @@ institution_name:institution_name,
                                             />
 
                                             {formik.touched.name &&
-                                            formik.errors.name ? (
+                                                formik.errors.name ? (
                                                 <small className="error-cls">
                                                     {formik.errors.name}
                                                 </small>
                                             ) : null}
                                         </Col>
-                                        <Col md={4}>
+                                        <Col md={4} className='mb-2'>
                                             <Label
                                                 className="mb-2"
                                                 htmlFor="gender"
                                             >
                                                 Gender
+                                                <span
+                                                    className="m-2"
+                                                    style={{
+                                                        color: 'red'
+                                                    }}
+                                                    required
+                                                >
+                                                    *
+                                                </span>
                                             </Label>
                                             <select
                                                 name="gender"
@@ -353,13 +384,13 @@ institution_name:institution_name,
                                                 </option>
                                             </select>
                                             {formik.touched.gender &&
-                                            formik.errors.gender ? (
+                                                formik.errors.gender ? (
                                                 <small className="error-cls">
                                                     {formik.errors.gender}
                                                 </small>
                                             ) : null}
                                         </Col>
-                                        <Col md={4}>
+                                        <Col md={4} className='mb-2'>
                                             <Label
                                                 className="mb-2"
                                                 htmlFor="dob"
@@ -386,13 +417,13 @@ institution_name:institution_name,
                                             />
 
                                             {formik.touched.dob &&
-                                            formik.errors.dob ? (
+                                                formik.errors.dob ? (
                                                 <small className="error-cls">
                                                     {formik.errors.dob}
                                                 </small>
                                             ) : null}
                                         </Col>
-                                        <Col md={4}>
+                                        <Col md={4} className='mb-2'>
                                             <Label
                                                 className="mb-2"
                                                 htmlFor="date_of_birth"
@@ -419,18 +450,30 @@ institution_name:institution_name,
                                                 )}
                                             />
                                             {formik.touched.age &&
-                                            formik.errors.age ? (
+                                                formik.errors.age ? (
                                                 <small className="error-cls">
                                                     {formik.errors.age}
                                                 </small>
                                             ) : null}
                                         </Col>
-                                        <Col md={6}>
+                                    </Row>
+                                    <Row>
+                                        <Col md={6} className='mb-2'>
                                             <Label
                                                 className="name-req"
                                                 htmlFor="institution_name"
                                             >
                                                 Institution Name
+                                                <span
+                                                    className="m-2"
+                                                    style={{
+                                                        color: 'red'
+                                                    }}
+                                                    required
+                                                >
+                                                    *
+                                                </span>
+                                                {/* <span style={{ fontSize: '12px' }}>(Select Others if your institution is not listed.)</span> */}
                                             </Label>
                                             <select
                                                 className="col-8 selectDropdown"
@@ -441,15 +484,15 @@ institution_name:institution_name,
                                                 onChange={handleSchoolChange}
                                                 onBlur={formik.handleBlur}
                                                 value={isOtherSelected ? 'Others' : formik.values.institution_name}
-                                                // value={
-                                                //     formik.values
-                                                //         .member_category
-                                                // }
+                                            // value={
+                                            //     formik.values
+                                            //         .member_category
+                                            // }
                                             >
                                                 <option value={''}>
-                                                Institution Name
+                                                    Institution Name
                                                 </option>
-                                                {names.map((item) => (
+                                                {collegesList.map((item) => (
                                                     <option
                                                         key={item}
                                                         value={item}
@@ -460,7 +503,7 @@ institution_name:institution_name,
                                             </select>
                                             {/* </div> */}
                                             {formik.touched.institution_name &&
-                                            formik.errors.institution_name ? (
+                                                formik.errors.institution_name ? (
                                                 <small className="error-cls">
                                                     {
                                                         formik.errors
@@ -469,12 +512,12 @@ institution_name:institution_name,
                                                 </small>
                                             ) : null}
                                         </Col>
-                                      {isOtherSelected && (  <Col md={6}>
+                                        {isOtherSelected && (<Col md={6}>
                                             <Label
                                                 className="name-req"
                                                 htmlFor="institution_name"
                                             >
-                                                Enter Institution Name 
+                                                Enter Institution Name
                                             </Label>
                                             <InputBox
                                                 className={'defaultInput'}
@@ -492,7 +535,7 @@ institution_name:institution_name,
                                             />
 
                                             {formik.touched.institution_name &&
-                                            formik.errors.institution_name ? (
+                                                formik.errors.institution_name ? (
                                                 <small className="error-cls">
                                                     {
                                                         formik.errors
@@ -610,7 +653,7 @@ institution_name:institution_name,
                                                     </small>
                                                 )}
                                         </Col> */}
-                                       
+
                                     </Row>
                                 </div>
 
@@ -644,9 +687,9 @@ institution_name:institution_name,
                             </Form>
                         </div>
                     </Col>
-                </Row>
-            </div>
-        </Layout>
+                </Row >
+            </div >
+        </Layout >
     );
 };
 
