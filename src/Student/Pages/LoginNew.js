@@ -12,7 +12,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useTranslation } from 'react-i18next';
 import logo from '../../assets/media/Life_logo.jpg';
-import studentIcon from '../../assets/media/student_login_icon.png';
+// import studentIcon from '../../assets/media/student_login_icon.png';
 // import teacherIcon from '../../assets/media/teacher_login_icon.png';
 import image_9 from '../../assets/media/unisolve_slider1.png';
 import image_10 from '../../assets/media/LIFE_Slider.png';
@@ -26,6 +26,7 @@ const LoginNew = (props) => {
     const history = useHistory();
     useLayoutEffect(() => {
         const moduleName = localStorage.getItem('module');
+
         if (
             localStorage.getItem('current_user') &&
             localStorage.getItem('module')
@@ -33,12 +34,12 @@ const LoginNew = (props) => {
             moduleName === 'MENTOR'
                 ? history.push('/mentor/dashboard')
                 : moduleName === 'ADMIN'
-                ? history.push('/admin/dashboard')
-                : moduleName === 'EVALUATOR'
-                ? history.push('/evaluator/submitted-ideas')
-                : moduleName === 'EADMIN'
-                ? history.push('/eadmin/dashboard')
-                : history.push('/dashboard');
+                    ? history.push('/admin/dashboard')
+                    : moduleName === 'EVALUATOR'
+                        ? history.push('/evaluator/submitted-ideas')
+                        : moduleName === 'EADMIN'
+                            ? history.push('/eadmin/dashboard')
+                            : history.push('/dashboard');
         }
     }, []);
     const formik = useFormik({
@@ -171,16 +172,18 @@ const LoginNew = (props) => {
                                         src={logo}
                                         alt="Logo"
                                         className="logo-image"
+                                        style={{ 'width': '150px' }}
                                     />
                                 </Col>
                             </a>
                         </Row>
-                        <Row className="login-options d-flex ">
-                            <Col md={12} className="text-right"></Col>
+                        <Row className="login-options mb-4 mt-4 text-center">
+                            <Col md={12} className="text-center"><h6 className="mb-4 title-head">APPLICANT LOGIN</h6></Col>
                         </Row>
-                        <Row className=" article-header mb-4 d-flex ">
+                        {/* <Row className=" article-header d-flex ">
                             <div className="d-flex mt-4 login-div justify-content-center align-items-center">
-                                {/* <Link
+                            
+                                <Link
                                     className="landing-page-actions "
                                     exact="true"
                                     to="/mentor"
@@ -193,7 +196,7 @@ const LoginNew = (props) => {
                                         />{' '}
                                         Mentor Login
                                     </button>
-                                </Link> */}
+                                </Link>
                                 <Link
                                     className="landing-page-actions"
                                     exact="true"
@@ -209,13 +212,13 @@ const LoginNew = (props) => {
                                     </button>
                                 </Link>
                             </div>
-                        </Row>
+                        </Row> */}
 
                         {hide ? (
                             <Row className="my-2">
                                 <Col md={12}>
                                     <Form onSubmit={formik.handleSubmit}>
-                                        <div className="form-row row mb-5">
+                                        <div className="form-row row mb-3">
                                             <Col
                                                 className="form-group"
                                                 xs={12}
@@ -244,15 +247,13 @@ const LoginNew = (props) => {
                                                 />
 
                                                 {formik.touched.email &&
-                                                formik.errors.email ? (
+                                                    formik.errors.email ? (
                                                     <small className="error-cls">
                                                         {formik.errors.email}
                                                     </small>
                                                 ) : null}
                                             </Col>
                                         </div>
-                                        <div className="w-100 clearfix" />
-
                                         <div className="form-row row mb-5">
                                             <Col
                                                 className="form-group"
@@ -284,16 +285,16 @@ const LoginNew = (props) => {
                                                 />
 
                                                 {formik.touched.password &&
-                                                formik.errors.password ? (
+                                                    formik.errors.password ? (
                                                     <small className="error-cls">
                                                         {formik.errors.password}
                                                     </small>
                                                 ) : null}
                                             </Col>
-                                            <Row className="keepme_login"></Row>
+                                            {/* <Row className="keepme_login"></Row> */}
                                         </div>
 
-                                        <div className="form-row row mb-5">
+                                        <div className="form-row row mb-3">
                                             {/* <p>Student login will be launched shortly. Please wait for notice from the program coordinators.</p> */}
                                             {/* Login button */}
                                             <Col
@@ -328,7 +329,18 @@ const LoginNew = (props) => {
                                         </div>
                                     </Form>
                                 </Col>
+                                <p className='mt-2' style={{ 'font-size': '14px', fontWeight: 'bold' }}>
+                                    {"Don't have an account ?"}
+                                    <Link
+                                        exact="true"
+                                        to="/registration"
+                                        className=""
+                                    >
+                                        {t(' Create Account')}
+                                    </Link>
+                                </p>
                             </Row>
+
                         ) : (
                             <h2 className="text-center">
                                 Student Journey Will be Enable Soon

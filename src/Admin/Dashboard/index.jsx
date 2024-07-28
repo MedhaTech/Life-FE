@@ -889,10 +889,9 @@ const Dashboard = () => {
                     <div className="row " style={{ overflow: 'hidden' }}>
                         <div className=" row col-xs-12 col-md-7">
                             <h2 className="text-left">
-                                {/* {dist} / SPECIFIC DISTRICT NAME OVERALL
-                                EDII-HACKATHON 2024 STATS{' '} */}
+                                {/* {dist} / SPECIFIC DISTRICT NAME OVERALL Ideas4Life STATS{' '} */}
                                 <span>
-                                     Ideas4Life Hackathon 2024 Stats
+                                     Ideas4Life Stats
                                 </span>
                             </h2>
                             <Row

@@ -10,13 +10,20 @@ import { useTranslation } from 'react-i18next';
 import { Button } from '../stories/Button';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import signuplogo from '../assets/media/logo-rect.svg';
-import successLogo from '../assets/media/check.png';
+// import signuplogo from '../assets/media/logo-rect.svg';
+// import successLogo from '../assets/media/11_Success.jpg';
 import image_1 from '../assets/media/unisolve_slider1.png';
 import image_2 from '../assets/media/aim_Slider.png';
 import { URL, KEY } from '../constants/defaultValues';
 import axios from 'axios';
 import moment from 'moment';
+import {
+    FaCheckCircle,
+    FaDownload,
+    FaHourglassHalf,
+    FaTimesCircle
+} from 'react-icons/fa';
+
 
 import { getNormalHeaders, openNotificationWithIcon } from '../helpers/Utils';
 import { useHistory } from 'react-router-dom';
@@ -45,26 +52,6 @@ const SuccessPage = () => {
             <div className="container-fluid  SignUp Login ">
                 <Row>
                     <div className="col-md-6 aside mobile-header">
-                        {/* <div className="row">
-                            <Col md={12} className=" mr-auto mobile_tab-hide">
-                                {' '}
-                                <h2 className="text-white">
-                                    <img
-                                        src={signuplogo}
-                                        alt="Signup logo"
-                                        className="img-fluid"
-                                    />
-                                    Unisolve
-                                </h2>
-                            </Col>
-                        </div> */}
-
-                        {/* <h1 className="text-left pb-5 mobile_tab-hide">
-                            Together let’s learn and build something amazing.
-                        </h1>
-                        <p className="mobile_tab-hide">
-                            Creating change makers of tomorrow
-                        </p> */}
                         <Carousel>
                             <CarouselItem>
                                 <div className="mobile_tab-hide">
@@ -110,7 +97,7 @@ const SuccessPage = () => {
                         md={6}
                         xl={6}
                         className="article"
-                        style={{ padding: '8rem 8rem' }}
+                        style={{ padding: '8rem 8rem', marginTop: '100px' }}
                     >
                         <Row className="mb-0">
                             <Col
@@ -120,34 +107,15 @@ const SuccessPage = () => {
                                 xl={12}
                                 className="my-auto"
                             >
-                                <figure>
-                                    <img
-                                        src={successLogo}
-                                        alt="successLogo"
-                                        style={{
-                                            width: '30%'
-                                        }}
-                                        className="img-fluid img-1"
-                                    />
-                                </figure>
-
-                                <p
-                                    style={{
-                                        fontSize: '3.4rem',
-                                        fontWeight: 'bold',
-                                        color: 'DarkGreen'
-                                    }}
-                                >
-                                    Congratulations
-                                </p>
-
+                                <FaCheckCircle size={80} className='text-success' />
+                                <h5 className='text-success mt-5'>Registration successful !</h5>
                                 <p
                                     style={{
                                         fontWeight: 'bold',
                                         marginBottom: '2rem'
                                     }}
                                 >
-                                    You have successfully registered.
+                                    Congratulations {mentorDaTa.student_full_name},  your account has been successfully created.
                                 </p>
 
                                 {/* <p
@@ -161,15 +129,15 @@ const SuccessPage = () => {
                                         successData.organization_code} */}
                                 {/* {mentorDaTa.organization_code} */}
                                 {/* </p>  */}
-
+                                {/* <p style={{ 'font-size': '14px', 'fontWeight': 'bold' }} className='m-0'>LOGIN CREDENTIALS :</p>
                                 <p
                                     style={{
                                         color: '#404040',
                                         marginBottom: '1rem'
                                     }}
+                                    className='mb-2'
                                 >
-                                    Institution Name:{' '}
-                                    {mentorDaTa.institution_name}
+                                    Email Address: {mentorDaTa.email}
                                 </p>
                                 <p
                                     style={{
@@ -177,137 +145,12 @@ const SuccessPage = () => {
                                         marginBottom: '1rem'
                                     }}
                                 >
-                                    State: {mentorDaTa?.state}
-                                </p>
-                                <p
-                                    style={{
-                                        color: '#404040',
-                                        marginBottom: '1rem'
-                                    }}
-                                >
-                                    District: {mentorDaTa?.district}
-                                </p>
-
-                                <p
-                                    style={{
-                                        color: '#404040',
-                                        marginBottom: '1rem'
-                                    }}
-                                >
-                                    City: {mentorDaTa?.city}
-                                </p>
-                                {/* <p
-                                    style={{
-                                        color: 'gray',
-                                        marginBottom: '1rem'
-                                    }}
-                                >
-                                    Pin Code: {orgDaTa.pin_code}.{' '}
-                                    {mentorDaTa.pin_code}
+                                    Password : Your default password will be your mobile number only.
                                 </p> */}
-                                <p
-                                    style={{
-                                        color: '#404040',
-                                        marginBottom: '1rem'
-                                    }}
-                                >
-                                    Student Name:
-                                    {mentorDaTa.student_full_name}
-                                </p>
 
-                                <p
-                                    style={{
-                                        color: '#404040',
-                                        marginBottom: '1rem'
-                                    }}
-                                >
-                                    Login ID: {mentorDaTa.email}
-                                </p>
-                                {/* <p
-                                    style={{
-                                        color: 'gray',
-                                        marginBottom: '1rem'
-                                    }}
-                                >
-                                    Password: {mentorDaTa.username}
-                                </p> */}
-                                <p
-                                    style={{
-                                        color: '#404040',
-                                        marginBottom: '1rem'
-                                    }}
-                                >
-                                    Mobile Number: {mentorDaTa.mobile}
-                                </p>
-                                <p
-                                    style={{
-                                        color: '#404040',
-                                        marginBottom: '2rem'
-                                    }}
-                                >
-                                    Gender: {mentorDaTa.Gender}
-                                </p>
-                                <p
-                                    style={{
-                                        color: '#404040',
-                                        marginBottom: '1rem'
-                                    }}
-                                >
-                                    Date of Birth: {formattedDate}
-                                </p>
-                                <p
-                                    style={{
-                                        color: '#404040',
-                                        marginBottom: '1rem'
-                                    }}
-                                >
-                                    Age: {mentorDaTa.Age}
-                                </p>
-                                <p
-                                    style={{
-                                        color: '#404040',
-                                        marginBottom: '1rem'
-                                    }}
-                                >
-                                    Year of Study:{' '}
-                                    {mentorDaTa.year_of_study
-                                        ? mentorDaTa.year_of_study
-                                        : '-'}
-                                </p>
-                                <p
-                                    style={{
-                                        color: '#404040',
-                                        marginBottom: '1rem'
-                                    }}
-                                >
-                                    Group:{' '}
-                                    {mentorDaTa.group ? mentorDaTa.group : '-'}
-                                </p>
 
-                                <>
-                                    {/* <Button
-                                        label="Send Login Details to mail"
-                                        btnClass="primary tex-center my-0 py-0 mx-3 px-3"
-                                        style={{
-                                            borderRadius: '0px',
-                                            padding: '1rem 1rem',
-                                            height: '35px'
-                                        }}
-                                        size="small"
-                                        onClick={handleButton}
-                                    /> */}
-                                </>
-                                <p
-                                    style={{
-                                        color: '#404040',
-                                        marginBottom: '2rem'
-                                    }}
-                                >
-                                    Take a screenshot for future reference.
-                                </p>
-
-                                <h3>
-                                    To login into Student account
+                                <h3 className='mt-5'>
+                                    To login into your account
                                     <Link
                                         exact="true"
                                         to="/login"

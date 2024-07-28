@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 /* eslint-disable indent */
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
@@ -57,6 +58,8 @@ const TicketsPage = (props) => {
     const [count, setCount] = useState(0);
     const [teamsArray, setTeamsArray] = useState([]);
     const currentUser = getCurrentUser('current_user');
+    const idData=currentUser?.data[0]?.id_card;
+
     const [loading, setLoading] = React.useState(false);
     const [teamsList, setTeamsList] = useState([]);
     const [limit, setLimit] = useState(false);
@@ -138,9 +141,9 @@ const TicketsPage = (props) => {
                 width: '6rem'
             },
             {
-                name: 'Reg id',
+                name: 'Member Category',
                 // name: t('teacher_teams.team_name'),
-                selector: (row) => row.reg_no,
+                selector: (row) => row.member_category,
                 sortable: true,
                 // maxlength: '5',
                 width: '20rem'
@@ -151,34 +154,46 @@ const TicketsPage = (props) => {
                 width: '20rem'
             },
             {
-                name: 'Mobile Number',
-                selector: (row) => row.student_mobile,
+                name: 'DOB',
+                selector: (row) => row.dob
+                ,
                 width: '20rem'
             },
             {
-                name: 'Email',
-                selector: (row) => row.student_email,
-                width: '30rem'
+                name: 'Age',
+                selector: (row) => row.age,
+                width: '8rem'
+            },
+              {
+                name: 'Gender',
+                selector: (row) => row.gender,
+                width: '10rem'
             },
             {
-                name: 'ID Card',
-                selector: (row) => 'row.id_card',
-                cell: (row) => [
-                    <Badge
-                        key={row.id_card}
-                        bg={`${
-                            row.id_card === row.id_card ? 'primary' : 'danger'
-                        }`}
-                        onClick={()=>{
-                            setImgUrl(row.id_card);
-                            setShowsPopup(true);
-                        }}
-                    >
-                        {row.id_card && getFileName(row.id_card)}
-                    </Badge>
-                ],
-                width: '10rem'
-            }
+                name: 'Institution Name',
+                selector: (row) => row.
+                institution_name,
+                width: '18rem'
+            },
+            // {
+            //     name: 'Institution Name',
+            //     selector: (row) => 'row.id_card',
+            //     cell: (row) => [
+            //         <Badge
+            //             key={row.id_card}
+            //             bg={`${
+            //                 row.id_card === row.id_card ? 'primary' : 'danger'
+            //             }`}
+            //             onClick={()=>{
+            //                 setImgUrl(row.id_card);
+            //                 setShowsPopup(true);
+            //             }}
+            //         >
+            //             {row.id_card && getFileName(row.id_card)}
+            //         </Badge>
+            //     ],
+            //     width: '10rem'
+            // }
             // {
             //     name: 'Status',
             //     cell: (row) => [
@@ -193,11 +208,8 @@ const TicketsPage = (props) => {
             //     ],
             //     width: '9rem'
             // },
-            // {
-            //     name: 'Gender',
-            //     selector: 'moc_gender',
-            //     width: '10rem'
-            // },
+          
+
             // {
             //     name: 'Mobile No',
             //     selector: 'moc_phone',
@@ -263,7 +275,7 @@ const TicketsPage = (props) => {
 
                         <Col className="ticket-btn col ml-auto ">
                             <div className="d-flex justify-content-end">
-                                {stuCont < 4 && (
+                                {idData !== null && stuCont < 4 && (
                                     <Button
                                         label="ADD MEMBER"
                                         btnClass="primary ml-2"
@@ -282,7 +294,23 @@ const TicketsPage = (props) => {
                         <Tabs defaultActiveKey="1">
                             {loading && teamsArray && !teamsArray.length > 0 ? (
                                 <DoubleBounce />
-                            ) : (
+                            ) : teamsArray.length === 0 ? (
+                                <div className="my-2">
+                                  <div className="no-data-message text-left">
+                                    <p>If you don't have any team members, please proceed to submit your solution.</p>
+                                    <Button
+                                        label="Click Here"
+                                        btnClass="primary ml-2"
+                                        size="small"
+                                        shape="btn-square"
+                                        Icon={BsPlusLg}
+                                        onClick={() =>
+                                            history.push('/upload-file')
+                                        }
+                                    />
+                                  </div>
+                                </div>
+                              ) : (
                                 <div className="my-2">
                                     <DataTableExtensions
                                         print={false}
@@ -303,7 +331,6 @@ const TicketsPage = (props) => {
                                             paginationPerPage={25}
                                         />
                                     </DataTableExtensions>
-                                    {/* //<Link to="/challenges">Click here to proceed and submit your solution</Link> */}
                                 </div>
                             )}
                         </Tabs>

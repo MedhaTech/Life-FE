@@ -43,6 +43,8 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
     const [ideaSubmittedData, setIdeaSubmittedData] = useState({});
     const currentUser = getCurrentUser('current_user');
     const StudentId = currentUser?.data[0]?.student_id;
+    const IdData = currentUser?.data[0]?.id_card;
+
 
     // const presuveyStatusGl = useSelector(
     //     (state) => state?.studentRegistration.presuveyStatusGl
@@ -205,7 +207,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                             // onClick={handleClick}
                             // to={'/instructions'}
                             to={
-                                ideaSubmittedData == 0
+                                IdData === null ? "/upload-file":ideaSubmittedData == 0
                                     ? '/instructions'
                                     : '/List'
                             }

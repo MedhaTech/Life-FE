@@ -37,7 +37,8 @@ export const stateList = [
     'Uttarakhand',
     'West Bengal'
 ];
-export const institutionType = ['Engineering', 'Law', 'Life Sciences', 'Medical','Ayurveda'];
+export const institutionType = ['Engineering', 'Law', 'Life Sciences', 'Medical', 'Ayurveda'];
+export const applicant_categories = ['Student', 'Faculty', 'Research Scholar', 'Others'];
 export const istitutionNameList = {
     Engineering: [
         'Aligarh Muslim University',
@@ -196,7 +197,8 @@ export const collegesList = [
     'All India Institute of Medical Sciences, Raipur',
     'All India Institute of Medical Sciences, Rishikesh',
     'Jawaharlal Institute of Postgraduate Medical Education and Research',
-    'National Institute of Mental Health and Neurosciences'
+    'National Institute of Mental Health and Neurosciences',
+    'Others'
 ];
 
 export const districtList = {
