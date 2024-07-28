@@ -37,7 +37,7 @@ export const stateList = [
     'Uttarakhand',
     'West Bengal'
 ];
-export const institutionType = ['Engineering', 'Law', 'Life Sciences', 'Medical', 'Ayurveda'];
+export const institutionType = ['Engineering', 'Law', 'Life Sciences', 'Medical', 'Ayurveda', 'Others'];
 export const applicant_categories = ['Student', 'Faculty', 'Research Scholar', 'Others'];
 export const istitutionNameList = {
     Engineering: [
