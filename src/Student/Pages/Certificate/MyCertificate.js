@@ -206,14 +206,14 @@ const MyCertificate = () => {
                 <Fragment>
                     {showDummypage ? (
                         <Row>
-                            <Row>
+                            {/* <Row>
                                 <div
                                     className="m-4 text-center"
                                     dangerouslySetInnerHTML={{
                                         __html: t('student_course.my_cer_note')
                                     }}
                                 ></div>
-                            </Row>
+                            </Row> */}
                             <Col className="d-lg-flex justify-content-center">
                                 <Certificate
                                     type={'participate'}

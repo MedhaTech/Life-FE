@@ -13,7 +13,7 @@ import * as Yup from 'yup';
 import signuplogo from '../../assets/media/logo-rect.svg';
 import successLogo from '../../assets/media/check.png';
 import image_1 from '../../assets/media/unisolve_slider1.png';
-import image_2 from '../../assets/media/aim_Slider.png';
+import image_2 from '../../assets/media/unisolve_slider2.png';
 // import { URL, KEY } from '../../languageOptionsconstants/defaultValues';
 import axios from 'axios';
 
