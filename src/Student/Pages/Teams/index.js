@@ -17,7 +17,7 @@ import {
 } from '../../../helpers/Utils';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import 'sweetalert2/src/sweetalert2.scss';
-// import logout from '../../assets/media/logout.svg';
+import teams from '../../../assets/media/4067321.jpg';
 import DataTable, { Alignment } from 'react-data-table-component';
 import DataTableExtensions from 'react-data-table-component-extensions';
 import 'react-data-table-component-extensions/dist/index.css';
@@ -51,14 +51,14 @@ const GreetingModal = (props) => {
     );
 };
 const TicketsPage = (props) => {
-    console.log(props.location.ideasCout,"props");
+    console.log(props.location.ideasCout, "props");
     const history = useHistory();
     const { t } = useTranslation();
     localStorage.setItem('teamId', JSON.stringify(''));
     const [count, setCount] = useState(0);
     const [teamsArray, setTeamsArray] = useState([]);
     const currentUser = getCurrentUser('current_user');
-    const idData=currentUser?.data[0]?.id_card;
+    const idData = currentUser?.data[0]?.id_card;
 
     const [loading, setLoading] = React.useState(false);
     const [teamsList, setTeamsList] = useState([]);
@@ -164,7 +164,7 @@ const TicketsPage = (props) => {
                 selector: (row) => row.age,
                 width: '8rem'
             },
-              {
+            {
                 name: 'Gender',
                 selector: (row) => row.gender,
                 width: '10rem'
@@ -172,7 +172,7 @@ const TicketsPage = (props) => {
             {
                 name: 'Institution Name',
                 selector: (row) => row.
-                institution_name,
+                    institution_name,
                 width: '18rem'
             },
             // {
@@ -208,7 +208,7 @@ const TicketsPage = (props) => {
             //     ],
             //     width: '9rem'
             // },
-          
+
 
             // {
             //     name: 'Mobile No',
@@ -227,9 +227,8 @@ const TicketsPage = (props) => {
         // where item = team name //
         // where we can add team member details //
         history.push({
-            pathname: `/team-creation/${item.team_id}/${
-                item.StudentCount ? item.StudentCount : 'new'
-            }`
+            pathname: `/team-creation/${item.team_id}/${item.StudentCount ? item.StudentCount : 'new'
+                }`
         });
     };
     const handleEditTeam = (item) => {
@@ -260,46 +259,49 @@ const TicketsPage = (props) => {
     };
 
     return (
-        <Layout title="Teams ">
+        <Layout title="Teams">
             <GreetingModal
                 handleClose={handleClose}
                 show={showsPopup}
                 imgUrl={imgUrl}
             ></GreetingModal>
-            <Container className="ticket-page mt-5 mb-50 userlist">
-                <Row className="pt-5">
-                    <Row className="mb-2 mb-sm-5 mb-md-5 mb-lg-0">
-                        <Col className="col-auto" style={centerTitleMobile}>
-                            <h2>Team Members  (Add up to 4 team members to your dream team)</h2>
-                        </Col>
-
-                        <Col className="ticket-btn col ml-auto ">
-                            <div className="d-flex justify-content-end">
-                                {idData !== null && stuCont < 4 && (
-                                    <Button
-                                        label="ADD MEMBER"
-                                        btnClass="primary ml-2"
-                                        size="small"
-                                        shape="btn-square"
-                                        Icon={BsPlusLg}
-                                        onClick={() =>
-                                            history.push('/team-creation')
-                                        }
+            <Container>
+                <Row className='my-3'>
+                    <Col className="col-auto" style={centerTitleMobile}>
+                        <h3 className='title-head'>Team Members <span className='title-caption'> (Add up to 4 team members to your dream team)</span></h3>
+                    </Col>
+                    <Col className="ticket-btn col ml-auto ">
+                        <div className="d-flex justify-content-end">
+                            {idData !== null && stuCont < 4 && (
+                                <Button
+                                    label="ADD MEMBER"
+                                    btnClass="primary ml-2"
+                                    size="small"
+                                    shape="btn-square"
+                                    Icon={BsPlusLg}
+                                    onClick={() =>
+                                        history.push('/team-creation')
+                                    }
+                                />
+                            )}
+                        </div>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col className='card'>
+                        {loading && teamsArray && !teamsArray.length > 0 ? (
+                            <DoubleBounce />
+                        ) : teamsArray.length === 0 ? (
+                            <div className="m-5">
+                                <div className="no-data-message text-center">
+                                    <img
+                                        src={teams}
+                                        alt="popup image"
+                                        className="img-fluid h-300"
                                     />
-                                )}
-                            </div>
-                        </Col>
-                    </Row>
-                    <div className="ticket-data">
-                        <Tabs defaultActiveKey="1">
-                            {loading && teamsArray && !teamsArray.length > 0 ? (
-                                <DoubleBounce />
-                            ) : teamsArray.length === 0 ? (
-                                <div className="my-2">
-                                  <div className="no-data-message text-left">
-                                    <p>If you don't have any team members, please proceed to submit your solution.</p>
+                                    <h3 className='font-bold'>No need to worry if you don't have team members; <br /> go ahead and submit your solution.</h3>
                                     <Button
-                                        label="Click Here"
+                                        label="Proceed"
                                         btnClass="primary ml-2"
                                         size="small"
                                         shape="btn-square"
@@ -308,33 +310,32 @@ const TicketsPage = (props) => {
                                             history.push('/upload-file')
                                         }
                                     />
-                                  </div>
                                 </div>
-                              ) : (
-                                <div className="my-2">
-                                    <DataTableExtensions
-                                        print={false}
-                                        export={false}
-                                        {...adminTeamsList}
-                                    >
-                                        <DataTable
-                                            data={teamsArray}
-                                            defaultSortField="id"
-                                            defaultSortAsc={false}
-                                            pagination
-                                            highlightOnHover
-                                            fixedHeader
-                                            subHeaderAlign={Alignment.Center}
-                                            paginationRowsPerPageOptions={[
-                                                25, 50, 100
-                                            ]}
-                                            paginationPerPage={25}
-                                        />
-                                    </DataTableExtensions>
-                                </div>
-                            )}
-                        </Tabs>
-                    </div>
+                            </div>
+                        ) : (
+                            <div className="my-2">
+                                <DataTableExtensions
+                                    print={false}
+                                    export={false}
+                                    {...adminTeamsList}
+                                >
+                                    <DataTable
+                                        data={teamsArray}
+                                        defaultSortField="id"
+                                        defaultSortAsc={false}
+                                        pagination
+                                        highlightOnHover
+                                        fixedHeader
+                                        subHeaderAlign={Alignment.Center}
+                                        paginationRowsPerPageOptions={[
+                                            25, 50, 100
+                                        ]}
+                                        paginationPerPage={25}
+                                    />
+                                </DataTableExtensions>
+                            </div>
+                        )}
+                    </Col>
                 </Row>
             </Container>
         </Layout>

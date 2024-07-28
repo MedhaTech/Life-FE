@@ -1307,12 +1307,12 @@ function NewIdeaSubmission(props) {
                                                                     disabled={
                                                                         condition
                                                                     }
-                                                                    placeholder="Enter your Idea Title Name"
+                                                                    placeholder="Enter your problem statement"
                                                                     value={
                                                                         ideaTitle
                                                                     }
                                                                     maxLength={
-                                                                        200
+                                                                        250
                                                                     }
                                                                     onChange={(
                                                                         e
@@ -1331,7 +1331,7 @@ function NewIdeaSubmission(props) {
                                                                 'student_course.chars'
                                                             )}{' '}
                                                             :
-                                                            {200 -
+                                                            {250 -
                                                                 (ideaTitle
                                                                     ? ideaTitle.length
                                                                     : 0)}
@@ -1405,7 +1405,7 @@ function NewIdeaSubmission(props) {
                                                                     disabled={
                                                                         condition
                                                                     }
-                                                                    placeholder="Enter your Detailed solution "
+                                                                    placeholder="Enter your detailed solution "
                                                                     value={
                                                                         detailSol
                                                                     }
@@ -1602,8 +1602,7 @@ function NewIdeaSubmission(props) {
                                                                             '1.6rem'
                                                                     }}
                                                                 >
-                                                                    Please
-                                                                    Upload File
+                                                                    Please upload details of your prototype (File Type: .pdf/.gif/.png. Max file size : 5MB)
                                                                 </b>
                                                             </div>
                                                             <div className=" answers row flex-column p-4">
@@ -1752,7 +1751,7 @@ function NewIdeaSubmission(props) {
                                                                         youtubeLink
                                                                     }
                                                                     maxLength={
-                                                                        5000
+                                                                        250
                                                                     }
                                                                     onChange={(
                                                                         e
@@ -1771,7 +1770,7 @@ function NewIdeaSubmission(props) {
                                                                 'student_course.chars'
                                                             )}{' '}
                                                             :
-                                                            {5000 -
+                                                            {250 -
                                                                 (youtubeLink
                                                                     ? youtubeLink.length
                                                                     : 0)}
@@ -1938,7 +1937,7 @@ function NewIdeaSubmission(props) {
                                                                 }
                                                             />
                                                             {
-                                                                ' I confirm that the Idea Submitted now submitted is not copied or plagiarized version.'
+                                                                '  I confirm that the Idea Submitted now submitted is not copied or plagiarized version '
                                                             }
                                                         </Label>
                                                     </Row>
