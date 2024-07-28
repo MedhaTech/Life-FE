@@ -46,7 +46,7 @@ jobs:
       - name: Buid the application
         env:
           CI: false
-        run: sudo npm run build:prod
+        run: sudo npm run build:dev
       - name: Upload build artifacts
         uses: actions/upload-artifact@v3
         with:
