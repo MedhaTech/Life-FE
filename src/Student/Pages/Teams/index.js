@@ -284,7 +284,7 @@ const TicketsPage = (props) => {
                     <Col className="ticket-btn col ml-auto ">
                         <div className="d-flex justify-content-end">
                         {/* {idData !== null && stuCont < 4 && ( */}
-                            { idData !== null && stuCont < 4 && (
+                            { idData === null && stuCont < 4 && (
                                 <Button
                                     label="ADD MEMBER"
                                     btnClass="primary ml-2"
