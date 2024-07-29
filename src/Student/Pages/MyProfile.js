@@ -22,7 +22,7 @@ import axios from 'axios';
 const MyProfile = () => {
     const currentUser = getCurrentUser('current_user');
     const { teamMember } = useSelector((state) => state.studentRegistration);
-    console.log(teamMember, '11');
+    // console.log(teamMember, '11');
     const [data, setData] = useState('');
     const [showMentorCard, setshowMentorCard] = useState(false);
 

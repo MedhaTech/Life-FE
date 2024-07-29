@@ -27,6 +27,9 @@ import DoubleBounce from '../../../components/Loaders/DoubleBounce';
 import { encryptGlobal } from '../../../constants/encryptDecrypt';
 import { Modal } from 'react-bootstrap';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
+import { useDispatch, useSelector } from 'react-redux';
+import { getStudentByIdData } from '../../../redux/studentRegistration/actions';
+
 const GreetingModal = (props) => {
     return (
         <Modal
@@ -52,14 +55,22 @@ const GreetingModal = (props) => {
     );
 };
 const TicketsPage = (props) => {
-    console.log(props.location.ideasCout, "props");
+    // console.log(props.location.ideasCout, "props");
+    const currentUser = getCurrentUser('current_user');
+
     const history = useHistory();
     const { t } = useTranslation();
     localStorage.setItem('teamId', JSON.stringify(''));
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(getStudentByIdData(currentUser?.data[0]?.student_id));
+    }, [dispatch, currentUser?.data[0]?.student_id]);
+    const { teamMember } = useSelector((state) => state.studentRegistration);
+    // consi
     const [count, setCount] = useState(0);
     const [teamsArray, setTeamsArray] = useState([]);
-    const currentUser = getCurrentUser('current_user');
-    const idData = currentUser?.data[0]?.id_card;
+    const idData = teamMember?.id_card;
+    // console.log(idData,"11");
 
     const [loading, setLoading] = React.useState(false);
     const [teamsList, setTeamsList] = useState([]);
@@ -301,7 +312,7 @@ const TicketsPage = (props) => {
                                         className="img-fluid h-300"
                                     />
                                     <h3 className='font-bold'>If you don't have any team members; <br /> proceed to submit your solution.</h3>
-                                    <Button
+                                  {idData === null &&   <Button
                                         label="Proceed"
                                         btnClass="primary ml-2"
                                         size="small"
@@ -311,6 +322,7 @@ const TicketsPage = (props) => {
                                             history.push('/upload-file')
                                         }
                                     />
+}
                                 </div>
                             </div>
                         ) : (
