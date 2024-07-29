@@ -658,10 +658,8 @@ function NewIdeaSubmission(props) {
         const allowedTypes = [
             'image/jpeg',
             'image/png',
-            'application/msword',
-            'application/pdf',
-            'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-            'application/vnd.openxmlformats-officedocument.presentationml.presentation'
+            'image/jpg',
+            'application/pdf'
         ];
         if (
             choosenFiles.filter(
@@ -670,7 +668,7 @@ function NewIdeaSubmission(props) {
         ) {
             openNotificationWithIcon(
                 'error',
-                t('Accepting only png,jpg,jpeg,pdf,doc,docx Only')
+                t('Choose .png/.jpg/.jpeg/.pdf Only')
             );
             return;
         }
@@ -1307,12 +1305,12 @@ function NewIdeaSubmission(props) {
                                                                     disabled={
                                                                         condition
                                                                     }
-                                                                    placeholder="Enter your Idea Title Name"
+                                                                    placeholder="Enter your problem statement"
                                                                     value={
                                                                         ideaTitle
                                                                     }
                                                                     maxLength={
-                                                                        200
+                                                                        250
                                                                     }
                                                                     onChange={(
                                                                         e
@@ -1331,7 +1329,7 @@ function NewIdeaSubmission(props) {
                                                                 'student_course.chars'
                                                             )}{' '}
                                                             :
-                                                            {200 -
+                                                            {250 -
                                                                 (ideaTitle
                                                                     ? ideaTitle.length
                                                                     : 0)}
@@ -1405,7 +1403,7 @@ function NewIdeaSubmission(props) {
                                                                     disabled={
                                                                         condition
                                                                     }
-                                                                    placeholder="Enter your Detailed solution "
+                                                                    placeholder="Enter your detailed solution "
                                                                     value={
                                                                         detailSol
                                                                     }
@@ -1602,8 +1600,7 @@ function NewIdeaSubmission(props) {
                                                                             '1.6rem'
                                                                     }}
                                                                 >
-                                                                    Please
-                                                                    Upload File
+                                                                    Please upload details of your prototype (File Type: .pdf/.gif/.png. Max file size : 5MB)
                                                                 </b>
                                                             </div>
                                                             <div className=" answers row flex-column p-4">
@@ -1632,7 +1629,7 @@ function NewIdeaSubmission(props) {
                                                                             disabled={
                                                                                 condition
                                                                             }
-                                                                            accept="image/jpeg,image/png,application/msword,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.openxmlformats-officedocument.presentationml.presentation"
+                                                                            accept="image/jpeg,image/jpg,image/png,application/pdf"
                                                                             multiple
                                                                             onChange={(
                                                                                 e
@@ -1752,7 +1749,7 @@ function NewIdeaSubmission(props) {
                                                                         youtubeLink
                                                                     }
                                                                     maxLength={
-                                                                        5000
+                                                                        250
                                                                     }
                                                                     onChange={(
                                                                         e
@@ -1771,7 +1768,7 @@ function NewIdeaSubmission(props) {
                                                                 'student_course.chars'
                                                             )}{' '}
                                                             :
-                                                            {5000 -
+                                                            {250 -
                                                                 (youtubeLink
                                                                     ? youtubeLink.length
                                                                     : 0)}
@@ -1938,7 +1935,7 @@ function NewIdeaSubmission(props) {
                                                                 }
                                                             />
                                                             {
-                                                                ' I confirm that the Idea Submitted now submitted is not copied or plagiarized version.'
+                                                                '  I confirm that the Idea Submitted now submitted is not copied or plagiarized version '
                                                             }
                                                         </Label>
                                                     </Row>

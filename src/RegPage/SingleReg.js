@@ -85,6 +85,9 @@ function AtlPage() {
     const [tooltipOpen2, setTooltipOpen2] = useState(false);
     const toggleTooltip2 = () => setTooltipOpen2(!tooltipOpen2);
 
+    // Get today's date in YYYY-MM-DD format
+    const today = new Date().toISOString().split('T')[0];
+
     const yearList = ["1st Year", "2nd Year", "3rd Year", "4th Year", "5th Year"];
     const handleOnChange = (e) => {
         setDiesCode(e.target.value.trim());
@@ -516,6 +519,21 @@ function AtlPage() {
         setIsOtherSelected(value === 'Others');
         formik.setFieldValue('institution_name', value === 'Others' ? '' : value);
     };
+    useEffect(() => {
+        const currentDate = new Date();
+        const selectedDate = new Date(formik.values.date_of_birth);
+
+        if (!isNaN(selectedDate.getTime())) {
+            if (selectedDate > currentDate) {
+                formik.setFieldError('date_of_birth', 'Future dates are not allowed');
+                formik.setFieldValue('date_of_birth', '');
+            } else {
+                const age =
+                    currentDate.getFullYear() - selectedDate.getFullYear();
+                formik.setFieldValue('age', JSON.stringify(age));
+            }
+        }
+    }, [formik.values.date_of_birth]);
     useEffect(() => {
         if (!disable) {
             counter > 0 && setTimeout(() => setCounter(counter - 1), 1000);
@@ -1015,6 +1033,7 @@ function AtlPage() {
                                                         placeholder="DD/MM/YYYY"
                                                         className="defaultInput"
                                                         id="date_of_birth"
+                                                        maxDate={today}
                                                         isDisabled={
                                                             holdKey
                                                                 ? true
@@ -1418,19 +1437,8 @@ function AtlPage() {
                                                         >
                                                             *
                                                         </span>
+                                                        <span style={{ fontSize: '10px' }}>(Select "Others" if your institution is not listed.)</span>
                                                     </Label>
-                                                    <span href="#" id="TooltipExample2">
-                                                        <FaInfoCircle size={16} className='text-success' />
-                                                    </span>
-
-                                                    <Tooltip
-                                                        placement="right"
-                                                        isOpen={tooltipOpen2}
-                                                        target="TooltipExample2"
-                                                        toggle={toggleTooltip2}
-                                                    >
-                                                        Select "Others" if your institution is not listed.
-                                                    </Tooltip>
                                                     <select
                                                         className="col-8 selectDropdown"
                                                         id="institution_name"

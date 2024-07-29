@@ -28,7 +28,28 @@ input[type='radio'] {
     min-height: 81vh !important;
 }
 
+.h-300{
+    max-height: 300px !important;    
+}
+
 .title-head {
     font-size: 22px !important;
     font-weight: 600;
+}
+
+.title-caption {
+    font-size: 16px !important;
+    font-weight: 600;
+}
+
+.font-bold{
+    font-weight: bold;
+}
+
+.footer {
+    background-color: #f1f1f1;
+    padding: 20px;
+    text-align: center;
+    /* Optional: To make it more visually distinctive */
+    border-top: 1px solid #ccc;
 }

@@ -250,7 +250,7 @@ const InstructionsPage = (props) => {
                 >
                     <Row className="mb-2 mb-sm-5 mb-md-5 mb-lg-0">
                         <Col className="col-auto" style={centerTitleMobile}>
-                            <h2>Ideas List</h2>
+                            <h2>Submitted Ideas List</h2>
                         </Col>
                         {totalideasinitited < 15 && <Col className="ticket-btn col ml-auto ">
                             <div className="d-flex justify-content-end">
