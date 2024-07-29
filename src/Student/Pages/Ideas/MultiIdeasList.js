@@ -543,6 +543,32 @@ detailed_solution
 }
                                 </Modal.Body>
                                 <Modal.Footer>
+                                <div>
+                                <p
+                                    style={{ fontSize: '1.5rem' }}
+                                    className="fw-bold"
+                                >
+                                    Submitted By :{' '}
+                                    {selectedRecord.
+initiated_name}
+                                </p>
+                            </div>
+                            <br />
+                            <div>
+                                <p
+                                    style={{ fontSize: '1.5rem' }}
+                                    className="fw-bold"
+                                >
+                                    Submitted At :{' '}
+                                    {selectedRecord.submitted_at
+
+                                        ? moment(
+                                            selectedRecord.submitted_at
+
+                                          ).format('DD-MM-YYYY')
+                                        : '-'}
+                                </p>
+                            </div>
                                     <Button
                                         size="small"
                                         label={'Close'}
