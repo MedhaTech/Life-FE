@@ -499,10 +499,10 @@ function AtlPage() {
                 }
             })
             .catch(function (error) {
-                if (error?.response?.data?.status === 406) {
+                if (error?.response?.data?.status === 404) {
                     openNotificationWithIcon(
                         'error',
-                        'Mobile Number already exists'
+                        'Email Id already exists'
                     );
                     setTimeout(() => {
                         // setChange('Resend OTP');
