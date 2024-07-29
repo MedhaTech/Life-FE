@@ -14,6 +14,7 @@ import {
 } from 'reactstrap';
 import Layout from '../Layout.jsx';
 import { Modal } from 'react-bootstrap';
+import { Button } from '../../stories/Button.jsx';
 
 import 'sweetalert2/src/sweetalert2.scss';
 import { getCurrentUser } from '../../helpers/Utils';
@@ -102,6 +103,41 @@ const MyProfile = () => {
                                                 className="my-auto profile-detail "
                                             >
                                                 <CardText>
+                                                <Row className="pt-3 pb-3">
+                                                        <Col
+                                                            // md={3}
+                                                            xs={5}
+                                                            sm={5}
+                                                            md={5}
+                                                            xl={5}
+                                                            className="my-auto profile-detail"
+                                                        >
+                                                            <b>Applicant Category</b>
+                                                        </Col>
+                                                        <Col
+                                                            // md={1}
+                                                            xs={1}
+                                                            sm={1}
+                                                            md={1}
+                                                            xl={1}
+                                                        >
+                                                            :
+                                                        </Col>
+                                                        <Col
+                                                            // md={8}
+                                                            xs={6}
+                                                            sm={6}
+                                                            md={6}
+                                                            xl={6}
+                                                            className="my-auto profile-detail"
+                                                        >
+                                                            <b>
+                                                                {teamMember?.year_of_study
+                                                                    ? teamMember?.year_of_study
+                                                                    : '-'}
+                                                            </b>
+                                                        </Col>
+                                                    </Row>
                                                     <Row className="pt-3 pb-3">
                                                         <Col
                                                             // md={3}
@@ -315,80 +351,10 @@ const MyProfile = () => {
                                                             </b>
                                                         </Col>
                                                     </Row>
-                                                    <Row className="pt-3 pb-3">
-                                                        <Col
-                                                            // md={3}
-                                                            xs={5}
-                                                            sm={5}
-                                                            md={5}
-                                                            xl={5}
-                                                            className="my-auto profile-detail"
-                                                        >
-                                                            <b>City</b>
-                                                        </Col>
-                                                        <Col
-                                                            // md={1}
-                                                            xs={1}
-                                                            sm={1}
-                                                            md={1}
-                                                            xl={1}
-                                                        >
-                                                            :
-                                                        </Col>
-                                                        <Col
-                                                            // md={8}
-                                                            xs={6}
-                                                            sm={6}
-                                                            md={6}
-                                                            xl={6}
-                                                            className="my-auto profile-detail"
-                                                        >
-                                                            <b>
-                                                                {teamMember?.city
-                                                                    ? teamMember?.city
-                                                                    : '-'}
-                                                            </b>
-                                                        </Col>
-                                                    </Row>
+                                                 
                                                   
                                                    
-                                                    <Row className="pt-3 pb-3">
-                                                        <Col
-                                                            // md={3}
-                                                            xs={5}
-                                                            sm={5}
-                                                            md={5}
-                                                            xl={5}
-                                                            className="my-auto profile-detail"
-                                                        >
-                                                            <b>
-                                                                Institution Name
-                                                            </b>
-                                                        </Col>
-                                                        <Col
-                                                            xs={1}
-                                                            sm={1}
-                                                            md={1}
-                                                            xl={1}
-                                                            // md={1}
-                                                        >
-                                                            :
-                                                        </Col>
-                                                        <Col
-                                                            // md={8}
-                                                            xs={6}
-                                                            sm={6}
-                                                            md={6}
-                                                            xl={6}
-                                                            className="my-auto profile-detail"
-                                                        >
-                                                            <b>
-                                                                {teamMember?.institution_name
-                                                                    ? teamMember?.institution_name
-                                                                    : '-'}
-                                                            </b>
-                                                        </Col>
-                                                    </Row>
+                                                  
                                                     <Row className="pt-3 pb-3">
                                                         <Col
                                                             // md={3}
@@ -468,6 +434,78 @@ const MyProfile = () => {
                                                             xl={5}
                                                             className="my-auto profile-detail"
                                                         >
+                                                            <b>City</b>
+                                                        </Col>
+                                                        <Col
+                                                            // md={1}
+                                                            xs={1}
+                                                            sm={1}
+                                                            md={1}
+                                                            xl={1}
+                                                        >
+                                                            :
+                                                        </Col>
+                                                        <Col
+                                                            // md={8}
+                                                            xs={6}
+                                                            sm={6}
+                                                            md={6}
+                                                            xl={6}
+                                                            className="my-auto profile-detail"
+                                                        >
+                                                            <b>
+                                                                {teamMember?.city
+                                                                    ? teamMember?.city
+                                                                    : '-'}
+                                                            </b>
+                                                        </Col>
+                                                    </Row>
+                                                    <Row className="pt-3 pb-3">
+                                                        <Col
+                                                            // md={3}
+                                                            xs={5}
+                                                            sm={5}
+                                                            md={5}
+                                                            xl={5}
+                                                            className="my-auto profile-detail"
+                                                        >
+                                                            <b>
+                                                                Institution Name
+                                                            </b>
+                                                        </Col>
+                                                        <Col
+                                                            xs={1}
+                                                            sm={1}
+                                                            md={1}
+                                                            xl={1}
+                                                            // md={1}
+                                                        >
+                                                            :
+                                                        </Col>
+                                                        <Col
+                                                            // md={8}
+                                                            xs={6}
+                                                            sm={6}
+                                                            md={6}
+                                                            xl={6}
+                                                            className="my-auto profile-detail"
+                                                        >
+                                                            <b>
+                                                                {teamMember?.institution_name
+                                                                    ? teamMember?.institution_name
+                                                                    : '-'}
+                                                            </b>
+                                                        </Col>
+                                                    </Row>
+                                                    <Row className="pt-3 pb-3">
+                                                        <Col
+                                                            // md={3}
+                                                            xs={5}
+                                                            sm={5}
+                                                            md={5}
+                                                            xl={5}
+                                                            className="my-auto profile-detail"
+                                                        >
                                                             <b>Institution Type</b>
                                                         </Col>
                                                         <Col
@@ -525,11 +563,22 @@ const MyProfile = () => {
                                                             <b>
                                                                 {teamMember?.reg_no
                                                                     ? teamMember?.reg_no
-                                                                    : '-'}
+                                                                    : '-'} 
+                                                                      <Button
+                                            size="small"
+                                            label="View ID Card"
+                       btnClass="primary col-4 m-2"
+                       onClick={()=>{
+                           setImgUrl(teamMember?.id_card);
+                           setShowsPopup(true);
+                       }}
+                   />
+                    {/* ID Card
+                    </Button> */}
                                                             </b>
                                                         </Col>
                                                     </Row>
-                                                    <Row className="pt-3 pb-3">
+                                                    {/* <Row className="pt-3 pb-3">
                                                         <Col
                                                             // md={3}
                                                             xs={5}
@@ -557,23 +606,14 @@ const MyProfile = () => {
                                                             // md={8}
                                                             className="my-auto profile-detail"
                                                         >
-                                                            {/* <b>
+                                                            <b>
                                                                 {teamMember?.id_card ?
                                                                     getFileName(teamMember.id_card) : '-'}
-                                                            </b> */}
-                                                              <Badge
-                        bg={`${
-                            teamMember?.id_card=== teamMember?.id_card ? 'primary' : 'danger'
-                        }`}
-                        onClick={()=>{
-                            setImgUrl(teamMember?.id_card);
-                            setShowsPopup(true);
-                        }}
-                    >
+                                                            </b>
+                                                            
                         {teamMember?.id_card && getFileName(teamMember?.id_card)}
-                    </Badge>
                                                         </Col>
-                                                    </Row>
+                                                    </Row> */}
                                                 </CardText>
                                             </Col>
                                         </Row>
