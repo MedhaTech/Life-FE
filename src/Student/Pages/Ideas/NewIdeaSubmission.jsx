@@ -156,11 +156,11 @@ function NewIdeaSubmission(props) {
     const rightImages = imagesList.slice(4);
     let idea_id = 0;
 
-    useEffect(() => {
-        if (theme === 'Others') {
-            setProbStatment('');
-        }
-    }, [theme]);
+    // useEffect(() => {
+    //     if (theme === 'Others') {
+    //         setProbStatment('');
+    //     }
+    // }, [theme]);
 
     useEffect(() => {
         themeApi();
@@ -927,9 +927,9 @@ function NewIdeaSubmission(props) {
                                                 </div>
                                             </Row>
                                             <div>
-                                                {theme && theme === 'Others' && (
+                                                {/* {theme && theme !== "Others (Any other theme related to environment-friendly lifestyle)"  && (
                                                     <>
-                                                        <Row className="card mb-4 my-3 comment-card px-0 px-5 py-3 card">
+                                                       <Row className="card mb-4 my-3 comment-card px-0 px-5 py-3 card">
                                                             <div className="question quiz mb-0">
                                                                 <b
                                                                     style={{
@@ -1050,7 +1050,7 @@ function NewIdeaSubmission(props) {
                                                             </Row>
                                                         )}
                                                     </>
-                                                )}
+                                                )} */}
                                                 {/* {theme && theme !== 'Others' && (
                                                     <>
                                                         <Row className="card mb-4 my-3 comment-card px-0 px-5 py-3 card">
@@ -1118,7 +1118,7 @@ function NewIdeaSubmission(props) {
                                                         </Row>
                                                     </>
                                                 )} */}
-                                                {probStatment &&
+                                                {/* {probStatment &&
                                                     probStatment ===
                                                         'Others' && (
                                                         <>
@@ -1180,7 +1180,7 @@ function NewIdeaSubmission(props) {
                                                                 </div>
                                                             </Row>
                                                         </>
-                                                    )}
+                                                    )} */}
 
                                                 {/* {probStatment &&
                                                     probStatment !=
@@ -1276,8 +1276,7 @@ function NewIdeaSubmission(props) {
                                                         </Row>
                                                     )} */}
 
-                                                {(probStatment ||
-                                                    othersTheme.length > 2) && (
+                                                {theme && (
                                                     <Row className="card mb-4 my-3 comment-card px-0 px-5 py-3 card">
                                                         <div className="question quiz mb-0">
                                                             <b
@@ -1336,8 +1335,7 @@ function NewIdeaSubmission(props) {
                                                         </div>
                                                     </Row>
                                                 )}
-                                                {(probStatment ||
-                                                    othersTheme.length > 2) && (<Row className="card mb-4 my-3 comment-card px-0 px-5 py-3 card">
+                                                {theme && (<Row className="card mb-4 my-3 comment-card px-0 px-5 py-3 card">
                                                         <div className="question quiz mb-0">
                                                             {/* {theme ===
                                                             'Others' ? (
@@ -1435,8 +1433,7 @@ function NewIdeaSubmission(props) {
                                                     </Row>)}
                                                 
 
-                                                {(probStatment ||
-                                                    othersTheme.length > 2) && (
+                                                {theme && (
                                                     <Row className="card mb-4 my-3 comment-card px-0 px-5 py-3 card">
                                                         <div className="question quiz mb-0">
                                                             <b
@@ -1776,8 +1773,7 @@ function NewIdeaSubmission(props) {
                                                     </Row>
                                                 )}
 
-                                                {(probStatment ||
-                                                    othersTheme.length > 2) && (
+                                                {theme&& (
                                                     <Row className="card mb-4 my-3 comment-card px-0 px-5 py-3 card">
                                                         <div className="question quiz mb-0">
                                                             <b
@@ -1904,8 +1900,7 @@ function NewIdeaSubmission(props) {
                                                     </Row>
                                                 )}
 
-                                                {(probStatment ||
-                                                    othersTheme.length > 2) && (
+                                                {theme && (
                                                     <Row className="card mb-4 my-3 comment-card px-0 px-5 py-3 card">
                                                         <Label
                                                             check

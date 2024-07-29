@@ -169,6 +169,9 @@ const AddMentor = (props) => {
                 institution_name: institution_name,
                 student_id: JSON.stringify(currentUser?.data[0]?.student_id)
             });
+            console.log(body,
+                '111'
+            );
             // const editParam = encryptGlobal(
             //     JSON.stringify(currentUser?.data[0]?.user_id)
             // );
@@ -244,7 +247,7 @@ const AddMentor = (props) => {
             }
         }
     }, [formik.values.dob]);
-    // console.log(formik.values.institution_name,"111");
+    console.log(formik.values.gender,"111");
     return (
         <Layout title="Teams">
             <div className="EditPersonalDetails new-member-page">
@@ -473,7 +476,6 @@ const AddMentor = (props) => {
                                                 >
                                                     *
                                                 </span>
-                                                {/* <span style={{ fontSize: '12px' }}>(Select Others if your institution is not listed.)</span> */}
                                             </Label>
                                             <select
                                                 className="col-8 selectDropdown"
