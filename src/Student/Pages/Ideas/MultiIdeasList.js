@@ -228,7 +228,7 @@ const InstructionsPage = (props) => {
                                 <div className="btn btn-primary btn-lg mx-2">
                                     View
                                 </div>) : (<div className="btn btn-warning btn-lg mx-2">
-                                    Proceed
+                                    Edit
                                 </div>)}
                         </div>
                     </>
