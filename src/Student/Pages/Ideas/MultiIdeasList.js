@@ -228,7 +228,7 @@ const InstructionsPage = (props) => {
                                 <div className="btn btn-primary btn-lg mx-2">
                                     View
                                 </div>) : (<div className="btn btn-warning btn-lg mx-2">
-                                    Proceed
+                                    Edit
                                 </div>)}
                         </div>
                     </>
@@ -241,6 +241,7 @@ const InstructionsPage = (props) => {
             marginLeft: '2rem'
         }
     };
+    console.log(selectedRecord,"vvvvvv");
     return (
         <Layout title="Idea Submission">
             <div className="courses-page">
@@ -292,6 +293,7 @@ const InstructionsPage = (props) => {
                                 show={showModal}
                                 aria-labelledby="contained-modal-title-vcenter"
                                 centered
+                                size='lg'
                                 className="assign-evaluator ChangePSWModal teacher-register-modal"
                                 backdrop="static"
                             >
@@ -299,25 +301,24 @@ const InstructionsPage = (props) => {
                                     {/* <Modal.Title>Idea Details</Modal.Title> */}
                                     <Modal.Title
                                         id="contained-modal-title-vcenter"
-                                        className="w-100 d-block text-center"
+                                        className="w-100 d-block text-left"
                                     >
                                         {/* {response?.themes_problem?.theme_name} */}
                                         <p style={{ fontSize: '2rem' }}>
-                                            CID : {selectedRecord?.idea_id}{' '}
+                                            ID : {selectedRecord?.idea_id}{' '}
                                         </p>
                                         {/* <p>{response?.themes_problem?.problem_statement}</p> */}
                                     </Modal.Title>
                                 </Modal.Header>
                                 <Modal.Body>
-                                    <Card className="m-3 p-3">
+                                    <Card className="p-2">
                                         <CardBody>
                                             <label
                                                 htmlFor="teams"
                                                 className=""
                                                 style={{ fontSize: '1.3rem' }}
                                             >
-                                                Which theme are you targeting
-                                                with your solution ?
+                                               Which theme are you targeting with your solution ?
                                             </label>
                                             <CardText>
                                                 {
@@ -328,21 +329,19 @@ const InstructionsPage = (props) => {
                                             </CardText>
                                         </CardBody>
                                     </Card>
-                                    <Card className="m-3 p-3">
+                                    <Card className="p-2">
                                         <CardBody>
                                             <label
                                                 htmlFor="teams"
                                                 className=""
                                                 style={{ fontSize: '1.3rem' }}
                                             >
-                                                Which problem statement are you
-                                                targeting with your solution ?
+                                               Enter your problem statement
                                             </label>
                                             <CardText>
                                                 {
                                                     selectedRecord
-                                                        .themes_problem
-                                                        .problem_statement
+                                                        .idea_title
                                                 }
                                             </CardText>
                                         </CardBody>
@@ -366,17 +365,19 @@ const InstructionsPage = (props) => {
                                             </CardText>
                                         </CardBody>
                                     </Card> */}
-                                    <Card className="m-3 p-3">
+                                    <Card className="p-2">
                                         <CardBody>
                                             <label
                                                 htmlFor="teams"
                                                 className=""
                                                 style={{ fontSize: '1.3rem' }}
                                             >
-                                                Idea Title
+                                                Enter your detailed solution
                                             </label>
                                             <CardText>
-                                                {selectedRecord.idea_title}
+                                                {selectedRecord.
+detailed_solution
+}
                                             </CardText>
                                         </CardBody>
                                     </Card>
@@ -396,7 +397,7 @@ const InstructionsPage = (props) => {
                                             </CardText>
                                         </CardBody>
                                     </Card>{' '} */}
-                                    <Card className="m-3 p-3">
+                                    {/* <Card className="m-3 p-3">
                                         <CardBody>
                                             <label
                                                 htmlFor="teams"
@@ -411,8 +412,9 @@ const InstructionsPage = (props) => {
                                                 }
                                             </CardText>
                                         </CardBody>
-                                    </Card>{' '}
-                                    <Card className="m-3 p-3">
+                                    </Card>{' '} */}
+                                    <div>
+                                    <Card className="p-2">
                                         <CardBody>
                                             <label
                                                 htmlFor="teams"
@@ -433,7 +435,52 @@ const InstructionsPage = (props) => {
                                         'NO' &&
                                         selectedRecord.prototype_available !==
                                         '' && (
-                                            <Card className="m-3 p-3">
+                                            <><Card className="p-2">
+                                            <CardBody>
+                                                <label
+                                                    htmlFor="teams"
+                                                    className=""
+                                                    style={{
+                                                        fontSize: '1.3rem'
+                                                    }}
+                                                >
+                                                    If yes, Prototype File
+                                                    Upload (Only JPG/PNG)
+                                                </label>
+                                                {/* <CardText> */}
+                                                    {/* <CardText> */}
+                                                        {files.length > 0 &&
+                                                            files.map(
+                                                                (
+                                                                    item,
+                                                                    i
+                                                                ) => (
+                                                                    <Card
+                                                                        key={i}
+                                                                    >
+                                                                        <a
+                                                                            key={i}
+                                                                            className="badge bg-info p-3 ms-3 col-2"
+                                                                            target="_blank"
+                                                                            rel="noreferrer"
+                                                                            onClick={() => downloadFile(
+                                                                                item
+                                                                            )}
+                                                                        >
+                                                                            {item
+                                                                                .split(
+                                                                                    '/'
+                                                                                )
+                                                                                .pop()}
+                                                                        </a>
+                                                                    </Card>
+                                                                )
+                                                            )}
+                                                    {/* </CardText> */}
+                                                {/* </CardText> */}
+                                            </CardBody>
+                                        </Card>
+                                        <Card className="p-2">
                                                 <CardBody>
                                                     <label
                                                         htmlFor="teams"
@@ -442,51 +489,86 @@ const InstructionsPage = (props) => {
                                                             fontSize: '1.3rem'
                                                         }}
                                                     >
-                                                        If yes, Prototype File
-                                                        Upload (Only JPG/PNG)
+                                                      Please share youtube link of the solution/prototype or idea (Video recorded by you and uploaded on youtube)
                                                     </label>
                                                     <CardText>
                                                         <CardText>
-                                                            {files.length > 0 &&
-                                                                files.map(
-                                                                    (
-                                                                        item,
-                                                                        i
-                                                                    ) => (
-                                                                        <Card
-                                                                            key={
-                                                                                i
-                                                                            }
-                                                                        >
-                                                                            <a
-                                                                                key={
-                                                                                    i
-                                                                                }
-                                                                                className="badge mb-2 bg-info p-3 ms-3"
-                                                                                target="_blank"
-                                                                                rel="noreferrer"
-                                                                                onClick={() =>
-                                                                                    downloadFile(
-                                                                                        item
-                                                                                    )
-                                                                                }
-                                                                            >
-                                                                                {item
-                                                                                    .split(
-                                                                                        '/'
-                                                                                    )
-                                                                                    .pop()}
-                                                                            </a>
-                                                                        </Card>
-                                                                    )
-                                                                )}
+                                                        {/* {selectedRecord.youtubelink
+                                                        } */}
+                                                          {selectedRecord?.youtubelink && (
+                <a href={selectedRecord.youtubelink} target="_blank" rel="noopener noreferrer"  className="badge bg-info p-3 ms-3 col-2">
+                    YouTube Link
+                </a>
+           
+            )}
                                                         </CardText>
                                                     </CardText>
                                                 </CardBody>
-                                            </Card>
+                                            </Card></>
                                         )}
+</div>
+<Card className="p-2">
+                                        <CardBody>
+                                            <label
+                                                htmlFor="teams"
+                                                className=""
+                                                style={{ fontSize: '1.3rem' }}
+                                            >
+                                                Is this idea submitted by you or your team members in any other Forum or Programs or Publications as on date?
+                                            </label>
+                                            <CardText>
+                                                {
+                                                    selectedRecord.idea_available
+                                                }
+                                            </CardText>
+                                        </CardBody>
+                                    </Card>
+                                     {selectedRecord.idea_available === "YES" &&  
+                                     <Card className="p-2">
+                                        <CardBody>
+                                            <label
+                                                htmlFor="teams"
+                                                className=""
+                                                style={{ fontSize: '1.3rem' }}
+                                            >
+                                               Please Share Forum/Programs/Publications Details
+                                            </label>
+                                            <CardText>
+                                                {
+                                                    selectedRecord.fpp
+                                                }
+                                            </CardText>
+                                        </CardBody>
+                                    </Card>
+}
                                 </Modal.Body>
                                 <Modal.Footer>
+                                <div>
+                                <p
+                                    style={{ fontSize: '1.5rem' }}
+                                    className="fw-bold"
+                                >
+                                    Submitted By :{' '}
+                                    {selectedRecord.
+initiated_name}
+                                </p>
+                            </div>
+                            <br />
+                            <div>
+                                <p
+                                    style={{ fontSize: '1.5rem' }}
+                                    className="fw-bold"
+                                >
+                                    Submitted At :{' '}
+                                    {selectedRecord.submitted_at
+
+                                        ? moment(
+                                            selectedRecord.submitted_at
+
+                                          ).format('DD-MM-YYYY')
+                                        : '-'}
+                                </p>
+                            </div>
                                     <Button
                                         size="small"
                                         label={'Close'}

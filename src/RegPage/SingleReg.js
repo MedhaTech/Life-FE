@@ -502,7 +502,7 @@ function AtlPage() {
                 if (error?.response?.data?.status === 404) {
                     openNotificationWithIcon(
                         'error',
-                        'Email Id already exists'
+                        'Email Address already exists'
                     );
                     setTimeout(() => {
                         // setChange('Resend OTP');
