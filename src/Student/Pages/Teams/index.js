@@ -284,7 +284,7 @@ const TicketsPage = (props) => {
                     <Col className="ticket-btn col ml-auto ">
                         <div className="d-flex justify-content-end">
                         {/* {idData !== null && stuCont < 4 && ( */}
-                            {stuCont < 4 && (
+                            { idData === null && stuCont < 4 && (
                                 <Button
                                     label="ADD MEMBER"
                                     btnClass="primary ml-2"
@@ -312,7 +312,8 @@ const TicketsPage = (props) => {
                                         className="img-fluid h-300"
                                     />
                                     <h3 className='font-bold'>If you don't have any team members; <br /> proceed to submit your solution.</h3>
-                                  {idData === null &&   <Button
+                                  {idData === null ?  
+                                  <Button
                                         label="Proceed"
                                         btnClass="primary ml-2"
                                         size="small"
@@ -322,7 +323,16 @@ const TicketsPage = (props) => {
                                             history.push('/upload-file')
                                         }
                                     />
+: <Button
+label="Proceed"
+btnClass="primary ml-2"
+size="small"
+shape="btn-square"
+Icon={BsPlusLg}
+onClick={() =>
+    history.push('/List')
 }
+/>}
                                 </div>
                             </div>
                         ) : (

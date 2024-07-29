@@ -102,14 +102,14 @@ const AddMentor = (props) => {
                 .trim()
 
                 .required('Required'),
-            dob: Yup.date().required('Date of Birth is required'),
+            dob: Yup.date().required('Date of Birth is required/ Age Must be 16 '),
 
             // id_card: Yup.mixed().required('Please  upload'),
             // team_name: Yup.string()
 
             //     .required('Please  Enter Reg Id')
             //     .trim(),
-            age: Yup.number()
+            age: Yup.number().moreThan(15)
             // email: Yup.string()
             //     .email('Must be a valid email')
             //     .max(255)
@@ -217,36 +217,22 @@ const AddMentor = (props) => {
         // where we can discard  the changes //
         props.history.push('/teams');
     };
-    // useEffect(() => {
-    //     const currentDate = new Date();
-    //     const selectedDate = new Date(formik.values.dob);
-
-    //     if (!isNaN(selectedDate.getTime())) {
-    //         const Age = currentDate.getFullYear() - selectedDate.getFullYear();
-    //         formik.setFieldValue('age', JSON.stringify(Age));
-    //     }
-
-    // }, [formik.values.dob]);
-    const handleSchoolChange = (event) => {
-        const value = event.target.value;
-        setIsOtherSelected(value === 'Others');
-        formik.setFieldValue('institution_name', value === 'Others' ? '' : value);
-    };
     useEffect(() => {
         const currentDate = new Date();
         const selectedDate = new Date(formik.values.dob);
 
         if (!isNaN(selectedDate.getTime())) {
-            if (selectedDate > currentDate) {
-                formik.setFieldError('dob', 'Future dates are not allowed');
-                formik.setFieldValue('dob', '');
-            } else {
-                const age =
-                    currentDate.getFullYear() - selectedDate.getFullYear();
-                formik.setFieldValue('age', JSON.stringify(age));
-            }
+            const Age = currentDate.getFullYear() - selectedDate.getFullYear();
+            formik.setFieldValue('age', JSON.stringify(Age));
         }
+
     }, [formik.values.dob]);
+    const handleSchoolChange = (event) => {
+        const value = event.target.value;
+        setIsOtherSelected(value === 'Others');
+        formik.setFieldValue('institution_name', value === 'Others' ? '' : value);
+    };
+   
     console.log(formik.values.gender,"111");
     return (
         <Layout title="Teams">
