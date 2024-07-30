@@ -242,7 +242,7 @@ function AtlPage() {
                 .max(10, 'Enter only 10 digit valid number')
                 .min(10, 'Number is less than 10 digits'),
 
-            Age: Yup.number().moreThan(15, 'Age Should be above 15 years old').required("Age Required"),
+            Age: Yup.number().moreThan(16, 'Age Should be above 15 years old').required("Age Required"),
             // id_card: Yup.mixed().required("Upload Id Card"),
 
             Gender: Yup.string().required('Select Gender'),
@@ -252,7 +252,7 @@ function AtlPage() {
             //     'Age cannot exceed 65 years'
             // )
             .max(
-                new Date(new Date().getFullYear() - 15, 11, 31),
+                new Date(new Date().getFullYear() - 16, 11, 31),
 
                 'Age must be at above 15 years'
             )
