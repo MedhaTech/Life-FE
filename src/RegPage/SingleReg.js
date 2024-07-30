@@ -242,7 +242,7 @@ function AtlPage() {
                 .max(10, 'Enter only 10 digit valid number')
                 .min(10, 'Number is less than 10 digits'),
 
-            Age: Yup.number(),
+            Age: Yup.number().moreThan(15, 'Age Should be above 15 years old').required("Age Required"),
             // id_card: Yup.mixed().required("Upload Id Card"),
 
             Gender: Yup.string().required('Select Gender'),
@@ -251,11 +251,11 @@ function AtlPage() {
             //     new Date(new Date().getFullYear() - 65, 0, 1),
             //     'Age cannot exceed 65 years'
             // )
-            // .max(
-            //     new Date(new Date().getFullYear() - 21, 11, 31),
+            .max(
+                new Date(new Date().getFullYear() - 15, 11, 31),
 
-            //     'Age must be at least 21 years'
-            // )
+                'Age must be at above 15 years'
+            )
         }),
 
         onSubmit: async (values) => {
@@ -524,13 +524,14 @@ function AtlPage() {
         const selectedDate = new Date(formik.values.date_of_birth);
 
         if (!isNaN(selectedDate.getTime())) {
+            const Age =
+            currentDate.getFullYear() - selectedDate.getFullYear();
             if (selectedDate > currentDate) {
                 formik.setFieldError('date_of_birth', 'Future dates are not allowed');
                 formik.setFieldValue('date_of_birth', '');
             } else {
-                const age =
-                    currentDate.getFullYear() - selectedDate.getFullYear();
-                formik.setFieldValue('age', JSON.stringify(age));
+              
+                formik.setFieldValue('Age', Age);
             }
         }
     }, [formik.values.date_of_birth]);
@@ -554,7 +555,8 @@ function AtlPage() {
             formik.values.group.length > 0 &&
             formik.values.year_of_study.length > 0 &&
             formik.values.reg_no.length > 0 &&
-            formik.values.institution_name.length > 0
+            formik.values.institution_name.length > 0 &&
+            formik.values.Age.length > 0
         ) {
             setDisable(true);
         } else {
@@ -573,25 +575,15 @@ function AtlPage() {
         formik.values.city,
         formik.values.year_of_study,
         formik.values.reg_no,
-        formik.values.institution_name
+        formik.values.institution_name,formik.values.Age
     ]);
 
     const handleOtpChange = (e) => {
         formik.setFieldValue('otp', e);
         setErrorMsg(false);
     };
-    useEffect(() => {
-        const currentDate = new Date();
-        const selectedDate = new Date(formik.values.date_of_birth);
-
-        if (!isNaN(selectedDate.getTime())) {
-            const Age = currentDate.getFullYear() - selectedDate.getFullYear();
-            formik.setFieldValue('Age', JSON.stringify(Age));
-        }
-        // else {
-        //     formik.setFieldValue('age', 0);
-        // }
-    }, [formik.values.date_of_birth]);
+    console.log(formik.values.Age,"Age");
+   
     const dateRegex = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/;
     const [hide, setHide] = useState(true);
     return (
