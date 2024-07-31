@@ -1701,7 +1701,7 @@ function AtlPage() {
                                                             ? counter - '0'
                                                             : counter}
                                                     </h3>
-                                                    <p>We have sent an OTP code to your above mentioned email address.</p>
+                                                    <p>We have sent a Verification Code to your email address mentioned above.</p>
                                                     <div
                                                         className="w-100 d-block text-left"
                                                     // className="form-row row mb-5 col-md-3 text-centered"
