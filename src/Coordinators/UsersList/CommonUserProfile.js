@@ -266,7 +266,7 @@ const CommonUserProfile = (props) => {
                 <Row>
                     <div className="col-6">
                         {/* <BreadcrumbTwo {...headingDetails} /> */}
-                        <h3 className="mt-5"> User List Details</h3>
+                        <h3 className="mt-5"> Students Details</h3>
                     </div>
                     <div className="col-6 text-end">
                         <Button
