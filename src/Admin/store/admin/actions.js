@@ -144,7 +144,9 @@ export const adminLoginUser = (data, history, module) => async (dispatch) => {
             localStorage.setItem('time', new Date().toString());
             dispatch(adminLoginUserSuccess(result));
 
-            history.push('/admin/dashboard');
+            // history.push('/admin/dashboard');
+            history.push('/admin/challenges');
+
         } else {
             openNotificationWithIcon('error', 'Invalid Username or Password');
             dispatch(adminLoginUserError(result.statusText));
