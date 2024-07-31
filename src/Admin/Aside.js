@@ -105,7 +105,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
 
             <SidebarContent>
                 <Menu iconShape="circle">
-                    <MenuItem
+                    {/* <MenuItem
                         icon={
                             <img
                                 src={DashboardIcon1}
@@ -129,7 +129,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                                 Dashboard
                             </span>
                         </NavLink>
-                    </MenuItem>
+                    </MenuItem> */}
                     <MenuItem
                         icon={
                             <img
@@ -158,7 +158,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                         </NavLink>
                     </MenuItem>
 
-                    <MenuItem
+                    {/* <MenuItem
                         icon={
                             <img
                                 src={EvaluationIcon}
@@ -184,7 +184,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                                 Evaluation Status
                             </span>
                         </NavLink>
-                    </MenuItem>
+                    </MenuItem> */}
                     {/* <MenuItem
                         icon={
                             <img
@@ -413,7 +413,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                         </NavLink>
                     </MenuItem> */}
 
-                    <MenuItem
+                    {/* <MenuItem
                         icon={
                             <img
                                 src={FAQICON}
@@ -439,9 +439,9 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                                 Translation
                             </span>
                         </NavLink>
-                    </MenuItem>
+                    </MenuItem> */}
 
-                    <MenuItem
+                    {/* <MenuItem
                         icon={
                             <img
                                 src={ReportIcon1}
@@ -467,7 +467,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                                 Reports
                             </span>
                         </NavLink>
-                    </MenuItem>
+                    </MenuItem> */}
 
                     <MenuItem
                         icon={

@@ -57,12 +57,13 @@ const SelectDists = ({
     drop
 }) => {
     const [loading, setLoading] = useState(false);
-    console.log(stateList, 'id');
+    // console.log(stateList, 'id');
     // useEffect(() => {
     //     if (tab && (tab == 1 || tab == 2)) getDistrictsListAction();
     // }, [tab]);
     // console.log();
     const handleDists = (e) => {
+        // console.log(e,"e");
         // setNewDist(e.target.value);
         setLoading(true);
         setTimeout(() => {
@@ -71,6 +72,7 @@ const SelectDists = ({
         setDist(e.target.value);
         localStorage.setItem('dist', e.target.value);
     };
+        // console.log(dist,"e");
 
     return (
         <select
