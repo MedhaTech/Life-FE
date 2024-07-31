@@ -1,5 +1,6 @@
 /* eslint-disable indent */
 export const stateList = [
+    "All States",
     'Andaman and Nicobar Islands',
     'Andhra Pradesh',
     'Arunachal Pradesh',
@@ -35,7 +36,8 @@ export const stateList = [
     'Tripura',
     'Uttar Pradesh',
     'Uttarakhand',
-    'West Bengal'
+    'West Bengal',
+    
 ];
 export const institutionType = ['Engineering', 'Law', 'Life Sciences', 'Medical', 'Ayurveda', 'Others'];
 export const applicant_categories = ['Student', 'Faculty', 'Research Scholar', 'Others'];
