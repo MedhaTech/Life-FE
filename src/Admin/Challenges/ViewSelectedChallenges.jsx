@@ -82,9 +82,11 @@ const ViewSelectedIdea = () => {
         // where we can select district and sdg //
         // where we can see list of challenges districtwise //
         setshowspin(true);
-        await handleideaList();
+        // await handleideaList();
     };
-
+useEffect(()=>{
+ handleideaList();
+},[]);
     async function handleideaList() {
         // handleideaList api //
         //where we can see all ideas in districtwise //
@@ -95,7 +97,7 @@ const ViewSelectedIdea = () => {
             JSON.stringify({
                 status: param,
                 // state: state !== 'All States' ? state : '',
-                district: district !== 'All Districts' ? district : ''
+                // district: district !== 'All Districts' ? district : ''
                 // sdg: sdg !== 'All Themes' ? sdg : ''
             })
         );
@@ -103,6 +105,7 @@ const ViewSelectedIdea = () => {
             .get(`${URL.getidealist}Data=${resparam}`, axiosConfig)
             .then(function (response) {
                 if (response.status === 200) {
+                    // console.log(response,"11");
                     const updatedWithKey =
                         response.data &&
                         response.data.data[0] &&
@@ -291,7 +294,7 @@ const ViewSelectedIdea = () => {
         ]
     };
 
-    const showbutton = district;
+    // const showbutton = district;
 
     const handleNext = () => {
         // here we can go for next page //
@@ -375,7 +378,7 @@ const ViewSelectedIdea = () => {
                                                 </div>
                                             </Col> */}
                                             <Col md={3}>
-                                                <div className="my-3 d-md-block d-flex justify-content-center">
+                                                {/* <div className="my-3 d-md-block d-flex justify-content-center">
                                                     <Select
                                                         list={fiterDistData}
                                                         setValue={setdistrict}
@@ -384,7 +387,7 @@ const ViewSelectedIdea = () => {
                                                         }
                                                         value={district}
                                                     />
-                                                </div>
+                                                </div> */}
                                             </Col>
                                             {/* <Col md={3}>
                                                 <div className="my-3 d-md-block d-flex justify-content-center">
@@ -400,7 +403,7 @@ const ViewSelectedIdea = () => {
                                             </Col> */}
                                             <Col md={2}>
                                                 <div className="text-center">
-                                                    <Button
+                                                    {/* <Button
                                                         btnClass={
                                                             showbutton
                                                                 ? 'primary'
@@ -412,7 +415,7 @@ const ViewSelectedIdea = () => {
                                                         onClick={() =>
                                                             handleclickcall()
                                                         }
-                                                    />
+                                                    /> */}
                                                 </div>
                                             </Col>
                                         </Row>

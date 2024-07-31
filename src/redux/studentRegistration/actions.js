@@ -73,7 +73,7 @@ export const getStudentRegistationData = (studentType) => async (dispatch) => {
         const newS = encryptGlobal(
             JSON.stringify({
                 status: 'ALL',
-                district_name: studentType
+                state: studentType
             })
         );
         let result;
