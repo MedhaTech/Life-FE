@@ -940,7 +940,7 @@ const TicketsPage = (props) => {
         <Layout title="UserList">
             <Container className="ticket-page mt-5 mb-50 userlist">
                 <Row className="mt-0 pt-3">
-                    <h2>User List</h2>
+                    <h2>Reg. Students List</h2>
                     <Row className="mt-0">
                         <Col className="ticket-btn col ml-auto  ">
                             <div
