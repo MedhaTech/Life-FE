@@ -2,7 +2,7 @@
 
 /* eslint-disable indent */
 export const stateList = [
-    "All States",
+    
     'Andaman and Nicobar Islands',
     'Andhra Pradesh',
     'Arunachal Pradesh',
@@ -41,8 +41,8 @@ export const stateList = [
     'West Bengal',
     
 ];
-export const protoTypeList=["YES","NO","ALL"];
-export const institutionType = ['Engineering', 'Law', 'Life Sciences', 'Medical', 'Ayurveda', 'Others',"All Institutions"];
+export const protoTypeList=["ALL","YES","NO"];
+export const institutionType = ['Engineering', 'Law', 'Life Sciences', 'Medical', 'Ayurveda', 'Others'];
 // export const themesList =[
 //     "Save Energy",
 //     "Save Water",
@@ -53,7 +53,7 @@ export const institutionType = ['Engineering', 'Law', 'Life Sciences', 'Medical'
 //     "Adopt Healthy Lifestyles",
 //     "Others (Any other theme related to environment-friendly lifestyle) "];
     export const themesList = [
-        {0:"All Themes"},
+        {"0":"All Themes"},
 
         { 1: "Save Energy" },
         { 2:"Save Water" },
@@ -66,9 +66,9 @@ export const institutionType = ['Engineering', 'Law', 'Life Sciences', 'Medical'
 
     ];
     
-export const applicant_categories = ['Student', 'Faculty', 'Research Scholar', 'Others',"All Categorys"
+export const applicant_categories = ['Student', 'Faculty', 'Research Scholar', 'Others',
 ];
-export const genderList=["MALE","FEMALE","OTHERS","All Genders"];
+export const genderList=["All","MALE","FEMALE","OTHERS"];
 
 export const istitutionNameList = {
     Engineering: [

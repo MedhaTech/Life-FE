@@ -103,7 +103,7 @@ console.log(sdg,"ress");
                 status: param,
                 // state: state !== 'All States' ? state : '',
                 // district: district !== 'All Districts' ? district : ''
-                prototype_available: protoType !== "All" ? protoType:"",
+                prototype_available: protoType !== "ALL" ? protoType:"",
                 theme_problem_id: sdg !== 'All Themes' ? sdg : ''
             })
         );

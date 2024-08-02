@@ -109,6 +109,10 @@ const [institution,setInstitution]=useState("");
     const district = localStorage.getItem('dist');
     const [menter, activeMenter] = useState(false);
     const [loading, setLoading] = useState(false);
+    const updatedcategories = ['All Categories', ...applicant_categories];
+const updateStatesList=["All States",...stateList];
+const updateInstitution=["All Institutions",...institutionType];
+
 
     const [evaluater, activeEvaluater] = useState(false);
     const [tab, setTab] = useState('1');
@@ -540,7 +544,7 @@ const [institution,setInstitution]=useState("");
                                             <Col md={2}>
                                                 <div className="my-3 d-md-block d-flex justify-content-center">
                                                     <Select
-                                                        list={stateList}
+                                                        list={updateStatesList}
                                                         setValue={setState}
                                                         placeHolder={
                                                             'State'
@@ -552,7 +556,7 @@ const [institution,setInstitution]=useState("");
                                             <Col md={2}>
                                                 <div className="my-3 d-md-block d-flex justify-content-center">
                                                     <Select
-                                                        list={applicant_categories}
+                                                        list={updatedcategories}
                                                         setValue={setApplicant}
                                                         placeHolder={
                                                             'Applicant Category'
@@ -564,7 +568,7 @@ const [institution,setInstitution]=useState("");
                                             <Col md={2}>
                                                 <div className="my-3 d-md-block d-flex justify-content-center">
                                                     <Select
-                                                        list={institutionType}
+                                                        list={updateInstitution}
                                                         setValue={setInstitution}
                                                         placeHolder={
                                                             'Institution Type'
