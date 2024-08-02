@@ -10,6 +10,8 @@ import axios from 'axios';
 import { KEY, URL } from '../../constants/defaultValues';
 import { Button } from '../../stories/Button';
 import Select from './pages/Select';
+import Selects from './Select.js';
+
 import { Col, Container, Row } from 'reactstrap';
 import { cardData } from '../../Student/Pages/Ideas/SDGData.js';
 import { useSelector } from 'react-redux';
@@ -27,7 +29,7 @@ import DetailToDownload from './DetailToDownload';
 import { useReactToPrint } from 'react-to-print';
 import { FaDownload } from 'react-icons/fa';
 import { encryptGlobal } from '../../constants/encryptDecrypt.js';
-
+import { themesList ,stateList,protoTypeList} from '../../RegPage/OrgData.js';
 const ViewSelectedIdea = () => {
     // here we can see the selected ideas in district wise and sdg //
     const dispatch = useDispatch();
@@ -36,17 +38,18 @@ const ViewSelectedIdea = () => {
     const [tableData, settableData] = React.useState([]);
     const [district, setdistrict] = React.useState('');
     const [state, setState] = useState('');
-    const [sdg, setsdg] = React.useState('');
+    const [sdg, setsdg] = React.useState("");
+    const [protoType,setProtoType]=useState("");
     //---for handle next idea---
     const [currentRow, setCurrentRow] = React.useState(1);
     const [tablePage, setTablePage] = React.useState(1);
     // eslint-disable-next-line no-unused-vars
     const [btnDisabler, setBtnDisabler] = React.useState(false);
     const [showspin, setshowspin] = React.useState(false);
-    const SDGDate = cardData.map((i) => {
-        return i.goal_title;
-    });
-    SDGDate.unshift('All Themes');
+    // const SDGDate = cardData.map((i) => {
+    //     return i.goal_title;
+    // });
+    // SDGDate.unshift('All Themes');
     const fullStatesNames = useSelector(
         (state) => state?.studentRegistration?.regstate
     );
@@ -82,11 +85,13 @@ const ViewSelectedIdea = () => {
         // where we can select district and sdg //
         // where we can see list of challenges districtwise //
         setshowspin(true);
-        // await handleideaList();
+        await handleideaList();
     };
-useEffect(()=>{
- handleideaList();
-},[]);
+// useEffect(()=>{
+//  handleideaList();
+// },[]);
+console.log(sdg,"ress");
+
     async function handleideaList() {
         // handleideaList api //
         //where we can see all ideas in districtwise //
@@ -98,7 +103,8 @@ useEffect(()=>{
                 status: param,
                 // state: state !== 'All States' ? state : '',
                 // district: district !== 'All Districts' ? district : ''
-                // sdg: sdg !== 'All Themes' ? sdg : ''
+                prototype_available: protoType !== "All" ? protoType:"",
+                theme_problem_id: sdg !== 'All Themes' ? sdg : ''
             })
         );
         await axios
@@ -294,7 +300,7 @@ useEffect(()=>{
         ]
     };
 
-    // const showbutton = district;
+    const showbutton =protoType && sdg ;
 
     const handleNext = () => {
         // here we can go for next page //
@@ -365,19 +371,8 @@ useEffect(()=>{
 
                                     <Container fluid className="px-0">
                                         <Row className="align-items-center">
-                                            {/* <Col md={3}>
-                                                <div className="my-3 d-md-block d-flex justify-content-center">
-                                                    <Select
-                                                        list={fullStatesNames}
-                                                        setValue={setState}
-                                                        placeHolder={
-                                                            'Select State'
-                                                        }
-                                                        value={state}
-                                                    />
-                                                </div>
-                                            </Col> */}
-                                            <Col md={3}>
+                                           
+                                            {/* <Col md={3}> */}
                                                 {/* <div className="my-3 d-md-block d-flex justify-content-center">
                                                     <Select
                                                         list={fiterDistData}
@@ -388,11 +383,11 @@ useEffect(()=>{
                                                         value={district}
                                                     />
                                                 </div> */}
-                                            </Col>
-                                            {/* <Col md={3}>
+                                            {/* </Col> */}
+                                            <Col md={3}>
                                                 <div className="my-3 d-md-block d-flex justify-content-center">
-                                                    <Select
-                                                        list={SDGDate}
+                                                    <Selects
+                                                        list={themesList}
                                                         setValue={setsdg}
                                                         placeHolder={
                                                             'Select Themes'
@@ -400,10 +395,22 @@ useEffect(()=>{
                                                         value={sdg}
                                                     />
                                                 </div>
-                                            </Col> */}
+                                            </Col>
+                                            <Col md={3}>
+                                                <div className="my-3 d-md-block d-flex justify-content-center">
+                                                    <Select
+                                                        list={protoTypeList}
+                                                        setValue={setProtoType}
+                                                        placeHolder={
+                                                            'Select ProtoType'
+                                                        }
+                                                        value={protoType}
+                                                    />
+                                                </div>
+                                            </Col>
                                             <Col md={2}>
                                                 <div className="text-center">
-                                                    {/* <Button
+                                                    <Button
                                                         btnClass={
                                                             showbutton
                                                                 ? 'primary'
@@ -415,7 +422,7 @@ useEffect(()=>{
                                                         onClick={() =>
                                                             handleclickcall()
                                                         }
-                                                    /> */}
+                                                    />
                                                 </div>
                                             </Col>
                                         </Row>

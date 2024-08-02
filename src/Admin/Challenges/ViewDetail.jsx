@@ -534,7 +534,8 @@ const ViewDetail = (props) => {
                                             fontSize: '1.6rem'
                                         }}
                                     >
-                                        {1}. {t('student_course.ques1')}
+                                        {/* {1}. {t('student_course.ques1')} */}
+                                        Which theme are you targeting with your solution ?
                                         {/* {item?.question_no || ''}.{' '}
                                                 {item?.question || ''} */}
                                     </b>
@@ -564,9 +565,7 @@ const ViewDetail = (props) => {
                                             fontSize: '1.6rem'
                                         }}
                                     >
-                                        {2}. {t('student_course.ques2')}
-                                        {/* {item?.question_no || ''}.{' '}
-                                                {item?.question || ''} */}
+                                       Idea Category
                                     </b>
                                 </div>
                                 <div className="bg-light rounded p-5">
@@ -576,8 +575,7 @@ const ViewDetail = (props) => {
                                         }}
                                     >
                                         {
-                                            teamResponse?.themes_problem
-                                                ?.problem_statement
+                                            teamResponse?.technology
                                         }
                                     </p>
                                 </div>
@@ -594,10 +592,7 @@ const ViewDetail = (props) => {
                                             fontSize: '1.6rem'
                                         }}
                                     >
-                                        {3}.{' '}
-                                        {t('student_course.ques3description')}
-                                        {/* {item?.question_no || ''}.{' '}
-                                                {item?.question || ''} */}
+                                        Enter your problem statement
                                     </b>
                                 </div>
                                 <div className="bg-light rounded p-5">
@@ -607,8 +602,7 @@ const ViewDetail = (props) => {
                                         }}
                                     >
                                         {
-                                            teamResponse?.themes_problem
-                                                ?.problem_statement_description
+                                            teamResponse?.idea_title
                                         }
                                     </p>
                                 </div>
@@ -625,10 +619,7 @@ const ViewDetail = (props) => {
                                             fontSize: '1.6rem'
                                         }}
                                     >
-                                        {4}.{' '}
-                                        {t('student_course.ques4ideatitile')}
-                                        {/* {item?.question_no || ''}.{' '}
-                                                {item?.question || ''} */}
+                                        Enter your detailed solution
                                     </b>
                                 </div>
                                 <div className="bg-light rounded p-5">
@@ -637,7 +628,9 @@ const ViewDetail = (props) => {
                                             fontSize: '1.4rem'
                                         }}
                                     >
-                                        {teamResponse?.idea_title}
+                                        {
+                                            teamResponse?.detailed_solution
+                                        }
                                     </p>
                                 </div>
                             </div>
@@ -653,65 +646,8 @@ const ViewDetail = (props) => {
                                             fontSize: '1.6rem'
                                         }}
                                     >
-                                        {5}. {t('student_course.ques5solution')}
-                                        {/* {item?.question_no || ''}.{' '}
-                                                {item?.question || ''} */}
-                                    </b>
-                                </div>
-                                <div className="bg-light rounded p-5">
-                                    <p
-                                        style={{
-                                            fontSize: '1.4rem'
-                                        }}
-                                    >
-                                        {teamResponse?.solution_statement}
-                                    </p>
-                                </div>
-                            </div>
-                        </div>{' '}
-                        <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
-                            <div
-                                // key={index}
-                                className="mb-4 my-3 comment-card px-5 py-3 card me-md-3"
-                            >
-                                <div className="question quiz mb-0">
-                                    <b
-                                        style={{
-                                            fontSize: '1.6rem'
-                                        }}
-                                    >
-                                        {6}.{' '}
-                                        {t('student_course.ques6detailsol')}
-                                        {/* {item?.question_no || ''}.{' '}
-                                                {item?.question || ''} */}
-                                    </b>
-                                </div>
-                                <div className="bg-light rounded p-5">
-                                    <p
-                                        style={{
-                                            fontSize: '1.4rem'
-                                        }}
-                                    >
-                                        {teamResponse?.detailed_solution}
-                                    </p>
-                                </div>
-                            </div>
-                        </div>{' '}
-                        <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
-                            <div
-                                // key={index}
-                                className="mb-4 my-3 comment-card px-5 py-3 card me-md-3"
-                            >
-                                <div className="question quiz mb-0">
-                                    <b
-                                        style={{
-                                            fontSize: '1.6rem'
-                                        }}
-                                    >
-                                        {7}.{' '}
-                                        {t('student_course.ques7Prototype')}
-                                        {/* {item?.question_no || ''}.{' '}
-                                                {item?.question || ''} */}
+                                         Do you already have a prototype
+                                         built?
                                     </b>
                                 </div>
                                 <div className="bg-light rounded p-5">
@@ -738,26 +674,16 @@ const ViewDetail = (props) => {
                                                     fontSize: '1.6rem'
                                                 }}
                                             >
-                                                {t('student_course.ques8file')}
-                                                {/* {item?.question_no || ''}.{' '}
-                                                {item?.question || ''} */}
+                                                 If yes, Prototype File
+                                                 Upload (Only JPG/PNG)
                                             </b>
                                         </div>
                                         <div className="bg-light rounded p-5">
-                                            {/* <p
-                                        style={{
-                                            fontSize: '1.4rem'
-                                        }}
-                                    >
-                                        {teamResponse?.Prototype_file}
-                                    </p> */}
+                                           
                                             {files.length > 0 &&
                                                 files.map((item, i) => (
                                                     <div key={i}>
-                                                        {/* <CardTitle className="fw-bold">
-                                                    {item.question}
-                                                </CardTitle> */}
-                                                        {/* <CardBody> */}
+                                                      
                                                         <a
                                                             key={i}
                                                             className="badge mb-2 bg-info p-3 ms-3"
@@ -769,18 +695,118 @@ const ViewDetail = (props) => {
                                                                 )
                                                             }
                                                         >
-                                                            {/* {item} */}
+                                                           
                                                             {item
                                                                 .split('/')
                                                                 .pop()}
                                                         </a>
-                                                        {/* </CardBody> */}
                                                     </div>
                                                 ))}
                                         </div>
                                     </div>
+                                    <div
+                                        // key={index}
+                                        className="mb-4 my-3 comment-card px-5 py-3 card me-md-3"
+                                    >
+                                        <div className="question quiz mb-0">
+                                            <b
+                                                style={{
+                                                    fontSize: '1.6rem'
+                                                }}
+                                            >
+                                                Please share youtube link of the solution/prototype or idea (Video recorded by you and uploaded on youtube)
+                                            </b>
+                                        </div>
+                                        <div className="bg-light rounded p-5">
+                                        {teamResponse?.youtubelink && (
+                <a href={teamResponse.youtubelink} target="_blank" rel="noopener noreferrer"  className="badge bg-info p-3 ms-3 col-1">
+                    YouTube Link
+                </a>
+           
+            )}
+                                        </div>
+                                    </div>
                                 </div>
                             )}
+                        {/* <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
+                            <div
+                                // key={index}
+                                className="mb-4 my-3 comment-card px-5 py-3 card me-md-3"
+                            >
+                                <div className="question quiz mb-0">
+                                    <b
+                                        style={{
+                                            fontSize: '1.6rem'
+                                        }}
+                                    >
+                                        {5}. {t('student_course.ques5solution')}
+                                        
+                                    </b>
+                                </div>
+                                <div className="bg-light rounded p-5">
+                                    <p
+                                        style={{
+                                            fontSize: '1.4rem'
+                                        }}
+                                    >
+                                        {teamResponse?.solution_statement}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>{' '}
+                        <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
+                            <div
+                                className="mb-4 my-3 comment-card px-5 py-3 card me-md-3"
+                            >
+                                <div className="question quiz mb-0">
+                                    <b
+                                        style={{
+                                            fontSize: '1.6rem'
+                                        }}
+                                    >
+                                        {6}.{' '}
+                                        {t('student_course.ques6detailsol')}
+                                        
+                                    </b>
+                                </div>
+                                <div className="bg-light rounded p-5">
+                                    <p
+                                        style={{
+                                            fontSize: '1.4rem'
+                                        }}
+                                    >
+                                        {teamResponse?.detailed_solution}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>{' '}
+                        <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
+                            <div
+                                className="mb-4 my-3 comment-card px-5 py-3 card me-md-3"
+                            >
+                                <div className="question quiz mb-0">
+                                    <b
+                                        style={{
+                                            fontSize: '1.6rem'
+                                        }}
+                                    >
+                                        {7}.{' '}
+                                        {t('student_course.ques7Prototype')}
+                                       
+                                    </b>
+                                </div>
+                                <div className="bg-light rounded p-5">
+                                    <p
+                                        style={{
+                                            fontSize: '1.4rem'
+                                        }}
+                                    >
+                                        {teamResponse?.prototype_available}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>{' '} */}
+                       
                         <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
                             <div
                                 // key={index}
@@ -792,10 +818,8 @@ const ViewDetail = (props) => {
                                             fontSize: '1.6rem'
                                         }}
                                     >
-                                        {8}.{' '}
-                                        {t('student_course.ques9publication')}
-                                        {/* {item?.question_no || ''}.{' '}
-                                                {item?.question || ''} */}
+                                       Is this idea submitted by you or your team members in any other Forum or Programs or Publications as on date?
+                                      
                                     </b>
                                 </div>
                                 <div className="bg-light rounded p-5">
@@ -809,6 +833,32 @@ const ViewDetail = (props) => {
                                 </div>
                             </div>
                         </div>
+                       {teamResponse.idea_available === "YES" && <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
+                            <div
+                                // key={index}
+                                className="mb-4 my-3 comment-card px-5 py-3 card me-md-3"
+                            >
+                                <div className="question quiz mb-0">
+                                    <b
+                                        style={{
+                                            fontSize: '1.6rem'
+                                        }}
+                                    >
+                                       Please Share Forum/Programs/Publications Details
+                                      
+                                    </b>
+                                </div>
+                                <div className="bg-light rounded p-5">
+                                    <p
+                                        style={{
+                                            fontSize: '1.4rem'
+                                        }}
+                                    >
+                                        {teamResponse?.idea_available}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>}
                         {teamResponse?.status !== 'DRAFT' ? (
                             <div style={{ display: 'flex' }}>
                                 <p
@@ -842,7 +892,7 @@ const ViewDetail = (props) => {
                             ''
                         )}
                         <br />
-                        {teamResponse?.status !== 'DRAFT' ? (
+                        {/* {teamResponse?.status !== 'DRAFT' ? (
                             <div style={{ display: 'flex' }}>
                                 <p
                                     style={{
@@ -873,7 +923,7 @@ const ViewDetail = (props) => {
                             </div>
                         ) : (
                             ''
-                        )}
+                        )} */}
                         {/* <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
                             {teamResponse?.map((item, index) => {
                                 return (
