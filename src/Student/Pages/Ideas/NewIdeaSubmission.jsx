@@ -130,7 +130,7 @@ function NewIdeaSubmission(props) {
         props?.submitedData?.technology
     );
     const question = ['YES', 'NO'];
-    const ques = ["Technological Innovations:(Any innovation involving coding, such as IoT, internet applications, or other digital technologies.)", "Non-Technological Innovations: (Initiatives without coding or digital tech, including community actions, traditional methods, communication strategies, and advocacy campaigns.)"];
+    const ques = ["Technological Innovations: (Any innovation involving coding, such as IoT, internet applications, or other digital technologies.)", "Non-Technological Innovations: (Initiatives without coding or digital tech, including community actions, traditional methods, communication strategies, and advocacy campaigns.)"];
     const ideaSubmitted = ['YES', 'NO'];
     const [ideaPublication, setIdeaPublication] = useState(
         props?.submitedData?.idea_available

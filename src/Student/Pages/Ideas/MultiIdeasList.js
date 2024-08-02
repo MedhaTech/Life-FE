@@ -304,7 +304,7 @@ const InstructionsPage = (props) => {
                                         className="w-100 d-block text-left"
                                     >
                                         {/* {response?.themes_problem?.theme_name} */}
-                                        <p style={{ fontSize: '2rem' }}>
+                                        <p style={{ fontSize: '2rem' }} className='mb-0'>
                                             ID : {selectedRecord?.idea_id}{' '}
                                         </p>
                                         {/* <p>{response?.themes_problem?.problem_statement}</p> */}
@@ -336,7 +336,7 @@ const InstructionsPage = (props) => {
                                                 className=""
                                                 style={{ fontSize: '1.3rem' }}
                                             >
-                                               Is that Technology ?
+                                               Idea Category
                                             </label>
                                             <CardText>
                                                 {
@@ -582,7 +582,7 @@ initiated_name}
                                         ? moment(
                                             selectedRecord.submitted_at
 
-                                          ).format('DD-MM-YYYY')
+                                          ).format('DD-MM-YYYY HH:MM A')
                                         : '-'}
                                 </p>
                             </div>
