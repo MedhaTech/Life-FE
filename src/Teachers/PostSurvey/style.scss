@@ -18,8 +18,8 @@
     .comment-card::before{
         content: '';
         height: 100%;
-        width: 5px;
-        background: #067DE1;
+        width: 3px;
+        background: var(--bs-green);
         position: absolute;
         left: 0;
         top: 0;

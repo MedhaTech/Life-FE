@@ -952,19 +952,8 @@ function AtlPage() {
                                                         >
                                                             *
                                                         </span>
+                                                        <span style={{ fontSize: '10px' }}>(default password)</span>
                                                     </Label>
-                                                    <span href="#" id="TooltipExample1">
-                                                        <FaInfoCircle size={16} className='text-success' />
-                                                    </span>
-
-                                                    <Tooltip
-                                                        placement="right"
-                                                        isOpen={tooltipOpen1}
-                                                        target="TooltipExample1"
-                                                        toggle={toggleTooltip1}
-                                                    >
-                                                        Your default password will be your mobile number only.
-                                                    </Tooltip>
                                                     <InputBox
                                                         type="text"
                                                         placeholder="Enter Mobile Number"

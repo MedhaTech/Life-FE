@@ -80,7 +80,7 @@ function NewIdeaSubmission(props) {
         (history && history.location && history.location.data) || false;
     // const NewIdeaid =
     //     (history && history.location && history.location.data.idea);
-    
+
     const currentUser = getCurrentUser('current_user');
     const StudentId = currentUser?.data[0]?.student_id;
     const userId = currentUser?.data[0]?.user_id;
@@ -130,7 +130,7 @@ function NewIdeaSubmission(props) {
         props?.submitedData?.technology
     );
     const question = ['YES', 'NO'];
-    const ques=["Technological Innovations:(Any innovation involving coding, such as IoT, internet applications, or other digital technologies.)","Non-Technological Innovations: (Initiatives without coding or digital tech, including community actions, traditional methods, communication strategies, and advocacy campaigns.)"];
+    const ques = ["Technological Innovations:(Any innovation involving coding, such as IoT, internet applications, or other digital technologies.)", "Non-Technological Innovations: (Initiatives without coding or digital tech, including community actions, traditional methods, communication strategies, and advocacy campaigns.)"];
     const ideaSubmitted = ['YES', 'NO'];
     const [ideaPublication, setIdeaPublication] = useState(
         props?.submitedData?.idea_available
@@ -159,12 +159,18 @@ function NewIdeaSubmission(props) {
     const rightThemes = themesList.slice(4);
     const rightImages = imagesList.slice(4);
     let idea_id = 0;
+    const allImages = [{ 'Save Energy': e }, { 'Save Water': f }, { 'Say No to Single Use Plastic': g }, { 'Reduce E-waste': c }, { 'Adopt Sustainable Food Systems': b }, { 'Reduce Waste': d }, { 'Adopt Healthy Lifestyles': a }, { 'Others (Any other theme related to environment-friendly lifestyle)': h }];
 
     // useEffect(() => {
     //     if (theme === 'Others') {
     //         setProbStatment('');
     //     }
     // }, [theme]);
+
+    const findImg = (key) => {
+        const res = allImages.find((product) => product[key]);
+        return res[key];
+    };
 
     useEffect(() => {
         themeApi();
@@ -357,13 +363,13 @@ function NewIdeaSubmission(props) {
                 theme === 'Others'
                     ? othersPStatment
                     : probStatment === 'Others'
-                    ? othersPStatment
-                    : probStatment,
+                        ? othersPStatment
+                        : probStatment,
             problem_statement_description: description,
             idea_title: ideaTitle,
-            youtubelink:youtubeLink,
-            fpp:fppdetails,
-            technology:technology,
+            youtubelink: youtubeLink,
+            fpp: fppdetails,
+            technology: technology,
             // solution_statement: solStatement,
             detailed_solution: detailSol,
             prototype_available: protoType,
@@ -388,12 +394,12 @@ function NewIdeaSubmission(props) {
         await axios(config)
             .then(async function (response) {
                 if (response.status == 200) {
-                    
+
 
                     setIdeaIntiation(response?.data.data[0].initiated_by);
                     idea_id = response?.data.data[0].idea_id;
                     setSubmittedData(response?.data.data[0]);
-                
+
                     openNotificationWithIcon(
                         'success',
                         'Idea Initiated Successfully'
@@ -401,7 +407,7 @@ function NewIdeaSubmission(props) {
                     localStorage.setItem('condition', true);
                     setCondition(true);
                     setIsDisabled(true);
-                    
+
 
                     setPageEnable(false);
                     history.push({
@@ -420,7 +426,7 @@ function NewIdeaSubmission(props) {
     const handleSubmit = async (item, stats) => {
         // console.log(submitedData, 'before api call condition');
         if (!Object.keys(submitedData).length && props?.submitedData?.idea_id === undefined) {
-        
+
             if (files.length > 0) {
                 const formData = new FormData();
                 for (let i = 0; i < files.length; i++) {
@@ -435,9 +441,8 @@ function NewIdeaSubmission(props) {
                 );
                 const result = await axios
                     .post(
-                        `${
-                            process.env.REACT_APP_API_BASE_URL +
-                            '/ideas/fileUpload'
+                        `${process.env.REACT_APP_API_BASE_URL +
+                        '/ideas/fileUpload'
                         }?Data=${subId}`,
                         formData,
                         axiosConfig
@@ -461,13 +466,13 @@ function NewIdeaSubmission(props) {
             } else {
                 await apiCall();
             }
-            
+
             setCondition(true);
-    
+
             //scroll();
         } else {
             setSubmittedData(props?.submitedData);
-    
+
             if (files.length > 0) {
                 const formData = new FormData();
                 for (let i = 0; i < files.length; i++) {
@@ -482,9 +487,8 @@ function NewIdeaSubmission(props) {
                 );
                 const result = await axios
                     .post(
-                        `${
-                            process.env.REACT_APP_API_BASE_URL +
-                            '/ideas/fileUpload'
+                        `${process.env.REACT_APP_API_BASE_URL +
+                        '/ideas/fileUpload'
                         }?Data=${subId}`,
                         formData,
                         axiosConfig
@@ -529,12 +533,12 @@ function NewIdeaSubmission(props) {
                 theme === 'Others'
                     ? othersPStatment
                     : probStatment === 'Others'
-                    ? othersPStatment
-                    : probStatment,
+                        ? othersPStatment
+                        : probStatment,
             problem_statement_description: description,
-            youtubelink:youtubeLink,
+            youtubelink: youtubeLink,
             fpp: fppdetails,
-            technology:technology,
+            technology: technology,
             idea_title: ideaTitle,
             // solution_statement: solStatement,
             detailed_solution: detailSol,
@@ -586,9 +590,8 @@ function NewIdeaSubmission(props) {
         if (allques || stats === 'DRAFT') {
             var config = {
                 method: 'put',
-                url: `${
-                    process.env.REACT_APP_API_BASE_URL + '/ideas/ideaUpdate'
-                }`,
+                url: `${process.env.REACT_APP_API_BASE_URL + '/ideas/ideaUpdate'
+                    }`,
                 headers: {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${currentUser?.data[0]?.token}`
@@ -689,7 +692,7 @@ function NewIdeaSubmission(props) {
     const handleNextStep = () => {
         setCurrentStep(currentStep + 1);
     };
-// console.log(technology,"tech");
+    // console.log(technology,"tech");
     return (
         <Layout title="Idea Submission">
             {finalPage ? (
@@ -814,11 +817,7 @@ function NewIdeaSubmission(props) {
                                                                             />
 
                                                                             <img
-                                                                                src={
-                                                                                    leftImages[
-                                                                                        i
-                                                                                    ]
-                                                                                }
+                                                                                src={findImg(`${item}`)}
                                                                                 alt={`${item} theme`}
                                                                                 className="theme-image"
                                                                                 style={{
@@ -882,11 +881,7 @@ function NewIdeaSubmission(props) {
                                                                             />
 
                                                                             <img
-                                                                                src={
-                                                                                    rightImages[
-                                                                                        i
-                                                                                    ]
-                                                                                }
+                                                                                src={findImg(`${item}`)}
                                                                                 alt={`${item} theme`}
                                                                                 className="theme-image"
                                                                                 style={{
@@ -1283,7 +1278,7 @@ function NewIdeaSubmission(props) {
                                                             </div>
                                                         </Row>
                                                     )} */}
- {theme && (
+                                                {theme && (
                                                     <Row className="card mb-4 my-3 comment-card px-0 px-5 py-3 card">
                                                         <div className="question quiz mb-0">
                                                             <b
@@ -1410,8 +1405,8 @@ function NewIdeaSubmission(props) {
                                                     </Row>
                                                 )}
                                                 {theme && (<Row className="card mb-4 my-3 comment-card px-0 px-5 py-3 card">
-                                                        <div className="question quiz mb-0">
-                                                            {/* {theme ===
+                                                    <div className="question quiz mb-0">
+                                                        {/* {theme ===
                                                             'Others' ? (
                                                                 <b
                                                                     style={{
@@ -1450,62 +1445,62 @@ function NewIdeaSubmission(props) {
                                                                     )}
                                                                 </b>
                                                             )} */}
-                                                             <b
-                                                                    style={{
-                                                                        fontSize:
-                                                                            '1.6rem'
-                                                                    }}
-                                                                >
-                                                                    {t(
-                                                                        'student_course.ques6detailsol'
-                                                                    )}
-                                                                </b>
-                                                        </div>
-                                                        <FormGroup
-                                                            check
-                                                            className="answers"
+                                                        <b
+                                                            style={{
+                                                                fontSize:
+                                                                    '1.6rem'
+                                                            }}
                                                         >
-                                                            <Label
-                                                                check
-                                                                style={{
-                                                                    width: '100%'
-                                                                }}
-                                                            >
-                                                                <TextArea
-                                                                    disabled={
-                                                                        condition
-                                                                    }
-                                                                    placeholder="Enter your detailed solution "
-                                                                    value={
-                                                                        detailSol
-                                                                    }
-                                                                    maxLength={
-                                                                        5000
-                                                                    }
-                                                                    onChange={(
-                                                                        e
-                                                                    ) =>
-                                                                        setDetailSol(
-                                                                            e
-                                                                                .target
-                                                                                .value
-                                                                        )
-                                                                    }
-                                                                />
-                                                            </Label>
-                                                        </FormGroup>
-                                                        <div className="text-end">
                                                             {t(
-                                                                'student_course.chars'
-                                                            )}{' '}
-                                                            :
-                                                            {5000 -
-                                                                (detailSol
-                                                                    ? detailSol.length
-                                                                    : 0)}
-                                                        </div>
-                                                    </Row>)}
-                                                
+                                                                'student_course.ques6detailsol'
+                                                            )}
+                                                        </b>
+                                                    </div>
+                                                    <FormGroup
+                                                        check
+                                                        className="answers"
+                                                    >
+                                                        <Label
+                                                            check
+                                                            style={{
+                                                                width: '100%'
+                                                            }}
+                                                        >
+                                                            <TextArea
+                                                                disabled={
+                                                                    condition
+                                                                }
+                                                                placeholder="Enter your detailed solution "
+                                                                value={
+                                                                    detailSol
+                                                                }
+                                                                maxLength={
+                                                                    5000
+                                                                }
+                                                                onChange={(
+                                                                    e
+                                                                ) =>
+                                                                    setDetailSol(
+                                                                        e
+                                                                            .target
+                                                                            .value
+                                                                    )
+                                                                }
+                                                            />
+                                                        </Label>
+                                                    </FormGroup>
+                                                    <div className="text-end">
+                                                        {t(
+                                                            'student_course.chars'
+                                                        )}{' '}
+                                                        :
+                                                        {5000 -
+                                                            (detailSol
+                                                                ? detailSol.length
+                                                                : 0)}
+                                                    </div>
+                                                </Row>)}
+
 
                                                 {theme && (
                                                     <Row className="card mb-4 my-3 comment-card px-0 px-5 py-3 card">
@@ -1660,134 +1655,133 @@ function NewIdeaSubmission(props) {
                                                                     : 0)}
                                                         </div>
                                                     </Row> */}
-                                                
-                                                
-                                                {(protoType === 'YES') && (
-                                                        <Row className="card mb-4 my-3 comment-card px-0 px-5 py-3 card">
-                                                            <div className="question quiz mb-0">
-                                                                <b
-                                                                    style={{
-                                                                        fontSize:
-                                                                            '1.6rem'
-                                                                    }}
-                                                                >
-                                                                    Please upload details of your prototype (File Type: .pdf/.gif/.png. Max file size : 5MB)
-                                                                </b>
-                                                            </div>
-                                                            <div className=" answers row flex-column p-4">
-                                                                <FormGroup
-                                                                    check
-                                                                    className="answers"
-                                                                >
-                                                                    <div className="wrapper my-3 common-flex">
-                                                                        {!condition && (
-                                                                            <Button
-                                                                                type="button"
-                                                                                btnClass={`${
-                                                                                    condition
-                                                                                        ? 'secondary'
-                                                                                        : 'primary'
-                                                                                } me-3 pointer `}
-                                                                                size="small"
-                                                                                label={t(
-                                                                                    'student.upload_file'
-                                                                                )}
-                                                                            />
-                                                                        )}
-                                                                        <input
-                                                                            type="file"
-                                                                            name="file"
-                                                                            disabled={
-                                                                                condition
-                                                                            }
-                                                                            accept="image/jpeg,image/jpg,image/png,application/pdf"
-                                                                            multiple
-                                                                            onChange={(
-                                                                                e
-                                                                            ) =>
-                                                                                fileHandler(
-                                                                                    e
-                                                                                )
-                                                                            }
-                                                                        />
-                                                                    </div>
-                                                                </FormGroup>
-                                                                <div className="mx-4">
-                                                                    {immediateLink &&
-                                                                        immediateLink.length >
-                                                                            0 &&
-                                                                        immediateLink.map(
-                                                                            (
-                                                                                item,
-                                                                                i
-                                                                            ) => (
-                                                                                <LinkComponent
-                                                                                    item={
-                                                                                        item
-                                                                                    }
-                                                                                    url={
-                                                                                        true
-                                                                                    }
-                                                                                    key={
-                                                                                        i
-                                                                                    }
-                                                                                />
-                                                                            )
-                                                                        )}
-                                                                    {!immediateLink &&
-                                                                        files.length >
-                                                                            0 &&
-                                                                        files.map(
-                                                                            (
-                                                                                item,
-                                                                                i
-                                                                            ) => (
-                                                                                <LinkComponent
-                                                                                    original={
-                                                                                        true
-                                                                                    }
-                                                                                    item={
-                                                                                        item
-                                                                                    }
-                                                                                    i={
-                                                                                        i
-                                                                                    }
-                                                                                    key={
-                                                                                        i
-                                                                                    }
-                                                                                    removeFileHandler={
-                                                                                        removeFileHandler
-                                                                                    }
-                                                                                />
-                                                                            )
-                                                                        )}
 
-                                                                    {!immediateLink &&
-                                                                        files.length ===
-                                                                            0 &&
-                                                                        submitedFile.map(
-                                                                            (
-                                                                                item,
-                                                                                i
-                                                                            ) => (
-                                                                                <LinkComponent
-                                                                                    item={
-                                                                                        item
-                                                                                    }
-                                                                                    url={
-                                                                                        true
-                                                                                    }
-                                                                                    key={
-                                                                                        i
-                                                                                    }
-                                                                                />
+
+                                                {(protoType === 'YES') && (
+                                                    <Row className="card mb-4 my-3 comment-card px-0 px-5 py-3 card">
+                                                        <div className="question quiz mb-0">
+                                                            <b
+                                                                style={{
+                                                                    fontSize:
+                                                                        '1.6rem'
+                                                                }}
+                                                            >
+                                                                Please upload details of your prototype (File Type: .pdf/.gif/.png. Max file size : 5MB)
+                                                            </b>
+                                                        </div>
+                                                        <div className=" answers row flex-column p-4">
+                                                            <FormGroup
+                                                                check
+                                                                className="answers"
+                                                            >
+                                                                <div className="wrapper my-3 common-flex">
+                                                                    {!condition && (
+                                                                        <Button
+                                                                            type="button"
+                                                                            btnClass={`${condition
+                                                                                ? 'secondary'
+                                                                                : 'primary'
+                                                                                } me-3 pointer `}
+                                                                            size="small"
+                                                                            label={t(
+                                                                                'student.upload_file'
+                                                                            )}
+                                                                        />
+                                                                    )}
+                                                                    <input
+                                                                        type="file"
+                                                                        name="file"
+                                                                        disabled={
+                                                                            condition
+                                                                        }
+                                                                        accept="image/jpeg,image/jpg,image/png,application/pdf"
+                                                                        multiple
+                                                                        onChange={(
+                                                                            e
+                                                                        ) =>
+                                                                            fileHandler(
+                                                                                e
                                                                             )
-                                                                        )}
+                                                                        }
+                                                                    />
                                                                 </div>
+                                                            </FormGroup>
+                                                            <div className="mx-4">
+                                                                {immediateLink &&
+                                                                    immediateLink.length >
+                                                                    0 &&
+                                                                    immediateLink.map(
+                                                                        (
+                                                                            item,
+                                                                            i
+                                                                        ) => (
+                                                                            <LinkComponent
+                                                                                item={
+                                                                                    item
+                                                                                }
+                                                                                url={
+                                                                                    true
+                                                                                }
+                                                                                key={
+                                                                                    i
+                                                                                }
+                                                                            />
+                                                                        )
+                                                                    )}
+                                                                {!immediateLink &&
+                                                                    files.length >
+                                                                    0 &&
+                                                                    files.map(
+                                                                        (
+                                                                            item,
+                                                                            i
+                                                                        ) => (
+                                                                            <LinkComponent
+                                                                                original={
+                                                                                    true
+                                                                                }
+                                                                                item={
+                                                                                    item
+                                                                                }
+                                                                                i={
+                                                                                    i
+                                                                                }
+                                                                                key={
+                                                                                    i
+                                                                                }
+                                                                                removeFileHandler={
+                                                                                    removeFileHandler
+                                                                                }
+                                                                            />
+                                                                        )
+                                                                    )}
+
+                                                                {!immediateLink &&
+                                                                    files.length ===
+                                                                    0 &&
+                                                                    submitedFile.map(
+                                                                        (
+                                                                            item,
+                                                                            i
+                                                                        ) => (
+                                                                            <LinkComponent
+                                                                                item={
+                                                                                    item
+                                                                                }
+                                                                                url={
+                                                                                    true
+                                                                                }
+                                                                                key={
+                                                                                    i
+                                                                                }
+                                                                            />
+                                                                        )
+                                                                    )}
                                                             </div>
-                                                        </Row>
+                                                        </div>
+                                                    </Row>
                                                 )}
-                                               {(protoType === 'YES') && (
+                                                {(protoType === 'YES') && (
                                                     <Row className="card mb-4 my-3 comment-card px-0 px-5 py-3 card">
                                                         <div className="question quiz mb-0">
                                                             <b
@@ -1847,7 +1841,7 @@ function NewIdeaSubmission(props) {
                                                     </Row>
                                                 )}
 
-                                                {theme&& (
+                                                {theme && (
                                                     <Row className="card mb-4 my-3 comment-card px-0 px-5 py-3 card">
                                                         <div className="question quiz mb-0">
                                                             <b
@@ -2027,11 +2021,10 @@ function NewIdeaSubmission(props) {
                                                 handleSubmit(e, 'DRAFT')
                                             }
                                             size="small"
-                                            label={`${
-                                                loading.draft
-                                                    ? t('teacher_teams.loading')
-                                                    : t('teacher_teams.draft')
-                                            }`}
+                                            label={`${loading.draft
+                                                ? t('teacher_teams.loading')
+                                                : t('teacher_teams.draft')
+                                                }`}
                                         />
                                     </div>
                                 </Col>
@@ -2039,7 +2032,7 @@ function NewIdeaSubmission(props) {
                         )}
 
                         {submitedData?.status !== 'SUBMITTED' &&
-                        submitedData?.initiated_by ===
+                            submitedData?.initiated_by ===
                             currentUser?.data[0]?.user_id ? (
                             <div className="text-right">
                                 {condition && (
