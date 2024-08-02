@@ -43,7 +43,7 @@ import dist from 'react-data-table-component-extensions';
 import AddADmins from './AddAdmins';
 import ClipLoader from 'react-spinners/ClipLoader';
 import { encryptGlobal } from '../../constants/encryptDecrypt.js';
-import { stateList } from '../../RegPage/OrgData.js';
+import { stateList,} from '../../RegPage/OrgData.js';
 const { TabPane } = Tabs;
 
 const SelectDists = ({
