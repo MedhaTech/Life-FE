@@ -336,6 +336,23 @@ const InstructionsPage = (props) => {
                                                 className=""
                                                 style={{ fontSize: '1.3rem' }}
                                             >
+                                               Is that Technology ?
+                                            </label>
+                                            <CardText>
+                                                {
+                                                    selectedRecord
+                                                        .technology
+                                                }
+                                            </CardText>
+                                        </CardBody>
+                                    </Card>
+                                    <Card className="p-2">
+                                        <CardBody>
+                                            <label
+                                                htmlFor="teams"
+                                                className=""
+                                                style={{ fontSize: '1.3rem' }}
+                                            >
                                                Enter your problem statement
                                             </label>
                                             <CardText>

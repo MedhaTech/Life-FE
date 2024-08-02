@@ -392,7 +392,7 @@
         "others": "If you picked the option ‘others’ in the above question, Describe your theme",
         "ques1": "Which theme are you targeting with your solution ?",
         "ques1other": "If you picked the option ‘others’ in the above question, Describe your theme ?",
-
+"tech":"Idea Category",
         "ques2": "Which problem statement are you targeting with your solution ?",
         "ques2others": "If you picked the option ‘others’ in the above question, Describe your Problem Statement ?",
         "ques3description": "Description of the Problem Statement ?",

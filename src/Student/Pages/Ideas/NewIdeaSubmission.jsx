@@ -126,7 +126,11 @@ function NewIdeaSubmission(props) {
     const [protoType, setProtoType] = useState(
         props?.submitedData?.prototype_available
     );
+    const [technology, setTechnology] = useState(
+        props?.submitedData?.technology
+    );
     const question = ['YES', 'NO'];
+    const ques=["Technological Innovations:(Any innovation involving coding, such as IoT, internet applications, or other digital technologies.)","Non-Technological Innovations: (Initiatives without coding or digital tech, including community actions, traditional methods, communication strategies, and advocacy campaigns.)"];
     const ideaSubmitted = ['YES', 'NO'];
     const [ideaPublication, setIdeaPublication] = useState(
         props?.submitedData?.idea_available
@@ -183,6 +187,7 @@ function NewIdeaSubmission(props) {
         setIdeaTitle(props?.submitedData?.idea_title);
         setDetailSol(props?.submitedData?.detailed_solution);
         setProtoType(props?.submitedData?.prototype_available);
+        setTechnology(props?.submitedData?.technology);
         setIdeaPublication(props?.submitedData?.idea_available);
         setSelfCheck(
             props?.submitedData?.self_declaration === 'YES' ? true : false
@@ -358,6 +363,7 @@ function NewIdeaSubmission(props) {
             idea_title: ideaTitle,
             youtubelink:youtubeLink,
             fpp:fppdetails,
+            technology:technology,
             // solution_statement: solStatement,
             detailed_solution: detailSol,
             prototype_available: protoType,
@@ -528,6 +534,7 @@ function NewIdeaSubmission(props) {
             problem_statement_description: description,
             youtubelink:youtubeLink,
             fpp: fppdetails,
+            technology:technology,
             idea_title: ideaTitle,
             // solution_statement: solStatement,
             detailed_solution: detailSol,
@@ -562,6 +569,7 @@ function NewIdeaSubmission(props) {
                 detailSol === '' ||
                 protoType === '' ||
                 ideaPublication === '' ||
+                technology === "" ||
                 selfCheck === false
             ) {
                 allques = false;
@@ -681,7 +689,7 @@ function NewIdeaSubmission(props) {
     const handleNextStep = () => {
         setCurrentStep(currentStep + 1);
     };
-
+// console.log(technology,"tech");
     return (
         <Layout title="Idea Submission">
             {finalPage ? (
@@ -1275,7 +1283,73 @@ function NewIdeaSubmission(props) {
                                                             </div>
                                                         </Row>
                                                     )} */}
+ {theme && (
+                                                    <Row className="card mb-4 my-3 comment-card px-0 px-5 py-3 card">
+                                                        <div className="question quiz mb-0">
+                                                            <b
+                                                                style={{
+                                                                    fontSize:
+                                                                        '1.6rem'
+                                                                }}
+                                                            >
+                                                                {t(
+                                                                    'student_course.tech'
+                                                                )}
+                                                            </b>
+                                                        </div>
 
+                                                        <div className=" answers row flex-column p-4">
+                                                            <div>
+                                                                {ques.map(
+                                                                    (
+                                                                        item,
+                                                                        i
+                                                                    ) => (
+                                                                        <>
+                                                                            <label
+                                                                                key={
+                                                                                    i
+                                                                                }
+                                                                                style={{
+                                                                                    margin: '1rem',
+                                                                                    fontSize:
+                                                                                        '1.6rem'
+                                                                                }}
+                                                                            >
+                                                                                <input
+                                                                                    disabled={
+                                                                                        condition
+                                                                                    }
+                                                                                    type="radio"
+                                                                                    value={
+                                                                                        item
+                                                                                    }
+                                                                                    checked={
+                                                                                        item ===
+                                                                                        technology
+                                                                                    }
+                                                                                    onChange={(
+                                                                                        e
+                                                                                    ) =>
+                                                                                        setTechnology(
+                                                                                            e
+                                                                                                .target
+                                                                                                .value
+                                                                                        )
+                                                                                    }
+                                                                                />{' '}
+                                                                                {
+                                                                                    item
+                                                                                }
+                                                                            </label>
+                                                                            <br />
+                                                                        </>
+                                                                    )
+                                                                )}
+                                                            </div>
+                                                        </div>
+                                                    </Row>
+                                                )}
                                                 {theme && (
                                                     <Row className="card mb-4 my-3 comment-card px-0 px-5 py-3 card">
                                                         <div className="question quiz mb-0">

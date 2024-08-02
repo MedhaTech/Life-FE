@@ -36,7 +36,9 @@ import AdminEditLatestNews from './Admin/LatestNews/editLatestNews';
 import Selectedlist from './Admin/Evaluation/ViewSelectedIdea/ViewSelectedideas';
 import Selectedfinallist from './Admin/Evaluation/FinalResults/ViewFinalSelectedideas';
 import AdminForgotPassword from './Admin/ForgotPassword';
-import AdminUserList from './Admin/UserList/Ticket';
+// import AdminUserList from './Admin/UserList/Ticket';
+import AdminUserList from './Admin/UserList/NewFile';
+
 import CommonUserProfile from './Admin/UserList/CommonUserProfile';
 import CommonUserProfileEdit from './Admin/UserList/EditProfile';
 import AdminFaqByCategory from './Admin/FAQ/FaqByCategory';

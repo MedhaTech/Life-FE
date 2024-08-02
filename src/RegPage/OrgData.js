@@ -1,3 +1,5 @@
+// import { theme } from "antd";
+
 /* eslint-disable indent */
 export const stateList = [
     "All States",
@@ -39,8 +41,35 @@ export const stateList = [
     'West Bengal',
     
 ];
-export const institutionType = ['Engineering', 'Law', 'Life Sciences', 'Medical', 'Ayurveda', 'Others'];
-export const applicant_categories = ['Student', 'Faculty', 'Research Scholar', 'Others'];
+export const protoTypeList=["YES","NO","ALL"];
+export const institutionType = ['Engineering', 'Law', 'Life Sciences', 'Medical', 'Ayurveda', 'Others',"All Institutions"];
+// export const themesList =[
+//     "Save Energy",
+//     "Save Water",
+//     "Say No to Single Use Plastic",
+//     "Reduce E-waste",
+//     "Adopt Sustainable Food Systems",
+//     "Reduce Waste",
+//     "Adopt Healthy Lifestyles",
+//     "Others (Any other theme related to environment-friendly lifestyle) "];
+    export const themesList = [
+        {0:"All Themes"},
+
+        { 1: "Save Energy" },
+        { 2:"Save Water" },
+        { 3:"Say No to Single Use Plastic" },
+        { 4:"Reduce E-waste" },
+        { 5:"Adopt Sustainable Food Systems" },
+        { 6:"Reduce Waste" },
+        { 7:"Adopt Healthy Lifestyles" },
+        { 8:"Others (Any other theme related to environment-friendly lifestyle)" },
+
+    ];
+    
+export const applicant_categories = ['Student', 'Faculty', 'Research Scholar', 'Others',"All Categorys"
+];
+export const genderList=["MALE","FEMALE","OTHERS","All Genders"];
+
 export const istitutionNameList = {
     Engineering: [
         'Aligarh Muslim University',
