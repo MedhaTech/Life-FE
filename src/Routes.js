@@ -528,7 +528,7 @@ const Routers = () => {
                         exact
                         path="/dashboard"
                         user="STUDENT"
-                        component={Dashboard}
+                        component={TeamsStu}
                     />
                     <ProtectedRoute
                         exact

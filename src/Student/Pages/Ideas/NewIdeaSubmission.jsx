@@ -194,6 +194,8 @@ function NewIdeaSubmission(props) {
         setDetailSol(props?.submitedData?.detailed_solution);
         setProtoType(props?.submitedData?.prototype_available);
         setTechnology(props?.submitedData?.technology);
+        setFppdetails(props?.submitedData?.fpp);
+        setYoutubeLink(props?.submitedData?.youtubeLink);
         setIdeaPublication(props?.submitedData?.idea_available);
         setSelfCheck(
             props?.submitedData?.self_declaration === 'YES' ? true : false
