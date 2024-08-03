@@ -90,7 +90,7 @@ const ViewSelectedIdea = () => {
 // useEffect(()=>{
 //  handleideaList();
 // },[]);
-console.log(sdg,"ress");
+// console.log(sdg,"ress");
 
     async function handleideaList() {
         // handleideaList api //
@@ -104,14 +104,15 @@ console.log(sdg,"ress");
                 // state: state !== 'All States' ? state : '',
                 // district: district !== 'All Districts' ? district : ''
                 prototype_available: protoType !== "ALL" ? protoType:"",
-                theme_problem_id: sdg !== 'All Themes' ? sdg : ''
+                theme_problem_id: sdg !== "0" ? sdg : ''
             })
         );
+       
+        
         await axios
             .get(`${URL.getidealist}Data=${resparam}`, axiosConfig)
             .then(function (response) {
                 if (response.status === 200) {
-                    // console.log(response,"11");
                     const updatedWithKey =
                         response.data &&
                         response.data.data[0] &&
@@ -350,7 +351,9 @@ console.log(sdg,"ress");
     }, [pdfIdeaDetails, pdfTeamResponse]);
 
     /////////////////
-
+// const handleSelectChange =(selectedId)=>{
+//     setsdg(selectedId);
+// };
     return (
         <>
             <div style={{ display: 'none' }}>
@@ -389,6 +392,7 @@ console.log(sdg,"ress");
                                                     <Selects
                                                         list={themesList}
                                                         setValue={setsdg}
+                                                        // setValue={handleSelectChange}
                                                         placeHolder={
                                                             'Select Themes'
                                                         }
