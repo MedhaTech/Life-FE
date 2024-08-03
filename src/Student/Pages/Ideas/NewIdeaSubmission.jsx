@@ -99,6 +99,7 @@ function NewIdeaSubmission(props) {
     const [theme, setTheme] = useState(
         props?.submitedData?.themes_problem?.theme_name
     );
+    console.log(theme,"theme");
     // const [theme, setTheme] = useState('');
     // console.log(submitedData?.themes_problem?.theme_name, '111');
     const [finalPage, setFinalPage] = useState(false);
@@ -195,7 +196,7 @@ function NewIdeaSubmission(props) {
         setProtoType(props?.submitedData?.prototype_available);
         setTechnology(props?.submitedData?.technology);
         setFppdetails(props?.submitedData?.fpp);
-        setYoutubeLink(props?.submitedData?.youtubeLink);
+        setYoutubeLink(props?.submitedData?.youtubelink);
         setIdeaPublication(props?.submitedData?.idea_available);
         setSelfCheck(
             props?.submitedData?.self_declaration === 'YES' ? true : false
@@ -575,6 +576,8 @@ function NewIdeaSubmission(props) {
                 detailSol === '' ||
                 protoType === '' ||
                 ideaPublication === '' ||
+                fppdetails === "" ||
+                youtubeLink === "" ||
                 technology === "" ||
                 selfCheck === false
             ) {

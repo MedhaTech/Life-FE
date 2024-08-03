@@ -4,7 +4,7 @@
 /* eslint-disable no-unused-vars */
 import { Descriptions, Input } from 'antd';
 import axios from 'axios';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect ,useRef} from 'react';
 // import { Col, Row } from 'reactstrap';
 import { Button } from '../../stories/Button';
 import Layout from '../Layout';
@@ -12,7 +12,7 @@ import {
     deleteTempMentorById,
     teacherResetPassword
 } from '../store/admin/actions';
-import { Col, Container, Row, CardBody, CardText } from 'reactstrap';
+import { Col, Container, Row, CardBody, CardText,Table } from 'reactstrap';
 import './dashboard.scss';
 import { useHistory } from 'react-router-dom';
 import jsPDF from 'jspdf';
@@ -27,6 +27,9 @@ import { useDispatch } from 'react-redux';
 import { encryptGlobal } from '../../constants/encryptDecrypt';
 import { useSelector } from 'react-redux';
 import Select from '../../Admin/Reports/Helpers/Select';
+import { Doughnut } from 'react-chartjs-2';
+import { Bar } from 'react-chartjs-2';
+import { CSVLink } from 'react-csv';
 
 import {
     getCurrentUser,
@@ -39,6 +42,7 @@ import {
     getStateData,
     getFetchDistData
 } from '../../redux/studentRegistration/actions';
+import { propTypes } from 'react-bootstrap/esm/Image';
 const Dashboard = () => {
     // here we can see the registration details //
     const history = useHistory();
@@ -62,6 +66,78 @@ const Dashboard = () => {
     const fiterDistData = useSelector(
         (state) => state?.studentRegistration?.fetchdist
     );
+    const [isDownload, setIsDownload] = useState(false);
+    const csvLinkRef = useRef();
+
+    const [chartTableData, setChartTableData] = useState([]);
+    const [chartTableData1, setChartTableData1] = useState([]);
+    const [chartTableData2, setChartTableData2] = useState([]);
+    const [chartTableData3, setChartTableData3] = useState([]);
+
+    const [barChart1Data, setBarChart1Data] = useState("");
+    const tableHeaders = [
+        {
+            label: 'State Name',
+            key: 'state'
+        },
+        {
+            label: 'Total Enrolled Students',
+            key: 'total enrolled'
+        },
+        {
+            label: 'Reg Students',
+            key: 'reg_student'
+        },
+        {
+            label: 'Team Members',
+            key: 'team members'
+        },
+        {
+            label: 'Male',
+            key: 'male_count'
+        },
+        {
+            label: 'Female',
+            key: 'female_count'
+        }, {
+            label: 'Others',
+            key: 'others_count'
+        },
+        {
+            label: 'Ayurveda',
+            key: 'Ayurveda_count'
+        },
+        {
+            label: 'Engineering',
+            key: 'Engineering_count'
+        },
+        {
+            label: 'Law',
+            key: 'Law_count'
+        },
+        {
+            label: 'Life Sciences',
+            key: 'Life_Sciences_count'
+        },
+        {
+            label: 'Medical',
+            key: 'Medical_count'
+        },
+        {
+            label: 'Faculty',
+            key: 'faculty_count'
+        },
+        {
+            label: 'Research Scholars',
+            key: 'Medical_count'
+        },
+        {
+            label: 'Others',
+            key: 'Others_count'
+        }
+    ];
+
+
     useEffect(() => {
         dispatch(getFetchDistData());
     }, []);
@@ -129,7 +205,363 @@ const Dashboard = () => {
                 setOrgData({});
             });
     }
+    const chartOption = {
+        maintainAspectRatio: false,
+        // legend: {
+        //     position: 'bottom',
+        //     labels: {
+        //         fontColor: 'black'
+        //     }
+        // },
+        plugins: {
+            legend: {
+                labels: {
+                    position: 'bottom',
+                    labels:{
+                        fontColor: 'black',
+                    generateLabels: function (chart) {
+                        return chart.data.labels.map(function (label, i) {
+                            const value = chart.data.datasets[0].data[i];
+                            const backgroundColor =
+                                chart.data.datasets[0].backgroundColor[i];
+                            return {
+                                text: label + ': ' + value,
+                                fillStyle: backgroundColor
+                            };
+                        });
+                    }
+                }
+                }
+            }
+        }
+    };
+    const chartOption1 = {
+        maintainAspectRatio: false,
+        // legend: {
+        //     position: 'bottom',
+        //     labels: {
+        //         fontColor: 'black'
+        //     }
+        // },
+        plugins: {
+            legend: {
+                labels: {
+                    position: 'bottom',
+                    labels:{
+                        fontColor: 'black',
+                    generateLabels: function (chart) {
+                        return chart.data.labels.map(function (label, i) {
+                            const value = chart.data.datasets[0].data[i];
+                            const backgroundColor =
+                                chart.data.datasets[0].backgroundColor[i];
+                            return {
+                                text: label + ': ' + value,
+                                fillStyle: backgroundColor
+                            };
+                        });
+                    }
+                }
+                }
+            }
+        }
+    };
+    const options = {
+        maintainAspectRatio: false,
+        responsive: true,
+        scales: {
+            y: {
+                beginAtZero: true,
+                ticks: {
+                    stepSize: 10
+                },
+                title: {
+                    display: true,
+                    // text: 'Number of Registered ATL and Non ATL Schools',
+                    color: 'blue'
+                }
+            },
+            x: {
+                grid: {
+                    display: true,
+                    drawBorder: true,
+                    color: 'rgba(0, 0, 0, 0.2)',
+                    lineWidth: 0.5
+                },
+                // title: {
+                //     display: true,
+                //     text: 'States',
+                //     color: 'blue'
+                // },
+                ticks: {
+                    maxRotation: 80,
+                    autoSkip: false
+                    //maxTicksLimit: 10,
+                }
+            }
+        }
+    };
+    const [overallStu,setOverallStu]=useState("-");
+    const [overallIdea,setOverallIdea]=useState("-");
+    const [applicantCount,setApplicantCount]=useState(null);
+    const [newFormat, setNewFormat] = useState('');
+    const [newFormat1, setNewFormat1] = useState('');
+    const [newFormat2, setNewFormat2] = useState('');
+const[protoCount,setProtoCount]=useState("");
+const [combinedArray, setCombinedArray] = useState([]);
+const [tableData,setTableDat]=useState([]);
+    const [genders,setGenders]=useState(null);
+    const [downloadData,setDownloadData]=useState(null);
+  const [proCount,setProCount]=useState("");
+    useEffect(()=>{
+overallStudent();
+overallIdeas();
+applicantCategory();
+overallGender();
+allInstitutions();
+propTypeApi();
+fetchStateWiseStudentsTableApi();
+const newDate = new Date();
+const formattedDate = `${newDate.getUTCDate()}/${
+    1 + newDate.getMonth()
+}/${newDate.getFullYear()} ${newDate.getHours()}:${newDate.getMinutes()}:${newDate.getSeconds()}`;
+setNewFormat(formattedDate);
+setNewFormat1(formattedDate);
+setNewFormat2(formattedDate);
+    },[]);
+    const fetchStateWiseStudentsTableApi = () => {
+        const config = {
+            method: 'get',
+            url: process.env.REACT_APP_API_BASE_URL + '/dashboard/StudentStateWise',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${currentUser?.data[0]?.token}`
+            }
+        };
 
+        axios(config)
+            .then((response) => {
+                if (response.status === 200) {
+                //    console.log(response,"table");
+                   setCombinedArray(response?.data?.data || []);
+                }
+            })
+            .catch((error) => {
+                console.log('API error:', error);
+            });
+    };
+    const propTypeApi= () => {
+        var config = {
+            method: 'get',
+            url: process.env.REACT_APP_API_BASE_URL + `/dashboard/HavingPrototype`,
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${currentUser.data[0]?.token}`
+            }
+        };
+        axios(config)
+            .then(function (response) {
+                if (response.status === 200) {
+                    console.log(response,"11");
+                    setProCount(response?.data?.data[0]?.["Having Prototype"]
+                    );
+                    // const chartTableData3 = response?.data?.data || [];
+                    // setChartTableData3(chartTableData3);
+                   
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
+    const barChartOptions = {
+        maintainAspectRatio: true,
+        legend: {
+            position: 'bottom',
+            labels: {
+                fontColor: 'black',
+            },
+        },
+        scales: {
+            y: {
+                beginAtZero: true,
+                ticks: {
+                    stepSize: 2,
+                },
+            },
+        },
+    };
+    const barChartData = {
+        labels: ['Ayurveda', 'Engineering', 'Law', 'Life Sciences','Medical','Others'],
+        datasets: [
+            {
+                label: 'All Institutions ',
+                data: [
+                    Number(chartTableData2.Ayurveda_count),
+                    Number(chartTableData2.Engineering_count),
+                    Number(chartTableData2.Law_count),
+                    Number(chartTableData2.Life_Sciences_count),
+                    Number(chartTableData2.Medical_count),
+                    Number(chartTableData2.Others_count),
+                ],
+                backgroundColor: ['#36A2EB', '#FF6384', '#FFCE56', '#4BC0C0','#4cbb17','#990000'],
+                barThickness: 40,
+            },
+        ],
+    };
+    const allInstitutions= () => {
+        var config = {
+            method: 'get',
+            url: process.env.REACT_APP_API_BASE_URL + `/dashboard/allInstitutions`,
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${currentUser.data[0]?.token}`
+            }
+        };
+        axios(config)
+            .then(function (response) {
+                if (response.status === 200) {
+                    // console.log(response,"11");
+                    setChartTableData2(response?.data?.data[0] || []);
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
+    const overallGender= () => {
+        var config = {
+            method: 'get',
+            url: process.env.REACT_APP_API_BASE_URL + `/dashboard/allGenders`,
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${currentUser.data[0]?.token}`
+            }
+        };
+        axios(config)
+            .then(function (response) {
+                if (response.status === 200) {
+                    // console.log(response,"11");
+                    const chartTableData1 = response?.data?.data || [];
+                    setChartTableData1(chartTableData1);
+                    const lastRow = chartTableData1[chartTableData1.length - 1];
+                    const maleCount = lastRow?.
+                    male_count
+                    || 0;
+                    const femaleCount = lastRow?.female_count
+                     || 0;
+                    const othersCount = lastRow?.
+                    others_count
+
+                     || 0;
+                 
+                     setGenders({
+                        labels: ['Female', 'Male',"Others"],
+                        datasets: [
+                            {
+                                data: [maleCount, femaleCount,othersCount],
+                                backgroundColor: ["#6a5acd", '#FF6384',"#ee82ee"],
+                                hoverBackgroundColor: ["#6a5acd", '#FF6384',"#ee82ee"]
+                            }
+                        ]
+                    });
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
+    const applicantCategory = () => {
+        var config = {
+            method: 'get',
+            url: process.env.REACT_APP_API_BASE_URL + `/dashboard/allCategorys`,
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${currentUser.data[0]?.token}`
+            }
+        };
+        axios(config)
+            .then(function (response) {
+                if (response.status === 200) {
+                    // console.log(response,"11");
+                    const chartTableData = response?.data?.data || [];
+                    setChartTableData(chartTableData);
+                    const lastRow = chartTableData[chartTableData.length - 1];
+                    const researchCount = lastRow?.RS_count
+                    || 0;
+                    const studentCount = lastRow?.
+                    student_count
+                     || 0;
+                    const facultyCount = lastRow?.
+                    faculty_count
+                     || 0;
+                    const othersCount = lastRow?.
+                    others_count
+                     || 0;
+                     setApplicantCount({
+                        labels: ['Research Scholars', 'Faculty',"Students","Others"],
+                        datasets: [
+                            {
+                                data: [researchCount, studentCount,facultyCount,othersCount],
+                                backgroundColor: ['#36A2EB', '#FF6384',"#ffa500","#ee82ee"],
+                                hoverBackgroundColor: ['#36A2EB', '#FF6384',"#ffa500","#ee82ee"]
+                            }
+                        ]
+                    });
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
+    const overallIdeas = () => {
+        var config = {
+            method: 'get',
+            url: process.env.REACT_APP_API_BASE_URL + `/dashboard/Overallideas`,
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${currentUser.data[0]?.token}`
+            }
+        };
+        axios(config)
+            .then(function (response) {
+                if (response.status === 200) {
+                    // console.log(response,"11");
+                    setOverallIdea(response?.data?.data[0]?.['overall ideas']
+                    );
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
+    const overallStudent = () => {
+        var config = {
+            method: 'get',
+            url: process.env.REACT_APP_API_BASE_URL + `/dashboard/OverallStudent
+`,
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json',
+                Authorization: `Bearer ${currentUser.data[0]?.token}`
+            }
+        };
+        axios(config)
+            .then(function (response) {
+                if (response.status === 200) {
+                    // console.log(response,"11");
+                    setOverallStu(response?.data?.data[0]?.['overall students']
+                    );
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
     const handleSearch = (e) => {
         //where we can search through diescode //
         // we can see Registration Details & Mentor Details //
@@ -502,389 +934,40 @@ const Dashboard = () => {
                 }
             });
     };
-    useEffect(() => {
-        adminTeamsCount();
-        adminSudentCount();
-        adminideasCount();
-        adminMentorCount();
-        adminSudentbygenderCount();
-        adminSchoolCount();
-        regInstitutions();
-        adminInvalidInst();
-        // adminmentorCourseCount();
-        // adminStudentCourseCount();
-        // nonAtlCount();
-    }, []);
+    const handleDownload=()=>{
+        // alert("hii");
+        fetchData();
+        setIsDownload(true);
 
-    const [totalteamsCount, setTotalteamsCount] = useState('-');
-    const [totalStudentCount, setTotalStudentCount] = useState('-');
-    const [totalideasCount, setTotalideasCount] = useState('-');
-    const [totalPfa, setTotalPfa] = useState('-');
+    };
+    const fetchData = () => {
+        const config = {
+            method: 'get',
+            url: process.env.REACT_APP_API_BASE_URL + '/dashboard/detailsStudents',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${currentUser?.data[0]?.token}`
+            }
+        };
 
-    const [totalSubmittedideasCount, setTotalSubmittedideasCount] =
-        useState('-');
-    const [totalMentorCount, setTotalMentorCount] = useState('-');
-    const [totalMentorMaleCount, setTotalMentorMaleCount] = useState('-');
-    const [totalStudentMaleCount, setTotalStudentMaleCount] = useState('-');
-    const [totalStudentFemaleCount, setTotalStudentFemaleCount] = useState('-');
-    const [totalSchoolCount, setTotalSchoolCount] = useState('-');
-    const [invalidInst, setInvalidInst] = useState('-');
-    // const [nonAtl, setNonAtl] = useState('-');
-    const [regInst, setRegInst] = useState('-');
-    const [atl, setAtl] = useState('-');
-    const [mentorCoursesCompletedCount, setMentorCoursesCompletedCount] =
-        useState('-');
-    const [studentCoursesCompletedCount, setStudentCoursesCompletedCount] =
-        useState('-');
-    const [totalstudentCoursesCount, setTotalstudentCoursesCount] =
-        useState('-');
-
-    const regInstitutions = () => {
-        const listParam = encryptGlobal(
-            JSON.stringify({
-                district: RegTeachersdistrict
-            })
-        );
-        var config = {
-            method: 'get',
-            url:
-                process.env.REACT_APP_API_BASE_URL +
-                `/dashboard/schoolRegCount${
-                    RegTeachersdistrict === 'All Districts'
-                        ? ''
-                        : `?Data=${listParam}`
-                }`,
-            headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-                Authorization: `Bearer ${currentUser.data[0]?.token}`
-            }
-        };
         axios(config)
-            .then(function (response) {
+            .then((response) => {
                 if (response.status === 200) {
-                    // console.log(response, 'Reg');
-                    setRegInst(response.data.data[0].RegSchools);
+                   console.log(response,"down");
+                   setDownloadData(response?.data?.data || []);
+                   setIsDownload(false);
+                   csvLinkRef.current.link.click();
+                //    setCombinedArray(response?.data?.data || []);
                 }
             })
-            .catch(function (error) {
-                console.log(error);
+            .catch((error) => {
+                console.log('API error:', error);
             });
     };
-    const adminTeamsCount = () => {
-        const adminTeam = encryptGlobal(
-            JSON.stringify({
-                district: RegTeachersdistrict
-            })
-        );
-        var config = {
-            method: 'get',
-            url:
-                process.env.REACT_APP_API_BASE_URL +
-                `/dashboard/teamCount${
-                    RegTeachersdistrict === 'All Districts'
-                        ? ''
-                        : `?Data=${adminTeam}`
-                }`,
-            headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-                Authorization: `Bearer ${currentUser.data[0]?.token}`
-            }
-        };
-        axios(config)
-            .then(function (response) {
-                if (response.status === 200) {
-                    setTotalteamsCount(response.data.data[0].teams_count);
-                }
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-    };
-    const adminSudentCount = () => {
-        const stu = encryptGlobal(
-            JSON.stringify({
-                district: RegTeachersdistrict
-            })
-        );
-        var config = {
-            method: 'get',
-            url:
-                process.env.REACT_APP_API_BASE_URL +
-                `/dashboard/studentCount${
-                    RegTeachersdistrict === 'All Districts'
-                        ? ''
-                        : `?Data=${stu}`
-                }`,
-            headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-                Authorization: `Bearer ${currentUser.data[0]?.token}`
-            }
-        };
-        axios(config)
-            .then(function (response) {
-                if (response.status === 200) {
-                    setTotalStudentCount(response.data.data[0].student_count);
-                }
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-    };
-    const adminideasCount = () => {
-        const idea = encryptGlobal(
-            JSON.stringify({
-                district: RegTeachersdistrict
-            })
-        );
-        var config = {
-            method: 'get',
-            url:
-                process.env.REACT_APP_API_BASE_URL +
-                `/dashboard/ideasCount${
-                    RegTeachersdistrict === 'All Districts'
-                        ? ''
-                        : `?Data=${idea}`
-                }`,
-            headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-                Authorization: `Bearer ${currentUser.data[0]?.token}`
-            }
-        };
-        axios(config)
-            .then(function (response) {
-                if (response.status === 200) {
-                    setTotalideasCount(response.data.data[0].initiated_ideas);
-                    setTotalPfa(response.data.data[0].PFACount);
-                    setTotalSubmittedideasCount(
-                        response.data.data[0].submitted_ideas
-                    );
-                }
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-    };
-    const adminMentorCount = () => {
-        const ment = encryptGlobal(
-            JSON.stringify({
-                district: RegTeachersdistrict
-            })
-        );
-        var config = {
-            method: 'get',
-            url:
-                process.env.REACT_APP_API_BASE_URL +
-                `/dashboard/mentorCount${
-                    RegTeachersdistrict === 'All Districts'
-                        ? ''
-                        : `?Data=${ment}`
-                }`,
-            headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-                Authorization: `Bearer ${currentUser.data[0]?.token}`
-            }
-        };
-        axios(config)
-            .then(function (response) {
-                if (response.status === 200) {
-                    setTotalMentorCount(response.data.data[0].mentorCount);
-                    setTotalMentorMaleCount(response.data.data[0].mentorMale);
-                }
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-    };
-    const adminSudentbygenderCount = () => {
-        const stuG = encryptGlobal(
-            JSON.stringify({
-                district: RegTeachersdistrict
-            })
-        );
-        var config = {
-            method: 'get',
-            url:
-                process.env.REACT_APP_API_BASE_URL +
-                `/dashboard/studentCountbygender${
-                    RegTeachersdistrict === 'All Districts'
-                        ? ''
-                        : `?Data=${stuG}`
-                }`,
-            headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-                Authorization: `Bearer ${currentUser.data[0]?.token}`
-            }
-        };
-        axios(config)
-            .then(function (response) {
-                if (response.status === 200) {
-                    setTotalStudentMaleCount(response.data.data[0].studentMale);
-                    setTotalStudentFemaleCount(
-                        response.data.data[0].studentFemale
-                    );
-                }
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-    };
-    const adminSchoolCount = () => {
-        const school = encryptGlobal(
-            JSON.stringify({
-                district: RegTeachersdistrict
-            })
-        );
-        var config = {
-            method: 'get',
-            url:
-                process.env.REACT_APP_API_BASE_URL +
-                `/dashboard/schoolCount${
-                    RegTeachersdistrict === 'All Districts'
-                        ? ''
-                        : `?Data=${school}`
-                }`,
-            headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-                Authorization: `Bearer ${currentUser.data[0]?.token}`
-            }
-        };
-        axios(config)
-            .then(function (response) {
-                if (response.status === 200) {
-                    setTotalSchoolCount(response.data.data[0].schoolCount);
-                }
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-    };
-    const adminInvalidInst = () => {
-        const invalid = encryptGlobal(
-            JSON.stringify({
-                district: RegTeachersdistrict
-            })
-        );
-        var config = {
-            method: 'get',
-            url:
-                process.env.REACT_APP_API_BASE_URL +
-                `/dashboard/invalidInst${
-                    RegTeachersdistrict === 'All Districts'
-                        ? ''
-                        : `?Data=${invalid}`
-                }`,
-            headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-                Authorization: `Bearer ${currentUser.data[0]?.token}`
-            }
-        };
-        axios(config)
-            .then(function (response) {
-                if (response.status === 200) {
-                    // console.log(response, 'invalid');
-                    setInvalidInst(response.data.data[0].InvalidInstitutions);
-                }
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-    };
-    const [districtName, setDistrictName] = useState('TAMIL NADU STATE');
-    const getDetails = () => {
-        if (!RegTeachersdistrict) {
-            openNotificationWithIcon('error', 'Please select district', '');
-            return;
-        }
-        const dist =
-            RegTeachersdistrict === 'All Districts'
-                ? 'TAMIL NADU STATE'
-                : RegTeachersdistrict || 'TAMIL NADU STATE';
-        setDistrictName(dist);
-        // console.log(RegTeachersdistrict, 'ee');
-
-        adminTeamsCount(RegTeachersdistrict);
-        adminSudentCount(RegTeachersdistrict);
-        adminideasCount(RegTeachersdistrict);
-        adminMentorCount(RegTeachersdistrict);
-        adminSudentbygenderCount(RegTeachersdistrict);
-        adminSchoolCount(RegTeachersdistrict);
-        regInstitutions(RegTeachersdistrict);
-        adminInvalidInst(RegTeachersdistrict);
-        return dist;
-    };
-
-    // const dist =
-    //     RegTeachersdistrict === 'All Districts'
-    //         ? 'TAMIL NADU STATE'
-    //         : RegTeachersdistrict;
-    // const dist =
-    //     RegTeachersdistrict === 'All Districts'
-    //         ? 'TAMIL NADU STATE'
-    //         : RegTeachersdistrict || 'TAMIL NADU STATE';
-
-    // const adminStudentCourseCount = () => {
-    //     var config = {
-    //         method: 'get',
-    //         url:
-    //             process.env.REACT_APP_API_BASE_URL +
-    //             `/dashboard/studentCourseCount`,
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //             Accept: 'application/json',
-    //             Authorization: `Bearer ${currentUser.data[0]?.token}`
-    //         }
-    //     };
-    //     axios(config)
-    //         .then(function (response) {
-    //             if (response.status === 200) {
-    //                 setStudentCoursesCompletedCount(
-    //                     response.data.data[0].StudentCoursesCompletedCount
-    //                 );
-    //                 setTotalstudentCoursesCount(response.data.data[0].started);
-    //             }
-    //         })
-    //         .catch(function (error) {
-    //             console.log(error);
-    //         });
-    // };
     return (
         <Layout title="Dashboard">
             <div className="dashboard-wrapper pb-5 my-5 px-5">
-                {/* <h2 className="mb-5">Dashboard </h2> */}
-                <Row className="align-items-center m-5">
-                    <Col md={2}>
-                        <div className="justify-content-center">
-                            <Select
-                                list={fiterDistData}
-                                setValue={setRegTeachersdistrict}
-                                placeHolder={'Select District'}
-                                value={RegTeachersdistrict}
-                            />
-                        </div>
-                    </Col>
-
-                    <Col
-                        md={2}
-                        className="align-items-center justify-content-center"
-                    >
-                        <Button
-                            label={'Get Details'}
-                            onClick={getDetails}
-                            btnClass="primary mx-3"
-                            size="small"
-                            shape="btn-square"
-                            type="submit"
-                        />
-                    </Col>
-                </Row>
+               
                 <div className="dashboard p-5 mb-5">
                     <div className="row " style={{ overflow: 'hidden' }}>
                         <div className=" row col-xs-12 col-md-7">
@@ -894,6 +977,7 @@ const Dashboard = () => {
                                      Ideas4Life Stats
                                 </span>
                             </h2>
+                          
                             <Row
                                 style={{
                                     paddingRight: '20px',
@@ -901,6 +985,99 @@ const Dashboard = () => {
                                     paddingLeft: '1rem'
                                 }}
                             >
+                                  {combinedArray.length > 0 && (
+                               <div className="mt-5">
+                               <div className="d-flex align-items-center mb-3">
+                                   <h3>OVERVIEW</h3>
+                                   <Button
+                                       label="Download Table"
+                                       btnClass="primary mx-2"
+                                       size="small"
+                                       shape="btn-square"
+                                       onClick={handleDownload
+                                          
+                                       }
+                                       style={{
+                                           width: '150px',
+                                           whiteSpace: 'nowrap'
+                                       }}
+                                   />
+                               </div>
+                               <div className="row">
+                                   <div className="col-md-12 mx-10 px-10">
+                                       <div
+                                           className="table-wrapper bg-white "
+                                           style={{
+                                               overflowX: 'auto'
+                                           }}
+                                       >
+                                           <Table
+                                               id="dataTable"
+                                               className="table table-striped table-bordered responsive"
+                                           >
+                                               <thead>
+                                                   <tr>
+                                                       <th>No</th>
+                                                       <th>
+                                                          State
+                                                           Name
+                                                       </th>
+                                                       <th>
+                                                           Students
+                                                       </th>
+                                                      
+                                                   </tr>
+                                               </thead>
+                                               <tbody>
+                                                   {combinedArray.map(
+                                                       (
+                                                           item,
+                                                           index
+                                                       ) => (
+                                                           <tr
+                                                               key={
+                                                                   index
+                                                               }
+                                                           >
+                                                               <td>
+                                                                   {index +
+                                                                       1}
+                                                               </td>
+                                                               <td>
+                                                                   {
+                                                                       item.state
+                                                                   }
+                                                               </td>
+                                                               <td>
+                                                                   {
+                                                                       item.state_count
+
+                                                                   }
+                                                               </td>
+                                                              
+                                                              
+                                                           </tr>
+                                                       )
+                                                   )}
+
+                                               </tbody>
+                                           </Table>
+                                       </div>
+                                   </div>
+                               </div>
+                           </div>   
+                            )}
+                             {downloadData && (
+                                    <CSVLink
+                                        data={downloadData}
+                                        headers={tableHeaders}
+                                        filename={`StatewiseDemographicReport_${newFormat}.csv`}
+                                        className="hidden"
+                                        ref={csvLinkRef}
+                                    >
+                                        Download Table CSV
+                                    </CSVLink>
+                                )}
                                 <Col>
                                     <Card
                                         bg="white"
@@ -908,7 +1085,7 @@ const Dashboard = () => {
                                         className="mb-4"
                                         style={{
                                             height: '150px',
-                                            width: '300px'
+                                            // width: '300px'
                                         }}
                                     >
                                         <Card.Body
@@ -923,7 +1100,7 @@ const Dashboard = () => {
                                                     marginBottom: '5px'
                                                 }}
                                             >
-                                                {totalSchoolCount}
+                                                {overallStu}
                                             </Card.Text>
                                             <label
                                                 htmlFor="teams"
@@ -933,7 +1110,7 @@ const Dashboard = () => {
                                                     lineHeight: '20px'
                                                 }}
                                             >
-                                                Total <br /> Institutions
+                                                Overall <br /> Students
                                             </label>
                                         </Card.Body>
                                     </Card>
@@ -945,40 +1122,8 @@ const Dashboard = () => {
                                         className="mb-4"
                                         style={{ height: '150px' }}
                                     >
-                                        {/* <Card.Body>
-                                            <label htmlFor="teams" className="">
-                                                Total Registered Students
-                                            </label>
-                                            <Card.Text
-                                                style={{
-                                                    fontSize: '30px',
-                                                    fontWeight: 'bold',
-                                                    marginTop: '10px',
-                                                    marginBottom: '20px'
-                                                }}
-                                            >
-                                                {totalStudentCount}
-                                            </Card.Text>
-                                        </Card.Body> */}
-                                        {/* <Card.Body>
-                                            <Card.Text
-                                                style={{
-                                                    fontSize: '35px',
-                                                    fontWeight: 'bold',
-                                                    marginTop: '25px',
-                                                    textAlign: 'center',
-                                                    marginBottom: '15px'
-                                                }}
-                                            >
-                                                {totalMentorCount}
-                                            </Card.Text>
-                                            <label
-                                                htmlFor="teams"
-                                                className="text-center p-3"
-                                            >
-                                                Registered Mentors
-                                            </label>
-                                        </Card.Body> */}
+                                       
+                                       
                                         <Card.Body
                                             style={{ textAlign: 'center' }}
                                         >
@@ -991,7 +1136,7 @@ const Dashboard = () => {
                                                     marginBottom: '20px'
                                                 }}
                                             >
-                                                {regInst}
+                                                {overallIdea}
                                             </Card.Text>
                                             <label
                                                 htmlFor="teams"
@@ -1001,7 +1146,7 @@ const Dashboard = () => {
                                                     lineHeight: '20px'
                                                 }}
                                             >
-                                                Reg <br /> Institutions
+                                                Overall <br /> Ideas
                                             </label>
                                         </Card.Body>
                                     </Card>
@@ -1015,43 +1160,8 @@ const Dashboard = () => {
                                             height: '150px'
                                         }}
                                     >
-                                        {/* <Card.Body>
-                                            <label htmlFor="teams" className="">
-                                                Total Teams Submitted Ideas
-                                            </label>
-
-                                            <Card.Text
-                                                className="left-aligned"
-                                                style={{
-                                                    fontSize: '30px',
-                                                    fontWeight: 'bold',
-                                                    marginTop: '10px',
-                                                    marginBottom: '20px'
-                                                }}
-                                            >
-                                                {totalSubmittedideasCount}
-                                            </Card.Text>
-                                        </Card.Body> */}
-                                        {/* <Card.Body>
-                                            <Card.Text
-                                                style={{
-                                                    fontSize: '35px',
-                                                    fontWeight: 'bold',
-                                                    marginTop: '25px',
-                                                    textAlign: 'center',
-                                                    marginBottom: '15px'
-                                                }}
-                                            >
-                                                {totalteamsCount}
-                                            </Card.Text>
-                                            <label
-                                                htmlFor="teams"
-                                                className="text-center  mt-5 "
-                                                // style={{ textAlign: 'center' }}
-                                            >
-                                                No.of Teams
-                                            </label>
-                                        </Card.Body> */}
+                                       
+                                       
                                         <Card.Body
                                             style={{ textAlign: 'center' }}
                                         >
@@ -1064,7 +1174,7 @@ const Dashboard = () => {
                                                     marginBottom: '20px'
                                                 }}
                                             >
-                                                {invalidInst}
+                                                {proCount}
                                             </Card.Text>
                                             <label
                                                 htmlFor="teams"
@@ -1074,39 +1184,132 @@ const Dashboard = () => {
                                                     lineHeight: '20px'
                                                 }}
                                             >
-                                                Invalid <br />
-                                                Institutions
+                                               Prototype <br/>Ideas Count
                                             </label>
                                         </Card.Body>
                                     </Card>
                                 </Col>
 
-                                {/* <Row>
-                                    <Card
-                                        bg="light"
+                               
+                            </Row>
+                            <Row>
+                            <Card
+                                        bg="white"
                                         text="dark"
                                         className="mb-4"
-                                        style={{ height: '150px' }}
+                                        // style={{ height: '150px' }}
                                     >
-                                        <Card.Body>
-                                            <label htmlFor="teams" className="">
-                                                Teachers Course Completed
-                                            </label>
-                                            <Card.Text
-                                                style={{
-                                                    fontSize: '30px',
-                                                    fontWeight: 'bold',
-                                                    marginTop: '10px',
-                                                    marginBottom: '20px'
-                                                }}
-                                            >
-                                                {mentorCoursesCompletedCount}
-                                            </Card.Text>
-                                        </Card.Body>
-                                    </Card>
-                                </Row> */}
-                            </Row>
-                            <Row
+                            <div className="row">
+                                                <div className="col">
+                                                    <div className="col-md-12 text-center mt-3">
+                                                        <p>
+                                                            <b>
+                                                            Applicant Category wise Students Count
+                                                                 <br/>
+                                                                {newFormat}
+                                                            </b>
+                                                        </p>
+                                                    </div>
+                                                    <div className="col-md-12 doughnut-chart-container">
+                                                        {applicantCount && (
+                                                            <Doughnut
+                                                                data={
+                                                                    applicantCount
+                                                                }
+                                                                options={
+                                                                    chartOption
+                                                                }
+                                                            />
+                                                        )}
+                                                    </div>
+                                                    </div>
+                                                   <div className='col'>
+                                                    <div className="col-md-12 text-center mt-3">
+                                                        <p>
+                                                            <b>
+                                                           Gender wise Status Count
+                                                                 <br/>
+                                                                {newFormat1}
+                                                            </b>
+                                                        </p>
+                                                    </div>
+                                                    <div className="col-md-12 doughnut-chart-container">
+                                                        {genders && (
+                                                            <Doughnut
+                                                                data={
+                                                                    genders
+                                                                }
+                                                                options={
+                                                                    chartOption1
+                                                                }
+                                                            />
+                                                        )}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="mt-5">
+                                    <div
+                                        className="col-md-12 chart-container mt-5"
+                                        style={{
+                                            width: '100%',
+                                            height: '370px'
+                                        }}
+                                    >
+                                        <div className="chart-box">
+                                        <div className="chart">
+                                <div className="col-md-7 mt-5 d-flex align-items-center justify-content-center">
+                                    <Bar data={barChartData} options={options} />
+                                </div>
+                            </div>
+                                            <div className="chart-title">
+                                                <p>
+                                                    <b>
+                                                        Institution Type wise students count
+                                                        {newFormat2}
+                                                    </b>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                        </Card>
+
+                                        {/* <Col>
+                            <Card
+                                        bg="white"
+                                        text="dark"
+                                        className="mb-4"
+                                    >
+                            <div className="col-md-5">
+                                                <div className="row">
+                                                    <div className="col-md-12 text-center mt-3">
+                                                        <p>
+                                                            <b>
+                                                            Applicant Category wise Students Count
+                                                                 <br/>
+                                                                {newFormat}
+                                                            </b>
+                                                        </p>
+                                                    </div>
+                                                    <div className="col-md-12 doughnut-chart-container">
+                                                        {applicantCount && (
+                                                            <Doughnut
+                                                                data={
+                                                                    applicantCount
+                                                                }
+                                                                options={
+                                                                    chartOption
+                                                                }
+                                                            />
+                                                        )}
+                                                    </div>
+                                                   
+                                                </div>
+                                            </div>
+                                        </Card>
+                                        </Col> */}
+                                        </Row>
+                            {/* <Row
                                 style={{
                                     paddingRight: '20px',
                                     paddingTop: '1rem'
@@ -1158,44 +1361,8 @@ const Dashboard = () => {
                                             height: '150px'
                                         }}
                                     >
-                                        {/* <Card.Body>
-                                            <label htmlFor="teams" className="">
-                                                Total Teams Ideas In Draft
-                                            </label>
-
-                                            <Card.Text
-                                                className="left-aligned"
-                                                style={{
-                                                    fontSize: '30px',
-                                                    fontWeight: 'bold',
-                                                    marginTop: '10px',
-                                                    marginBottom: '20px'
-                                                }}
-                                            >
-                                                {totalideasCount -
-                                                    totalSubmittedideasCount -
-                                                    totalPfa}
-                                            </Card.Text>
-                                        </Card.Body> */}
-                                        {/* <Card.Body>
-                                            <Card.Text
-                                                style={{
-                                                    fontSize: '35px',
-                                                    fontWeight: 'bold',
-                                                    marginTop: '25px',
-                                                    textAlign: 'center',
-                                                    marginBottom: '20px'
-                                                }}
-                                            >
-                                                {totalStudentCount}
-                                            </Card.Text>
-                                            <label
-                                                htmlFor="teams"
-                                                className="text-center mt-3"
-                                            >
-                                                Registered Students
-                                            </label>
-                                        </Card.Body> */}
+                                       
+                                       
                                         <Card.Body
                                             style={{ textAlign: 'center' }}
                                         >
@@ -1231,21 +1398,7 @@ const Dashboard = () => {
                                         className="mb-4"
                                         style={{ height: '150px' }}
                                     >
-                                        {/* <Card.Body>
-                                            <label htmlFor="teams" className="">
-                                                Total Teams
-                                            </label>
-                                            <Card.Text
-                                                style={{
-                                                    fontSize: '30px',
-                                                    fontWeight: 'bold',
-                                                    marginTop: '10px',
-                                                    marginBottom: '20px'
-                                                }}
-                                            >
-                                                {totalteamsCount}
-                                            </Card.Text>
-                                        </Card.Body> */}
+                                      
                                         <Card.Body
                                             style={{ textAlign: 'center' }}
                                         >
@@ -1275,107 +1428,15 @@ const Dashboard = () => {
                                         </Card.Body>
                                     </Card>
                                 </Col>
-                            </Row>
-                            {/* <Col
-                                style={{
-                                    paddingRight: '20px',
-                                    paddingTop: '1rem'
-                                }}
-                            > */}
+                            </Row> */}
+                           
 
-                            {/* <Row>
-                                    <Card
-                                        bg="light"
-                                        text="dark"
-                                        className="mb-4"
-                                        style={{
-                                            height: '150px'
-                                        }}
-                                    >
-                                        <Card.Body>
-                                            <label htmlFor="teams" className="">
-                                                Students course completed
-                                            </label>
-
-                                            <Card.Text
-                                                className="left-aligned"
-                                                style={{
-                                                    fontSize: '30px',
-                                                    fontWeight: 'bold',
-                                                    marginTop: '10px',
-                                                    marginBottom: '20px'
-                                                }}
-                                            >
-                                                {studentCoursesCompletedCount}
-                                            </Card.Text>
-                                        </Card.Body>
-                                    </Card>
-                                </Row> */}
-                            {/* <Row>
-                                    <Card
-                                        bg="light"
-                                        text="dark"
-                                        className="mb-4"
-                                        style={{
-                                            height: '150px'
-                                        }}
-                                    >
-                                        <Card.Body>
-                                            <label htmlFor="teams" className="">
-                                                Students course in progress
-                                            </label>
-
-                                            <Card.Text
-                                                className="left-aligned"
-                                                style={{
-                                                    fontSize: '30px',
-                                                    fontWeight: 'bold',
-                                                    marginTop: '10px',
-                                                    marginBottom: '20px'
-                                                }}
-                                            >
-                                                {totalstudentCoursesCount -
-                                                    studentCoursesCompletedCount}
-                                            </Card.Text>
-                                        </Card.Body>
-                                    </Card>
-                                </Row> */}
-                            {/* <Row>
-                                    <Card
-                                        bg="light"
-                                        text="dark"
-                                        className="mb-4"
-                                        style={{
-                                            height: '150px'
-                                        }}
-                                    >
-                                        <Card.Body>
-                                            <label htmlFor="teams" className="">
-                                                Students Course not started
-                                            </label>
-
-                                            <Card.Text
-                                                className="left-aligned"
-                                                style={{
-                                                    fontSize: '30px',
-                                                    fontWeight: 'bold',
-                                                    marginTop: '10px',
-                                                    marginBottom: '20px'
-                                                }}
-                                            >
-                                                {totalStudentCount -
-                                                    totalstudentCoursesCount}
-                                            </Card.Text>
-                                        </Card.Body>
-                                    </Card>
-                                </Row> */}
-                            {/* </Col> */}
-                            <Row
+                           
+                            {/* <Row
                                 style={{
                                     paddingRight: '20px',
                                     paddingTop: '1rem',
                                     paddingLeft: '1rem'
-                                    // height: '150px'
                                 }}
                             >
                                 <Col>
@@ -1406,45 +1467,12 @@ const Dashboard = () => {
                                                     fontSize: '16px',
                                                     lineHeight: '20px'
                                                 }}
-                                                // style={{ textAlign: 'center' }}
                                             >
                                                 No.of <br /> Teams
                                             </label>
                                         </Card.Body>
-                                        {/* <Card.Body>
-                                            <Card.Text
-                                                style={{
-                                                    fontSize: '35px',
-                                                    fontWeight: 'bold',
-                                                    marginTop: '25px',
-                                                    textAlign: 'center',
-                                                    marginBottom: '20px'
-                                                }}
-                                            >
-                                                {invalidInst}
-                                            </Card.Text>
-                                            <label
-                                                htmlFor="teams"
-                                                className="text-center mt-3"
-                                            >
-                                                Invalid Institutions
-                                            </label>
-                                        </Card.Body> */}
-                                        {/* <Card.Body>
-                                            <label htmlFor="teams" className="">
-                                                Total Registered Mentors
-                                            </label>
-                                            <Card.Text
-                                                style={{
-                                                    fontSize: '30px',
-                                                    fontWeight: 'bold',
-                                                    marginTop: '10px',
-                                                    marginBottom: '20px'
-                                                }}
-                                            >
-                                                {totalMentorCount}
-                                            </Card.Text>
-                                        </Card.Body> */}
+                                       
+                                       
                                     </Card>
                                 </Col>
                                 <Col>
@@ -1456,43 +1484,7 @@ const Dashboard = () => {
                                             height: '150px'
                                         }}
                                     >
-                                        {/* <Card.Body>
-                                            <label htmlFor="teams" className="">
-                                                Total Ideas Pending For Approval
-                                            </label>
-
-                                            <Card.Text
-                                                className="left-aligned"
-                                                style={{
-                                                    fontSize: '30px',
-                                                    fontWeight: 'bold',
-                                                    marginTop: '10px',
-                                                    marginBottom: '20px'
-                                                }}
-                                            >
-                                                {totalPfa}
-                                            </Card.Text>
-                                        </Card.Body> */}
-                                        {/* <Card.Body>
-                                            <Card.Text
-                                                className="left-aligned"
-                                                style={{
-                                                    fontSize: '35px',
-                                                    fontWeight: 'bold',
-                                                    marginTop: '25px',
-                                                    textAlign: 'center',
-                                                    marginBottom: '20px'
-                                                }}
-                                            >
-                                                {totalMentorMaleCount}
-                                            </Card.Text>
-                                            <label
-                                                htmlFor="teams"
-                                                className="text-center mt-3"
-                                            >
-                                                Male Mentors
-                                            </label>
-                                        </Card.Body> */}
+                                       
                                         <Card.Body
                                             style={{ textAlign: 'center' }}
                                         >
@@ -1530,24 +1522,7 @@ const Dashboard = () => {
                                             height: '150px'
                                         }}
                                     >
-                                        {/* <Card.Body>
-                                            <label htmlFor="teams" className="">
-                                                Total Female Mentors
-                                            </label>
-
-                                            <Card.Text
-                                                className="left-aligned"
-                                                style={{
-                                                    fontSize: '30px',
-                                                    fontWeight: 'bold',
-                                                    marginTop: '10px',
-                                                    marginBottom: '20px'
-                                                }}
-                                            >
-                                                {totalMentorCount -
-                                                    totalMentorMaleCount}
-                                            </Card.Text>
-                                        </Card.Body> */}
+                                       
                                         <Card.Body
                                             style={{ textAlign: 'center' }}
                                         >
@@ -1585,43 +1560,8 @@ const Dashboard = () => {
                                             height: '150px'
                                         }}
                                     >
-                                        {/* <Card.Body>
-                                            <label htmlFor="teams" className="">
-                                                Total Female Students
-                                            </label>
-
-                                            <Card.Text
-                                                className="left-aligned"
-                                                style={{
-                                                    fontSize: '30px',
-                                                    fontWeight: 'bold',
-                                                    marginTop: '10px',
-                                                    marginBottom: '20px'
-                                                }}
-                                            >
-                                                {totalStudentFemaleCount}
-                                            </Card.Text>
-                                        </Card.Body> */}
-                                        {/* <Card.Body>
-                                            <Card.Text
-                                                className="left-aligned"
-                                                style={{
-                                                    fontSize: '35px',
-                                                    fontWeight: 'bold',
-                                                    marginTop: '25px',
-                                                    textAlign: 'center',
-                                                    marginBottom: '20px'
-                                                }}
-                                            >
-                                                {totalSubmittedideasCount}
-                                            </Card.Text>
-                                            <label
-                                                htmlFor="teams"
-                                                className="text-center mt-3 pb-2"
-                                            >
-                                                Submitted Ideas Count
-                                            </label>
-                                        </Card.Body> */}
+                                       
+                                      
                                         <Card.Body
                                             style={{ textAlign: 'center' }}
                                         >
@@ -1650,107 +1590,14 @@ const Dashboard = () => {
                                         </Card.Body>
                                     </Card>
                                 </Col>
-                            </Row>
-                            <Row
+                            </Row> */}
+                            {/* <Row
                                 style={{
                                     paddingRight: '20px',
                                     paddingTop: '1rem',
                                     paddingLeft: '1rem'
-                                    // height: '150px'
                                 }}
                             >
-                                {/* <Row>
-                                    <Card
-                                        bg="white"
-                                        text="dark"
-                                        className="mb-4"
-                                        style={{ height: '150px' }}
-                                    > */}
-                                {/* <Card.Body>
-                                            <Card.Text
-                                                style={{
-                                                    fontSize: '50px',
-                                                    fontWeight: 'bold',
-                                                    marginTop: '25px',
-                                                    textAlign: 'center',
-                                                    marginBottom: '20px'
-                                                }}
-                                            >
-                                                {invalidInst}
-                                            </Card.Text>
-                                            <label
-                                                htmlFor="teams"
-                                                className="text-center mt-5 pb-2"
-                                            >
-                                                Invalid Institutions
-                                            </label>
-                                        </Card.Body> */}
-                                {/* <Card.Body>
-                                            <label htmlFor="teams" className="">
-                                                Total Registered Mentors
-                                            </label>
-                                            <Card.Text
-                                                style={{
-                                                    fontSize: '30px',
-                                                    fontWeight: 'bold',
-                                                    marginTop: '10px',
-                                                    marginBottom: '20px'
-                                                }}
-                                            >
-                                                {totalMentorCount}
-                                            </Card.Text>
-                                        </Card.Body> */}
-                                {/* </Card> */}
-                                {/* </Row> */}
-                                {/* <Row> */}
-                                {/* <Card
-                                        bg="white"
-                                        text="dark"
-                                        className="mb-4"
-                                        style={{
-                                            height: '150px'
-                                        }}
-                                    > */}
-                                {/* <Card.Body>
-                                            <label htmlFor="teams" className="">
-                                                Total Ideas Pending For Approval
-                                            </label>
-
-                                            <Card.Text
-                                                className="left-aligned"
-                                                style={{
-                                                    fontSize: '30px',
-                                                    fontWeight: 'bold',
-                                                    marginTop: '10px',
-                                                    marginBottom: '20px'
-                                                }}
-                                            >
-                                                {totalPfa}
-                                            </Card.Text>
-                                        </Card.Body> */}
-                                {/* <Card.Body>
-                                            <Card.Text
-                                                className="left-aligned"
-                                                style={{
-                                                    fontSize: '50px',
-                                                    fontWeight: 'bold',
-                                                    marginTop: '25px',
-                                                    textAlign: 'center',
-                                                    marginBottom: '20px'
-                                                }}
-                                            >
-                                                {totalMentorMaleCount}
-                                            </Card.Text>
-                                            <label
-                                                htmlFor="teams"
-                                                className="text-center mt-5 pb-2"
-                                            >
-                                                Male Mentors
-                                            </label>
-                                        </Card.Body> */}
-                                {/* </Card> */}
-                                {/* </Row> */}
-
                                 <Col>
                                     <Card
                                         bg="white"
@@ -1760,23 +1607,7 @@ const Dashboard = () => {
                                             height: '150px'
                                         }}
                                     >
-                                        {/* <Card.Body>
-                                            <label htmlFor="teams" className="">
-                                                Total Male Mentors
-                                            </label>
-
-                                            <Card.Text
-                                                className="left-aligned"
-                                                style={{
-                                                    fontSize: '30px',
-                                                    fontWeight: 'bold',
-                                                    marginTop: '10px',
-                                                    marginBottom: '20px'
-                                                }}
-                                            >
-                                                {totalMentorMaleCount}
-                                            </Card.Text>
-                                        </Card.Body> */}
+                                       
                                         <Card.Body
                                             style={{ textAlign: 'center' }}
                                         >
@@ -1817,23 +1648,7 @@ const Dashboard = () => {
                                             height: '150px'
                                         }}
                                     >
-                                        {/* <Card.Body>
-                                            <label htmlFor="teams" className="">
-                                                Total Male Students
-                                            </label>
-
-                                            <Card.Text
-                                                className="left-aligned"
-                                                style={{
-                                                    fontSize: '30px',
-                                                    fontWeight: 'bold',
-                                                    marginTop: '10px',
-                                                    marginBottom: '20px'
-                                                }}
-                                            >
-                                                {totalStudentMaleCount}
-                                            </Card.Text>
-                                        </Card.Body> */}
+                                       
                                         <Card.Body
                                             style={{ textAlign: 'center' }}
                                         >
@@ -1872,64 +1687,9 @@ const Dashboard = () => {
                                             height: '150px'
                                         }}
                                     >
-                                        {/* <Card.Body>
-                                            <label htmlFor="teams" className="">
-                                                Total Female Mentors
-                                            </label>
-
-                                            <Card.Text
-                                                className="left-aligned"
-                                                style={{
-                                                    fontSize: '30px',
-                                                    fontWeight: 'bold',
-                                                    marginTop: '10px',
-                                                    marginBottom: '20px'
-                                                }}
-                                            >
-                                                {totalMentorCount -
-                                                    totalMentorMaleCount}
-                                            </Card.Text>
-                                        </Card.Body> */}
-                                        {/* <Card.Body>
-                                            <Card.Text
-                                                className="left-aligned"
-                                                style={{
-                                                    fontSize: '50px',
-                                                    fontWeight: 'bold',
-                                                    marginTop: '25px',
-                                                    textAlign: 'center',
-                                                    marginBottom: '20px'
-                                                }}
-                                            >
-                                                {totalStudentMaleCount}
-                                            </Card.Text>
-                                            <label
-                                                htmlFor="teams"
-                                                className="text-center mt-5 pb-2"
-                                            >
-                                                Male Students
-                                            </label>
-                                        </Card.Body> */}
-                                        {/* <Card.Body>
-                                            <Card.Text
-                                                className="left-aligned"
-                                                style={{
-                                                    fontSize: '35px',
-                                                    fontWeight: 'bold',
-                                                    marginTop: '75px',
-                                                    textAlign: 'center',
-                                                    marginBottom: '20px'
-                                                }}
-                                            >
-                                                {totalStudentFemaleCount}
-                                            </Card.Text>
-                                            <label
-                                                htmlFor="teams"
-                                                className="text-center mt-3"
-                                            >
-                                                Female Students
-                                            </label>
-                                        </Card.Body> */}
+                                      
+                                        
+                                       
                                         <Card.Body
                                             style={{ textAlign: 'center' }}
                                         >
@@ -1967,23 +1727,7 @@ const Dashboard = () => {
                                             height: '150px'
                                         }}
                                     >
-                                        {/* <Card.Body>
-                                            <label htmlFor="teams" className="">
-                                                Total Female Students
-                                            </label>
-
-                                            <Card.Text
-                                                className="left-aligned"
-                                                style={{
-                                                    fontSize: '30px',
-                                                    fontWeight: 'bold',
-                                                    marginTop: '10px',
-                                                    marginBottom: '20px'
-                                                }}
-                                            >
-                                                {totalStudentFemaleCount}
-                                            </Card.Text>
-                                        </Card.Body> */}
+                                      
                                         <Card.Body
                                             style={{ textAlign: 'center' }}
                                         >
@@ -2014,7 +1758,7 @@ const Dashboard = () => {
                                         </Card.Body>
                                     </Card>
                                 </Col>
-                            </Row>
+                            </Row> */}
 
                             {/* <div>
                                 <Card bg="light" text="dark" className="mb-4">

@@ -105,7 +105,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
 
             <SidebarContent>
                 <Menu iconShape="circle">
-                    {/* <MenuItem
+                    <MenuItem
                         icon={
                             <img
                                 src={DashboardIcon1}
@@ -129,7 +129,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                                 Dashboard
                             </span>
                         </NavLink>
-                    </MenuItem> */}
+                    </MenuItem>
                     <MenuItem
                         icon={
                             <img
