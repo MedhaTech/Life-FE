@@ -109,7 +109,7 @@ const AddMentor = (props) => {
 
             //     .required('Please  Enter Reg Id')
             //     .trim(),
-            age: Yup.number().min(16, 'Age Should be above 15 years old').required("Age Required")
+            age: Yup.number().moreThan(15, 'Age Should be above 15 years old').required("Age Required")
             // email: Yup.string()
             //     .email('Must be a valid email')
             //     .max(255)
@@ -217,35 +217,26 @@ const AddMentor = (props) => {
         // where we can discard  the changes //
         props.history.push('/teams');
     };
-    // useEffect(() => {
-    //     const currentDate = new Date();
-    //     const selectedDate = new Date(formik.values.dob);
-
-    //     if (!isNaN(selectedDate.getTime())) {
-    //         const Age = currentDate.getFullYear() - selectedDate.getFullYear();
-    //         formik.setFieldValue('age', JSON.stringify(Age));
-    //     }
-
-    // }, [formik.values.dob]);
+    
     useEffect(() => {
         const currentDate = new Date();
         const selectedDate = new Date(formik.values.dob);
 
         if (!isNaN(selectedDate.getTime())) {
             const age = currentDate.getFullYear() - selectedDate.getFullYear();
-            const monthDiff = currentDate.getMonth() - selectedDate.getMonth();
-            const dayDiff = currentDate.getDate() - selectedDate.getDate();
+            // const monthDiff = currentDate.getMonth() - selectedDate.getMonth();
+            // const dayDiff = currentDate.getDate() - selectedDate.getDate();
 
             if (selectedDate > currentDate) {
                 formik.setFieldError('dob', 'Future dates are not allowed');
                 formik.setFieldValue('dob', '');
-            } else if (
-                age < 16 ||
-                (age === 16 && (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)))
-            ) {
-                formik.setFieldError('dob', 'You must be at least 16 years old');
-                formik.setFieldValue('dob', '');
-                formik.setFieldValue('age', '');
+            // } else if (
+            //     age < 16 ||
+            //     (age === 16 && (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)))
+            // ) {
+            //     formik.setFieldError('dob', 'You must be at least 16 years old');
+            //     formik.setFieldValue('dob', '');
+            //     formik.setFieldValue('age', '');
             } else {
                 formik.setFieldValue('age', age);
             }
