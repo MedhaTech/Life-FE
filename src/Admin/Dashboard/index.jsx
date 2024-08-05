@@ -68,6 +68,8 @@ const Dashboard = () => {
     );
     const [isDownload, setIsDownload] = useState(false);
     const csvLinkRef = useRef();
+    const csvLinkRef1 = useRef();
+
 
     const [chartTableData, setChartTableData] = useState([]);
     const [chartTableData1, setChartTableData1] = useState([]);
@@ -75,6 +77,48 @@ const Dashboard = () => {
     const [chartTableData3, setChartTableData3] = useState([]);
 
     const [barChart1Data, setBarChart1Data] = useState("");
+    const tableThemesHeaders = [
+        {
+            label: 'State Name',
+            key: 'state'
+        },
+        {
+            label: 'Adopt Healthy Lifestyles',
+            key: 'Adopt Healthy Lifestyles'
+        },
+        {
+            label: 'Adopt Sustainable Food Systems',
+            key: 'Adopt Sustainable Food Systems'
+        },
+        {
+            label: 'Reduce E-waste',
+            key: 'Reduce E-waste'
+        },
+        {
+            label: 'Reduce Waste',
+            key: 'Reduce Waste'
+        },
+        {
+            label: 'Save Energy',
+            key: 'Save Energy'
+        }, {
+            label: 'Save Water',
+            key: 'Save Water'
+        },
+        {
+            label: 'Say No to Single Use Plastic',
+            key: 'Say No to Single Use Plastic'
+        },
+        {
+            label: 'Others (Any other theme related to environment-friendly lifestyle)',
+            key: 'Others (Any other theme related to environment-friendly lifestyle)'
+        },
+        {
+            label: 'Submitted Ideas',
+            key: 'submited'
+        },
+       
+    ];
     const tableHeaders = [
         {
             label: 'State Name',
@@ -308,9 +352,12 @@ const Dashboard = () => {
     const [newFormat2, setNewFormat2] = useState('');
 const[protoCount,setProtoCount]=useState("");
 const [combinedArray, setCombinedArray] = useState([]);
+const[themesList,setThemesList]= useState([]);
 const [tableData,setTableDat]=useState([]);
     const [genders,setGenders]=useState(null);
     const [downloadData,setDownloadData]=useState(null);
+    const [downloadThemeData,setDownloadThemeData]=useState(null);
+
   const [proCount,setProCount]=useState("");
     useEffect(()=>{
 overallStudent();
@@ -320,6 +367,7 @@ overallGender();
 allInstitutions();
 propTypeApi();
 fetchStateWiseStudentsTableApi();
+fetchThemeWiseTableApi ();
 const newDate = new Date();
 const formattedDate = `${newDate.getUTCDate()}/${
     1 + newDate.getMonth()
@@ -328,6 +376,27 @@ setNewFormat(formattedDate);
 setNewFormat1(formattedDate);
 setNewFormat2(formattedDate);
     },[]);
+    const fetchThemeWiseTableApi = () => {
+        const config = {
+            method: 'get',
+            url: process.env.REACT_APP_API_BASE_URL + '/dashboard/themeWise',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${currentUser?.data[0]?.token}`
+            }
+        };
+
+        axios(config)
+            .then((response) => {
+                if (response.status === 200) {
+                   console.log(response,"table");
+                   setThemesList(response?.data?.data || []);
+                }
+            })
+            .catch((error) => {
+                console.log('API error:', error);
+            });
+    };
     const fetchStateWiseStudentsTableApi = () => {
         const config = {
             method: 'get',
@@ -362,7 +431,7 @@ setNewFormat2(formattedDate);
         axios(config)
             .then(function (response) {
                 if (response.status === 200) {
-                    console.log(response,"11");
+                    // console.log(response,"11");
                     setProCount(response?.data?.data[0]?.["Having Prototype"]
                     );
                     // const chartTableData3 = response?.data?.data || [];
@@ -934,11 +1003,41 @@ setNewFormat2(formattedDate);
                 }
             });
     };
+    const handleDownloadTheme=()=>{
+        // alert("hii");
+        fetchThemeData();
+        setIsDownload(true);
+
+    };
     const handleDownload=()=>{
         // alert("hii");
         fetchData();
         setIsDownload(true);
 
+    };
+    const fetchThemeData = () => {
+        const config = {
+            method: 'get',
+            url: process.env.REACT_APP_API_BASE_URL + '/dashboard/detailsIdeas',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${currentUser?.data[0]?.token}`
+            }
+        };
+
+        axios(config)
+            .then((response) => {
+                if (response.status === 200) {
+                //    console.log(response,"down");
+                   setDownloadThemeData(response?.data?.data || []);
+                   setIsDownload(false);
+                   csvLinkRef1.current.link.click();
+                //    setCombinedArray(response?.data?.data || []);
+                }
+            })
+            .catch((error) => {
+                console.log('API error:', error);
+            });
     };
     const fetchData = () => {
         const config = {
@@ -953,7 +1052,7 @@ setNewFormat2(formattedDate);
         axios(config)
             .then((response) => {
                 if (response.status === 200) {
-                   console.log(response,"down");
+                //    console.log(response,"down");
                    setDownloadData(response?.data?.data || []);
                    setIsDownload(false);
                    csvLinkRef.current.link.click();
@@ -977,7 +1076,280 @@ setNewFormat2(formattedDate);
                                      Ideas4Life Stats
                                 </span>
                             </h2>
-                          
+                            <Row
+                                style={{
+                                    paddingRight: '20px',
+                                    paddingTop: '1rem',
+                                    paddingLeft: '1rem'
+                                }}
+                            >
+                                  {combinedArray.length > 0 && (
+                               <div className="mt-5">
+                               <div className="d-flex align-items-center mb-3">
+                                   <h3>OVERVIEW For Themes</h3>
+                                   <Button
+                                       label="Download Table"
+                                       btnClass="primary mx-2"
+                                       size="small"
+                                       shape="btn-square"
+                                       onClick={handleDownloadTheme
+                                          
+                                       }
+                                       style={{
+                                           width: '150px',
+                                           whiteSpace: 'nowrap'
+                                       }}
+                                   />
+                               </div>
+                               <div className="row">
+                                   <div className="col-md-12 mx-10 px-10">
+                                       <div
+                                           className="table-wrapper bg-white "
+                                           style={{
+                                               overflowX: 'auto'
+                                           }}
+                                       >
+                                           <Table
+                                               id="dataTable"
+                                               className="table table-striped table-bordered responsive"
+                                           >
+                                               <thead>
+                                                   <tr>
+                                                       <th>No</th>
+                                                       <th>
+                                                       Adopt Healthy Lifestyles
+
+                                                       </th>
+                                                       <th>
+                                                       Adopt Sustainable Food Systems
+
+                                                       </th>
+                                                       <th>
+                                                       Reduce E-waste
+
+                                                       </th> <th>
+                                                       
+Reduce Waste
+
+                                                       </th> <th>
+                                                       Save Energy
+
+
+                                                       </th> <th>
+                                                       Save Water
+
+                                                       </th> <th>
+                                                      
+Say No to Single Use Plastic
+
+                                                       </th> <th>
+                                                       Others (Any other theme related to environment-friendly lifestyle) 
+
+                                                       </th>
+                                                      
+                                                   </tr>
+                                               </thead>
+                                               <tbody>
+                                                   {themesList.map(
+                                                       (
+                                                           item,
+                                                           index
+                                                       ) => (
+                                                           <tr
+                                                               key={
+                                                                   index
+                                                               }
+                                                           >
+                                                               <td>
+                                                                   {index +
+                                                                       1}
+                                                               </td>
+                                                               <td>
+                                                                   {
+                                                                       item["Adopt Healthy Lifestyles"]
+
+                                                                   }
+                                                               </td>
+                                                               <td>
+                                                                   {
+                                                                       item["Adopt Sustainable Food Systems"]
+
+                                                                   }
+                                                               </td>
+                                                               <td>
+                                                                   {
+                                                                       item["Reduce E-waste"]
+
+                                                                   }
+                                                               </td> <td>
+                                                                   {
+                                                                       item["Reduce Waste"]
+
+                                                                   }
+                                                               </td> <td>
+                                                                   {
+                                                                       item["Save Energy"]
+
+                                                                   }
+                                                               </td> <td>
+                                                                   {
+                                                                       item["Save Water"]
+
+                                                                   }
+                                                               </td> <td>
+                                                                   {
+                                                                       item["Say No to Single Use Plastic"]
+
+                                                                   }
+                                                               </td> <td>
+                                                                   {
+                                                                       item["Adopt Sustainable Food Systems"]
+
+                                                                   }
+                                                               </td> <td>
+                                                                   {
+                                                                       item["Others (Any other theme related to environment-friendly lifestyle)"]
+
+                                                                   }
+                                                               </td>
+                                                              
+                                                              
+                                                           </tr>
+                                                       )
+                                                   )}
+
+                                               </tbody>
+                                           </Table>
+                                       </div>
+                                   </div>
+                               </div>
+                           </div>   
+                            )}
+                             {downloadThemeData && (
+                                    <CSVLink
+                                        data={downloadThemeData}
+                                        headers={tableThemesHeaders}
+                                        filename={`StatewiseThemesReport_${newFormat}.csv`}
+                                        className="hidden"
+                                        ref={csvLinkRef1}
+                                    >
+                                        Download Table CSV
+                                    </CSVLink>
+                                )}
+                                <Col>
+                                    <Card
+                                        bg="white"
+                                        text="dark"
+                                        className="mb-4"
+                                        style={{
+                                            height: '150px',
+                                            // width: '300px'
+                                        }}
+                                    >
+                                        <Card.Body
+                                            style={{ textAlign: 'center' }}
+                                        >
+                                            <Card.Text
+                                                style={{
+                                                    fontSize: '24px',
+                                                    fontWeight: 'bold',
+                                                    marginTop: '25px',
+                                                    textAlign: 'center',
+                                                    marginBottom: '5px'
+                                                }}
+                                            >
+                                                {overallStu}
+                                            </Card.Text>
+                                            <label
+                                                htmlFor="teams"
+                                                className="text-center p-3"
+                                                style={{
+                                                    fontSize: '16px',
+                                                    lineHeight: '20px'
+                                                }}
+                                            >
+                                                Overall <br /> Students
+                                            </label>
+                                        </Card.Body>
+                                    </Card>
+                                </Col>
+                                <Col>
+                                    <Card
+                                        bg="white"
+                                        text="dark"
+                                        className="mb-4"
+                                        style={{ height: '150px' }}
+                                    >
+                                       
+                                       
+                                        <Card.Body
+                                            style={{ textAlign: 'center' }}
+                                        >
+                                            <Card.Text
+                                                style={{
+                                                    fontSize: '24px',
+                                                    fontWeight: 'bold',
+                                                    marginTop: '25px',
+                                                    textAlign: 'center',
+                                                    marginBottom: '20px'
+                                                }}
+                                            >
+                                                {overallIdea}
+                                            </Card.Text>
+                                            <label
+                                                htmlFor="teams"
+                                                className="text-center mt-3"
+                                                style={{
+                                                    fontSize: '16px',
+                                                    lineHeight: '20px'
+                                                }}
+                                            >
+                                                Overall <br /> Ideas
+                                            </label>
+                                        </Card.Body>
+                                    </Card>
+                                </Col>
+                                <Col>
+                                    <Card
+                                        bg="white"
+                                        text="dark"
+                                        className="mb-4"
+                                        style={{
+                                            height: '150px'
+                                        }}
+                                    >
+                                       
+                                       
+                                        <Card.Body
+                                            style={{ textAlign: 'center' }}
+                                        >
+                                            <Card.Text
+                                                style={{
+                                                    fontSize: '24px',
+                                                    fontWeight: 'bold',
+                                                    marginTop: '25px',
+                                                    textAlign: 'center',
+                                                    marginBottom: '20px'
+                                                }}
+                                            >
+                                                {proCount}
+                                            </Card.Text>
+                                            <label
+                                                htmlFor="teams"
+                                                className="text-center mt-3"
+                                                style={{
+                                                    fontSize: '16px',
+                                                    lineHeight: '20px'
+                                                }}
+                                            >
+                                               Prototype <br/>Ideas Count
+                                            </label>
+                                        </Card.Body>
+                                    </Card>
+                                </Col>
+
+                               
+                            </Row>
                             <Row
                                 style={{
                                     paddingRight: '20px',
