@@ -198,7 +198,7 @@ function AtlPage() {
             Gender: '',
             email: '',
             group: '',
-            Age: '',
+            age: '',
             year_of_study: '',
             date_of_birth: '',
             reg_no: '',
@@ -242,7 +242,7 @@ function AtlPage() {
                 .max(10, 'Enter only 10 digit valid number')
                 .min(10, 'Number is less than 10 digits'),
 
-            Age: Yup.number().moreThan(16, 'Age Should be above 15 years old').required("Age Required"),
+            age: Yup.number().moreThan(16, 'Age Should be above 15 years old').required("Age Required"),
             // id_card: Yup.mixed().required("Upload Id Card"),
 
             Gender: Yup.string().required('Select Gender'),
@@ -300,7 +300,7 @@ function AtlPage() {
                     institution_name: values.institution_name.trim(),
                     city: values.city.trim(),
                     Gender: values.Gender,
-                    Age: values.Age,
+                    age: values.age,
                     state: values.state,
                     district: values.district,
                     group: values.group,
@@ -395,7 +395,7 @@ function AtlPage() {
             //             institution_name: values.institution_name.trim(),
             //             city: values.city.trim(),
             //             Gender: values.Gender,
-            //             Age: values.Age,
+            //             age: values.age,
             //             state: values.state,
             //             district: values.district,
             //             group: values.group,
@@ -524,14 +524,14 @@ function AtlPage() {
         const selectedDate = new Date(formik.values.date_of_birth);
 
         if (!isNaN(selectedDate.getTime())) {
-            const Age =
+            const age =
             currentDate.getFullYear() - selectedDate.getFullYear();
             if (selectedDate > currentDate) {
                 formik.setFieldError('date_of_birth', 'Future dates are not allowed');
                 formik.setFieldValue('date_of_birth', '');
             } else {
               
-                formik.setFieldValue('Age', Age);
+                formik.setFieldValue('age', age);
             }
         }
     }, [formik.values.date_of_birth]);
@@ -555,8 +555,7 @@ function AtlPage() {
             formik.values.group.length > 0 &&
             formik.values.year_of_study.length > 0 &&
             formik.values.reg_no.length > 0 &&
-            formik.values.institution_name.length > 0 &&
-            formik.values.Age.length > 0
+            formik.values.institution_name.length > 0 
         ) {
             setDisable(true);
         } else {
@@ -575,14 +574,14 @@ function AtlPage() {
         formik.values.city,
         formik.values.year_of_study,
         formik.values.reg_no,
-        formik.values.institution_name,formik.values.Age
+        formik.values.institution_name
     ]);
 
     const handleOtpChange = (e) => {
         formik.setFieldValue('otp', e);
         setErrorMsg(false);
     };
-    console.log(formik.values.Age,"Age");
+    // console.log(formik.values.age,"age");
    
     const dateRegex = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/;
     const [hide, setHide] = useState(true);
@@ -1082,12 +1081,12 @@ function AtlPage() {
                                                         name="age"
                                                         type="text"
                                                         value={String(
-                                                            formik.values.Age
+                                                            formik.values.age
                                                         )}
                                                     // pattern={
                                                     //     dateRegex.source
                                                     // }
-                                                    // name="Age"
+                                                    // name="age"
                                                     // onChange={
                                                     //     formik.handleChange
                                                     // }
@@ -1099,10 +1098,10 @@ function AtlPage() {
                                                     // }
                                                     />
 
-                                                    {formik.touched.Age &&
-                                                        formik.errors.Age ? (
+                                                    {formik.touched.age &&
+                                                        formik.errors.age ? (
                                                         <small className="error-cls">
-                                                            {formik.errors.Age}
+                                                            {formik.errors.age}
                                                         </small>
                                                     ) : null}
                                                 </Col>

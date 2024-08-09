@@ -23,7 +23,7 @@
 }
 .table-wrapper table {
     display: table;
-    width: 100px;
+    width: 100%;
     table-layout: auto;
     border-collapse: collapse;
 }
@@ -50,8 +50,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 400px;
-    width: 400px;
+    // height: 400px;
+    // width: 400px;
     padding: 20px;
     margin-left: 30px;
     box-sizing: border-box;
