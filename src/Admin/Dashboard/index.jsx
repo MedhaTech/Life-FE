@@ -125,11 +125,11 @@ const Dashboard = () => {
             key: 'state'
         },
         {
-            label: 'Total Enrolled Students',
+            label: 'Total Enrolled Applicants',
             key: 'total enrolled'
         },
         {
-            label: 'Reg Students',
+            label: 'Reg. Applicants',
             key: 'reg_student'
         },
         {
@@ -250,17 +250,19 @@ const Dashboard = () => {
             });
     }
     const chartOption = {
+        responsive: true,
+        aspectRatio: 1,
         maintainAspectRatio: false,
-        // legend: {
-        //     position: 'bottom',
-        //     labels: {
-        //         fontColor: 'black'
-        //     }
-        // },
+        legend: {
+            position: 'right',
+            labels: {
+                fontColor: 'black'
+            }
+        },
         plugins: {
             legend: {
                 labels: {
-                    position: 'bottom',
+                    position: 'top',
                     labels: {
                         fontColor: 'black',
                         generateLabels: function (chart) {
@@ -274,7 +276,7 @@ const Dashboard = () => {
                                 };
                             });
                         }
-                    }
+                    },
                 }
             }
         }
@@ -530,8 +532,8 @@ const Dashboard = () => {
                         datasets: [
                             {
                                 data: [maleCount, femaleCount, othersCount],
-                                backgroundColor: ["#6a5acd", '#FF6384', "#ee82ee"],
-                                hoverBackgroundColor: ["#6a5acd", '#FF6384', "#ee82ee"]
+                                backgroundColor: ["#02a3fe", '#e74aa3', "#b9bac0"],
+                                hoverBackgroundColor: ["#02a3fe", '#e74aa3', "#b9bac0"]
                             }
                         ]
                     });
@@ -574,8 +576,8 @@ const Dashboard = () => {
                         datasets: [
                             {
                                 data: [researchCount, studentCount, facultyCount, othersCount],
-                                backgroundColor: ['#36A2EB', '#FF6384', "#ffa500", "#ee82ee"],
-                                hoverBackgroundColor: ['#36A2EB', '#FF6384', "#ffa500", "#ee82ee"]
+                                backgroundColor: ['#69b8f4', '#8ed8b7', "#c899f4", "#fde35a"],
+                                hoverBackgroundColor: ['#69b8f4', '#8ed8b7', "#c899f4", "#fde35a"]
                             }
                         ]
                     });
@@ -1092,7 +1094,7 @@ const Dashboard = () => {
                                                 htmlFor="teams"
                                                 className="card-label"
                                             >
-                                                Total Reg. Students
+                                                Total Reg. Applicants
                                             </label>
                                         </Card.Body>
                                     </Card>
@@ -1114,7 +1116,7 @@ const Dashboard = () => {
                                                 htmlFor="teams"
                                                 className="card-label"
                                             >
-                                                SUbmitted Challenges
+                                                Submitted Challenges
                                             </label>
                                         </Card.Body>
                                     </Card>
@@ -1143,130 +1145,74 @@ const Dashboard = () => {
                                 </Col>
                             </Row>
                             <Row>
-                                <Card
-                                    bg="white"
-                                    text="dark"
-                                    className="mb-4"
-                                // style={{ height: '150px' }}
-                                >
-                                    <div className="row">
-                                        <div className="col">
-                                            <div className="col-md-12 text-center mt-3">
-                                                <p>
-                                                    <b>
-                                                        Applicant Category wise Students Count
-                                                        <br />
-                                                        {newFormat}
-                                                    </b>
-                                                </p>
-                                            </div>
-                                            <div className="col-md-12 doughnut-chart-container">
-                                                {applicantCount && (
-                                                    <Doughnut
-                                                        data={
-                                                            applicantCount
-                                                        }
-                                                        options={
-                                                            chartOption
-                                                        }
-                                                    />
-                                                )}
-                                            </div>
-                                        </div>
-                                        <div className='col'>
-                                            <div className="col-md-12 text-center mt-3">
-                                                <p>
-                                                    <b>
-                                                        Gender wise Status Count
-                                                        <br />
-                                                        {newFormat1}
-                                                    </b>
-                                                </p>
-                                            </div>
-                                            <div className="col-md-12 doughnut-chart-container">
-                                                {genders && (
-                                                    <Doughnut
-                                                        data={
-                                                            genders
-                                                        }
-                                                        options={
-                                                            chartOption1
-                                                        }
-                                                    />
-                                                )}
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="mt-5">
-                                        <div
-                                            className="col-md-12 chart-container mt-5"
-                                            style={{
-                                                width: '100%',
-                                                height: '370px'
-                                            }}
-                                        >
-                                            <div className="chart-box">
-                                                <div className="chart">
-                                                    <div className="col-md-7 mt-5 d-flex align-items-center justify-content-center">
-                                                        <Bar data={barChartData} options={options} />
-                                                    </div>
-                                                </div>
-                                                <div className="chart-title">
-                                                    <p>
-                                                        <b>
-                                                            Institution Type wise students count
-                                                            {newFormat2}
-                                                        </b>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </Card>
-
-                                {/* <Col>
-                            <Card
+                                <Col md={6}>
+                                    <Card
                                         bg="white"
                                         text="dark"
                                         className="mb-4"
+                                    // style={{ height: '150px' }}
                                     >
-                            <div className="col-md-5">
-                                                <div className="row">
-                                                    <div className="col-md-12 text-center mt-3">
-                                                        <p>
-                                                            <b>
-                                                            Applicant Category wise Students Count
-                                                                 <br/>
-                                                                {newFormat}
-                                                            </b>
-                                                        </p>
-                                                    </div>
-                                                    <div className="col-md-12 doughnut-chart-container">
-                                                        {applicantCount && (
-                                                            <Doughnut
-                                                                data={
-                                                                    applicantCount
-                                                                }
-                                                                options={
-                                                                    chartOption
-                                                                }
-                                                            />
-                                                        )}
-                                                    </div>
-                                                   
-                                                </div>
-                                            </div>
-                                        </Card>
-                                        </Col> */}
+                                        <div className="col-md-12 text-center mt-3">
+                                            <p>
+                                                <b>
+                                                    Applicant Category wise <br /> Reg. Applicants Count
+                                                    {/* <br />
+                                                    {newFormat} */}
+                                                </b>
+                                            </p>
+                                        </div>
+                                        <div className="col-md-12 doughnut-chart-container" style={{ width: '300px', height: '300px' }}>
+                                            {applicantCount && (
+                                                <Doughnut
+                                                    data={
+                                                        applicantCount
+                                                    }
+                                                    options={
+                                                        chartOption
+                                                    }
+                                                />
+                                            )}
+                                        </div>
+                                    </Card>
+                                </Col>
+                                <Col md={6}>
+                                    <Card
+                                        bg="white"
+                                        text="dark"
+                                        className="mb-4"
+                                    // style={{ height: '150px' }}
+                                    >
+                                        <div className="col-md-12 text-center mt-3">
+                                            <p>
+                                                <b>
+                                                    Gender wise <br /> Reg. Applicants Count
+                                                    {/* <br />
+                                                    {newFormat1} */}
+                                                </b>
+                                            </p>
+                                        </div>
+                                        <div className="col-md-12 doughnut-chart-container" style={{ width: '300px', height: '300px' }}>
+                                            {genders && (
+                                                <Doughnut
+                                                    data={
+                                                        genders
+                                                    }
+                                                    options={
+                                                        chartOption1
+                                                    }
+                                                />
+                                            )}
+                                        </div>
+                                    </Card>
+                                </Col>
                             </Row>
                         </div>
                         <div className="col-md-5">
                             <div className="row">
                                 <div className="col">
                                     <div className="card">
-
                                         <div className="d-flex align-items-center mb-3">
-                                            <h5 style={{ fontSize: '16px', textTransform: 'uppercase', textAlign: 'right', fontWeight: 'bold' }}>State wise Reg. Students Count</h5>
+                                            <h5 style={{ fontSize: '16px', textAlign: 'right', fontWeight: 'bold' }}>State wise Reg. Applicants Count</h5>
                                             <Button
                                                 label="Download"
                                                 btnClass="primary mx-2"
@@ -1285,14 +1231,14 @@ const Dashboard = () => {
                                             className="table table-striped table-bordered responsive"
                                         >
                                             <thead>
-                                                <tr>
+                                                <tr className='text-center'>
                                                     <th>No</th>
                                                     <th>
                                                         State
                                                         Name
                                                     </th>
                                                     <th>
-                                                        Students
+                                                        Reg. Applicants
                                                     </th>
 
                                                 </tr>
@@ -1317,7 +1263,7 @@ const Dashboard = () => {
                                                                     item.state
                                                                 }
                                                             </td>
-                                                            <td>
+                                                            <td className='text-center'>
                                                                 {
                                                                     item.state_count
 
@@ -1380,10 +1326,161 @@ const Dashboard = () => {
                                     </div>
                                 </div>
                             </div>
+                            <div className="row">
+                                <div className="col">
+                                    <div className="card">
+                                        <div className="d-flex align-items-center mb-3">
+                                            <h5 style={{ fontSize: '16px', textAlign: 'right', fontWeight: 'bold' }}>Theme wise Submitted Challenges Count</h5>
+                                            <Button
+                                                label="Download"
+                                                btnClass="primary mx-2"
+                                                size="small"
+                                                shape="btn-square"
+                                                onClick={handleDownloadTheme
+
+                                                }
+                                                style={{
+                                                    width: 'auto',
+                                                    whiteSpace: 'nowrap'
+                                                }}
+                                            />
+                                        </div>
+                                        {combinedArray.length > 0 && (
+                                            <div className="mt-5">
+                                                <div className="row">
+                                                    <div className="col-md-12 mx-10 px-10">
+                                                        <div
+                                                            className="table-wrapper bg-white "
+                                                            style={{
+                                                                overflowX: 'auto'
+                                                            }}
+                                                        >
+                                                            <Table
+                                                                id="dataTable"
+                                                                className="table table-striped table-bordered responsive"
+                                                            >
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>No</th>
+                                                                        <th>Themes</th>
+                                                                        <th>Submitted Challenges</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                {themesList.map(
+                                                                    (
+                                                                        item,
+                                                                        index
+                                                                    ) => (
+                                                                        <tbody key={
+                                                                            index
+                                                                        }>
+                                                                            <tr>
+                                                                                <td> 1. </td>
+                                                                                <td> Adopt Healthy Lifestyles </td>
+                                                                                <td className='text-center'>
+                                                                                    {
+                                                                                        item["Adopt Healthy Lifestyles"]
+                                                                                    }
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td> 2. </td>
+                                                                                <td> Adopt Sustainable Food Systems </td>
+                                                                                <td className='text-center'>
+                                                                                    {
+                                                                                        item["Adopt Sustainable Food Systems"]
+
+                                                                                    }
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td> 3. </td>
+                                                                                <td>Reduce E-waste</td>
+                                                                                <td className='text-center'>
+                                                                                    {
+                                                                                        item["Reduce E-waste"]
+
+                                                                                    }
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td> 4. </td>
+                                                                                <td>Reduce Waste</td>
+                                                                                <td className='text-center'>
+                                                                                    {
+                                                                                        item["Reduce Waste"]
+
+                                                                                    }
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td> 5. </td>
+                                                                                <td>Save Energy</td>
+                                                                                <td className='text-center'>
+                                                                                    {
+                                                                                        item["Save Energy"]
+
+                                                                                    }
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td> 6. </td>
+                                                                                <td>Save Water</td>
+                                                                                <td className='text-center'>
+                                                                                    {
+                                                                                        item["Save Water"]
+
+                                                                                    }
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td> 7. </td>
+                                                                                <td>Say No to Single Use Plastic</td>
+                                                                                <td className='text-center'>
+                                                                                    {
+                                                                                        item["Say No to Single Use Plastic"]
+
+                                                                                    }
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td> 8. </td>
+                                                                                <td>Others (Any other theme related to environment-friendly lifestyle)</td>
+                                                                                <td className='text-center'>
+                                                                                    {
+                                                                                        item["Others (Any other theme related to environment-friendly lifestyle) "]
+
+                                                                                    }
+                                                                                </td>
+                                                                            </tr>
+                                                                        </tbody>
+
+                                                                    ))}
+
+                                                            </Table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        )}
+                                        {downloadThemeData && (
+                                            <CSVLink
+                                                data={downloadThemeData}
+                                                headers={tableThemesHeaders}
+                                                filename={`StatewiseThemesReport_${newFormat}.csv`}
+                                                className="hidden"
+                                                ref={csvLinkRef1}
+                                            >
+                                                Download Table CSV
+                                            </CSVLink>
+                                        )}
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                
+
             </div>
         </Layout>
     );
