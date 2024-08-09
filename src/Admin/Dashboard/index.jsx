@@ -4,7 +4,7 @@
 /* eslint-disable no-unused-vars */
 import { Descriptions, Input } from 'antd';
 import axios from 'axios';
-import React, { useState, useEffect ,useRef} from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 // import { Col, Row } from 'reactstrap';
 import { Button } from '../../stories/Button';
 import Layout from '../Layout';
@@ -12,7 +12,7 @@ import {
     deleteTempMentorById,
     teacherResetPassword
 } from '../store/admin/actions';
-import { Col, Container, Row, CardBody, CardText,Table } from 'reactstrap';
+import { Col, Container, Row, CardBody, CardText, Table } from 'reactstrap';
 import './dashboard.scss';
 import { useHistory } from 'react-router-dom';
 import jsPDF from 'jspdf';
@@ -117,7 +117,7 @@ const Dashboard = () => {
             label: 'Submitted Ideas',
             key: 'submited'
         },
-       
+
     ];
     const tableHeaders = [
         {
@@ -261,20 +261,20 @@ const Dashboard = () => {
             legend: {
                 labels: {
                     position: 'bottom',
-                    labels:{
+                    labels: {
                         fontColor: 'black',
-                    generateLabels: function (chart) {
-                        return chart.data.labels.map(function (label, i) {
-                            const value = chart.data.datasets[0].data[i];
-                            const backgroundColor =
-                                chart.data.datasets[0].backgroundColor[i];
-                            return {
-                                text: label + ': ' + value,
-                                fillStyle: backgroundColor
-                            };
-                        });
+                        generateLabels: function (chart) {
+                            return chart.data.labels.map(function (label, i) {
+                                const value = chart.data.datasets[0].data[i];
+                                const backgroundColor =
+                                    chart.data.datasets[0].backgroundColor[i];
+                                return {
+                                    text: label + ': ' + value,
+                                    fillStyle: backgroundColor
+                                };
+                            });
+                        }
                     }
-                }
                 }
             }
         }
@@ -291,20 +291,20 @@ const Dashboard = () => {
             legend: {
                 labels: {
                     position: 'bottom',
-                    labels:{
+                    labels: {
                         fontColor: 'black',
-                    generateLabels: function (chart) {
-                        return chart.data.labels.map(function (label, i) {
-                            const value = chart.data.datasets[0].data[i];
-                            const backgroundColor =
-                                chart.data.datasets[0].backgroundColor[i];
-                            return {
-                                text: label + ': ' + value,
-                                fillStyle: backgroundColor
-                            };
-                        });
+                        generateLabels: function (chart) {
+                            return chart.data.labels.map(function (label, i) {
+                                const value = chart.data.datasets[0].data[i];
+                                const backgroundColor =
+                                    chart.data.datasets[0].backgroundColor[i];
+                                return {
+                                    text: label + ': ' + value,
+                                    fillStyle: backgroundColor
+                                };
+                            });
+                        }
                     }
-                }
                 }
             }
         }
@@ -344,38 +344,37 @@ const Dashboard = () => {
             }
         }
     };
-    const [overallStu,setOverallStu]=useState("-");
-    const [overallIdea,setOverallIdea]=useState("-");
-    const [applicantCount,setApplicantCount]=useState(null);
+    const [overallStu, setOverallStu] = useState("-");
+    const [overallIdea, setOverallIdea] = useState("-");
+    const [applicantCount, setApplicantCount] = useState(null);
     const [newFormat, setNewFormat] = useState('');
     const [newFormat1, setNewFormat1] = useState('');
     const [newFormat2, setNewFormat2] = useState('');
-const[protoCount,setProtoCount]=useState("");
-const [combinedArray, setCombinedArray] = useState([]);
-const[themesList,setThemesList]= useState([]);
-const [tableData,setTableDat]=useState([]);
-    const [genders,setGenders]=useState(null);
-    const [downloadData,setDownloadData]=useState(null);
-    const [downloadThemeData,setDownloadThemeData]=useState(null);
+    const [protoCount, setProtoCount] = useState("");
+    const [combinedArray, setCombinedArray] = useState([]);
+    const [themesList, setThemesList] = useState([]);
+    const [tableData, setTableDat] = useState([]);
+    const [genders, setGenders] = useState(null);
+    const [downloadData, setDownloadData] = useState(null);
+    const [downloadThemeData, setDownloadThemeData] = useState(null);
 
-  const [proCount,setProCount]=useState("");
-    useEffect(()=>{
-overallStudent();
-overallIdeas();
-applicantCategory();
-overallGender();
-allInstitutions();
-propTypeApi();
-fetchStateWiseStudentsTableApi();
-fetchThemeWiseTableApi ();
-const newDate = new Date();
-const formattedDate = `${newDate.getUTCDate()}/${
-    1 + newDate.getMonth()
-}/${newDate.getFullYear()} ${newDate.getHours()}:${newDate.getMinutes()}:${newDate.getSeconds()}`;
-setNewFormat(formattedDate);
-setNewFormat1(formattedDate);
-setNewFormat2(formattedDate);
-    },[]);
+    const [proCount, setProCount] = useState("");
+    useEffect(() => {
+        overallStudent();
+        overallIdeas();
+        applicantCategory();
+        overallGender();
+        allInstitutions();
+        propTypeApi();
+        fetchStateWiseStudentsTableApi();
+        fetchThemeWiseTableApi();
+        const newDate = new Date();
+        const formattedDate = `${newDate.getUTCDate()}/${1 + newDate.getMonth()
+            }/${newDate.getFullYear()} ${newDate.getHours()}:${newDate.getMinutes()}:${newDate.getSeconds()}`;
+        setNewFormat(formattedDate);
+        setNewFormat1(formattedDate);
+        setNewFormat2(formattedDate);
+    }, []);
     const fetchThemeWiseTableApi = () => {
         const config = {
             method: 'get',
@@ -389,8 +388,8 @@ setNewFormat2(formattedDate);
         axios(config)
             .then((response) => {
                 if (response.status === 200) {
-                   console.log(response,"table");
-                   setThemesList(response?.data?.data || []);
+                    console.log(response, "table");
+                    setThemesList(response?.data?.data || []);
                 }
             })
             .catch((error) => {
@@ -410,15 +409,15 @@ setNewFormat2(formattedDate);
         axios(config)
             .then((response) => {
                 if (response.status === 200) {
-                //    console.log(response,"table");
-                   setCombinedArray(response?.data?.data || []);
+                    //    console.log(response,"table");
+                    setCombinedArray(response?.data?.data || []);
                 }
             })
             .catch((error) => {
                 console.log('API error:', error);
             });
     };
-    const propTypeApi= () => {
+    const propTypeApi = () => {
         var config = {
             method: 'get',
             url: process.env.REACT_APP_API_BASE_URL + `/dashboard/HavingPrototype`,
@@ -436,7 +435,7 @@ setNewFormat2(formattedDate);
                     );
                     // const chartTableData3 = response?.data?.data || [];
                     // setChartTableData3(chartTableData3);
-                   
+
                 }
             })
             .catch(function (error) {
@@ -461,7 +460,7 @@ setNewFormat2(formattedDate);
         },
     };
     const barChartData = {
-        labels: ['Ayurveda', 'Engineering', 'Law', 'Life Sciences','Medical','Others'],
+        labels: ['Ayurveda', 'Engineering', 'Law', 'Life Sciences', 'Medical', 'Others'],
         datasets: [
             {
                 label: 'All Institutions ',
@@ -473,12 +472,12 @@ setNewFormat2(formattedDate);
                     Number(chartTableData2.Medical_count),
                     Number(chartTableData2.Others_count),
                 ],
-                backgroundColor: ['#36A2EB', '#FF6384', '#FFCE56', '#4BC0C0','#4cbb17','#990000'],
+                backgroundColor: ['#36A2EB', '#FF6384', '#FFCE56', '#4BC0C0', '#4cbb17', '#990000'],
                 barThickness: 40,
             },
         ],
     };
-    const allInstitutions= () => {
+    const allInstitutions = () => {
         var config = {
             method: 'get',
             url: process.env.REACT_APP_API_BASE_URL + `/dashboard/allInstitutions`,
@@ -499,7 +498,7 @@ setNewFormat2(formattedDate);
                 console.log(error);
             });
     };
-    const overallGender= () => {
+    const overallGender = () => {
         var config = {
             method: 'get',
             url: process.env.REACT_APP_API_BASE_URL + `/dashboard/allGenders`,
@@ -517,22 +516,22 @@ setNewFormat2(formattedDate);
                     setChartTableData1(chartTableData1);
                     const lastRow = chartTableData1[chartTableData1.length - 1];
                     const maleCount = lastRow?.
-                    male_count
-                    || 0;
+                        male_count
+                        || 0;
                     const femaleCount = lastRow?.female_count
-                     || 0;
+                        || 0;
                     const othersCount = lastRow?.
-                    others_count
+                        others_count
 
-                     || 0;
-                 
-                     setGenders({
-                        labels: ['Female', 'Male',"Others"],
+                        || 0;
+
+                    setGenders({
+                        labels: ['Female', 'Male', "Others"],
                         datasets: [
                             {
-                                data: [maleCount, femaleCount,othersCount],
-                                backgroundColor: ["#6a5acd", '#FF6384',"#ee82ee"],
-                                hoverBackgroundColor: ["#6a5acd", '#FF6384',"#ee82ee"]
+                                data: [maleCount, femaleCount, othersCount],
+                                backgroundColor: ["#6a5acd", '#FF6384', "#ee82ee"],
+                                hoverBackgroundColor: ["#6a5acd", '#FF6384', "#ee82ee"]
                             }
                         ]
                     });
@@ -560,23 +559,23 @@ setNewFormat2(formattedDate);
                     setChartTableData(chartTableData);
                     const lastRow = chartTableData[chartTableData.length - 1];
                     const researchCount = lastRow?.RS_count
-                    || 0;
+                        || 0;
                     const studentCount = lastRow?.
-                    student_count
-                     || 0;
+                        student_count
+                        || 0;
                     const facultyCount = lastRow?.
-                    faculty_count
-                     || 0;
+                        faculty_count
+                        || 0;
                     const othersCount = lastRow?.
-                    others_count
-                     || 0;
-                     setApplicantCount({
-                        labels: ['Research Scholars', 'Faculty',"Students","Others"],
+                        others_count
+                        || 0;
+                    setApplicantCount({
+                        labels: ['Research Scholars', 'Faculty', "Students", "Others"],
                         datasets: [
                             {
-                                data: [researchCount, studentCount,facultyCount,othersCount],
-                                backgroundColor: ['#36A2EB', '#FF6384',"#ffa500","#ee82ee"],
-                                hoverBackgroundColor: ['#36A2EB', '#FF6384',"#ffa500","#ee82ee"]
+                                data: [researchCount, studentCount, facultyCount, othersCount],
+                                backgroundColor: ['#36A2EB', '#FF6384', "#ffa500", "#ee82ee"],
+                                hoverBackgroundColor: ['#36A2EB', '#FF6384', "#ffa500", "#ee82ee"]
                             }
                         ]
                     });
@@ -896,8 +895,8 @@ setNewFormat2(formattedDate);
                     row.PFAStatus === null
                         ? ''
                         : row.PFAStatus === 'Pending'
-                        ? 'PENDING'
-                        : 'APPROVED',
+                            ? 'PENDING'
+                            : 'APPROVED',
                 center: true,
                 width: '20%'
             }
@@ -1003,13 +1002,13 @@ setNewFormat2(formattedDate);
                 }
             });
     };
-    const handleDownloadTheme=()=>{
+    const handleDownloadTheme = () => {
         // alert("hii");
         fetchThemeData();
         setIsDownload(true);
 
     };
-    const handleDownload=()=>{
+    const handleDownload = () => {
         // alert("hii");
         fetchData();
         setIsDownload(true);
@@ -1028,11 +1027,11 @@ setNewFormat2(formattedDate);
         axios(config)
             .then((response) => {
                 if (response.status === 200) {
-                //    console.log(response,"down");
-                   setDownloadThemeData(response?.data?.data || []);
-                   setIsDownload(false);
-                   csvLinkRef1.current.link.click();
-                //    setCombinedArray(response?.data?.data || []);
+                    //    console.log(response,"down");
+                    setDownloadThemeData(response?.data?.data || []);
+                    setIsDownload(false);
+                    csvLinkRef1.current.link.click();
+                    //    setCombinedArray(response?.data?.data || []);
                 }
             })
             .catch((error) => {
@@ -1052,11 +1051,11 @@ setNewFormat2(formattedDate);
         axios(config)
             .then((response) => {
                 if (response.status === 200) {
-                //    console.log(response,"down");
-                   setDownloadData(response?.data?.data || []);
-                   setIsDownload(false);
-                   csvLinkRef.current.link.click();
-                //    setCombinedArray(response?.data?.data || []);
+                    //    console.log(response,"down");
+                    setDownloadData(response?.data?.data || []);
+                    setIsDownload(false);
+                    csvLinkRef.current.link.click();
+                    //    setCombinedArray(response?.data?.data || []);
                 }
             })
             .catch((error) => {
@@ -1065,210 +1064,35 @@ setNewFormat2(formattedDate);
     };
     return (
         <Layout title="Dashboard">
-            <div className="dashboard-wrapper pb-5 my-5 px-5">
-               
-                <div className="dashboard p-5 mb-5">
-                    <div className="row " style={{ overflow: 'hidden' }}>
-                        <div className=" row col-xs-12 col-md-7">
-                            <h2 className="text-left">
-                                {/* {dist} / SPECIFIC DISTRICT NAME OVERALL Ideas4Life STATS{' '} */}
-                                <span>
-                                     Ideas4Life Stats
-                                </span>
-                            </h2>
-                            <Row
-                                style={{
-                                    paddingRight: '20px',
-                                    paddingTop: '1rem',
-                                    paddingLeft: '1rem'
-                                }}
-                            >
-                                  {combinedArray.length > 0 && (
-                               <div className="mt-5">
-                               <div className="d-flex align-items-center mb-3">
-                                   <h3>OVERVIEW For Themes</h3>
-                                   <Button
-                                       label="Download Table"
-                                       btnClass="primary mx-2"
-                                       size="small"
-                                       shape="btn-square"
-                                       onClick={handleDownloadTheme
-                                          
-                                       }
-                                       style={{
-                                           width: '150px',
-                                           whiteSpace: 'nowrap'
-                                       }}
-                                   />
-                               </div>
-                               <div className="row">
-                                   <div className="col-md-12 mx-10 px-10">
-                                       <div
-                                           className="table-wrapper bg-white "
-                                           style={{
-                                               overflowX: 'auto'
-                                           }}
-                                       >
-                                           <Table
-                                               id="dataTable"
-                                               className="table table-striped table-bordered responsive"
-                                           >
-                                               <thead>
-                                                   <tr>
-                                                       <th>No</th>
-                                                       <th>
-                                                       Adopt Healthy Lifestyles
+            <div className="dashboard-wrapper mx-5 my-5">
+                <div className="dashboard">
+                    <h2 className="text-left">
+                        <span>
+                            Dashboard
+                        </span>
+                    </h2>
 
-                                                       </th>
-                                                       <th>
-                                                       Adopt Sustainable Food Systems
-
-                                                       </th>
-                                                       <th>
-                                                       Reduce E-waste
-
-                                                       </th> <th>
-                                                       
-Reduce Waste
-
-                                                       </th> <th>
-                                                       Save Energy
-
-
-                                                       </th> <th>
-                                                       Save Water
-
-                                                       </th> <th>
-                                                      
-Say No to Single Use Plastic
-
-                                                       </th> <th>
-                                                       Others (Any other theme related to environment-friendly lifestyle) 
-
-                                                       </th>
-                                                      
-                                                   </tr>
-                                               </thead>
-                                               <tbody>
-                                                   {themesList.map(
-                                                       (
-                                                           item,
-                                                           index
-                                                       ) => (
-                                                           <tr
-                                                               key={
-                                                                   index
-                                                               }
-                                                           >
-                                                               <td>
-                                                                   {index +
-                                                                       1}
-                                                               </td>
-                                                               <td>
-                                                                   {
-                                                                       item["Adopt Healthy Lifestyles"]
-
-                                                                   }
-                                                               </td>
-                                                               <td>
-                                                                   {
-                                                                       item["Adopt Sustainable Food Systems"]
-
-                                                                   }
-                                                               </td>
-                                                               <td>
-                                                                   {
-                                                                       item["Reduce E-waste"]
-
-                                                                   }
-                                                               </td> <td>
-                                                                   {
-                                                                       item["Reduce Waste"]
-
-                                                                   }
-                                                               </td> <td>
-                                                                   {
-                                                                       item["Save Energy"]
-
-                                                                   }
-                                                               </td> <td>
-                                                                   {
-                                                                       item["Save Water"]
-
-                                                                   }
-                                                               </td> <td>
-                                                                   {
-                                                                       item["Say No to Single Use Plastic"]
-
-                                                                   }
-                                                               </td> <td>
-                                                                   {
-                                                                       item["Adopt Sustainable Food Systems"]
-
-                                                                   }
-                                                               </td> <td>
-                                                                   {
-                                                                       item["Others (Any other theme related to environment-friendly lifestyle)"]
-
-                                                                   }
-                                                               </td>
-                                                              
-                                                              
-                                                           </tr>
-                                                       )
-                                                   )}
-
-                                               </tbody>
-                                           </Table>
-                                       </div>
-                                   </div>
-                               </div>
-                           </div>   
-                            )}
-                             {downloadThemeData && (
-                                    <CSVLink
-                                        data={downloadThemeData}
-                                        headers={tableThemesHeaders}
-                                        filename={`StatewiseThemesReport_${newFormat}.csv`}
-                                        className="hidden"
-                                        ref={csvLinkRef1}
-                                    >
-                                        Download Table CSV
-                                    </CSVLink>
-                                )}
+                    <div className="row" style={{ overflow: 'hidden' }}>
+                        <div className="col-md-7">
+                            <Row>
                                 <Col>
                                     <Card
                                         bg="white"
                                         text="dark"
                                         className="mb-4"
-                                        style={{
-                                            height: '150px',
-                                            // width: '300px'
-                                        }}
                                     >
                                         <Card.Body
                                             style={{ textAlign: 'center' }}
                                         >
-                                            <Card.Text
-                                                style={{
-                                                    fontSize: '24px',
-                                                    fontWeight: 'bold',
-                                                    marginTop: '25px',
-                                                    textAlign: 'center',
-                                                    marginBottom: '5px'
-                                                }}
+                                            <Card.Text className='card-head'
                                             >
                                                 {overallStu}
                                             </Card.Text>
                                             <label
                                                 htmlFor="teams"
-                                                className="text-center p-3"
-                                                style={{
-                                                    fontSize: '16px',
-                                                    lineHeight: '20px'
-                                                }}
+                                                className="card-label"
                                             >
-                                                Overall <br /> Students
+                                                Total Reg. Students
                                             </label>
                                         </Card.Body>
                                     </Card>
@@ -1278,33 +1102,19 @@ Say No to Single Use Plastic
                                         bg="white"
                                         text="dark"
                                         className="mb-4"
-                                        style={{ height: '150px' }}
                                     >
-                                       
-                                       
                                         <Card.Body
                                             style={{ textAlign: 'center' }}
                                         >
-                                            <Card.Text
-                                                style={{
-                                                    fontSize: '24px',
-                                                    fontWeight: 'bold',
-                                                    marginTop: '25px',
-                                                    textAlign: 'center',
-                                                    marginBottom: '20px'
-                                                }}
+                                            <Card.Text className='card-head'
                                             >
                                                 {overallIdea}
                                             </Card.Text>
                                             <label
                                                 htmlFor="teams"
-                                                className="text-center mt-3"
-                                                style={{
-                                                    fontSize: '16px',
-                                                    lineHeight: '20px'
-                                                }}
+                                                className="card-label"
                                             >
-                                                Overall <br /> Ideas
+                                                SUbmitted Challenges
                                             </label>
                                         </Card.Body>
                                     </Card>
@@ -1314,339 +1124,107 @@ Say No to Single Use Plastic
                                         bg="white"
                                         text="dark"
                                         className="mb-4"
-                                        style={{
-                                            height: '150px'
-                                        }}
                                     >
-                                       
-                                       
                                         <Card.Body
                                             style={{ textAlign: 'center' }}
                                         >
-                                            <Card.Text
-                                                style={{
-                                                    fontSize: '24px',
-                                                    fontWeight: 'bold',
-                                                    marginTop: '25px',
-                                                    textAlign: 'center',
-                                                    marginBottom: '20px'
-                                                }}
+                                            <Card.Text className='card-head'
                                             >
                                                 {proCount}
                                             </Card.Text>
                                             <label
                                                 htmlFor="teams"
-                                                className="text-center mt-3"
-                                                style={{
-                                                    fontSize: '16px',
-                                                    lineHeight: '20px'
-                                                }}
+                                                className="card-label"
                                             >
-                                               Prototype <br/>Ideas Count
+                                                Prototype Challenges
                                             </label>
                                         </Card.Body>
                                     </Card>
                                 </Col>
-
-                               
-                            </Row>
-                            <Row
-                                style={{
-                                    paddingRight: '20px',
-                                    paddingTop: '1rem',
-                                    paddingLeft: '1rem'
-                                }}
-                            >
-                                  {combinedArray.length > 0 && (
-                               <div className="mt-5">
-                               <div className="d-flex align-items-center mb-3">
-                                   <h3>OVERVIEW</h3>
-                                   <Button
-                                       label="Download Table"
-                                       btnClass="primary mx-2"
-                                       size="small"
-                                       shape="btn-square"
-                                       onClick={handleDownload
-                                          
-                                       }
-                                       style={{
-                                           width: '150px',
-                                           whiteSpace: 'nowrap'
-                                       }}
-                                   />
-                               </div>
-                               <div className="row">
-                                   <div className="col-md-12 mx-10 px-10">
-                                       <div
-                                           className="table-wrapper bg-white "
-                                           style={{
-                                               overflowX: 'auto'
-                                           }}
-                                       >
-                                           <Table
-                                               id="dataTable"
-                                               className="table table-striped table-bordered responsive"
-                                           >
-                                               <thead>
-                                                   <tr>
-                                                       <th>No</th>
-                                                       <th>
-                                                          State
-                                                           Name
-                                                       </th>
-                                                       <th>
-                                                           Students
-                                                       </th>
-                                                      
-                                                   </tr>
-                                               </thead>
-                                               <tbody>
-                                                   {combinedArray.map(
-                                                       (
-                                                           item,
-                                                           index
-                                                       ) => (
-                                                           <tr
-                                                               key={
-                                                                   index
-                                                               }
-                                                           >
-                                                               <td>
-                                                                   {index +
-                                                                       1}
-                                                               </td>
-                                                               <td>
-                                                                   {
-                                                                       item.state
-                                                                   }
-                                                               </td>
-                                                               <td>
-                                                                   {
-                                                                       item.state_count
-
-                                                                   }
-                                                               </td>
-                                                              
-                                                              
-                                                           </tr>
-                                                       )
-                                                   )}
-
-                                               </tbody>
-                                           </Table>
-                                       </div>
-                                   </div>
-                               </div>
-                           </div>   
-                            )}
-                             {downloadData && (
-                                    <CSVLink
-                                        data={downloadData}
-                                        headers={tableHeaders}
-                                        filename={`StatewiseDemographicReport_${newFormat}.csv`}
-                                        className="hidden"
-                                        ref={csvLinkRef}
-                                    >
-                                        Download Table CSV
-                                    </CSVLink>
-                                )}
-                                <Col>
-                                    <Card
-                                        bg="white"
-                                        text="dark"
-                                        className="mb-4"
-                                        style={{
-                                            height: '150px',
-                                            // width: '300px'
-                                        }}
-                                    >
-                                        <Card.Body
-                                            style={{ textAlign: 'center' }}
-                                        >
-                                            <Card.Text
-                                                style={{
-                                                    fontSize: '24px',
-                                                    fontWeight: 'bold',
-                                                    marginTop: '25px',
-                                                    textAlign: 'center',
-                                                    marginBottom: '5px'
-                                                }}
-                                            >
-                                                {overallStu}
-                                            </Card.Text>
-                                            <label
-                                                htmlFor="teams"
-                                                className="text-center p-3"
-                                                style={{
-                                                    fontSize: '16px',
-                                                    lineHeight: '20px'
-                                                }}
-                                            >
-                                                Overall <br /> Students
-                                            </label>
-                                        </Card.Body>
-                                    </Card>
-                                </Col>
-                                <Col>
-                                    <Card
-                                        bg="white"
-                                        text="dark"
-                                        className="mb-4"
-                                        style={{ height: '150px' }}
-                                    >
-                                       
-                                       
-                                        <Card.Body
-                                            style={{ textAlign: 'center' }}
-                                        >
-                                            <Card.Text
-                                                style={{
-                                                    fontSize: '24px',
-                                                    fontWeight: 'bold',
-                                                    marginTop: '25px',
-                                                    textAlign: 'center',
-                                                    marginBottom: '20px'
-                                                }}
-                                            >
-                                                {overallIdea}
-                                            </Card.Text>
-                                            <label
-                                                htmlFor="teams"
-                                                className="text-center mt-3"
-                                                style={{
-                                                    fontSize: '16px',
-                                                    lineHeight: '20px'
-                                                }}
-                                            >
-                                                Overall <br /> Ideas
-                                            </label>
-                                        </Card.Body>
-                                    </Card>
-                                </Col>
-                                <Col>
-                                    <Card
-                                        bg="white"
-                                        text="dark"
-                                        className="mb-4"
-                                        style={{
-                                            height: '150px'
-                                        }}
-                                    >
-                                       
-                                       
-                                        <Card.Body
-                                            style={{ textAlign: 'center' }}
-                                        >
-                                            <Card.Text
-                                                style={{
-                                                    fontSize: '24px',
-                                                    fontWeight: 'bold',
-                                                    marginTop: '25px',
-                                                    textAlign: 'center',
-                                                    marginBottom: '20px'
-                                                }}
-                                            >
-                                                {proCount}
-                                            </Card.Text>
-                                            <label
-                                                htmlFor="teams"
-                                                className="text-center mt-3"
-                                                style={{
-                                                    fontSize: '16px',
-                                                    lineHeight: '20px'
-                                                }}
-                                            >
-                                               Prototype <br/>Ideas Count
-                                            </label>
-                                        </Card.Body>
-                                    </Card>
-                                </Col>
-
-                               
                             </Row>
                             <Row>
-                            <Card
-                                        bg="white"
-                                        text="dark"
-                                        className="mb-4"
-                                        // style={{ height: '150px' }}
-                                    >
-                            <div className="row">
-                                                <div className="col">
-                                                    <div className="col-md-12 text-center mt-3">
-                                                        <p>
-                                                            <b>
-                                                            Applicant Category wise Students Count
-                                                                 <br/>
-                                                                {newFormat}
-                                                            </b>
-                                                        </p>
-                                                    </div>
-                                                    <div className="col-md-12 doughnut-chart-container">
-                                                        {applicantCount && (
-                                                            <Doughnut
-                                                                data={
-                                                                    applicantCount
-                                                                }
-                                                                options={
-                                                                    chartOption
-                                                                }
-                                                            />
-                                                        )}
-                                                    </div>
-                                                    </div>
-                                                   <div className='col'>
-                                                    <div className="col-md-12 text-center mt-3">
-                                                        <p>
-                                                            <b>
-                                                           Gender wise Status Count
-                                                                 <br/>
-                                                                {newFormat1}
-                                                            </b>
-                                                        </p>
-                                                    </div>
-                                                    <div className="col-md-12 doughnut-chart-container">
-                                                        {genders && (
-                                                            <Doughnut
-                                                                data={
-                                                                    genders
-                                                                }
-                                                                options={
-                                                                    chartOption1
-                                                                }
-                                                            />
-                                                        )}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="mt-5">
-                                    <div
-                                        className="col-md-12 chart-container mt-5"
-                                        style={{
-                                            width: '100%',
-                                            height: '370px'
-                                        }}
-                                    >
-                                        <div className="chart-box">
-                                        <div className="chart">
-                                <div className="col-md-7 mt-5 d-flex align-items-center justify-content-center">
-                                    <Bar data={barChartData} options={options} />
-                                </div>
-                            </div>
-                                            <div className="chart-title">
+                                <Card
+                                    bg="white"
+                                    text="dark"
+                                    className="mb-4"
+                                // style={{ height: '150px' }}
+                                >
+                                    <div className="row">
+                                        <div className="col">
+                                            <div className="col-md-12 text-center mt-3">
                                                 <p>
                                                     <b>
-                                                        Institution Type wise students count
-                                                        {newFormat2}
+                                                        Applicant Category wise Students Count
+                                                        <br />
+                                                        {newFormat}
                                                     </b>
                                                 </p>
                                             </div>
+                                            <div className="col-md-12 doughnut-chart-container">
+                                                {applicantCount && (
+                                                    <Doughnut
+                                                        data={
+                                                            applicantCount
+                                                        }
+                                                        options={
+                                                            chartOption
+                                                        }
+                                                    />
+                                                )}
+                                            </div>
+                                        </div>
+                                        <div className='col'>
+                                            <div className="col-md-12 text-center mt-3">
+                                                <p>
+                                                    <b>
+                                                        Gender wise Status Count
+                                                        <br />
+                                                        {newFormat1}
+                                                    </b>
+                                                </p>
+                                            </div>
+                                            <div className="col-md-12 doughnut-chart-container">
+                                                {genders && (
+                                                    <Doughnut
+                                                        data={
+                                                            genders
+                                                        }
+                                                        options={
+                                                            chartOption1
+                                                        }
+                                                    />
+                                                )}
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                        </Card>
+                                    <div className="mt-5">
+                                        <div
+                                            className="col-md-12 chart-container mt-5"
+                                            style={{
+                                                width: '100%',
+                                                height: '370px'
+                                            }}
+                                        >
+                                            <div className="chart-box">
+                                                <div className="chart">
+                                                    <div className="col-md-7 mt-5 d-flex align-items-center justify-content-center">
+                                                        <Bar data={barChartData} options={options} />
+                                                    </div>
+                                                </div>
+                                                <div className="chart-title">
+                                                    <p>
+                                                        <b>
+                                                            Institution Type wise students count
+                                                            {newFormat2}
+                                                        </b>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </Card>
 
-                                        {/* <Col>
+                                {/* <Col>
                             <Card
                                         bg="white"
                                         text="dark"
@@ -1680,1083 +1258,132 @@ Say No to Single Use Plastic
                                             </div>
                                         </Card>
                                         </Col> */}
-                                        </Row>
-                            {/* <Row
-                                style={{
-                                    paddingRight: '20px',
-                                    paddingTop: '1rem'
-                                }}
-                            >
-                                <Col>
-                                    <Card
-                                        bg="white"
-                                        text="dark"
-                                        className="mb-4"
-                                        style={{
-                                            height: '150px',
-                                            width: '300px'
-                                        }}
-                                    >
-                                        <Card.Body
-                                            style={{ textAlign: 'center' }}
-                                        >
-                                            <Card.Text
-                                                style={{
-                                                    fontSize: '24px',
-                                                    fontWeight: 'bold',
-                                                    marginTop: '25px',
-                                                    textAlign: 'center',
-                                                    marginBottom: '15px'
-                                                }}
-                                            >
-                                                {totalMentorCount}
-                                            </Card.Text>
-                                            <label
-                                                htmlFor="teams"
-                                                className="text-center p-3"
-                                                style={{
-                                                    fontSize: '16px',
-                                                    lineHeight: '20px'
-                                                }}
-                                            >
-                                                Registered <br /> Mentors
-                                            </label>
-                                        </Card.Body>
-                                    </Card>
-                                </Col>
-                                <Col>
-                                    <Card
-                                        bg="white"
-                                        text="dark"
-                                        className="mb-4"
-                                        style={{
-                                            height: '150px'
-                                        }}
-                                    >
-                                       
-                                       
-                                        <Card.Body
-                                            style={{ textAlign: 'center' }}
-                                        >
-                                            <Card.Text
-                                                className="left-aligned"
-                                                style={{
-                                                    fontSize: '24px',
-                                                    fontWeight: 'bold',
-                                                    marginTop: '20px',
-                                                    textAlign: 'center',
-                                                    marginBottom: '10px'
-                                                }}
-                                            >
-                                                {totalMentorMaleCount}
-                                            </Card.Text>
-                                            <label
-                                                htmlFor="teams"
-                                                className="text-center mt-3"
-                                                style={{
-                                                    fontSize: '16px',
-                                                    lineHeight: '20px'
-                                                }}
-                                            >
-                                                Male <br /> Mentors
-                                            </label>
-                                        </Card.Body>
-                                    </Card>
-                                </Col>
-                                <Col>
-                                    <Card
-                                        bg="white"
-                                        text="dark"
-                                        className="mb-4"
-                                        style={{ height: '150px' }}
-                                    >
-                                      
-                                        <Card.Body
-                                            style={{ textAlign: 'center' }}
-                                        >
-                                            <Card.Text
-                                                className="left-aligned"
-                                                style={{
-                                                    fontSize: '24px',
-                                                    fontWeight: 'bold',
-                                                    marginTop: '25px',
-                                                    textAlign: 'center',
-                                                    marginBottom: '20px'
-                                                }}
-                                            >
-                                                {totalMentorCount -
-                                                    totalMentorMaleCount}
-                                            </Card.Text>
-                                            <label
-                                                htmlFor="teams"
-                                                className="text-center mt-3"
-                                                style={{
-                                                    fontSize: '16px',
-                                                    lineHeight: '20px'
-                                                }}
-                                            >
-                                                Female <br /> Mentors
-                                            </label>
-                                        </Card.Body>
-                                    </Card>
-                                </Col>
-                            </Row> */}
-                           
-
-                           
-                            {/* <Row
-                                style={{
-                                    paddingRight: '20px',
-                                    paddingTop: '1rem',
-                                    paddingLeft: '1rem'
-                                }}
-                            >
-                                <Col>
-                                    <Card
-                                        bg="white"
-                                        text="dark"
-                                        className="mb-4"
-                                        style={{ height: '150px' }}
-                                    >
-                                        <Card.Body
-                                            style={{ textAlign: 'center' }}
-                                        >
-                                            <Card.Text
-                                                style={{
-                                                    fontSize: '24px',
-                                                    fontWeight: 'bold',
-                                                    marginTop: '25px',
-                                                    textAlign: 'center',
-                                                    marginBottom: '15px'
-                                                }}
-                                            >
-                                                {totalteamsCount}
-                                            </Card.Text>
-                                            <label
-                                                htmlFor="teams"
-                                                className="text-center mt-3"
-                                                style={{
-                                                    fontSize: '16px',
-                                                    lineHeight: '20px'
-                                                }}
-                                            >
-                                                No.of <br /> Teams
-                                            </label>
-                                        </Card.Body>
-                                       
-                                       
-                                    </Card>
-                                </Col>
-                                <Col>
-                                    <Card
-                                        bg="white"
-                                        text="dark"
-                                        className="mb-4"
-                                        style={{
-                                            height: '150px'
-                                        }}
-                                    >
-                                       
-                                        <Card.Body
-                                            style={{ textAlign: 'center' }}
-                                        >
-                                            <Card.Text
-                                                style={{
-                                                    fontSize: '24px',
-                                                    fontWeight: 'bold',
-                                                    marginTop: '25px',
-                                                    textAlign: 'center',
-                                                    marginBottom: '20px'
-                                                }}
-                                            >
-                                                {totalStudentCount}
-                                            </Card.Text>
-                                            <label
-                                                htmlFor="teams"
-                                                className="text-center mt-3"
-                                                style={{
-                                                    fontSize: '16px',
-                                                    lineHeight: '20px'
-                                                }}
-                                            >
-                                                Registered <br /> Students
-                                            </label>
-                                        </Card.Body>
-                                    </Card>
-                                </Col>
-
-                                <Col>
-                                    <Card
-                                        bg="white"
-                                        text="dark"
-                                        className="mb-4"
-                                        style={{
-                                            height: '150px'
-                                        }}
-                                    >
-                                       
-                                        <Card.Body
-                                            style={{ textAlign: 'center' }}
-                                        >
-                                            <Card.Text
-                                                className="left-aligned"
-                                                style={{
-                                                    fontSize: '24px',
-                                                    fontWeight: 'bold',
-                                                    marginTop: '25px',
-                                                    textAlign: 'center',
-                                                    marginBottom: '20px'
-                                                }}
-                                            >
-                                                {totalStudentMaleCount}
-                                            </Card.Text>
-                                            <label
-                                                htmlFor="teams"
-                                                className="text-center mt-3"
-                                                style={{
-                                                    fontSize: '16px',
-                                                    lineHeight: '20px'
-                                                }}
-                                            >
-                                                Male <br /> Students
-                                            </label>
-                                        </Card.Body>
-                                    </Card>
-                                </Col>
-                                <Col>
-                                    <Card
-                                        bg="white"
-                                        text="dark"
-                                        className="mb-4"
-                                        style={{
-                                            height: '150px'
-                                        }}
-                                    >
-                                       
-                                      
-                                        <Card.Body
-                                            style={{ textAlign: 'center' }}
-                                        >
-                                            <Card.Text
-                                                className="left-aligned"
-                                                style={{
-                                                    fontSize: '24px',
-                                                    fontWeight: 'bold',
-                                                    marginTop: '20px',
-                                                    textAlign: 'center',
-                                                    marginBottom: '10px'
-                                                }}
-                                            >
-                                                {totalStudentFemaleCount}
-                                            </Card.Text>
-                                            <label
-                                                htmlFor="teams"
-                                                className="text-center mt-3"
-                                                style={{
-                                                    fontSize: '16px',
-                                                    lineHeight: '20px'
-                                                }}
-                                            >
-                                                Female <br /> Students
-                                            </label>
-                                        </Card.Body>
-                                    </Card>
-                                </Col>
-                            </Row> */}
-                            {/* <Row
-                                style={{
-                                    paddingRight: '20px',
-                                    paddingTop: '1rem',
-                                    paddingLeft: '1rem'
-                                }}
-                            >
-                                <Col>
-                                    <Card
-                                        bg="white"
-                                        text="dark"
-                                        className="mb-4"
-                                        style={{
-                                            height: '150px'
-                                        }}
-                                    >
-                                       
-                                        <Card.Body
-                                            style={{ textAlign: 'center' }}
-                                        >
-                                            <Card.Text
-                                                className="left-aligned"
-                                                style={{
-                                                    fontSize: '24px',
-                                                    fontWeight: 'bold',
-                                                    marginTop: '25px',
-                                                    textAlign: 'center',
-                                                    marginBottom: '15px'
-                                                }}
-                                            >
-                                                {totalideasCount -
-                                                    totalSubmittedideasCount -
-                                                    totalPfa}
-                                            </Card.Text>
-                                            <label
-                                                htmlFor="teams"
-                                                className="text-center mt-3 "
-                                                style={{
-                                                    fontSize: '16px',
-                                                    lineHeight: '20px'
-                                                }}
-                                            >
-                                                In Draft Ideas <br />
-                                                Count
-                                            </label>
-                                        </Card.Body>
-                                    </Card>
-                                </Col>
-                                <Col>
-                                    <Card
-                                        bg="white"
-                                        text="dark"
-                                        className="mb-4"
-                                        style={{
-                                            height: '150px'
-                                        }}
-                                    >
-                                       
-                                        <Card.Body
-                                            style={{ textAlign: 'center' }}
-                                        >
-                                            <Card.Text
-                                                className="left-aligned"
-                                                style={{
-                                                    fontSize: '24px',
-                                                    fontWeight: 'bold',
-                                                    marginTop: '15px',
-                                                    textAlign: 'center',
-                                                    marginBottom: '10px'
-                                                }}
-                                            >
-                                                {totalPfa}
-                                            </Card.Text>
-                                            <label
-                                                htmlFor="teams"
-                                                className="text-center mt-2 pb-3"
-                                                style={{
-                                                    fontSize: '16px',
-                                                    lineHeight: '20px'
-                                                }}
-                                            >
-                                                Pending for Approval
-                                                <br /> Ideas Count
-                                            </label>
-                                        </Card.Body>
-                                    </Card>
-                                </Col>
-                                <Col>
-                                    <Card
-                                        bg="white"
-                                        text="dark"
-                                        className="mb-4"
-                                        style={{
-                                            height: '150px'
-                                        }}
-                                    >
-                                      
-                                        
-                                       
-                                        <Card.Body
-                                            style={{ textAlign: 'center' }}
-                                        >
-                                            <Card.Text
-                                                className="left-aligned"
-                                                style={{
-                                                    fontSize: '24px',
-                                                    fontWeight: 'bold',
-                                                    marginTop: '25px',
-                                                    textAlign: 'center',
-                                                    marginBottom: '20px'
-                                                }}
-                                            >
-                                                {totalSubmittedideasCount}
-                                            </Card.Text>
-                                            <label
-                                                htmlFor="teams"
-                                                className="text-center mt-3 pb-2"
-                                                style={{
-                                                    fontSize: '16px',
-                                                    lineHeight: '20px'
-                                                }}
-                                            >
-                                                Submitted Ideas <br /> Count
-                                            </label>
-                                        </Card.Body>
-                                    </Card>
-                                </Col>
-                                <Col>
-                                    <Card
-                                        bg="white"
-                                        text="dark"
-                                        className="mb-4"
-                                        style={{
-                                            height: '150px'
-                                        }}
-                                    >
-                                      
-                                        <Card.Body
-                                            style={{ textAlign: 'center' }}
-                                        >
-                                            <Card.Text
-                                                className="left-aligned"
-                                                style={{
-                                                    fontSize: '24px',
-                                                    fontWeight: 'bold',
-                                                    marginTop: '20px',
-                                                    textAlign: 'center',
-                                                    marginBottom: '20px'
-                                                }}
-                                            >
-                                                {totalteamsCount -
-                                                    totalideasCount}
-                                            </Card.Text>
-                                            <label
-                                                htmlFor="teams"
-                                                className="text-center mt-3 "
-                                                style={{
-                                                    fontSize: '16px',
-                                                    lineHeight: '20px'
-                                                }}
-                                            >
-                                                Not Initiated <br />
-                                                Ideas Count
-                                            </label>
-                                        </Card.Body>
-                                    </Card>
-                                </Col>
-                            </Row> */}
-
-                            {/* <div>
-                                <Card bg="light" text="dark" className="mb-4">
-                                    <Card.Body>
-                                        <Row style={{ marginRight: '3rem' }}>
-                                            <Col md={3} style={{}}>
-                                                <label htmlFor="teams">
-                                                    Total Male Teachers
-                                                </label>
-                                                <Card.Text
-                                                    className="left-aligned"
-                                                    style={{
-                                                        fontSize: '30px',
-                                                        fontWeight: 'bold',
-                                                        marginTop: '10px',
-                                                        marginBottom: '20px'
-                                                    }}
-                                                >
-                                                    {totalMentorMaleCount}
-                                                </Card.Text>
-                                            </Col>
-                                            <Col md={3}>
-                                                <label htmlFor="teams">
-                                                    Total Female Teachers
-                                                </label>
-                                                <Card.Text
-                                                    className="left-aligned"
-                                                    style={{
-                                                        fontSize: '30px',
-                                                        fontWeight: 'bold',
-                                                        marginTop: '10px',
-                                                        marginBottom: '20px'
-                                                    }}
-                                                >
-                                                    {totalMentorCount -
-                                                        totalMentorMaleCount}
-                                                </Card.Text>
-                                            </Col>
-
-                                            <Col md={3}>
-                                                <label htmlFor="teams">
-                                                    Total Male Students
-                                                </label>
-                                                <Card.Text
-                                                    className="left-aligned"
-                                                    style={{
-                                                        fontSize: '30px',
-                                                        fontWeight: 'bold',
-                                                        marginTop: '10px',
-                                                        marginBottom: '20px'
-                                                    }}
-                                                >
-                                                    {totalStudentMaleCount}
-                                                </Card.Text>
-                                            </Col>
-                                            <Col md={3}>
-                                                <label htmlFor="teams">
-                                                    Total Female Students
-                                                </label>
-                                                <Card.Text
-                                                    className="left-aligned"
-                                                    style={{
-                                                        fontSize: '30px',
-                                                        fontWeight: 'bold',
-                                                        marginTop: '10px',
-                                                        marginBottom: '20px'
-                                                    }}
-                                                >
-                                                    {totalStudentFemaleCount}
-                                                </Card.Text>
-                                            </Col>
-                                        </Row>
-                                    </Card.Body>
-                                </Card>
-                            </div> */}
-                            {/* <div style={{ flex: 1 }} className="col-lg-12">
-                            Data__
-                        </div> */}
+                            </Row>
                         </div>
-                        <div
-                            className=" row  col-xs-12 col-md-5 "
-                            style={{ marginTop: '46px' }}
-                        >
-                            <div
-                                style={{
-                                    flex: 1,
-                                    overflowY: 'auto',
-                                    overflowX: 'hidden'
-                                }}
-                                className="bg-white rounded px-5 py-3 col-lg-12 disc-card-search col-12"
-                            >
-                                <h2 className="mt-3">
-                                    Search Registration Details
-                                </h2>
-                                <Row className="text-center justify-content-md-center my-4">
-                                    <Col md={9} lg={12}>
-                                        <Row>
-                                            <Col md={9} className="my-auto">
-                                                <Input
-                                                    {...inputField}
-                                                    id="organization_code"
-                                                    onChange={(e) =>
-                                                        handleOnChange(e)
-                                                    }
-                                                    value={diesCode}
-                                                    name="organization_code"
-                                                    placeholder="Enter Institution Unique Code"
-                                                    className="w-100 mb-3 mb-md-0"
-                                                    style={{
-                                                        borderRadius: '60px',
-                                                        padding: '9px 11px'
-                                                    }}
-                                                />
-                                            </Col>
-                                            <Col md={3} className="partner-btn">
-                                                <Button
-                                                    label={'Search'}
-                                                    btnClass="primary tex-center my-0 py-0 mx-3 px-3"
-                                                    style={{
-                                                        fontSize: '15px',
-                                                        height: '35px'
-                                                    }}
-                                                    size="small"
-                                                    onClick={(e) =>
-                                                        handleSearch(e)
-                                                    }
-                                                />
-                                            </Col>
-                                        </Row>
-                                    </Col>
-                                </Row>
-                                {/* <Row className="md-4"> */}
-                                {multiOrgData.length !== undefined &&
-                                    multiOrgData.length !== 0 &&
-                                    multiOrgData[0]?.mentor !== null && (
-                                        <DataTableExtensions
-                                            print={false}
-                                            export={false}
-                                            {...MultipleMentorsData}
-                                        >
-                                            <DataTable
-                                                data={multiOrgData}
-                                                noHeader
-                                                highlightOnHover
-                                            />
-                                        </DataTableExtensions>
-                                    )}
-                                {orgData &&
-                                orgData?.institution_name &&
-                                orgData?.mentor !== null ? (
-                                    <>
-                                        {/* <div className="mb-5 p-3" >  */}
-                                        {/* <div
-                                                className="container-fluid card shadow border" ref={pdfRef}
-                                                // style={{
-                                                //     width: '300px',
-                                                //     height: '300px'
-                                                // }}
-                                            > */}
-                                        <div ref={pdfRef}>
-                                            <div className="row">
-                                                <div className="col">
-                                                    <h2 className="text-center m-3 text-primary ">
-                                                        Registration Details
-                                                    </h2>
-                                                    <hr />
-                                                </div>
-                                            </div>
-                                            <div className="row ">
-                                                <div className="col">
-                                                    {/* <ul className="p-0">
-                                                            <li className="d-flex justify-content-between">
-                                                                School:
-                                                                <p>
-                                                                    {
-                                                                        orgData.organization_name
-                                                                    }
-                                                                </p>
-                                                            </li>
-                                                            <li className="d-flex justify-content-between">
-                                                                City:{' '}
-                                                                <p>
-                                                                    {
-                                                                        orgData.city
-                                                                    }
-                                                                </p>
-                                                            </li>
-                                                            <li className="d-flex justify-content-between">
-                                                                District:{' '}
-                                                                <p>
-                                                                    {
-                                                                        orgData.district
-                                                                    }
-                                                                </p>
-                                                            </li>
-                                                            <li className="d-flex justify-content-between">
-                                                                Mentor Name:{' '}
-                                                                <p>
-                                                                    {
-                                                                        orgData
-                                                                            .mentor
-                                                                            ?.full_name
-                                                                    }
-                                                                </p>
-                                                            </li>
-                                                            <li className="d-flex justify-content-between">
-                                                                Mentor Mobile No
-                                                                :{' '}
-                                                                <p>
-                                                                    {
-                                                                        orgData
-                                                                            .mentor
-                                                                            ?.user
-                                                                            ?.username
-                                                                    }
-                                                                </p>
-                                                            </li>
-                                                        </ul> */}
-                                                    <Row className="pt-3 pb-3">
-                                                        <Col
-                                                            xs={5}
-                                                            sm={5}
-                                                            md={5}
-                                                            xl={5}
-                                                            className="my-auto profile-detail"
-                                                        >
-                                                            <p>Institution</p>
-                                                        </Col>
-                                                        <Col
-                                                            xs={1}
-                                                            sm={1}
-                                                            md={1}
-                                                            xl={1}
-                                                        >
-                                                            :
-                                                        </Col>
-                                                        <Col
-                                                            xs={6}
-                                                            sm={6}
-                                                            md={6}
-                                                            xl={6}
-                                                            className="my-auto profile-detail"
-                                                        >
-                                                            <p>
-                                                                {
-                                                                    orgData.institution_name
-                                                                }
-                                                            </p>
-                                                        </Col>
-                                                    </Row>
-                                                    {/* <Row className="pt-3 pb-3">
-                                                        <Col
-                                                            xs={5}
-                                                            sm={5}
-                                                            md={5}
-                                                            xl={5}
-                                                            className="my-auto profile-detail"
-                                                        >
-                                                            <p>Title</p>
-                                                        </Col>
-                                                        <Col
-                                                            xs={1}
-                                                            sm={1}
-                                                            md={1}
-                                                            xl={1}
-                                                        >
-                                                            :
-                                                        </Col>
-                                                        <Col
-                                                            xs={6}
-                                                            sm={6}
-                                                            md={6}
-                                                            xl={6}
-                                                            className="my-auto profile-detail"
-                                                        >
-                                                            <p>
-                                                                {
-                                                                    orgData
-                                                                        .mentor
-                                                                        .mentor_title
-                                                                }
-                                                            </p>
-                                                        </Col>
-                                                    </Row>{' '} */}
-                                                    <Row className="pt-3 pb-3">
-                                                        <Col
-                                                            xs={5}
-                                                            sm={5}
-                                                            md={5}
-                                                            xl={5}
-                                                            className="my-auto profile-detail"
-                                                        >
-                                                            <p>Mentor Name</p>
-                                                        </Col>
-                                                        <Col
-                                                            xs={1}
-                                                            sm={1}
-                                                            md={1}
-                                                            xl={1}
-                                                        >
-                                                            :
-                                                        </Col>
-                                                        <Col
-                                                            xs={6}
-                                                            sm={6}
-                                                            md={6}
-                                                            xl={6}
-                                                            className="my-auto profile-detail"
-                                                        >
-                                                            <p>
-                                                                {
-                                                                    orgData
-                                                                        .mentor
-                                                                        .mentor_title
-                                                                }{' '}
-                                                                {
-                                                                    orgData
-                                                                        .mentor
-                                                                        ?.mentor_name
-                                                                }
-                                                            </p>
-                                                        </Col>
-                                                    </Row>
-                                                    <Row className="pt-3 pb-3">
-                                                        <Col
-                                                            xs={5}
-                                                            sm={5}
-                                                            md={5}
-                                                            xl={5}
-                                                            className="my-auto profile-detail"
-                                                        >
-                                                            <p>
-                                                                Mentor Mobile No
-                                                            </p>
-                                                        </Col>
-                                                        <Col
-                                                            xs={1}
-                                                            sm={1}
-                                                            md={1}
-                                                            xl={1}
-                                                        >
-                                                            :
-                                                        </Col>
-                                                        <Col
-                                                            xs={6}
-                                                            sm={6}
-                                                            md={6}
-                                                            xl={6}
-                                                            className="my-auto profile-detail"
-                                                        >
-                                                            <p>
-                                                                {
-                                                                    orgData
-                                                                        .mentor
-                                                                        ?.mentor_mobile
-                                                                }
-                                                            </p>
-                                                        </Col>
-                                                    </Row>
-                                                    <Row className="pt-3 pb-3">
-                                                        <Col
-                                                            xs={5}
-                                                            sm={5}
-                                                            md={5}
-                                                            xl={5}
-                                                            className="my-auto profile-detail"
-                                                        >
-                                                            <p>
-                                                                WhatsApp Mobile
-                                                                No
-                                                            </p>
-                                                        </Col>
-                                                        <Col
-                                                            xs={1}
-                                                            sm={1}
-                                                            md={1}
-                                                            xl={1}
-                                                        >
-                                                            :
-                                                        </Col>
-                                                        <Col
-                                                            xs={6}
-                                                            sm={6}
-                                                            md={6}
-                                                            xl={6}
-                                                            className="my-auto profile-detail"
-                                                        >
-                                                            <p>
-                                                                {
-                                                                    orgData
-                                                                        .mentor
-                                                                        ?.mentor_whatapp_mobile
-                                                                }
-                                                            </p>
-                                                        </Col>
-                                                    </Row>
-                                                    <Row className="pt-3 pb-3">
-                                                        <Col
-                                                            xs={5}
-                                                            sm={5}
-                                                            md={5}
-                                                            xl={5}
-                                                            className="my-auto profile-detail"
-                                                        >
-                                                            <p>Date of Birth</p>
-                                                        </Col>
-                                                        <Col
-                                                            xs={1}
-                                                            sm={1}
-                                                            md={1}
-                                                            xl={1}
-                                                        >
-                                                            :
-                                                        </Col>
-                                                        <Col
-                                                            xs={6}
-                                                            sm={6}
-                                                            md={6}
-                                                            xl={6}
-                                                            className="my-auto profile-detail"
-                                                        >
-                                                            <p>
-                                                                {
-                                                                    orgData
-                                                                        .mentor
-                                                                        ?.date_of_birth
-                                                                }
-                                                            </p>
-                                                        </Col>
-                                                    </Row>
-                                                    <Row className="pt-3 pb-3">
-                                                        <Col
-                                                            xs={5}
-                                                            sm={5}
-                                                            md={5}
-                                                            xl={5}
-                                                            className="my-auto profile-detail"
-                                                        >
-                                                            <p>Email Id</p>
-                                                        </Col>
-                                                        <Col
-                                                            xs={1}
-                                                            sm={1}
-                                                            md={1}
-                                                            xl={1}
-                                                        >
-                                                            :
-                                                        </Col>
-                                                        <Col
-                                                            xs={6}
-                                                            sm={6}
-                                                            md={6}
-                                                            xl={6}
-                                                            className="my-auto profile-detail"
-                                                        >
-                                                            <p>
-                                                                {
-                                                                    orgData
-                                                                        .mentor
-                                                                        ?.mentor_email
-                                                                }
-                                                            </p>
-                                                        </Col>
-                                                    </Row>{' '}
-                                                    <Row className="pt-3 pb-3">
-                                                        <Col
-                                                            xs={5}
-                                                            sm={5}
-                                                            md={5}
-                                                            xl={5}
-                                                            className="my-auto profile-detail"
-                                                        >
-                                                            <p>Gender</p>
-                                                        </Col>
-                                                        <Col
-                                                            xs={1}
-                                                            sm={1}
-                                                            md={1}
-                                                            xl={1}
-                                                        >
-                                                            :
-                                                        </Col>
-                                                        <Col
-                                                            xs={6}
-                                                            sm={6}
-                                                            md={6}
-                                                            xl={6}
-                                                            className="my-auto profile-detail"
-                                                        >
-                                                            <p>
-                                                                {
-                                                                    orgData
-                                                                        .mentor
-                                                                        .gender
-                                                                }
-                                                            </p>
-                                                        </Col>
-                                                    </Row>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        {/* </div> */}
-                                        {/* <div className="d-flex justify-content-between"> */}
-                                        <div className="d-flex justify-content-between flex-column flex-md-row">
-                                            <button
-                                                className="btn  rounded-pill px-4  text-white mt-2 mt-md-0 ml-md-2"
-                                                style={{
-                                                    backgroundColor: '#ffcb34'
-                                                }}
-                                                onClick={handleEdit}
-                                                //className="btn btn-warning btn-lg  px-4"
-                                            >
-                                                Edit
-                                            </button>
-                                            <button
-                                                onClick={() =>
-                                                    handleresetpassword({
-                                                        mentor_id:
-                                                            orgData.mentor
-                                                                .mentor_id,
-                                                        username:
-                                                            orgData.mentor
-                                                                .mentor_mobile
-                                                        // organization_code:
-                                                        //     orgData.organization_code
-                                                    })
+                        <div className="col-md-5">
+                            <div className="row">
+                                <div className="col">
+                                    <div className="card">
+
+                                        <div className="d-flex align-items-center mb-3">
+                                            <h5 style={{ fontSize: '16px', textTransform: 'uppercase', textAlign: 'right', fontWeight: 'bold' }}>State wise Reg. Students Count</h5>
+                                            <Button
+                                                label="Download"
+                                                btnClass="primary mx-2"
+                                                size="small"
+                                                shape="btn-square"
+                                                onClick={handleDownload
                                                 }
-                                                className="btn btn-info rounded-pill px-4  text-white mt-2 mt-md-0 ml-md-2"
-                                            >
-                                                Reset
-                                            </button>
-                                            <button
-                                                onClick={() => {
-                                                    downloadPDF();
-                                                }}
-                                                className="btn btn-primary rounded-pill px-4 mt-2 mt-md-0 ml-md-2"
-                                            >
-                                                Download
-                                            </button>
-
-                                            <button
-                                                onClick={viewDetails}
-                                                className="btn btn-success rounded-pill px-4 mt-2 mt-md-0 ml-md-2"
-                                            >
-                                                View Details
-                                            </button>
-
-                                            <button
-                                                onClick={() => {
-                                                    handleAlert(
-                                                        orgData.mentor?.user_id
-                                                    );
-                                                }}
-                                                className="btn  btn-lg  rounded-pill mt-2 mt-md-0 ml-md-2"
                                                 style={{
-                                                    backgroundColor: '#dc3545'
+                                                    width: 'auto',
+                                                    whiteSpace: 'nowrap'
                                                 }}
-                                            >
-                                                Delete
-                                            </button>
+                                            />
                                         </div>
+                                        <Table
+                                            id="dataTable"
+                                            className="table table-striped table-bordered responsive"
+                                        >
+                                            <thead>
+                                                <tr>
+                                                    <th>No</th>
+                                                    <th>
+                                                        State
+                                                        Name
+                                                    </th>
+                                                    <th>
+                                                        Students
+                                                    </th>
 
-                                        {/* <div className="mb-5 p-3"> */}
-                                        {/* <div className="container-fluid card shadow border"> */}
-                                        <div>
-                                            <div className="row">
-                                                <div className="col">
-                                                    <h2 className="text-center mt-3 text-primary">
-                                                        Teams Registered
-                                                    </h2>
-                                                    <hr />
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {combinedArray.map(
+                                                    (
+                                                        item,
+                                                        index
+                                                    ) => (
+                                                        <tr
+                                                            key={
+                                                                index
+                                                            }
+                                                        >
+                                                            <td>
+                                                                {index +
+                                                                    1}
+                                                            </td>
+                                                            <td>
+                                                                {
+                                                                    item.state
+                                                                }
+                                                            </td>
+                                                            <td>
+                                                                {
+                                                                    item.state_count
+
+                                                                }
+                                                            </td>
+
+
+                                                        </tr>
+                                                    )
+                                                )}
+
+                                            </tbody>
+                                        </Table>
+                                        <div className="card-body">
+                                            {combinedArray.length > 0 && (
+                                                <div className="mt-5">
+
+                                                    {/* <div className="d-flex align-items-center mb-3">
+                                                        <h3>OVERVIEW</h3>
+                                                        <Button
+                                                            label="Download Table"
+                                                            btnClass="primary mx-2"
+                                                            size="small"
+                                                            shape="btn-square"
+                                                            onClick={handleDownload
+
+                                                            }
+                                                            style={{
+                                                                width: '150px',
+                                                                whiteSpace: 'nowrap'
+                                                            }}
+                                                        />
+                                                    </div> */}
+                                                    <div className="row">
+                                                        <div className="col-md-12 mx-10 px-10">
+                                                            <div
+                                                                className="table-wrapper bg-white "
+                                                                style={{
+                                                                    overflowX: 'auto'
+                                                                }}
+                                                            >
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div>
-                                                <DataTableExtensions
-                                                    print={false}
-                                                    export={false}
-                                                    {...MentorsData}
+                                            )}
+                                            {downloadData && (
+                                                <CSVLink
+                                                    data={downloadData}
+                                                    headers={tableHeaders}
+                                                    filename={`StatewiseDemographicReport_${newFormat}.csv`}
+                                                    className="hidden"
+                                                    ref={csvLinkRef}
                                                 >
-                                                    <DataTable
-                                                        noHeader
-                                                        defaultSortField="id"
-                                                        defaultSortAsc={false}
-                                                        highlightOnHover
-                                                    />
-                                                </DataTableExtensions>
-                                            </div>
+                                                    Download Table CSV
+                                                </CSVLink>
+                                            )}
                                         </div>
-                                        {/* </div> */}
-                                    </>
-                                ) : (
-                                    multiOrgData[0]?.mentor === null && (
-                                        // <Card className="mt-3 p-4">
-                                        <div className="text-success fs-highlight d-flex justify-content-center align-items-center">
-                                            <span>
-                                                Still No Teacher Registered
-                                            </span>
-                                        </div>
-                                    )
-                                    // ) : (
-                                    // count != 0 && (
-                                    //     <div className="text-success fs-highlight d-flex justify-content-center align-items-center">
-                                    //         <span>
-                                    //             Still No Teacher Registered
-                                    //         </span>
-                                    //     </div>
-                                    // )
-                                    // )
-                                )}
-                                {error && diesCode && (
-                                    <div className="text-danger mt-3 p-4 fs-highlight d-flex justify-content-center align-items-center">
-                                        <span>{error}</span>
                                     </div>
-                                )}
-                                {!diesCode && (
-                                    <div className="d-flex  mt-3 p-4 justify-content-center align-items-center">
-                                        <span className="text-primary fs-highlight">
-                                            Enter Institution Unique Code
-                                        </span>
-                                    </div>
-                                )}
-                                {/* </Row> */}
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                
             </div>
         </Layout>
     );

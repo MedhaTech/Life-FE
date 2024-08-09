@@ -2,21 +2,86 @@
     .dashboard {
         min-height: 80vh !important;
     }
+
     .btn-danger {
         border-radius: 2rem;
         width: 10rem;
         float: right;
     }
-    .disc-card-search{
+
+    .disc-card-search {
         min-height: 35rem;
     }
-    .fs-highlight{
-        font-size:1.6rem;
-        font-weight:1.6rem;
+
+    .fs-highlight {
+        font-size: 1.6rem;
+        font-weight: 1.6rem;
     }
-    .btn-warning{
+
+    .btn-warning {
         border-radius: 2rem;
         width: 10rem;
-        color : #ffff;
+        color: #ffff;
     }
+
+    /* src/components/Card.css */
+    .card {
+        display: flex;
+        font-family: 'Open Sans';
+        align-items: center;
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 10px;
+        margin: 10px;
+        transition: transform 0.3s;
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
+    }
+
+    .card-icon {
+        width: 60px;
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        color: #ffffff;
+        font-size: 24px;
+        margin-right: 20px;
+    }
+
+    .card-head {
+        font-family: 'Open Sans';
+        margin: 0;
+        font-size: 40px;
+        font-weight: 600;
+        // margin: 20px 0px;
+        padding: 16px 0px;
+        color: #333333;
+    }
+
+    .card-label {
+        font-size: 14px;
+        text-align: center;
+        // text-transform: uppercase;
+    }
+
+    .card-content h3 {
+        font-family: 'Open Sans';
+        margin: 0;
+        font-size: 18px;
+        color: #333333;
+    }
+
+    .card-content p {
+        font-family: 'Open Sans';
+        margin: 5px 0 0;
+        font-size: 24px;
+        font-weight: bold;
+        color: #555555;
+    }
+
 }
