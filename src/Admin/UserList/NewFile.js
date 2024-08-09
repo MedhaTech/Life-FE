@@ -111,6 +111,8 @@ const [institution,setInstitution]=useState("");
     const [loading, setLoading] = useState(false);
     const updatedcategories = ['All Categories', ...applicant_categories];
 const updateStatesList=["All States",...stateList];
+const updateGenderList=["All Genders",...genderList];
+
 const updateInstitution=["All Institutions",...institutionType];
 
 
@@ -407,8 +409,9 @@ const updateInstitution=["All Institutions",...institutionType];
             {
                 name: 'No',
                 // selector: (row) => row.id,
-                selector: (row, key) => key + 1,
-                cellExport: (row) => row.index,
+                // cell: (row, key) => key + 1,
+                cell: (row) => row.key,
+
                 width: '6rem'
             },
 
@@ -466,23 +469,29 @@ const updateInstitution=["All Institutions",...institutionType];
             {
                 name: 'Age',
                 selector: (row) => row.Age,
+                cellExport: (row) => row.Age,
                 width: '8rem'
             },
 
             {
                 name: 'Gender',
                 selector: (row) => row.Gender,
+                cellExport: (row) => row.Gender,
+
                 width: '10rem'
             },
             {
                 name: 'Email Id',
                 selector: (row) => row.email,
+                cellExport: (row) => row.email,
+
                 width: '16rem'
             },
 
             {
                 name: 'Mobile No',
                 selector: (row) => row.mobile,
+                cellExport: (row) => row.mobile,
                 width: '16rem'
             },
             // {
@@ -502,6 +511,7 @@ const updateInstitution=["All Institutions",...institutionType];
             {
                 name: 'Actions',
                 sortable: false,
+                cellExport: (row) =>"",
                 width: '10rem',
                 cell: (record) => [
                     <div
@@ -580,7 +590,7 @@ const updateInstitution=["All Institutions",...institutionType];
                                             <Col md={2}>
                                                 <div className="my-3 d-md-block d-flex justify-content-center">
                                                     <Select
-                                                        list={genderList}
+                                                        list={updateGenderList}
                                                         setValue={setGender}
                                                         placeHolder={
                                                             'Gender'
@@ -610,7 +620,7 @@ const updateInstitution=["All Institutions",...institutionType];
                                         <div className="bg-white border card pt-3 mt-5">
                                         <DataTableExtensions
                                             print={false}
-                                            export={false}
+                                            export={true}
                                             {...StudentsData}
                                         >
                                             <DataTable
