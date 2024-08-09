@@ -68,7 +68,7 @@ export const institutionType = ['Engineering', 'Law', 'Life Sciences', 'Medical'
     
 export const applicant_categories = ['Student', 'Faculty', 'Research Scholar', 'Others',
 ];
-export const genderList=["All","MALE","FEMALE","OTHERS"];
+export const genderList=["MALE","FEMALE","OTHERS"];
 
 export const istitutionNameList = {
     Engineering: [

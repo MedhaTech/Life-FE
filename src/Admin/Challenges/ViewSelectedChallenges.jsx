@@ -135,13 +135,15 @@ const ViewSelectedIdea = () => {
         columns: [
             {
                 name: 'No',
-                selector: (row) => row.key,
+                cell: (row) => row.key,
+                // cellExport: (row) => "",
                 sortable: true,
                 width: '10rem'
             },
             {
                 name: 'District',
                 selector: (row) => row.district,
+                cellExport: (row) => row.district,
                 width: '18rem'
             },
             // {
@@ -260,10 +262,13 @@ const ViewSelectedIdea = () => {
             {
                 name: 'Status',
                 cell: (row) => row.status,
+
                 width: '15rem'
             },
             {
                 name: 'Actions',
+                cellExport: (row) => "",
+
                 cell: (params) => {
                     return [
                         <div className="d-flex" key={params}>
@@ -446,7 +451,7 @@ const ViewSelectedIdea = () => {
                                     <div className="bg-white border card pt-3 mt-5">
                                         <DataTableExtensions
                                             print={false}
-                                            export={false}
+                                            export={true}
                                             {...evaluatedIdeaforsub}
                                         >
                                             <DataTable

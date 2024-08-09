@@ -16,6 +16,8 @@ import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { encryptGlobal } from '../../constants/encryptDecrypt';
+import { Modal } from 'react-bootstrap';
+
 import {
     getStudentDashboardStatus,
     getStudentDashboardTeamProgressStatus
@@ -23,8 +25,33 @@ import {
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import logout from '../../assets/media/logout.svg';
 import { studentResetPassword } from '../../redux/actions';
+const GreetingModal = (props) => {
+    return (
+        <Modal
+            show={props.show}
+            size="lg"
+            centered
+            className="modal-popup text-center"
+            onHide={props.handleClose}
+            backdrop={true}
+        >
+            <Modal.Header closeButton></Modal.Header>
 
+            <Modal.Body>
+                <figure>
+                    <img
+                        src={props.imgUrl}
+                        alt="popup image"
+                        className="img-fluid"
+                    />
+                </figure>
+            </Modal.Body>
+        </Modal>
+    );
+};
 const CommonUserProfile = (props) => {
+    const [showsPopup, setShowsPopup] = useState(false);
+    const [imgUrl, setImgUrl] = useState('');
     const history = useHistory();
     const { t } = useTranslation();
     const [button, setButton] = useState('');
@@ -43,13 +70,13 @@ const CommonUserProfile = (props) => {
     const dispatch = useDispatch();
     useEffect(() => {
         if (currentUser) {
-            dispatch(getStudentDashboardStatus(StudentsDaTa.user_id, language));
-            dispatch(
-                getStudentDashboardTeamProgressStatus(
-                    currentUser?.data[0]?.user_id,
-                    language
-                )
-            );
+            // dispatch(getStudentDashboardStatus(StudentsDaTa.user_id, language));
+            // dispatch(
+            //     getStudentDashboardTeamProgressStatus(
+            //         currentUser?.data[0]?.user_id,
+            //         language
+            //     )
+            // );
         }
     }, [currentUser?.data[0]?.user_id, language]);
     // useEffect(() => {
@@ -233,7 +260,7 @@ const CommonUserProfile = (props) => {
         columns: [
             {
                 name: 'No',
-                selector: (row, key) => key + 1,
+                selector: (row) => key + 1,
                 // sortable: true,
                 width: '10rem'
             },
@@ -259,8 +286,23 @@ const CommonUserProfile = (props) => {
             }
         ]
     };
+    const handleClose = () => {
+        setShowsPopup(false);
+    };
+    const formatDate = (dateString) => {
+        if (dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-GB'); 
+        }
+        return '-';
+    };
     return (
         <Layout title="UserList">
+             <GreetingModal
+                handleClose={handleClose}
+                show={showsPopup}
+                imgUrl={imgUrl}
+            ></GreetingModal>
             <Container className="mt-5 pt-5 dynamic-form">
                 <Row>
                     <div className="col-6">
@@ -291,9 +333,22 @@ const CommonUserProfile = (props) => {
                 <Row>
                     <Card className="py-5">
                         <CardBody>
+                        <CardText>
+                                <span className="mx-3">
+                                    <b>Applicant Category :</b>
+                                </span>
+                                <b>
+                                    {StudentsDaTa.year_of_study}
+                                    {/* {props.location.data &&
+                                    props.location.data.full_name
+                                        ? props.location.data &&
+                                          props.location.data.full_name
+                                        : '-'}{' '} */}
+                                </b>
+                            </CardText>
                             <CardText>
                                 <span className="mx-3">
-                                    <b>Name :</b>
+                                    <b>Applicant Name :</b>
                                 </span>
                                 <b>
                                     {StudentsDaTa.student_full_name}
@@ -302,6 +357,34 @@ const CommonUserProfile = (props) => {
                                         ? props.location.data &&
                                           props.location.data.full_name
                                         : '-'}{' '} */}
+                                </b>
+                            </CardText>
+                            <CardText>
+                                <span className="mx-3">
+                                    <b>Email Address:</b>
+                                </span>
+                                <b>
+                                    {StudentsDaTa?.email
+                                        ? StudentsDaTa?.email
+                                        : '-'}
+                                </b>
+                            </CardText>
+                            <CardText>
+                                <span className="mx-3">
+                                    <b>Mobile Number :</b>
+                                </span>
+                                <b>
+                                    {StudentsDaTa?.mobile
+                                        ? StudentsDaTa?.mobile
+                                        : '-'}
+                                </b>
+                            </CardText>
+                            <CardText>
+                                <span className="mx-3">
+                                    <b>Date Of Birth :</b>
+                                </span>
+                                <b>
+                                    {StudentsDaTa.date_of_birth ? formatDate(StudentsDaTa.date_of_birth) : '-'}
                                 </b>
                             </CardText>
                             <CardText>
@@ -323,70 +406,37 @@ const CommonUserProfile = (props) => {
                                 </b>
                             </CardText>
 
+                           
                             <CardText>
                                 <span className="mx-3">
-                                    <b>Date of Birth :</b>
+                                    <b>State :</b>
                                 </span>
                                 <b>
-                                    {StudentsDaTa.date_of_birth
-                                        ? StudentsDaTa.date_of_birth
-                                        : '-'}
+                                    {StudentsDaTa?.state
+                                        ? StudentsDaTa?.state
+                                        : '_'}
                                 </b>
                             </CardText>
                             <CardText>
                                 <span className="mx-3">
-                                    <b>Mobile No :</b>
+                                    <b>District :</b>
                                 </span>
                                 <b>
-                                    {StudentsDaTa?.mobile
-                                        ? StudentsDaTa?.mobile
-                                        : '-'}
-                                </b>
-                            </CardText>
-                            <CardText>
-                                <span className="mx-3">
-                                    <b>Email Id:</b>
-                                </span>
-                                <b>
-                                    {StudentsDaTa?.email
-                                        ? StudentsDaTa?.email
+                                    {StudentsDaTa?.district
+                                        ? StudentsDaTa?.district
                                         : '-'}
                                 </b>
                             </CardText>
 
                             <CardText>
                                 <span className="mx-3">
-                                    <b>Mentor Name :</b>
+                                    <b>City :</b>
                                 </span>
                                 <b>
-                                    {StudentsDaTa.mentor_name
-                                        ? StudentsDaTa.mentor_name
+                                    {StudentsDaTa.city
+                                        ? StudentsDaTa.city
                                         : '-'}
                                 </b>
-                            </CardText>
-                            <CardText>
-                                <span className="mx-3">
-                                    <b>Team Name :</b>
-                                </span>
-                                <b>
-                                    {StudentsDaTa.team_name
-                                        ? StudentsDaTa.team_name
-                                        : '-'}
-                                </b>
-                            </CardText>
-                        </CardBody>
-                    </Card>
-                </Row>
-                <Row className="my-5">
-                    <Card className="py-5">
-                        <CardBody>
-                            <h2 className="mb-4">Institution Details</h2>
-                            <CardText>
-                                <span className="mx-3">
-                                    <b>Institution Unique Code :</b>
-                                </span>
-
-                                <b>{StudentsDaTa?.institution_code}</b>
                             </CardText>
                             <CardText>
                                 <span className="mx-3">
@@ -395,6 +445,41 @@ const CommonUserProfile = (props) => {
                                 <b>{StudentsDaTa?.institution_name}</b>
                             </CardText>
                             <CardText>
+                                <span className="mx-3">
+                                    <b>Institution Type :</b>
+                                </span>
+
+                                <b>{StudentsDaTa?.group}</b>
+                            </CardText>
+                            <CardText>
+                                <span className="mx-3">
+                                    <b> Reg. Number (as per ID Card) :</b>
+                                </span>
+                                <b>
+                                    {StudentsDaTa.reg_no
+                                        ? StudentsDaTa.reg_no
+                                        : '-'}
+                                </b>
+                                <Button
+                                            size="small"
+                                            label="View ID Card"
+                       btnClass="primary col-3 m-2"
+                       onClick={()=>{
+                           setImgUrl(teamMember?.id_card);
+                           setShowsPopup(true);
+                       }}
+                   />
+                            </CardText>
+                        </CardBody>
+                    </Card>
+                </Row>
+                {/* <Row className="my-5"> */}
+                    {/* <Card className="py-5"> */}
+                        {/* <CardBody> */}
+                            {/* <h2 className="mb-4">Institution Details</h2> */}
+                           
+                           
+                            {/* <CardText>
                                 <span className="mx-3">
                                     <b>Place:</b>
                                 </span>
@@ -413,8 +498,8 @@ const CommonUserProfile = (props) => {
                                         ? StudentsDaTa?.block_name
                                         : '-'}
                                 </b>
-                            </CardText>
-                            <CardText>
+                            </CardText> */}
+                            {/* <CardText>
                                 <span className="mx-3">
                                     <b>Taluk:</b>
                                 </span>
@@ -423,27 +508,9 @@ const CommonUserProfile = (props) => {
                                         ? StudentsDaTa?.taluk_name
                                         : '-'}
                                 </b>
-                            </CardText>{' '}
-                            <CardText>
-                                <span className="mx-3">
-                                    <b>District :</b>
-                                </span>
-                                <b>
-                                    {StudentsDaTa?.district_name
-                                        ? StudentsDaTa?.district_name
-                                        : '-'}
-                                </b>
-                            </CardText>
-                            <CardText>
-                                <span className="mx-3">
-                                    <b>State :</b>
-                                </span>
-                                <b>
-                                    {StudentsDaTa?.state_name
-                                        ? StudentsDaTa?.state_name
-                                        : '_'}
-                                </b>
-                            </CardText>
+                            </CardText>{' '} */}
+                          
+                           
                             {/* <CardText> */}
                             {/* <span className="mx-3">
                                     <b>Category :</b>
@@ -466,9 +533,9 @@ const CommonUserProfile = (props) => {
                                         : '-'} */}
                             {/* </b> */}
                             {/* </CardText> */}
-                        </CardBody>
-                    </Card>
-                </Row>
+                        {/* </CardBody> */}
+                    {/* </Card> */}
+                {/* </Row> */}
                 {/* <Row className="my-5">
                     <Card className="py-5">
                         <CardBody>
