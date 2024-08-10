@@ -200,7 +200,7 @@ function AtlPage() {
             Gender: '',
             email: '',
             group: '',
-            Age: '',
+            age: '',
             year_of_study: '',
             date_of_birth: '',
             reg_no: '',
@@ -243,13 +243,9 @@ function AtlPage() {
                 )
                 .max(10, 'Enter only 10 digit valid number')
                 .min(10, 'Number is less than 10 digits'),
-
                 Gender: Yup.string().required('Select Gender'),
-               
-            Age: Yup.number()
-            .required("Age Required"),
-
-            date_of_birth: Yup.date().required('Date of Birth is required')
+                Age: Yup.number().required("Age Required"),
+                date_of_birth: Yup.date().required('Date of Birth is required')
            
             .max(
                 new Date(new Date().getFullYear() - 16, 11, 31),
@@ -300,7 +296,7 @@ function AtlPage() {
                     institution_name: values.institution_name.trim(),
                     city: values.city.trim(),
                     Gender: values.Gender,
-                    Age: values.Age,
+                    age: values.age,
                     state: values.state,
                     district: values.district,
                     group: values.group,
@@ -399,7 +395,7 @@ function AtlPage() {
             //             institution_name: values.institution_name.trim(),
             //             city: values.city.trim(),
             //             Gender: values.Gender,
-            //             Age: values.Age,
+            //             age: values.age,
             //             state: values.state,
             //             district: values.district,
             //             group: values.group,
@@ -564,14 +560,13 @@ function AtlPage() {
         const selectedDate = new Date(formik.values.date_of_birth);
 
         if (!isNaN(selectedDate.getTime())) {
-            const Age =
+            const age =
             currentDate.getFullYear() - selectedDate.getFullYear();
             if (selectedDate > currentDate) {
                 formik.setFieldError('date_of_birth', 'Future dates are not allowed');
                 formik.setFieldValue('date_of_birth', '');
             } else {
-              
-                formik.setFieldValue('Age', JSON.stringify(Age));
+              formik.setFieldValue('Age', JSON.stringify(Age));
             }
         }
     }, [formik.values.date_of_birth]);
@@ -594,8 +589,7 @@ function AtlPage() {
             formik.values.group.length > 0 &&
             formik.values.year_of_study.length > 0 &&
             formik.values.reg_no.length > 0 &&
-            formik.values.institution_name.length > 0 
-            &&
+            formik.values.institution_name.length > 0 &&
             formik.values.Age > 15
         ) {
             setDisable(true);
@@ -1138,10 +1132,10 @@ function AtlPage() {
                                                     }
                                                     />
 
-                                                    {formik.touched.Age &&
-                                                        formik.errors.Age ? (
+                                                    {formik.touched.age &&
+                                                        formik.errors.age ? (
                                                         <small className="error-cls">
-                                                            {formik.errors.Age}
+                                                            {formik.errors.age}
                                                         </small>
                                                     ) : null}
                                                 </Col>
