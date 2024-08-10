@@ -183,7 +183,7 @@ const Dashboard = () => {
 
 
     useEffect(() => {
-        dispatch(getFetchDistData());
+        // dispatch(getFetchDistData());
     }, []);
     // const teacherId = mentorTeam[0]?.team_id;
     const [isideadisable, setIsideadisable] = useState(false);
@@ -201,7 +201,7 @@ const Dashboard = () => {
         //where organization_code = diescode //
         const list = JSON.parse(localStorage.getItem('institution_code'));
         setDiesCode(list);
-        await apiCall(list);
+        // await apiCall(list);
     }, []);
     async function apiCall(list) {
         // Dice code list API //
@@ -388,7 +388,7 @@ const Dashboard = () => {
         axios(config)
             .then((response) => {
                 if (response.status === 200) {
-                    console.log(response, "table");
+                    // console.log(response, "table");
                     setThemesList(response?.data?.data || []);
                 }
             })
@@ -477,6 +477,7 @@ const Dashboard = () => {
             },
         ],
     };
+    // console.log(barChartData,"dd");
     const allInstitutions = () => {
         var config = {
             method: 'get',

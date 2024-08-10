@@ -10,7 +10,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useTranslation } from 'react-i18next';
 import { Carousel } from 'react-bootstrap';
-import logo from '../assets/media/tn-brands/EDII.png';
+import logo from '../assets/media/Life_logo.jpg';
 import image_7 from '../assets/media/unisolve_slider1.png';
 import image_8 from '../assets/media/unisolve_slider2.png';
 import { URL, KEY } from '../constants/defaultValues';
@@ -20,9 +20,9 @@ import { getNormalHeaders, openNotificationWithIcon } from '../helpers/Utils';
 const ForgotPasswordNew = () => {
     const { t } = useTranslation();
     const [errorMsg, seterrorMsg] = useState('');
-    const inputMobile = {
-        type: 'mobile',
-        placeholder: 'Enter Your Registered Mobile Number'
+    const inputemail = {
+        type: 'email',
+        placeholder: 'Enter Your Email Address'
     };
 
     const logInBtn = {
@@ -32,16 +32,17 @@ const ForgotPasswordNew = () => {
     };
     const formik = useFormik({
         initialValues: {
-            mobile: ''
+            email: ''
         },
 
         validationSchema: Yup.object({
-            mobile: Yup.string()
-                // .email('Must be a valid email').max(255)
-                .trim()
-                .matches(/^[0-9\s]+$/, 'Mobile number is not valid')
-                .min(10, 'Please enter valid number')
-                .max(10, 'Please enter valid number')
+            email: Yup.string()
+                .email('Must be a valid email').max(255)
+                .required("Please Enter Your Email Address")
+                // .trim()
+                // .matches(/^[0-9\s]+$/, 'email number is not valid')
+                // .min(10, 'Please enter valid number')
+                // .max(10, 'Please enter valid number')
         }),
 
         onSubmit: async (values) => {
@@ -49,16 +50,17 @@ const ForgotPasswordNew = () => {
             const axiosConfig = getNormalHeaders(KEY.User_API_Key);
             await axios
                 .put(
-                    `${URL.putResetPassword}`,
+                    `${URL.stuForget}`,
                     JSON.stringify(values, null, 2),
                     axiosConfig
                 )
                 .then((checkOrgRes) => {
-                    if (checkOrgRes.status == 202) {
+                    if (checkOrgRes.status == 200) {
+                console.log(checkOrgRes,"rr");
                         // props.setShow(false);
                         openNotificationWithIcon(
                             'success',
-                            'Password reset link will be sent to registered mobile number'
+                            'Password has been send registered email id. Please check your inbox'
                         );
                         seterrorMsg('');
                     }
@@ -74,14 +76,14 @@ const ForgotPasswordNew = () => {
         <React.Fragment>
             <div className="container-fluid  SignUp Login vh-100">
                 <Row>
-                    <div className="col-md-4 aside mobile-header">
-                        {/* <h1 className="text-left pb-5 mobile_tab-hide">
+                    <div className="col-md-4 aside email-header">
+                        {/* <h1 className="text-left pb-5 email_tab-hide">
                             {t('login.Title')}
                         </h1>
-                        <p className="mobile_tab-hide">{t('login.subtitle')}</p> */}
+                        <p className="email_tab-hide">{t('login.subtitle')}</p> */}
                         <Carousel>
                             <Carousel.Item>
-                                <div className="mobile_tab-hide">
+                                <div className="email_tab-hide">
                                     <figure>
                                         <img
                                             src={image_7}
@@ -92,7 +94,7 @@ const ForgotPasswordNew = () => {
                                 </div>
                             </Carousel.Item>
                             <Carousel.Item>
-                                <div className="mobile_tab-hide">
+                                <div className="email_tab-hide">
                                     <figure>
                                         <img
                                             src={image_8}
@@ -103,7 +105,7 @@ const ForgotPasswordNew = () => {
                                 </div>
                             </Carousel.Item>
                             {/* <Carousel.Item>
-                        <div className="mobile_tab-hide">
+                        <div className="email_tab-hide">
                             <figure>
                                 <img
                                     src={ellipse_1}
@@ -136,10 +138,10 @@ const ForgotPasswordNew = () => {
                                 xl={12}
                                 className="my-auto"
                             >
-                                <h4>Did you forgot your password?</h4>
+                                <h2>Did you forgot your password?</h2>
                                 <span className=" sub mt-2 w-100">
                                     Don’t worry! Resetting your password is
-                                    easy, just type the Mobile Number you
+                                    easy, just type the Email Address you
                                     registered to this program
                                 </span>
                                 <Form onSubmit={formik.handleSubmit}>
@@ -149,21 +151,21 @@ const ForgotPasswordNew = () => {
                                                 className="mb-2"
                                                 htmlFor="email"
                                             >
-                                                Enter Your Mobile Number
+                                                Enter Your Email Address
                                             </Label>
                                             <InputBox
-                                                {...inputMobile}
-                                                id="mobile"
-                                                name="mobile"
+                                                {...inputemail}
+                                                id="email"
+                                                name="email"
                                                 onChange={formik.handleChange}
                                                 onBlur={formik.handleBlur}
-                                                value={formik.values.mobile}
+                                                value={formik.values.email}
                                             />
 
-                                            {formik.touched.mobile &&
-                                            formik.errors.mobile ? (
+                                            {formik.touched.email &&
+                                            formik.errors.email ? (
                                                 <small className="error-cls">
-                                                    {formik.errors.mobile}
+                                                    {formik.errors.email}
                                                 </small>
                                             ) : null}
                                         </Col>
@@ -172,8 +174,7 @@ const ForgotPasswordNew = () => {
 
                                     {errorMsg === 'User not found' && (
                                         <b className="text-danger m-3">
-                                            Please Enter Your Registered Mobile
-                                            Number
+                                            Please Enter Your Registered Email Address
                                         </b>
                                     )}
                                     <div className="mt-3">
@@ -199,7 +200,16 @@ const ForgotPasswordNew = () => {
                                         />
                                     </div>
                                 </Form>
-                                <p className="d-flex text-center  ">
+                                <p className='mt-2' style={{ 'font-size': '14px', fontWeight: 'bold' }}>
+                                    <Link
+                                        exact="true"
+                                        to="/login"
+                                        className=""
+                                    >
+                                       Back to Login
+                                    </Link>
+                                </p>
+                                {/* <p className="d-flex text-center  ">
                                     <Link
                                         exact="true"
                                         to="/mentor"
@@ -207,7 +217,7 @@ const ForgotPasswordNew = () => {
                                     >
                                         Back to Login
                                     </Link>
-                                </p>
+                                </p> */}
                             </Col>
                         </Row>
                     </Col>

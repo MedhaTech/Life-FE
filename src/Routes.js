@@ -1072,7 +1072,7 @@ const Routers = () => {
                     />
                     <Route
                         exact={true}
-                        path="/mentor/forgotpassword"
+                        path="/student/forgotpassword"
                         component={ForgotPasswordNew}
                     />
 

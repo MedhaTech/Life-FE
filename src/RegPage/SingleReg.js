@@ -77,6 +77,7 @@ function AtlPage() {
     const [districts, setDistricts] = useState([]);
     const [instNames, setInstNames] = useState([]);
     const [isOtherSelected, setIsOtherSelected] = useState(false);
+    const [buttonData, setButtonData] = useState("");
 
 
     const [tooltipOpen1, setTooltipOpen1] = useState(false);
@@ -182,6 +183,7 @@ function AtlPage() {
     };
     const regex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
     const name = /^[a-zA-Z\s\u0B80-\u0BFF]+$/;
+   
     const formik = useFormik({
         initialValues: {
             state: '',
@@ -242,19 +244,17 @@ function AtlPage() {
                 .max(10, 'Enter only 10 digit valid number')
                 .min(10, 'Number is less than 10 digits'),
 
-            Age: Yup.number().moreThan(16, 'Age Should be above 15 years old').required("Age Required"),
-            // id_card: Yup.mixed().required("Upload Id Card"),
+                Gender: Yup.string().required('Select Gender'),
+               
+            Age: Yup.number()
+            .required("Age Required"),
 
-            Gender: Yup.string().required('Select Gender'),
             date_of_birth: Yup.date().required('Date of Birth is required')
-            // .min(
-            //     new Date(new Date().getFullYear() - 65, 0, 1),
-            //     'Age cannot exceed 65 years'
-            // )
+           
             .max(
                 new Date(new Date().getFullYear() - 16, 11, 31),
 
-                'Age must be at above 15 years'
+                'Date of Birth must be at above 15 years'
             )
         }),
 
@@ -278,7 +278,7 @@ function AtlPage() {
             if (values.otp.length < 5) {
                 setErrorMsg(true);
             } else {
-                console.log('data', 'data');
+                // console.log('data', 'data');
                 const axiosConfig = getNormalHeaders(KEY.User_API_Key);
                 var pass = values.mobile.trim();
 
@@ -332,8 +332,12 @@ function AtlPage() {
                 await axios(config)
                     .then((mentorRegRes) => {
                         if (mentorRegRes?.data?.status == 201) {
-                            setMentorData(mentorRegRes?.data?.data[0]);
+                // console.log(mentorRegRes,"reg");
 
+                            setMentorData(mentorRegRes.data && mentorRegRes.data.data[0]);
+                            setTimeout(() => {
+                                apiCall(mentorRegRes.data && mentorRegRes.data.data[0]);
+                              }, 500);
                             history.push({
                                 pathname: '/successScreen'
                             });
@@ -450,6 +454,42 @@ function AtlPage() {
             // }
         }
     });
+    async function apiCall(mentData) {
+        // Dice code list API //
+        // where list = diescode //
+        const body = {
+            institution_name:mentData.institution_name,
+          district:formik.values.district,
+          state: formik.values.state,
+          email: formik.values.username,
+          mobile: formik.values.mobile,
+        };
+       
+        var config = {
+          method: "post",
+          url: process.env.REACT_APP_API_BASE_URL + "/students/triggerWelcomeEmail",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870",
+          },
+          data: JSON.stringify(body),
+        };
+    
+        await axios(config)
+          .then(async function (response) {
+            if (response.status == 200) {
+                // console.log(response,"Wel");
+              setButtonData(response?.data?.data[0]?.data);
+            history.push({
+                                pathname: '/successScreen'
+                            });
+              openNotificationWithIcon("success", "Email sent successfully");
+            }
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+      }
     const handleSendOtp = async (e) => {
         setHoldKey(true);
         setDisable(false);
@@ -483,7 +523,7 @@ function AtlPage() {
                     const UNhashedPassword = decryptGlobal(
                         response?.data?.data
                     );
-                    console.log(UNhashedPassword);
+                    // console.log(UNhashedPassword);
                     setOtpRes(JSON.parse(UNhashedPassword));
                     openNotificationWithIcon(
                         'success',
@@ -531,7 +571,7 @@ function AtlPage() {
                 formik.setFieldValue('date_of_birth', '');
             } else {
               
-                formik.setFieldValue('Age', Age);
+                formik.setFieldValue('Age', JSON.stringify(Age));
             }
         }
     }, [formik.values.date_of_birth]);
@@ -548,15 +588,15 @@ function AtlPage() {
             formik.values.mobile.length > 0 &&
             formik.values.Gender.length > 0 &&
             formik.values.email.length > 0 &&
-            // typeof (formik.values.id_card) === "object" &&
             formik.values.state.length > 0 &&
             formik.values.district.length > 0 &&
             formik.values.city.length > 0 &&
             formik.values.group.length > 0 &&
             formik.values.year_of_study.length > 0 &&
             formik.values.reg_no.length > 0 &&
-            formik.values.institution_name.length > 0 &&
-            formik.values.Age.length > 0
+            formik.values.institution_name.length > 0 
+            &&
+            formik.values.Age > 15
         ) {
             setDisable(true);
         } else {
@@ -568,21 +608,21 @@ function AtlPage() {
         formik.values.mobile,
         formik.values.Gender,
         formik.values.email,
-        // formik.values.id_card,
         formik.values.state,
         formik.values.district,
         formik.values.group,
         formik.values.city,
         formik.values.year_of_study,
         formik.values.reg_no,
-        formik.values.institution_name,formik.values.Age
+        formik.values.institution_name,
+        formik.values.Age
     ]);
 
     const handleOtpChange = (e) => {
         formik.setFieldValue('otp', e);
         setErrorMsg(false);
     };
-    console.log(formik.values.Age,"Age");
+//    console.log(formik.values.Age > 15,"aa");
    
     const dateRegex = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/;
     const [hide, setHide] = useState(true);
@@ -1074,29 +1114,28 @@ function AtlPage() {
                                                         // isDisabled={
                                                         //     holdKey
                                                         //         ? true
-                                                        //         : false
+                                                        //         : false || true
                                                         // }
                                                         isDisabled={true}
                                                         placeholder="Age"
-                                                        id="age"
-                                                        name="age"
+                                                        id="Age"
+                                                        name="Age"
                                                         type="text"
-                                                        value={String(
-                                                            formik.values.Age
-                                                        )}
-                                                    // pattern={
-                                                    //     dateRegex.source
-                                                    // }
-                                                    // name="Age"
-                                                    // onChange={
-                                                    //     formik.handleChange
-                                                    // }
-                                                    // onBlur={
-                                                    //     formik.handleBlur
-                                                    // }
-                                                    // value={
-                                                    //     formik.values.Age
-                                                    // }
+                                                        // value={String(
+                                                        //     formik.values.Age
+                                                        // )}
+                                                    pattern={
+                                                        dateRegex.source
+                                                    }
+                                                    onChange={
+                                                        formik.handleChange
+                                                    }
+                                                    onBlur={
+                                                        formik.handleBlur
+                                                    }
+                                                    value={
+                                                        formik.values.Age
+                                                    }
                                                     />
 
                                                     {formik.touched.Age &&
