@@ -293,7 +293,28 @@ const LoginNew = (props) => {
                                             </Col>
                                             {/* <Row className="keepme_login"></Row> */}
                                         </div>
-
+                                        <div
+                                            className="form-group"
+                                            
+                                        >
+                                            <Row className="keepme_login">
+                                                <Col className="forgotp d-flex justify-content-end">
+                                                    <div
+                                                        // onClick={handleOnClick}
+                                                        className="text-link text-primary"
+                                                    >
+                                                        <Link
+                                                            exact="true"
+                                                            to="/student/forgotpassword"
+                                                            className="text-link"
+                                                            style={{ 'font-size': '14px', fontWeight: 'bold' }}
+                                                        >
+                                                           <span   style={{ 'font-size': '14px', fontWeight: 'bold' }} className='m='> Forgot password</span>
+                                                        </Link>
+                                                    </div>
+                                                </Col>
+                                            </Row>
+                                        </div>
                                         <div className="form-row row mb-3">
                                             {/* <p>Student login will be launched shortly. Please wait for notice from the program coordinators.</p> */}
                                             {/* Login button */}

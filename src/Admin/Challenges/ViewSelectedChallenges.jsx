@@ -76,7 +76,7 @@ const ViewSelectedIdea = () => {
     // }, []);
     useEffect(() => {
         // if (state !== '') {
-        dispatch(getFetchDistData());
+        // dispatch(getFetchDistData());
         // }
         // setdistrict('');
     }, []);
