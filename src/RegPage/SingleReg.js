@@ -560,7 +560,7 @@ function AtlPage() {
 
         if (!isNaN(selectedDate.getTime())) {
             const Age =
-                currentDate.getFullYear() - selectedDate.getFullYear();
+            currentDate.getFullYear() - selectedDate.getFullYear();
             if (selectedDate > currentDate) {
                 formik.setFieldError('date_of_birth', 'Future dates are not allowed');
                 formik.setFieldValue('date_of_birth', '');
