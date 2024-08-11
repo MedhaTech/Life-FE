@@ -200,7 +200,7 @@ function AtlPage() {
             Gender: '',
             email: '',
             group: '',
-            age: '',
+            Age: '',
             year_of_study: '',
             date_of_birth: '',
             reg_no: '',
@@ -296,7 +296,7 @@ function AtlPage() {
                     institution_name: values.institution_name.trim(),
                     city: values.city.trim(),
                     Gender: values.Gender,
-                    age: values.age,
+                    Age: values.Age,
                     state: values.state,
                     district: values.district,
                     group: values.group,
@@ -560,7 +560,7 @@ function AtlPage() {
         const selectedDate = new Date(formik.values.date_of_birth);
 
         if (!isNaN(selectedDate.getTime())) {
-            const age =
+            const Age =
             currentDate.getFullYear() - selectedDate.getFullYear();
             if (selectedDate > currentDate) {
                 formik.setFieldError('date_of_birth', 'Future dates are not allowed');
@@ -1132,10 +1132,10 @@ function AtlPage() {
                                                     }
                                                     />
 
-                                                    {formik.touched.age &&
-                                                        formik.errors.age ? (
+                                                    {formik.touched.Age &&
+                                                        formik.errors.Age ? (
                                                         <small className="error-cls">
-                                                            {formik.errors.age}
+                                                            {formik.errors.Age}
                                                         </small>
                                                     ) : null}
                                                 </Col>
