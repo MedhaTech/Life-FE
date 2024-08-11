@@ -39,10 +39,10 @@ const ForgotPasswordNew = () => {
             email: Yup.string()
                 .email('Must be a valid email').max(255)
                 .required("Please Enter Your Email Address")
-                // .trim()
-                // .matches(/^[0-9\s]+$/, 'email number is not valid')
-                // .min(10, 'Please enter valid number')
-                // .max(10, 'Please enter valid number')
+            // .trim()
+            // .matches(/^[0-9\s]+$/, 'email number is not valid')
+            // .min(10, 'Please enter valid number')
+            // .max(10, 'Please enter valid number')
         }),
 
         onSubmit: async (values) => {
@@ -56,11 +56,11 @@ const ForgotPasswordNew = () => {
                 )
                 .then((checkOrgRes) => {
                     if (checkOrgRes.status == 200) {
-                console.log(checkOrgRes,"rr");
+                        console.log(checkOrgRes, "rr");
                         // props.setShow(false);
                         openNotificationWithIcon(
                             'success',
-                            'Password has been send registered email id. Please check your inbox'
+                            'Password has been send to registered email address. Please check your inbox.'
                         );
                         seterrorMsg('');
                     }
@@ -76,7 +76,7 @@ const ForgotPasswordNew = () => {
         <React.Fragment>
             <div className="container-fluid  SignUp Login vh-100">
                 <Row>
-                    <div className="col-md-4 aside email-header">
+                    <div className="col-md-4 aside email-header" style={{ backgroundColor: '#0b3d62' }}>
                         {/* <h1 className="text-left pb-5 email_tab-hide">
                             {t('login.Title')}
                         </h1>
@@ -104,31 +104,23 @@ const ForgotPasswordNew = () => {
                                     </figure>
                                 </div>
                             </Carousel.Item>
-                            {/* <Carousel.Item>
-                        <div className="email_tab-hide">
-                            <figure>
-                                <img
-                                    src={ellipse_1}
-                                    alt="ellipse_1"
-                                    className="img-fluid img-1"
-                                />
-                            </figure>
-                        </div>
-                            </Carousel.Item> */}
                         </Carousel>
                     </div>
-                    <Col xs={12} sm={12} md={12} xl={12} className="article">
+                    <Col xs={12} sm={12} md={8} xl={8} className="article">
                         <Row className="logo">
-                            <Col
-                                md={12}
-                                className="d-flex justify-content-center align-items-center"
-                            >
-                                <img
-                                    src={logo}
-                                    alt="Logo"
-                                    className="logo-image"
-                                />
-                            </Col>
+                            <a href={process.env.REACT_APP_LANDING_PAGE_URL}>
+                                <Col
+                                    md={12}
+                                    className="d-flex justify-content-center align-items-center"
+                                >
+                                    <img
+                                        src={logo}
+                                        alt="Logo"
+                                        className="logo-image"
+                                        style={{ 'width': '150px' }}
+                                    />
+                                </Col>
+                            </a>
                         </Row>
                         <Row className="mb-0">
                             <Col
@@ -138,12 +130,9 @@ const ForgotPasswordNew = () => {
                                 xl={12}
                                 className="my-auto"
                             >
-                                <h2>Did you forgot your password?</h2>
-                                <span className=" sub mt-2 w-100">
-                                    Don’t worry! Resetting your password is
-                                    easy, just type the Email Address you
-                                    registered to this program
-                                </span>
+                                <h6 className="mb-4 mt-4 title-head">Did you forgot your password?</h6>
+                                {/* <h2>Did you forgot your password?</h2> */}
+                                <span className="sub mt-2 w-100"> No need to worry! Resetting your password is simple. Just enter the email address you used to register for this program. </span>
                                 <Form onSubmit={formik.handleSubmit}>
                                     <div className="form-row row my-5">
                                         <Col className="form-group">
@@ -163,7 +152,7 @@ const ForgotPasswordNew = () => {
                                             />
 
                                             {formik.touched.email &&
-                                            formik.errors.email ? (
+                                                formik.errors.email ? (
                                                 <small className="error-cls">
                                                     {formik.errors.email}
                                                 </small>
@@ -177,7 +166,7 @@ const ForgotPasswordNew = () => {
                                             Please Enter Your Registered Email Address
                                         </b>
                                     )}
-                                    <div className="mt-3">
+                                    <div className="mt-2">
                                         <Button
                                             label="Generate Password"
                                             btnClass={
@@ -206,7 +195,7 @@ const ForgotPasswordNew = () => {
                                         to="/login"
                                         className=""
                                     >
-                                       Back to Login
+                                        Back to Login
                                     </Link>
                                 </p>
                                 {/* <p className="d-flex text-center  ">
@@ -223,7 +212,7 @@ const ForgotPasswordNew = () => {
                     </Col>
                 </Row>
             </div>
-        </React.Fragment>
+        </React.Fragment >
     );
 };
 

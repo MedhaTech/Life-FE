@@ -183,7 +183,7 @@ function AtlPage() {
     };
     const regex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
     const name = /^[a-zA-Z\s\u0B80-\u0BFF]+$/;
-   
+
     const formik = useFormik({
         initialValues: {
             state: '',
@@ -243,15 +243,14 @@ function AtlPage() {
                 )
                 .max(10, 'Enter only 10 digit valid number')
                 .min(10, 'Number is less than 10 digits'),
-                Gender: Yup.string().required('Select Gender'),
-                Age: Yup.number().required("Age Required"),
-                date_of_birth: Yup.date().required('Date of Birth is required')
-           
-            .max(
-                new Date(new Date().getFullYear() - 16, 11, 31),
+            Gender: Yup.string().required('Select Gender'),
+            Age: Yup.number().required("Age Required"),
+            date_of_birth: Yup.date().required('Date of Birth is required')
 
-                'Date of Birth must be at above 15 years'
-            )
+                .max(
+                    new Date(new Date().getFullYear() - 16, 11, 31),
+                    'The age must be at least 16 years old.'
+                )
         }),
 
         onSubmit: async (values) => {
@@ -328,12 +327,12 @@ function AtlPage() {
                 await axios(config)
                     .then((mentorRegRes) => {
                         if (mentorRegRes?.data?.status == 201) {
-                // console.log(mentorRegRes,"reg");
+                            // console.log(mentorRegRes,"reg");
 
                             setMentorData(mentorRegRes.data && mentorRegRes.data.data[0]);
                             setTimeout(() => {
                                 apiCall(mentorRegRes.data && mentorRegRes.data.data[0]);
-                              }, 500);
+                            }, 500);
                             history.push({
                                 pathname: '/successScreen'
                             });
@@ -454,38 +453,38 @@ function AtlPage() {
         // Dice code list API //
         // where list = diescode //
         const body = {
-            institution_name:mentData.institution_name,
-          district:formik.values.district,
-          state: formik.values.state,
-          email: formik.values.username,
-          mobile: formik.values.mobile,
+            institution_name: mentData.institution_name,
+            district: formik.values.district,
+            state: formik.values.state,
+            email: formik.values.username,
+            mobile: formik.values.mobile,
         };
-       
+
         var config = {
-          method: "post",
-          url: process.env.REACT_APP_API_BASE_URL + "/students/triggerWelcomeEmail",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870",
-          },
-          data: JSON.stringify(body),
+            method: "post",
+            url: process.env.REACT_APP_API_BASE_URL + "/students/triggerWelcomeEmail",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: "O10ZPA0jZS38wP7cO9EhI3jaDf24WmKX62nWw870",
+            },
+            data: JSON.stringify(body),
         };
-    
+
         await axios(config)
-          .then(async function (response) {
-            if (response.status == 200) {
-                // console.log(response,"Wel");
-              setButtonData(response?.data?.data[0]?.data);
-            history.push({
-                                pathname: '/successScreen'
-                            });
-              openNotificationWithIcon("success", "Email sent successfully");
-            }
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
-      }
+            .then(async function (response) {
+                if (response.status == 200) {
+                    // console.log(response,"Wel");
+                    setButtonData(response?.data?.data[0]?.data);
+                    history.push({
+                        pathname: '/successScreen'
+                    });
+                    openNotificationWithIcon("success", "Email sent successfully");
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
     const handleSendOtp = async (e) => {
         setHoldKey(true);
         setDisable(false);
@@ -566,7 +565,7 @@ function AtlPage() {
                 formik.setFieldError('date_of_birth', 'Future dates are not allowed');
                 formik.setFieldValue('date_of_birth', '');
             } else {
-              formik.setFieldValue('Age', JSON.stringify(Age));
+                formik.setFieldValue('Age', JSON.stringify(Age));
             }
         }
     }, [formik.values.date_of_birth]);
@@ -616,14 +615,14 @@ function AtlPage() {
         formik.setFieldValue('otp', e);
         setErrorMsg(false);
     };
-//    console.log(formik.values.Age > 15,"aa");
-   
+    //    console.log(formik.values.Age > 15,"aa");
+
     const dateRegex = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/;
     const [hide, setHide] = useState(true);
     return (
         <div className="container-fluid  SignUp Login">
             <Row className="row-flex  ">
-                <div className="col-md-6 aside mobile-header">
+                <div className="col-md-6 aside mobile-header" style={{ backgroundColor: '#b63629' }}>
                     <Carousel>
                         <Carousel.Item>
                             <div className="mobile_tab-hide">
@@ -1118,18 +1117,18 @@ function AtlPage() {
                                                         // value={String(
                                                         //     formik.values.Age
                                                         // )}
-                                                    pattern={
-                                                        dateRegex.source
-                                                    }
-                                                    onChange={
-                                                        formik.handleChange
-                                                    }
-                                                    onBlur={
-                                                        formik.handleBlur
-                                                    }
-                                                    value={
-                                                        formik.values.Age
-                                                    }
+                                                        pattern={
+                                                            dateRegex.source
+                                                        }
+                                                        onChange={
+                                                            formik.handleChange
+                                                        }
+                                                        onBlur={
+                                                            formik.handleBlur
+                                                        }
+                                                        value={
+                                                            formik.values.Age
+                                                        }
                                                     />
 
                                                     {formik.touched.Age &&

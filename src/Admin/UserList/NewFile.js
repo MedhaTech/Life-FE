@@ -45,7 +45,7 @@ import dist from 'react-data-table-component-extensions';
 import AddADmins from './AddAdmins';
 import ClipLoader from 'react-spinners/ClipLoader';
 import { encryptGlobal } from '../../constants/encryptDecrypt.js';
-import { stateList,applicant_categories,institutionType,genderList } from '../../RegPage/OrgData.js';
+import { stateList, applicant_categories, institutionType, genderList } from '../../RegPage/OrgData.js';
 const { TabPane } = Tabs;
 
 const SelectDists = ({
@@ -74,7 +74,7 @@ const SelectDists = ({
         setDist(e.target.value);
         localStorage.setItem('dist', e.target.value);
     };
-        // console.log(dist,"e");
+    // console.log(dist,"e");
 
     return (
         <select
@@ -103,17 +103,17 @@ const TicketsPage = (props) => {
     const history = useHistory();
     const [tableData, settableData] = React.useState([]);
     const [showspin, setshowspin] = React.useState(false);
-const[applicant,setApplicant]=useState("");
-const [gender,setGender]=useState("");
-const [institution,setInstitution]=useState("");
+    const [applicant, setApplicant] = useState("");
+    const [gender, setGender] = useState("");
+    const [institution, setInstitution] = useState("");
     const district = localStorage.getItem('dist');
     const [menter, activeMenter] = useState(false);
     const [loading, setLoading] = useState(false);
     const updatedcategories = ['All Categories', ...applicant_categories];
-const updateStatesList=["All States",...stateList];
-const updateGenderList=["All Genders",...genderList];
+    const updateStatesList = ["All States", ...stateList];
+    const updateGenderList = ["All Genders", ...genderList];
 
-const updateInstitution=["All Institutions",...institutionType];
+    const updateInstitution = ["All Institutions", ...institutionType];
 
 
     const [evaluater, activeEvaluater] = useState(false);
@@ -123,40 +123,40 @@ const updateInstitution=["All Institutions",...institutionType];
     const [newDist, setNewDists] = useState('');
     const [registerModalShow, setRegisterModalShow] = useState(false);
     const [fetchData, setFetchData] = useState(false);
-    const [state,setState]=useState("");
+    const [state, setState] = useState("");
     let State = localStorage.getItem('state');
 
-  
+
     const handleclickcall = async () => {
         // where we can select district and sdg //
         // where we can see list of challenges districtwise //
         setshowspin(true);
         await handleideaList();
     };
-  
+
     async function handleideaList() {
         // handleideaList api //
         //where we can see all ideas in districtwise //
         settableData([]);
         const axiosConfig = getNormalHeaders(KEY.User_API_Key);
-       
+
         const resparam = encryptGlobal(
             JSON.stringify({
                 status: "ALL",
-                state: state ,
-                year_of_study:applicant,
-                group:institution,
-                Gender:gender,
+                state: state,
+                year_of_study: applicant,
+                group: institution,
+                Gender: gender,
                 // district: district !== 'All Districts' ? district : ''
                 // protoType: protoType,
                 // sdg: sdg !== 'All Themes' ? sdg : ''
             })
         );
         await axios
-        .get(`${URL.getStudents}?Data=${resparam}`, axiosConfig)
+            .get(`${URL.getStudents}?Data=${resparam}`, axiosConfig)
             .then(function (response) {
                 if (response.status === 200) {
-                    console.log(response,"11");
+                    console.log(response, "11");
                     const updatedWithKey =
                         response.data &&
                         // response.data.data &&
@@ -312,19 +312,17 @@ const updateInstitution=["All Institutions",...institutionType];
 
         swalWithBootstrapButtons
             .fire({
-                title: `You are attempting to ${
-                    status.toLowerCase() === 'active'
-                        ? 'activate'
-                        : 'inactivate'
-                } ${
-                    type && type === 'student'
+                title: `You are attempting to ${status.toLowerCase() === 'active'
+                    ? 'activate'
+                    : 'inactivate'
+                    } ${type && type === 'student'
                         ? 'Student'
                         : type && type === 'evaluator'
-                        ? 'evaluator'
-                        : type && type === 'admin'
-                        ? 'Admin'
-                        : 'Mentor'
-                }.`,
+                            ? 'evaluator'
+                            : type && type === 'admin'
+                                ? 'Admin'
+                                : 'Mentor'
+                    }.`,
                 text: 'Are you sure?',
                 imageUrl: `${logout}`,
                 showCloseButton: true,
@@ -380,14 +378,13 @@ const updateInstitution=["All Institutions",...institutionType];
                         }, 500);
                     }
                     swalWithBootstrapButtons.fire(
-                        `${
-                            type && type === 'student'
-                                ? 'Student'
-                                : type && type === 'evaluator'
+                        `${type && type === 'student'
+                            ? 'Student'
+                            : type && type === 'evaluator'
                                 ? 'evaluator'
                                 : type && type === 'admin'
-                                ? 'Admin'
-                                : 'Mentor'
+                                    ? 'Admin'
+                                    : 'Mentor'
                         } Status has been changed!`,
                         'Successfully updated.',
                         'success'
@@ -402,7 +399,7 @@ const updateInstitution=["All Institutions",...institutionType];
             });
     };
 
- 
+
     const StudentsData = {
         data: tableData && tableData.length > 0 ? tableData : [],
         columns: [
@@ -416,8 +413,8 @@ const updateInstitution=["All Institutions",...institutionType];
             },
 
             {
-                name: 'District',
-                selector: (row) => row.district,
+                name: 'State',
+                selector: (row) => row.state,
                 cell: (row) => (
                     <div
                         style={{
@@ -425,10 +422,10 @@ const updateInstitution=["All Institutions",...institutionType];
                             wordWrap: 'break-word'
                         }}
                     >
-                        {row.district}
+                        {row.state}
                     </div>
                 ),
-                cellExport: (row) => row.district,
+                cellExport: (row) => row.state,
                 width: '10rem'
             },
             {
@@ -461,18 +458,11 @@ const updateInstitution=["All Institutions",...institutionType];
             },
 
             {
-                name: 'Student Name',
+                name: 'Applicant Name',
                 selector: (row) => row.student_full_name,
                 cellExport: (row) => row.student_full_name,
                 width: '15rem'
             },
-            {
-                name: 'Age',
-                selector: (row) => row.Age,
-                cellExport: (row) => row.Age,
-                width: '8rem'
-            },
-
             {
                 name: 'Gender',
                 selector: (row) => row.Gender,
@@ -511,7 +501,7 @@ const updateInstitution=["All Institutions",...institutionType];
             {
                 name: 'Actions',
                 sortable: false,
-                cellExport: (row) =>"",
+                cellExport: (row) => "",
                 width: '10rem',
                 cell: (record) => [
                     <div
@@ -542,105 +532,101 @@ const updateInstitution=["All Institutions",...institutionType];
             }
         ]
     };
-   
-    const showbutton =state && applicant && gender && institution;
+
+    const showbutton = state && applicant && gender && institution;
     return (
         <Layout title="UserList">
             <Container className="ticket-page mt-5 mb-50 userlist">
-                <Row className="mt-0 pt-3">
-                    <h2>Reg. Students List</h2>
+                <Row className="mt-0 pt-0">
+                    <h2 className='text-bold'>Reg. Applicant List</h2>
                     <Container fluid className="px-0">
-                                        <Row className="align-items-center">
-                                            <Col md={2}>
-                                                <div className="my-3 d-md-block d-flex justify-content-center">
-                                                    <Select
-                                                        list={updateStatesList}
-                                                        setValue={setState}
-                                                        placeHolder={
-                                                            'State'
-                                                        }
-                                                        value={state}
-                                                    />
-                                                </div>
-                                            </Col>
-                                            <Col md={2}>
-                                                <div className="my-3 d-md-block d-flex justify-content-center">
-                                                    <Select
-                                                        list={updatedcategories}
-                                                        setValue={setApplicant}
-                                                        placeHolder={
-                                                            'Applicant Category'
-                                                        }
-                                                        value={applicant}
-                                                    />
-                                                </div>
-                                            </Col>
-                                            <Col md={2}>
-                                                <div className="my-3 d-md-block d-flex justify-content-center">
-                                                    <Select
-                                                        list={updateInstitution}
-                                                        setValue={setInstitution}
-                                                        placeHolder={
-                                                            'Institution Type'
-                                                        }
-                                                        value={institution}
-                                                    />
-                                                </div>
-                                            </Col>
-                                            <Col md={2}>
-                                                <div className="my-3 d-md-block d-flex justify-content-center">
-                                                    <Select
-                                                        list={updateGenderList}
-                                                        setValue={setGender}
-                                                        placeHolder={
-                                                            'Gender'
-                                                        }
-                                                        value={gender}
-                                                    />
-                                                </div>
-                                            </Col>
-                                            <Col md={2}>
-                                                <div className="text-center">
-                                                    <Button
-                                                        btnClass={
-                                                            showbutton
-                                                                ? 'primary'
-                                                                : 'default'
-                                                        }
-                                                        size="small"
-                                                        label="Search"
-                                                        disabled={!showbutton}
-                                                        onClick={() =>
-                                                            handleclickcall()
-                                                        }
-                                                    />
-                                                </div>
-                                            </Col>
-                                        </Row>
-                                        <div className="bg-white border card pt-3 mt-5">
-                                        <DataTableExtensions
-                                            print={false}
-                                            export={true}
-                                            {...StudentsData}
-                                        >
-                                            <DataTable
-                                                // data={rows}
-                                                data={tableData || []}
-                                                defaultSortField="id"
-                                                defaultSortAsc={false}
-                                                pagination
-                                                highlightOnHover
-                                                fixedHeader
-                                                subHeaderAlign={
-                                                    Alignment.Center
-                                                }
-                                            />
-                                        </DataTableExtensions>
-                                    </div>
-                                    </Container>
+                        <Row className="align-items-center">
+                            <Col md={4}>
+                                <Select
+                                    className="form-control"
+                                    list={updateStatesList}
+                                    setValue={setState}
+                                    placeHolder={
+                                        'State'
+                                    }
+                                    value={state}
+                                />
+                            </Col>
+                            <Col md={2}>
+                                <Select
+                                    list={updatedcategories}
+                                    setValue={setApplicant}
+                                    placeHolder={
+                                        'Applicant Category'
+                                    }
+                                    value={applicant}
+                                />
+                            </Col>
+                            <Col md={2}>
+
+                                <Select
+                                    list={updateInstitution}
+                                    setValue={setInstitution}
+                                    placeHolder={
+                                        'Institution Type'
+                                    }
+                                    value={institution}
+                                />
+                            </Col>
+                            <Col md={2}>
+
+                                <Select
+                                    list={updateGenderList}
+                                    setValue={setGender}
+                                    placeHolder={
+                                        'Gender'
+                                    }
+                                    value={gender}
+                                />
+
+                            </Col>
+                            <Col md={2}>
+                                <div className="text-left">
+                                    <Button
+                                        btnClass={
+                                            showbutton
+                                                ? 'primary'
+                                                : 'default'
+                                        }
+                                        size="small"
+                                        label="Search"
+                                        disabled={!showbutton}
+                                        onClick={() =>
+                                            handleclickcall()
+                                        }
+                                    />
+                                </div>
+                            </Col>
+                        </Row>
+                        <div className="bg-white border card pt-3 mt-5">
+                            <DataTableExtensions
+                                print={false}
+                                export={true}
+                                {...StudentsData}
+                            >
+                                <DataTable
+                                    // data={rows}
+                                    data={tableData || []}
+                                    defaultSortField="id"
+                                    defaultSortAsc={false}
+                                    pagination
+                                    highlightOnHover
+                                    fixedHeader
+                                    subHeaderAlign={
+                                        Alignment.Center
+                                    }
+                                />
+                            </DataTableExtensions>
+                        </div>
+                    </Container>
                 </Row>
             </Container>
-          
+
         </Layout>
     );
 };
