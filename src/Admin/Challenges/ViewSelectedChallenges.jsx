@@ -29,7 +29,7 @@ import DetailToDownload from './DetailToDownload';
 import { useReactToPrint } from 'react-to-print';
 import { FaDownload } from 'react-icons/fa';
 import { encryptGlobal } from '../../constants/encryptDecrypt.js';
-import { themesList ,stateList,protoTypeList} from '../../RegPage/OrgData.js';
+import { themesList, stateList, protoTypeList } from '../../RegPage/OrgData.js';
 const ViewSelectedIdea = () => {
     // here we can see the selected ideas in district wise and sdg //
     const dispatch = useDispatch();
@@ -39,7 +39,7 @@ const ViewSelectedIdea = () => {
     const [district, setdistrict] = React.useState('');
     const [state, setState] = useState('');
     const [sdg, setsdg] = React.useState("");
-    const [protoType,setProtoType]=useState("");
+    const [protoType, setProtoType] = useState("");
     //---for handle next idea---
     const [currentRow, setCurrentRow] = React.useState(1);
     const [tablePage, setTablePage] = React.useState(1);
@@ -87,10 +87,10 @@ const ViewSelectedIdea = () => {
         setshowspin(true);
         await handleideaList();
     };
-// useEffect(()=>{
-//  handleideaList();
-// },[]);
-// console.log(sdg,"ress");
+    // useEffect(()=>{
+    //  handleideaList();
+    // },[]);
+    // console.log(sdg,"ress");
 
     async function handleideaList() {
         // handleideaList api //
@@ -103,12 +103,12 @@ const ViewSelectedIdea = () => {
                 status: param,
                 // state: state !== 'All States' ? state : '',
                 // district: district !== 'All Districts' ? district : ''
-                prototype_available: protoType !== "ALL" ? protoType:"",
+                prototype_available: protoType !== "ALL" ? protoType : "",
                 theme_problem_id: sdg !== "0" ? sdg : ''
             })
         );
-       
-        
+
+
         await axios
             .get(`${URL.getidealist}Data=${resparam}`, axiosConfig)
             .then(function (response) {
@@ -306,7 +306,7 @@ const ViewSelectedIdea = () => {
         ]
     };
 
-    const showbutton =protoType && sdg ;
+    const showbutton = protoType && sdg;
 
     const handleNext = () => {
         // here we can go for next page //
@@ -345,9 +345,8 @@ const ViewSelectedIdea = () => {
     };
     const handlePrint = useReactToPrint({
         content: () => componentRef.current,
-        documentTitle: `${
-            pdfIdeaDetails?.team_name ? pdfIdeaDetails?.team_name : 'temp'
-        }_IdeaSubmission`
+        documentTitle: `${pdfIdeaDetails?.team_name ? pdfIdeaDetails?.team_name : 'temp'
+            }_IdeaSubmission`
     });
     useEffect(() => {
         if (pdfIdeaDetails !== '' && pdfTeamResponse !== '') {
@@ -356,9 +355,9 @@ const ViewSelectedIdea = () => {
     }, [pdfIdeaDetails, pdfTeamResponse]);
 
     /////////////////
-// const handleSelectChange =(selectedId)=>{
-//     setsdg(selectedId);
-// };
+    // const handleSelectChange =(selectedId)=>{
+    //     setsdg(selectedId);
+    // };
     return (
         <>
             <div style={{ display: 'none' }}>
@@ -375,35 +374,19 @@ const ViewSelectedIdea = () => {
                         <div className="col-12 p-0">
                             {!isDetail && (
                                 <div>
-                                    <h2 className="ps-2 pb-3">Challenges</h2>
-
+                                    <h2 className='text-bold'>Submitted Challenges</h2>
                                     <Container fluid className="px-0">
                                         <Row className="align-items-center">
-                                           
-                                            {/* <Col md={3}> */}
-                                                {/* <div className="my-3 d-md-block d-flex justify-content-center">
-                                                    <Select
-                                                        list={fiterDistData}
-                                                        setValue={setdistrict}
-                                                        placeHolder={
-                                                            'Select District'
-                                                        }
-                                                        value={district}
-                                                    />
-                                                </div> */}
-                                            {/* </Col> */}
                                             <Col md={3}>
-                                                <div className="my-3 d-md-block d-flex justify-content-center">
-                                                    <Selects
-                                                        list={themesList}
-                                                        setValue={setsdg}
-                                                        // setValue={handleSelectChange}
-                                                        placeHolder={
-                                                            'Select Themes'
-                                                        }
-                                                        value={sdg}
-                                                    />
-                                                </div>
+                                                <Selects
+                                                    list={themesList}
+                                                    setValue={setsdg}
+                                                    // setValue={handleSelectChange}
+                                                    placeHolder={
+                                                        'Select Themes'
+                                                    }
+                                                    value={sdg}
+                                                />
                                             </Col>
                                             <Col md={3}>
                                                 <div className="my-3 d-md-block d-flex justify-content-center">
@@ -490,7 +473,7 @@ const ViewSelectedIdea = () => {
                                         dataLength={
                                             tableData && tableData?.length
                                         }
-                                        // data={tableData}
+                                    // data={tableData}
                                     />
                                 ))}
                         </div>

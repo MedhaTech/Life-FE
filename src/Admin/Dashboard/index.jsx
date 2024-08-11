@@ -344,8 +344,42 @@ const Dashboard = () => {
                     //maxTicksLimit: 10,
                 }
             }
-        }
+        },
+        plugins: {
+            legend: {
+                display: false,
+                position: 'right',
+                labels: {
+                    generateLabels: function (chart) {
+                        const datasets = chart.data.datasets[0].data;
+                        return chart.data.labels.map((label, index) => ({
+                            text: `${label}: ${datasets[index]}`, // Display label with data value
+                            fillStyle: chart.data.datasets[0].backgroundColor,
+                            backgroundColor: chart.data.datasets[0].backgroundColor,
+                            hidden: false,
+                            index,
+                        }));
+                    },
+                },
+            },
+            tooltip: {
+                callbacks: {
+                    label: function (context) {
+                        return `${context.label}: ${context.raw}`; // Display value in tooltip
+                    },
+                },
+            },
+            datalabels: {
+                anchor: 'end',
+                align: 'top',
+                color: 'black',
+                font: {
+                    weight: 'bold',
+                },
+            },
+        },
     };
+
     const [overallStu, setOverallStu] = useState("-");
     const [overallIdea, setOverallIdea] = useState("-");
     const [applicantCount, setApplicantCount] = useState(null);
@@ -1207,13 +1241,35 @@ const Dashboard = () => {
                                     </Card>
                                 </Col>
                             </Row>
+                            <Row>
+                                <Col md={12}>
+                                    <Card
+                                        bg="white"
+                                        text="dark"
+                                        className="mb-4"
+                                    >
+                                        <div className="col-md-12 text-center mt-3">
+                                            <p> <b> Institution Type Wise Students Count </b> </p>
+                                        </div>
+                                        <div className="col-md-12 chart-container">
+                                            <div className="chart-box">
+                                                <div className="chart">
+                                                    <div className="col-md-12 d-flex align-items-center justify-content-center">
+                                                        <Bar data={barChartData} options={options} />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </Card>
+                                </Col>
+                            </Row>
                         </div>
                         <div className="col-md-5">
                             <div className="row">
                                 <div className="col">
                                     <div className="card">
                                         <div className="d-flex align-items-center mb-3">
-                                            <h5 style={{ fontSize: '16px', textAlign: 'right', fontWeight: 'bold' }}>State wise Reg. Applicants Count</h5>
+                                            <h5 style={{ fontSize: '14px', textAlign: 'left', fontWeight: 'bold' }}>State wise Reg. Applicants Count</h5>
                                             <Button
                                                 label="Download"
                                                 btnClass="primary mx-2"
@@ -1331,7 +1387,7 @@ const Dashboard = () => {
                                 <div className="col">
                                     <div className="card">
                                         <div className="d-flex align-items-center mb-3">
-                                            <h5 style={{ fontSize: '16px', textAlign: 'right', fontWeight: 'bold' }}>Theme wise Submitted Challenges Count</h5>
+                                            <h5 style={{ fontSize: '14px', textAlign: 'left', fontWeight: 'bold' }}>Theme wise Submitted Challenges Count</h5>
                                             <Button
                                                 label="Download"
                                                 btnClass="primary mx-2"
