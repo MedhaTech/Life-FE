@@ -327,7 +327,7 @@ const LoginNew = (props) => {
                                                     >
                                                         <Link
                                                             exact="true"
-                                                            to="/mentor/forgotpassword"
+                                                            to="/student/forgotpassword"
                                                             className="text-link pt-1"
                                                         >
                                                             Forgot password

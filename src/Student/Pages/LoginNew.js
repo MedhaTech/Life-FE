@@ -119,7 +119,7 @@ const LoginNew = (props) => {
             <div className="container-fluid  SignUp Login">
                 {/* <UsersPage /> */}
                 <Row className="row-flex height-100">
-                    <div className="col-md-4 aside mobile-header">
+                    <div className="col-md-4 aside mobile-header" style={{ backgroundColor: '#4dae51' }}>
                         {/* <h1 className="text-left pb-5 mobile_tab-hide">
                             {t('login.Title')}
                         </h1>
@@ -293,7 +293,6 @@ const LoginNew = (props) => {
                                             </Col>
                                             {/* <Row className="keepme_login"></Row> */}
                                         </div>
-
                                         <div className="form-row row mb-3">
                                             {/* <p>Student login will be launched shortly. Please wait for notice from the program coordinators.</p> */}
                                             {/* Login button */}
@@ -327,18 +326,48 @@ const LoginNew = (props) => {
                                                 />
                                             </Col>
                                         </div>
+                                        <div className="form-row row mb-3">
+                                            {/* <p>Student login will be launched shortly. Please wait for notice from the program coordinators.</p> */}
+                                            {/* Login button */}
+                                            <Col
+                                                className="form-group"
+                                                xs={12}
+                                                sm={12}
+                                                md={6}
+                                                xl={6}
+                                            >
+                                                <p className='mt-2' style={{ 'font-size': '14px', fontWeight: 'bold' }}>
+                                                    {"Don't have an account ?"}
+                                                    <Link
+                                                        exact="true"
+                                                        to="/registration"
+                                                        className=""
+                                                    >
+                                                        {t(' Create Account')}
+                                                    </Link>
+                                                </p>
+                                            </Col>
+                                            <Col className="forgotp d-flex justify-content-end" xs={12}
+                                                sm={12}
+                                                md={6}
+                                                xl={6}>
+                                                <div
+                                                    // onClick={handleOnClick}
+                                                    className="text-link text-primary"
+                                                >
+                                                    <Link
+                                                        exact="true"
+                                                        to="/student/forgotpassword"
+                                                        className="text-link"
+                                                        style={{ 'font-size': '14px', fontWeight: 'bold' }}
+                                                    >
+                                                        <span style={{ 'font-size': '14px', fontWeight: 'bold' }} className='m='> Forgot Password ?</span>
+                                                    </Link>
+                                                </div>
+                                            </Col>
+                                        </div>
                                     </Form>
                                 </Col>
-                                <p className='mt-2' style={{ 'font-size': '14px', fontWeight: 'bold' }}>
-                                    {"Don't have an account ?"}
-                                    <Link
-                                        exact="true"
-                                        to="/registration"
-                                        className=""
-                                    >
-                                        {t(' Create Account')}
-                                    </Link>
-                                </p>
                             </Row>
 
                         ) : (

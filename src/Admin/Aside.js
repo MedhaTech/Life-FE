@@ -329,7 +329,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                             }}
                         >
                             <span style={{ color: 'var(--override-color)' }}>
-                                Students
+                                Applicants
                             </span>
                         </NavLink>
                     </MenuItem>
