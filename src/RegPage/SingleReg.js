@@ -182,7 +182,7 @@ function AtlPage() {
         className: 'defaultInput'
     };
     const regex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
-    const name = /^[a-zA-Z\s\u0B80-\u0BFF]+$/;
+    // const name = /^[a-zA-Z\s\u0B80-\u0BFF]+$/;
 
     const formik = useFormik({
         initialValues: {
@@ -219,15 +219,15 @@ function AtlPage() {
             city: Yup.string()
                 .trim()
                 .required('Enter City Name')
-                .min(2, 'Enter City Name')
-                .matches(name, 'Special Characters are not allowed'),
+                .min(2, 'Enter City Name'),
+                // .matches(name, 'Special Characters are not allowed'),
             email: Yup.string().email('Must be a valid Email Id').max(255).required("Enter Email Address"),
             student_full_name: Yup.string()
                 .trim()
                 .required('Enter Applicant Name')
 
-                .min(2, 'Enter Applicant Name')
-                .matches(name, 'Special Characters are not allowed'),
+                .min(2, 'Enter Applicant Name'),
+                // .matches(name, 'Special Characters are not allowed'),
             reg_no: Yup.string().trim().optional().min(2, 'Enter Register No').required("Enter Register No"),
             year_of_study: Yup.string()
                 .trim()
@@ -237,10 +237,10 @@ function AtlPage() {
             mobile: Yup.string()
                 .required('Enter Mobile Number')
                 .trim()
-                .matches(
-                    /^\d+$/,
-                    'Mobile number is not valid (Enter only digits)'
-                )
+                // .matches(
+                //     /^\d+$/,
+                //     'Mobile number is not valid (Enter only digits)'
+                // )
                 .max(10, 'Enter only 10 digit valid number')
                 .min(10, 'Number is less than 10 digits'),
             Gender: Yup.string().required('Select Gender'),
@@ -876,9 +876,14 @@ function AtlPage() {
                                                                 : false
                                                         }
                                                         name="student_full_name"
-                                                        onChange={
-                                                            formik.handleChange
-                                                        }
+                                                        // onChange={
+                                                        //     formik.handleChange
+                                                        // }
+                                                        onChange={(e) => {
+                                                            const inputValue = e.target.value;
+                                                            const lettersAndNumbers = inputValue.replace(/[^a-zA-Z0-9\s]/g, "");
+                                                            formik.setFieldValue("student_full_name", lettersAndNumbers);
+                                                          }}
                                                         onBlur={
                                                             formik.handleBlur
                                                         }
@@ -886,6 +891,7 @@ function AtlPage() {
                                                             formik.values
                                                                 .student_full_name
                                                         }
+                                                        
                                                     />
 
                                                     {formik.touched
@@ -990,9 +996,19 @@ function AtlPage() {
                                                                 : false
                                                         }
                                                         name="mobile"
-                                                        onChange={
-                                                            formik.handleChange
-                                                        }
+                                                        // onChange={
+                                                        //     formik.handleChange
+                                                        // }
+                                                        onChange={(e) => {
+                                                            const inputValue = e.target.value;
+                                                            const numericValue = inputValue.replace(
+                                                              /\D/g,
+                                                              ""
+                                                            );
+                                                            formik.setFieldValue("mobile", numericValue);
+                                                          }}
+                                                          maxLength={10}
+                                                          minLength={10}
                                                         onBlur={
                                                             formik.handleBlur
                                                         }
@@ -1413,9 +1429,14 @@ function AtlPage() {
                                                                 : false
                                                         }
                                                         name="city"
-                                                        onChange={
-                                                            formik.handleChange
-                                                        }
+                                                        // onChange={
+                                                        //     formik.handleChange
+                                                        // }
+                                                        onChange={(e) => {
+                                                            const inputValue = e.target.value;
+                                                            const lettersAndNumbers = inputValue.replace(/[^a-zA-Z0-9\s]/g, "");
+                                                            formik.setFieldValue("city", lettersAndNumbers);
+                                                          }}
                                                         onBlur={
                                                             formik.handleBlur
                                                         }
@@ -1516,7 +1537,12 @@ function AtlPage() {
                                                         }
                                                         id="institution_name"
                                                         name="institution_name"
-                                                        onChange={formik.handleChange}
+                                                        // onChange={formik.handleChange}
+                                                        onChange={(e) => {
+                                                            const inputValue = e.target.value;
+                                                            const lettersAndNumbers = inputValue.replace(/[^a-zA-Z0-9\s]/g, "");
+                                                            formik.setFieldValue("institution_name", lettersAndNumbers);
+                                                          }}
                                                         onBlur={formik.handleBlur}
                                                         value={
                                                             formik.values
@@ -1640,9 +1666,14 @@ function AtlPage() {
                                                                 : false
                                                         }
                                                         name="reg_no"
-                                                        onChange={
-                                                            formik.handleChange
-                                                        }
+                                                        // onChange={
+                                                        //     formik.handleChange
+                                                        // }
+                                                        onChange={(e) => {
+                                                            const inputValue = e.target.value;
+                                                            const lettersAndNumbers = inputValue.replace(/[^a-zA-Z0-9\s]/g, "");
+                                                            formik.setFieldValue("reg_no", lettersAndNumbers);
+                                                          }}
                                                         onBlur={
                                                             formik.handleBlur
                                                         }
