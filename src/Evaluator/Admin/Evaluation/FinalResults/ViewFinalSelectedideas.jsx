@@ -30,6 +30,10 @@ import TableDetailPdf from './TableDetailPdf';
 import { useReactToPrint } from 'react-to-print';
 import DetailToDownload from '../../Challenges/DetailToDownload';
 import { encryptGlobal } from '../../../../constants/encryptDecrypt.js';
+import {
+    stateList,
+    districtList
+} from '../../../../RegPage/OrgData';
 
 const ViewSelectedIdea = () => {
     const { search } = useLocation();
@@ -65,26 +69,25 @@ const ViewSelectedIdea = () => {
     const filterParamsfinal =
         (state && state !== 'All States' ? '&state=' + state : '') +
         (sdg && sdg !== 'All Themes' ? '&sdg=' + sdg : '');
-    useEffect(() => {
-        // dispatch(getDistrictData());
-        dispatch(getFetchDistData());
-        // dispatch(getStateData());
-    }, []);
+    // useEffect(() => {
+    //     // dispatch(getDistrictData());
+    //     dispatch(getFetchDistData());
+    //     // dispatch(getStateData());
+    // }, []);
 
     const handlePromotelFinalEvaluated = async (item) => {
-        await promoteapi(item.team_id);
+        await promoteapi(item.student_id,item.idea_id);
     };
 
-    async function promoteapi(id) {
-        const body = JSON.stringify({ final_result: '1', team_id: id });
+    async function promoteapi(id,idea_id) {
+        const body = JSON.stringify({ final_result: '1', student_id: id,idea_id:idea_id });
         // const promPram = encryptGlobal(JSON.stringify(id));
         var config = {
             method: 'put',
-            url: `${
-                process.env.REACT_APP_API_BASE_URL + '/ideas/ideaUpdate'
+            url: `${process.env.REACT_APP_API_BASE_URL + '/ideas/ideaUpdate'
                 // +
                 // promPram
-            }`,
+                }`,
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${currentUser?.data[0]?.token}`
@@ -112,7 +115,8 @@ const ViewSelectedIdea = () => {
         const apiParam = encryptGlobal(
             JSON.stringify({
                 key: title == '0' ? '0' : '1',
-                district: state !== 'All Districts' ? state : ''
+                state: state !== 'All States' ? state : '',
+                district: district !== 'All Districts' ? district : '',
                 // sdg : sdg !== 'All Themes' ? sdg : ''
             })
         );
@@ -568,9 +572,8 @@ const ViewSelectedIdea = () => {
     };
     const handlePrint = useReactToPrint({
         content: () => componentRef.current,
-        documentTitle: `${
-            pdfIdeaDetails?.team_name ? pdfIdeaDetails?.team_name : 'temp'
-        }_IdeaSubmission`
+        documentTitle: `${pdfIdeaDetails?.team_name ? pdfIdeaDetails?.team_name : 'temp'
+            }_IdeaSubmission`
     });
     useEffect(() => {
         if (pdfIdeaDetails !== '' && pdfTeamResponse !== '') {
@@ -616,12 +619,26 @@ const ViewSelectedIdea = () => {
                                             <Col md={2}>
                                                 <div className="my-3 d-md-block d-flex justify-content-center">
                                                     <Select
-                                                        list={fiterDistData}
+                                                        list={stateList}
                                                         setValue={setState}
+                                                        placeHolder={
+                                                            'Select State'
+                                                        }
+                                                        value={state}
+                                                    />
+                                                </div>
+                                            </Col>
+                                            <Col md={2}>
+                                                <div className="my-3 d-md-block d-flex justify-content-center">
+                                                    <Select
+                                                        list={districtList[
+                                                            state
+                                                        ] || []}
+                                                        setValue={setdistrict}
                                                         placeHolder={
                                                             'Select District'
                                                         }
-                                                        value={state}
+                                                        value={district}
                                                     />
                                                 </div>
                                             </Col>

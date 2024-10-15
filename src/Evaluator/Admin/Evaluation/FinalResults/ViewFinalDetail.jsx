@@ -194,175 +194,7 @@ const ViewDetail = (props) => {
                                         /> */}
                                     </div>
                                 </div>
-                                <div className="col-lg-12 mt-3">
-                                    <Row className="col-lg-12">
-                                        <Col className="md-6">
-                                            <Card
-                                                bg="light"
-                                                text="dark"
-                                                className="mb-4"
-                                                // style={{ height: '150px' }}
-                                            >
-                                                <Card.Body>
-                                                    <label
-                                                        htmlFor="teams"
-                                                        className=""
-                                                    >
-                                                        Institutions Details
-                                                    </label>
-                                                    <Card.Text
-                                                        style={{
-                                                            // fontSize: '30px',
-                                                            // fontWeight: 'bold',
-                                                            marginTop: '10px',
-                                                            marginBottom: '20px'
-                                                        }}
-                                                    >
-                                                        {/* {regInst} */}
-                                                        <span>
-                                                            Institution Code :
-                                                        </span>
-                                                        <span className=" fs-3">
-                                                            &nbsp;
-                                                            {
-                                                                teamResponse?.institution_code
-                                                            }
-                                                        </span>
-                                                        <br />
-                                                        <span>
-                                                            Institution Name :
-                                                        </span>
-                                                        <span className="fs-3">
-                                                            &nbsp;
-                                                            {
-                                                                teamResponse?.institution_name
-                                                            }
-                                                        </span>
-                                                        <br />
-                                                        <span>Place :</span>
-                                                        <span className="fs-3">
-                                                            &nbsp;
-                                                            {
-                                                                teamResponse?.place_name
-                                                            }
-                                                        </span>
-                                                        <br />
-                                                        <span>Block :</span>
-                                                        <span className="fs-3">
-                                                            &nbsp;
-                                                            {
-                                                                teamResponse?.block_name
-                                                            }
-                                                        </span>{' '}
-                                                        <br />
-                                                        <span>Taluk :</span>
-                                                        <span className="fs-3">
-                                                            &nbsp;
-                                                            {teamResponse?.taluk_name
-                                                                ? teamResponse?.taluk_name
-                                                                : '-'}
-                                                        </span>{' '}
-                                                        <br />
-                                                        <span>District :</span>
-                                                        <span className="fs-3">
-                                                            &nbsp;
-                                                            {
-                                                                teamResponse?.district
-                                                            }
-                                                        </span>
-                                                    </Card.Text>
-                                                </Card.Body>
-                                            </Card>
-                                            {/* <h2>
-                                                <span
-                                                    style={{
-                                                        color: 'blue'
-                                                    }}
-                                                >
-                                                    Institutions Details:{' '}
-                                                </span>
-                                                {/* <span className="text-capitalize fs-3">
-                                                {props?.ideaDetails?.themes_problem?.problem_statement?.toLowerCase() ||
-                                                    ''}
-                                            </span> */}
-                                            {/* </h2>  */}
-                                        </Col>
-                                        <Col className="md-6">
-                                            <Card
-                                                bg="light"
-                                                text="dark"
-                                                className="mb-4"
-                                                style={{ height: '227px' }}
-                                            >
-                                                <Card.Body>
-                                                    <label
-                                                        htmlFor="teams"
-                                                        className=""
-                                                    >
-                                                        Team Details
-                                                    </label>
-                                                    <Card.Text
-                                                        style={{
-                                                            // fontSize: '30px',
-                                                            // fontWeight: 'bold',
-                                                            marginTop: '10px',
-                                                            marginBottom: '20px'
-                                                        }}
-                                                    >
-                                                        {/* {regInst} */}
-                                                        <span>Team Name :</span>
-                                                        <span className=" fs-3">
-                                                            &nbsp;
-                                                            {
-                                                                teamResponse?.team_name
-                                                            }
-                                                        </span>
-                                                        <br />
-                                                        <span>
-                                                            Team Members :
-                                                        </span>
-                                                        <span className=" fs-3">
-                                                            &nbsp;
-                                                            {teamResponse &&
-                                                                teamResponse.team_members &&
-                                                                teamResponse.team_members.join(
-                                                                    ', '
-                                                                )}
-                                                        </span>
-                                                    </Card.Text>
-                                                </Card.Body>
-                                            </Card>
-                                            {/* <h2>
-                                                <span
-                                                    style={{
-                                                        color: 'blue'
-                                                    }}
-                                                >
-                                                    Institutions Details:{' '}
-                                                </span>
-                                                {/* <span className="text-capitalize fs-3">
-                                                {props?.ideaDetails?.themes_problem?.problem_statement?.toLowerCase() ||
-                                                    ''}
-                                            </span> */}
-                                            {/* </h2>  */}
-                                        </Col>
-                                    </Row>
-                                    {/* <Row className="col-lg-12">
-                                        <h2>
-                                            <span
-                                                style={{
-                                                    color: 'blue'
-                                                }}
-                                            >
-                                                Problem Statement :{' '}
-                                            </span>
-                                            <span className="text-capitalize fs-3">
-                                                {props?.ideaDetails?.sub_category?.toLowerCase() ||
-                                                    ''}
-                                            </span>
-                                        </h2>
-                                    </Row> */}
-                                </div>
+                                
                             </div>
                         </div>
 
@@ -490,6 +322,7 @@ const ViewDetail = (props) => {
                                     </div>
                                 </div>
                             </div>{' '}
+                            
                             <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
                                 <div
                                     // key={index}
@@ -502,34 +335,6 @@ const ViewDetail = (props) => {
                                             }}
                                         >
                                             {5}.{' '}
-                                            {t('student_course.ques5solution')}
-                                            {/* {item?.question_no || ''}.{' '}
-                                                {item?.question || ''} */}
-                                        </b>
-                                    </div>
-                                    <div className="bg-light rounded p-5">
-                                        <p
-                                            style={{
-                                                fontSize: '1.4rem'
-                                            }}
-                                        >
-                                            {teamResponse?.solution_statement}
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>{' '}
-                            <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
-                                <div
-                                    // key={index}
-                                    className="mb-4 my-3 comment-card px-5 py-3 card me-md-3"
-                                >
-                                    <div className="question quiz mb-0">
-                                        <b
-                                            style={{
-                                                fontSize: '1.6rem'
-                                            }}
-                                        >
-                                            {6}.{' '}
                                             {t('student_course.ques6detailsol')}
                                             {/* {item?.question_no || ''}.{' '}
                                                 {item?.question || ''} */}
@@ -557,7 +362,7 @@ const ViewDetail = (props) => {
                                                 fontSize: '1.6rem'
                                             }}
                                         >
-                                            {7}.{' '}
+                                            {6}.{' '}
                                             {t('student_course.ques7Prototype')}
                                             {/* {item?.question_no || ''}.{' '}
                                                 {item?.question || ''} */}
@@ -642,7 +447,7 @@ const ViewDetail = (props) => {
                                                 fontSize: '1.6rem'
                                             }}
                                         >
-                                            {8}.{' '}
+                                            {7}.{' '}
                                             {t(
                                                 'student_course.ques9publication'
                                             )}
@@ -798,29 +603,7 @@ const ViewDetail = (props) => {
                                 : '-'}
                         </p>
                     </div>
-                    <br />
-                    <div style={{ display: 'flex' }}>
-                        <p
-                            style={{ fontSize: '1.5rem', margin: '1rem' }}
-                            className="fw-bold"
-                        >
-                            Verified By :{' '}
-                            {teamResponse.verified_name
-                                ? teamResponse.verified_name
-                                : '-'}
-                        </p>
-                        <p
-                            style={{ fontSize: '1.5rem', margin: '1rem' }}
-                            className="fw-bold"
-                        >
-                            Verified At :{' '}
-                            {teamResponse.verified_at
-                                ? moment(teamResponse.verified_at).format(
-                                      'DD-MM-YYYY'
-                                  )
-                                : '-'}
-                        </p>
-                    </div>
+                    
                     <div>
                         <Button
                             btnClass="primary"

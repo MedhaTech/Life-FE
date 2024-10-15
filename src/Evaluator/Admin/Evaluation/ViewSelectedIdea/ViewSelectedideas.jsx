@@ -37,6 +37,10 @@ import TableDetailPdf from './TableDetailPdf';
 import { useReactToPrint } from 'react-to-print';
 import DetailToDownload from '../../Challenges/DetailToDownload';
 import { encryptGlobal } from '../../../../constants/encryptDecrypt.js';
+import {
+    stateList,
+    districtList
+} from '../../../../RegPage/OrgData';
 
 const ViewSelectedIdea = () => {
     const { search } = useLocation();
@@ -93,7 +97,8 @@ const ViewSelectedIdea = () => {
     });
     const newQuery = {
         level: level,
-        district: state !== 'All Districts' ? state : '',
+        state: state !== 'All States' ? state : '',
+        district: district !== 'All Districts' ? district : '',
         // sdg: sdg !== 'All Themes' ? sdg : '',
         rejected_reason: reason,
         // rejected_reasonSecond: reasonSec,
@@ -102,7 +107,7 @@ const ViewSelectedIdea = () => {
     useEffect(() => {
         // dispatch(getDistrictData());
         // dispatch(getStateData());
-        dispatch(getFetchDistData());
+        //dispatch(getFetchDistData());
         dispatch(getAdminEvalutorsList());
         dispatch(getAdminList());
     }, []);
@@ -118,11 +123,10 @@ const ViewSelectedIdea = () => {
         const body = JSON.stringify({ final_result: '0', team_id: id });
         var config = {
             method: 'put',
-            url: `${
-                process.env.REACT_APP_API_BASE_URL + '/ideas/ideaUpdate'
+            url: `${process.env.REACT_APP_API_BASE_URL + '/ideas/ideaUpdate'
                 //  +
                 // promoteId
-            }`,
+                }`,
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${currentUser?.data[0]?.token}`
@@ -149,13 +153,14 @@ const ViewSelectedIdea = () => {
         level === 'L1' && title !== 'L1 - Yet to Processed'
             ? (newQuery['evaluation_status'] = evaluation_status)
             : level === 'L1' && title === 'L1 - Yet to Processed'
-            ? (newQuery['yetToProcessList'] = 'L1')
-            : title === 'L2 - Yet to Processed'
-            ? (newQuery['yetToProcessList'] = 'L2')
-            : '';
+                ? (newQuery['yetToProcessList'] = 'L1')
+                : title === 'L2 - Yet to Processed'
+                    ? (newQuery['yetToProcessList'] = 'L2')
+                    : '';
         const data = encryptGlobal(
             JSON.stringify({
-                state: state !== 'All Districts' ? state : ''
+                state: state !== 'All States' ? state : '',
+                district: district !== 'All Districts' ? district : ''
                 // sdg: sdg !== 'All Themes' ? sdg : ''
             })
         );
@@ -760,7 +765,7 @@ const ViewSelectedIdea = () => {
                                 (row.evaluator_ratings[0]?.param_2[0] +
                                     row.evaluator_ratings[0]?.param_2[1] +
                                     row.evaluator_ratings[0]?.param_2[2]) /
-                                    3) /
+                                3) /
                             2
                         ).toFixed(2)
                     ];
@@ -782,11 +787,11 @@ const ViewSelectedIdea = () => {
                                 (row.evaluator_ratings[0]?.param_4[0] +
                                     row.evaluator_ratings[0]?.param_4[1] +
                                     row.evaluator_ratings[0]?.param_4[2]) /
-                                    3 +
+                                3 +
                                 (row.evaluator_ratings[0]?.param_5[0] +
                                     row.evaluator_ratings[0]?.param_5[1] +
                                     row.evaluator_ratings[0]?.param_5[2]) /
-                                    3) /
+                                3) /
                             3
                         ).toFixed(2)
                     ];
@@ -1122,12 +1127,12 @@ const ViewSelectedIdea = () => {
         level === 'L1' && title !== 'L1 - Yet to Processed'
             ? evaluatedIdea
             : level === 'L1' && title === 'L1 - Yet to Processed'
-            ? l1yettoprocessed
-            : level === 'L2' && title !== 'L2 - Yet to Processed'
-            ? evaluatedIdeaL2
-            : level === 'L2' && title === 'L2 - Yet to Processed'
-            ? L2yettoprocessed
-            : ' ';
+                ? l1yettoprocessed
+                : level === 'L2' && title !== 'L2 - Yet to Processed'
+                    ? evaluatedIdeaL2
+                    : level === 'L2' && title === 'L2 - Yet to Processed'
+                        ? L2yettoprocessed
+                        : ' ';
     const showbutton = state;
 
     const handleNext = () => {
@@ -1159,9 +1164,8 @@ const ViewSelectedIdea = () => {
     };
     const handlePrint = useReactToPrint({
         content: () => componentRef.current,
-        documentTitle: `${
-            pdfIdeaDetails?.team_name ? pdfIdeaDetails?.team_name : 'temp'
-        }_IdeaSubmission`
+        documentTitle: `${pdfIdeaDetails?.team_name ? pdfIdeaDetails?.team_name : 'temp'
+            }_IdeaSubmission`
     });
     useEffect(() => {
         if (pdfIdeaDetails !== '' && pdfTeamResponse !== '') {
@@ -1203,12 +1207,26 @@ const ViewSelectedIdea = () => {
                                             <Col md={2}>
                                                 <div className="my-3 d-md-block d-flex justify-content-center">
                                                     <Select
-                                                        list={fiterDistData}
+                                                        list={stateList}
                                                         setValue={setState}
+                                                        placeHolder={
+                                                            'Select State'
+                                                        }
+                                                        value={state}
+                                                    />
+                                                </div>
+                                            </Col>
+                                            <Col md={2}>
+                                                <div className="my-3 d-md-block d-flex justify-content-center">
+                                                    <Select
+                                                        list={districtList[
+                                                            state
+                                                        ] || []}
+                                                        setValue={setdistrict}
                                                         placeHolder={
                                                             'Select District'
                                                         }
-                                                        value={state}
+                                                        value={district}
                                                     />
                                                 </div>
                                             </Col>
@@ -1226,7 +1244,7 @@ const ViewSelectedIdea = () => {
                                             </Col> */}
                                             {level === 'L1' &&
                                                 title !==
-                                                    'L1 - Yet to Processed' && (
+                                                'L1 - Yet to Processed' && (
                                                     <Col md={2}>
                                                         <div className="my-3 d-md-block d-flex justify-content-center">
                                                             <Select
@@ -1303,10 +1321,10 @@ const ViewSelectedIdea = () => {
                                                     title === 'Rejected'
                                                         ? 1
                                                         : level === 'L1' &&
-                                                          title !==
-                                                              'L1 - Yet to Processed'
-                                                        ? 4
-                                                        : 6
+                                                            title !==
+                                                            'L1 - Yet to Processed'
+                                                            ? 4
+                                                            : 6
                                                 }
                                             >
                                                 <div className="text-right">

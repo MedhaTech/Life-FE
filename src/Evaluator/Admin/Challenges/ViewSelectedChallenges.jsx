@@ -26,6 +26,10 @@ import { useReactToPrint } from 'react-to-print';
 import { FaDownload } from 'react-icons/fa';
 import DetailToDownload from './DetailToDownload';
 import { encryptGlobal } from '../../../constants/encryptDecrypt.js';
+import {
+    stateList,
+    districtList
+} from '../../../RegPage/OrgData';
 
 const ViewSelectedIdea = () => {
     // here we can see the selected ideas in district wise and sdg //
@@ -47,9 +51,7 @@ const ViewSelectedIdea = () => {
         return i.goal_title;
     });
     SDGDate.unshift('All Themes');
-    const fullStatesNames = useSelector(
-        (state) => state?.studentRegistration?.regstate
-    );
+   
     const fiterDistData = useSelector(
         (state) => state?.studentRegistration?.fetchdist
     );
@@ -74,12 +76,12 @@ const ViewSelectedIdea = () => {
     // useEffect(() => {
     //     dispatch(getStateData());
     // }, []);
-    useEffect(() => {
-        // if (state !== '') {
-        dispatch(getFetchDistData());
-        // }
-        // setdistrict('');
-    }, []);
+    // useEffect(() => {
+    //     // if (state !== '') {
+    //     dispatch(getFetchDistData());
+    //     // }
+    //     // setdistrict('');
+    // }, []);
 
     const handleclickcall = async () => {
         // where we can select district and sdg //
@@ -99,7 +101,7 @@ const ViewSelectedIdea = () => {
         const newParam = encryptGlobal(
             JSON.stringify({
                 status: stat,
-                // state: state !== 'All States' ? state : '',
+                state: state !== 'All States' ? state : '',
                 district: district !== 'All Districts' ? district : ''
                 // sdg: sdg !== 'All Themes' ? sdg : ''
             })
@@ -357,10 +359,10 @@ const ViewSelectedIdea = () => {
 
                                     <Container fluid className="px-0">
                                         <Row className="align-items-center">
-                                            {/* <Col md={3}>
+                                            <Col md={3}>
                                                 <div className="my-3 d-md-block d-flex justify-content-center">
                                                     <Select
-                                                        list={fullStatesNames}
+                                                        list={stateList}
                                                         setValue={setState}
                                                         placeHolder={
                                                             'Select State'
@@ -368,11 +370,13 @@ const ViewSelectedIdea = () => {
                                                         value={state}
                                                     />
                                                 </div>
-                                            </Col> */}
+                                            </Col>
                                             <Col md={3}>
                                                 <div className="my-3 d-md-block d-flex justify-content-center">
                                                     <Select
-                                                        list={fiterDistData}
+                                                        list={ districtList[
+                                                            state
+                                                            ] || []}
                                                         setValue={setdistrict}
                                                         placeHolder={
                                                             'Select District'
