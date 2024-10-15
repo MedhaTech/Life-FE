@@ -113,14 +113,12 @@ const ViewSelectedIdea = () => {
     }, []);
 
     const handlePromotel2processed = async (item) => {
-        // alert('dd');
-        // console.log(item.team_id, 'i');
-        await promoteapi(item.team_id);
+        await promoteapi(item.student_id,item.idea_id);
     };
 
-    async function promoteapi(id) {
+    async function promoteapi(id,idea_id) {
         // const promoteId = encryptGlobal(JSON.stringify(id));
-        const body = JSON.stringify({ final_result: '0', team_id: id });
+        const body = JSON.stringify({ final_result: '0', student_id: id,idea_id:idea_id });
         var config = {
             method: 'put',
             url: `${process.env.REACT_APP_API_BASE_URL + '/ideas/ideaUpdate'
