@@ -100,11 +100,12 @@ const IdeaDetail = (props) => {
     };
 
     const handleL1Round = (handledText) => {
-        const currentTime = new Date().toLocaleString();
+        const currentTime = new Date();
         const body = JSON.stringify({
             evaluation_status:
                 handledText == 'accept' ? 'SELECTEDROUND1' : 'REJECTEDROUND1',
-            team_id: teamResponse?.team_id,
+            student_id: teamResponse?.student_id,
+            idea_id: teamResponse?.idea_id,
             evaluated_by: currentUser?.data[0]?.user_id,
             evaluated_at: currentTime,
             rejected_reason: handledText == 'reject' ? reason : ''
@@ -115,11 +116,10 @@ const IdeaDetail = (props) => {
         // );
         var config = {
             method: 'put',
-            url: `${
-                process.env.REACT_APP_API_BASE_URL + '/ideas/ideaUpdate'
+            url: `${process.env.REACT_APP_API_BASE_URL + '/ideas/ideaUpdate'
                 // +
                 // challId
-            }`,
+                }`,
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${currentUser?.data[0]?.token}`
@@ -261,11 +261,10 @@ const IdeaDetail = (props) => {
                         </div>
 
                         <div
-                            className={`${
-                                props?.ideaDetails?.status === 'SUBMITTED'
+                            className={`${props?.ideaDetails?.status === 'SUBMITTED'
                                     ? 'col-12'
                                     : 'col-lg-8'
-                            } order-lg-0 order-1 p-0 h-100`}
+                                } order-lg-0 order-1 p-0 h-100`}
                         >
                             <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
                                 <div

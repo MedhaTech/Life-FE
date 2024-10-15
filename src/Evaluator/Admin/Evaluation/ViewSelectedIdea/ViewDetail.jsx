@@ -99,12 +99,13 @@ const ViewDetail = (props) => {
     };
 
     const handleL1Round = (handledText) => {
-        const currentTime = new Date().toLocaleString();
+        const currentTime = new Date();
 
         const body = JSON.stringify({
             evaluation_status:
                 handledText == 'accept' ? 'SELECTEDROUND1' : 'REJECTEDROUND1',
-            team_id: teamResponse?.team_id,
+            student_id: teamResponse?.student_id,
+            idea_id: teamResponse?.idea_id,
             evaluated_by: currentUser?.data[0]?.user_id,
             evaluated_at: currentTime,
             rejected_reason: handledText == 'reject' ? reason : ''
@@ -115,11 +116,10 @@ const ViewDetail = (props) => {
         // );
         var config = {
             method: 'put',
-            url: `${
-                process.env.REACT_APP_API_BASE_URL + '/ideas/ideaUpdate'
+            url: `${process.env.REACT_APP_API_BASE_URL + '/ideas/ideaUpdate'
                 //  +
                 // challId
-            }`,
+                }`,
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${currentUser?.data[0]?.token}`
@@ -183,11 +183,10 @@ const ViewDetail = (props) => {
     const componentRef = useRef();
     const handlePrint = useReactToPrint({
         content: () => componentRef.current,
-        documentTitle: `${
-            props?.ideaDetails?.team_name
+        documentTitle: `${props?.ideaDetails?.team_name
                 ? props?.ideaDetails?.team_name
                 : 'temp'
-        }_IdeaSubmission`
+            }_IdeaSubmission`
     });
     const files = teamResponse?.Prototype_file
         ? teamResponse?.Prototype_file.split(',')
@@ -291,7 +290,7 @@ const ViewDetail = (props) => {
                                         <Button
                                             btnClass={
                                                 props?.dataLength !=
-                                                props?.currentRow
+                                                    props?.currentRow
                                                     ? 'primary'
                                                     : 'default'
                                             }
@@ -321,175 +320,7 @@ const ViewDetail = (props) => {
                                         /> */}
                                     </div>
                                 </div>
-                                <div className="col-lg-12 mt-3">
-                                    <Row className="col-lg-12">
-                                        <Col className="md-6">
-                                            <Card
-                                                bg="light"
-                                                text="dark"
-                                                className="mb-4"
-                                                // style={{ height: '150px' }}
-                                            >
-                                                <Card.Body>
-                                                    <label
-                                                        htmlFor="teams"
-                                                        className=""
-                                                    >
-                                                        Institutions Details
-                                                    </label>
-                                                    <Card.Text
-                                                        style={{
-                                                            // fontSize: '30px',
-                                                            // fontWeight: 'bold',
-                                                            marginTop: '10px',
-                                                            marginBottom: '20px'
-                                                        }}
-                                                    >
-                                                        {/* {regInst} */}
-                                                        <span>
-                                                            Institution Code :
-                                                        </span>
-                                                        <span className=" fs-3">
-                                                            &nbsp;
-                                                            {
-                                                                teamResponse?.institution_code
-                                                            }
-                                                        </span>
-                                                        <br />
-                                                        <span>
-                                                            Institution Name :
-                                                        </span>
-                                                        <span className="fs-3">
-                                                            &nbsp;
-                                                            {
-                                                                teamResponse?.institution_name
-                                                            }
-                                                        </span>
-                                                        <br />
-                                                        <span>Place :</span>
-                                                        <span className="fs-3">
-                                                            &nbsp;
-                                                            {
-                                                                teamResponse?.place_name
-                                                            }
-                                                        </span>
-                                                        <br />
-                                                        <span>Block :</span>
-                                                        <span className="fs-3">
-                                                            &nbsp;
-                                                            {
-                                                                teamResponse?.block_name
-                                                            }
-                                                        </span>{' '}
-                                                        <br />
-                                                        <span>Taluk :</span>
-                                                        <span className="fs-3">
-                                                            &nbsp;
-                                                            {teamResponse?.taluk_name
-                                                                ? teamResponse?.taluk_name
-                                                                : '-'}
-                                                        </span>{' '}
-                                                        <br />
-                                                        <span>District :</span>
-                                                        <span className="fs-3">
-                                                            &nbsp;
-                                                            {
-                                                                teamResponse?.district
-                                                            }
-                                                        </span>
-                                                    </Card.Text>
-                                                </Card.Body>
-                                            </Card>
-                                            {/* <h2>
-                                                <span
-                                                    style={{
-                                                        color: 'blue'
-                                                    }}
-                                                >
-                                                    Institutions Details:{' '}
-                                                </span>
-                                                {/* <span className="text-capitalize fs-3">
-                                                {props?.ideaDetails?.themes_problem?.problem_statement?.toLowerCase() ||
-                                                    ''}
-                                            </span> */}
-                                            {/* </h2>  */}
-                                        </Col>
-                                        <Col className="md-6">
-                                            <Card
-                                                bg="light"
-                                                text="dark"
-                                                className="mb-4"
-                                                style={{ height: '227px' }}
-                                            >
-                                                <Card.Body>
-                                                    <label
-                                                        htmlFor="teams"
-                                                        className=""
-                                                    >
-                                                        Team Details
-                                                    </label>
-                                                    <Card.Text
-                                                        style={{
-                                                            // fontSize: '30px',
-                                                            // fontWeight: 'bold',
-                                                            marginTop: '10px',
-                                                            marginBottom: '20px'
-                                                        }}
-                                                    >
-                                                        {/* {regInst} */}
-                                                        <span>Team Name :</span>
-                                                        <span className=" fs-3">
-                                                            &nbsp;
-                                                            {
-                                                                teamResponse?.team_name
-                                                            }
-                                                        </span>
-                                                        <br />
-                                                        <span>
-                                                            Team Members :
-                                                        </span>
-                                                        <span className=" fs-3">
-                                                            &nbsp;
-                                                            {teamResponse &&
-                                                                teamResponse.team_members &&
-                                                                teamResponse.team_members.join(
-                                                                    ', '
-                                                                )}
-                                                        </span>
-                                                    </Card.Text>
-                                                </Card.Body>
-                                            </Card>
-                                            {/* <h2>
-                                                <span
-                                                    style={{
-                                                        color: 'blue'
-                                                    }}
-                                                >
-                                                    Institutions Details:{' '}
-                                                </span>
-                                                {/* <span className="text-capitalize fs-3">
-                                                {props?.ideaDetails?.themes_problem?.problem_statement?.toLowerCase() ||
-                                                    ''}
-                                            </span> */}
-                                            {/* </h2>  */}
-                                        </Col>
-                                    </Row>
-                                    {/* <Row className="col-lg-12">
-                                        <h2>
-                                            <span
-                                                style={{
-                                                    color: 'blue'
-                                                }}
-                                            >
-                                                Problem Statement :{' '}
-                                            </span>
-                                            <span className="text-capitalize fs-3">
-                                                {props?.ideaDetails?.sub_category?.toLowerCase() ||
-                                                    ''}
-                                            </span>
-                                        </h2>
-                                    </Row> */}
-                                </div>
+
                             </div>
                         </div>
 
@@ -617,6 +448,7 @@ const ViewDetail = (props) => {
                                     </div>
                                 </div>
                             </div>{' '}
+
                             <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
                                 <div
                                     // key={index}
@@ -629,34 +461,6 @@ const ViewDetail = (props) => {
                                             }}
                                         >
                                             {5}.{' '}
-                                            {t('student_course.ques5solution')}
-                                            {/* {item?.question_no || ''}.{' '}
-                                                {item?.question || ''} */}
-                                        </b>
-                                    </div>
-                                    <div className="bg-light rounded p-5">
-                                        <p
-                                            style={{
-                                                fontSize: '1.4rem'
-                                            }}
-                                        >
-                                            {teamResponse?.solution_statement}
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>{' '}
-                            <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
-                                <div
-                                    // key={index}
-                                    className="mb-4 my-3 comment-card px-5 py-3 card me-md-3"
-                                >
-                                    <div className="question quiz mb-0">
-                                        <b
-                                            style={{
-                                                fontSize: '1.6rem'
-                                            }}
-                                        >
-                                            {6}.{' '}
                                             {t('student_course.ques6detailsol')}
                                             {/* {item?.question_no || ''}.{' '}
                                                 {item?.question || ''} */}
@@ -684,7 +488,7 @@ const ViewDetail = (props) => {
                                                 fontSize: '1.6rem'
                                             }}
                                         >
-                                            {7}.{' '}
+                                            {6}.{' '}
                                             {t('student_course.ques7Prototype')}
                                             {/* {item?.question_no || ''}.{' '}
                                                 {item?.question || ''} */}
@@ -769,7 +573,7 @@ const ViewDetail = (props) => {
                                                 fontSize: '1.6rem'
                                             }}
                                         >
-                                            {8}.{' '}
+                                            {7}.{' '}
                                             {t(
                                                 'student_course.ques9publication'
                                             )}
@@ -846,20 +650,19 @@ const ViewDetail = (props) => {
                             <div className="level-status-card card border p-md-5 p-3 mb-3 me-lg-0 me-md-3">
                                 {props?.ideaDetails?.evaluation_status ? (
                                     <p
-                                        className={`${
-                                            props?.ideaDetails
+                                        className={`${props?.ideaDetails
                                                 ?.evaluation_status ==
-                                            'SELECTEDROUND1'
+                                                'SELECTEDROUND1'
                                                 ? 'text-success'
                                                 : 'text-danger'
-                                        } fs-3 fw-bold text-center`}
+                                            } fs-3 fw-bold text-center`}
                                     >
                                         <span className="fs-3 text-info">
                                             L1:{' '}
                                         </span>
                                         {props?.ideaDetails
                                             ?.evaluation_status ==
-                                        'SELECTEDROUND1'
+                                            'SELECTEDROUND1'
                                             ? 'Accepted'
                                             : 'Rejected'}
                                     </p>
@@ -897,27 +700,27 @@ const ViewDetail = (props) => {
 
                                 {props?.ideaDetails?.evaluation_status ==
                                     'REJECTEDROUND1' && (
-                                    <>
-                                        <p className="text-center">
-                                            <span className="text-bold">
-                                                Rejected Reason :{' '}
-                                            </span>{' '}
-                                            {props?.ideaDetails
-                                                ?.rejected_reason || ''}
-                                        </p>
-                                        {/* <p className="text-center">
+                                        <>
+                                            <p className="text-center">
+                                                <span className="text-bold">
+                                                    Rejected Reason :{' '}
+                                                </span>{' '}
+                                                {props?.ideaDetails
+                                                    ?.rejected_reason || ''}
+                                            </p>
+                                            {/* <p className="text-center">
                                             <span className="text-bold">
                                                 Rejected Reason 2:{' '}
                                             </span>{' '}
                                             {props?.ideaDetails
                                                 ?.rejected_reasonSecond || ''}
                                         </p> */}
-                                    </>
-                                )}
+                                        </>
+                                    )}
                                 {level === 'L1' &&
                                     (props?.ideaDetails?.evaluation_status ? (
                                         props?.ideaDetails?.evaluation_status ==
-                                        'SELECTEDROUND1' ? (
+                                            'SELECTEDROUND1' ? (
                                             <button
                                                 className="btn btn-lg px-5 py-2 btn-danger me-3 rounded-pill"
                                                 onClick={() => {
@@ -948,41 +751,41 @@ const ViewDetail = (props) => {
                                         <>
                                             {teamResponse.verified_name !==
                                                 null && (
-                                                <>
-                                                    <button
-                                                        className="btn btn-lg px-5 py-2 btn-danger me-3 rounded-pill m-2"
-                                                        onClick={() => {
-                                                            setIsreject(true);
-                                                            setReason('');
-                                                            setReasonSec('');
-                                                        }}
-                                                    >
-                                                        <span className="fs-4">
-                                                            Reject
-                                                        </span>
-                                                    </button>
-                                                    <button
-                                                        className="btn btn-lg px-5 py-2 btn-success me-3 rounded-pill m-2"
-                                                        onClick={() => {
-                                                            handleAlert(
-                                                                'accept'
-                                                            );
-                                                            setReason('');
-                                                            setReasonSec('');
-                                                        }}
-                                                    >
-                                                        <span className="fs-4">
-                                                            Accept
-                                                        </span>
-                                                    </button>
-                                                </>
-                                            )}
+                                                    <>
+                                                        <button
+                                                            className="btn btn-lg px-5 py-2 btn-danger me-3 rounded-pill m-2"
+                                                            onClick={() => {
+                                                                setIsreject(true);
+                                                                setReason('');
+                                                                setReasonSec('');
+                                                            }}
+                                                        >
+                                                            <span className="fs-4">
+                                                                Reject
+                                                            </span>
+                                                        </button>
+                                                        <button
+                                                            className="btn btn-lg px-5 py-2 btn-success me-3 rounded-pill m-2"
+                                                            onClick={() => {
+                                                                handleAlert(
+                                                                    'accept'
+                                                                );
+                                                                setReason('');
+                                                                setReasonSec('');
+                                                            }}
+                                                        >
+                                                            <span className="fs-4">
+                                                                Accept
+                                                            </span>
+                                                        </button>
+                                                    </>
+                                                )}
                                         </>
                                     ))}
                             </div>
                             {level !== 'L1' &&
                                 props?.ideaDetails?.evaluator_ratings.length >
-                                    0 && (
+                                0 && (
                                     <RatedDetailCard
                                         details={props?.ideaDetails}
                                     />
@@ -1006,34 +809,13 @@ const ViewDetail = (props) => {
                             Submitted At :{' '}
                             {teamResponse.submitted_at
                                 ? moment(teamResponse.submitted_at).format(
-                                      'DD-MM-YYYY'
-                                  )
+                                    'DD-MM-YYYY'
+                                )
                                 : '-'}
                         </p>
                     </div>
-                    <br />
-                    <div style={{ display: 'flex' }}>
-                        <p
-                            style={{ fontSize: '1.5rem', margin: '1rem' }}
-                            className="fw-bold"
-                        >
-                            Verified By :{' '}
-                            {teamResponse.verified_name
-                                ? teamResponse.verified_name
-                                : '-'}
-                        </p>
-                        <p
-                            style={{ fontSize: '1.5rem', margin: '1rem' }}
-                            className="fw-bold"
-                        >
-                            Verified At :{' '}
-                            {teamResponse.verified_at
-                                ? moment(teamResponse.verified_at).format(
-                                      'DD-MM-YYYY '
-                                  )
-                                : '-'}
-                        </p>
-                    </div>
+
+
                     <div>
                         <Button
                             btnClass="primary"

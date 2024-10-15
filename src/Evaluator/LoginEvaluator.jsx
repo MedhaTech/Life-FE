@@ -14,9 +14,9 @@ import signuplogo from '../assets/media/tn-brands/EDII.png';
 import ellipse_1 from '../assets/media/ellipse.svg';
 import { evaluatorLoginUser } from '../redux/actions';
 import { Carousel } from 'react-bootstrap';
-import logo from '../assets/media/tn-brands/EDII.png';
+import logo from '../assets/media/Life_logo.jpg';
 import image_1 from '../assets/media/unisolve_slider1.png';
-import image_2 from '../assets/media/unisolve_slider2.png';
+import image_2 from '../assets/media/LIFE_Slider.png';
 import CryptoJS from 'crypto-js';
 import { openNotificationWithIcon } from '../helpers/Utils';
 import Register from './Register';
@@ -175,9 +175,9 @@ const LoginEvaluator = (props) => {
                             </a>
                         </Row>
                         <Row className=" article-header mb-4">
-                            <h4 className="mb-4 d-flex justify-content-center align-elements-center">
+                            <h5 className="mb-4 d-flex justify-content-center align-elements-center">
                                 Evaluator Login
-                            </h4>
+                            </h5>
                         </Row>
 
                         <Row className="mt-5">

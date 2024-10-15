@@ -97,12 +97,13 @@ const ViewDetail = (props) => {
     };
 
     const handleL1Round = (handledText) => {
-        const currentTime = new Date().toLocaleString();
+        const currentTime = new Date();
 
         const body = JSON.stringify({
             evaluation_status:
                 handledText == 'accept' ? 'SELECTEDROUND1' : 'REJECTEDROUND1',
-            team_id: teamResponse?.team_id,
+                student_id: teamResponse?.student_id,
+                idea_id: teamResponse?.idea_id,
             evaluated_by: currentUser?.data[0]?.user_id,
             evaluated_at: currentTime,
             rejected_reason: handledText == 'reject' ? reason : ''
@@ -352,7 +353,7 @@ const ViewDetail = (props) => {
                                         />
                                     </div> */}
                                 </div>
-                                <div className="col-lg-12 mt-3">
+                                {/* <div className="col-lg-12 mt-3">
                                     <Row className="col-lg-12">
                                         <Col className="md-6">
                                             <Card
@@ -376,7 +377,7 @@ const ViewDetail = (props) => {
                                                             marginBottom: '20px'
                                                         }}
                                                     >
-                                                        {/* {regInst} */}
+                                                    
                                                         <span>
                                                             Institution Code :
                                                         </span>
@@ -431,19 +432,7 @@ const ViewDetail = (props) => {
                                                     </Card.Text>
                                                 </Card.Body>
                                             </Card>
-                                            {/* <h2>
-                                                <span
-                                                    style={{
-                                                        color: 'blue'
-                                                    }}
-                                                >
-                                                    Institutions Details:{' '}
-                                                </span>
-                                                {/* <span className="text-capitalize fs-3">
-                                                {props?.ideaDetails?.themes_problem?.problem_statement?.toLowerCase() ||
-                                                    ''}
-                                            </span> */}
-                                            {/* </h2>  */}
+                                           
                                         </Col>
                                         <Col className="md-6">
                                             <Card
@@ -467,7 +456,7 @@ const ViewDetail = (props) => {
                                                             marginBottom: '20px'
                                                         }}
                                                     >
-                                                        {/* {regInst} */}
+                                                       
                                                         <span>Team Name :</span>
                                                         <span className=" fs-3">
                                                             &nbsp;
@@ -500,37 +489,9 @@ const ViewDetail = (props) => {
                                                     </Card.Text>
                                                 </Card.Body>
                                             </Card>
-                                            {/* <h2>
-                                                <span
-                                                    style={{
-                                                        color: 'blue'
-                                                    }}
-                                                >
-                                                    Institutions Details:{' '}
-                                                </span>
-                                                {/* <span className="text-capitalize fs-3">
-                                                {props?.ideaDetails?.themes_problem?.problem_statement?.toLowerCase() ||
-                                                    ''}
-                                            </span> */}
-                                            {/* </h2>  */}
                                         </Col>
                                     </Row>
-                                    {/* <Row className="col-lg-12">
-                                        <h2>
-                                            <span
-                                                style={{
-                                                    color: 'blue'
-                                                }}
-                                            >
-                                                Problem Statement :{' '}
-                                            </span>
-                                            <span className="text-capitalize fs-3">
-                                                {props?.ideaDetails?.themes_problem?.problem_statement?.toLowerCase() ||
-                                                    ''}
-                                            </span>
-                                        </h2>
-                                    </Row> */}
-                                </div>
+                                </div> */}
                             </div>
                         </div>
                         <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
@@ -657,7 +618,7 @@ const ViewDetail = (props) => {
                                     </div>
                                 </div>
                             </div>{' '}
-                            <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
+                            {/* <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
                                 <div
                                     // key={index}
                                     className="mb-4 my-3 comment-card px-5 py-3 card me-md-3"
@@ -670,8 +631,6 @@ const ViewDetail = (props) => {
                                         >
                                             {5}.{' '}
                                             {t('student_course.ques5solution')}
-                                            {/* {item?.question_no || ''}.{' '}
-                                                {item?.question || ''} */}
                                         </b>
                                     </div>
                                     <div className="bg-light rounded p-5">
@@ -684,7 +643,7 @@ const ViewDetail = (props) => {
                                         </p>
                                     </div>
                                 </div>
-                            </div>{' '}
+                            </div> */}
                             <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
                                 <div
                                     // key={index}
@@ -696,7 +655,7 @@ const ViewDetail = (props) => {
                                                 fontSize: '1.6rem'
                                             }}
                                         >
-                                            {6}.{' '}
+                                            {5}.{' '}
                                             {t('student_course.ques6detailsol')}
                                             {/* {item?.question_no || ''}.{' '}
                                                 {item?.question || ''} */}
@@ -724,7 +683,7 @@ const ViewDetail = (props) => {
                                                 fontSize: '1.6rem'
                                             }}
                                         >
-                                            {7}.{' '}
+                                            {6}.{' '}
                                             {t('student_course.ques7Prototype')}
                                             {/* {item?.question_no || ''}.{' '}
                                                 {item?.question || ''} */}
@@ -809,7 +768,7 @@ const ViewDetail = (props) => {
                                                 fontSize: '1.6rem'
                                             }}
                                         >
-                                            {8}.{' '}
+                                            {7}.{' '}
                                             {t(
                                                 'student_course.ques9publication'
                                             )}
@@ -1058,7 +1017,7 @@ const ViewDetail = (props) => {
                     ) : (
                         ''
                     )}
-                    {teamResponse?.status !== 'DRAFT' ? (
+                    {/* {teamResponse?.status !== 'DRAFT' ? (
                         <div style={{ display: 'flex' }}>
                             <p
                                 style={{ fontSize: '1.5rem', margin: '1rem' }}
@@ -1083,7 +1042,7 @@ const ViewDetail = (props) => {
                         </div>
                     ) : (
                         ''
-                    )}
+                    )} */}
                     <div>
                         <Button
                             btnClass="primary"

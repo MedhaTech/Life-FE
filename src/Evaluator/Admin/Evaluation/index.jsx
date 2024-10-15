@@ -42,7 +42,7 @@ const Eadmindashboard = () => {
                 <div className="dashboard">
                     <Container>
                         <Row className="mb-5">
-                            <Col lg={4} md={4}>
+                            {/* <Col lg={4} md={4}>
                                 <Link to="/eadmin/dashboard?status=PENDINGFORAPPROVAL">
                                     <Card className="p-4 text-center card-effect mb-3">
                                         <b className="text-warning">
@@ -53,8 +53,8 @@ const Eadmindashboard = () => {
                                         </h3>
                                     </Card>
                                 </Link>
-                            </Col>
-                            <Col lg={4} md={4}>
+                            </Col> */}
+                            <Col lg={6} md={6}>
                                 <Link to="/eadmin/dashboard?status=SUBMITTED">
                                     <Card className="p-4 text-center card-effect mb-3">
                                         <b className="text-primary">
@@ -66,7 +66,7 @@ const Eadmindashboard = () => {
                                     </Card>
                                 </Link>
                             </Col>
-                            <Col lg={4} md={4}>
+                            <Col lg={6} md={6}>
                                 <Link to="/eadmin/dashboard?status=DRAFT">
                                     <Card className="p-4 text-center card-effect mb-3">
                                         <b className="text-secondary">
