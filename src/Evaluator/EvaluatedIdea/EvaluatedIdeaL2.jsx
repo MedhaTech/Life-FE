@@ -20,6 +20,10 @@ import {
 import { cardData } from '../../Student/Pages/Ideas/SDGData';
 import { Button } from '../../stories/Button';
 import Spinner from 'react-bootstrap/Spinner';
+import {
+    stateList,
+    districtList
+} from '../../RegPage/OrgData.js';
 
 const EvaluatedIdea = () => {
     // here we can see all the EvaluatedIdeas in  status wise , district wise , SDG wise   //
@@ -48,10 +52,10 @@ const EvaluatedIdea = () => {
     const fiterDistData = useSelector(
         (state) => state?.studentRegistration?.fetchdist
     );
-    useEffect(() => {
-        // dispatch(getDistrictData());
-        dispatch(getFetchDistData());
-    }, []);
+    // useEffect(() => {
+    //     // dispatch(getDistrictData());
+    //     dispatch(getFetchDistData());
+    // }, []);
     useEffect(() => {
         if (state === '') {
             settabledate([]);
@@ -65,7 +69,8 @@ const EvaluatedIdea = () => {
         const newQuery = {
             evaluation_status: 'SELECTEDROUND1',
             level: 'L2',
-            district: state !== 'All Districts' ? state : ''
+            state: state !== 'All States' ? state : '',
+            district: district !== 'All Districts' ? district : '',
             // sdg: sdg !== 'All Themes' ? sdg : ''
         };
         setshowspin(true);
@@ -283,30 +288,32 @@ const EvaluatedIdea = () => {
                                 <h2 className="ps-2 pb-3">L2 Evaluated Idea</h2>
                                 <Container fluid className="px-0">
                                     <Row className="align-items-center">
-                                        <Col md={3}>
+                                        <Col md={2}>
                                             <div className="my-3 d-md-block d-flex justify-content-center">
                                                 <Select
-                                                    list={fiterDistData}
+                                                    list={stateList}
                                                     setValue={setState}
                                                     placeHolder={
-                                                        'Select District'
+                                                        'Select State'
                                                     }
                                                     value={state}
                                                 />
                                             </div>
                                         </Col>
-                                        {/* <Col md={3}>
+                                        <Col md={2}>
                                             <div className="my-3 d-md-block d-flex justify-content-center">
                                                 <Select
-                                                    list={SDGDate}
-                                                    setValue={setsdg}
+                                                    list={districtList[
+                                                        state
+                                                    ] || []}
+                                                    setValue={setdistrict}
                                                     placeHolder={
-                                                        'Select Themes'
+                                                        'Select District'
                                                     }
-                                                    value={sdg}
+                                                    value={district}
                                                 />
                                             </div>
-                                        </Col> */}
+                                        </Col>
 
                                         <Col md={1}>
                                             <div className="text-center">

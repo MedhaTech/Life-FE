@@ -313,7 +313,7 @@ const EvaluatedIdeaDetail = (props) => {
                                     </div>
                                 </div>
                             </div>{' '}
-                            <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
+                            {/* <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
                                 <div
                                     // key={index}
                                     className="mb-4 my-3 comment-card px-5 py-3 card me-md-3"
@@ -326,8 +326,7 @@ const EvaluatedIdeaDetail = (props) => {
                                         >
                                             {5}.{' '}
                                             {t('student_course.ques5solution')}
-                                            {/* {item?.question_no || ''}.{' '}
-                                                {item?.question || ''} */}
+                                            
                                         </b>
                                     </div>
                                     <div className="bg-light rounded p-5">
@@ -340,7 +339,7 @@ const EvaluatedIdeaDetail = (props) => {
                                         </p>
                                     </div>
                                 </div>
-                            </div>{' '}
+                            </div>{' '} */}
                             <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
                                 <div
                                     // key={index}
@@ -352,7 +351,7 @@ const EvaluatedIdeaDetail = (props) => {
                                                 fontSize: '1.6rem'
                                             }}
                                         >
-                                            {6}.{' '}
+                                            {5}.{' '}
                                             {t('student_course.ques6detailsol')}
                                             {/* {item?.question_no || ''}.{' '}
                                                 {item?.question || ''} */}
@@ -380,7 +379,7 @@ const EvaluatedIdeaDetail = (props) => {
                                                 fontSize: '1.6rem'
                                             }}
                                         >
-                                            {7}.{' '}
+                                            {6}.{' '}
                                             {t('student_course.ques7Prototype')}
                                             {/* {item?.question_no || ''}.{' '}
                                                 {item?.question || ''} */}
@@ -466,7 +465,7 @@ const EvaluatedIdeaDetail = (props) => {
                                                 fontSize: '1.6rem'
                                             }}
                                         >
-                                            {8}.{' '}
+                                            {7}.{' '}
                                             {t(
                                                 'student_course.ques9publication'
                                             )}
