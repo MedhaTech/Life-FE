@@ -2018,7 +2018,7 @@ function NewIdeaSubmission(props) {
                             <Row>
                                 <Col className="d-flex justify-content-between">
                                     <div>
-                                        <Button
+                                        {/* <Button
                                             type="button"
                                             btnClass="me-3 text-white"
                                             backgroundColor="#067DE1"
@@ -2030,7 +2030,7 @@ function NewIdeaSubmission(props) {
                                                 ? t('teacher_teams.loading')
                                                 : t('teacher_teams.draft')
                                                 }`}
-                                        />
+                                        /> */}
                                     </div>
                                 </Col>
                             </Row>
@@ -2042,7 +2042,7 @@ function NewIdeaSubmission(props) {
                             <div className="text-right">
                                 {condition && (
                                     <>
-                                        <Button
+                                        {/* <Button
                                             type="button"
                                             btnClass="me-3 text-white"
                                             backgroundColor="#067DE1"
@@ -2058,7 +2058,7 @@ function NewIdeaSubmission(props) {
                                             }
                                             size="small"
                                             label={t('teacher_teams.submit')}
-                                        />
+                                        /> */}
                                     </>
                                 )}
                             </div>
