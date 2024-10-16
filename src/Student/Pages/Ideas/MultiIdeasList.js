@@ -253,7 +253,7 @@ const InstructionsPage = (props) => {
                         <Col className="col-auto" style={centerTitleMobile}>
                             <h2>Submitted Ideas List</h2>
                         </Col>
-                        {totalideasinitited < 15 && <Col className="ticket-btn col ml-auto ">
+                        {/* {totalideasinitited < 15 && <Col className="ticket-btn col ml-auto ">
                             <div className="d-flex justify-content-end">
                                 <Button
                                     label="NEW  IDEA"
@@ -262,7 +262,7 @@ const InstructionsPage = (props) => {
                                     onClick={handleStart}
                                 />
                             </div>
-                        </Col>}
+                        </Col>} */}
                         
                     </Row>
 

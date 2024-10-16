@@ -206,10 +206,13 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                             exact={true}
                             // onClick={handleClick}
                             // to={'/instructions'}
+                            // to={
+                            //     IdData === null ? "/upload-file":ideaSubmittedData == 0
+                            //         ? '/instructions'
+                            //         : '/List'
+                            // }
                             to={
-                                IdData === null ? "/upload-file":ideaSubmittedData == 0
-                                    ? '/instructions'
-                                    : '/List'
+                                IdData === null ? "/upload-file": '/List'
                             }
                         >
                             {t('home.idea_submission')}

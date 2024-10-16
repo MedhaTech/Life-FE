@@ -13,8 +13,8 @@ const RatedDetailCard = (props) => {
     React.useEffect(() => {
         setOverAll(props?.details?.evaluator_ratings[0]?.overall);
         setNovelity(props?.details?.evaluator_ratings[0]?.param_1);
-        setUsefulness(props?.details?.evaluator_ratings[0]?.param_2);
-        setFeasability(props?.details?.evaluator_ratings[0]?.param_3);
+        setUsefulness(props?.details?.evaluator_ratings[0]?.param_3);
+        setFeasability(props?.details?.evaluator_ratings[0]?.param_2);
         setScalability(props?.details?.evaluator_ratings[0]?.param_4);
         setSustainability(props?.details?.evaluator_ratings[0]?.param_5);
     }, [props]);
@@ -57,7 +57,7 @@ const RatedDetailCard = (props) => {
             </div>
             <div className="row mb-1">
                 <div className="col-4">
-                    <p className="my-0">Novelty:</p>
+                    <p className="my-0">Innovative Potential:</p>
                 </div>
                 <div className="col-8 pt-3">
                     <div className="progress">
@@ -71,30 +71,6 @@ const RatedDetailCard = (props) => {
                             }
                             role="progressbar"
                             style={{ width: `${Number(novelity) * 10 + '%'}` }}
-                            aria-valuemin="0"
-                            aria-valuemax="100"
-                        ></div>
-                    </div>
-                </div>
-            </div>
-            <div className="row mb-1">
-                <div className="col-4">
-                    <p className="my-0">Usefulness:</p>
-                </div>
-                <div className="col-8 pt-3">
-                    <div className="progress">
-                        <div
-                            className={
-                                usefulness < 7
-                                    ? 'progress-bar bg-danger '
-                                    : usefulness < 9
-                                    ? 'progress-bar bg-warning'
-                                    : 'progress-bar bg-success'
-                            }
-                            role="progressbar"
-                            style={{
-                                width: `${Number(usefulness) * 10 + '%'}`
-                            }}
                             aria-valuemin="0"
                             aria-valuemax="100"
                         ></div>
@@ -125,6 +101,31 @@ const RatedDetailCard = (props) => {
                     </div>
                 </div>
             </div>
+            <div className="row mb-1">
+                <div className="col-4">
+                    <p className="my-0">Impact:</p>
+                </div>
+                <div className="col-8 pt-3">
+                    <div className="progress">
+                        <div
+                            className={
+                                usefulness < 7
+                                    ? 'progress-bar bg-danger '
+                                    : usefulness < 9
+                                    ? 'progress-bar bg-warning'
+                                    : 'progress-bar bg-success'
+                            }
+                            role="progressbar"
+                            style={{
+                                width: `${Number(usefulness) * 10 + '%'}`
+                            }}
+                            aria-valuemin="0"
+                            aria-valuemax="100"
+                        ></div>
+                    </div>
+                </div>
+            </div>
+            
             <div className="row mb-1">
                 <div className="col-4">
                     <p className="my-0">Scalability:</p>

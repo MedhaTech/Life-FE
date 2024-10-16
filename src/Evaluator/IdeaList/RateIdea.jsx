@@ -12,9 +12,9 @@ const RateIdea = (props) => {
     const currentUser = getCurrentUser('current_user');
     const dispatch = useDispatch();
     const ratingParams = [
-        'novelity',
-        'usefulness',
+        'innovative potential',
         'feasability',
+        'impact',
         'scalability',
         'sustainability'
     ];
@@ -84,8 +84,8 @@ const RateIdea = (props) => {
             idea_id: props?.challenge_response_id,
             level: props?.level,
             param_1: novelityScore,
-            param_2: usefulnessScore,
-            param_3: feasabilityScore,
+            param_2: feasabilityScore,
+            param_3: usefulnessScore,
             param_4: scalabilityScore,
             param_5: sustainabilityScore,
             overall: overAll,
@@ -162,15 +162,15 @@ const RateIdea = (props) => {
                         <div className="col-12 mb-lg-4 mb-5 p-0" key={index}>
                             <div className="">
                                 <label
-                                    htmlFor="novelity"
+                                    htmlFor="innovative potential"
                                     className="form-label text-capitalize"
                                 >
                                     {item} score -{' '}
                                     <span
                                         className={
-                                            (item === 'novelity'
+                                            (item === 'innovative potential'
                                                 ? novelityScore
-                                                : item === 'usefulness'
+                                                : item === 'impact'
                                                 ? usefulnessScore
                                                 : item === 'feasability'
                                                 ? feasabilityScore
@@ -181,9 +181,9 @@ const RateIdea = (props) => {
                                                 : 'fs-2 text-primary'
                                         }
                                     >
-                                        {item === 'novelity'
+                                        {item === 'innovative potential'
                                             ? novelityScore
-                                            : item === 'usefulness'
+                                            : item === 'impact'
                                             ? usefulnessScore
                                             : item === 'feasability'
                                             ? feasabilityScore
@@ -192,13 +192,13 @@ const RateIdea = (props) => {
                                             : sustainabilityScore}
                                     </span>
                                 </label>
-                                {item === 'novelity' ? (
+                                {item === 'innovative potential' ? (
                                     <NumberScale
                                         name={item}
                                         setScore={
-                                            item === 'novelity'
+                                            item === 'innovative potential'
                                                 ? setNovelityScore
-                                                : item === 'usefulness'
+                                                : item === 'impact'
                                                 ? setUsefulnessScore
                                                 : item === 'feasability'
                                                 ? setFeasabilityScore
@@ -210,13 +210,13 @@ const RateIdea = (props) => {
                                         text2={'Inspired'}
                                         text3={'Novel & Original'}
                                     />
-                                ) : item === 'usefulness' ? (
+                                ) : item === 'impact' ? (
                                     <NumberScale
                                         name={item}
                                         setScore={
-                                            item === 'novelity'
+                                            item === 'innovative potential'
                                                 ? setNovelityScore
-                                                : item === 'usefulness'
+                                                : item === 'impact'
                                                 ? setUsefulnessScore
                                                 : item === 'feasability'
                                                 ? setFeasabilityScore
@@ -232,9 +232,9 @@ const RateIdea = (props) => {
                                     <NumberScale
                                         name={item}
                                         setScore={
-                                            item === 'novelity'
+                                            item === 'innovative potential'
                                                 ? setNovelityScore
-                                                : item === 'usefulness'
+                                                : item === 'impact'
                                                 ? setUsefulnessScore
                                                 : item === 'feasability'
                                                 ? setFeasabilityScore
@@ -250,9 +250,9 @@ const RateIdea = (props) => {
                                     <NumberScale
                                         name={item}
                                         setScore={
-                                            item === 'novelity'
+                                            item === 'innovative potential'
                                                 ? setNovelityScore
-                                                : item === 'usefulness'
+                                                : item === 'impact'
                                                 ? setUsefulnessScore
                                                 : item === 'feasability'
                                                 ? setFeasabilityScore
@@ -270,9 +270,9 @@ const RateIdea = (props) => {
                                     <NumberScale
                                         name={item}
                                         setScore={
-                                            item === 'novelity'
+                                            item === 'innovative potential'
                                                 ? setNovelityScore
-                                                : item === 'usefulness'
+                                                : item === 'impact'
                                                 ? setUsefulnessScore
                                                 : item === 'feasability'
                                                 ? setFeasabilityScore

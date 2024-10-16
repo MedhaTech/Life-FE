@@ -239,11 +239,11 @@ const Routers = () => {
                         path="/register"
                         render={() => <RegisterNew />}
                     />
-                    <Route
+                    {/* <Route
                         exact={true}
                         path="/registration"
                         render={() => <SingleReg />}
-                    />
+                    /> */}
                     {/* <Route
                         exact={true}
                         path="/registration"
