@@ -76,13 +76,13 @@ const Register = (props) => {
             .trim()
             .email('Invalid email id')
             .required('Please enter email id'),
-        password: Yup.string()
-            .trim()
-            .required('Please enter Password')
-            .matches(
-                passwordRegex,
-                'Password must contains  8 characters, including one letter, one number, and one special character.'
-            )
+        // password: Yup.string()
+        //     .trim()
+        //     .required('Please enter Password')
+        //     .matches(
+        //         passwordRegex,
+        //         'Password must contains  8 characters, including one letter, one number, and one special character.'
+        //     )
     });
 
     const formik = useFormik({
@@ -90,7 +90,6 @@ const Register = (props) => {
             username: '',
             mobile: '',
             full_name: '',
-            password: '',
             role: 'EVALUATOR'
             // district: ''
         },
@@ -100,7 +99,7 @@ const Register = (props) => {
         onSubmit: async (values) => {
             // const axiosConfig = getNormalHeaders(KEY.User_API_Key);
 
-            var pass = values.password.trim();
+            var pass = values.mobile.trim();
 
             const key = CryptoJS.enc.Hex.parse(
                 '253D3FB468A0E24677C28A624BE0F939'
@@ -112,7 +111,7 @@ const Register = (props) => {
                 iv: iv,
                 padding: CryptoJS.pad.NoPadding
             }).toString();
-            values.password = encrypted;
+
             const body = JSON.stringify({
                 full_name: values.full_name.trim(),
                 username: values.username.trim(),
@@ -288,7 +287,7 @@ const Register = (props) => {
                                     ) : null}
                                 </FormGroup>
                             </div>
-                            <div className="col-md-12 p-0">
+                            {/* <div className="col-md-12 p-0">
                                 <FormGroup
                                     className="form-group mt-md-0 mt-5 me-md-3"
                                     md={12}
@@ -319,7 +318,7 @@ const Register = (props) => {
                                         </small>
                                     ) : null}
                                 </FormGroup>
-                            </div>
+                            </div> */}
                         </div>
 
                         <div className="mt-5">
