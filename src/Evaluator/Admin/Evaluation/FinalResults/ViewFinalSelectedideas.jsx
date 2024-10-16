@@ -285,7 +285,7 @@ const ViewSelectedIdea = () => {
             // },
 
             {
-                name: 'Novelty',
+                name: 'Innovative Potential',
                 cellExport: (row) =>
                     row.evaluator_ratings
                         ? row.evaluator_ratings.length > 0
@@ -306,7 +306,7 @@ const ViewSelectedIdea = () => {
                 width: '13rem'
             },
             {
-                name: 'Usefulness',
+                name: 'Feasability',
                 cellExport: (row) => row.sub_category,
                 selector: (row) => {
                     return [
@@ -322,7 +322,7 @@ const ViewSelectedIdea = () => {
                 width: '13rem'
             },
             {
-                name: 'Feasability',
+                name: 'Impact',
                 cellExport: (row) =>
                     row.evaluator_ratings
                         ? row.evaluator_ratings.length > 0

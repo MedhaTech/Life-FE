@@ -146,7 +146,7 @@ const ViewSelectedIdea = () => {
             },
 
             {
-                name: 'Novelty',
+                name: 'Innovative Potential',
                 selector: (row) => {
                     return [
                         row.evaluator_ratings
@@ -160,7 +160,7 @@ const ViewSelectedIdea = () => {
                 sortable: true
             },
             {
-                name: 'Usefulness',
+                name: 'Feasability',
                 selector: (row) => {
                     return [
                         row.evaluator_ratings
@@ -174,7 +174,7 @@ const ViewSelectedIdea = () => {
                 sortable: true
             },
             {
-                name: 'Feasability',
+                name: 'Impact',
                 selector: (row) => {
                     return [
                         row.evaluator_ratings
