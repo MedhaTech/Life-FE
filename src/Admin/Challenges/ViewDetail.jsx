@@ -357,14 +357,14 @@ const ViewDetail = (props) => {
                                         />
                                     </div> */}
                                 </div>
-                                <div className="col-lg-12 mt-3">
+                                {/* <div className="col-lg-12 mt-3">
                                     <Row className="col-lg-12">
                                         <Col className="md-6">
                                             <Card
                                                 bg="light"
                                                 text="dark"
                                                 className="mb-4"
-                                                // style={{ height: '150px' }}
+                                               
                                             >
                                                 <Card.Body>
                                                     <label
@@ -375,13 +375,11 @@ const ViewDetail = (props) => {
                                                     </label>
                                                     <Card.Text
                                                         style={{
-                                                            // fontSize: '30px',
-                                                            // fontWeight: 'bold',
+                                                            
                                                             marginTop: '10px',
                                                             marginBottom: '20px'
                                                         }}
                                                     >
-                                                        {/* {regInst} */}
                                                         <span>
                                                             Institution Code :
                                                         </span>
@@ -436,19 +434,7 @@ const ViewDetail = (props) => {
                                                     </Card.Text>
                                                 </Card.Body>
                                             </Card>
-                                            {/* <h2>
-                                                <span
-                                                    style={{
-                                                        color: 'blue'
-                                                    }}
-                                                >
-                                                    Institutions Details:{' '}
-                                                </span>
-                                                {/* <span className="text-capitalize fs-3">
-                                                {props?.ideaDetails?.themes_problem?.problem_statement?.toLowerCase() ||
-                                                    ''}
-                                            </span> */}
-                                            {/* </h2>  */}
+                                           
                                         </Col>
                                         <Col className="md-6">
                                             <Card
@@ -466,13 +452,12 @@ const ViewDetail = (props) => {
                                                     </label>
                                                     <Card.Text
                                                         style={{
-                                                            // fontSize: '30px',
-                                                            // fontWeight: 'bold',
+                                                           
                                                             marginTop: '10px',
                                                             marginBottom: '20px'
                                                         }}
                                                     >
-                                                        {/* {regInst} */}
+                                                       
                                                         <span>Team Name :</span>
                                                         <span className=" fs-3">
                                                             &nbsp;
@@ -505,22 +490,10 @@ const ViewDetail = (props) => {
                                                     </Card.Text>
                                                 </Card.Body>
                                             </Card>
-                                            {/* <h2>
-                                                <span
-                                                    style={{
-                                                        color: 'blue'
-                                                    }}
-                                                >
-                                                    Institutions Details:{' '}
-                                                </span>
-                                                {/* <span className="text-capitalize fs-3">
-                                                {props?.ideaDetails?.themes_problem?.problem_statement?.toLowerCase() ||
-                                                    ''}
-                                            </span> */}
-                                            {/* </h2>  */}
+                                          
                                         </Col>
                                     </Row>
-                                </div>
+                                </div> */}
                             </div>
                         </div>
                         <div className="col-lg-12 order-lg-0 order-1 p-0 h-100">
