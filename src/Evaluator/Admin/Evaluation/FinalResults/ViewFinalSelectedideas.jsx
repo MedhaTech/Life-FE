@@ -15,6 +15,7 @@ import Select from '../Pages/Select';
 import { Col, Container, Row } from 'reactstrap';
 import { cardData } from '../../../../Student/Pages/Ideas/SDGData.js';
 import { useSelector } from 'react-redux';
+import Selects from '../../../../Admin/Challenges/Select.js';
 import {
     getDistrictData,
     getFetchDistData,
@@ -32,7 +33,8 @@ import DetailToDownload from '../../Challenges/DetailToDownload';
 import { encryptGlobal } from '../../../../constants/encryptDecrypt.js';
 import {
     stateList,
-    districtList
+    districtList,
+    themesList
 } from '../../../../RegPage/OrgData';
 
 const ViewSelectedIdea = () => {
@@ -116,6 +118,7 @@ const ViewSelectedIdea = () => {
             JSON.stringify({
                 key: title == '0' ? '0' : '1',
                 state: state !== 'All States' ? state : '',
+                theme_problem_id: sdg !== "0" ? sdg : '',
                 district: district !== 'All Districts' ? district : '',
                 // sdg : sdg !== 'All Themes' ? sdg : ''
             })
@@ -152,8 +155,8 @@ const ViewSelectedIdea = () => {
                 width: '10rem'
             },
             {
-                name: 'District',
-                selector: (row) => row.district,
+                name: 'State',
+                selector: (row) => row.state,
                 cell: (row) => (
                     <div
                         style={{
@@ -161,7 +164,7 @@ const ViewSelectedIdea = () => {
                             wordWrap: 'break-word'
                         }}
                     >
-                        {row.district}
+                        {row.state}
                     </div>
                 ),
                 width: '15rem'
@@ -505,7 +508,7 @@ const ViewSelectedIdea = () => {
         setsortid(e.id);
     };
 
-    const showbutton = state;
+    const showbutton = state && sdg; 
 
     const handleNext = () => {
         if (tableData && currentRow < tableData?.length) {
@@ -628,7 +631,17 @@ const ViewSelectedIdea = () => {
                                                     />
                                                 </div>
                                             </Col>
-                                            <Col md={2}>
+                                            <Col md={3}>
+                                                <Selects
+                                                    list={themesList}
+                                                    setValue={setsdg}
+                                                    placeHolder={
+                                                        'Select Themes'
+                                                    }
+                                                    value={sdg}
+                                                />
+                                            </Col>
+                                            {/* <Col md={2}>
                                                 <div className="my-3 d-md-block d-flex justify-content-center">
                                                     <Select
                                                         list={districtList[
@@ -641,7 +654,7 @@ const ViewSelectedIdea = () => {
                                                         value={district}
                                                     />
                                                 </div>
-                                            </Col>
+                                            </Col> */}
                                             {/* <Col md={2}>
                                                 <div className="my-3 d-md-block d-flex justify-content-center">
                                                     <Select
@@ -671,7 +684,7 @@ const ViewSelectedIdea = () => {
                                                     />
                                                 </div>
                                             </Col>
-                                            <Col md={6}>
+                                            <Col md={5}>
                                                 <div className="text-right">
                                                     <Button
                                                         btnClass="primary"
