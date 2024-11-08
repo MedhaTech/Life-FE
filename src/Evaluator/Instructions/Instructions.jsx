@@ -29,14 +29,14 @@ const Instructions = () => {
                 ></div>
 
                 <div className="text-center mt-5">
-                    <Button
+                    {/* <Button
                         label={'L1-Round Evaluator'}
                         btnClass="primary mx-3"
                         size="small"
                         onClick={() =>
                             history.push('/evaluator/submitted-ideas')
                         }
-                    />
+                    /> */}
                     <Button
                         label={'L2-Round Evaluator'}
                         btnClass="primary mx-3"

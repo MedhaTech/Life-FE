@@ -100,7 +100,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                             Instructions
                         </NavLink>
                     </MenuItem>
-                    <MenuItem
+                    {/* <MenuItem
                         icon={<FaLightbulb />}
                         className={
                             location.pathname ===
@@ -110,7 +110,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                         <NavLink exact={true} to={'/evaluator/submitted-ideas'}>
                             L1 Evaluation
                         </NavLink>
-                    </MenuItem>
+                    </MenuItem> */}
                     <MenuItem
                         icon={<FaLightbulb />}
                         className={
@@ -126,7 +126,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                             L2 Evaluation
                         </NavLink>
                     </MenuItem>
-                    <MenuItem
+                    {/* <MenuItem
                         icon={<FaLightbulb />}
                         className={
                             location.pathname ===
@@ -136,7 +136,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                         <NavLink exact={true} to={'/evaluator/evaluated-ideas'}>
                             L1 Evaluated Ideas
                         </NavLink>
-                    </MenuItem>
+                    </MenuItem> */}
                     <MenuItem
                         icon={<FaLightbulb />}
                         className={
@@ -149,7 +149,7 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                             exact={true}
                             to={'/evaluator/evaluated-ideasL2'}
                         >
-                            L2 Evaluated Ideas
+                         Evaluated Ideas
                         </NavLink>
                     </MenuItem>
                     <MenuItem
