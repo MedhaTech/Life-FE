@@ -26,6 +26,7 @@ import '../../../Admin/Reports/reports.scss';
 import { Doughnut } from 'react-chartjs-2';
 import { notification } from 'antd';
 import { encryptGlobal } from '../../../constants/encryptDecrypt.js';
+import { stateList } from '../../../RegPage/OrgData.js';
 // import { categoryValue } from '../../Schools/constentText';
 
 const ReportL1 = () => {
@@ -43,6 +44,7 @@ const ReportL1 = () => {
     const [filteredData, setFilteredData] = useState([]);
     const filterOptions = ['Registered', 'Not Registered'];
     const categoryData = ['All Categorys', 'ATL', 'Non ATL'];
+    const [state, setState] = useState('');
     // const categoryData =
     //     categoryValue[process.env.REACT_APP_LOCAL_LANGUAGE_CODE];
 
@@ -84,8 +86,8 @@ const ReportL1 = () => {
 
     const summaryHeaders = [
         {
-            label: 'District Name',
-            key: 'district_name'
+            label: 'State Name',
+            key: 'state'
         },
         {
             label: 'No of Ideas Evaluated',
@@ -121,103 +123,63 @@ const ReportL1 = () => {
         }
     ];
     const teacherDetailsHeaders = [
-        {
-            label: 'Institution Unique Code',
-            key: 'institution_code'
-        },
+        
         {
             label: 'Institution Name',
             key: 'institution_name'
         },
-
         {
-            label: 'Place',
-            key: 'place_name'
-        },
-        {
-            label: 'Block',
-            key: 'block_name'
+            label: 'State',
+            key: 'state'
         },
         {
             label: 'District',
-            key: 'district_name'
-        },
-
-        {
-            label: 'State',
-            key: 'state_name'
-        },
-        {
-            label: 'Principal Name',
-            key: 'principal_name'
-        },
-        {
-            label: 'Principal Mobile Number',
-            key: 'principal_mobile'
-        },
-        {
-            label: 'Principal Email',
-            key: 'principal_email'
-        },
-
-        {
-            label: 'Mentor Name',
-            key: 'mentor_name'
-        },
-        {
-            label: 'Email ID',
-            key: 'mentor_email'
-        },
-
-        {
-            label: 'Mentor Mobile Number',
-            key: 'mentor_mobile'
-        },
-
-        {
-            label: 'Team Name',
-            key: 'team_name'
+            key: 'district'
         },
         {
             label: 'Student Name',
-            key: 'students_names'
+            key: 'student_full_name'
+        },
+        {
+            label: 'Student Mobile Number',
+            key: 'mobile'
+        },
+        {
+            label: 'Student Email',
+            key: 'email'
         },
         {
             label: 'Which theme are you targeting with your solution ?',
             key: 'theme_name'
         },
         {
-            label: 'Idea Title',
+            label: 'Idea Category',
+            key: 'technology'
+        },
+        {
+            label: 'Enter your problem statement',
             key: 'idea_title'
         },
         {
-            label: 'Which problem statement are you targeting with your solution ?',
-            key: 'problem_statement'
-        },
-        {
-            label: 'Description of the Problem Statement ?',
-            key: 'problem_statement_description'
-        },
-        { label: 'Solution Statement', key: 'solution_statement' },
-        {
-            label: 'Detailed Solution',
+            label: 'Enter your detailed solution',
             key: 'detailed_solution'
         },
         {
             label: 'Do you already have a prototype built?',
             key: 'prototype_available'
         },
+        { label: 'If yes, Prototype File Upload (Only JPG/PNG)', key: 'Prototype_file' },
         {
-            label: 'If yes, Prototype File Upload (Only JPG/PNG)',
-            key: 'Prototype_file'
+            label: 'Please share youtube link of the solution/prototype or idea (Video recorded by you and uploaded on youtube)',
+            key: 'youtubelink'
         },
         {
             label: 'Is this idea submitted by you or your team members in any other Forum or Programs or Publications as on date?',
             key: 'idea_available'
         },
         {
-            label: ' I confirm that the Idea Submitted now submitted is not copied or plagiarized version.',
-            key: 'self_declaration'
+            label: 'Please Share Forum/Programs/Publications Details',
+            key: 'fpp'
         },
         {
             label: 'L1 Status',
@@ -249,7 +211,7 @@ const ReportL1 = () => {
             JSON.stringify({
                 status: 'ACTIVE',
                 // state: RegTeachersState,
-                district_name: edist
+                state: state
                 // category: category,
                 // sdg: sdg
             })
@@ -278,43 +240,57 @@ const ReportL1 = () => {
                                     : 'Rejected',
                             theme_name: entry.theme_name
                                 ? `${entry.theme_name
-                                      .replace(/"/g, '""')
-                                      .replace(/\n/g, ' ')
-                                      .replace(/,/g, ';')}`
+                                    .replace(/"/g, '""')
+                                    .replace(/\n/g, ' ')
+                                    .replace(/,/g, ';')}`
                                 : '',
                             problem_statement: entry.problem_statement
                                 ? `${entry.problem_statement
-                                      .replace(/"/g, '""')
-                                      .replace(/\n/g, ' ')
-                                      .replace(/,/g, ';')}`
+                                    .replace(/"/g, '""')
+                                    .replace(/\n/g, ' ')
+                                    .replace(/,/g, ';')}`
                                 : '',
 
                             problem_statement_description:
                                 entry.problem_statement_description
                                     ? `${entry.problem_statement_description
-                                          .replace(/"/g, '""')
-                                          .replace(/\n/g, ' ')
-                                          .replace(/,/g, ';')}`
+                                        .replace(/"/g, '""')
+                                        .replace(/\n/g, ' ')
+                                        .replace(/,/g, ';')}`
                                     : '',
                             solution_statement: entry.solution_statement
                                 ? `${entry.solution_statement
-                                      .replace(/"/g, '""')
-                                      .replace(/\n/g, ' ')
-                                      .replace(/,/g, ';')}`
+                                    .replace(/"/g, '""')
+                                    .replace(/\n/g, ' ')
+                                    .replace(/,/g, ';')}`
                                 : '',
                             detailed_solution: entry.detailed_solution
                                 ? `${entry.detailed_solution
 
-                                      .replace(/"/g, '""')
-                                      .replace(/\n/g, ' ')
-                                      .replace(/,/g, ';')}`
+                                    .replace(/"/g, '""')
+                                    .replace(/\n/g, ' ')
+                                    .replace(/,/g, ';')}`
                                 : '',
                             idea_title: entry.idea_title
                                 ? `${entry.idea_title
 
-                                      .replace(/"/g, '""')
-                                      .replace(/\n/g, ' ')
-                                      .replace(/,/g, ';')}`
+                                    .replace(/"/g, '""')
+                                    .replace(/\n/g, ' ')
+                                    .replace(/,/g, ';')}`
+                                : '',
+                                technology: entry.technology
+                                ? `${entry.technology
+
+                                    .replace(/"/g, '""')
+                                    .replace(/\n/g, ' ')
+                                    .replace(/,/g, ';')}`
+                                : '',
+                                fpp: entry.fpp
+                                ? `${entry.fpp
+
+                                    .replace(/"/g, '""')
+                                    .replace(/\n/g, ' ')
+                                    .replace(/,/g, ';')}`
                                 : ''
                         }));
                         setDownloadData(IdeaFormData);
@@ -374,13 +350,13 @@ const ReportL1 = () => {
     const handleDownload = () => {
         if (
             // !RegTeachersState ||
-            !RegTeachersdistrict
+            !state
             // !filterType ||
             // !category ||
             // !sdg
         ) {
             notification.warning({
-                message: 'Please select district before Downloading Reports.'
+                message: 'Please select state before Downloading Reports.'
             });
             return;
         }
@@ -405,9 +381,8 @@ const ReportL1 = () => {
             // setsdg('');
         }
         const newDate = new Date();
-        const formattedDate = `${newDate.getUTCDate()}/${
-            1 + newDate.getMonth()
-        }/${newDate.getFullYear()} ${newDate.getHours()}:${newDate.getMinutes()}:${newDate.getSeconds()}`;
+        const formattedDate = `${newDate.getUTCDate()}/${1 + newDate.getMonth()
+            }/${newDate.getFullYear()} ${newDate.getHours()}:${newDate.getMinutes()}:${newDate.getSeconds()}`;
         setNewFormat(formattedDate);
     }, [downloadComplete]);
 
@@ -443,7 +418,7 @@ const ReportL1 = () => {
                     );
 
                     var array = chartTableData;
-                    array.push({ district_name: 'Total Count', ...total });
+                    array.push({ state: 'Total Count', ...total });
                     setChartTableData(array);
                     setDownloadTableData(chartTableData);
                     setTotalCount(total);
@@ -496,17 +471,19 @@ const ReportL1 = () => {
                         </Col>
                         <div className="reports-data p-5 mt-4 mb-5 bg-white">
                             <Row className="align-items-center">
-                                {/* <Col md={2}>
+                                <Col md={3}>
                                     <div className="my-3 d-md-block d-flex justify-content-center">
                                         <Select
-                                            list={fullStatesNames}
-                                            setValue={setRegTeachersState}
-                                            placeHolder={'Select State'}
-                                            value={RegTeachersState}
+                                            list={stateList}
+                                            setValue={setState}
+                                            placeHolder={
+                                                'Select State'
+                                            }
+                                            value={state}
                                         />
                                     </div>
-                                </Col> */}
-                                <Col md={2}>
+                                </Col>
+                                {/* <Col md={2}>
                                     <div className="my-3 d-md-block d-flex justify-content-center">
                                         <Select
                                             list={fiterDistData}
@@ -515,7 +492,7 @@ const ReportL1 = () => {
                                             value={RegTeachersdistrict}
                                         />
                                     </div>
-                                </Col>
+                                </Col> */}
 
                                 {/* <Col md={2}>
                                     <div className="my-3 d-md-block d-flex justify-content-center">
@@ -626,7 +603,7 @@ const ReportL1 = () => {
                                                             <tr>
                                                                 <th>No</th>
                                                                 <th>
-                                                                    District
+                                                                    State
                                                                     Name
                                                                 </th>
                                                                 <th>
@@ -661,7 +638,7 @@ const ReportL1 = () => {
                                                                             </td>
                                                                             <td>
                                                                                 {
-                                                                                    item.district_name
+                                                                                    item.state
                                                                                 }
                                                                             </td>
                                                                             <td>
@@ -852,10 +829,10 @@ const ReportL1 = () => {
                                         filename={`L1StatusTable_${newFormat}.csv`}
                                         className="hidden"
                                         ref={csvLinkRefTable}
-                                        // onDownloaded={() => {
-                                        //     setIsDownloading(false);
-                                        //     setDownloadComplete(true);
-                                        // }}
+                                    // onDownloaded={() => {
+                                    //     setIsDownloading(false);
+                                    //     setDownloadComplete(true);
+                                    // }}
                                     >
                                         Download Table CSV
                                     </CSVLink>
@@ -867,10 +844,10 @@ const ReportL1 = () => {
                                         filename={`L1EvaluatorTable_${newFormat}.csv`}
                                         className="hidden"
                                         ref={csvLinkRefTable2}
-                                        // onDownloaded={() => {
-                                        //     setIsDownloading(false);
-                                        //     setDownloadComplete(true);
-                                        // }}
+                                    // onDownloaded={() => {
+                                    //     setIsDownloading(false);
+                                    //     setDownloadComplete(true);
+                                    // }}
                                     >
                                         Download Table CSV
                                     </CSVLink>

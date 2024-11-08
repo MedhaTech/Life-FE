@@ -26,6 +26,7 @@ import '../../../Admin/Reports/reports.scss';
 import { Doughnut } from 'react-chartjs-2';
 import { notification } from 'antd';
 import { encryptGlobal } from '../../../constants/encryptDecrypt.js';
+import { stateList } from '../../../RegPage/OrgData.js';
 // import { categoryValue } from '../../Schools/constentText';
 
 const ReportL3 = () => {
@@ -43,6 +44,7 @@ const ReportL3 = () => {
     const [filteredData, setFilteredData] = useState([]);
     const filterOptions = ['Registered', 'Not Registered'];
     const categoryData = ['All Categorys', 'ATL', 'Non ATL'];
+    const [state, setState] = useState('');
     // const categoryData =
     //     categoryValue[process.env.REACT_APP_LOCAL_LANGUAGE_CODE];
 
@@ -119,8 +121,8 @@ const ReportL3 = () => {
     ];
     const summaryHeaders2 = [
         {
-            label: 'District Name',
-            key: 'district_name'
+            label: 'State Name',
+            key: 'state'
         },
         // {
         //     label: ' No of Ideas Shortlistedfor L3',
@@ -138,116 +140,66 @@ const ReportL3 = () => {
     ];
     const teacherDetailsHeaders = [
         {
-            label: 'Institution Unique Code',
-            key: 'institution_code'
-        },
-        {
             label: 'Institution Name',
             key: 'institution_name'
         },
-
         {
-            label: 'Place',
-            key: 'place_name'
-        },
-        {
-            label: 'Block',
-            key: 'block_name'
+            label: 'State',
+            key: 'state'
         },
         {
             label: 'District',
-            key: 'district_name'
-        },
-
-        {
-            label: 'State',
-            key: 'state_name'
-        },
-        {
-            label: 'Principal Name',
-            key: 'principal_name'
-        },
-        {
-            label: 'Principal Mobile Number',
-            key: 'principal_mobile'
-        },
-        {
-            label: 'Principal Email',
-            key: 'principal_email'
-        },
-
-        {
-            label: 'Mentor Name',
-            key: 'mentor_name'
-        },
-        {
-            label: 'Email ID',
-            key: 'mentor_email'
-        },
-
-        {
-            label: 'Mentor Mobile Number',
-            key: 'mentor_mobile'
-        },
-
-        {
-            label: 'Team Name',
-            key: 'team_name'
+            key: 'district'
         },
         {
             label: 'Student Name',
-            key: 'students_names'
+            key: 'student_full_name'
+        },
+        {
+            label: 'Student Mobile Number',
+            key: 'mobile'
+        },
+        {
+            label: 'Student Email',
+            key: 'email'
         },
         {
             label: 'Which theme are you targeting with your solution ?',
             key: 'theme_name'
         },
         {
-            label: 'Idea Title',
+            label: 'Idea Category',
+            key: 'technology'
+        },
+        {
+            label: 'Enter your problem statement',
             key: 'idea_title'
         },
         {
-            label: 'Which problem statement are you targeting with your solution ?',
-            key: 'problem_statement'
-        },
-        {
-            label: 'Description of the Problem Statement ?',
-            key: 'problem_statement_description'
-        },
-        { label: 'Solution Statement', key: 'solution_statement' },
-        {
-            label: 'Detailed Solution',
+            label: 'Enter your detailed solution',
             key: 'detailed_solution'
         },
         {
             label: 'Do you already have a prototype built?',
             key: 'prototype_available'
         },
+        { label: 'If yes, Prototype File Upload (Only JPG/PNG)', key: 'Prototype_file' },
         {
-            label: 'If yes, Prototype File Upload (Only JPG/PNG)',
-            key: 'Prototype_file'
+            label: 'Please share youtube link of the solution/prototype or idea (Video recorded by you and uploaded on youtube)',
+            key: 'youtubelink'
         },
         {
             label: 'Is this idea submitted by you or your team members in any other Forum or Programs or Publications as on date?',
             key: 'idea_available'
         },
         {
-            label: ' I confirm that the Idea Submitted now submitted is not copied or plagiarized version.',
-            key: 'self_declaration'
+            label: 'Please Share Forum/Programs/Publications Details',
+            key: 'fpp'
         },
         {
             label: 'Overall Score',
             key: 'overall_score'
         },
-        {
-            label: 'Quality Score',
-            key: 'quality_score'
-        },
-        {
-            label: 'Feasibility Score',
-            key: 'feasibility_score'
-        },
-
         {
             label: 'L3 Status (Promoted/Not Promoted)',
             key: 'final_result'
@@ -365,6 +317,20 @@ const ReportL3 = () => {
                                       .replace(/"/g, '""')
                                       .replace(/\n/g, ' ')
                                       .replace(/,/g, ';')}`
+                                : '',
+                                technology: entry.technology
+                                ? `${entry.technology
+
+                                    .replace(/"/g, '""')
+                                    .replace(/\n/g, ' ')
+                                    .replace(/,/g, ';')}`
+                                : '',
+                            fpp: entry.fpp
+                                ? `${entry.fpp
+
+                                    .replace(/"/g, '""')
+                                    .replace(/\n/g, ' ')
+                                    .replace(/,/g, ';')}`
                                 : ''
                         }));
                         setDownloadData(IdeaFormData);
@@ -453,13 +419,13 @@ const ReportL3 = () => {
     const handleDownload = () => {
         if (
             // !RegTeachersState ||
-            !RegTeachersdistrict
+            !state
             // !filterType ||
             // !category ||
             // !sdg
         ) {
             notification.warning({
-                message: 'Please select district before Downloading Reports.'
+                message: 'Please select state before Downloading Reports.'
             });
             return;
         }
@@ -584,8 +550,8 @@ const ReportL3 = () => {
                     };
                     const combineNewarry = [
                         overallObj,
-                        QualityObj,
-                        FeasibilityObj
+                        // QualityObj,
+                        // FeasibilityObj
                     ];
                     setChartTableData(combineNewarry);
                     setDownloadTableData(combineNewarry);
@@ -667,13 +633,15 @@ const ReportL3 = () => {
                                         />
                                     </div>
                                 </Col> */}
-                                <Col md={2}>
+                                 <Col md={3}>
                                     <div className="my-3 d-md-block d-flex justify-content-center">
                                         <Select
-                                            list={fiterDistData}
-                                            setValue={setRegTeachersdistrict}
-                                            placeHolder={'Select District'}
-                                            value={RegTeachersdistrict}
+                                            list={stateList}
+                                            setValue={setState}
+                                            placeHolder={
+                                                'Select State'
+                                            }
+                                            value={state}
                                         />
                                     </div>
                                 </Col>
