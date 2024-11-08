@@ -141,9 +141,9 @@ const ViewSelectedIdea = () => {
                 width: '10rem'
             },
             {
-                name: 'District',
-                selector: (row) => row.district,
-                cellExport: (row) => row.district,
+                name: 'State',
+                selector: (row) => row.state,
+                cellExport: (row) => row.state,
                 width: '18rem'
             },
             // {
