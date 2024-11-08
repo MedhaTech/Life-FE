@@ -12,6 +12,7 @@ import { getL1EvaluatedIdea } from '../store/evaluator/action';
 import EvaluatedIdeaDetail from './EvaluatedIdeaDetail';
 import { Container, Row, Col } from 'reactstrap';
 import Select from '../Helper/Select';
+import Selects from '../../Admin/Challenges/Select.js';
 import {
     getDistrictData,
     getStateData,
@@ -22,7 +23,8 @@ import { Button } from '../../stories/Button';
 import Spinner from 'react-bootstrap/Spinner';
 import {
     stateList,
-    districtList
+    districtList,
+    themesList
 } from '../../RegPage/OrgData.js';
 
 const EvaluatedIdea = () => {
@@ -71,6 +73,7 @@ const EvaluatedIdea = () => {
             level: 'L2',
             state: state !== 'All States' ? state : '',
             district: district !== 'All Districts' ? district : '',
+            theme_problem_id: sdg !== "0" ? sdg : '',
             // sdg: sdg !== 'All Themes' ? sdg : ''
         };
         setshowspin(true);
@@ -102,8 +105,8 @@ const EvaluatedIdea = () => {
                 width: '10rem'
             },
             {
-                name: 'District',
-                selector: (row) => row.district,
+                name: 'State',
+                selector: (row) => row.state,
                 width: '13rem'
             },
             // {
@@ -301,6 +304,16 @@ const EvaluatedIdea = () => {
                                             </div>
                                         </Col>
                                         <Col md={2}>
+                                                <Selects
+                                                    list={themesList}
+                                                    setValue={setsdg}
+                                                    placeHolder={
+                                                        'Select Themes'
+                                                    }
+                                                    value={sdg}
+                                                />
+                                            </Col>
+                                        {/* <Col md={2}>
                                             <div className="my-3 d-md-block d-flex justify-content-center">
                                                 <Select
                                                     list={districtList[
@@ -313,19 +326,19 @@ const EvaluatedIdea = () => {
                                                     value={district}
                                                 />
                                             </div>
-                                        </Col>
+                                        </Col> */}
 
                                         <Col md={1}>
                                             <div className="text-center">
                                                 <Button
                                                     btnClass={
-                                                        state
+                                                        state && sdg
                                                             ? 'primary'
                                                             : 'default'
                                                     }
                                                     size="small"
                                                     label="Search"
-                                                    disabled={!state}
+                                                    disabled={!(state && sdg)}
                                                     onClick={() =>
                                                         handleclickcall()
                                                     }

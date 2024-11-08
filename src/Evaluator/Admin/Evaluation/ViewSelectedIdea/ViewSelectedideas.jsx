@@ -13,6 +13,7 @@ import axios from 'axios';
 import { KEY, URL } from '../../../../constants/defaultValues';
 import { Button } from '../../../../stories/Button';
 import Select from '../Pages/Select';
+import Selects from '../../../../Admin/Challenges/Select.js';
 import { Col, Container, Row } from 'reactstrap';
 import { cardData } from '../../../../Student/Pages/Ideas/SDGData.js';
 import { useSelector } from 'react-redux';
@@ -39,7 +40,8 @@ import DetailToDownload from '../../Challenges/DetailToDownload';
 import { encryptGlobal } from '../../../../constants/encryptDecrypt.js';
 import {
     stateList,
-    districtList
+    districtList,
+    themesList
 } from '../../../../RegPage/OrgData';
 
 const ViewSelectedIdea = () => {
@@ -99,6 +101,7 @@ const ViewSelectedIdea = () => {
         level: level,
         state: state !== 'All States' ? state : '',
         district: district !== 'All Districts' ? district : '',
+        theme_problem_id: sdg !== "0" ? sdg : '',
         // sdg: sdg !== 'All Themes' ? sdg : '',
         rejected_reason: reason,
         // rejected_reasonSecond: reasonSec,
@@ -212,8 +215,8 @@ const ViewSelectedIdea = () => {
                 width: '10rem'
             },
             {
-                name: 'District',
-                selector: (row) => row.district,
+                name: 'State',
+                selector: (row) => row.state,
                 width: '18rem'
             },
             // {
@@ -423,8 +426,8 @@ const ViewSelectedIdea = () => {
                 width: '10rem'
             },
             {
-                name: 'District',
-                selector: (row) => row.district,
+                name: 'State',
+                selector: (row) => row.state,
                 width: '18rem'
             },
             // {
@@ -637,8 +640,8 @@ const ViewSelectedIdea = () => {
                 width: '10rem'
             },
             {
-                name: 'District',
-                selector: (row) => row.district,
+                name: 'State',
+                selector: (row) => row.state,
                 width: '18rem'
             },
             // {
@@ -939,8 +942,8 @@ const ViewSelectedIdea = () => {
                 width: '10rem'
             },
             {
-                name: 'District',
-                selector: (row) => row.district,
+                name: 'State',
+                selector: (row) => row.state,
                 width: '18rem'
             },
             // {
@@ -1131,7 +1134,7 @@ const ViewSelectedIdea = () => {
                     : level === 'L2' && title === 'L2 - Yet to Processed'
                         ? L2yettoprocessed
                         : ' ';
-    const showbutton = state;
+    const showbutton = state && sdg;
 
     const handleNext = () => {
         if (tableData && currentRow < tableData?.length) {
@@ -1214,7 +1217,17 @@ const ViewSelectedIdea = () => {
                                                     />
                                                 </div>
                                             </Col>
-                                            <Col md={2}>
+                                            <Col md={3}>
+                                                <Selects
+                                                    list={themesList}
+                                                    setValue={setsdg}
+                                                    placeHolder={
+                                                        'Select Themes'
+                                                    }
+                                                    value={sdg}
+                                                />
+                                            </Col>
+                                            {/* <Col md={2}>
                                                 <div className="my-3 d-md-block d-flex justify-content-center">
                                                     <Select
                                                         list={districtList[
@@ -1227,7 +1240,7 @@ const ViewSelectedIdea = () => {
                                                         value={district}
                                                     />
                                                 </div>
-                                            </Col>
+                                            </Col> */}
                                             {/* <Col md={2}>
                                                 <div className="my-3 d-md-block d-flex justify-content-center">
                                                     <Select

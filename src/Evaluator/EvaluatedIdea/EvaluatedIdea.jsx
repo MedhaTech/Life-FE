@@ -12,6 +12,7 @@ import { getL1EvaluatedIdea } from '../store/evaluator/action';
 import EvaluatedIdeaDetail from './EvaluatedIdeaDetail';
 import { Container, Row, Col } from 'reactstrap';
 import Select from '../Helper/Select';
+import Selects from '../../Admin/Challenges/Select.js';
 import {
     getDistrictData,
     getStateData,
@@ -26,7 +27,8 @@ import { Button } from '../../stories/Button';
 import Spinner from 'react-bootstrap/Spinner';
 import {
     stateList,
-    districtList
+    districtList,
+    themesList
 } from '../../RegPage/OrgData.js';
 
 const EvaluatedIdea = () => {
@@ -90,6 +92,7 @@ const EvaluatedIdea = () => {
                     : '',
                     state: state !== 'All States' ? state : '',
                     district: district !== 'All Districts' ? district : '',
+                    theme_problem_id: sdg !== "0" ? sdg : '',
             // sdg: sdg !== 'All Themes' ? sdg : '',
             rejected_reason: reason
             // rejected_reasonSecond: reason2
@@ -134,8 +137,8 @@ const EvaluatedIdea = () => {
                 width: '10rem'
             },
             {
-                name: 'District',
-                selector: (row) => row.district,
+                name: 'State',
+                selector: (row) => row.state,
                 width: '10rem'
             },
             // {
@@ -351,6 +354,16 @@ const EvaluatedIdea = () => {
                                             </div>
                                         </Col>
                                         <Col md={2}>
+                                                <Selects
+                                                    list={themesList}
+                                                    setValue={setsdg}
+                                                    placeHolder={
+                                                        'Select Themes'
+                                                    }
+                                                    value={sdg}
+                                                />
+                                            </Col>
+                                        {/* <Col md={2}>
                                             <div className="my-3 d-md-block d-flex justify-content-center">
                                                 <Select
                                                     list={districtList[
@@ -362,8 +375,8 @@ const EvaluatedIdea = () => {
                                                     }
                                                     value={district}
                                                 />
-                                            </div>
-                                        </Col>
+                                            </div> 
+                                        </Col> */}
                                         {/* <Col md={2}>
                                             <div className="my-3 d-md-block d-flex justify-content-center">
                                                 <Select
@@ -408,14 +421,14 @@ const EvaluatedIdea = () => {
                                             <div className="text-center">
                                                 <Button
                                                     btnClass={
-                                                        status && state
+                                                        status && state && sdg
                                                             ? 'primary'
                                                             : 'default'
                                                     }
                                                     size="small"
                                                     label="Search"
                                                     disabled={
-                                                        !(status && state)
+                                                        !(status && state && sdg)
                                                     }
                                                     onClick={() =>
                                                         handleclickcall()
