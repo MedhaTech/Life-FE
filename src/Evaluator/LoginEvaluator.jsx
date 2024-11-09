@@ -195,7 +195,7 @@ const LoginEvaluator = (props) => {
                                                 className="mb-2"
                                                 htmlFor="email"
                                             >
-                                                Email Id
+                                                EMAIL ID
                                             </Label>
                                             <InputBox
                                                 {...inputUserId}
@@ -228,7 +228,7 @@ const LoginEvaluator = (props) => {
                                                 className="mb-2"
                                                 htmlFor="Password"
                                             >
-                                                Password
+                                                PASSWORD
                                             </Label>
                                             <InputBox
                                                 {...inputPassword}
@@ -314,14 +314,14 @@ const LoginEvaluator = (props) => {
                                                 }
                                                 style={{ borderRadius: '0' }}
                                             />
-                                            <div
+                                            {/* <div
                                                 className="text-primary text-center fs-4 pointer pt-1 mt-4"
                                                 onClick={() =>
                                                     setRegisterModalShow(true)
                                                 }
                                             >
                                                 Sign Up
-                                            </div>
+                                            </div> */}
                                         </Col>
                                     </div>
                                 </Form>
