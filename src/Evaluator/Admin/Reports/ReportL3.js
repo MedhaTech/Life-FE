@@ -265,7 +265,7 @@ const ReportL3 = () => {
                                     : 'Winner-Promoted',
 
                             overall_score: parseFloat(
-                                entry.overall_score
+                                entry.overall
                             ).toFixed(2),
                             quality_score: parseFloat(
                                 entry.quality_score
