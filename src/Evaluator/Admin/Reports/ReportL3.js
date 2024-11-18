@@ -140,6 +140,10 @@ const ReportL3 = () => {
     ];
     const teacherDetailsHeaders = [
         {
+            label: 'CID',
+            key: 'idea_id'
+        },
+        {
             label: 'Institution Name',
             key: 'institution_name'
         },
@@ -236,7 +240,7 @@ const ReportL3 = () => {
             JSON.stringify({
                 status: 'ACTIVE',
                 // state: RegTeachersState,
-                district_name: distApi
+                state: state
                 // category: category,
                 // sdg: sdg
             })
@@ -903,7 +907,7 @@ const ReportL3 = () => {
                                                             <tr>
                                                                 <th>No</th>
                                                                 <th>
-                                                                    District
+                                                                    State
                                                                     Name
                                                                 </th>
                                                                 {/* <th>
@@ -940,7 +944,7 @@ const ReportL3 = () => {
                                                                         </td>
                                                                         <td>
                                                                             {
-                                                                                item.district_name
+                                                                                item.state
                                                                             }
                                                                         </td>
                                                                         {/* <td>
