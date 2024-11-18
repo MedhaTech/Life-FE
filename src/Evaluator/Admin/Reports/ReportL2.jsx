@@ -130,6 +130,10 @@ const ReportL2 = () => {
     ];
     const teacherDetailsHeaders = [
         {
+            label: 'CID',
+            key: 'idea_id'
+        },
+        {
             label: 'Institution Name',
             key: 'institution_name'
         },
