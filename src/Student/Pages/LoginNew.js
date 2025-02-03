@@ -329,7 +329,7 @@ const LoginNew = (props) => {
                                         <div className="form-row row mb-3">
                                             {/* <p>Student login will be launched shortly. Please wait for notice from the program coordinators.</p> */}
                                             {/* Login button */}
-                                            {/* <Col
+                                            <Col
                                                 className="form-group"
                                                 xs={12}
                                                 sm={12}
@@ -346,7 +346,7 @@ const LoginNew = (props) => {
                                                         {t(' Create Account')}
                                                     </Link>
                                                 </p>
-                                            </Col> */}
+                                            </Col>
                                             <Col className="forgotp" xs={12}
                                                 sm={12}
                                                 md={6}
