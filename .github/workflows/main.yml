@@ -43,12 +43,18 @@ jobs:
         uses: actions/checkout@v4
       - name: Install NPM
         run: sudo npm install -g npm@10.2.3
+      - name: Install Missing Babel Plugin
+        run: npm install --save-dev @babel/plugin-proposal-private-property-in-object
+      - name: Ensure React and Dependencies Are Installed
+        run: npm install react@latest react-dom@latest react-confetti@latest --force
         
       - name: Install dependencies
         run: |
+          rm -rf node_modules package-lock.json
+          npm cache clean --force
           echo Installing source NPM dependencies...
           sudo npm install --force
-
+    
       - name: Buid the application
         env:
           CI: false
