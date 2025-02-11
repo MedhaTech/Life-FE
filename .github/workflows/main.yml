@@ -62,9 +62,9 @@ jobs:
           echo "$PRIVATE_KEY" > private_key && chmod 400 private_key
           scp -o StrictHostKeyChecking=no -i private_key -r ./build ubuntu@${{ secrets.LIFE_PROD_HOSTNAME }}:/tmp/life_fe_build
           ssh -o StrictHostKeyChecking=no -i private_key ubuntu@${{ secrets.LIFE_PROD_HOSTNAME }} '
-            sudo rm -rf /var/www/html/Life-fe/build &&
-            sudo mv /tmp/life_fe_build /var/www/html/Life-fe/build &&
-            cd /var/www/html/Life-fe &&
+            sudo rm -rf /var/www/html/Life-FE-1/build &&
+            sudo mv /tmp/life_fe_build /var/www/html/Life-FE-1/build &&
+            cd /var/www/html/Life-FE-1 &&
             sudo git checkout master &&
             sudo git pull origin master
           '
