@@ -29,17 +29,17 @@ const ProtectedRoute = ({ component: Component, user: user, ...rest }) => {
 
             if (difference > 600000) {
                 localStorage.clear();
-                if (user.includes('ADMIN')) {
+                if (user === 'ADMIN') {
                     return <Redirect to="/admin" />;
-                // } else if (user.includes('MENTOR')) {
-                //     return <Redirect to="/mentor" />;
-                } else if (user.includes('EADMIN')) {
+                    // } else if (user.includes('MENTOR')) {
+                    //     return <Redirect to="/mentor" />;
+                } else if (user === 'EADMIN') {
                     return <Redirect to="/eadmin" />;
-                } else if (user.includes('INSTITUTION')) {
+                } else if (user === 'INSTITUTION') {
                     return <Redirect to="/institution" />;
-                } else if (user.includes('STUDENT')) {
+                } else if (user === 'STUDENT') {
                     return <Redirect to="/login" />;
-                } else if (user.includes('EVALUATOR')) {
+                } else if (user === 'EVALUATOR') {
                     return <Redirect to="/evaluator" />;
                 }
             } else {

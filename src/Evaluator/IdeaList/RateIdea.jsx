@@ -52,6 +52,8 @@ const RateIdea = (props) => {
             );
         } else if (!comments) {
             openNotificationWithIcon('error', 'Please add your comments');
+        } else if (comments.match(/[A-Za-z0-9\s]*$/)) {
+            openNotificationWithIcon('error', 'Only alphanumeric are allowed');
         } else {
             handleAlert();
         }
@@ -171,12 +173,12 @@ const RateIdea = (props) => {
                                             (item === 'innovative potential'
                                                 ? novelityScore
                                                 : item === 'impact'
-                                                ? usefulnessScore
-                                                : item === 'feasability'
-                                                ? feasabilityScore
-                                                : item === 'scalability'
-                                                ? scalabilityScore
-                                                : sustainabilityScore) == 0
+                                                    ? usefulnessScore
+                                                    : item === 'feasability'
+                                                        ? feasabilityScore
+                                                        : item === 'scalability'
+                                                            ? scalabilityScore
+                                                            : sustainabilityScore) == 0
                                                 ? 'text-muted fs-2'
                                                 : 'fs-2 text-primary'
                                         }
@@ -184,12 +186,12 @@ const RateIdea = (props) => {
                                         {item === 'innovative potential'
                                             ? novelityScore
                                             : item === 'impact'
-                                            ? usefulnessScore
-                                            : item === 'feasability'
-                                            ? feasabilityScore
-                                            : item === 'scalability'
-                                            ? scalabilityScore
-                                            : sustainabilityScore}
+                                                ? usefulnessScore
+                                                : item === 'feasability'
+                                                    ? feasabilityScore
+                                                    : item === 'scalability'
+                                                        ? scalabilityScore
+                                                        : sustainabilityScore}
                                     </span>
                                 </label>
                                 {item === 'innovative potential' ? (
@@ -199,12 +201,12 @@ const RateIdea = (props) => {
                                             item === 'innovative potential'
                                                 ? setNovelityScore
                                                 : item === 'impact'
-                                                ? setUsefulnessScore
-                                                : item === 'feasability'
-                                                ? setFeasabilityScore
-                                                : item === 'scalability'
-                                                ? setScalabilityScore
-                                                : setSustainabilityScore
+                                                    ? setUsefulnessScore
+                                                    : item === 'feasability'
+                                                        ? setFeasabilityScore
+                                                        : item === 'scalability'
+                                                            ? setScalabilityScore
+                                                            : setSustainabilityScore
                                         }
                                         text1={'Not Novel'}
                                         text2={'Inspired'}
@@ -217,12 +219,12 @@ const RateIdea = (props) => {
                                             item === 'innovative potential'
                                                 ? setNovelityScore
                                                 : item === 'impact'
-                                                ? setUsefulnessScore
-                                                : item === 'feasability'
-                                                ? setFeasabilityScore
-                                                : item === 'scalability'
-                                                ? setScalabilityScore
-                                                : setSustainabilityScore
+                                                    ? setUsefulnessScore
+                                                    : item === 'feasability'
+                                                        ? setFeasabilityScore
+                                                        : item === 'scalability'
+                                                            ? setScalabilityScore
+                                                            : setSustainabilityScore
                                         }
                                         text1={'Does Not Solve'}
                                         text2={'Useful but not effective'}
@@ -235,12 +237,12 @@ const RateIdea = (props) => {
                                             item === 'innovative potential'
                                                 ? setNovelityScore
                                                 : item === 'impact'
-                                                ? setUsefulnessScore
-                                                : item === 'feasability'
-                                                ? setFeasabilityScore
-                                                : item === 'scalability'
-                                                ? setScalabilityScore
-                                                : setSustainabilityScore
+                                                    ? setUsefulnessScore
+                                                    : item === 'feasability'
+                                                        ? setFeasabilityScore
+                                                        : item === 'scalability'
+                                                            ? setScalabilityScore
+                                                            : setSustainabilityScore
                                         }
                                         text1={'Not Feasible/Out of Scope'}
                                         text2={'Feasible but Difficult'}
@@ -253,12 +255,12 @@ const RateIdea = (props) => {
                                             item === 'innovative potential'
                                                 ? setNovelityScore
                                                 : item === 'impact'
-                                                ? setUsefulnessScore
-                                                : item === 'feasability'
-                                                ? setFeasabilityScore
-                                                : item === 'scalability'
-                                                ? setScalabilityScore
-                                                : setSustainabilityScore
+                                                    ? setUsefulnessScore
+                                                    : item === 'feasability'
+                                                        ? setFeasabilityScore
+                                                        : item === 'scalability'
+                                                            ? setScalabilityScore
+                                                            : setSustainabilityScore
                                         }
                                         text1={'Not Scalable, No Impact'}
                                         text2={'Scaleable, Impacts only a Few '}
@@ -273,12 +275,12 @@ const RateIdea = (props) => {
                                             item === 'innovative potential'
                                                 ? setNovelityScore
                                                 : item === 'impact'
-                                                ? setUsefulnessScore
-                                                : item === 'feasability'
-                                                ? setFeasabilityScore
-                                                : item === 'scalability'
-                                                ? setScalabilityScore
-                                                : setSustainabilityScore
+                                                    ? setUsefulnessScore
+                                                    : item === 'feasability'
+                                                        ? setFeasabilityScore
+                                                        : item === 'scalability'
+                                                            ? setScalabilityScore
+                                                            : setSustainabilityScore
                                         }
                                         text1={'Not Sustainable'}
                                         text2={'Difficult to Sustain'}
