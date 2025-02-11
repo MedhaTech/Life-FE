@@ -47,7 +47,7 @@ const ProtectedRoute = ({ component: Component, user: user, ...rest }) => {
             }
 
             // Check if the user is logged in and has an allowed role
-            if (currentUser && user.includes(currentUser?.data[0]?.role)) {
+            if (currentUser && user === currentUser?.data[0]?.role) {
                 return <Component {...props} />;
             }
             return (
